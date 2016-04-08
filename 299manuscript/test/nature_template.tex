@@ -1,0 +1,81 @@
+
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+
+% Use adjustwidth environment to exceed column width (see example table in text)
+\usepackage{changepage}
+
+% Use Unicode characters when possible
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+% textcomp package and marvosym package for additional characters
+\usepackage{textcomp,marvosym}
+
+% fixltx2e package for \textsubscript
+\usepackage{fixltx2e}
+
+% amsmath and amssymb packages, useful for mathematical formulas and symbols
+\usepackage{amsmath,amssymb}
+
+% cite package, to clean up citations in the main text. Do not remove.
+% \usepackage{cite}
+
+% Use nameref to cite supporting information files (see Supporting Information section for more info)
+\usepackage{nameref,hyperref}
+
+% line numbers
+% \usepackage[right]{lineno}
+
+% ligatures disabled
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+
+% rotating package for sideways tables
+\usepackage{rotating}
+
+% writing SI units
+\usepackage{siunitx}
+
+% include graphics
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+% place float at precise locations (for figures)
+\usepackage{float}
+
+% handle references
+\usepackage[backend=biber,style=alphabetic,citestyle=authoryear]{biblatex}
+\addbibresource{reference.bib}
+
+% Remove comment for double spacing
+%\usepackage{setspace}
+%\doublespacing
+
+% Text layout
+\raggedright
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in
+\textheight 8.75in
+
+% Bold the 'Figure #' in the caption and separate it from the title/caption with a period
+% Captions will be left justified
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+
+
+
+
+\begin{document}
+
+\section*{Introduction}
+Breast cancer is one of the leading cause of cancer related death amongst women. In 2016, 61,000 new cases of non-invasive breast cancer and 246,660 new cases of invasive breast cancer are expected to be diagnosed in U.S. alone. \cite{3} Identification of molecular alterations associated with breast cancer progression is crucial for tailoring individualized treatments and enhancing prognostic confidence. Current model of breast cancer progression consists of a multistep process: from pre-malignant atypical ductal hyperplasia to non-invasive ductal carcinoma in situ (DCIS), which develops into invasive ductal carcinoma (IDC) of similar tumor grade. [2] Despite advances in characterizing molecular alterations in IDC, few studies focused on disease initiation and progression. Several gene expression studies have shown striking similarity in DCIS and IDC transcriptome profile, indicating that molecular heterogeneity of breast carcinomas is already established in DCIS [3-4]. Although key genetic alterations responsible for DCIS to IDC transition are not easily distinguishable, dramatic expression changes were seen in the normal epithelial to DCIS transition. [4] To account for variable clinical outcome of DCIS patients, expression profiling of DCIS suggested that tumor grade, rather than tumor stage, is linked to distinct expression patterns. [3] Some reported a panel of differentially expressed genes to aid in stratifying DCIS and progression to IDC of corresponding tumor grade, but no single markers were found to predict DCIS outcome. [5] Combining these points, it may be tempting to identify biologically relevant alterations that are predictive of invasion early in breast cancer progression.
+
+In a previous array comparative genomic hybridization (aCGH) study, gain of a region on chromosome 17, 17q23.3-24.3, was frequently observed in DCIS associated with IDC compared to pure DCIS and was found to be associated with lymph node metastasis. [6] Particularly, phosphatidylinositol transfer protein, cytoplasmic 1 (PITPNC1), found on 17q24.2, was associated with higher histological grade, larger tumor size, positive HER2 staining, and poor prognosis from the analysis of a NKI dataset (n = 295). As a part of the phosphatidylinositol transfer protein family, PITPNC1 has been shown to be an essential component of phosphatidylinositol-4,5-bisphosphate (PIP2) synthesis machinery. [7] PITPNC1 also mediates the monomeric transport of lipids by shielding phosphatidylinositol in a hydrophobic cavity, transferring them between membrane bilayers. Although its exact function has not been verified, PITPNC1 may be involved in the epidermal growth factor signaling pathway, by providing the substrate for phosphatidyl-4,5-bisphosphate 3-kinase (PI3K) catalysis and facilitating the downstream activation of protein kinase B (Akt). PITPNC1 was also implicated as a target of miR-126, a tumor suppressing non-coding microRNA. Expression of PITPNC1 is strongly correlated with endothelial recruitment in vitro and is associated with late pathological stage. [8]
+
+Here we hypothesized that amplification of PITPNC1 may be responsible for increased invasive potential of DCIS. We aim to validate PITPNC1 expression profile in a cohort of breast cancer patients cross successive tumor stages. We also aim to assess the role of PITPNC1 in the development of aggressive breast cancer by evaluating its functional significance in vitro, specifically its influence on cell proliferation, migration and invasion.
+
+\printbibliography
+
+
+\end{document}

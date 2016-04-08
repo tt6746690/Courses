@@ -1,0 +1,15 @@
+[0] Config.pm:324> INFO - This is Biber 2.1
+[0] Config.pm:327> INFO - Logfile is 'nature_template.blg'
+[42] biber-darwin:276> INFO - === Thu Apr  7, 2016, 01:56:39
+[42] Biber.pm:333> INFO - Reading 'nature_template.bcf'
+[141] Biber.pm:645> INFO - Found 1 citekeys in bib section 0
+[159] Biber.pm:2977> INFO - Processing section 0
+[176] Biber.pm:3115> INFO - Looking for bibtex format file 'reference.bib' for section 0
+[179] bibtex.pm:1021> INFO - Decoding LaTeX character macros into UTF-8
+[181] bibtex.pm:895> INFO - Found BibTeX data source 'reference.bib'
+[220] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[220] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[220] Biber.pm:2854> INFO - Sorting list 'anyt' of type 'entry' with scheme 'anyt' and locale 'en-US'
+[220] Biber.pm:2858> INFO - No sort tailoring available for locale 'en-US'
+[222] bbl.pm:505> INFO - Writing 'nature_template.bbl' with encoding 'UTF-8'
+[223] bbl.pm:596> INFO - Output to nature_template.bbl

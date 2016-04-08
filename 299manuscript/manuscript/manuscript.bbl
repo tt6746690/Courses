@@ -1,0 +1,651 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.5 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist{none}{none}
+    \entry{1_siegel_miller_jemal_2016}{article}{}
+      \name{author}{3}{}{%
+        {{hash=374b1570f11c7731103c6b6795958d97}{Siegel}{S\bibinitperiod}{Rebecca\bibnamedelima L.}{R\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+        {{hash=e3cfb6faa890af747d7d4f91ae2249c3}{Miller}{M\bibinitperiod}{Kimberly\bibnamedelima D.}{K\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{hash=6fe437d47a0f5a4a476be97810534e27}{Jemal}{J\bibinitperiod}{Ahmedin}{A\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{ddb9e0c2d91e42b555fed6c12fd8d63d}
+      \strng{fullhash}{927306f4c5c52a65458b3e901f61bb37}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{CA: A Cancer Journal for Clinicians}
+      \field{number}{1}
+      \field{title}{Cancer statistics, 2016}
+      \field{volume}{66}
+      \field{year}{2016}
+      \field{pages}{7\bibrangedash 30}
+      \range{pages}{24}
+      \verb{doi}
+      \verb 10.3322/caac.21332
+      \endverb
+    \endentry
+    \entry{2_bombonati_sgroi_2010}{article}{}
+      \name{author}{2}{}{%
+        {{hash=674124700544301ce9d9efc7e73f753f}{Bombonati}{B\bibinitperiod}{Alessandro}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=50d3e1a4ea797037f6dc0e712d92a986}{Sgroi}{S\bibinitperiod}{Dennis\bibnamedelima C}{D\bibinitperiod\bibinitdelim C\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{1ebdb53fe194f7b04081f05bfaa4a1bf}
+      \strng{fullhash}{1ebdb53fe194f7b04081f05bfaa4a1bf}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{J. Pathol.}
+      \field{number}{2}
+      \field{title}{The molecular pathology of breast cancer progression}
+      \field{volume}{223}
+      \field{year}{2010}
+      \field{pages}{308\bibrangedash 318}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1002/path.2808
+      \endverb
+    \endentry
+    \entry{3_ma_salunga_tuggle_gaudet_enright_mcquary_payette_pistone_stecker_zhang}{article}{}
+      \name{author}{10}{}{%
+        {{hash=052842a6846441af78fa3da225c95faa}{Ma}{M\bibinitperiod}{X.-J.}{X\bibinithyphendelim J\bibinitperiod}{}{}{}{}}%
+        {{hash=ebe3a7e8e5a618c9501b503b20ef347a}{Salunga}{S\bibinitperiod}{R.}{R\bibinitperiod}{}{}{}{}}%
+        {{hash=8ed3858f5c8fceca80780accbb0d33a6}{Tuggle}{T\bibinitperiod}{J.\bibnamedelimi T.}{J\bibinitperiod\bibinitdelim T\bibinitperiod}{}{}{}{}}%
+        {{hash=05c7e160af31d26f9002b8585a06ff5a}{Gaudet}{G\bibinitperiod}{J.}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=69a40ab862c1dc3339417802906e3812}{Enright}{E\bibinitperiod}{E.}{E\bibinitperiod}{}{}{}{}}%
+        {{hash=dbb801387e3ccb45e2ff12bce6ab48b8}{McQuary}{M\bibinitperiod}{P.}{P\bibinitperiod}{}{}{}{}}%
+        {{hash=9e4503453a0dc317c52465a7625c8aef}{Payette}{P\bibinitperiod}{T.}{T\bibinitperiod}{}{}{}{}}%
+        {{hash=d4cb80f1b7659d92a96290701059cfa9}{Pistone}{P\bibinitperiod}{M.}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=b41e66459f5d6b9588239f4f81deacb4}{Stecker}{S\bibinitperiod}{K.}{K\bibinitperiod}{}{}{}{}}%
+        {{hash=c273d9b684d9fe7b1fa06ebeaca96f8c}{Zhang}{Z\bibinitperiod}{B.\bibnamedelimi M.\bibnamedelimi et\bibnamedelima al.}{B\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{d18851a9b71ba2a42ef4c1cc06525e1b}
+      \strng{fullhash}{4d3de5529ed3095faa9668fc72a63724}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{number}{10}
+      \field{title}{Gene expression profiles of human breast cancer progression}
+      \field{volume}{100}
+      \field{year}{2003}
+      \field{pages}{5974\bibrangedash 5979}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1073/pnas.0931261100
+      \endverb
+    \endentry
+    \entry{10_porter_lahti-domenici_keshaviah_bae_argani_marks_richardson_cooper_strausberg_riggins}{article}{}
+      \name{author}{10}{}{%
+        {{hash=06fa9b731aba2bd3f8814d42c2a3df12}{Porter}{P\bibinitperiod}{Dale}{D\bibinitperiod}{}{}{}{}}%
+        {{hash=fd4f0dbf9e1807743508a072ad07421e}{Lahti-Domenici}{L\bibinithyphendelim D\bibinitperiod}{Jaana}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=7bd04ab4cc264b14e5e10405caf43d32}{Keshaviah}{K\bibinitperiod}{Aparna}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=4bb553647bc460be6aff3fcb3e53d38e}{Bae}{B\bibinitperiod}{Young}{Y\bibinitperiod}{}{}{}{}}%
+        {{hash=018a0bb0fe365c1554b92a446163d16f}{Argani}{A\bibinitperiod}{Pedram}{P\bibinitperiod}{}{}{}{}}%
+        {{hash=ffdd3393b02e7ab136a572b8017a868c}{Marks}{M\bibinitperiod}{Jeffrey}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=5cf2010d442c3160176e14b803031823}{Richardson}{R\bibinitperiod}{Andrea}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=4a2c2936dcefd06825553d65866cd867}{Cooper}{C\bibinitperiod}{Amiel}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=ae37d2b4e74e0fc28151539007a4f078}{Strausberg}{S\bibinitperiod}{Robert}{R\bibinitperiod}{}{}{}{}}%
+        {{hash=39acf93d09b5aa6c4bed904652ff59d6}{Riggins}{R\bibinitperiod}{Gregory\bibnamedelimb et\bibnamedelima al.}{G\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{ae2049a203a533e6ec476b5c7ebe895f}
+      \strng{fullhash}{7601ef2154c82335d3d0f2dd0875469e}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Molecular Cancer Research}
+      \field{number}{5}
+      \field{title}{Molecular markers in ductal carcinoma in situ of the breast}
+      \field{volume}{1}
+      \field{year}{2003}
+      \field{pages}{362\bibrangedash 375}
+      \range{pages}{14}
+      \verb{url}
+      \verb http://mcr.aacrjournals.org/content/1/5/362.long
+      \endverb
+    \endentry
+    \entry{9_hannemann_velds_halfwerk_kreike_peterse_van}{article}{}
+      \name{author}{6}{}{%
+        {{hash=78f808ea2ab9e781ce0351eb1fe12b96}{Hannemann}{H\bibinitperiod}{Juliane}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=f56d7f73a28f73d116a0cb655e492c10}{Velds}{V\bibinitperiod}{Arno}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=a0d4763117d414d2414b2b6f633725bb}{Halfwerk}{H\bibinitperiod}{Johannes\bibnamedelima BG}{J\bibinitperiod\bibinitdelim B\bibinitperiod}{}{}{}{}}%
+        {{hash=6c9571905b4d3d3299f7b11eca12327b}{Kreike}{K\bibinitperiod}{Bas}{B\bibinitperiod}{}{}{}{}}%
+        {{hash=14a96badd3b31b6ea3169ca4b0c3ada3}{Peterse}{P\bibinitperiod}{Johannes\bibnamedelima L}{J\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+        {{hash=d53462d38ab6e3ab5b45ad1e347f9cff}{Vijver}{V\bibinitperiod}{Marc\bibnamedelima J}{M\bibinitperiod\bibinitdelim J\bibinitperiod}{van\bibnamedelima de}{v\bibinitperiod\bibinitdelim d\bibinitperiod}{}{}}%
+      }
+      \strng{namehash}{3a15ace320840bee83110de920eff566}
+      \strng{fullhash}{174215b5650934a715fe933eb1953b91}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Breast Cancer Research}
+      \field{number}{5}
+      \field{title}{Classification of ductal carcinoma in situ by gene expression profiling}
+      \field{volume}{8}
+      \field{year}{2006}
+      \field{pages}{R61}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1186/bcr1613
+      \endverb
+    \endentry
+    \entry{15_depinho_polyak_2002}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b3182c738e4ba3b3de8e7887d14aca3c}{DePinho}{D\bibinitperiod}{Ronald}{R\bibinitperiod}{}{}{}{}}%
+        {{hash=7817c95ff903360fb416df307e068edc}{Polyak}{P\bibinitperiod}{Kornelia}{K\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{a605d3b529992f49d3be0d66a4a1d887}
+      \strng{fullhash}{a605d3b529992f49d3be0d66a4a1d887}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature Reviews Cancer}
+      \field{number}{9}
+      \field{title}{Genomic instability: Chromosome crisis}
+      \field{volume}{2}
+      \field{year}{2002}
+      \field{pages}{638\bibrangedash 638}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1038/nrc888
+      \endverb
+    \endentry
+    \entry{17_chin_devries_fridlyand_spellman_roydasgupta_kuo_lapuk_neve_qian_ryder}{article}{}
+      \name{author}{10}{}{%
+        {{hash=f51c4de62776a6b6ff1343d68ec2780c}{Chin}{C\bibinitperiod}{Koei}{K\bibinitperiod}{}{}{}{}}%
+        {{hash=f51d97fa43a3c9a3917c38e4f089c671}{DeVries}{D\bibinitperiod}{Sandy}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=33912021eaca71b57907c9a78b957c09}{Fridlyand}{F\bibinitperiod}{Jane}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=52b2688c3ef082a523e48ab269d960b6}{Spellman}{S\bibinitperiod}{Paul\bibnamedelima T.}{P\bibinitperiod\bibinitdelim T\bibinitperiod}{}{}{}{}}%
+        {{hash=010ad194d1f6614dd7dd9c8b5f9f1aee}{Roydasgupta}{R\bibinitperiod}{Ritu}{R\bibinitperiod}{}{}{}{}}%
+        {{hash=c44c435803819cbb60231574837e82e7}{Kuo}{K\bibinitperiod}{Wen-Lin}{W\bibinithyphendelim L\bibinitperiod}{}{}{}{}}%
+        {{hash=e739c82623894b1876058ae641c4f16d}{Lapuk}{L\bibinitperiod}{Anna}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=8176ababb0b725e86e4a6f9b71bdb1a3}{Neve}{N\bibinitperiod}{Richard\bibnamedelima M.}{R\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=b4bc13884e152fba678441f03e8f6e91}{Qian}{Q\bibinitperiod}{Zuwei}{Z\bibinitperiod}{}{}{}{}}%
+        {{hash=7380f41b7390403b80d8dc8d205bb5e0}{Ryder}{R\bibinitperiod}{Tom\bibnamedelimb et\bibnamedelima al.}{T\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{1bbb59caa34bd4b48a66099c74ae8f97}
+      \strng{fullhash}{ce08e3bd290410e2bb8ab56701e8f14a}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cancer Cell}
+      \field{number}{6}
+      \field{title}{Genomic and transcriptional aberrations linked to breast cancer pathophysiologies}
+      \field{volume}{10}
+      \field{year}{2006}
+      \field{pages}{529\bibrangedash 541}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1016/j.ccr.2006.10.009
+      \endverb
+    \endentry
+    \entry{18_kallioniemi_kallioniemi_piper_tanner_stokke_chen_smith_pinkel_gray_waldman_1994}{article}{}
+      \name{author}{10}{}{%
+        {{hash=b30b027f0bd1612e650fac679bc73c5d}{Kallioniemi}{K\bibinitperiod}{A.}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=b55ba920ba6f9f5be4d49cd2c4a3f4e3}{Kallioniemi}{K\bibinitperiod}{O.\bibnamedelimi P.}{O\bibinitperiod\bibinitdelim P\bibinitperiod}{}{}{}{}}%
+        {{hash=4a65caa2b80911f3809d8a0ce2b1de23}{Piper}{P\bibinitperiod}{J.}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=fd6ca02dc1c63d7929259a3e13e36aa9}{Tanner}{T\bibinitperiod}{M.}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=08ae6a767d157c6e1d45bf8e5e6c3a10}{Stokke}{S\bibinitperiod}{T.}{T\bibinitperiod}{}{}{}{}}%
+        {{hash=9a59c40c928a4caadf9f8dd2965b041f}{Chen}{C\bibinitperiod}{L.}{L\bibinitperiod}{}{}{}{}}%
+        {{hash=5a4d2d927eda0bb0565532a49dc39456}{Smith}{S\bibinitperiod}{H.\bibnamedelimi S.}{H\bibinitperiod\bibinitdelim S\bibinitperiod}{}{}{}{}}%
+        {{hash=c764eaea0f691cef8af3f8355759ee15}{Pinkel}{P\bibinitperiod}{D.}{D\bibinitperiod}{}{}{}{}}%
+        {{hash=31db8f3c69e636398a020d22848619bc}{Gray}{G\bibinitperiod}{J.\bibnamedelimi W.}{J\bibinitperiod\bibinitdelim W\bibinitperiod}{}{}{}{}}%
+        {{hash=95730980bd83e07ebaa664f61ef5fe83}{Waldman}{W\bibinitperiod}{F.\bibnamedelimi M.}{F\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{c130c21068c2b712359e7c21015fe117}
+      \strng{fullhash}{a148642b4643644f75fe35111887f715}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{number}{6}
+      \field{title}{Detection and mapping of amplified DNA sequences in breast cancer by comparative genomic hybridization.}
+      \field{volume}{91}
+      \field{year}{1994}
+      \field{pages}{2156\bibrangedash 2160}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1073/pnas.91.6.2156
+      \endverb
+    \endentry
+    \entry{21_gorringe_hunter_pang_opeskin_hill_rowley_choong_thompson_dobrovic_fox}{article}{}
+      \name{author}{10}{}{%
+        {{hash=b05df390f4c22c0c0e3252dcea80ac64}{Gorringe}{G\bibinitperiod}{Kylie\bibnamedelima L}{K\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+        {{hash=41ba2969c17c355d4661e2c1d3e9baf7}{Hunter}{H\bibinitperiod}{Sally\bibnamedelima M}{S\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=b1a0ae18e7bafc652475500deea36535}{Pang}{P\bibinitperiod}{Jia-Min}{J\bibinithyphendelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=d6dc2d4b0c1569cbab045a859f9fce34}{Opeskin}{O\bibinitperiod}{Ken}{K\bibinitperiod}{}{}{}{}}%
+        {{hash=e22b4da7ebcb3bde59d4fa941e438442}{Hill}{H\bibinitperiod}{Prue}{P\bibinitperiod}{}{}{}{}}%
+        {{hash=ea1157d79621eca55f7d7f3031b05344}{Rowley}{R\bibinitperiod}{Simone\bibnamedelima M}{S\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=7228ab67618f56f45d3f5a83ca84c6c7}{Choong}{C\bibinitperiod}{David\bibnamedelimb Y\bibnamedelima H}{D\bibinitperiod\bibinitdelim Y\bibinitperiod\bibinitdelim H\bibinitperiod}{}{}{}{}}%
+        {{hash=a589bf3a5920a00a61eb8068c3dd08e4}{Thompson}{T\bibinitperiod}{Ella\bibnamedelima R}{E\bibinitperiod\bibinitdelim R\bibinitperiod}{}{}{}{}}%
+        {{hash=6b2368b1a3a2aa170009ee868b9ed27b}{Dobrovic}{D\bibinitperiod}{Alexander}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=41611ad191bb87ba0172fe862b67e167}{Fox}{F\bibinitperiod}{Stephen\bibnamedelimb B\bibnamedelimb et\bibnamedelima al.}{S\bibinitperiod\bibinitdelim B\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{3797e266e4381837d70cb2e4e5b30e50}
+      \strng{fullhash}{323d8bef0d3c5216fdaa9f2eb1e24de8}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mod Pathol}
+      \field{number}{9}
+      \field{title}{Copy number analysis of ductal carcinoma in situ with and without recurrence}
+      \field{volume}{28}
+      \field{year}{2015}
+      \field{pages}{1174\bibrangedash 1184}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1038/modpathol.2015.75
+      \endverb
+    \endentry
+    \entry{22_johnson_gorringe_thompson_opeskin_boyle_wang_hill_mann_campbell_2012}{article}{}
+      \name{author}{9}{}{%
+        {{hash=3ab34db904b7dbbd29c0c325a354a5ab}{Johnson}{J\bibinitperiod}{C}{C\bibinitperiod}{}{}{}{}}%
+        {{hash=42ac0b037e83ef616c044529ea3624ba}{Gorringe}{G\bibinitperiod}{KL}{K\bibinitperiod}{}{}{}{}}%
+        {{hash=356eab1c340a59f466be9721420b531c}{Thompson}{T\bibinitperiod}{ER}{E\bibinitperiod}{}{}{}{}}%
+        {{hash=eda50738be3305b784758956385d0808}{Opeskin}{O\bibinitperiod}{K}{K\bibinitperiod}{}{}{}{}}%
+        {{hash=b590a394489c238429250ca9b9ce8226}{Boyle}{B\bibinitperiod}{SE}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=61ad10c626e1d641e0b1d7b5f48d3233}{Wang}{W\bibinitperiod}{Y}{Y\bibinitperiod}{}{}{}{}}%
+        {{hash=81ec0e070abea1e116142a4c4a7d51c3}{Hill}{H\bibinitperiod}{P}{P\bibinitperiod}{}{}{}{}}%
+        {{hash=5941846e2115a47b0d0bfa1e78c70142}{Mann}{M\bibinitperiod}{GB}{G\bibinitperiod}{}{}{}{}}%
+        {{hash=86bcac8d595f9933ae23b61dff542910}{Campbell}{C\bibinitperiod}{IG}{I\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{562f238da847f57cda33ef7a60c5f71c}
+      \strng{fullhash}{1ea554a8aeba0aed765a81ae30fcfe6b}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Hered Cancer Clin Pract}
+      \field{number}{Suppl 2}
+      \field{title}{Identification of copy number alterations associated with the progression of DCIS to invasive ductal carcinoma}
+      \field{volume}{10}
+      \field{year}{2012}
+      \field{pages}{A93}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1186/1897-4287-10-s2-a93
+      \endverb
+    \endentry
+    \entry{23_hernandez_wilkerson_lambros_campion_flora_rodrigues_gauthier_cabral_pawar_mackay_a_hern}{article}{}
+      \name{author}{10}{}{%
+        {{hash=e4cf4389b730f4475384d91b0dac1764}{Hernandez}{H\bibinitperiod}{Lucia}{L\bibinitperiod}{}{}{}{}}%
+        {{hash=e1332624ad22bf8f3e8b6ec91028d407}{Wilkerson}{W\bibinitperiod}{Paul\bibnamedelima M}{P\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=d735efd80b98e2c77d61f790b6006417}{Lambros}{L\bibinitperiod}{Maryou\bibnamedelima B}{M\bibinitperiod\bibinitdelim B\bibinitperiod}{}{}{}{}}%
+        {{hash=e292b84e424dd35aee0696172b526bdf}{Campion-Flora}{C\bibinithyphendelim F\bibinitperiod}{Adriana}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=e51ef154786696fe4a070b61abc4722f}{Rodrigues}{R\bibinitperiod}{Daniel\bibnamedelima Nava}{D\bibinitperiod\bibinitdelim N\bibinitperiod}{}{}{}{}}%
+        {{hash=72589e64561e289c9602214ba3854486}{Gauthier}{G\bibinitperiod}{Arnaud}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=8e330deba6652518588d53a5e1714eb6}{Cabral}{C\bibinitperiod}{Cecilia}{C\bibinitperiod}{}{}{}{}}%
+        {{hash=358a4055a9ea6165eaf8e447e8ff7b6f}{Pawar}{P\bibinitperiod}{Vidya}{V\bibinitperiod}{}{}{}{}}%
+        {{hash=a9ba82559a571d649274c6f569df1258}{Mackay}{M\bibinitperiod}{Alan}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=3a1a251a6da7114577d80de923d701ee}{A'Hern}{A\bibinitperiod}{Roger\bibnamedelimb et\bibnamedelima al.}{R\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{6ab85447e3de17b4da2c3f3c20f02857}
+      \strng{fullhash}{17972a62b2e59715bae4ac95a3f4e920}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{J. Pathol.}
+      \field{number}{1}
+      \field{title}{Genomic and mutational profiling of ductal carcinomas in situ and matched adjacent invasive breast cancers reveals intra-tumour genetic heterogeneity and clonal selection}
+      \field{volume}{227}
+      \field{year}{2012}
+      \field{pages}{42\bibrangedash 52}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1002/path.3990
+      \endverb
+    \endentry
+    \entry{11_iakovlev_arneson_wong_wang_leung_iakovleva_warren_pintilie_done_2008}{article}{}
+      \name{author}{9}{}{%
+        {{hash=16c0f5b1542b610cf5483e2ca42f4280}{Iakovlev}{I\bibinitperiod}{V.\bibnamedelimi V.}{V\bibinitperiod\bibinitdelim V\bibinitperiod}{}{}{}{}}%
+        {{hash=73e30ca951bc9a47ef1b6bc4a9b9d598}{Arneson}{A\bibinitperiod}{N.\bibnamedelimi C.R.}{N\bibinitperiod\bibinitdelim C\bibinitperiod}{}{}{}{}}%
+        {{hash=bf0854f317a9f04b043323ae5d5d2034}{Wong}{W\bibinitperiod}{V.}{V\bibinitperiod}{}{}{}{}}%
+        {{hash=c4ff95a2ff3c3b2ce0dd0c2f62185112}{Wang}{W\bibinitperiod}{C.}{C\bibinitperiod}{}{}{}{}}%
+        {{hash=f06d4e5ef916e162ab7a695ebcb4abd7}{Leung}{L\bibinitperiod}{S.}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=fe7b99753b468a8a2aae9d3127a7f6d2}{Iakovleva}{I\bibinitperiod}{G.}{G\bibinitperiod}{}{}{}{}}%
+        {{hash=5aae3ffc0e9315b4f01f23693f78d473}{Warren}{W\bibinitperiod}{K.}{K\bibinitperiod}{}{}{}{}}%
+        {{hash=136e340e6a2a1ffa6a57cc02bdb236e6}{Pintilie}{P\bibinitperiod}{M.}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=179e4654174bbafb79e8cf2f743f3ff6}{Done}{D\bibinitperiod}{S.\bibnamedelimi J.}{S\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{84ad38a32072c388e69e4c02f0b21f37}
+      \strng{fullhash}{da4e05925bd56605029f87cbdca727f4}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Clinical Cancer Research}
+      \field{number}{14}
+      \field{title}{Genomic differences between pure ductal carcinoma in situ of the rbeast and that associated with invasive disease: a calibrated aCGH study}
+      \field{volume}{14}
+      \field{year}{2008}
+      \field{pages}{4446\bibrangedash 4454}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1158/1078-0432.ccr-07-4960
+      \endverb
+    \endentry
+    \entry{12_liscovitch_cantley_1995}{article}{}
+      \name{author}{2}{}{%
+        {{hash=7601fdb79ac9d3a7c17ee82f96e4be02}{Liscovitch}{L\bibinitperiod}{Mordechai}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=2bdc38ab3595ac909b0deda0ba41a4d9}{Cantley}{C\bibinitperiod}{Lewis\bibnamedelima C}{L\bibinitperiod\bibinitdelim C\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{1548b6850269a837293e5b8cddab5dc0}
+      \strng{fullhash}{1548b6850269a837293e5b8cddab5dc0}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cell}
+      \field{number}{5}
+      \field{title}{Signal transduction and membrane traffic: The PITP/phosphoinositide connection}
+      \field{volume}{81}
+      \field{year}{1995}
+      \field{pages}{659\bibrangedash 662}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1016/0092-8674(95)90525-1
+      \endverb
+    \endentry
+    \entry{13_png_halberg_yoshida_tavazoie_2011}{article}{}
+      \name{author}{4}{}{%
+        {{hash=dabb5a6700e5ea16176f700de6c1ea9b}{Png}{P\bibinitperiod}{Kim\bibnamedelima J.}{K\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{hash=716724fd3168bc0f8cc1d2c3f3a2cb63}{Halberg}{H\bibinitperiod}{Nils}{N\bibinitperiod}{}{}{}{}}%
+        {{hash=690732ee6d10b9e9042b568ce83e1401}{Yoshida}{Y\bibinitperiod}{Mitsukuni}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=9a0e80e70f9b1423ca482cbe49aa4bf3}{Tavazoie}{T\bibinitperiod}{Sohail\bibnamedelima F.}{S\bibinitperiod\bibinitdelim F\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{fa9a44d12abb00d9d39f0e94c85d7485}
+      \strng{fullhash}{5c32b5c666d69ee5d1bac474f20d1b18}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature}
+      \field{number}{7380}
+      \field{title}{A microRNA regulon that mediates endothelial recruitment and metastasis by cancer cells}
+      \field{volume}{481}
+      \field{year}{2011}
+      \field{pages}{190\bibrangedash 194}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1038/nature10661
+      \endverb
+    \endentry
+    \entry{16_davis_sokolosky_stadelman_abrams_libra_candido_nicoletti_polesel_maestro_dassoro}{article}{}
+      \name{author}{10}{}{%
+        {{hash=8c32754ff036866b3d554a1ac50cc1df}{Davis}{D\bibinitperiod}{Nicole\bibnamedelima M.}{N\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=9a239a0032a2b815a63752ad2df41bc4}{Sokolosky}{S\bibinitperiod}{Melissa}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=9f4b55f19bed210b5955a101b059427e}{Stadelman}{S\bibinitperiod}{Kristin}{K\bibinitperiod}{}{}{}{}}%
+        {{hash=ea456c297e38551de399f46c67247229}{Abrams}{A\bibinitperiod}{Stephen\bibnamedelima L.}{S\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+        {{hash=5ef227425cbc5ec92b13031aedd704d5}{Libra}{L\bibinitperiod}{Massimo}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=bb97604b0bf933c8e2dc5b68a1881a50}{Candido}{C\bibinitperiod}{Saverio}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=90055babb46c0f41da3d5733117e1c73}{Nicoletti}{N\bibinitperiod}{Ferdinando}{F\bibinitperiod}{}{}{}{}}%
+        {{hash=240f90390115a28c26ee914050b6c012}{Polesel}{P\bibinitperiod}{Jerry}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=0595213178790d0968c16af6fcae80bf}{Maestro}{M\bibinitperiod}{Roberta}{R\bibinitperiod}{}{}{}{}}%
+        {{hash=d838877a5d803f02c9d1abf4163d114a}{D\bibnamedelima Assoro}{D\bibinitperiod\bibinitdelim A\bibinitperiod}{Antonino\bibnamedelimb et\bibnamedelima al.}{A\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{a04ba92f01306cf93838225cdb353b8b}
+      \strng{fullhash}{d5fe26e5f64f33031a92af087c4109ba}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Oncotarget}
+      \field{number}{13}
+      \field{title}{Deregulation of the EGFR/PI3K/PTEN/Akt/mTORC1 pathway in breast cancer: possibilities for therapeutic intervention}
+      \field{volume}{5}
+      \field{year}{2014}
+      \field{pages}{4603\bibrangedash 4650}
+      \range{pages}{48}
+      \verb{doi}
+      \verb 10.18632/oncotarget.2209
+      \endverb
+    \endentry
+    \entry{4_richard_sainsbury_needham_farndon_malcolm_harris_1987}{article}{}
+      \name{author}{6}{}{%
+        {{hash=59138b227111bbb8bb74dde09c1e94dc}{Richard}{R\bibinitperiod}{J.}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=03122c450cac7f7ed5b764fc6a49769b}{Sainsbury}{S\bibinitperiod}{C.}{C\bibinitperiod}{}{}{}{}}%
+        {{hash=afb5c3fb9e5a91ee2535fb66fe456753}{Needham}{N\bibinitperiod}{GeoffreyK.}{G\bibinitperiod}{}{}{}{}}%
+        {{hash=151a20ac79b66196baca614390a888c3}{Farndon}{F\bibinitperiod}{JohnR.}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=1779401dc843d3af1bd2eb35286228b1}{Malcolm}{M\bibinitperiod}{ArchieJ.}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=5672389a0ad338b75a2d93b4a7aa663f}{Harris}{H\bibinitperiod}{AdrianL.}{A\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{62389a9e5234e9acd7241fc439666159}
+      \strng{fullhash}{13ef7c34c9dec9a36778b6db41712a42}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Lancet}
+      \field{number}{8547}
+      \field{title}{Epidermal-growth-factor receptor status as predictor of early recurrence of and death from breast cancer}
+      \field{volume}{329}
+      \field{year}{1987}
+      \field{pages}{1398\bibrangedash 1402}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1016/s0140-6736(87)90593-9
+      \endverb
+    \endentry
+    \entry{6_clark_warwick_carpenter_bowen_duffy_jones_2010}{article}{}
+      \name{author}{6}{}{%
+        {{hash=178248f42633f96d356569df8a75b909}{Clark}{C\bibinitperiod}{S\bibnamedelima E}{S\bibinitperiod\bibinitdelim E\bibinitperiod}{}{}{}{}}%
+        {{hash=86399f5846c2a0591a5715a5af327651}{Warwick}{W\bibinitperiod}{J}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=5574f3bba1945ce6e3f8f9fdc3aab840}{Carpenter}{C\bibinitperiod}{R}{R\bibinitperiod}{}{}{}{}}%
+        {{hash=366154579308b2e6be54522e3b332350}{Bowen}{B\bibinitperiod}{R\bibnamedelima L}{R\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+        {{hash=21ac897aa51794ad0b75604b940de80e}{Duffy}{D\bibinitperiod}{S\bibnamedelima W}{S\bibinitperiod\bibinitdelim W\bibinitperiod}{}{}{}{}}%
+        {{hash=010145dff10075ebec2585223c1b63a8}{Jones}{J\bibinitperiod}{J\bibnamedelima L}{J\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{378c71bcd91456dd3fe8a72a7a7ba2c9}
+      \strng{fullhash}{a8b22fb72a26211a75ff1258788dc14d}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Br J Cancer}
+      \field{number}{1}
+      \field{title}{Molecular subtyping of DCIS: heterogeneity of breast cancer reflected in pre-invasive disease}
+      \field{volume}{104}
+      \field{year}{2010}
+      \field{pages}{120\bibrangedash 127}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1038/sj.bjc.6606021
+      \endverb
+    \endentry
+    \entry{19_wood_parsons_jones_lin_sjoblom_leary_shen_boca_barber_ptak}{article}{}
+      \name{author}{10}{}{%
+        {{hash=b726536d53ab4d5de96d8a56cb2fb793}{Wood}{W\bibinitperiod}{L.\bibnamedelimi D.}{L\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{hash=c28f9aff4afc696d4df8fd3144eaefaf}{Parsons}{P\bibinitperiod}{D.\bibnamedelimi W.}{D\bibinitperiod\bibinitdelim W\bibinitperiod}{}{}{}{}}%
+        {{hash=f8488c640dba509e19ea6cd1b5d913b1}{Jones}{J\bibinitperiod}{S.}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=369b8112ce4ce99aac8bac5f74858484}{Lin}{L\bibinitperiod}{J.}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=3ccfac58a15eb6bc330173d4b8bc7aff}{Sjoblom}{S\bibinitperiod}{T.}{T\bibinitperiod}{}{}{}{}}%
+        {{hash=b91f0a002bf316747fc2412f8f27d9b0}{Leary}{L\bibinitperiod}{R.\bibnamedelimi J.}{R\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{hash=472e6ba8fa313fcb48b487b421f38d6b}{Shen}{S\bibinitperiod}{D.}{D\bibinitperiod}{}{}{}{}}%
+        {{hash=f28dc434e22b0fe3f02b06c640973aeb}{Boca}{B\bibinitperiod}{S.\bibnamedelimi M.}{S\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=2987af30377ff352f2d828a77d2f4d63}{Barber}{B\bibinitperiod}{T.}{T\bibinitperiod}{}{}{}{}}%
+        {{hash=1cf6628b49a7b20635c1e51e6fe1e37c}{Ptak}{P\bibinitperiod}{J.\bibnamedelimi et\bibnamedelima al.}{J\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{694dac1551c2318aafc04512885158d7}
+      \strng{fullhash}{4b8e781a64f022e2d3952087bbbd7cc6}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Science}
+      \field{number}{5853}
+      \field{title}{The genomic landscapes of human breast and colorectal cancers}
+      \field{volume}{318}
+      \field{year}{2007}
+      \field{pages}{1108\bibrangedash 1113}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1126/science.1145720
+      \endverb
+    \endentry
+    \entry{20_koboldt_fulton_mclellan_schmidt_kalicki-veizer_mcmichael_fulton_dooling_ding_mardis}{article}{}
+      \name{author}{10}{}{%
+        {{hash=a13fd342a41769367f5acabff1cb6e4b}{Koboldt}{K\bibinitperiod}{Daniel\bibnamedelima C.}{D\bibinitperiod\bibinitdelim C\bibinitperiod}{}{}{}{}}%
+        {{hash=dcfe4edc3f0db6ea4ee966ae440c0d5e}{Fulton}{F\bibinitperiod}{Robert\bibnamedelima S.}{R\bibinitperiod\bibinitdelim S\bibinitperiod}{}{}{}{}}%
+        {{hash=fb8bf2e40090b27a96de44aa4d9c6fbc}{McLellan}{M\bibinitperiod}{Michael\bibnamedelima D.}{M\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{hash=c60b5efe3fc56b705434d03342cf14a8}{Schmidt}{S\bibinitperiod}{Heather}{H\bibinitperiod}{}{}{}{}}%
+        {{hash=ca8fac13120b4159fd5034e5f9e03ccc}{Kalicki-Veizer}{K\bibinithyphendelim V\bibinitperiod}{Joelle}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=a68ed865a04a7f98d88e7c361c2cbd83}{McMichael}{M\bibinitperiod}{Joshua\bibnamedelima F.}{J\bibinitperiod\bibinitdelim F\bibinitperiod}{}{}{}{}}%
+        {{hash=096a64af6be920d65003fa9cff22ff67}{Fulton}{F\bibinitperiod}{Lucinda\bibnamedelima L.}{L\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+        {{hash=4b6e8ca5819ea973c03b20f98d426913}{Dooling}{D\bibinitperiod}{David\bibnamedelima J.}{D\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{hash=ddfd2015d739d5eee9205f7a7500a742}{Ding}{D\bibinitperiod}{Li}{L\bibinitperiod}{}{}{}{}}%
+        {{hash=adfe17ccdf88a42e7779557af7f7f6bf}{Mardis}{M\bibinitperiod}{Elaine\bibnamedelimb R.\bibnamedelimi et\bibnamedelima al.}{E\bibinitperiod\bibinitdelim R\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{1ee0f9b5227d8a5ac97ba922f3dd2e32}
+      \strng{fullhash}{6b7b10e8e7f19f3fbc16245b5542a66b}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature}
+      \field{number}{7418}
+      \field{title}{Comprehensive molecular portraits of human breast tumours}
+      \field{volume}{490}
+      \field{year}{2012}
+      \field{pages}{61\bibrangedash 70}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1038/nature11412
+      \endverb
+    \endentry
+    \entry{14_cowell_weigelt_sakr_ng_hicks_king_reis-filho_2013}{article}{}
+      \name{author}{7}{}{%
+        {{hash=53edca8077531fba0a25f95f3ec0ae39}{Cowell}{C\bibinitperiod}{Catherine\bibnamedelima F.}{C\bibinitperiod\bibinitdelim F\bibinitperiod}{}{}{}{}}%
+        {{hash=d2c6722571cc5c665ece52473df60685}{Weigelt}{W\bibinitperiod}{Britta}{B\bibinitperiod}{}{}{}{}}%
+        {{hash=27086034522848c215cab88b8f82f9a6}{Sakr}{S\bibinitperiod}{Rita\bibnamedelima A.}{R\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+        {{hash=9d10d09a5afd70b0098ec17e5193e170}{Ng}{N\bibinitperiod}{Charlotte\bibnamedelima K.Y.}{C\bibinitperiod\bibinitdelim K\bibinitperiod}{}{}{}{}}%
+        {{hash=032fe0ed77523c04ceddc7798c873840}{Hicks}{H\bibinitperiod}{James}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=684ee03a5b13af249391fb384c82c9ae}{King}{K\bibinitperiod}{Tari\bibnamedelima A.}{T\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+        {{hash=9acdf92a65c447edbcfdb38136b176ba}{Reis-Filho}{R\bibinithyphendelim F\bibinitperiod}{Jorge\bibnamedelima S.}{J\bibinitperiod\bibinitdelim S\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{062de54322a35c24d65091cb7a9bc0c5}
+      \strng{fullhash}{1bf3b2786105e508b8a7a43d9a71f876}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Molecular Oncology}
+      \field{number}{5}
+      \field{title}{Progression from ductal carcinoma in situ to invasive breast cancer: Revisited}
+      \field{volume}{7}
+      \field{year}{2013}
+      \field{pages}{859\bibrangedash 869}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/j.molonc.2013.07.005
+      \endverb
+    \endentry
+    \entry{5_latta_tjan_parkes_omalley_2002}{article}{}
+      \name{author}{4}{}{%
+        {{hash=ba6ef15886622123ddfbbdf31e760072}{Latta}{L\bibinitperiod}{E.\bibnamedelimi K.}{E\bibinitperiod\bibinitdelim K\bibinitperiod}{}{}{}{}}%
+        {{hash=98b040968d0aaf64d91379b244f15e11}{Tjan}{T\bibinitperiod}{S.}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=b48cb19f0d82c40113479310be6fcc0b}{Parkes}{P\bibinitperiod}{R.\bibnamedelimi K.}{R\bibinitperiod\bibinitdelim K\bibinitperiod}{}{}{}{}}%
+        {{hash=1a93b96274468aa1fe51deaaf55b36f0}{O\bibnamedelima Malley}{O\bibinitperiod\bibinitdelim M\bibinitperiod}{F.\bibnamedelimi P.}{F\bibinitperiod\bibinitdelim P\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{8b2caaf66bd4e9fbaf9325520a37c1b0}
+      \strng{fullhash}{bbc48ed5141767f2c098b6e9bfe53eee}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mod Pathol}
+      \field{number}{12}
+      \field{title}{The role of HER2/neu overexpression/amplification in the progression of ductal carcinoma in situ to invasive carcinoma of the breast}
+      \field{volume}{15}
+      \field{year}{2002}
+      \field{pages}{1318\bibrangedash 1325}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1097/01.mp.0000038462.62634.b1
+      \endverb
+    \endentry
+    \entry{7_corzo_corominas_tusquets_salido_bellet_fabregat_serrano_sol_2006}{article}{}
+      \name{author}{8}{}{%
+        {{hash=bfa0f29a95ae2ad7ab362f0668c21639}{Corzo}{C\bibinitperiod}{Cristina}{C\bibinitperiod}{}{}{}{}}%
+        {{hash=0621aade199310785f1596b3095443fe}{Corominas}{C\bibinitperiod}{Josep\bibnamedelima M.}{J\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=ade7c057a6ea546f5586ac48ea50dbfc}{Tusquets}{T\bibinitperiod}{Ignacio}{I\bibinitperiod}{}{}{}{}}%
+        {{hash=4cb5b125dd099a35090965ff016a11e0}{Salido}{S\bibinitperiod}{Marta}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=e61319e30d9e7424951fa281de1a58e1}{Bellet}{B\bibinitperiod}{Meritxell}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=c77b78bda422e70fd95b38470db64738}{Fabregat}{F\bibinitperiod}{Xavier}{X\bibinitperiod}{}{}{}{}}%
+        {{hash=9c9af7d01e5ff2661a1fa4f393edd77c}{Serrano}{S\bibinitperiod}{Sergio}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=2e2f11c5f51788ea4567315bf5299152}{Sol�}{S\bibinitperiod}{Francesc}{F\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{d59d7d08464ff6885e77c725155c5494}
+      \strng{fullhash}{5ce3be8e3e2b012aef5221797cb8da33}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cancer Genetics and Cytogenetics}
+      \field{number}{2}
+      \field{title}{The MYC oncogene in breast cancer progression: from benign epithelium to invasive carcinoma}
+      \field{volume}{165}
+      \field{year}{2006}
+      \field{pages}{151\bibrangedash 156}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1016/j.cancergencyto.2005.08.013
+      \endverb
+    \endentry
+    \entry{8_robanus-maandag_bosch_kristel_hart_faneyte_nederlof_peterse_van}{article}{}
+      \name{author}{8}{}{%
+        {{hash=18ff12676124b5a74174d7485c354e1d}{Robanus-Maandag}{R\bibinithyphendelim M\bibinitperiod}{Els\bibnamedelima C}{E\bibinitperiod\bibinitdelim C\bibinitperiod}{}{}{}{}}%
+        {{hash=3adbea7f9fcb86707ffdf1f1e60030fc}{Bosch}{B\bibinitperiod}{Cathy\bibnamedelima AJ}{C\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+        {{hash=ca5d47d42f65ed66f5c694f2c6ff6571}{Kristel}{K\bibinitperiod}{Petra\bibnamedelima M}{P\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=5a8c2607f1af57baaa524778382ade27}{Hart}{H\bibinitperiod}{Augustinus\bibnamedelima AM}{A\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+        {{hash=ae138cc169515364ca5b5b425d2282c2}{Faneyte}{F\bibinitperiod}{Ian\bibnamedelima F}{I\bibinitperiod\bibinitdelim F\bibinitperiod}{}{}{}{}}%
+        {{hash=64d8f6a25588c31578cbf452b16a7c22}{Nederlof}{N\bibinitperiod}{Petra\bibnamedelima M}{P\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=14a96badd3b31b6ea3169ca4b0c3ada3}{Peterse}{P\bibinitperiod}{Johannes\bibnamedelima L}{J\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+        {{hash=d53462d38ab6e3ab5b45ad1e347f9cff}{Vijver}{V\bibinitperiod}{Marc\bibnamedelima J}{M\bibinitperiod\bibinitdelim J\bibinitperiod}{van\bibnamedelima de}{v\bibinitperiod\bibinitdelim d\bibinitperiod}{}{}}%
+      }
+      \strng{namehash}{bc83361cf56c2c9eb087acc813546d57}
+      \strng{fullhash}{78fb44e2d33fb4f67d5c1e2a19a9a93e}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{J. Pathol.}
+      \field{number}{1}
+      \field{title}{Association of C-MYC amplification with progression from thein situ to the invasive stage in C-MYC-amplified breast carcinos}
+      \field{volume}{201}
+      \field{year}{2003}
+      \field{pages}{75\bibrangedash 82}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1002/path.1385
+      \endverb
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+

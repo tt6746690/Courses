@@ -1,2 +1,3 @@
 # courseProjects
-course projects repo
+
+small projects in university courses. 

@@ -34,4 +34,14 @@ _Usual procedures_
 
 _Cost function_
 
-Set up function `h(x) = θ0 + θ1x` so that `h(x)` is close to y for training set (x, y). An obvious example would be selecting `θ0` and `θ1` so as to minimize `sum((h(x) - y)^2)`
+Set up function `h(x) = θ0 + θ1x` so that `h(x)` is close to y for training set (x, y). An obvious example would be selecting `θ0` and `θ1` so as to minimize `(1/2m)sum((h(x) - y)^2)` where m is the number of instances in the training set.
+
+![cost function](https://raw.githubusercontent.com/tt6746690/courseProjects/master/iGEM2016/images/cost%20function.png)
+
+
+_examples of cost function_
+
+
+![cost function summary](https://raw.githubusercontent.com/tt6746690/courseProjects/master/iGEM2016/images/cost%20function%20summary.png)
+
+![next slide](https://raw.githubusercontent.com/tt6746690/courseProjects/master/iGEM2016/images/s.png)

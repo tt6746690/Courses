@@ -1,0 +1,20 @@
+[0] Config.pm:324> INFO - This is Biber 2.1
+[0] Config.pm:327> INFO - Logfile is 'template.blg'
+[53] biber-darwin:276> INFO - === Tue Jul 19, 2016, 15:40:15
+[53] Biber.pm:333> INFO - Reading 'template.bcf'
+[300] Biber.pm:645> INFO - Found 16 citekeys in bib section 0
+[333] Biber.pm:2977> INFO - Processing section 0
+[362] Biber.pm:3115> INFO - Looking for bibtex format file 'reference.bib' for section 0
+[372] bibtex.pm:1021> INFO - Decoding LaTeX character macros into UTF-8
+[382] bibtex.pm:895> INFO - Found BibTeX data source 'reference.bib'
+[1035] UCollate.pm:66> INFO - Overriding locale 'de_DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1035] UCollate.pm:66> INFO - Overriding locale 'de_DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1035] Biber.pm:2854> INFO - Sorting list 'none' of type 'entry' with scheme 'none' and locale 'de_DE'
+[1035] Biber.pm:2858> INFO - No sort tailoring available for locale 'de_DE'
+[1066] bbl.pm:505> INFO - Writing 'template.bbl' with encoding 'ascii'
+[1094] Utils.pm:146> WARN - The entry 'Fasching2011' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1101] Utils.pm:146> WARN - The entry 'Polley2013a' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1104] Utils.pm:146> WARN - The entry 'Polley2015' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1106] Utils.pm:146> WARN - The entry 'Stalhammar2016' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1108] bbl.pm:596> INFO - Output to template.bbl
+[1110] Biber.pm:106> INFO - WARNINGS: 4

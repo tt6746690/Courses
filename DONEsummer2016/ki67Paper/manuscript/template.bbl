@@ -538,6 +538,38 @@
       \verb http://www.ncbi.nlm.nih.gov/pubmed/17453008%20http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC2359936
       \endverb
     \endentry
+    \entry{Petrelli2015}{article}{}
+      \name{author}{4}{}{%
+        {{hash=528889f3ac09deb1abba7448471694f5}{Petrelli}{P\bibinitperiod}{Fausto}{F\bibinitperiod}{}{}{}{}}%
+        {{hash=698920eff2ce2d6603e05cfc80362268}{Viale}{V\bibinitperiod}{G.}{G\bibinitperiod}{}{}{}{}}%
+        {{hash=345e1cb52a1d856bc18f43afae7d6830}{Cabiddu}{C\bibinitperiod}{M.}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=29174a5ee6ad1adf8a671f436ecfb4ba}{Barni}{B\bibinitperiod}{S.}{S\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{0446c065c42f2f80ec437d25afe6a5a9}
+      \strng{fullhash}{5c71a651c5ed3d56015260965d579d66}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0167-6806}
+      \field{journaltitle}{Breast Cancer Research and Treatment}
+      \field{month}{10}
+      \field{number}{3}
+      \field{title}{{Prognostic value of different cut-off levels of Ki-67 in breast cancer: a systematic review and meta-analysis of 64,196 patients}}
+      \field{volume}{153}
+      \field{year}{2015}
+      \field{pages}{477\bibrangedash 491}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1007/s10549-015-3559-0
+      \endverb
+      \verb{url}
+      \verb http://link.springer.com/10.1007/s10549-015-3559-0
+      \endverb
+    \endentry
     \entry{Jones2009}{article}{}
       \name{author}{8}{}{%
         {{hash=3dd9371ae5730150a295c3a34d7a912e}{Jones}{J\bibinitperiod}{Robin\bibnamedelima L.}{R\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
@@ -939,6 +971,35 @@
       \endverb
       \keyw{Biomedicine general,Cancer Research,Health Promotion and Disease Prevention,Medicine/Public Health,Oncology,Surgical Oncology,general}
     \endentry
+    \entry{VanDiest2004}{article}{}
+      \name{author}{3}{}{%
+        {{hash=c0ca95db1ecf477b33d59ca55939e891}{Diest}{D\bibinitperiod}{P\bibnamedelima J}{P\bibinitperiod\bibinitdelim J\bibinitperiod}{van}{v\bibinitperiod}{}{}}%
+        {{hash=74bcd2751d9dfcb1f6e05b1a5232d02a}{Wall}{W\bibinitperiod}{E}{E\bibinitperiod}{van\bibnamedelima der}{v\bibinitperiod\bibinitdelim d\bibinitperiod}{}{}}%
+        {{hash=25892b68179c9405003616d2d1ecc8b2}{Baak}{B\bibinitperiod}{J\bibnamedelima P\bibnamedelima A}{J\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{e47381afe62d53cc827dcb3d6d063531}
+      \strng{fullhash}{38f57f886d6f309bf789e79e79b49784}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Breast cancer is the leading cause of death among solid tumours in women, and its incidence is increasing in the West. Adjuvant chemotherapy and hormonal treatment improve survival but have potentially serious side effects, and are costly. Because adjuvant treatment should be given to high risk patients only, and traditional prognostic factors (lymph node status, tumour size) are insufficiently accurate, better predictors of high risk and treatment response are needed. Invasive breast cancer metastasises haematogenously very early on, so many breast cancer prognosticators are directly or indirectly related to proliferation. Although studies evaluating the role of individual proliferation regulating genes have greatly increased our knowledge of this complex process, the functional end result-cells dividing-has remained the most important prognostic factor. This article reviews the prognostic value of different proliferation assays in invasive breast cancer, and concludes that increased proliferation correlates strongly with poor prognosis, irrespective of the methodology used. Mitosis counting provides the most reproducible and independent prognostic value, and Ki67/MIB1 labelling and cyclin A index are promising alternatives that need methodological fine tuning.}
+      \field{issn}{0021-9746}
+      \field{journaltitle}{Journal of clinical pathology}
+      \field{month}{07}
+      \field{number}{7}
+      \field{title}{{Prognostic value of proliferation in invasive breast cancer: a review.}}
+      \field{volume}{57}
+      \field{year}{2004}
+      \field{pages}{675\bibrangedash 81}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1136/jcp.2003.010777
+      \endverb
+      \verb{url}
+      \verb http://www.ncbi.nlm.nih.gov/pubmed/15220356%20http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC1770351
+      \endverb
+    \endentry
     \entry{Cuzick2011}{article}{}
       \name{author}{13}{}{%
         {{hash=9b712026ea9e5174bdff04723f8af2eb}{Cuzick}{C\bibinitperiod}{Jack}{J\bibinitperiod}{}{}{}{}}%
@@ -1130,6 +1191,115 @@
       \verb http://www.nature.com/doifinder/10.1038/modpathol.2015.38
       \endverb
     \endentry
+    \entry{Tadrous2010}{article}{}
+      \name{author}{1}{}{%
+        {{hash=02e76cfb996d9b8adf1c1f45fe9583e9}{Tadrous}{T\bibinitperiod}{Paul\bibnamedelima J}{P\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{02e76cfb996d9b8adf1c1f45fe9583e9}
+      \strng{fullhash}{02e76cfb996d9b8adf1c1f45fe9583e9}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{AIMS The term 'objective' connotes a method that is based on facts and not influenced by personal opinions, perception or emotion. One often reads in the biomedical literature claims of objectivity for methods that use digital image analysis applied to histology. Since objective assessment of histology would represent a huge leap forward in scientific measurement and clinical diagnosis, such claims should be substantiated by strong evidence. This paper takes a selective look at the literature on image analysis to assess the definition of objectivity in image analysis and asks whether such a claim is ever justified. METHODS First, a brief background on the basic science of image analysis in histology details some of the controversies and opinions in the field. Then, a literature review of a subset of papers pertaining to image analysis in histology (with claims of objectivity) is conducted to determine what evidence exists for objectivity in these methods. RESULTS It was found that image analysis may have many benefits (speed, indefatigability, standardisation, etc.). However, algorithms are devised and implemented by human beings who make subjective decisions at each stage of the algorithm design and implementation process. Thus, image analysis methods can be seen as deterministic processes which 'objectively' implement the subjective decisions of the programmer. This indicates that 'inter-observer' variation in image analysis is equivalent to 'inter-algorithm' variation (which is rarely studied) and that a single computer algorithm's repeatability is of lesser importance than the repeatability of the image analysis method as a whole (including the block, slide and field selection and the method of tissue processing). CONCLUSION Repeatability and automaticity must not be confused with objectivity, but a lack of objectivity does not imply a lack of utility. Unless specific evidence of objectivity is provided, editors should insist that claims of objectivity in image analysis papers be either removed or justified prior to publication.}
+      \field{issn}{1465-3931}
+      \field{journaltitle}{Pathology}
+      \field{month}{04}
+      \field{number}{3}
+      \field{title}{{On the concept of objectivity in digital image analysis in pathology.}}
+      \field{volume}{42}
+      \field{year}{2010}
+      \field{pages}{207\bibrangedash 11}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.3109/00313021003641758
+      \endverb
+      \verb{url}
+      \verb http://www.ncbi.nlm.nih.gov/pubmed/20350211
+      \endverb
+    \endentry
+    \entry{Mohammed2012}{article}{}
+      \name{author}{8}{}{%
+        {{hash=e7254f02565ee4cfd71e47055319a123}{Mohammed}{M\bibinitperiod}{Z\bibnamedelima M\bibnamedelima A}{Z\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+        {{hash=ceea976b4247aa15692c4b50f45c3312}{McMillan}{M\bibinitperiod}{D\bibnamedelima C}{D\bibinitperiod\bibinitdelim C\bibinitperiod}{}{}{}{}}%
+        {{hash=a5df8b052f03f5bcd30f4f452f1cb9dc}{Elsberger}{E\bibinitperiod}{B}{B\bibinitperiod}{}{}{}{}}%
+        {{hash=322fe62e78e058061ae199454b7bde77}{Going}{G\bibinitperiod}{J\bibnamedelima J}{J\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{hash=4946a4bd21a7e5efb51e199e816fa3ba}{Orange}{O\bibinitperiod}{C}{C\bibinitperiod}{}{}{}{}}%
+        {{hash=1f15145a8dd10f1ff13da08b2edc6010}{Mallon}{M\bibinitperiod}{E}{E\bibinitperiod}{}{}{}{}}%
+        {{hash=74eeea66ecc4b07ba5dc60f1595ecc8e}{Doughty}{D\bibinitperiod}{J\bibnamedelima C}{J\bibinitperiod\bibinitdelim C\bibinitperiod}{}{}{}{}}%
+        {{hash=89ec3d917e64ae74ff7f1e27b258dbfb}{Edwards}{E\bibinitperiod}{J}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{f48a4f83af1be7ed0ffe4aee5c54ef61}
+      \strng{fullhash}{6563532a77c60e844574150a4d19cb1d}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{BACKGROUND Immunohistochemistry of Ki-67 protein is widely used to assess tumour proliferation, and is an established prognostic factor in breast cancer. There is interest in automating the assessment of Ki-67 labelling index (LI) with possible benefits in handling increased workload, with improved accuracy and precision. PATIENTS AND METHODS Visual and automated assessment of Ki-67 LI and survival were examined in patients with primary operable invasive ductal breast cancer. Tissue microarrays (n=379 patients) immunostained for Ki-67 were scored visually and automatically with the Slidepath Tissue IA system. RESULTS Visual and automated Ki-67 LI were in excellent agreement (ICCC=0.96, P{<}0.001). On univariate analysis, visual (P{<}0.001) and automated Ki67 LI (P{<}0.05) were associated with cancer-specific survival in patients with invasive ductal breast cancer overall and in patients who received endocrine therapy (Tamoxifen) (P{<}0.01 for visual and P{<}0.05 for automated scoring). CONCLUSION Automated assessment of Ki-67 LI would appear to be comparable to visual Ki-67 LI. However, automated Ki-67 LI assessment was inferior in predicting cancer survival in patients with breast cancer, including patients who received Tamoxifen.}
+      \field{issn}{1532-1827}
+      \field{journaltitle}{British journal of cancer}
+      \field{month}{01}
+      \field{number}{2}
+      \field{title}{{Comparison of visual and automated assessment of Ki-67 proliferative activity and their impact on outcome in primary operable invasive ductal breast cancer.}}
+      \field{volume}{106}
+      \field{year}{2012}
+      \field{pages}{383\bibrangedash 8}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1038/bjc.2011.569
+      \endverb
+      \verb{file}
+      \verb :Users/markwang/Library/Application Support/Mendeley Desktop/Downloaded/Mohammed et al. - 2012 - Comparison of visual and automated assessment of Ki-67 proliferative activity and their impact on outcome in pr.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://www.ncbi.nlm.nih.gov/pubmed/22251968%20http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC3261670
+      \endverb
+    \endentry
+    \entry{Laurinavicius2014}{article}{}
+      \name{author}{11}{}{%
+        {{hash=ac39fa82a03706aa0572fa8818528675}{Laurinavicius}{L\bibinitperiod}{Arvydas}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=9146ee2ab9051eff45bd16819fa883f9}{Plancoulaine}{P\bibinitperiod}{Benoit}{B\bibinitperiod}{}{}{}{}}%
+        {{hash=15576d2677ee277ace67f72c71396690}{Laurinaviciene}{L\bibinitperiod}{Aida}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=b4b5dabcbb09f700a9e6d78d5c79d8d2}{Herlin}{H\bibinitperiod}{Paulette}{P\bibinitperiod}{}{}{}{}}%
+        {{hash=49b148a43796530937ebd8712d709f89}{Meskauskas}{M\bibinitperiod}{Raimundas}{R\bibinitperiod}{}{}{}{}}%
+        {{hash=0c3036720ce8cff806464159747631f0}{Baltrusaityte}{B\bibinitperiod}{Indra}{I\bibinitperiod}{}{}{}{}}%
+        {{hash=377aea160da9ca232646f298f468cf4d}{Besusparis}{B\bibinitperiod}{Justinas}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=1a22dca2bba33b9f3579587b241807cb}{Dasevicius}{D\bibinitperiod}{Darius}{D\bibinitperiod}{}{}{}{}}%
+        {{hash=3044a750a8d714d84aa6fee6aa7181d8}{Elie}{E\bibinitperiod}{Nicolas}{N\bibinitperiod}{}{}{}{}}%
+        {{hash=ec1243bc81aad32f839c67de3ee1fd24}{Iqbal}{I\bibinitperiod}{Yasir}{Y\bibinitperiod}{}{}{}{}}%
+        {{hash=872bb45e48ed571bb8738530182d0d70}{Bor}{B\bibinitperiod}{Catherine}{C\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {BioMed Central}%
+      }
+      \strng{namehash}{f56803416a7e966533120f06fb17a39d}
+      \strng{fullhash}{2fac0084004db04c2422c72b23b86228}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{INTRODUCTION Immunohistochemical Ki67 labelling index (Ki67 LI) reflects proliferative activity and is a potential prognostic/predictive marker of breast cancer. However, its clinical utility is hindered by the lack of standardized measurement methodologies. Besides tissue heterogeneity aspects, the key element of methodology remains accurate estimation of Ki67-stained/counterstained tumour cell profiles. We aimed to develop a methodology to ensure and improve accuracy of the digital image analysis (DIA) approach. METHODS Tissue microarrays (one 1-mm spot per patient, n = 164) from invasive ductal breast carcinoma were stained for Ki67 and scanned. Criterion standard (Ki67-Count) was obtained by counting positive and negative tumour cell profiles using a stereology grid overlaid on a spot image. DIA was performed with Aperio Genie/Nuclear algorithms. A bias was estimated by ANOVA, correlation and regression analyses. Calibration steps of the DIA by adjusting the algorithm settings were performed: first, by subjective DIA quality assessment (DIA-1), and second, to compensate the bias established (DIA-2). Visual estimate (Ki67-VE) on the same images was performed by five pathologists independently. RESULTS ANOVA revealed significant underestimation bias (P {<} 0.05) for DIA-0, DIA-1 and two pathologists' VE, while DIA-2, VE-median and three other VEs were within the same range. Regression analyses revealed best accuracy for the DIA-2 (R-square = 0.90) exceeding that of VE-median, individual VEs and other DIA settings. Bidirectional bias for the DIA-2 with overestimation at low, and underestimation at high ends of the scale was detected. Measurement error correction by inverse regression was applied to improve DIA-2-based prediction of the Ki67-Count, in particularfor the clinically relevant interval of Ki67-Count {<} 40{\%}. Potential clinical impact of the prediction was tested by dichotomising the cases at the cut-off values of 10, 15, and 20{\%}. Misclassification rate of 5-7{\%} was achieved, compared to that of 11-18{\%} for the VE-median-based prediction. CONCLUSIONS Our experiments provide methodology to achieve accurate Ki67-LI estimation by DIA, based on proper validation, calibration, and measurement error correction procedures, guided by quantified bias from reference values obtained by stereology grid count. This basic validation step is an important prerequisite for high-throughput automated DIA applications to investigate tissue heterogeneity and clinical utility aspects of Ki67 and other immunohistochemistry (IHC) biomarkers.}
+      \field{issn}{1465-542X}
+      \field{journaltitle}{Breast cancer research : BCR}
+      \field{number}{2}
+      \field{title}{{A methodology to ensure and improve accuracy of Ki67 labelling index estimation by automated digital image analysis in breast cancer tissue.}}
+      \field{volume}{16}
+      \field{year}{2014}
+      \field{pages}{R35}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1186/bcr3639
+      \endverb
+      \verb{file}
+      \verb :Users/markwang/Library/Application Support/Mendeley Desktop/Downloaded/Laurinavicius et al. - 2014 - A methodology to ensure and improve accuracy of Ki67 labelling index estimation by automated digital image.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://www.ncbi.nlm.nih.gov/pubmed/24708745%20http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC4053156
+      \endverb
+    \endentry
     \entry{Stalhammar2016}{article}{}
       \name{author}{12}{}{%
         {{hash=3994f504ac983f1dba28cb3ccb6fc875}{St\r{a}lhammar}{S\bibinitperiod}{Gustav}{G\bibinitperiod}{}{}{}{}}%
@@ -1168,6 +1338,39 @@
       \endverb
       \verb{url}
       \verb http://www.nature.com/doifinder/10.1038/modpathol.2016.34
+      \endverb
+    \endentry
+    \entry{Chabot-Richards2011}{article}{}
+      \name{author}{5}{}{%
+        {{hash=ded01b2bdaa659e4ccb143a19eeb5b85}{Chabot-Richards}{C\bibinithyphendelim R\bibinitperiod}{Devon\bibnamedelima S}{D\bibinitperiod\bibinitdelim S\bibinitperiod}{}{}{}{}}%
+        {{hash=72f3f662193de1193a3608b93dbb4f8b}{Martin}{M\bibinitperiod}{David\bibnamedelima R}{D\bibinitperiod\bibinitdelim R\bibinitperiod}{}{}{}{}}%
+        {{hash=e6ecadce73711bae4f97c37e5f70cc57}{Myers}{M\bibinitperiod}{Orrin\bibnamedelima B}{O\bibinitperiod\bibinitdelim B\bibinitperiod}{}{}{}{}}%
+        {{hash=a577566cb8f406d3d20b635d90bc1065}{Czuchlewski}{C\bibinitperiod}{David\bibnamedelima R}{D\bibinitperiod\bibinitdelim R\bibinitperiod}{}{}{}{}}%
+        {{hash=ce97a9040db3e7a3321f8b2dd1edf00b}{Hunt}{H\bibinitperiod}{Kristin\bibnamedelima E}{K\bibinitperiod\bibinitdelim E\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{3dc44d0bd31a166d5813590e6d007297}
+      \strng{fullhash}{d7746db52641512ffcaf0a148c360d98}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0893-3952}
+      \field{journaltitle}{Modern Pathology}
+      \field{month}{12}
+      \field{number}{12}
+      \field{title}{{Quantitative image analysis in the assessment of diffuse large B-cell lymphoma}}
+      \field{volume}{24}
+      \field{year}{2011}
+      \field{pages}{1598\bibrangedash 1605}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1038/modpathol.2011.123
+      \endverb
+      \verb{url}
+      \verb http://www.nature.com/doifinder/10.1038/modpathol.2011.123
       \endverb
     \endentry
     \entry{Liu2015}{article}{}
@@ -1261,6 +1464,207 @@
       \verb{file}
       \verb :Users/markwang/Library/Application Support/Mendeley Desktop/Downloaded/Bland, Altman - 1986 - STATISTICAL METHODS FOR ASSESSING AGREEMENT BETWEEN TWO METHODS OF CLINICAL MEASUREMENT.pdf:pdf
       \endverb
+    \endentry
+    \entry{Hanneman2008}{article}{}
+      \name{author}{1}{}{%
+        {{hash=36bc8ddf8ab0bea82adb232077480f20}{Hanneman}{H\bibinitperiod}{Sandra\bibnamedelima K}{S\bibinitperiod\bibinitdelim K\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {NIH Public Access}%
+      }
+      \strng{namehash}{36bc8ddf8ab0bea82adb232077480f20}
+      \strng{fullhash}{36bc8ddf8ab0bea82adb232077480f20}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Clinicians often need to know whether a new method of measurement is equivalent to an established one already in clinical use. This article reviews the methodology of a method-comparison study to assist the clinician with the conduct and evaluation of such studies. Temperature data from 1 subject are used to illustrate the procedures. Although one would not make decisions on the basis of the findings from 1 subject, the large number of paired measurements in the data set permits its use for illustrative purposes. Currently available software eliminates the need for tedious statistical computation but does not reduce the burden of understanding the concepts underlying a method-comparison study and accurate interpretation of the findings.}
+      \field{issn}{1559-7768}
+      \field{journaltitle}{AACN advanced critical care}
+      \field{number}{2}
+      \field{title}{{Design, analysis, and interpretation of method-comparison studies.}}
+      \field{volume}{19}
+      \field{year}{2008}
+      \field{pages}{223\bibrangedash 34}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1097/01.AACN.0000318125.41512.a3
+      \endverb
+      \verb{file}
+      \verb :Users/markwang/Library/Application Support/Mendeley Desktop/Downloaded/Hanneman - 2008 - Design, analysis, and interpretation of method-comparison studies.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://www.ncbi.nlm.nih.gov/pubmed/18560291%20http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC2944826
+      \endverb
+    \endentry
+    \entry{Shrout1979}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b30ff86f613cfc4c6fb89cc33a772ed7}{Shrout}{S\bibinitperiod}{Patrick\bibnamedelima E}{P\bibinitperiod\bibinitdelim E\bibinitperiod}{}{}{}{}}%
+        {{hash=b3ab2efb8c07116bbf9d60ad721229e0}{Fleiss}{F\bibinitperiod}{Joseph\bibnamedelima L}{J\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{9f7e7ff0126a8f167b37e63358107ce4}
+      \strng{fullhash}{9f7e7ff0126a8f167b37e63358107ce4}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Reliability coefficients often take the form of intraclass correlation coefficients. In this article, guidelines are given for choosing among six different forms of the intraclass correlation for reliability studies in which n targets are rated by k judges. Relevant to the choice of the coefficient are the appropriate statistical model for the reliability study and the applications to be made of the reliability results. Confidence intervals for each of the forms are reviewed.}
+      \field{journaltitle}{Psychological Bulletin}
+      \field{number}{2}
+      \field{title}{{Intraclass Correlations : Uses in Assessing Rater Reliability}}
+      \field{volume}{86}
+      \field{year}{1979}
+      \field{pages}{420\bibrangedash 428}
+      \range{pages}{9}
+      \verb{file}
+      \verb :Users/markwang/Library/Application Support/Mendeley Desktop/Downloaded/Shrout, Fleiss - 1979 - Intraclass Correlations Uses in Assessing Rater Reliability.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Conger1980}{article}{}
+      \name{author}{1}{}{%
+        {{hash=7c8734e43fb3a397242a8684d37750d3}{Conger}{C\bibinitperiod}{Anthony\bibnamedelima J.}{A\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {American Psychological Association}%
+      }
+      \strng{namehash}{7c8734e43fb3a397242a8684d37750d3}
+      \strng{fullhash}{7c8734e43fb3a397242a8684d37750d3}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0033-2909}
+      \field{journaltitle}{Psychological Bulletin}
+      \field{number}{2}
+      \field{title}{{Integration and generalization of kappas for multiple raters.}}
+      \field{volume}{88}
+      \field{year}{1980}
+      \field{pages}{322\bibrangedash 328}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1037/0033-2909.88.2.322
+      \endverb
+      \verb{file}
+      \verb :Users/markwang/Library/Application Support/Mendeley Desktop/Downloaded/Conger - 1980 - Integration and generalization of kappas for multiple raters.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://content.apa.org/journals/bul/88/2/322
+      \endverb
+      \keyw{integration {\&} generalization of kappas,multiple raters}
+    \endentry
+    \entry{Cheang2009}{article}{}
+      \name{author}{13}{}{%
+        {{hash=de99652506978c4b4fd991d784ff0b9b}{Cheang}{C\bibinitperiod}{Maggie\bibnamedelimb C\bibnamedelima U}{M\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim U\bibinitperiod}{}{}{}{}}%
+        {{hash=2ca1b2a3d70750fb516ce023e330d63f}{Chia}{C\bibinitperiod}{Stephen\bibnamedelima K}{S\bibinitperiod\bibinitdelim K\bibinitperiod}{}{}{}{}}%
+        {{hash=be6bfd309c9677a858fc4f625f706d19}{Voduc}{V\bibinitperiod}{David}{D\bibinitperiod}{}{}{}{}}%
+        {{hash=80a6e0087a2a9f38d7dfbc408297f11a}{Gao}{G\bibinitperiod}{Dongxia}{D\bibinitperiod}{}{}{}{}}%
+        {{hash=00ee1c7a99d1952f27fb6dac8fa9338c}{Leung}{L\bibinitperiod}{Samuel}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=e81347438ac45954ccfe206cfc089dc5}{Snider}{S\bibinitperiod}{Jacqueline}{J\bibinitperiod}{}{}{}{}}%
+        {{hash=73ceb9afe310968f52205f77de5f7369}{Watson}{W\bibinitperiod}{Mark}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=ef56d0f816b751bdf3511a31e5b39b4a}{Davies}{D\bibinitperiod}{Sherri}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=772932d1a6a7f3a262d5b54105182636}{Bernard}{B\bibinitperiod}{Philip\bibnamedelima S}{P\bibinitperiod\bibinitdelim S\bibinitperiod}{}{}{}{}}%
+        {{hash=f57250b5fe217cc9c93a293f1d6127c2}{Parker}{P\bibinitperiod}{Joel\bibnamedelima S}{J\bibinitperiod\bibinitdelim S\bibinitperiod}{}{}{}{}}%
+        {{hash=ec0b1f2a8e0006a6ab199e00318c8521}{Perou}{P\bibinitperiod}{Charles\bibnamedelima M}{C\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=f30df39d635a3b18c0440efd2c6a61ae}{Ellis}{E\bibinitperiod}{Matthew\bibnamedelima J}{M\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{hash=b74d219a92053a5128dd2a8d829984ec}{Nielsen}{N\bibinitperiod}{Torsten\bibnamedelima O}{T\bibinitperiod\bibinitdelim O\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University Press}%
+      }
+      \strng{namehash}{dec69c8c3ea90683b1c1696cb8838b75}
+      \strng{fullhash}{76d8f2d5ec1fb3cfbcbfcf3ef892078f}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{BACKGROUND Gene expression profiling of breast cancer has identified two biologically distinct estrogen receptor (ER)-positive subtypes of breast cancer: luminal A and luminal B. Luminal B tumors have higher proliferation and poorer prognosis than luminal A tumors. In this study, we developed a clinically practical immunohistochemistry assay to distinguish luminal B from luminal A tumors and investigated its ability to separate tumors according to breast cancer recurrence-free and disease-specific survival. METHODS Tumors from a cohort of 357 patients with invasive breast carcinomas were subtyped by gene expression profile. Hormone receptor status, HER2 status, and the Ki67 index (percentage of Ki67-positive cancer nuclei) were determined immunohistochemically. Receiver operating characteristic curves were used to determine the Ki67 cut point to distinguish luminal B from luminal A tumors. The prognostic value of the immunohistochemical assignment for breast cancer recurrence-free and disease-specific survival was investigated with an independent tissue microarray series of 4046 breast cancers by use of Kaplan-Meier curves and multivariable Cox regression. RESULTS Gene expression profiling classified 101 (28{\%}) of the 357 tumors as luminal A and 69 (19{\%}) as luminal B. The best Ki67 index cut point to distinguish luminal B from luminal A tumors was 13.25{\%}. In an independent cohort of 4046 patients with breast cancer, 2847 had hormone receptor-positive tumors. When HER2 immunohistochemistry and the Ki67 index were used to subtype these 2847 tumors, we classified 1530 (59{\%}, 95{\%} confidence interval [CI] = 57{\%} to 61{\%}) as luminal A, 846 (33{\%}, 95{\%} CI = 31{\%} to 34{\%}) as luminal B, and 222 (9{\%}, 95{\%} CI = 7{\%} to 10{\%}) as luminal-HER2 positive. Luminal B and luminal-HER2-positive breast cancers were statistically significantly associated with poor breast cancer recurrence-free and disease-specific survival in all adjuvant systemic treatment categories. Of particular relevance are women who received tamoxifen as their sole adjuvant systemic therapy, among whom the 10-year breast cancer-specific survival was 79{\%} (95{\%} CI = 76{\%} to 83{\%}) for luminal A, 64{\%} (95{\%} CI = 59{\%} to 70{\%}) for luminal B, and 57{\%} (95{\%} CI = 47{\%} to 69{\%}) for luminal-HER2 subtypes. CONCLUSION Expression of ER, progesterone receptor, and HER2 proteins and the Ki67 index appear to distinguish luminal A from luminal B breast cancer subtypes.}
+      \field{issn}{1460-2105}
+      \field{journaltitle}{Journal of the National Cancer Institute}
+      \field{month}{05}
+      \field{number}{10}
+      \field{title}{{Ki67 index, HER2 status, and prognosis of patients with luminal B breast cancer.}}
+      \field{volume}{101}
+      \field{year}{2009}
+      \field{pages}{736\bibrangedash 50}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1093/jnci/djp082
+      \endverb
+      \verb{file}
+      \verb :Users/markwang/Library/Application Support/Mendeley Desktop/Downloaded/Cheang et al. - 2009 - Ki67 index, HER2 status, and prognosis of patients with luminal B breast cancer.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://www.ncbi.nlm.nih.gov/pubmed/19436038%20http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC2684553
+      \endverb
+    \endentry
+    \entry{Landis1977}{article}{}
+      \name{author}{2}{}{%
+        {{hash=f4d9dd42cbbf9eb853617c4af33fff69}{Landis}{L\bibinitperiod}{J.\bibnamedelimi Richard}{J\bibinitperiod\bibinitdelim R\bibinitperiod}{}{}{}{}}%
+        {{hash=158583a529de54af64c635f9efa126b1}{Koch}{K\bibinitperiod}{Gary\bibnamedelima G.}{G\bibinitperiod\bibinitdelim G\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{6cd5cc56f56e47fa08f16cd71e91e3de}
+      \strng{fullhash}{6cd5cc56f56e47fa08f16cd71e91e3de}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0006341X}
+      \field{journaltitle}{Biometrics}
+      \field{month}{03}
+      \field{number}{1}
+      \field{title}{{The Measurement of Observer Agreement for Categorical Data}}
+      \field{volume}{33}
+      \field{year}{1977}
+      \field{pages}{159}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.2307/2529310
+      \endverb
+      \verb{url}
+      \verb http://www.jstor.org/stable/2529310?origin=crossref
+      \endverb
+    \endentry
+    \entry{Coates2015}{article}{}
+      \name{author}{9}{}{%
+        {{hash=64b49a6bc0b60b45234e814192e91308}{Coates}{C\bibinitperiod}{A\bibnamedelima S}{A\bibinitperiod\bibinitdelim S\bibinitperiod}{}{}{}{}}%
+        {{hash=953a0ffeacc8812ac44f7ba650b1dbc8}{Winer}{W\bibinitperiod}{E\bibnamedelima P}{E\bibinitperiod\bibinitdelim P\bibinitperiod}{}{}{}{}}%
+        {{hash=5c6caba42dd3b86f6c1620256e548615}{Goldhirsch}{G\bibinitperiod}{A}{A\bibinitperiod}{}{}{}{}}%
+        {{hash=4da6ee394d06edff210e6ca160dc20db}{Gelber}{G\bibinitperiod}{R\bibnamedelima D}{R\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{hash=f0203bfdb97c53e4ab42b58709e5dd64}{Gnant}{G\bibinitperiod}{M}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=f30f0aa03e17d6b4eb1da5005cab0654}{Piccart-Gebhart}{P\bibinithyphendelim G\bibinitperiod}{M}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=69389847debc96ea31e737211d7022fc}{Th\"{u}rlimann}{T\bibinitperiod}{B}{B\bibinitperiod}{}{}{}{}}%
+        {{hash=024713916cc1080e1c2d640ea2dd2670}{Senn}{S\bibinitperiod}{H-J}{H\bibinithyphendelim J\bibinitperiod}{}{}{}{}}%
+        {{hash=9d8481dda759b7f13092b801fbb8e6c6}{{Panel\bibnamedelimb Members}}{P\bibinitperiod}{}{}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University Press}%
+      }
+      \strng{namehash}{a7ed5fd025d4598c389147380a1172c4}
+      \strng{fullhash}{c5c9dbb4cf9c9b8a182d6aa13fbb17c5}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The 14th St Gallen International Breast Cancer Conference (2015) reviewed substantial new evidence on locoregional and systemic therapies for early breast cancer. Further experience has supported the adequacy of tumor margins defined as 'no ink on invasive tumor or DCIS' and the safety of omitting axillary dissection in specific cohorts. Radiotherapy trials support irradiation of regional nodes in node-positive disease. Considering subdivisions within luminal disease, the Panel was more concerned with indications for the use of specific therapies, rather than surrogate identification of intrinsic subtypes as measured by multiparameter molecular tests. For the treatment of HER2-positive disease in patients with node-negative cancers up to 1 cm, the Panel endorsed a simplified regimen comprising paclitaxel and trastuzumab without anthracycline as adjuvant therapy. For premenopausal patients with endocrine responsive disease, the Panel endorsed the role of ovarian function suppression with either tamoxifen or exemestane for patients at higher risk. The Panel noted the value of an LHRH agonist given during chemotherapy for premenopausal women with ER-negative disease in protecting against premature ovarian failure and preserving fertility. The Panel noted increasing evidence for the prognostic value of commonly used multiparameter molecular markers, some of which also carried prognostic information for late relapse. The Panel noted that the results of such tests, where available, were frequently used to assist decisions about the inclusion of cytotoxic chemotherapy in the treatment of patients with luminal disease, but noted that threshold values had not been established for this purpose for any of these tests. Multiparameter molecular assays are expensive and therefore unavailable in much of the world. The majority of new breast cancer cases and breast cancer deaths now occur in less developed regions of the world. In these areas, less expensive pathology tests may provide valuable information. The Panel recommendations on treatment are not intended to apply to all patients, but rather to establish norms appropriate for the majority. Again, economic considerations may require that less expensive and only marginally less effective therapies may be necessary in less resourced areas. Panel recommendations do not imply unanimous agreement among Panel members. Indeed, very few of the 200 questions received 100{\%} agreement from the Panel. In the text below, wording is intended to convey the strength of Panel support for each recommendation, while details of Panel voting on each question are available in supplementary Appendix S2, available at Annals of Oncology online.}
+      \field{issn}{1569-8041}
+      \field{journaltitle}{Annals of oncology : official journal of the European Society for Medical Oncology / ESMO}
+      \field{month}{08}
+      \field{number}{8}
+      \field{title}{{Tailoring therapies--improving the management of early breast cancer: St Gallen International Expert Consensus on the Primary Therapy of Early Breast Cancer 2015.}}
+      \field{volume}{26}
+      \field{year}{2015}
+      \field{pages}{1533\bibrangedash 46}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1093/annonc/mdv221
+      \endverb
+      \verb{file}
+      \verb :Users/markwang/Library/Application Support/Mendeley Desktop/Downloaded/Coates et al. - 2015 - Tailoring therapies--improving the management of early breast cancer St Gallen International Expert Consensus on.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://www.ncbi.nlm.nih.gov/pubmed/25939896%20http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC4511219
+      \endverb
+      \keyw{St Gallen Consensus,early breast cancer,radiation therapy,surgery,systemic adjuvant therapies}
     \endentry
     \entry{Cicchetti1994}{article}{}
       \name{author}{1}{}{%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  19 JUL 2016 15:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  22 JUL 2016 01:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -111,15 +111,6 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layouthoffset=\dimen115
 \Gm@layoutvoffset=\dimen116
 \Gm@dimlist=\toks17
-) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/fleqn.clo
-File: fleqn.clo 2015/03/31 v1.1i Standard LaTeX option (flush left equations)
-\mathindent=\dimen117
-Applying: [2015/01/01] Make \[ robust on input line 50.
-LaTeX Info: Redefining \[ on input line 51.
-Already applied: [0000/00/00] Make \[ robust on input line 62.
-Applying: [2015/01/01] Make \] robust on input line 74.
-LaTeX Info: Redefining \] on input line 75.
-Already applied: [0000/00/00] Make \] robust on input line 83.
 )) (/usr/local/texlive/2015/texmf-dist/tex/latex/txfonts/txfonts.sty
 Package: txfonts 2008/01/22 v3.2.1
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 21.
@@ -221,8 +212,7 @@ LaTeX Info: Redefining \ref on input line 353.
 LaTeX Info: Redefining \pageref on input line 353.
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/siunitx/siunitx.sty (/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2015/03/01 v5547 L3 programming layer (loader) 
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/expl3-code.tex
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/expl3-code.tex
 Package: expl3 2015/03/01 v5547 L3 programming layer (code) 
 L3 Module: l3bootstrap 2015/02/28 v5542 L3 Bootstrap code
 L3 Module: l3names 2015/02/24 v5535 L3 Namespace for primitives
@@ -251,12 +241,12 @@ L3 Module: l3file 2014/08/24 v5369 L3 File and I/O operations
 \l__iow_current_word_int=\count108
 \l__iow_current_indentation_int=\count109
 L3 Module: l3skip 2014/08/23 v5354 L3 Dimensions and skips
-\c_zero_dim=\dimen118
-\c_max_dim=\dimen119
-\l_tmpa_dim=\dimen120
-\l_tmpb_dim=\dimen121
-\g_tmpa_dim=\dimen122
-\g_tmpb_dim=\dimen123
+\c_zero_dim=\dimen117
+\c_max_dim=\dimen118
+\l_tmpa_dim=\dimen119
+\l_tmpb_dim=\dimen120
+\g_tmpa_dim=\dimen121
+\g_tmpb_dim=\dimen122
 \c_zero_skip=\skip47
 \c_max_skip=\skip48
 \l_tmpa_skip=\skip49
@@ -290,13 +280,13 @@ L3 Module: l3box 2014/08/23 v5354 L3 Experimental boxes
 \g_tmpb_box=\box34
 L3 Module: l3coffins 2014/08/23 v5354 L3 Coffin code layer
 \l__coffin_internal_box=\box35
-\l__coffin_internal_dim=\dimen124
-\l__coffin_offset_x_dim=\dimen125
-\l__coffin_offset_y_dim=\dimen126
-\l__coffin_x_dim=\dimen127
-\l__coffin_y_dim=\dimen128
-\l__coffin_x_prime_dim=\dimen129
-\l__coffin_y_prime_dim=\dimen130
+\l__coffin_internal_dim=\dimen123
+\l__coffin_offset_x_dim=\dimen124
+\l__coffin_offset_y_dim=\dimen125
+\l__coffin_x_dim=\dimen126
+\l__coffin_y_dim=\dimen127
+\l__coffin_x_prime_dim=\dimen128
+\l__coffin_y_prime_dim=\dimen129
 \c_empty_coffin=\box36
 \l__coffin_aligned_coffin=\box37
 \l__coffin_aligned_internal_coffin=\box38
@@ -305,28 +295,29 @@ L3 Module: l3coffins 2014/08/23 v5354 L3 Coffin code layer
 \l__coffin_display_coffin=\box41
 \l__coffin_display_coord_coffin=\box42
 \l__coffin_display_pole_coffin=\box43
-\l__coffin_display_offset_dim=\dimen131
-\l__coffin_display_x_dim=\dimen132
-\l__coffin_display_y_dim=\dimen133
+\l__coffin_display_offset_dim=\dimen130
+\l__coffin_display_x_dim=\dimen131
+\l__coffin_display_y_dim=\dimen132
 L3 Module: l3color 2014/08/23 v5354 L3 Experimental color support
 L3 Module: l3candidates 2015/03/01 v5544 L3 Experimental additions to l3kernel
-\l__box_top_dim=\dimen134
-\l__box_bottom_dim=\dimen135
-\l__box_left_dim=\dimen136
-\l__box_right_dim=\dimen137
-\l__box_top_new_dim=\dimen138
-\l__box_bottom_new_dim=\dimen139
-\l__box_left_new_dim=\dimen140
-\l__box_right_new_dim=\dimen141
+\l__box_top_dim=\dimen133
+\l__box_bottom_dim=\dimen134
+\l__box_left_dim=\dimen135
+\l__box_right_dim=\dimen136
+\l__box_top_new_dim=\dimen137
+\l__box_bottom_new_dim=\dimen138
+\l__box_left_new_dim=\dimen139
+\l__box_right_new_dim=\dimen140
 \l__box_internal_box=\box44
-\l__coffin_bounding_shift_dim=\dimen142
-\l__coffin_left_corner_dim=\dimen143
-\l__coffin_right_corner_dim=\dimen144
-\l__coffin_bottom_corner_dim=\dimen145
-\l__coffin_top_corner_dim=\dimen146
-\l__coffin_scaled_total_height_dim=\dimen147
-\l__coffin_scaled_width_dim=\dimen148
-) (/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/l3unicode-data.def
+\l__coffin_bounding_shift_dim=\dimen141
+\l__coffin_left_corner_dim=\dimen142
+\l__coffin_right_corner_dim=\dimen143
+\l__coffin_bottom_corner_dim=\dimen144
+\l__coffin_top_corner_dim=\dimen145
+\l__coffin_scaled_total_height_dim=\dimen146
+\l__coffin_scaled_width_dim=\dimen147
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/l3unicode-data.def
 File: l3unicode-data.def 2015/03/01 v5544 L3 Unicode data
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
 File: l3pdfmode.def 2015/03/01 v5544 L3 Experimental driver: PDF mode
@@ -345,11 +336,11 @@ Package: amstext 2000/06/29 v2.01
  (/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks18
-\ex@=\dimen149
+\ex@=\dimen148
 )) (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/array.sty
 Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
-\col@sep=\dimen150
-\extrarowheight=\dimen151
+\col@sep=\dimen149
+\extrarowheight=\dimen150
 \NC@list=\toks19
 \extratabsurround=\skip53
 \backup@length=\skip54
@@ -358,7 +349,7 @@ Package: l3keys2e 2014/11/25 v5471 LaTeX2e option processing using LaTeX3 keys
 )
 Variant \tl_if_blank:VTF already defined; not changing it on line 50
 \l__siunitx_tmp_box=\box45
-\l__siunitx_tmp_dim=\dimen152
+\l__siunitx_tmp_dim=\dimen151
 \l__siunitx_tmp_int=\count127
 Variant \prop_get:NVNT already defined; not changing it on line 380
 Variant \prop_get:NVNF already defined; not changing it on line 381
@@ -374,8 +365,8 @@ Variant \prop_get:NVNTF already defined; not changing it on line 382
 \l__siunitx_group_min_int=\count136
 \l__siunitx_angle_marker_box=\box46
 \l__siunitx_angle_unit_box=\box47
-\l__siunitx_angle_marker_dim=\dimen153
-\l__siunitx_angle_unit_dim=\dimen154
+\l__siunitx_angle_marker_dim=\dimen152
+\l__siunitx_angle_unit_dim=\dimen153
 \l__siunitx_unit_int=\count137
 \l__siunitx_unit_denominator_int=\count138
 \l__siunitx_unit_numerator_int=\count139
@@ -385,15 +376,15 @@ Variant \prop_get:NVNTF already defined; not changing it on line 382
 \l__siunitx_number_product_int=\count143
 \c__siunitx_one_fill_skip=\skip55
 \l__siunitx_table_unit_align_skip=\skip56
-\l__siunitx_table_exponent_dim=\dimen155
-\l__siunitx_table_integer_dim=\dimen156
-\l__siunitx_table_mantissa_dim=\dimen157
-\l__siunitx_table_marker_dim=\dimen158
-\l__siunitx_table_result_dim=\dimen159
-\l__siunitx_table_uncert_dim=\dimen160
-\l__siunitx_table_fill_pre_dim=\dimen161
-\l__siunitx_table_fill_post_dim=\dimen162
-\l__siunitx_table_fill_mid_dim=\dimen163
+\l__siunitx_table_exponent_dim=\dimen154
+\l__siunitx_table_integer_dim=\dimen155
+\l__siunitx_table_mantissa_dim=\dimen156
+\l__siunitx_table_marker_dim=\dimen157
+\l__siunitx_table_result_dim=\dimen158
+\l__siunitx_table_uncert_dim=\dimen159
+\l__siunitx_table_fill_pre_dim=\dimen160
+\l__siunitx_table_fill_post_dim=\dimen161
+\l__siunitx_table_fill_mid_dim=\dimen162
 \l__siunitx_table_pre_box=\box48
 \l__siunitx_table_post_box=\box49
 \l__siunitx_table_mantissa_box=\box50
@@ -528,18 +519,18 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count144
 \calc@Bcount=\count145
-\calc@Adimen=\dimen164
-\calc@Bdimen=\dimen165
+\calc@Adimen=\dimen163
+\calc@Bdimen=\dimen164
 \calc@Askip=\skip59
 \calc@Bskip=\skip60
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count146
 \calc@Cskip=\skip61
-)
-(/usr/local/texlive/2015/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/eso-pic/eso-pic.sty
 Package: eso-pic 2015/04/20 v2.0e eso-pic (RN)
- (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/atbegshi.sty
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/atbegshi.sty
 Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
@@ -557,8 +548,8 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 ))
-\AM@pagewidth=\dimen166
-\AM@pageheight=\dimen167
+\AM@pagewidth=\dimen165
+\AM@pageheight=\dimen166
  (/usr/local/texlive/2015/texmf-dist/tex/latex/pdfpages/pppdftex.def
 File: pppdftex.def 2015/05/11 v0.4x Pdfpages driver for pdfTeX (AM)
 )
@@ -907,13 +898,13 @@ File: ot1txr.fd 2000/12/15 v3.1
 ) (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count301
-\scratchdimen=\dimen168
+\scratchdimen=\dimen167
 \scratchbox=\box54
 \nofMPsegments=\count302
 \nofMParguments=\count303
 \everyMPshowfont=\toks21
 \MPscratchCnt=\count304
-\MPscratchDim=\dimen169
+\MPscratchDim=\dimen168
 \MPnumerator=\count305
 \makeMPintoPDFobject=\count306
 \everyMPtoPDFconversion=\toks22
@@ -946,27 +937,27 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * hratio: 1:1
 * vratio: 1:1
 * modes: 
-* h-part:(L,W,R)=(37.75394pt, 522.0pt, 37.75394pt)
-* v-part:(T,H,B)=(81.52342pt, 682.0pt, 81.52342pt)
+* h-part:(L,W,R)=(64.75394pt, 468.0pt, 64.75394pt)
+* v-part:(T,H,B)=(111.52342pt, 622.0pt, 111.52342pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=522.0pt
-* \textheight=682.0pt
-* \oddsidemargin=-34.51605pt
-* \evensidemargin=-34.51605pt
-* \topmargin=-52.74657pt
+* \textwidth=468.0pt
+* \textheight=622.0pt
+* \oddsidemargin=-7.51605pt
+* \evensidemargin=-7.51605pt
+* \topmargin=-22.74657pt
 * \headheight=50.0pt
 * \headsep=12.0pt
 * \topskip=10.0pt
 * \footskip=18.0pt
-* \marginparwidth=4.0pt
-* \marginparsep=10.0pt
-* \columnsep=18.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=24.0pt
 * \skip\footins=24.0pt plus 2.0pt minus 12.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
-* \@twocolumntrue
+* \@twocolumnfalse
 * \@twosidefalse
 * \@mparswitchfalse
 * \@reversemarginfalse
@@ -1035,90 +1026,59 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-LaTeX Font Info:    Try loading font information for TS1+txr on input line 136.
+LaTeX Font Info:    Try loading font information for TS1+txr on input line 132.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/txfonts/ts1txr.fd
 File: ts1txr.fd 2000/12/15 v3.1
-) [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+) [1
 
-
-]
-Underfull \hbox (badness 2165) in paragraph at lines 147--148
-[]\OT1/txr/m/n/10 Data dis-tri-bu-tion cross dif-fer-ent scor-ing meth-ods were
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+Overfull \hbox (80.68922pt too wide) in paragraph at lines 172--172
+[]\OT1/txr/m/n/8 Fyles, A. W. \OT1/txr/m/it/8 et al. \OT1/txr/m/n/8 Ta-mox-ifen with or with-out Breast Ir-ra-di-a-tion in Women 50 Years of Age or Older with Early Breast Can-cer. \OT1/txr/m/it/8 http://dx.doi.org/10.1056/NEJMoa040595
  []
 
-
-Underfull \hbox (badness 1342) in paragraph at lines 147--148
-\OT1/txr/m/n/10 vi-sulized us-ing box-plot, ac-com-pa-nied by sum-mary statis-
- []
-
-
-Underfull \hbox (badness 1142) in paragraph at lines 147--148
-\OT1/txr/m/n/10 way mixed, average-measures in-tr-a-class cor-re-la-tion co-ef-fi-
- []
-
-[2]
-Underfull \hbox (badness 1490) in paragraph at lines 169--169
-[]\OT1/txr/m/n/8 Stålhammar, G. \OT1/txr/m/it/8 et al. \OT1/txr/m/n/8 Dig-i-tal im-age anal-y-sis out-per-forms man-ual
- []
-
-
-Underfull \hbox (badness 1270) in paragraph at lines 169--169
-[]\OT1/txr/m/n/8 Fyles, A. W. \OT1/txr/m/it/8 et al. \OT1/txr/m/n/8 Ta-mox-ifen with or with-out Breast Ir-ra-di-a-tion
- []
-
-
-Underfull \hbox (badness 1442) in paragraph at lines 169--169
-\OT1/txr/m/n/8 in Women 50 Years of Age or Older with Early Breast Can-cer.
- []
-
-<figures/boxplot.pdf, id=18, 505.89pt x 505.89pt>
+[4] <figures/boxplot.pdf, id=25, 505.89pt x 505.89pt>
 File: figures/boxplot.pdf Graphic file (type pdf)
  <use figures/boxplot.pdf>
 Package pdftex.def Info: figures/boxplot.pdf used on input line 177.
 (pdftex.def)             Requested size: 312.9803pt x 312.9847pt.
-
-Overfull \hbox (60.9803pt too wide) in paragraph at lines 177--179
- [][] 
- []
-
-
-Overfull \hbox (43.48006pt too wide) in paragraph at lines 189--200
- [] 
- []
-
-<figures/baplot.pdf, id=19, page=1, 505.89pt x 505.89pt>
+ <figures/boxStat.pdf, id=26, 505.89pt x 505.89pt>
+File: figures/boxStat.pdf Graphic file (type pdf)
+ <use figures/boxStat.pdf>
+Package pdftex.def Info: figures/boxStat.pdf used on input line 184.
+(pdftex.def)             Requested size: 312.9803pt x 312.9847pt.
+ <figures/baplot.pdf, id=27, 433.62pt x 1300.86pt>
 File: figures/baplot.pdf Graphic file (type pdf)
- <use figures/baplot.pdf, page 1>
-Package pdftex.def Info: figures/baplot.pdf, page1 used on input line 207.
-(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
- <figures/baplot.pdf, id=20, page=2, 505.89pt x 505.89pt>
-File: figures/baplot.pdf Graphic file (type pdf)
- <use figures/baplot.pdf, page 2>
-Package pdftex.def Info: figures/baplot.pdf, page2 used on input line 215.
-(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
- <figures/baplot.pdf, id=21, page=3, 505.89pt x 505.89pt>
-File: figures/baplot.pdf Graphic file (type pdf)
- <use figures/baplot.pdf, page 3>
-Package pdftex.def Info: figures/baplot.pdf, page3 used on input line 223.
-(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
- [3 <./figures/boxplot.pdf>] [4 <./figures/baplot.pdf> <./figures/baplot.pdf> <./figures/baplot.pdf>] (./template.aux)
+ <use figures/baplot.pdf>
+Package pdftex.def Info: figures/baplot.pdf used on input line 192.
+(pdftex.def)             Requested size: 199.16928pt x 597.50964pt.
+ <figures/baStat.pdf, id=28, 1445.4pt x 361.35pt>
+File: figures/baStat.pdf Graphic file (type pdf)
+ <use figures/baStat.pdf>
+Package pdftex.def Info: figures/baStat.pdf used on input line 199.
+(pdftex.def)             Requested size: 433.62335pt x 108.40584pt.
+ <figures/kappaStat.pdf, id=29, 1445.4pt x 361.35pt>
+File: figures/kappaStat.pdf Graphic file (type pdf)
+ <use figures/kappaStat.pdf>
+Package pdftex.def Info: figures/kappaStat.pdf used on input line 207.
+(pdftex.def)             Requested size: 433.62335pt x 108.40584pt.
+ [5 <./figures/boxplot.pdf>] [6 <./figures/boxStat.pdf>] [7 <./figures/baplot.pdf>] [8 <./figures/baStat.pdf> <./figures/kappaStat.pdf>] (./template.aux)
 Package logreq Info: Writing requests to 'template.run.xml'.
 \openout1 = `template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 18840 strings out of 493089
- 364744 string characters out of 6134842
- 740173 words of memory out of 5000000
- 22079 multiletter control sequences out of 15000+600000
+ 18858 strings out of 493089
+ 365202 string characters out of 6134842
+ 736033 words of memory out of 5000000
+ 22097 multiletter control sequences out of 15000+600000
  42301 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,9n,48p,10375b,917s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,7n,48p,10375b,923s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on template.pdf (4 pages, 91907 bytes).
+Output written on template.pdf (8 pages, 214895 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 117 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

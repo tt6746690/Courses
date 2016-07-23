@@ -2228,6 +2228,7 @@
     <bcf:citekey order="8">Polley2015</bcf:citekey>
     <bcf:citekey order="9">Tadrous2010</bcf:citekey>
     <bcf:citekey order="10">Mohammed2012</bcf:citekey>
+    <bcf:citekey order="10">Tang2012</bcf:citekey>
     <bcf:citekey order="11">Laurinavicius2014</bcf:citekey>
     <bcf:citekey order="11">Stalhammar2016</bcf:citekey>
     <bcf:citekey order="12">Chabot-Richards2011</bcf:citekey>
@@ -2244,6 +2245,12 @@
     <bcf:citekey order="23">Coates2015</bcf:citekey>
     <bcf:citekey order="24">Cicchetti1994</bcf:citekey>
     <bcf:citekey order="25">Landis1977</bcf:citekey>
+    <bcf:citekey order="26">Mikami2013</bcf:citekey>
+    <bcf:citekey order="26">Reid2015</bcf:citekey>
+    <bcf:citekey order="27">Polley2013a</bcf:citekey>
+    <bcf:citekey order="27">Polley2015</bcf:citekey>
+    <bcf:citekey order="28">Laurinavicius2014</bcf:citekey>
+    <bcf:citekey order="29">Stalhammar2016</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="none" type="entry" sortscheme="none">
   <bcf:sorting>

@@ -1258,6 +1258,37 @@
       \verb http://www.ncbi.nlm.nih.gov/pubmed/22251968%20http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC3261670
       \endverb
     \endentry
+    \entry{Tang2012}{article}{}
+      \name{author}{5}{}{%
+        {{hash=a9b05cef547fbd199460aa1776356843}{Tang}{T\bibinitperiod}{Laura\bibnamedelima H}{L\bibinitperiod\bibinitdelim H\bibinitperiod}{}{}{}{}}%
+        {{hash=d690317d4e1ec56810e4289828b475ae}{Gonen}{G\bibinitperiod}{Mithat}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=9d6ea9fc4872a2164d50510f3ffce4e9}{Hedvat}{H\bibinitperiod}{Cyrus}{C\bibinitperiod}{}{}{}{}}%
+        {{hash=96a5b50ebaf1e1167b7dd969ea02f352}{Modlin}{M\bibinitperiod}{Irvin\bibnamedelima M}{I\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+        {{hash=a50a3b542cd53ff703678a41e2a758eb}{Klimstra}{K\bibinitperiod}{David\bibnamedelima S}{D\bibinitperiod\bibinitdelim S\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{a04847fe697458b310d928ae71e37649}
+      \strng{fullhash}{b0f178530b6badf1c8710d4a3117b32c}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Pathologic grading for prognostic stratification of neuroendocrine tumors (NETs) is critical but presents a challenging interpretive dilemma. Tumor cell proliferative rate is an important factor in the determination of prognosis, and immunohistochemical analysis with Ki67 is becoming more widely used to quantify the proliferative rate. However, Ki67 assessment has limitations due to lack of uniformity and consistency in quantification. These limitations are accentuated in well-differentiated NETs, as differences in the range of 1{\%} to 5{\%} can alter tumor grade, with potential implications for treatment. We therefore performed a concordance study to assess different Ki67 quantification techniques including: (a) digital image analysis (DIA); (b) manual counting (MC) of {>}2000 cells; and (c) "eyeballed" estimate (EE) of labeling percentage by pathologists (n=18), including individuals experienced in evaluating Ki67 labeling as well as others who had little prior experience assessing Ki67 percentages. Forty-five Ki67 images were selected and analyzed using the 3 methods. On the basis of the recommendations of the World health Organization (WHO) for grading NETs, MC of 2000 cells was used as the "gold standard" reference against which the other techniques were compared. Three images were presented twice, the second being inverted, to assess intraobserver consistency. Statistical analyses were performed to evaluate: (a) the concordance between methods; (b) intraobserver and interobserver consistency; and (c) correlation of NET grades on the basis of Ki67 scores by EE versus the gold standard. Agreement between scores was assessed by intraclass correlation (ICC). DIA and MC were highly concordant (ICC=0.98). The ICC between DIA and the mean EE of all observers was 0.88. However, there was discordance among individual observers on all cases quantified by EE (ICC=0.13). The ICC for intraobserver consistency was 0.39\x{fffd}\x{fffd}0.26. With Ki67 in the ranges of {<}1{\%}, 2{\%} to 3{\%}, and {>}20{\%}, the mean of Ki67 by EE was, respectively, 93{\%}\x{fffd}\x{fffd}2{\%}, 55{\%}\x{fffd}\x{fffd}7{\%}, and 55{\%}\x{fffd}\x{fffd}15{\%} correct against the gold standard. The $\kappa$ statistics for EE exhibited low agreement ($\kappa$=0.24; 95{\%} confidence interval, 0.23-0.25) for all WHO NET grades. Incorrect assessment by EE resulted in upgrading of all WHO G1 group tumors (n=14); in the WHO G2 group, downgrading of 41{\%} cases occurred (n=11) when Ki67 was {<}5{\%} (by DIA or MC), and upgrading of 59{\%} cases occurred (n=16) when Ki67 was {>}5{\%}. We conclude that DIA and MC are the acceptable standards for Ki67 assessment. Given the inherent discordance in determining the grade, the use of an approximate EE of the Ki67-labeling index requires critical reevaluation, especially for NETs with a labeling index straddling the cut-points between grades. Consequently, determination of therapeutic strategies should be guided by an amalgamation of clinicopathologic characteristics, including but not limited to the Ki67 index.}
+      \field{issn}{1532-0979}
+      \field{journaltitle}{The American journal of surgical pathology}
+      \field{month}{12}
+      \field{number}{12}
+      \field{title}{{Objective quantification of the Ki67 proliferative index in neuroendocrine tumors of the gastroenteropancreatic system: a comparison of digital image analysis with manual methods.}}
+      \field{volume}{36}
+      \field{year}{2012}
+      \field{pages}{1761\bibrangedash 70}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1097/PAS.0b013e318263207c
+      \endverb
+      \verb{url}
+      \verb http://www.ncbi.nlm.nih.gov/pubmed/23026928
+      \endverb
+    \endentry
     \entry{Laurinavicius2014}{article}{}
       \name{author}{11}{}{%
         {{hash=ac39fa82a03706aa0572fa8818528675}{Laurinavicius}{L\bibinitperiod}{Arvydas}{A\bibinitperiod}{}{}{}{}}%
@@ -1692,6 +1723,84 @@
       \endverb
       \verb{url}
       \verb http://doi.apa.org/getdoi.cfm?doi=10.1037/1040-3590.6.4.284
+      \endverb
+    \endentry
+    \entry{Mikami2013}{article}{}
+      \name{author}{9}{}{%
+        {{hash=fda43563dd31dc738d7c49ff407aa6fd}{Mikami}{M\bibinitperiod}{Yoshiki}{Y\bibinitperiod}{}{}{}{}}%
+        {{hash=abbfc43a2905e8f363fdb4c3f8b7f300}{Ueno}{U\bibinitperiod}{Takayuki}{T\bibinitperiod}{}{}{}{}}%
+        {{hash=798d0ac94f905a5f78ac956e2dcc0c33}{Yoshimura}{Y\bibinitperiod}{Kenichi}{K\bibinitperiod}{}{}{}{}}%
+        {{hash=4570688c49c850585f31971e81e19fe2}{Tsuda}{T\bibinitperiod}{Hitoshi}{H\bibinitperiod}{}{}{}{}}%
+        {{hash=150e3e49bde4fcc66dc1cb01e877fbc0}{Kurosumi}{K\bibinitperiod}{Masafumi}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=6a22bd538239c272a3f44591457246f2}{Masuda}{M\bibinitperiod}{Shinobu}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=c6977df3076d58f5bdf2d3b45e20f0d8}{Horii}{H\bibinitperiod}{Rie}{R\bibinitperiod}{}{}{}{}}%
+        {{hash=32d1a897a8d9bc5b15cb83c1101ca6b6}{Toi}{T\bibinitperiod}{Masakazu}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=1b9bc49d918dc5d7f27230e3a546cf99}{Sasano}{S\bibinitperiod}{Hironobu}{H\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{9457de376e7a729fa53ec6251f35ecb9}
+      \strng{fullhash}{541b2bdda6086467cba09db6d8083a32}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The standardized assessment of Ki67 labeling index (LI) is of clinical importance to identify patients with primary breast cancer who could benefit from chemotherapy. In this study, we evaluated the interobserver concordance of Ki67 LI assessment. Six surgical pathologists participated and all the slides were prepared from archival breast cancer tissues fixed in 10{\%} buffered formalin for 24 h and stained with MIB-1. Three independent studies were conducted. In the first study, 30 stained slides were assessed using two different methods: the scoring system, with a positive rate scored from 1 (0-9{\%}) to 10 (90-100{\%}) by visual estimate; and the counting method, with approximately 1000 cells counted in hot spots. In the second study, 20 tumors with Ki67 LI 5-25{\%} were assessed, and in the third study, 15 printed photographs of stained slides were assessed to avoid variations by selecting different fields. In study 1, the counting system (intraclass correlation coefficient [ICC], 0.66 [95{\%} confidence interval 0.52-0.78]) demonstrated a better correlation than the scoring system (ICC, 0.57 [0.42-0.72]). In study 2, the assessment for Ki67 LI of 5-25{\%} demonstrated a correlation (ICC, 0.68 [0.50-0.81]) similar to that of study 1 (unrestricted range of Ki67 LI). In study 3, the assessment of Ki67 LI by counting yielded a good concordance (ICC, 0.94 [0.88-0.97]). In conclusion, there was better concordance with the counting system, and concordance was high when the assessed field was predetermined, indicating that the selection of the evaluation area is critical for obtaining reproducible Ki67 LI in breast cancer.}
+      \field{issn}{1349-7006}
+      \field{journaltitle}{Cancer science}
+      \field{month}{11}
+      \field{number}{11}
+      \field{title}{{Interobserver concordance of Ki67 labeling index in breast cancer: Japan Breast Cancer Research Group Ki67 ring study.}}
+      \field{volume}{104}
+      \field{year}{2013}
+      \field{pages}{1539\bibrangedash 43}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1111/cas.12245
+      \endverb
+      \verb{url}
+      \verb http://www.ncbi.nlm.nih.gov/pubmed/23905924
+      \endverb
+    \endentry
+    \entry{Reid2015}{article}{}
+      \name{author}{15}{}{%
+        {{hash=64b9a217419a495e7538e91bbd3b8953}{Reid}{R\bibinitperiod}{Michelle\bibnamedelima D}{M\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{hash=8b2b1292bef08e45dd7b61d36cd427aa}{Bagci}{B\bibinitperiod}{Pelin}{P\bibinitperiod}{}{}{}{}}%
+        {{hash=31a50ba10a20bb95a76c83e4ee786f56}{Ohike}{O\bibinitperiod}{Nobuyuki}{N\bibinitperiod}{}{}{}{}}%
+        {{hash=26891122febef256fb0a68787f5f9eba}{Saka}{S\bibinitperiod}{Burcu}{B\bibinitperiod}{}{}{}{}}%
+        {{hash=300e863a0dcca2394ecdd9d3b311dd6c}{{Erbarut\bibnamedelimb Seven}}{E\bibinitperiod}{Ipek}{I\bibinitperiod}{}{}{}{}}%
+        {{hash=9b4588dd7f51a2dd35637986edc44049}{Dursun}{D\bibinitperiod}{Nevra}{N\bibinitperiod}{}{}{}{}}%
+        {{hash=25f620d7f29cc75e1c0cfc157573debd}{Balci}{B\bibinitperiod}{Serdar}{S\bibinitperiod}{}{}{}{}}%
+        {{hash=f762396c536e272560556a3140060d1c}{Gucer}{G\bibinitperiod}{Hasan}{H\bibinitperiod}{}{}{}{}}%
+        {{hash=637c880cd1deb91713a5ee26dd692cbb}{Jang}{J\bibinitperiod}{Kee-Taek}{K\bibinithyphendelim T\bibinitperiod}{}{}{}{}}%
+        {{hash=d103f57babc41e989cfc1997fbf27b42}{Tajiri}{T\bibinitperiod}{Takuma}{T\bibinitperiod}{}{}{}{}}%
+        {{hash=f6b90f45db6ffe8ed29ce57a8607ad41}{Basturk}{B\bibinitperiod}{Olca}{O\bibinitperiod}{}{}{}{}}%
+        {{hash=4cbf2b09b690e39a23c82f2888131cf5}{Kong}{K\bibinitperiod}{So\bibnamedelima Yeon}{S\bibinitperiod\bibinitdelim Y\bibinitperiod}{}{}{}{}}%
+        {{hash=cf8729e6aa0dda8016f583de542ae3d7}{Goodman}{G\bibinitperiod}{Michael}{M\bibinitperiod}{}{}{}{}}%
+        {{hash=f0da4019aab0aa2b1a3da97d55d533b4}{Akkas}{A\bibinitperiod}{Gizem}{G\bibinitperiod}{}{}{}{}}%
+        {{hash=ff16e21942a86aaf36555ac72678530b}{Adsay}{A\bibinitperiod}{Volkan}{V\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{aa7a8060ded1127f18c118b8761c25f8}
+      \strng{fullhash}{05da52fc04aa7d87e44c0da7331dc357}
+      \field{sortinit}{0}
+      \field{sortinithash}{990108227b3316c02842d895999a0165}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0893-3952}
+      \field{journaltitle}{Modern Pathology}
+      \field{month}{05}
+      \field{number}{5}
+      \field{title}{{Calculation of the Ki67 index in pancreatic neuroendocrine tumors: a comparative analysis of four counting methodologies}}
+      \field{volume}{28}
+      \field{year}{2015}
+      \field{pages}{686\bibrangedash 694}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1038/modpathol.2014.156
+      \endverb
+      \verb{url}
+      \verb http://www.nature.com/doifinder/10.1038/modpathol.2014.156
       \endverb
     \endentry
   \endsortlist

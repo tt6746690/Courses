@@ -1,0 +1,236 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Deedy - One Page Two Column Resume
+% LaTeX Template
+% Version 1.1 (30/4/2014)
+%
+% Original author:
+% Debarghya Das (http://debarghyadas.com)
+%
+% Original repository:
+% https://github.com/deedydas/Deedy-Resume
+%
+% IMPORTANT: THIS TEMPLATE NEEDS TO BE COMPILED WITH XeLaTeX
+%
+% This template uses several fonts not included with Windows/Linux by
+% default. If you get compilation errors saying a font is missing, find the line
+% on which the font is used and either change it to a font included with your
+% operating system or comment the line out to use the default font.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% TODO:
+% 1. Integrate biber/bibtex for article citation under publications.
+% 2. Figure out a smoother way for the document to flow onto the next page.
+% 3. Add styling information for a "Projects/Hacks" section.
+% 4. Add location/address information
+% 5. Merge OpenFont and MacFonts as a single sty with options.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CHANGELOG:
+% v1.1:
+% 1. Fixed several compilation bugs with \renewcommand
+% 2. Got Open-source fonts (Windows/Linux support)
+% 3. Added Last Updated
+% 4. Move Title styling into .sty
+% 5. Commented .sty file.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Known Issues:
+% 1. Overflows onto second page if any column's contents are more than the
+% vertical limit
+% 2. Hacky space on the first bullet point on the second column.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[]{deedy-resume-openfont}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     LAST UPDATED DATE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lastupdated
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     TITLE NAME
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\namesection{Peiqi}{Wang}{ % \urlstyle{same}\url{http://debarghyadas.com} \\
+\href{mailto:peiqi1122@gmail.com}{peiqi1122@gmail.com} | (416)-832-7215
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     COLUMN ONE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{minipage}[t]{0.33\textwidth}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     EDUCATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Education}
+
+\subsection{University of Toronto}
+\descript{BS in Molecular Genetics and Computer Science}
+\location{Expected April 2018 | Toronto, ON, \\ Cum. GPA: 4.0 / 4.0}
+Victoria College \\
+\sectionsep
+
+\subsection{Strathcona High School}
+\location{Grad. May 2014 |  Edmonton, AB}
+\sectionsep
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     LINKS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Links}
+Github:// \href{https://github.com/tt6746690}{\custombold{tt6746690}} \\
+\sectionsep
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     COURSEWORK
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Coursework}
+\subsection{Molecular Genetics}
+\custombold{BCH242} Introduction to Biochemistry  \\
+\custombold{CHM247} Organic Chemistry II \\
+\custombold{BIO230} Genes to Organisms \\
+\custombold{HMB265} General and Human Genetics \\
+
+\sectionsep
+\subsection{Computer Science}
+\custombold{MAT223} Linear Algebra \\
+\custombold{CSC165} Math Expression and Reasoning \\
+\custombold{CSC148} Introduction to CS \\
+\sectionsep
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     SKILLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Skills}
+
+\subsection{Lab Techniques}
+qPCR \textbullet{} SDS–PAGE \textbullet{} cell culture \textbullet{} DNA extraction
+\sectionsep
+
+\subsection{Programming}
+\location{Mostly Used:}
+Python \textbullet{} R \textbullet{} JavaScript \\
+\location{Some Experience:}
+\LaTeX \textbullet{} SQL \textbullet{}  CSS \\
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     COLUMN TWO
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.66\textwidth}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     EXPERIENCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Experience}
+\runsubsection{Princess Margaret Cancer Centre}
+\descript{| Project Student}
+\location{Sep 2015 – Sep 2016 | Toronto, ON}
+\vspace{\topsep} % Hacky fix for awkward extra vertical space
+\begin{tightemize}
+\item \href{https://github.com/tt6746690/courseProjects/blob/master/ROP299/manuscript/manuscript.pdf
+}{\custombold{MANUSCRIPT}} Assessed the role of PITPNC1 in breast cancer progression; Presented a poster on the topic at American Association for Cancer Research (AACR)
+\item \href{https://github.com/tt6746690/courseProjects/blob/master/DONEsummer2016/ki67Paper/manuscript/template.pdf
+}{\custombold{MANUSCRIPT}} Evaluated validity of digital image analysis in Ki-67 labeling index quantification
+\item Investigating potential biomarkers for a subset of triple negative breast cancer with worse prognosis using Next-Gen sequencing
+\end{tightemize}
+\sectionsep
+
+\runsubsection{International Genetically Modified Machine (iGEM)}
+\descript{| Dry Lab Member \& Web Master }
+\location{Sep 2015 - Sep 2016 | Toronto, ON}
+\begin{tightemize}
+\item Worked on the development of ConsortiaFlux, a web-based pipeline that allows for the visualization, manipulation and interpretation of genome-scale metabolic models of bacterial communities, modeled using flux balance analysis
+\item Worked on applying machine learning to identify gold-sequestering gene clusters
+\item Provided critical feedback toward planning of the first BioHackathon. Contributed to the development of BioHackathon website
+\end{tightemize}
+\sectionsep
+
+\runsubsection{Donnelly Centre for Cellular and Biomolecular Research}
+\descript{| Web Developer}
+\location{May 2016  - Present | Toronto, ON}
+\begin{tightemize}
+\item Designed a database for storing protein annotation and experimental data
+\item Worked on a full stack website using Nodejs, Expressjs, Pug, and MySQL as well as D3js for data visualization \\ http:// \href{159.203.47.10}{\custombold{EdgoDB}}
+\end{tightemize}
+\sectionsep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     RESEARCH
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Extra-Curricular}
+
+\runsubsection{University of Toronto Most Understandable ScienTist (UTMUST)}
+\descript{| Organizer}
+\location{Sep 2015  - Dec 2015 | Toronto, ON}
+Promoted UTMUST presentation contest on social media platforms. Revised and decided upon the event proposal. Drafted sponsorship emails and engaged in email correspondence.
+\sectionsep
+
+
+\runsubsection{Earthtones Benefit Concert Committee}
+\descript{| Media Director}
+\location{Sep 2015  - Dec 2015  | Toronto, ON}
+Regularly updated the website for the timely propagation of promotional materials. Designed poster for the recruitment of performers. Worked as a team to host a concert that raised over \$10000 toward children affected by the Syrian Crisis.
+\sectionsep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     AWARDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Awards \& Scholarships}
+\begin{tabular}{rll}
+2016	     & University  & Undergraduate Research Opportunities Program UROP (\$2400) \\
+2016	     & Vic  	   & The Milne Research Award (\$2000) \\
+2016    	 & University  & Dean’s List Scholar \\
+2015 		 & Vic 		   & The Timothy E F White Scholarship (\&500) \\
+2015	     & Vic         & The Helen Margaret (McConkey) Thomson Scholarship (\$3000) \\
+2014 		 & University  & University of Toronto Scholars Awards (\$5000) \\
+\end{tabular}
+\sectionsep
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     SOCIETIES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Societies}
+
+% \begin{tabular}{rll}
+% 2014 	& top 12\%ile    & Tau Beta Pi Engineering Honor Society\\
+% 2014   & National   & The Global Leadership and Education Forum (tGELF)\\
+% 2012   &  National  & Golden Key International Honor Society\\
+% 2012   &  National   & National Society of Collegiate Scholars\\
+% \end{tabular}
+% \sectionsep
+
+\end{minipage}
+\end{document}  \documentclass[]{article}

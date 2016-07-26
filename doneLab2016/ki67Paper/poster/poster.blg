@@ -1,0 +1,17 @@
+[0] Config.pm:324> INFO - This is Biber 2.1
+[1] Config.pm:327> INFO - Logfile is 'poster.blg'
+[72] biber-darwin:276> INFO - === Tue Jul 26, 2016, 12:02:44
+[72] Biber.pm:333> INFO - Reading 'poster.bcf'
+[177] Biber.pm:645> INFO - Found 5 citekeys in bib section 0
+[200] Biber.pm:2977> INFO - Processing section 0
+[220] Biber.pm:3115> INFO - Looking for bibtex format file 'reference.bib' for section 0
+[232] bibtex.pm:1021> INFO - Decoding LaTeX character macros into UTF-8
+[243] bibtex.pm:895> INFO - Found BibTeX data source 'reference.bib'
+[439] UCollate.pm:66> INFO - Overriding locale 'de_DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[440] UCollate.pm:66> INFO - Overriding locale 'de_DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[440] Biber.pm:2854> INFO - Sorting list 'nty' of type 'entry' with scheme 'nty' and locale 'de_DE'
+[440] Biber.pm:2858> INFO - No sort tailoring available for locale 'de_DE'
+[456] bbl.pm:505> INFO - Writing 'poster.bbl' with encoding 'ascii'
+[464] Utils.pm:146> WARN - The entry 'Polley2013a' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[470] bbl.pm:596> INFO - Output to poster.bbl
+[470] Biber.pm:106> INFO - WARNINGS: 1

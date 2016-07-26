@@ -1,0 +1,22 @@
+[0] Config.pm:324> INFO - This is Biber 2.1
+[0] Config.pm:327> INFO - Logfile is 'template.blg'
+[59] biber-darwin:276> INFO - === Tue Jul 26, 2016, 16:13:39
+[59] Biber.pm:333> INFO - Reading 'template.bcf'
+[177] Biber.pm:645> INFO - Found 31 citekeys in bib section 0
+[200] Biber.pm:2977> INFO - Processing section 0
+[220] Biber.pm:3115> INFO - Looking for bibtex format file 'reference.bib' for section 0
+[231] bibtex.pm:1021> INFO - Decoding LaTeX character macros into UTF-8
+[243] bibtex.pm:895> INFO - Found BibTeX data source 'reference.bib'
+[916] UCollate.pm:66> INFO - Overriding locale 'de_DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[916] UCollate.pm:66> INFO - Overriding locale 'de_DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[916] Biber.pm:2854> INFO - Sorting list 'none' of type 'entry' with scheme 'none' and locale 'de_DE'
+[917] Biber.pm:2858> INFO - No sort tailoring available for locale 'de_DE'
+[1004] bbl.pm:505> INFO - Writing 'template.bbl' with encoding 'ascii'
+[1066] Utils.pm:146> WARN - The entry 'Fasching2011' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1083] Utils.pm:146> WARN - The entry 'Polley2013a' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1088] Utils.pm:146> WARN - The entry 'Polley2015' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1094] Utils.pm:146> WARN - The entry 'Tang2012' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1098] Utils.pm:146> WARN - The entry 'Stalhammar2016' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1107] Utils.pm:146> WARN - The entry 'Coates2015' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1109] bbl.pm:596> INFO - Output to template.bbl
+[1109] Biber.pm:106> INFO - WARNINGS: 6

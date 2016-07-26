@@ -96,3 +96,7 @@ the phase 3
 
 [_Standardization for Ki-67 Assessment in Moderately Differentiated Breast Cancer. A Retrospective Analysis of the SAKK 28/12 Study_](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4401515/)  
 > used BA-plot and Fleiss kappa
+
+
+[_Assessment of Two Automated Imaging Systems in Evaluating Estrogen Receptor Status in Breast Carcinoma_]()
+> similar to our study compare inter and intra-algorithmic variability

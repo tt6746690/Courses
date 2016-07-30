@@ -1,4 +1,4 @@
-PWD /Users/markwang/github/courseProjects/DONEsummer2016/ki67Paper/manuscript
+PWD /Users/markwang/github/courseProjects/doneLab2016/ki67Paper/manuscript
 INPUT /usr/local/texlive/2015/texmf.cnf
 INPUT /usr/local/texlive/2015/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2015/texmf-var/web2c/pdftex/pdflatex.fmt
@@ -300,6 +300,9 @@ INPUT ./figures/boxplot.pdf
 INPUT figures/boxStat.pdf
 INPUT ./figures/boxStat.pdf
 INPUT ./figures/boxStat.pdf
+INPUT figures/scatterplot.pdf
+INPUT ./figures/scatterplot.pdf
+INPUT ./figures/scatterplot.pdf
 INPUT figures/baplot.pdf
 INPUT ./figures/baplot.pdf
 INPUT ./figures/baplot.pdf

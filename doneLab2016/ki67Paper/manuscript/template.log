@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  26 JUL 2016 17:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  30 JUL 2016 14:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1080,39 +1080,44 @@ File: figures/boxStat.pdf Graphic file (type pdf)
  <use figures/boxStat.pdf>
 Package pdftex.def Info: figures/boxStat.pdf used on input line 177.
 (pdftex.def)             Requested size: 252.0pt x 105.00108pt.
- <figures/baplot.pdf, id=27, 1300.86pt x 433.62pt>
+ <figures/scatterplot.pdf, id=27, 1300.86pt x 433.62pt>
+File: figures/scatterplot.pdf Graphic file (type pdf)
+ <use figures/scatterplot.pdf>
+Package pdftex.def Info: figures/scatterplot.pdf used on input line 188.
+(pdftex.def)             Requested size: 252.0pt x 83.99646pt.
+ <figures/baplot.pdf, id=28, 1300.86pt x 433.62pt>
 File: figures/baplot.pdf Graphic file (type pdf)
  <use figures/baplot.pdf>
-Package pdftex.def Info: figures/baplot.pdf used on input line 188.
+Package pdftex.def Info: figures/baplot.pdf used on input line 199.
 (pdftex.def)             Requested size: 252.0pt x 83.99646pt.
- <figures/baStat.pdf, id=28, 794.97pt x 108.405pt>
+ <figures/baStat.pdf, id=29, 794.97pt x 108.405pt>
 File: figures/baStat.pdf Graphic file (type pdf)
  <use figures/baStat.pdf>
-Package pdftex.def Info: figures/baStat.pdf used on input line 189.
+Package pdftex.def Info: figures/baStat.pdf used on input line 200.
 (pdftex.def)             Requested size: 252.0pt x 34.36278pt.
- <figures/kappaStat.pdf, id=29, 578.16pt x 180.675pt>
+ <figures/kappaStat.pdf, id=30, 578.16pt x 180.675pt>
 File: figures/kappaStat.pdf Graphic file (type pdf)
  <use figures/kappaStat.pdf>
-Package pdftex.def Info: figures/kappaStat.pdf used on input line 200.
+Package pdftex.def Info: figures/kappaStat.pdf used on input line 211.
 (pdftex.def)             Requested size: 252.0pt x 78.75012pt.
- [5 <./figures/boxplot.pdf> <./figures/boxStat.pdf> <./figures/baplot.pdf> <./figures/baStat.pdf> <./figures/kappaStat.pdf>] (./template.aux)
+ [5 <./figures/boxplot.pdf> <./figures/boxStat.pdf> <./figures/scatterplot.pdf> <./figures/baplot.pdf> <./figures/baStat.pdf> <./figures/kappaStat.pdf>] (./template.aux)
 Package logreq Info: Writing requests to 'template.run.xml'.
 \openout1 = `template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 18870 strings out of 493089
- 365496 string characters out of 6134842
- 745203 words of memory out of 5000000
- 22105 multiletter control sequences out of 15000+600000
+ 18876 strings out of 493089
+ 365635 string characters out of 6134842
+ 745429 words of memory out of 5000000
+ 22110 multiletter control sequences out of 15000+600000
  42541 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,7n,48p,10375b,921s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,7n,48p,10375b,919s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on template.pdf (5 pages, 221440 bytes).
+Output written on template.pdf (5 pages, 262722 bytes).
 PDF statistics:
- 106 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
+ 116 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

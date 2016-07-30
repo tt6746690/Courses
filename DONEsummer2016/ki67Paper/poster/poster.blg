@@ -1,9 +1,0 @@
-[0] Config.pm:324> INFO - This is Biber 2.1
-[0] Config.pm:327> INFO - Logfile is 'poster.blg'
-[50] biber-darwin:276> INFO - === Tue Jul 26, 2016, 17:46:29
-[50] Biber.pm:333> INFO - Reading 'poster.bcf'
-[156] Biber.pm:645> INFO - Found 5 citekeys in bib section 0
-[178] Biber.pm:2977> INFO - Processing section 0
-[196] Biber.pm:3115> INFO - Looking for bibtex format file 'reference.bib' for section 0
-[385] Utils.pm:162> ERROR - Cannot find 'reference.bib'!
-[386] Biber.pm:110> INFO - ERRORS: 1

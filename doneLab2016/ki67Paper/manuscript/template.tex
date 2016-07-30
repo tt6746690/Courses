@@ -124,7 +124,7 @@ A trained individual, assigned as rater 1, counted at least 200 cells within tum
 To assess intra-algorithmic variability of the DIA methods, specifically the Aperio system, 2 trained individuals, assigned as rater 1 and rater 2, independently marked tumour region of interest (ROI) for proper image segmentation. Analytical Settings, such as minimum nucleus radius and staining intensity threshold, for the algorithm were subjectively adjusted for by another experienced pathologist and used in both set of images. The same set of images were analyzed using the Definiens system in addition to the Aperio system. In this case, a technician, assigned as rater 3, segmented images in a few cases, which calibrated the software to perform semi-automatic segmentation. Minor adjustments were made to correct for faulty segmentation.
 
 \subsection*{Statistics}
-Data distribution for different scoring methods were visualized using boxplot, accompanied by summary statistics. Bland-Altman plot was used to visualize agreements between results from two DIA methods in relation to manual score reference. \cite{Bland1986} 95\% confidence interval for the limits of agreement as well as the mean difference was calculated based on an alpha of 0.05. Two methods were considered unbiased and precise if the mean difference centered about zero with a small standard deviation. \cite{Hanneman2008} To correct for positive skewness, Ki-67 labeling indices were log base 2 transformed after incrementing by 1\% for subsequent statistical calculation. Concordance between methods was quantified using a two-way mixed, average-measures intraclass correlation coefficient (ICC) to assess the degree that raters provide absolute agreement in their ratings of Ki-67 labeling index. \cite{Shrout1979} An ICC close to 1 represents high concordance. Conger generalized Kappa ($\kappa$) were calculated based on a set of commonly used cut-offs for Ki-67 positivity to evaluate the practicality of consistent classification using results from methods tested. \cite{Conger1980} Agreement of the two DIA methods to the manual score reference was computed using ICC and $\kappa$. intra-algorithmic variability was evaluated by comparing ICC and $\kappa$ between two scoring instances for the Aperio system. inter-algorithmic variability was evaluated by comparing the agreements of two DIA methods with each other. R (version 3.2.4) was used generate all statistics and graphs.
+Data distribution for different scoring methods were visualized using boxplot, accompanied by summary statistics. Scatter plot as well as Bland-Altman plot were used to visualize agreements between results from two DIA methods in relation to manual score reference. \cite{Bland1986} 95\% confidence interval for the limits of agreement as well as the mean difference was calculated based on an alpha of 0.05. Two methods were considered unbiased if the mean difference centered about zero. \cite{Hanneman2008} To correct for positive skewness, Ki-67 labeling indices were log base 2 transformed after incrementing by 1\% for subsequent statistical calculation. Concordance between methods was quantified using a two-way mixed, average-measures intraclass correlation coefficient (ICC) to assess the degree that raters provide absolute agreement in their ratings of Ki-67 labeling index. \cite{Shrout1979} An ICC close to 1 represents high concordance. Conger generalized Kappa ($\kappa$) were calculated based on a set of commonly used cut-offs for Ki-67 positivity to evaluate the practicality of consistent classification using results from methods tested. \cite{Conger1980} Agreement of the two DIA methods to the manual score reference was computed using ICC and $\kappa$. intra-algorithmic variability was evaluated by comparing ICC and $\kappa$ between two scoring instances for the Aperio system. inter-algorithmic variability was evaluated by comparing the agreements of two DIA methods with each other. R (version 3.2.4) was used generate all statistics and graphs.
 
 
 \section*{Results}
@@ -134,7 +134,7 @@ Boxplot of untransformed Ki-67 labeling index as well as summary statistics pres
 
 \subsubsection*{The Definiens system agreed well with manual score reference}
 
-Bland-Altman plot for every DIA method compared to manual score reference and relevant statistics were presented in Figure~\ref{baplot}. It was apparent that the Aperio system systematically overestimated Ki-67 labeling index by a large margin in both scoring instances. The Definiens system faired better in introducing minimal bias, but still exhibited non-negligible variability.
+ Scatter plot comparing DIA methods to manual assessment was presented in Figure~\ref{scatterplot}. Bland-Altman plot for every DIA method compared to manual score reference and relevant statistics were presented in Figure~\ref{baplot}. It was apparent that the Aperio system systematically overestimated Ki-67 labeling index by a large margin in both scoring instances. The Definiens system faired better in introducing minimal bias, but still exhibited non-negligible variability.
 
 ICCs comparing two rating instances using the Aperio system and the manual score reference were 0.173 (95\%CI -0.245 $\sim$ 0.459) and 0.439 (95\%CI -0.258 $\sim$  0.72) respectively, representing poor to moderate agreements. ICC comparing the Definiens system and the manual score reference was 0.892 (95\%CI 0.841 $\sim$ 0.924), indicating high degree of agreement. Ki-67 labeling index was scored similarly using manual assessment and the Definiens system.
 
@@ -181,6 +181,17 @@ In conclusion, DIA method can perform comparably with traditional manual assessm
 Distribution of Ki-67 labeling index generated using manual assessment and DIA methods. Outliers are represented as darkened circles. Corresponding summary statistics quantitatively describes the boxplot.
 }
 \label{boxplot}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = \linewidth]{scatterplot}
+
+\centering
+\caption{{\bf Scatter plot}
+Scatter plot of Ki-67 labeling index generated using manual assessment as well as DIA methods. The line of perfect agreement where scores from two methods in comparison are identical is also drawn.
+}
+\label{scatterplot}
 \end{figure}
 
 

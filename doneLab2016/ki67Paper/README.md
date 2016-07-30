@@ -26,7 +26,7 @@ set up bibtex with biber
 moving .bib to current directory
 ```bash
 mv ~/Downloads/Your\ bibliography.bib ~/Desktop/2016\ summer/DONE\ LAB/ki67Paper/
-mv -f ~/Desktop/My\ Collection.bib /Users/markwang/github/courseProjects/DONEsummer2016/ki67Paper/manuscript/reference.bib
+mv -f ~/Desktop/My\ Collection.bib /Users/markwang/github/courseProjects/doneLab2016/ki67Paper/manuscript/reference.bib
 
 ```
 

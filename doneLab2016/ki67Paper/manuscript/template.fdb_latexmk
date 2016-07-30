@@ -1,16 +1,17 @@
 # Fdb version 3
-["biber template"] 1469564018 "template.bcf" "template.bbl" "template" 1469569728
+["biber template"] 1469564018 "template.bcf" "template.bbl" "template" 1469903179
   "reference.bib" 1469202033 72415 172b5c7890e1f6631bef7099d309249f ""
-  "template.bcf" 1469569033 102148 588838908ed4a7f0f0ed7f35a34b9863 ""
+  "template.bcf" 1469903178 102148 588838908ed4a7f0f0ed7f35a34b9863 ""
   (generated)
-  "template.bbl"
   "template.blg"
-["pdflatex"] 1469569031 "template.tex" "template.pdf" "template" 1469569728
+  "template.bbl"
+["pdflatex"] 1469903176 "template.tex" "template.pdf" "template" 1469903179
   "./figures/baStat.pdf" 1469565328 4958 c21c4d36794d335a2e29e8aa6e1e3ae7 ""
   "./figures/baplot.pdf" 1469487605 63965 6523962dd37da07cd5e6dff6b30722d5 ""
   "./figures/boxStat.pdf" 1469217421 5282 cf9d787fee3d97751d8731a2f293e4a0 ""
   "./figures/boxplot.pdf" 1469122359 59748 664050cac150070027ee0b180d3f9dc4 ""
   "./figures/kappaStat.pdf" 1469478234 5436 a7614400c54a46514de055a71b966698 ""
+  "./figures/scatterplot.pdf" 1469902197 41796 5441026a2083369ec88b6c4b301c82d8 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1136768653 1408 5937f58aa508ea2cea4901c07d10f5fe ""
@@ -150,15 +151,16 @@
   "figures/boxStat.pdf" 1469217421 5282 cf9d787fee3d97751d8731a2f293e4a0 ""
   "figures/boxplot.pdf" 1469122359 59748 664050cac150070027ee0b180d3f9dc4 ""
   "figures/kappaStat.pdf" 1469478234 5436 a7614400c54a46514de055a71b966698 ""
-  "template.aux" 1469569033 4089 720591fdc95491af02d853c1aa33674f ""
+  "figures/scatterplot.pdf" 1469902197 41796 5441026a2083369ec88b6c4b301c82d8 ""
+  "template.aux" 1469903178 4636 ac844d64cad8fdbf8707db6f86248a51 ""
   "template.bbl" 1469564020 169987 f9c75f41e29d9cf1d688b68ae1b836b8 "biber template"
-  "template.run.xml" 1469569033 2433 26994c3f3b87672c28196f6fa6c69efd ""
-  "template.spl" 1469569031 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "template.tex" 1469569728 21003 cb29c3b110fb71f8e5e9943850c5f74f ""
+  "template.run.xml" 1469903178 2433 26994c3f3b87672c28196f6fa6c69efd ""
+  "template.spl" 1469903176 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "template.tex" 1469903179 21434 37eadacb2fca0e7bddeb32c54d83d50e ""
   (generated)
-  "template.spl"
-  "template.bcf"
-  "template.log"
   "template.pdf"
-  "template.run.xml"
+  "template.spl"
   "template.aux"
+  "template.run.xml"
+  "template.log"
+  "template.bcf"

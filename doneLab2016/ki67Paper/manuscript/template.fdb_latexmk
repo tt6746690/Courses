@@ -1,11 +1,11 @@
 # Fdb version 3
-["biber template"] 1469564018 "template.bcf" "template.bbl" "template" 1469903179
+["biber template"] 1469564018 "template.bcf" "template.bbl" "template" 1470362997
   "reference.bib" 1469202033 72415 172b5c7890e1f6631bef7099d309249f ""
   "template.bcf" 1469903178 102148 588838908ed4a7f0f0ed7f35a34b9863 ""
   (generated)
-  "template.blg"
   "template.bbl"
-["pdflatex"] 1469903176 "template.tex" "template.pdf" "template" 1469903179
+  "template.blg"
+["pdflatex"] 1469903176 "template.tex" "template.pdf" "template" 1470362997
   "./figures/baStat.pdf" 1469565328 4958 c21c4d36794d335a2e29e8aa6e1e3ae7 ""
   "./figures/baplot.pdf" 1469487605 63965 6523962dd37da07cd5e6dff6b30722d5 ""
   "./figures/boxStat.pdf" 1469217421 5282 cf9d787fee3d97751d8731a2f293e4a0 ""
@@ -156,11 +156,11 @@
   "template.bbl" 1469564020 169987 f9c75f41e29d9cf1d688b68ae1b836b8 "biber template"
   "template.run.xml" 1469903178 2433 26994c3f3b87672c28196f6fa6c69efd ""
   "template.spl" 1469903176 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "template.tex" 1469903179 21434 37eadacb2fca0e7bddeb32c54d83d50e ""
+  "template.tex" 1470362996 21434 37eadacb2fca0e7bddeb32c54d83d50e ""
   (generated)
-  "template.pdf"
-  "template.spl"
-  "template.aux"
-  "template.run.xml"
   "template.log"
+  "template.pdf"
   "template.bcf"
+  "template.aux"
+  "template.spl"
+  "template.run.xml"

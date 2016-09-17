@@ -62,7 +62,7 @@ double stranded genome
 
 How do protein recognize DNA in sequence specific fashion
 
-+ identify the major and the minor groove in 2D fashion 
++ identify the major and the minor groove in 2D fashion
   + spot position of ribose sugar groups. The distance between ribose groups
     + if smaller then that side is minor groove
     + otherwise its a major groove  
@@ -70,3 +70,6 @@ How do protein recognize DNA in sequence specific fashion
   + if the pattern is different, then protein could recognize the nucleotide  
   + hydrogen bonding pattern is different for each base pair and its orientation
   + rest structure around the groove also affect protein-DNA interaction
+
+
+![grooves](./pics/grooves.jpg)

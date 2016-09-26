@@ -37,11 +37,13 @@ __09.14__
 3. structures of DNA
   + major and minor groove affect binding
   + DNA base is planar  
-  + stacking interaction keeps DNA stable  
-    + van der waal interaction (temporary dipole) created by  
-      + a strong electronegative oxygen on a base that is on top of the previous base
-      + 2 hydrophobic aromatic ring stacking on top of each other creating temporary dipole
-    + hydrophobic effect created by burial of base to internal of DNA
+  + DNA stability
+      + staking interaction
+        + van der waal interaction (temporary dipole) created by  
+          + a strong electronegative oxygen on a base that is on top of the previous base
+          + 2 hydrophobic aromatic ring stacking on top of each other creating temporary dipole
+        + hydrophobic effect created by burial of base to internal of DNA
+      + hydrogen bonding
   + DNA bases between strands distance themselves optimally
     + length of H bonds vary between bases
 
@@ -69,7 +71,7 @@ How do protein recognize DNA in sequence specific fashion
 + proteins recognizes hydrogen bonding pattern on mostly the major groove
   + if the pattern is different, then protein could recognize the nucleotide  
   + hydrogen bonding pattern is different for each base pair and its orientation
-  + rest structure around the groove also affect protein-DNA interaction
+  + other structure around the groove also affect protein-DNA interaction
 
 
 ![grooves](./pics/grooves.jpg)

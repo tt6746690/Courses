@@ -1,0 +1,196 @@
+
+\documentclass[11pt]{article}
+
+% math packages
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}    % Math symbols such as \mathbb
+\usepackage{amsthm}
+\usepackage{pgfplots}   % plots
+
+% other packages
+\usepackage{graphicx}
+\graphicspath{ {../assets/} }
+\usepackage{enumitem}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{hyperref}
+
+% proper inline math display, adjust height for symbols like \sum
+\everymath{\displaystyle}
+
+% define tags for math use..
+\theoremstyle{plain}% default
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{exmp}{Example}[defn]
+\newtheorem{prop}{Proposition}[defn]
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem{case}{Case}
+
+% Gives begin{solution} same formating as \begin{proof}
+\newenvironment{solution}
+  {\begin{proof}[Solution]}
+  {\end{proof}}
+
+
+%running fraction with slash - requires math mode.
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+%shortcut to mathbb
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\I}{\mathbb{I}}
+% color highlighting
+\newcommand{\hilight}[1]{\colorbox{yellow}{#1}}
+
+
+\title{CS236 notes}
+\author{Mark Wang}
+
+% begin document
+\begin{document}
+
+% title page
+\maketitle
+
+
+% problem set 1
+\section*{Definitions}
+
+
+
+
+\begin{defn}
+  \label{simple induction}
+  Proof by \textbf{simple induction} is a method for proving statement
+  \[
+    \forall n\in \mathbb{N}, P(n)
+  \]
+  \\ The method of induction consists of 2 steps \\
+  \textit{BASIS}: Prove that $P(0)$ is true, ie. that predicate $P(n)$ holds for $n=0$. \\
+  \textit{INDUCTION STEP}: Prove that, for each $i\in \mathbb{N}$, if P(i) is true then $P(i+1)$ is also true. \\
+  \begin{rem}
+    The assumption that $P(i)$ holds in the indcution step of the proof is called the \textit{induction hypothesis}. Bases case can be non-zero.
+  \end{rem}
+
+  \begin{exmp}
+    For any $m, n\in \mathbb{N}$ such that $n\neq 0$, there are unique $q,r\in \mathbb{N}$ such that $m=q\dot n + r$ and $r < n$
+
+    \begin{rem}
+      Think about 2 cases. either $r< n-1$ or $r=n-1$
+    \end{rem}
+  \end{exmp}
+
+  \begin{exmp}
+    We can use an unlimited supply of 4-cent and 7-cent postage stamps to make exactly any amount of postage that is 18 cents or more. Or that $\exists a,b\in \mathbb{N}, i=4a + 7b$
+
+    \begin{rem}
+      Intuitively, try to juggle around value of $a,b$ so that there is an excess of 1-cent, which satisfies for $i+1$. In this case prove by cases to make it happen. Otherwise use proof by complete induction which is easier.
+    \end{rem}
+  \end{exmp}
+\end{defn}
+
+
+\begin{defn}
+  \label{divisible}
+  a is \textbf{divisible} by b if the division of a by b has no remainder.
+  \[
+    b \mid a: \exists k\in \mathbb{N}: a = bk
+  \]
+  \begin{rem}
+    Read $b\mid a$ as $b$ divides $a$
+  \end{rem}
+\end{defn}
+
+\begin{defn}
+  \label{prime number}
+  An integer $n$ is \textbf{prime} if $n \geq 2$ and the only positive integers that divide $n$ are 1 and itself.
+  \[
+    \{ n \in\mathbb{N}: m\mid n \Rightarrow m=1 \lor m=2\}
+  \]
+  \begin{rem}
+    Prime factorization of a natural number n is a sequence of primes whose product is n
+  \end{rem}
+\end{defn}
+
+
+\begin{defn}
+  \label{complete induction}
+  Proof by \textbf{complete induction} is a method for proving \\
+  \[
+    \forall n\in \mathbb{N}, P(n)
+  \]
+  \textit{BASIS}: Prove that $P(n)$ holds for all $n \geq c$ \\
+  \textit{INDUCTION STEP}: Prove that, for each natural number $i>c$, if $P(j)$ holds for all natural numbers $j$ such that $c\leq j < i$, then $P(i)$ holds as well.
+  \begin{rem}
+    It is important to ensure that both $j \geq c$ and $j< i$
+  \end{rem}
+
+  \begin{exmp}
+    Any integer $n\geq 2$, has a prime factorization.
+
+    \begin{proof}
+      Define the predicate $P(n)$ as follows
+      \[
+        P(n):\quad n \text{ has a prime factorization}
+      \]
+      Use complete induction to prove that $P(n)$ holds for all integer $n\geq 2$. Let $i$ be an arbitrary integer such taht $i\geq 2$. Assume that $P(j)$ holds for all integers $j$, such that $2\leq j < i$. We muts prove that $P(i)$ holds as well. There are two cases \\
+      \textbf{CASE 1}: $i$ is prime. Then $\langle i\rangle$ is a prime factorization of $i$. Thus $P(i)$ holds. \\
+      \textbf{CASE 2}: $i$ is not prime. Thus there is a positive integer $a$ that divides $i$ such that $a\neq 1 \land a\neq i$. Let $b=\rfrac{i}{a}; i.e., i = a\cdot b$. Since $a\neq i \land a\lneq i$, it follows that $a,b$ are both integers such that $2\leq a,b \leq i$. Therefore, by the induction hypothesis, $P(a)$ and $P(b)$ both hold. That is, there is a prime factorization of $a$, say $\langle p_1, p_2, \dots, p_{k}\rangle$, and there is a prime factorisation of b, say $\langle q_1, q_2, \dots, q_l\rangle$. Since $i=a\cdot b$, it is obvious that concatenation of the prime factorisation of $a$ and $b$, i.e. $\langle p_1, p_2, \dots, p_k, q_1, q_2, \dots, q_l\rangle$, is a prime factorisation of $i$. Therefore, $P(i)$ holds in this case as well.
+      Therefore $P(n)$ holds for all $n\geq 2$
+
+      \begin{rem}
+        However, if we know the factorisation of all numbers less than $i$, then we can easily find a prime factorisation of $i$: if $i$ is prime, then it is its own prime factorisation, and we are done; if $i$ is not prime, then we can get a prime factorisation of $i$ by concatenating the prime factorisations of two factors (which are smaller than $i$ and therefore whose prime factorisation we know by induction hypothesis).
+      \end{rem}
+
+    \end{proof}
+  \end{exmp}
+
+  \begin{exmp}
+    Prove that ppostage of exactly $n$ cents can be made using only 5-cents and 8-cents stamps
+    \begin{proof}
+      Define the predicate $P(n)$ as follows
+      \[
+        P(n): \exists a,b\in\mathbb{N}, n = 5a + 8b
+      \]
+      Use proof by complete induction to prove $P(n)$ holds for $n \geq 28$. Let $i$ be an arbitrary integer such that $i\geq 28$, and assume that $P(j)$ holds for all $j$ such that $28 \leq j < i$. We will prove that $P(i)$ holds as well. \\
+      \textbf{CASE 1 or the BASIS}: When $28 \leq i \leq 32$. We can make postage for all of them... Just have to calculate them... \\
+      \textbf{CASE 2 or INDUCTION STEP}: When $i\geq 32$. Let $j = i-5$ and therefore, by induction hypothesis, $P(j)$ holds. This means that $\exists a,b \in\mathbb{N}, j=5a + 8b$.
+      \[
+        \begin{align}
+          i &= j + 5 \\
+          &= 5a + 8b + 5\\
+          &= 5(a+1) + 8b && &&\text{$a_1 = a + 1, b_1 = b$}\\
+          &= 5a_1 + 8b_1 && &&\text{$a_1, b_1 \in\mathbb{N}$}\\
+        \end{align}
+      \]
+      Therefore, $P(i)$ holds as well.
+    \end{proof}
+    \begin{rem}
+      In this problem, a set of basis were discussed instead of one. This is to ensure that the choice of $j$ satisfies $j \geq c$, which is required to use induction hypothesis.
+    \end{rem}
+  \end{exmp}
+
+\end{defn}
+
+\begin{defn}
+  \label{floor and ceiling}
+  \[
+    \begin{align}
+      \lfloor x \rfloor &= max\{ m\in \mathbb{Z}: m \leq x\} \\
+      \lceil x \rceil &= min\{ m\in \mathbb{Z}: m \geq x\}
+    \end{align}
+  \]
+
+
+\end{defn}
+
+
+
+% end document
+\end{document}

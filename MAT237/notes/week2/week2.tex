@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+\input{"../../preamble"}
+\begin{document}
+
+
+\section{Structures in $\R^n$}
+
+
+\begin{defn}
+  \label{vector space}
+  A \textbf{Vector Space} is a collection of objects called vectors, which may be added together and multiplied ("scaled") by numbers, called scalars in this context. The set V and the operations of addition and multiplication must adhere to a number of requirements called axioms.  let $u, v$ and $w$ be arbitrary vectors in $V$, and $a$ and $b$ scalars in $F$. First of all $u + v \in V$ and $au \in V$ and
+
+
+  \begin{align}
+    	&u + (v + w) = (u + v) + w \\
+    	&u + v = v + u \\
+      &\exists 0 \in V, v + 0  = v \forall v\in V \\
+      &\forall v, \exists -v, v + (-v) = 0 \\
+    	&a(bv) = (ab)v \\
+      &1v = v \\
+      &a(u + v) = au + av \\
+      &(a + b)v = av + bv
+  \end{align}
+
+\end{defn}
+
+\begin{defn}
+  \label{inner dot product}
+  The \textbf{Euclidean inner product}, or dot product given two vectors $x = (x_1, \dots, x_n)$, and $y = (y_1, \dots, y_n)$ in $\R^n$, which are two equal-length sequences of numbers, and returns a single number. \\
+  \textit{Algebraically}, it is the sum of the products of the corresponding entries of the two sequences of numbers.
+  \[
+    \langle x,y\rangle = x \cdot y := \sum_{i=1}^n x_i y_i = x_1y_2 + x_2y_2 + \dots + x_ny_n
+  \]
+  \textit{Geometrically}, it is the product of the Euclidean magnitudes of the two vectors and the cosine of the angle between them.
+  \[
+    \mathbf {a} \cdot \mathbf {b} =\|\mathbf {a} \|\ \|\mathbf {b} \|\cos(\theta )
+  \]
+  where $\|x\|$ is the length of $x$, $\|y\|$ is the length of $y$, $\theta$ is the angle between $x, y$.
+
+  \begin{note}
+    \label{orthogonality}
+    $ $ \\
+    When $a \cdot b =0$,  $a$ and $b$ are \textbf{orthogonal}. \\
+    When $a \cdot b =\|a \| \|b \| $, $a$ and $b$ are \textbf{co-directional}. \\
+  \end{note}
+
+  \label{inner dot product space}
+  Here is a list of properties of the \textbf{inner product space}. Given $a,b,c\in V$ and $r\in \R$
+  \begin{align}
+    &a \cdot b = b \cdot a \tag{Commutative} \\
+    &a \cdot (b+c) = a\cdot b + a\cdot c \tag{Distributive over vector addition} \\
+    &a\cdot (rb + c) = r(a\cdot b) + (a\cdot c) \tag{Bilinear} \\
+    &(c_1a)\cdot (c_2b) = c_1 c_2 (a\cdot b) \tag{Scalar multiplication}\\
+    & \text{two non-zero vectors are orthogonal } \iff a\cdot b = 0 \tag{Orthogonality} \\
+    & a\cdot b = a\cdot c \text{ does not imply } b = c  \tag{No cancellation} \\
+    & a\cdot b \geq 0 \text{ and is euqal to zero if and only if } x=0 \tag{Non-negative}
+  \end{align}
+
+  \begin{rem}
+    Mostly proved by using algebraic definition of inner dot product
+  \end{rem}
+\end{defn}
+
+
+\begin{defn}
+  \label{projection}
+  The scalar projection is
+  \[
+    comp_b a = \frac{a \cdot b}{\| b\|}
+  \]
+  \begin{proof}
+    $b \cdot (a-b) = 0$ because they are orthogonal to each other. Arrange and with Biliear property for inner dot product we arrive at $comp_b a = \frac{a \cdot b}{\| b\|}$
+  \end{proof}
+  Then the projection of $a$ into $b$ is the scalar projection multiply by the unit vector $\frac{b}{\|b\|}$
+  \[
+    proj_b a = \frac{\langle a, b \rangle}{\|b\|^2}b
+  \]
+\end{defn}
+
+
+\begin{defn}
+  \label{norm}
+  \textbf{Norm} is a way of measuring the length of a vector. Here we define $\|\cdot \|: \R^n \rightarrow \R$ as the function
+  \[
+    \|x\| := \sqrt{\langle x,x\rangle} = \bigg(\sum_{i=1}^n x_i^2\bigg)^{\rfrac{1}{2}} = \sqrt(x_1^2 + x_2^2 + \dots + x_n^2)
+  \]
+
+  \begin{proof}
+    Use the algebraic definition of inner product $\mathbf {x} \cdot x =\|x \|\ \|x \|\cos(0) = \|x\|^2$
+  \end{proof}
+
+
+  The \textbf{normed space} has the following properties. Let $x,y\in \R^n$ and $c\in R$,
+  \label{norm space}
+
+  \begin{align}
+    & \| x\| \geq 0 \text{ with equality if and only if } x=0\tag{Non-degeneracy} \\
+    & \|cx\| = |c| \|x\| \tag{Normality} \\
+    & \| x+y\| \leq \|x\| + \|y \| \tag{Triangle Inequality}\label{Norm triangle Inequality} \\
+    & |\langle x,y \rangle | \leq \|x\| \| y\| \tag{Couchy Schwarz Inequality} \label{Couchy Schwarz Inequality}
+  \end{align}
+
+  \begin{rem}
+    proofs for Couchy Schwarz Inequality can be derived from geometric definition of inner dot product on the condition that $cos(x) \leq 1$. Proofs for Triangle Inequality requires Couchy Schwarz Inequality.
+  \end{rem}
+\end{defn}
+
+
+
+\begin{defn}
+  \label{metric}
+  \textbf{Metric} is a method for determining the distance between the two vectors.
+  \[
+    d(x,y) = \| x-y\| = \bigg( \sum_{i=1}^n (x_i - y_i)^2 \bigg)^{\rfrac{1}{2}} = \sqrt{(x_1-x_2)^2 + \dots + (x_n-y_n)^2}
+  \]
+
+  The metric space satisfies the following properties. Let $x,y,z\in \R^n$
+  \begin{align}
+      &d(x,y) = d(y,x) \tag{Symmetry} \\
+      &d(x,y)\geq 0 \text{ with equality if and only if } x=y \tag{Non-degeneracy} \\
+      &d(x,z)\leq d(x,y) + d(y,z) \tag{Triangle Inequality} \label{Metric triangle inequality}
+  \end{align}
+
+\end{defn}
+
+
+\begin{defn}
+  \label{cross product}
+  In $\R^3$ the cross product of two vectors is a way of determining a third vector which is orthogonal ot the original two. If $v=(v_1, v_2, v_3)$ and $w=(w_1, w_2, w_3)$ then
+  \[
+    v \times w = (v_2w_3 - w_2v_3, w_1v_3 - v_1w_3, v_1w_2 - w_1v_2))
+  \]
+  or we can use determinants to solve $v\times w$. Here $i,j,k$ represent standard unit vectors in $R^3$
+  \[
+    v\times w = det
+      \begin{pmatrix}
+        i & j & k \\
+        v_1 & v_2 & v_3 \\
+        w_1 & w_2 & w_3
+      \end{pmatrix}
+    = i\begin{pmatrix}
+        v_2 & v_3 \\
+        w_2 & w_3
+      \end{pmatrix}
+    - j\begin{pmatrix}
+        v_1 & v_3 \\
+        w_1 & w_3
+      \end{pmatrix}
+    + k\begin{pmatrix}
+        v_1 & v_2\\
+        w_1 & w_2
+      \end{pmatrix}
+  \]
+
+  \begin{note}
+    Determinants of $2X2$ matrix $\begin{pmatrix} a& b\\c& d\end{pmatrix}$ is $ad -bc$
+  \end{note}
+\end{defn}
+
+
+
+\end{document}

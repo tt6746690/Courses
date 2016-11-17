@@ -7,6 +7,10 @@
 \usepackage{amssymb}    % Math symbols such as \mathbb
 \usepackage{amsthm}
 \usepackage{pgfplots}   % plots
+\usepackage[linesnumbered, boxruled,titlenumbered, noend]{algorithm2e} % algorithmn
+% https://en.wikibooks.org/wiki/LaTeX/Algorithms
+% http://ctan.mirror.rafal.ca/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf
+\SetKwProg{Fn}{Function}{}{}
 
 % other packages
 \usepackage{graphicx}
@@ -27,6 +31,9 @@
 \newtheorem{defn}{Definition}
 \newtheorem{exmp}{Example}[defn]
 \newtheorem{prop}{Proposition}[defn]
+\newtheorem{lemma}{Lemma}[defn]
+
+
 
 \theoremstyle{remark}
 \newtheorem*{rem}{Remark}
@@ -36,6 +43,11 @@
 % Gives begin{solution} same formating as \begin{proof}
 \newenvironment{solution}
   {\begin{proof}[Solution]}
+  {\end{proof}}
+
+
+\newenvironment{approach}
+  {\begin{proof}[Approach]}
   {\end{proof}}
 
 
@@ -59,8 +71,7 @@
 \maketitle
 
 
-% problem set 1
-\section*{Definitions}
+\section*{1.2 Simple Induction}
 
 
 
@@ -111,13 +122,15 @@
   \label{prime number}
   An integer $n$ is \textbf{prime} if $n \geq 2$ and the only positive integers that divide $n$ are 1 and itself.
   \[
-    \{ n \in\mathbb{N}: m\mid n \Rightarrow m=1 \lor m=2\}
+    \{ n \in\mathbb{N}: n \geq 2 \land m\mid n \Rightarrow m=1 \lor m=n\}
   \]
   \begin{rem}
     Prime factorization of a natural number n is a sequence of primes whose product is n
   \end{rem}
 \end{defn}
 
+
+\section*{1.3 Complete Induction}
 
 \begin{defn}
   \label{complete induction}
@@ -161,14 +174,14 @@
       Use proof by complete induction to prove $P(n)$ holds for $n \geq 28$. Let $i$ be an arbitrary integer such that $i\geq 28$, and assume that $P(j)$ holds for all $j$ such that $28 \leq j < i$. We will prove that $P(i)$ holds as well. \\
       \textbf{CASE 1 or the BASIS}: When $28 \leq i \leq 32$. We can make postage for all of them... Just have to calculate them... \\
       \textbf{CASE 2 or INDUCTION STEP}: When $i\geq 32$. Let $j = i-5$ and therefore, by induction hypothesis, $P(j)$ holds. This means that $\exists a,b \in\mathbb{N}, j=5a + 8b$.
-      \[
-        \begin{align}
-          i &= j + 5 \\
-          &= 5a + 8b + 5\\
-          &= 5(a+1) + 8b && &&\text{$a_1 = a + 1, b_1 = b$}\\
-          &= 5a_1 + 8b_1 && &&\text{$a_1, b_1 \in\mathbb{N}$}\\
-        \end{align}
-      \]
+
+      \begin{align*}
+        i &= j + 5 \\
+        &= 5a + 8b + 5\\
+        &= 5(a+1) + 8b && &&\text{$a_1 = a + 1, b_1 = b$}\\
+        &= 5a_1 + 8b_1 && &&\text{$a_1, b_1 \in\mathbb{N}$}\\
+      \end{align*}
+
       Therefore, $P(i)$ holds as well.
     \end{proof}
     \begin{rem}
@@ -180,15 +193,578 @@
 
 \begin{defn}
   \label{floor and ceiling}
-  \[
-    \begin{align}
-      \lfloor x \rfloor &= max\{ m\in \mathbb{Z}: m \leq x\} \\
-      \lceil x \rceil &= min\{ m\in \mathbb{Z}: m \geq x\}
-    \end{align}
-  \]
+
+  \begin{align*}
+    \lfloor x \rfloor &= max\{ m\in \mathbb{Z}: m \leq x\} \\
+    \lceil x \rceil &= min\{ m\in \mathbb{Z}: m \geq x\}
+  \end{align*}
+
 
 
 \end{defn}
+
+\begin{defn}
+  \label{Principle of Well Ordering}
+  \textbf{The Well Ordering Principle}\\ Any nonempty set $A$ of $\N$ contains a minimum element; ie, for any $A\subseteq \N$ such that $A\neq \emptyset$
+  \[
+    \exists a\in A, \forall a'\in A, a\leq a'
+  \]
+\end{defn}
+
+
+\section*{4.1, 4.2 Structural Induction}
+
+\begin{defn}
+  \label{recursively defined sets}
+  \textbf{Recursively Defined Sets}\\
+  To define a set of objects
+  \begin{enumerate}
+    \item Define the simpliest or smallest objects in the set
+    \item Define ways in which larger more complex objects in the set can be constructed from smaller or simpler objects in the set
+  \end{enumerate}
+\end{defn}
+
+
+
+\begin{defn}
+  \label{function closure}
+  Let $S$ be a set, A k-nary operator on $S$ is a function
+  \[
+    f: S^k \to S \tag{ $S^k$ is the k-fold Cartesian product of S}
+  \]
+  We say that $A\subseteq S$ is \textbf{closed} under $f$ if,
+  \[
+    \forall a_1, a_2, \dots, a_k\in A, f(a_1), f(a_2), \dots, f(a_k)
+\in A  \]
+  \begin{exmp}
+    $\N$ of $\mathbb{Z}$ is closed under addition but not closed on subtraction
+  \end{exmp}
+\end{defn}
+
+
+\begin{defn}
+  \label{Principle of Set Definition by Recursion}
+  \textbf{Principle of Set Definition by Recursion}\\
+  Let $S$ be a set, $B\subseteq S$, $m\in Z, m>0$, and $f_1, f_2, \dots, f_m$ be operators on $S$ of arity $k_1, k_2, \dots, k_m$, respectively,
+  \[
+    S_i =
+    \begin{cases}
+      B, & \text{ if } i=0\\
+      S_{i-1} \cup \bigcup_{j=1}^{m}\{ f_j(a_1, a_2, \dots, a_{k_j}): a_1, a_2, \dots, a_{k_j}\in S_{i-1}\} & \text{ if } i>0
+    \end{cases}
+  \]
+  Then $S_i$ is the smallest subset of $S$ that contains $B$ and is closed under $f_1, f_2, \dots, f_m$
+\end{defn}
+
+
+
+
+\begin{defn}
+  \label{proof by structural induction}
+  \textbf{Proof by Structural Induction}\\ To prove,
+  \[
+    \forall x\in X: P(x) \tag{ where $X$ is defined recursively}
+  \]
+  \textbf{Basis}: We prove that every smallest or simplest element of $X$ is satisfied by $P$\\
+  \textbf{Induction Step}: We also prove that the infinitely many ways of constructing larger and more complex elements out of simpler and smaller ones \textit{preserves} property $P$
+\end{defn}
+
+\section*{3.1 Recursively Defined Function}
+
+\begin{defn}
+  \label{Principle of function definition by recursion}
+  \textbf{Principle of function definition by recursion}\\
+  Let $b\in\mathbb{Z}$, and $g:\N \times \mathbb{Z} \to \mathbb{Z}$ be a function. Then there is a unique function $f:\N \to \mathbb{Z}$ that satisfies the following:,
+  \[
+    f(n)=
+    \begin{cases}
+      b & \text{ if } n=0\\
+      g(n, f(n-1)) & \text{ if } n>0 \\
+    \end{cases}
+  \]
+  \begin{note}
+    Recursively defined functions may not be well defined,
+    \begin{enumerate}
+      \item lacking base case
+      \item inductive case either not defined for some $n$ or form a loop over iteself
+    \end{enumerate}
+  \end{note}
+
+  \begin{exmp}
+    The \textbf{The Fibonacci Function}
+    \label{Fibonacci function}
+    \[
+      F(n) =
+      \begin{cases}
+        0 & n=0\\
+        1 & n=1\\
+        F(n-1) + F(n-2) & n>1
+      \end{cases}
+    \]
+    which can be expressed as a closed-form formula,
+    \[
+      F(n) = \frac{\phi^n - \hat\phi^n}{\sqrt{5}} \tag{$\phi = \frac{1+\sqrt{5}}{2} \text{ , } \hat\phi = \frac{1-\sqrt{5}}{2} $}
+    \]
+  \end{exmp}
+\end{defn}
+
+
+
+\begin{defn}
+  \label{Principle of function definition by complete recursion}
+  \textbf{Principle of function definition by complete recursion}: \\
+  Let $k, l$ be positive integers, $b_0,b_1,\dots,b_{k-1}$ be arbitrary integers, $h_1,h_2,\dots,h_l : \N \to \N$ be functions such that $h_i(n) < n$ for each $i$, $1\leq i\leq l $ and each $n \geq k$, and $g:\N\times \mathbb{Z}^l \to \mathbb{Z}$ be a function($Z^l$ denotes the $l$-fold Cartesian product of set $\mathbb{Z}$). Then there is a unique function $f : \N \to \mathbb{Z}$ that satisfies the following equation:
+  \[
+  f(n)=
+  \begin{cases}
+    b_n & 0 \leq n < k\\
+    g(n, f(h_1(n)), f(h_2(n)), \dots, f(h_l(n))) & n \geq k\\
+  \end{cases}
+    \]
+\end{defn}
+
+
+\section*{2.2 Correctness Specification}
+
+\begin{enumerate}
+  \item A \textbf{precondition} for a program is an assertion involving some of the variables of the program;
+  \item A \textbf{postcondition} for a program is an assertion involving some of the variables of the program; this assertion states what must be true when the program ends — in particular, it can describe what is a correct output for the given input.
+  \item A program is \textbf{correct} with respect to the specification (or the program meets the specification), if whenever the \textbf{precondition} holds before the program starts \textbf{execution}, then the program \textbf{terminates} and when it does, the \textbf{postcondition} holds. Note that implicitly stated is that all variable stated in pre- and post-condition cannot be altered.
+\end{enumerate}
+
+\section*{2.3 Iterative Correctness of binary search}
+
+
+\begin{defn}
+  \label{loop invariant}
+  An \textbf{invariant} is a condition that can be relied upon to be true during execution of a program. A \textbf{loop invariant} is a condition that is true at the beginning and end of every execution of a loop. Consider a program containing a loop. Let $P$ and $Q$ be predicates of (some of) the variables of the program. We say that $P$ is an \textbf{invariant} for the loop with respect to precondition $Q$ if, assuming the program’s variables satisfy $Q$ before the loop starts, the program’s variables also satisfy $P$ before the loop starts as well as at the end of each iteration of the loop. \\
+
+  \begin{enumerate}
+    \item “end of the 0-th iteration of the loop”: the point in the program just before entering the loop
+    \item “each iteration of the loop”: includes this 0-th iteration
+    \item \textit{An invariant is true at the end of each iteration of the loop, without explicitly saying that it is true before the loop.}
+  \end{enumerate}
+\end{defn}
+
+
+\begin{algorithm}[H]
+    \label{IterativeBinSearch Algorithm}
+    \caption{Iterative Binary Search}
+    \DontPrintSemicolon
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \SetKwFunction{ibs}{IterativeBinSearch}
+
+    \Fn{\ibs$(A, x)$}{
+        \KwIn{$A$ is a sorted array of length at least 1}
+        \KwOut{Return $t$ such that $1\leq t < length(A)$ and $A(t) = x$, if such a $t$ exists, otherwise return 0.}
+
+        $f := 1$\\
+        $l := length(A)$\\
+        \While{$f\neq l$}{
+          $m:= (f + l) \% 2$\\
+          \eIf{$A[m] \geq x$}{
+            $l := m$
+          }{
+            $f :=m + 1$
+          }
+        }
+        \eIf{$A[f] = x$}{
+          \Return $f$
+        }{
+          \Return 0
+        }
+
+    }
+
+\end{algorithm}
+
+$ $\\
+\textbf{Proof for \textsc{IterativeBinSearch} correctness} \\
+Suppose $A$ is a sorted array of length at least 1. \textsc{BinSearch}$(A,x)$ terminates and returns $t$ such that $1 \leq t \leq length(A)$ and $A[t] = x$, if such a $t$ exists; otherwise \textsc{BinSearch}$(A, x)$ terminates and returns 0. Same as,
+\begin{enumerate}
+  \item \textbf{Partial Correctness} Suppose $A$ is a sorted array of length at least 1. If \textsc{IterativeBinSearch}$(A, x)$ terminates then, when it does, it returns $t$ such that $1 \leq t \leq length(A)$ and $A[t] = x$, if such a $t$ exists; otherwise it returns 0.
+  \item \textbf{Termination} Suppose $A$ is a sorted array of length at least 1. \textsc{IterativeBinSearch}$(A,x)$ terminates.
+\end{enumerate}
+$ $\\
+To prove partial correctness, we prove that if precondition holds before program starts then the following is true at the end of each iteration of the loop,
+\[
+  1 \leq f \leq l \leq length(A)\text{, and if } x \text{ is in }A \text{ then }x \text{ is in }A[f..l].
+\]
+The loop ensures that the element $x$ being sought, if it is anywhere at all in the array, then it is in the part of the array that lies between indices $f$ (as a lower bound) and $l$ (as an upper bound).\\
+Simply, we prove that the above is actually an \textbf{invariant} for the loop in \textsc{IterativeBinSearch} with respect to that program’s precondition. More precisely,\\
+
+\begin{lemma}
+  Suppose the precondition of \textsc{IterativeBinSearch} holds before the program starts. For each $i \in \N$, if the loop of \textsc{BinSearch}$(A, x)$ is executed at least $i$ times, then $1 \leq f_i \leq l_i \leq length(A)$, and if $x$ is in $A$, then $x$ is in $A[f_i..l_i]$
+  \begin{proof}
+    Define predicate,\\
+    $P(i)$: if the loop is executed at least $i$ times, then \textit{(i)} $1 \leq f_i \leq l_i \leq length(A)$, and \textit{(ii)} if $x$ is in $A$, then $x$ is in $A[f_i..l_i]$\\
+    Details in notes....
+  \end{proof}
+\end{lemma}
+
+Then we can use the loop invariant and the loop exit condition ($f = l$) to obtain the postcondition\\
+Also we need to prove that the loop terminates, specifically the loop terminates.
+\begin{theorem}
+  By the well ordering principle, every decreasing sequence of natural numbers is finite.
+\end{theorem}
+$ $\\
+To prove the \textbf{termination of a loop} we typically proceed as follows. We associate with each iteration $i$ of the loop a number $k_i$, defined in terms of the values of the variables in the i-th iteration, with the properties that
+\begin{enumerate}
+  \item each $k_i$ is a natural number
+  \item the sequence $⟨ k0,k1,k2,\dots ⟩$ is decreasing
+\end{enumerate}
+Then the loop must terminate, for otherwise we would have an infinite decreasing sequence of natural numbers.
+$ $\\
+In \textsc{IterativeBinSearch} we can associate with each iteration of the loop the value of the quantity $l_i - f_i$. This choice reflects the intuition that the reason the loop of BinSearch terminates is that the range of the array into which the search for $x$ has been confined gets smaller and smaller with each iteration. The fact that $l_i - f_i$ is a natural number follows immediately from the fact that $l_i$ and $f_i$ are natural numbers and, by previous lemma, $f_i \leq l_i$. It remains to show that the sequence $⟨ l_0 - f_0, l_1 - f_1, l_2 - f_2, \dots ⟩$ is decreasing.
+
+\begin{lemma}
+  For each $i \in \N$, if the loop is executed at least $i + 1$ times then $l_{i+1}-f_{i+1} < l_i-f_i$.
+  \begin{proof}
+    Details in notes...
+  \end{proof}
+\end{lemma}
+
+
+\begin{lemma}
+  For any integers $f$, $l$ such that $f<l$, $f\leq \lfloor \frac{f+l}{2}\rfloor <l$
+  \begin{proof}
+    Details in notes...
+  \end{proof}
+\end{lemma}
+
+
+\textbf{Summary}\\
+\begin{enumerate}
+  \item Correctness proofs of iterative programs are typically divided into two parts: one proving \textbf{partial correctness} (i.e., that the program is correct assuming it terminates); and another proving \textbf{termination} (i.e., that the program does indeed terminate).
+  \item The proof of termination typically involves associating a \textit{strictly decreasing} sequence of \textit{natural numbers} with the iterations of the loop, and apply the well-ordering principle.
+  \item The proof of partial correctness of an iterative program is typically based on a \textbf{loop invariant}. Proving that a statement is a loop invariant involves induction. A trick to finding the proper looop invariant is to come up with one that, when used in conjunction with exit condition, implies postcondition
+\end{enumerate}
+
+\section*{2.7 Proof of correctness of recursive programs}
+
+\begin{algorithm}[H]
+    \label{recBinSearch Algorithm}
+    \caption{Recursive Binary Search}
+    \DontPrintSemicolon
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \SetKwFunction{rbs}{RecBinSearch}
+
+    \Fn{\rbs$(A, f, l, x)$}{
+        \KwIn{$1 \leq f \leq l \leq length(A)$ and $A[f..l]$ is sorted.}
+        \KwOut{Return $t$ such that $f \leq t \leq l$ and $A[t] = x$, if such a $t$ exists; otherwise, return 0.}
+
+        \eIf{$f = l$}{
+          \eIf{$A[f] = x$}{
+            \Return $f$
+          }{
+            \Return 0
+          }
+        }{
+          $m:= (f + l) \% 2$ \;
+          \eIf{$A[m] \geq x$}{
+            \Return \rbs$(A, f, m, x)$
+          }{
+            \Return \rbs$(A, m+1, l, x)$
+          }
+        }
+    }
+\end{algorithm}
+
+\begin{lemma}
+  Suppose that $f$ and $l$ are integers such that $1 \leq f \leq l \leq length(A)$, and that $A[f..l]$ is sorted when \textsc{RecBinSearch}$(A, f, l, x)$ is called. Then this call terminates and returns $t$ such that $f \leq t \leq l$ and $A[t] = x$, if such a $t$ exists; otherwise it returns 0.
+  \begin{proof}
+    \textbf{The induction will be on the length of this subarray}. Complete induction is necessary as recursive calls works on half of length of array.
+  \end{proof}
+\end{lemma}
+
+
+
+\section*{3.2 Divide-and-conquer recurrences}
+Inductively defined functions arise from analysis of many recursively defined functions. We can analyze \textbf{Divide and Conquer algorithms}, including binary search and merge sort, by first constructing a recurrence relation describing its time complexity and unwind the function in closed form.
+
+
+\subsection*{1 Recursive binary search}
+\label{recBinSearch}
+
+\begin{defn}
+  \label{correctness of recBinSearch}
+  Suppose that $f$ and $l$ are integers such that $1\leq f\leq l\leq \text{ }length(A)$, and that $A[f..l]$ is sorted when \textbf{RecBinSearch($A$, $f$, $l$, $x$)} is called. Then this call terminates and return $t$ such that $f\leq t\leq l$ and $A[t] = x$, if such a $t$ exists; otherwise it returns a 0.
+\end{defn}
+
+
+
+
+\begin{lemma}
+Suppose that $f$ and $l$ are integers such that $1 \leq f \leq l \leq length(A)$, and that $A[f..l]$ is sorted when \textsc{RecBinSearch}$(A, f, l, x)$ is called. Then this call terminates and returns $t$ such that $f \leq t \leq l$ and $A[t] = x$, if such a $t$ exists; otherwise it returns 0.
+
+\begin{proof}
+  Use induction to prove correctness on the length of subarray $A$. Note $length(A[f..l]) = l - f + 1$. Define predicate, \\
+  $P(k)$: if $f$, $l$ are integers such that $1 \leq f \leq l \leq length(A)$ and $length(A[f..l]) = k$, and $A[f..l]$ is sorted when \textsc{RecBinSearch}$(A, f, l, x)$ is called, then this call terminates and returns some $t$ such that $f \leq t\leq l$ and $A[t] = x$, if such a $t$ exists; otherwise it returns 0. \\
+  Now prove $P(k)$ holds for all $k\geq 1$\\
+  \textbf{Basis:} \\
+  Let $i=1$, let $f,l$ be integers such that $1\leq f\leq l \leq length(A)$ and $length(A)=1$. This means subarray $A$ has one element and $f=l$. \textit{if-statement} is executed and therefore program terminates by return statement at line 4 or 6. Since there is only one element in $A[f..l]$, then if $x$ is in $A$, it must be $A[f]=x$, so the program returns $f$ in line 4; on the other hand $x$ is not in $A[f..l]$, $A[f]\neq x$ so program returns 0 as expected in line 6. Either way, program returns the right value then $P(1)$ holds.\\
+  \textbf{Inductive step:}\\
+Let $i$ be an arbitrary integer such that $i > 1$. Let $f$, $l$ be integers such that $1 \leq f \leq l \leq length(A)$ and $length(A[f..l]) = i$, and suppose that $A[f..l]$ is sorted when \textsc{RecBinSearch}$(A, f, l, x)$ is called. Assume that $P(j)$ holds for all $j$ such that $1 \leq j < i$. We must prove that $P(i)$ holds as well. Since $length(A[f..l]) = i$ and $i > 1$, it follows that $f < l$. Therefore the “else” branch in lines 7–12 is executed. Let $m = (f + l) \% 2$. then
+\[
+  f\leq m<l
+\]
+\end{proof}
+\end{lemma}
+
+
+\subsection*{2 MergeSort}
+
+\begin{defn}
+  \label{MergeSort correctness}
+  If $f,l$ are integers such that $1\leq f \leq l \leq length(A)$ and $length(A[f..l]) = k$ then \textbf{MergeSort($A$, $f$, $l$)} terminates and, when it does, $A[f..l]$ is sorted and all other elements of $A$ are unchanged.
+\end{defn}
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon
+  \SetKwFunction{merge}{Merge}
+
+  \Fn{\merge$(A, f, m, l)$}{
+    \KwIn{$1\leq f\leq m\leq l\leq length(A)$ and $A[f..m], A[m+1..l]$ are sorted}
+    \KwOut{$A[f..l]$ has the same element as before invocation (\textit{loop invariant}), in sorted order, and all other element of $A$ are unchanged}
+
+    $i\leftarrow f$ \\
+    $j\leftarrow m+1$ \\
+    $k\leftarrow f$ \\
+    \While(\tcc*[f]{Merge subarray until one is exhausted}){$i\leq f \land j\leq f$}{
+      \eIf{$A[i] < A[j]$}{
+        $aux[k] \leftarrow A[i]$ \\
+        $i \leftarrow i+1$
+      }{
+        $aux[k] \leftarrow A[j]$\\
+        $j \leftarrow j+1$
+      }
+      $k\leftarrow k+1$
+    }
+    \eIf(\tcc*[f]{Determine bounds of unexhausted array}){$i>m$}{
+      $low \leftarrow j$ \\
+      $high \leftarrow l$\\
+    }{
+      $low \leftarrow i$ \\
+      $high \leftarrow m$
+    }
+    \For(\tcc*[f]{Copy unexhausted array to $aux$}){$t\leftarrow low$ \KwTo $high$}{
+      $aux[k] \leftarrow A[t]$\\
+      $k \leftarrow k+1$
+    }
+    \For(\tcc*[f]{Copy $aux$ back to $A[f..l]$}){$t\leftarrow f$\KwTo $l$}{
+      $A[t]\leftarrow aux[t]$
+    }
+  }
+
+  \caption{Merge}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \label{mergesort algorithm}
+  \DontPrintSemicolon
+  \SetKwFunction{mergesort}{MergeSort}
+  \SetKwFunction{merge}{Merge}
+
+
+  \Fn{\mergesort$(A, f, l)$}{
+    \KwIn{$1\leq f\leq l\leq length(A)$}
+    \KwOut{$A[f..l]$ has the same element as before invocation (\textit{loop invariant}), in sorted order, and all other element of $A$ are unchanged}
+    \eIf(\tcc*[f]{subarray of length 1 already sorted}){$f=m$}{
+      \Return \tcc*[r]{do nothing}
+    }{
+      $m\leftarrow (a+b)//2$\\
+      \mergesort$(A, f, m)$ \tcc*[f]{sort first half}\\
+      \mergesort$(A, m+1, l)$ \tcc*[f]{sort second half}\\
+      \merge$(A, f, m, l)$ \tcc*[f]{merge 2 sorted halves}
+    }
+  }
+  \caption{Merge Sort}
+\end{algorithm}
+
+
+\begin{lemma}
+  \label{sorting algorithm}
+  A \textbf{sorted array} $A$ satisfies,
+  \begin{align*}
+    A[i] &\leq A[i+1] \tag{$\forall i\in \N, 1\leq i < \text{ }length(A)$}
+  \end{align*}
+\end{lemma}
+
+\begin{lemma}
+  \[
+    \exists i,j\in \N, 1\leq i\leq j\leq length(A)
+  \]
+   $A[i..j]$ denotes the subarray of $A$ between indeces $i$ and $j$ with $n = length(A) = j-i + 1 $
+\end{lemma}
+
+\begin{lemma}
+  For any integer $n>1$, $1\leq \lfloor \rfrac{n}{2}\rfloor \leq \lceil \rfrac{n}{2}\rceil < n$
+\end{lemma}
+
+\begin{lemma}
+  \[
+    \lfloor \frac{n+1}{2} \rfloor = \lceil \frac{n}{2} \rceil \text{ for some $n\in \mathbb{Z}$}
+  \]
+\end{lemma}
+
+
+\begin{rem}
+  Mergesort ideas:
+  \begin{enumerate}
+    \item If $n=1$, then array is already sorted
+    \item Split $A$ to halves $A_1, A_2$, and recursively sort each
+    \item Merge the now sorted subarray $A_1, A_2$ to a single sorted array
+  \end{enumerate}
+\end{rem}
+
+
+\begin{defn}
+  \label{MergeSort time complexity}
+  Define $T(n)$ to be the maximum number of steps executed by a call to \textsc{MergeSort}$(A, f, l)$, where $n$ is the size of the subarray being sorted, i.e., $n = l-f+1$. Then function $T$ describes the (worst case) \textbf{time complexity} of
+  \textsc{MergeSort}$(A, f, l)$ as a function of size of array sorted.
+  \[
+    T(n)=
+    \begin{cases}
+      c, & \text{if } n = 1\\
+      T(\lceil \rfrac{n}{2}\rceil) + T(\lfloor \rfrac{n}{2} \rfloor) + dn, & \text{if } n>1
+    \end{cases}
+  \]
+  Note that $c$ is some constant for sorting array of length 1. And the merging algorithm takes time proportional to $n$, with some constant $d$. To simplify the problem, assume $n$ is a power of 2
+  \[
+    T(n)=
+    \begin{cases}
+      c, & \text{if } n = 1\\
+      2T(\rfrac{n}{2}) + dn, & \text{if } n>1
+    \end{cases}
+  \]
+  Find closed form formula for $T(n)$ by \textbf{repeated substitution}, where we unwind recursive definition of $T(n)$ by applying induction step of the definition to smaller and smaller argument of $T$ until we discover a pattern. Let $n=2^k$, given $k\leq \log_2{n}$, the $\rfrac{n}{2^k}$ is also power of 2. Therefore able to use induction hypothesis. The following conjecture can be proven using induction.
+
+  \begin{align*}
+    T(n) &= 2T(2^{k-1}) + d2^k \\
+    &= 2( 2T(2^{k-2}) + d2^{k-1}) + d2^k \\
+    &= 2^2T(2^{k-2}) + 2d2^k \\
+    \vdots\\
+    &= 2^kT(1) + kd2^k \\
+    &= cn + dn\log_2{n} \tag{ $k=\log_2{n}$ and $T(1) = 1$}
+  \end{align*}
+
+  The purpose of this expression is to prove $T(n)\in \mathcal{O}(n\log{n})$ and $T(n)\in \Omega(n\log{n})$,
+  \begin{align*}
+    &\exists \kappa\in\R^+: \forall n\geq2: T(n) \leq \kappa n\log_2{n}\\
+    &\exists \kappa\in\R^+: \forall n\geq2: T(n) \geq \kappa n\log_2{n}\\
+    &\text{where the value of $\kappa$ depends on $c,d$}
+  \end{align*}
+
+  \begin{theorem}
+    \label{big O of mergesort proof}
+    Prove $\exists \kappa\in\R^+, \forall n\geq 2, T(n)\leq \kappa n\log_2{n}$ where $T(n) = cn + dn\log_2{n}$ if $n$ is a power of 2.
+
+    \begin{proof}
+      $ $\\
+      Let $\hat{n} = 2^{\lceil log_2{n}\rceil}$, here $\hat{n}$ is the smallest integer that is a power of 2 greater than or equal to $n$, i.e.,
+      \[
+        \frac{\hat{n}}{2} < n\leq \hat{n}
+      \]
+      \begin{align*}
+        T(n) &\leq T(\hat{n}) \tag{here requires proving $T(n)$ non-decreasing by induction}\\
+        &\leq c\hat{n} + d\hat{n}\log_2{\hat{n}} \tag{ by $T(n) = cn + dnlog_2{n}$ if $n$ is a power of 2}\\
+        &\leq 2cn + 2dn\log_2{2n} \tag{$2n>\hat{n}$} \\
+        &= 2cn + 2dn+ 2dn\log_2{n} \\
+        &\leq 2cn\log_2{n} + 2dn\log_2{n} + 2dn\log_2{n} \tag{$\log_2{n} > 1$ for $n\geq 2$}\\
+        &= \kappa n\log_2{n} \tag{let $\kappa = 2c+4d$; $\kappa > 0$}
+      \end{align*}
+      Therefore $\exists \kappa \geq 0, \forall n\geq 2, T(n)\leq\kappa n\log_2{n}$ or that $T(n)\in \mathcal{O}(n\log_2{n})$
+    \end{proof}
+  \end{theorem}
+\end{defn}
+
+\begin{defn}
+  \label{big O}
+  \textbf{Big O notation: } function $g(n)$ is in $O(f(n))$ iff
+  \[
+    \exists c\in \R^+: \exists N\in \N: \forall n\geq N \Rightarrow (g(n)\leq cf(n))
+  \]
+\end{defn}
+
+\begin{defn}
+  \textbf{General form of divide-and-conquer algorithm} \\
+  An \textbf{instance} is a legitimate input for the problem. A \textbf{solution} of an instance is an output for the instance. Each instance has a \textbf{size}.\\
+
+  \textit{Steps for solving a large problem,}
+  \begin{enumerate}
+    \item Divide up the given instance of size $n$ into a total of $a$ smaller instances of the \textit{same problem}, each of size \textit{roughly} $\frac{n}{b}$. ($\frac{n}{b}$)
+    \item Recursively solve each of the smaller instances (valid because smaller they are of same problem)
+    \item Combine the solutions to the smaller instances into the solution of the given “large” instance.
+  \end{enumerate}
+
+  \textit{Step 1 and 3}, i.e. dividing up instances and combining solutions to the smaller instances, is given by polynomial time $dn^l$. Recursive solution of smaller instances require $a_1T(\lceil \frac{n}{b}\rceil) + a_2T(\lfloor \frac{n}{b}\rfloor)$ steps; this is time required to solve $a_1$ instances of size $\lceil \frac{n}{b}\rceil$ and $a_2$ instances of $\lfloor \frac{n}{b}\rfloor$. \textbf{Recurrence relationship} of $T(n)$ follows,
+
+  \begin{equation*}
+    f(n) =
+    \begin{cases}
+      c, & \text{ if }1\leq n < b\\
+      a_1T(\lceil \frac{n}{b}\rceil) + a_2T(\lfloor \frac{n}{b}\rfloor) + dn^l, & \text{ if } n\geq b
+    \end{cases}
+  \end{equation*}
+
+  where $a_1, a_2\in \N, a = a_1 + a_2$, $b\in \N, b>1$. As an example, \textsc{MergeSort} has $a_1 = 1$, $a_2 = 1$, $b = 2$, $l = 1$
+
+  To find the \textbf{closed form} of $T(n)$, consider simplify by considering $n$ as power of $b$. Then,
+
+  \begin{equation*}
+    f(n)
+    \begin{cases}
+      c,  & \text{ if } n = 1\\
+      aT(\frac{n}{b}) + dn^l, & \text{ if } n > 1
+    \end{cases}
+  \end{equation*}
+  where $a = a_1 + a_2$
+
+  \begin{theorem}
+    \label{maste theorem}
+    There is a constant $\kappa \geq 0$ (that depends on $a$,$b$,$c$,$d$ and $l$) so that, for all integers $n \geq b$ that are powers of $b$, the function $T(n)$ satisfies,
+    \begin{equation*}
+      f(n)=
+      \begin{cases}
+        \kappa n^l, & \text{ if } a< b^l\\
+        \kappa n^l \log_b{n}, & \text{ if } a=b^l\\
+        \kappa n^{\log_b{a}}, & \text{ if } a> b^l
+      \end{cases}
+    \end{equation*}
+    \begin{rem}
+      Correspondingly, we can expand the theorem to all of $n$ and set up the upper and lower bounds of $f(n)$, thereby poving
+      \begin{equation*}
+        T(n)\in
+        \begin{cases}
+          \Theta(n^l), & \text{ if } a< b^l\\
+          \Theta(n^l \log_b{n}), & \text{ if } a=b^l\\
+          \Theta(n^{\log_b{a}}), & \text{ if } a> b^l
+        \end{cases}
+      \end{equation*}
+    \end{rem}
+  \end{theorem}
+
+
+\end{defn}
+
+\begin{defn}
+  \label{closest pair problem}
+  \textbf{Closest Pair Problem} Given $n$ points in metric space, find a pair of point with closest distance between them. By brute force, the algorithm requires $O(n^2)$, It is however possible to achieve $O(n\log_2{n})$ with divide-and-conquer following
+  \begin{enumerate}
+    \item $O(1)$ Split set of points $S$ of size $n$ into roughly two subsets $S_1, S_2$ such that $|S_1| \approx |S_2|$ with line $l$ based on x-coordinate
+    \item $T(\lceil \frac{n}{2}\rceil) + T(\lfloor \frac{n}{2}\rfloor)$ Recursively compute mimimum distance $m_1, m_2$ for $S_1, S_2$.
+    \item $O(1)$ Set $d = Minimum(m_1, m_2)$
+    \item $O(n)$ Eliminate points that are over $d$ from $l$
+    \item $O(\log{n})$ Sort rest of the points based on y-coordinate
+    \item $O(n)$ Scan the remaining points in the $y$ order and compute the distances of each point to its five neighbors. (This is because a rectangle of width $d$ and height $2d$ can contain at most 6 points such that any 2 points are at distance $d$ apart. Implies that there's at most 6 point at the other set such that their distance to each other is at least $d$)
+    \item update $d$ if any of distances was less than $d$
+  \end{enumerate}
+
+\end{defn}
+
+
 
 
 

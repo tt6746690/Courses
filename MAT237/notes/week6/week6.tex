@@ -1,0 +1,342 @@
+\documentclass[11pt]{article}
+\input{"../../preamble"}
+\begin{document}
+
+
+\section*{Differential Calculus}
+
+\subsection*{Derivatives}
+
+\begin{defn}
+  \label{one variable differentiability}
+  \textbf{one variable differentiability} A function $f: \R \rightarrow \R$ is differentiable at $a\in\R$ if there exists an $m\in\R$ such that
+  \[
+    \lim_{h\to 0} \frac{f(a+h) - f(a) - mh}{h} = 0
+  \]
+  where $m=f'(a)$.
+  \begin{rem}
+    $ $\\
+    The idea is that $f$ is differentiable at $a$ if it can be well-approximated by a linear function $m$,
+    \[
+      f(a+h) = f(a) + mh + error(h)
+    \]
+    such that the error go to zero faster than linearly in $h$.
+    \[
+      \lim_{h\to 0} \frac{error(h)}{h} = 0
+    \]
+    Also we can calculate derivative by evaluating
+    \[
+      f'(a) = \lim_{h\to 0} \frac{f(a+h)- f(a)}{h}
+    \]
+  \end{rem}
+\end{defn}
+
+
+\begin{note}
+  Example of function continuous but not differentiable at 0
+  \[
+    f(x) =
+    \begin{cases}
+      x\sin(\frac{1}{x}), & x\neq 0\\
+      0,& x = 0\\
+    \end{cases}
+  \]
+  Example of differentiable function whose derivative is not continous
+  \[
+    f(x) =
+    \begin{cases}
+      x^2\sin(\frac{1}{x}), & x\neq 0\\
+      0,& x = 0\\
+    \end{cases}
+  \]
+\end{note}
+
+\begin{defn}
+  \label{Vector valued differentiability}
+  \textbf{Differentiability of vector valued function} A function $\gamma: \R\rightarrow \R^n$ is differentiable if at $t_0$,
+  \begin{align*}
+    \gamma'(t_0) &= \lim_{h\to 0} \frac{\gamma(t_0 + h) - \gamma(t_0)}{h}\\
+    &= \big( \lim_{h\to 0} \frac{\gamma_1(t_0 + h) - \gamma_1(t_0)}{h}, \dots,  \lim_{h\to 0} \frac{\gamma_2(t_0 + h) - \gamma_2(t_0)}{h} \big)
+  \end{align*}
+  exists. $\gamma$ is differentiable if all of its component functions are differentiable.
+\end{defn}
+
+\begin{proposition}
+  \label{Properties of vector valued function} \textbf{Properties of vector valued function} Let $f,g:\R\rightarrow \R^n$ and $\varphi: \R\rightarrow \R$ be differentiable functions.
+  \begin{enumerate}
+    \item $(\varphi f)' = \varphi'f + \varphi f'$
+    \item $(f\cdot g)' = f'\cdot g + f\cdot g'$
+    \item $(f\times g)' = f' \times g + f \times g'$  (if $n$ = 3)
+  \end{enumerate}
+\end{proposition}
+
+\begin{defn}
+  \label{multivariable differentiability}
+  \textbf{Multivariable differentiability}
+  A function $f:\R^n \rightarrow \R$ is differentiable at $a\in\R^n$ if there exists $c\in\R^n$ such that
+  \[
+    \lim_{h\to 0} \frac{f(a+h) - f(a) - c\cdot h}{|| h ||} = 0
+  \]
+  where $c$ if exists is called the \textbf{gradient} of $f$, denoted as $\nabla f(a)$
+\end{defn}
+
+\begin{theorem}
+  \label{differentiability implies continuity}
+  If $f:\R^n \rightarrow \R$ is differentiable at $a$ then $f$ is continous at $a$.
+  \begin{proof}
+    $ $\\
+    \begin{align*}
+      \lim_{x\to a} f(a)&= \lim_{h\to 0} f(a+h)-f(a) \\
+      &= \lim_{h\to 0} [f(a+h)-f(a) - \nabla f(a)\cdot h] + \nabla f(a)\cdot h \\
+      &= \lim_{h\to 0} f(a+h)-f(a) - \nabla f(a)\cdot h + \lim_{h\to 0} \nabla f(a)\cdot h\\
+      &= 0 + 0 = 0
+    \end{align*}
+  \end{proof}
+\end{theorem}
+
+
+
+\begin{defn}
+  \label{partial derivatives}
+  If $f:\R^n \to \R$. we define \textbf{partial derivatives} of $f$ with respect to $x_i$ at $a=(a_1, \dots, a_n)\in \R^n$ as
+  \[
+    \frac{\partial f}{\partial x_i} = \lim_{h\to 0}\frac{f(a_1, \dots a_1 + h, \dots a_n) - f(a_1, \dots, a_n)}{h}
+  \]
+  That is $\frac{\partial f}{\partial x_i}$ is the one varirable derivative of $f(x_1, \dots, x_n)$ with respect to $x_i$ where all other variables are held constant.
+\end{defn}
+
+\begin{theorem}
+  \label{multivariable function gradient}
+  If $f:\R^n\to \R$ is differentiable at $a$ then the partials of $f$ exist at $a$ and
+  \[
+    \nabla f(a) = (\frac{\partial f}{\partial x_1}, \dots, \frac{\partial f}{\partial x_n})
+  \]
+\end{theorem}
+
+\begin{rem}
+  $ $\\
+  Example of function where \textbf{partials exist} but function \textbf{not differentiable}. This is reasonable bcause partials only measure differentiability in finitely many directions that the converse direction does not hold.
+  \[
+    f(x,y) =
+    \begin{cases}
+      \frac{xy}{x^2 + y^2}, & (x,y) \neq (0,0)\\
+      0, & (x,y)= (0,0)
+    \end{cases}
+  \]
+  \begin{proof}
+    Function is not continous at $(x,y)= (0,0)$ (prove this by taking a path and show limit is depends on the path) and therefore not differentiable. However partials exists at $(0,0)$ by the limit definition.
+    \[
+      \frac{\partial f}{\partial x} = \lim_{h\to 0} \frac{f(h,0) - f(0,0)}{h} = 0
+    \]
+    $ $\\
+    Note this could be explained by the fact that partials of $f$ near zero is not continous
+    \[
+      \frac{\partial f}{\partial x} = \frac{y^3 - x^2y}{(x^2 + y^2)^2}
+    \]
+    Partials does not exist as $(x,y)\to (0,0)$
+  \end{proof}
+
+\end{rem}
+
+
+\begin{defn}
+  \label{c1 function} \textbf{Continously differentiable} functions is in the collection of $C^1$ function on $U$,
+  \[
+    C^1(\R^n, \R) = \Bigg\{ f:\R^n\to \R: \partial_i f \text{ exists and is continous for } i\in (1,\dots,n) \Bigg\}
+  \]
+\end{defn}
+
+
+\begin{theorem}
+  \label{C1 implies differentiability} \textbf{$C^1$ functions are differentiable}
+  Let $f:\R^n\to\R$ and $a\in\R^n$, If $\partial_i f(x)$ all exists and are continous in an open neighborhood of $a$, then $f$ is differentiable at $a$
+\end{theorem}
+
+
+\begin{rem}
+  Example of function differentiable but not $C^1$
+  \[
+    f(x,y) =
+    \begin{cases}
+      (x^2 + y^2)\sin(\frac{1}{\sqrt{x^2 + y^2}}), & (x,y)\neq (0,0)\\
+      0,& (x,y) = (0,0)\\
+    \end{cases}
+  \]
+  We can see that that derivative not continous at 0.
+\end{rem}
+
+
+\begin{defn}
+  \label{directional derivatives}
+  Let $f:\R^n \to \R$ and $a\in\R^n$. If $u\in\R^n$ is a unit vector ($||u||=1$) then the \textbf{directional derivative} of $f$ in the direction of $u$ at $a$ is
+  \[
+    \partial_u f(a) = \lim_{t\to0} \frac{f(a + tu) - f(a)}{t} = \frac{d}{dt} \vert_{t=0} f(a+tu)
+  \]
+\end{defn}
+
+\begin{theorem}
+  If $f:\R \to\R$ is differentiable at $a$, then for any unit vector $u$, $\partial_u f$ exists. Moreover,
+  \[
+    \partial_u f(a) = \nabla f(a) \cdot u
+  \]
+\end{theorem}
+
+\begin{rem}
+  To ways to compute partial derivatives.
+  \begin{enumerate}
+    \item compute using limit definition
+    \item compute partials first and then $\partial_u f(a) = \nabla f(a) \cdot u$
+  \end{enumerate}
+\end{rem}
+
+\begin{defn}
+  \label{generalized differentiability}
+  \textbf{Generalized differentiability} A function $f: \R^n \to \R^m$ is differentiable at $a\in \R^n$ if there exists an $m\times n$ matrix $A$ such that
+  \[
+    \lim_{h\to 0} \frac{|| f(a+h) - f(a) - Ah ||_{\R^m}}{||h||_{\R^2}} = 0
+  \]
+  Here $Df(a) = A$, the \textbf{Jacobian Matrix}
+\end{defn}
+
+\begin{proposition}
+  \label{the jacobian matrix}
+  If $f:\R^n \to \R^m$ is given by $f(x) = (f_1(x), \dots, f_m(x))$, then $f$ is differentiable if and only if each of the $f_i:\R^n\to \R$ is differentiable, that is
+  \[
+    Df(a) =
+      \begin{bmatrix}
+        \nabla f_1(a)\\
+        \nabla f_2(a)\\
+        \vdots\\
+        \nabla f_m(a)\\
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \dots  & \frac{\partial f_1}{\partial x_n} \\
+        \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \dots  & \frac{\partial f_2}{\partial x_n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \frac{\partial f_m}{\partial x_1} & \frac{\partial f_m}{\partial x_2} & \dots  & \frac{\partial f_m}{\partial x_n}
+      \end{bmatrix}
+  \]
+\end{proposition}
+
+
+\begin{theorem}
+  \label{chain rule}
+  \textbf{Chain Rule} Let $g:\R^k \to \R^n$ and $f:\R^n\to \R^m$. If $g$ is differentiable at $a\in\R^k$ and f is differentiable at $g(a)\in \R^n$, then $f\circ g$ is differentiable at $a$, and
+  \[
+    D(f\circ g)(a) = Df(g(a))Dg(a)
+  \]
+  \begin{rem}
+    Note that the gradient of a function $\R^n\to\R$ is a row vector and the derivative of a function $\R\to\R^n$ is a column vector.
+    $ $\\
+    \textbf{special case 1}, When $g:\R \to\R^n$, $f:\R^n \to \R$, so $f\circ g: \R \to \R$. Let $y = f(x)$ and let $(x_1, \dots, x_n) = g(t) = (g_1(t), \dots, g_n(t))$ so,
+    \[
+      \frac{d}{dt}(f\circ g) = \frac{\partial y}{\partial x_1}\frac{\partial x_1}{\partial t} + \dots + \frac{\partial y}{\partial x_n}\frac{\partial x_n}{\partial t}
+    \]
+    $ $\\
+    \textbf{special case 2}, When $g:\R^n \to \R^m$ and $f:\R^m\to\R$ so that $f\circ g: \R^n \to\R$. if $y=f(x)$ and $x=g(t)$ then
+    \[
+      \frac{\partial}{\partial t_i} (f\circ g)(x) = \frac{\partial y}{\partial x_1}\frac{\partial x_1}{\partial t_i} + \dots + \frac{\partial y}{\partial x_m}\frac{\partial x_m}{\partial t_i}
+    \]
+    Another way of putting is
+    \[
+      \partial_i (f\circ g)(a) = \nabla f(g(a))Dg(a) = \nabla f(g(a))\icol{\nabla g_i(a)\\ \vdots \\ \nabla g_m(a)} = \sum_{j=1}^{m} \partial_j f(g(a)) \cdot \partial_i g_j(a)
+    \]
+    where $1\leq j \leq m$ and $q\leq i\leq n$ and $g_i$ is $i$-th component function of $g$
+    $ $\\
+    In summary we compute derivatives either with direct substitution or with the chain rule, where we compute jacobian matrix and compose them.
+  \end{rem}
+\end{theorem}
+
+\begin{defn}
+  Some properties of multivariate differentiable function
+  \begin{enumerate}
+      \item If $f$ is a constant function ($\exists y\in\R^m, f(x)=y$ for all $x\in\R^n$) then $Df(a) = T_o$ where $T_o = \vec{0}$
+      \item If $f:\R^n \to\R^m$ is a linear transformation, then $Df(a) = f$, i.e. the derivative is itself.
+      \begin{proof}
+        Since $f$ differentible, error approach 0 as $h\to 0$
+        \[
+          0 = error(h) = f(a+h)-f(a)-Ah = f(a) + f(h) - f(a) - Ah \Rightarrow f(h) = A(h)
+        \]
+        Meaning that the linear map $Df = A = f$
+      \end{proof}
+      As an example, If $f:\R^2\to\R, (x,y)\mapsto x+y = \icol{1\\1}\cdot \irow{x&y}$, i.e. $f$ is linear, then $Df(a) = s$
+      \begin{proof}
+        \[
+          \lim_{h\to0}\frac{f(a+h)- f(a) - \icol{1\\1}\irow{h_1&h_2}}{||h||} = 0
+        \]
+      \end{proof}
+      \item $f: \R^n\to\R^m$ is differentiable at $a$ if and only if $f_i$, the $i$-th component function, is differentiable at $a$
+      \item $f:\R^2\to\R, (x,y)\mapsto xy$, then $Df(a): \R^2\to\R, (x,y) \mapsto a_2x + a_1y$
+  \end{enumerate}
+\end{defn}
+
+\begin{theorem}
+  \label{sum, product, quotient rule}
+  \begin{enumerate}
+    Let $f,g: \R^n \to \R$, then
+    \item \textbf{Sum Rule}:
+    \[
+      D(f+g)(a) = Df(a) + Dg(a)
+    \]
+    \item \textbf{Product Rule}:
+    \[
+      D(f\cdot g)(a) = f(a)Dg(a) + g(a)Df(a)
+    \]
+    \begin{proof}
+      Let $s$ represent the summation and
+      \begin{align*}
+        D(f+g)(a) &= D(s\circ(f,g))(a)\\
+        &\stackrel{\text{chain rule}}{=} Ds(f(a), g(a)) \circ D(f,g)(a) \\
+        &= Ds(f(a), g(a)) \circ (Df(a), Dg(a)) = Df(a) + Dg(a)
+      \end{align*}
+    \end{proof}
+    \item \textbf{Quotient Rule}:
+    \[
+      D(\frac{f}{g})(a) = \frac{g(a)Df(a) - f(a)Dg(a)}{g(a)^2} \text{ if } g(a)\neq 0
+    \]
+  \end{enumerate}
+
+\end{theorem}
+
+
+\begin{theorem}
+  \label{One variable Mean Value Theorem}
+  \textbf{Mean Value Theorem for One Variable}
+  In one variable, if $f: [a,b]\rightarrow \R$ is continous on $[a,b]$ and differentiable on $(a,b)$, then there exists $c\in (a,b)$ such that
+  \[
+    f(b) - f(a) = f'(c)(b-a)
+  \]
+  \begin{corollary}
+    A short list of propositions \\
+    \begin{enumerate}
+      \item There is a point such that the tangent line has the same slope as the secant between $(a, f(a))$ and $(b, f(b))$
+      \item If $f: [a,b]\rightarrow \R$ is differentiable with bounded derivative, say $f'(x) \leq M$ for all $x,y\in [a,b]$, then $|f(y) - f(x)| \leq M |y-x|$
+      \item If $f'(x) \equiv 0$ for all $x\in[a,b]$ then $f$ is the constant function on $[a,b]$
+      \item If $f'(x) > 0$ for all $x\in[a,b]$ then $f$ is an increasing (and hence injective) function
+    \end{enumerate}
+  \end{corollary}
+\end{theorem}
+
+
+\begin{theorem}
+  \label{multivariate Mean Value Theorem}
+  \textbf{Mean Value Theorem for Multivariate Functions}
+  Let $U\subseteq \R^n$ and let $a,b\in U$ be such that the straight line connecting them lives entirely within $U$. More precisely, the curve $\gamma: [0,1]\rightarrow \R^n$ given by $\gamma(t) = (1-t)a + tb$ satisfies $\gamma(t)\in U$ for all $t\in [0,1]$. If $f: U\rightarrow \R$ is a function such that $f\circ \gamma$ is continous on $[0,1]$ and differentiable on $(0,1)$, then there exists a $t_0\in (0,1)$ such that $c=\gamma(t_0)$ and
+  \[
+    f(b) - f(a) = \nabla f(c) \cdot (b-a)
+  \]
+  \begin{corollary}
+    If $U\subseteq \R^n$ is convex and $f:U\rightarrow \R$ is a differentiable function such that $|\nabla f(x)| \leq M$ for all $x\in U$, then for every $a,b\in U$, we have
+    \[
+      |f(b) - f(a)| \leq M |b-a|
+    \]
+  \end{corollary}
+
+  \begin{corollary}
+    If $U\subseteq \R^n$ is convex and $f: U\rightarrow \R$ is a differentiable function such that $\nabla f(x) = 0$ for all $x\in U$, then $f$ is a constant function on $U$
+  \end{corollary}
+\end{theorem}
+
+
+\end{document}

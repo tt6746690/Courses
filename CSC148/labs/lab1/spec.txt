@@ -1,0 +1,15 @@
+== Race Registry ==
+
+Context: a system for organizing a 5K running race.
+
+When runners register, they provide their email address
+and their speed category.  A speed category indicates how quickly they
+estimate that they can finish the race.  This allows organizers to start
+the runners in groups of roughly equivalent running speed so that
+faster runners aren't stuck behind slower runners.  The possible speed
+categories are: under 20 minutes, under 30 minutes, under 40 minutes,
+and 40 minutes or over.  We need to be able get a list of runners in
+a given speed category.  We also need to be able to look up a runner
+to find his or her speed category.
+
+Design and implement a class for a race registry.

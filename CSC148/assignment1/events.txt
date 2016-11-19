@@ -1,0 +1,26 @@
+# Sample Event List
+
+# The parser will skip empty lines, lines with whitespace only,
+# or those that start with '#'.
+
+# The format for DriverRequest events is:
+# <timestamp> DriverRequest <driver id> <location> <speed>
+# <location> is <row>,<col>
+
+0 DriverRequest Amaranth 1,1 1
+0 DriverRequest Bergamot 1,2 1
+0 DriverRequest Crocus 3,1 1
+0 DriverRequest Dahlia 3,2 1
+0 DriverRequest Edelweiss 4,2 1
+0 DriverRequest Foxglove 5,2 1
+
+# The format for RiderRequest events is:
+# <timestamp> RiderRequest <rider id> <origin> <destination> <patience>
+# <origin>, <destination> are <row>,<col>
+
+0 RiderRequest Almond 1,1 5,5 10
+5 RiderRequest Bisque 3,2 2,3 5
+10 RiderRequest Cerise 4,2 1,5 15
+15 RiderRequest Desert 5,1 4,3 5
+20 RiderRequest Eggshell 3,4 3,1 1
+25 RiderRequest Fallow 2,1 2,5 10

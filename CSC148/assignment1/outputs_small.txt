@@ -1,0 +1,7 @@
+1 -- Dan: Request a driver
+10 -- Arnold: Request a rider
+12 -- Arnold: Pickup Dan
+16 -- Dan: Cancel request
+17 -- Arnold: Dropoff Dan
+17 -- Arnold: Request a rider
+{'driver_total_distance': 14.0, 'rider_wait_time': 11.0, 'driver_ride_distance': 10.0}

@@ -1,0 +1,1 @@
+the major purpose of setting `len(t.children) == 0`, or leaf node as a base case is to allow the recursive function to be called only if it is an internal node, or that there is another level down from the node

@@ -1,0 +1,9 @@
+#At time 1, Dan exists
+#Dan is at location 1,1, requests a driver, and is willing
+#to wait 15 units of time for pickup before he cancels
+1 RiderRequest Dan 1,1 6,6 15
+
+#At time 10, Arnold exists
+#Arnold is at location 3,3, requests a rider,
+#and Arnold's car moves 2 units of distance per unit time
+10 DriverRequest Arnold 3,3 2

@@ -1,0 +1,210 @@
+\documentclass[11pt]{article}
+\input{"../../preamble"}
+\begin{document}
+
+\section{Multi-indices and higher order partials}
+
+\subsection{Second-Order Partial Derivatives}
+
+
+\begin{theorem}
+  \label{Clairut's Theorem}
+  \textbf{Clairut's Theorem} Let $f:\R^n \rightarrow \R$ be a function and $a\in\R^n$ a point. Let $i,j \in \{ 1, ..., n \}$  with $i\neq j$. If $\partial_{ij} f(a)$ and $\partial_{ji} f(a)$ both exist and are continuous in a neighbourhood of $a$, then $\partial_{ij} f(a) = \partial_{ji} f(a)$
+\end{theorem}
+
+\begin{defn}
+  \label{C2 functions} \textbf{$C^2$ Functions} Let $U\in\R^n$ be an open set. We define $C^2(U, \R)$ to be the collection of $f:\R^n \rightarrow \R$ whose second partial derivatives exist and are continuous at every point in $U$
+
+  \begin{rem}
+    Therefore, if $f$ is a $C^2$ function, Clairut's theorem immediately imply that it's mixed partials exists, continuous, and hence ar equal.
+  \end{rem}
+\end{defn}
+
+
+\begin{center}
+  An example in using high-order partial derivatives in conjunction with the chain rule.
+\end{center}
+Let $u=f(x,y)$ and suppose $x,y$ are functions of $(s,t)$, i.e. $x(s,t)$, $y(s,t)$. Compute $\frac{\partial^2 y}{\partial s^2}$
+\begin{solution}
+  $ $\\
+  Using the chain rule we have first order partials
+  \[
+    \frac{\partial u}{\partial s} = \frac{\partial u}{\partial x}\frac{\partial x}{\partial s} + \frac{\partial u}{\partial y}\frac{\partial y}{\partial s}
+  \]
+  Then we take partials again with respect to $s$
+  \[
+    \frac{\partial^2 u}{\partial s^2} = \frac{\partial}{\partial s}\left[\frac{\partial u}{\partial s}\right] = \frac{\partial}{\partial s} \left[\frac{\partial u}{\partial x}\frac{\partial x}{\partial s}\right] + \frac{\partial}{\partial s} \left[\frac{\partial u}{\partial y}\frac{\partial y}{\partial s}\right]
+  \]
+  Note here $\frac{\partial u}{\partial s}$ is a function of $(x,y)$. Thus to differentiate this function with respect to $s$, we must once again use the chain rule.
+  \begin{align*}
+    \frac{\partial}{\partial s}\left[ \frac{\partial u}{\partial x}\frac{\partial x}{\partial s}\right] &= \left[ \frac{\partial}{\partial s}\frac{\partial u}{\partial x}\right]\frac{\partial x}{\partial s} + \frac{\partial u}{\partial x}\frac{\partial^2 x}{\partial s^2} \tag{\text{product rule}}\\
+    &= \left[ \frac{\partial^2 u}{\partial x^2} \frac{\partial x}{\partial s} + \frac{\partial^2 u}{\partial x \partial y}\frac{\partial y}{\partial s} \right] \frac{\partial x}{\partial s} + \frac{\partial u}{\partial x}\frac{\partial^2 x}{\partial s^2} \tag{\text{chain rule}}\\
+    &= \frac{\partial^2 u}{\partial x^2} \left[ \frac{\partial x}{\partial s} \right]^2 + \frac{\partial^2 u}{\partial x \partial y}\frac{\partial y}{\partial s}\frac{\partial x}{\partial s} + \frac{\partial u}{\partial x}\frac{\partial^2 x}{\partial s^2}\\
+  \end{align*}
+  Similar computation can be applied to the latter term. Then
+  \[
+    \frac{\partial^2 u}{\partial s^2} =  \frac{\partial^2 u}{\partial x^2} \left[ \frac{\partial x}{\partial s} \right]^2 + \frac{\partial^2 u}{\partial y^2} \left[ \frac{\partial y}{\partial s} \right]^2 + 2 \frac{\partial^2 u}{\partial x \partial y} \frac{\partial y}{\partial s}\frac{\partial x}{\partial s} + \frac{\partial u}{\partial x}\frac{\partial^2 x}{\partial s^2} + \frac{\partial u}{\partial y}\frac{\partial^2 y}{\partial s^2}
+  \]
+\end{solution}
+
+  \begin{defn}
+    \label{Higher Order Partials}\textbf{Higher Order Partials} If $U\subseteq \R^n$ is an open set, then for $k\in\N$ we define $C^k(U, \R)$ to be the collection of functions $f:\R^n \rightarrow \R$ such that the $k$-th order partial derivatives of $f$ all exist and are continuous on $U$. If the partials exist and are continuous for all $k$, we say that $f$ is of type $C^{\infty}(U, \R)$
+  \end{defn}
+
+  \begin{theorem}
+    \label{Generalized Clairuit's Theorem} \textbf{Generalized Clairuit's Theorem} If $f:U\subseteq \R^2 \rightarrow \R$ is of type $C^k$, then
+    \[
+      \partial_{i_1 \dots i_k} f = \partial_{j_1\dots j_k} f
+    \]
+    whenever $(i_1, \dots, i_k)$ and $(j_1, \dots, j_k)$ are re-orderings of each other.
+  \end{theorem}
+
+
+  \begin{defn}
+    \label{Multi-indices}\textbf{Multi-index notation}
+    A multi-index $\alpha$ is a tuple of non-negative integers
+    \[
+      \alpha = (\alpha_1, \dots, \alpha_n)
+    \]
+    The \textbf{order}  of $\alpha$ is the sum of its components
+    \[
+      | \alpha | = \alpha_1 + \alpha_2 + \dots + \alpha_n
+    \]
+    We define the multi-index \textbf{factorial} to be
+    \[
+      \alpha ! = \alpha_1 ! \alpha_2 ! \dots \alpha_n !
+    \]
+    If $x = (x_1, \dots, x_n)\in\R^n$ then the multi-index \textbf{exponential} is
+    \[
+      x^{\alpha} = x_1^{\alpha_1} x_2^{\alpha_2} \dots x_n^{\alpha_n}
+    \]
+    and if $f:\R^n \rightarrow \R$ we right
+    \[
+      \partial^{\alpha} = \frac{\partial^{| \alpha |} f}{\partial x_1^{\alpha_1} \partial x_2^{\alpha_2} \dots \partial x_n^{\alpha_n}}
+    \]
+  \end{defn}
+
+  \section{Taylor Series}
+
+  \subsection{review}
+
+  Derivatives can be a tool for linearly approximating a function
+  \[
+    f(x) \approx f(a) + f'(a)(x-a)
+  \]
+  \\We can go beyong just linear approximationg and introduce quadratic, cubic, quartic approximations.
+  \[
+    p_{n,a} (x) = c_n x^n + c_{n-1} x^{n-1} + \dots + c_1 x + c_0 \text{ , where } c_k = \frac{f^{(k)}(a)}{k!}
+  \]
+  \[
+    p_{n,a}(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!} (x-a)^k
+  \]
+
+\begin{defn}
+  \label{One-Var Taylor Series} \textbf{Single variable Taylor's Theorem} Let $f: [a,b]\subseteq \R \rightarrow \R$. Let $n>0$ $n\in \mathbb{Z}$. Suppose $f^{(n)}$ is continuous on $[a,b]$ and $f^{(n+1)}(t)$ exists on $(a,b)$. Let $\alpha, \beta \in [a,b]$. Then Taylor polynomial of degree $n-1$ of function $f$ at point $t$, is denoted as
+  \[
+    p(t) = p_{n, \alpha} = \sum_{k=0}^{n} C_k (t-\alpha)^k, \text{ , where } C_k = \frac{f^{(k)}(\alpha)}{k!} \in\R
+  \]
+  \begin{rem}
+    Here $p(t)$ and $f(t)$ have derivatives at $\alpha$ that agree up to order $n$; that is
+    \[
+      \forall k\in \{1,\dots, n\}: p^{(k)}(\alpha) = f^{(k)}(\alpha)
+    \]
+    Also note that
+    \[
+      f(t) = p_{n, \alpha}(t) + r_{n, \alpha} (t)
+    \]
+  \end{rem}
+  \noindent If $f$ is defined above, then for each $\beta$ there eists a point $x$ between $\alpha,\beta$ such that
+
+   \[
+    f(\beta) = p(\beta) + \frac{f^{(n)}(x)}{(n+1)!} (\beta - \alpha)^{n+1}
+   \]
+
+\end{defn}
+
+
+
+\begin{theorem}
+  \textbf{Rolle's Theorem} If a real-valued function $f$ is continuous on a proper closed interval $[a, b]$, differentiable on the open interval $(a, b)$, and $f(a) = f(b)$, then there exists at least one $c$ in the open interval $(a, b)$ such that
+  \[
+    f'(c) = 0
+  \]
+  \begin{proof}
+    Since $[a, b]$ closed and bounded, intermediate value theorem applies here; that is, $f(x)$ achieves its maximum and minimum over $[a,b]$. Let $c\in[a,b]$. If $c\in(a,b)$, since $f$ is differentiable on $(a,b)$, $f'(c) = 0$ because it is an extremum. If $c\in \{ a, b\}$ or maximum and minimum occurs at endpoints. Because $f(a) = f(b)$, then it means that $f(x)$ cannot be greater or smaller than $f(a) = f(b)$, then $f(x)$ is a constant function and $f'(x)$ is therefore 0 over $(a,b)$
+  \end{proof}
+\end{theorem}
+
+
+\begin{theorem}
+  \label{Higher Order Rolle's Theorem} \textbf{Higher Order Rolle's Theorem} Assume that $f: \R \rightarrow \R$ is continuous on $[a,b]$ and $n+1$ times differentiable on $[a,b]$. If $f(a) = f(b)$ and $f^{(k)}(a) = 0$ for all $k\in \{ 1, \dots, n\}$ then there exists a $c\in (a,b)$ such that $f^{(n+1)}(c) = 0$
+\end{theorem}
+
+\begin{theorem}
+  \label{Taylor's Theorem with Lagrange Reminder} \textbf{Taylor's Theorem with Lagrange Reminder} Suppose that $f$ is $n+1$ times differentiable on an interval $I$ with $a\in I$. For each $x\in I$ there is a point $c$ between $a$ and $x$ such that
+  \[
+    r_{n,a}(x) = \frac{f^{(n+1)}(c)}{(n+1)!} (x-a)^{n+1}
+  \]
+  so if $f$ is $k$ times differentiable at the point $a$, then
+  \[
+    f(x) = p_{n, a}(x) + r_{n, a}(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!} (x-a)^k + \frac{f^{(n+1)}(c)}{(n+1)!} (x-a)^{n+1}
+  \]
+\end{theorem}
+
+\begin{corollary}
+  \textbf{Taylor reminder is a good approximation} If $f$ is of type $C^{n+1}$ on an open interval $I$ with $a\in I$, then
+  \[
+  \lim_{x\to a} \frac{r_{n, a}(x)}{| x-a |^n} = 0
+  \]
+  Moreover, we could bound $r_{n, a}(x)$ as
+  \[
+    | r_{n,a}(x) | \leq \frac{M}{(n+1)!} | x-a |^{n+1} \text{ , for some } M>0
+  \]
+  \begin{rem}
+    This corollary just shows that the Taylor reminder is a good approximation, since error vanishes faster than order $n$. Note how $M>0$ here is arbitrary because $f^{(n+1)}(c)$ is a continuous function on a compact set and therefore achieves its maximum/minimum by extreme value theorem. Also note that we can use this to determine error bounds on Taylor series
+  \end{rem}
+
+\end{corollary}
+
+
+\begin{theorem}
+  \label{Multi-variable Taylor's Theorem} \textbf{Multi-variable Taylor's Theorem} Let $f:\R^n \rightarrow \R$ where $f\in C^{k+1}(S, \R)$ where $S\subseteq \R^n$ be an open and convex set. Let $a = (a^1, \dots, a^n)\in S$ and $x = (x^1,\dots, x^n) \in S$. Then multivariate Taylor polynomial is given by
+  \[
+    f(x) = \sum_{|\alpha|\leq n} \frac{( \partial^{\alpha} f ) (a)}{\alpha !} (x-a)^{\alpha} + r_{n,a} (x)
+  \]
+  Or consider $h = x - a$, then
+  \[
+    f(a+h) = \sum_{|\alpha|\leq n} \frac{( \partial^{\alpha} f ) (a)}{\alpha !} h^{\alpha} + r_{n,a} (h) \text{ , where } r_{n, a} (h) = \sum_{|\alpha| = k+1} \frac{\partial^{\alpha} f(u)}{\alpha !} h^{\alpha}
+  \]
+  for some $u$ on the line joining $a$ to $x$
+\end{theorem}
+
+
+\subsection{The Hessian Matrix}
+
+\begin{defn}
+  \label{Hessian Matrix}\textbf{Hessian Matrix} If $f:\R^n \rightarrow \R$ is of class $C^2$ then the Hessian matrix of $f$ at $a\in\R^n$ is the symmetric (i.e. $H = H^T$) $n\times n$ matrix of second order partial derivatives
+  \[
+    H(a) =
+    \begin{bmatrix}
+      \partial_{11}f(a) & \partial_{12} f(a) & \dots  & \partial_{1n} f(a) \\
+      \partial_{21}f(a) & \partial_{22} f(a) & \dots  & \partial_{2n} f(a) \\
+      \vdots & \vdots & \ddots & \vdots \\
+      \partial_{n1} f(a) & \partial_{n2} f(a) & \dots  & \partial_{nn} f(a)
+    \end{bmatrix}
+  \]
+  \begin{rem}
+    We can use notion of Hessian matrix to simplify Taylor series formula. For second order Taylor polynomial where $x,a\in\R^n$
+    \[
+      f(x) = f(a) + \nabla f(a) (x-a) + \frac{1}{2} (x-a)^T H(a) (x-a) + r_{2, a} (x)
+    \]
+  \end{rem}
+  Now we can compute simple Taylor polynomial not only from formula given but also from gradient and Hessian matrix.
+\end{defn}
+
+\begin{theorem}
+  \label{Spectral Theorem} \textbf{Spectral Theorem} If $A: \R^n \rightarrow \R^n$ is a symmetric matrix then there exists an ortthonormal basis consisting of eigenvectors of $A$.
+\end{theorem}
+
+
+\end{document}

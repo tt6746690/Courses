@@ -765,6 +765,322 @@ Let $i$ be an arbitrary integer such that $i > 1$. Let $f$, $l$ be integers such
 \end{defn}
 
 
+\section*{7.1 Introduction to Formal Language}
+
+
+\textbf{Terminology}
+
+\begin{enumerate}
+  \item \textbf{Alphabet}: a set $\Sigma$ whose elements are called \textbf{symbols}, i.e. $\{0, 1\}$
+  \item \textbf{String}: a finite sequence of symbols from $\Sigma$, i.e. $01001$. The empty string is denoted as $\epsilon$. Note the strings are representatively concatenated.
+  \begin{enumerate}
+    \item \textbf{Length} of string $| x |$
+    \item \textbf{Concatenation} of string $x\circ y$ is $xy$
+    \item \textbf{Reversal} of string $(x)^R$ is obtained by listing elements of $x$ in reverse order
+    \item \textbf{Exponentiation} k-th power of $x$ is $x^k$, represented by
+    \begin{align*}
+      x^k =
+      \begin{cases}
+        \epsilon, & k=0\\
+        x^{k-1}\circ x, &x>0
+      \end{cases}
+    \end{align*}
+    Exponentiation of strings is repeated concatenation.
+    \item \textbf{Equality}: Two strings are equal if $|x| = |y|$ and if every $i$-th item of $x$ is same as $i$-th item of $y$
+    \item \textbf{Substring}: String $x$ is a substring of $y$ if exists $x_1, x_2$ such that $y=x_1 x x_2$. If $x_1,x_2\neq \epsilon$, then $x$ is a \textbf{proper substring} of $y$.
+    \item \textbf{Prefix/Suffix}: A string $x$ is a prefix for $y$ if exists $x_1$ such that $x x_1 = y$, if $x_1 \neq \epsilon$ then $x$ is a proper substring of $y$. Similarly for Suffix.
+  \end{enumerate}
+  \item The set of all string over alphabet $\Sigma$ is denoted as $\Sigma^*$. $\Sigma^*$ can also be defined recursively by construction...
+  \begin{center}
+    \textbf{Basis}: $\epsilon \in \Sigma^*$\\
+    \textbf{Inductive step}: If $x\in \Sigma^*$ and $a\in \Sigma$, then $xa\in \Sigma^*$
+  \end{center}
+\end{enumerate}
+
+\begin{theorem}
+  For all strings $x$ and $y$, $(xy)^R = (x)^R (y)^R$.
+\end{theorem}
+
+
+\begin{theorem}
+  \label{language}
+  A (formal) \textbf{language} $L$ over the set $\Sigma$ is a subset of $\Sigma^*$
+  \begin{rem}
+    A language may be infinite, but each \textit{string} in the language must be finite. Also $\emptyset$ and $\{\epsilon\}$ are different languages
+  \end{rem}
+\end{theorem}
+
+\begin{defn}
+  \label{Operations on language}
+  \textbf{Operations on Language}: Let $L, L'$ be languages over $\Sigma$
+  \begin{enumerate}
+    \item \textbf{Complementation: } $\overline{L} = \Sigma^* - L$
+    \item \textbf{Union: } $L\cup L' = \{ x: x\in L \lor x\in L'\}$
+    \item \textbf{Intersection: } $L\cap L' = \{ x: x\in L \land x\in L'\}$
+    \item \textbf{Concatenation: } $L\circ L' = \{ xy: x\in L, y\in L'\} $. Note $\emptyset \circ L = L\circ \emptyset = \emptyset$
+    \item \textbf{Kleene star: } $L^{\star}$ of language $L$ is the set of all possible concatenation of 0 or more strings in $L$, defined recursively as
+    \begin{center}
+      \textbf{Basis: } $\epsilon \in L^{\star}$\\
+      \textbf{Inductive step: } If $x\in\L^{\star}$ and $y\in L$, then $xy\in L^{\star}$
+    \end{center}
+    Therefore, a string $x$ belongs to $L$  if and only if either $x = \epsilon$ or there exists some integer $k \geq 1$ and strings $x_1,\dots,x_k \in L$ such that $x = x_1x_2 \dots x_k$.
+    \item \textbf{Language Exponentiation: } for any $k\in \N$, $L^k$ is the set of strings obtained by concatenating $k$ strings of $L$. For any $k$,
+    \begin{align*}
+      L^k =
+      \begin{cases}
+        \{ \epsilon \}, & k=0\\
+        L^{k-1} \circ L. & k> 0
+      \end{cases}
+    \end{align*}
+    Note $L^1 = L$
+    \item \textbf{Reversal: } The reversal of $L$, $Rev(L)$ is the set of reversals of the strings in $L$
+    \[
+      Rev(L) = \{ (x)^R: x\in L\}
+    \]
+  \end{enumerate}
+
+\end{defn}
+
+
+\section*{7.2 Regular Expressions}
+
+\begin{defn}
+  \textbf{Regular expressions} is a notation for describing languages.
+  \\
+  Let $\Sigma$ be a finite alphabet, the set of \textbf{regular expression} $RE$ (over $\Sigma$) is the smallest set such that\\
+  \begin{center}
+    \textsc{Basis}: $\emptyset, \epsilon, a$ (for each $a\in \Sigma$) belong to $RE$\\
+    \textsc{Inductive step}: If $R$ and $S$ belong to $RE$, then $(R+S)$, $(RS)$, $R^*$ also belong to $RE$
+  \end{center}
+  Use these words to describe the language denoted by the regular expression.
+  \begin{enumerate}
+    \item \textbf{alteration} $+$, informally meaning \textit{or}
+    \item \textbf{concatenation}, informally meaning \textit{followed by}
+    \item \textbf{repetition} $*$, informally meaning \textit{zero or more repetitions of}
+  \end{enumerate}
+\end{defn}
+
+\begin{defn}
+  The \textbf{language denoted by a regular expression} $R$ is defined by structural induction on $R$,\\
+  \textbf{Basis}: Either $R=\emptyset$, or $R=\epsilon$, or $R=a$, for some $a\in\Sigma$. For each case we define $L(R)$,
+  \begin{itemize}
+    \item $L(\emptyset) = \emptyset$ (the empty language consisting of no strings)
+    \item $L(\epsilon) = \epsilon$ (the language consisting of just empty string)
+    \item for any $a\in \Sigma$, $L(a) = \{ a \}$ (langauge consisting of a one-symbol sting $a$)
+  \end{itemize}
+  \textbf{Inductive step:} Either $R = S+T$, $R = (ST)$, or $R=S^*$, for some expression $S$ and $T$. We define $L(R)$,
+  \begin{itemize}
+      \item $L((S+T)) = L(S)\cup L(T)$
+      \item $L((ST)) = L(S)\circ L(T)$
+      \item $L(S^*) = (L(S))^*$
+  \end{itemize}
+
+  \begin{rem}
+    Note concatenation takes precedence over union. Also we might want to prove equivalence of a language and a language denoted by a regular expression, specifically,
+    \[
+      L(R) = L
+    \]
+    To prove $x\in L(R) \Rightarrow x\in L$, we unwind regular expression using definition of language listed previously and express $x$ as a concatenation of strings. \\
+    To prove $x\in L \Rightarrow x\in L(R)$, we try to break down $x$ according to requirement of the language and categorize them into corresponding langugaes, whose composition is the desired $L(R)$
+  \end{rem}
+\end{defn}
+
+\begin{defn}
+  \textbf{Equivalence of Regular Expressions} Two regular expressions are equivalent, $R\equiv S$, if they denote the same language, i.e. $L(R) = L(S)$
+  \begin{itemize}
+    \item $(R+S)\equiv (S+R)$
+    \item $((R+S) + T)\equiv (R+(S+T))$
+    \item $((RS)T)\equiv (R(ST))$
+    \item $(R(S+T))\equiv ((RS) + (RT))$
+    \item $((S+T)R)\equiv (SR+TR)$
+    \item $(R+\emptyset)\equiv R$
+    \item $(R\epsilon)\equiv R\equiv (\epsilon R)$
+    \item $(\emptyset R) \equiv \emptyset \equiv (R\emptyset)$
+    \item $R^{*^*}\equiv R^*$
+    \item $((\epsilon + R)R^*) \equiv R^*$
+  \end{itemize}
+  \begin{rem}
+    We can use these equivalent expressions to simplify regular expressions
+  \end{rem}
+\end{defn}
+
+
+
+
+
+\section*{7.3 Definitive Finite State Automaton}
+
+A Definitive Finite State Automaton is a mathematical model of a machine which, given any input string $x$, accepts or rejects $x$. The automaton has a finite set of states, including a designated initial state and a designated set of accepting states. \\
+It is customary to represent automata as directed graphs, with nodes (circles) corresponding to states, and edges (arcs) labeled with the symbols of the alphabet. An edge from state $q$ to state $q'$, labeled with symbol $a$, indicates that if the current state is $q$ and the current input symbol is $a$, the automaton will move to state $q$. The initial state of the automaton is indicated by drawing an unlabeled edge into that state coming from no other state. The accepting states are indicated by double circles.\\
+
+\begin{defn}
+  \label{DFSA}
+  A \textbf{DFSA} $M$ is a quintuple $M=(Q, \Sigma, \delta, s, F)$
+  \begin{enumerate}
+    \item  $Q$ is a finite set of \textbf{states}.
+    \item $\Sigma$ is a finite \textbf{alphabet}.
+    \item $\delta: Q\times \Sigma \rightarrow Q$ is the \textbf{transition function}. In terms of the diagrammatic representation of the FSA, $\delta(q, a) = q'$ means that there is an edge labeled a from state $q$ to state $q'$.
+    \item $s \in Q$ is the start or \textbf{initial state}.
+    \item $F \subseteq Q$ is the \textbf{set of accepting states}.
+  \end{enumerate}
+  \begin{rem}
+    we can define the \textbf{extended transition function} $\delta^* :Q\times \Sigma^* \rightarrow Q$. Intuitively, if $q \in Q$ and $x \in \Sigma^∗$, $\delta^∗(q,x)$ denotes the state in which the automaton will move after it processes input $x$ starting in state $q$. If $\delta^* (q, x) = q'$, we say that $x$ takes the automaton $M$ from $q$ to $q'$
+  \end{rem}
+  \begin{rem}
+    DFSA is \textbf{complete} is there is a transition on every symbol from each state.
+  \end{rem}
+\end{defn}
+
+\begin{defn}
+    A string $x\in\Sigma^*$ is \textbf{accepted} by $M$ if and only if $\delta^*(s,x)\in F$, i.e. if and only if $x$ takes the automaton from the initial state to an accepting state.The \textbf{language accepted} by a DFSA $M$, denoted $L(M)$, is the set of all strings accepted by $M$.
+\end{defn}
+
+
+\begin{defn}
+  \textbf{Conventions for DFSA diagrams}
+  \begin{itemize}
+    \item \textbf{Combining transitions}
+    \item \textbf{Eliminating dead states}. A state $q_{reject}$ is dead if no accepting state is reachable from $q_{reject}$, i.e. there is no path that starts at $q_{reject}$ and ends at accepting state.
+  \end{itemize}
+
+\end{defn}
+
+\begin{defn}
+  \textbf{Designing and proving correctness of DFSA}
+  For example, A DFSA that accepts the language,
+  \[
+    L_1 = \{ x\in\{ 0, 1 \}, x \text{ has odd number of 0s and odd number of 1s}\}
+  \]
+  An \textbf{state invariant} for a particular state describes what is true about the state. To prove state invariant for one state, we need to use induction on length of input string $x$ and prove state invariant for each and every states, i.e.,
+  \[
+    P(x): \delta^*(q_0, x) =
+    \begin{cases}
+      q_0, & \text{ if $x$ has an even number of 0s and an even number of 1s}\\
+      q_1, & \text{ if $x$ has odd number of 0s and an even number of 1s}\\
+      q_2, & \text{ if $x$ has an even number of 0s and an odd number of 1s}\\
+      q_3, & \text{ if $x$ has an odd number of 0s and odd number of 1s}\\
+    \end{cases}
+  \]
+  Note that only $if$ is required for state invariant predicate $P(x)$.Then we prove $P(x)$ holds for all strings $x$ by structural induction.
+  \begin{proof}
+    $ $\\
+    \textit{BASIS}: when $x=\epsilon$, $x$ has zero(even) number of 0s and zero(even) number of 1s and also $\delta^*(q_0, \epsilon) = q_0$, $P(x)$ holds.\\
+    \textit{INDUCTIVE STEP:} when $x=ya$, where $y\in\Sigma^*$ and $a\in\Sigma$. Assume that $P(y)$ holds, and discuss 2 cases where $a$ can be any symbol in the alphabet. Essentially, we concatenate another character from $\Sigma$ and see if the state invariant holds.
+  \end{proof}
+
+  Once we proved state invariant, we prove equivalence of language to show that a DFSA accepts a certain language
+  \[
+    L = L(M) \iff L\subseteq L(M) \land L\supseteq L(M)
+  \]
+  Remember a string is in $L(M)$ if $\delta^*(q_0, x) \in F$, the accepting states.
+\end{defn}
+
+
+\begin{defn}
+  Systematically finding the union of DFSA $M_1$ and $M_2$, $M=M_1\cup M_2$. If $M_1$ has $Q_1=\{ p_0, p_1\}$ and $M_2$ has $Q_2=\{ q_0, q_1\}$, then their union $M$ has the same alphabet, and a different state $Q = Q_1 \times Q_2 = \{ (p_0, q_0), (p_0, q_1), (p_1, q_0), (p_1, q_1)\}$, start state $s=(p_0, q_0)$, and final states including states where any of the states were accepted in $M_1$ or $M_2$
+\end{defn}
+
+
+
+\section*{7.4 Nondeterministic finite state automata}
+
+In a DFSA, a given state and current input symbol uniquely determine the next state of the automaton. There is a variant of finite state automata, called \textbf{nondeterministic finite state automata}, abbreviated NFSA, where this is not the case: From a given state, when the automaton reads an input symbol $a$, there may be \textbf{several states to which it may go next}. Furthermore, the automaton may “spontaneously” move from one state to another without reading any input symbol; such state transitions are called \textbf{$ \epsilon$-transitions}. The computation of a NFSA on input $x$ corresponds to not a single path, as in the case of DFSA, but to \textbf{a set of paths}.
+
+the NFSA accepts $x$ if there is (at least) one computation path that it could follow on input $x$ that ends in an accepting state. A string is rejected only if \textit{every} computation path the NFSA could have followed ends in a nonaccepting state.
+
+Presentationally, a FSA is considered a NFSA if there are more than one edge with the same symbol originating from the same node.
+
+
+\begin{defn}
+  \textbf{nondeterministic finite state automaton (NFSA)} is a quintuple $M=(Q, \Sigma, \delta, s, F)$, where
+  \begin{itemize}
+    \item $Q$ is a finite set of \textbf{states}
+    \item $\Sigma$ is a finite alphabet
+    \item $\delta: Q\times (\Sigma \cup \{ \epsilon \}) \rightarrow \rho (Q)$ is the \textbf{transition function} Note here $\rho (Q)$ represents proper subset of $Q$, a set.
+    \item $s\in Q$ is the start or \textbf{initial} state
+    \item $F\subseteq Q$ is the set of \textbf{accepting} states
+  \end{itemize}
+  \begin{rem}
+    Note \textbf{extended transition function}
+    \[
+      \delta^*: Q\times \Sigma^* \rightarrow \rho(Q)
+    \]
+  \end{rem}
+  A NFSA $M=(Q, \Sigma, \delta, s, F)$ \textbf{accepts} a string $x\in \Sigma^*$ if and only if $\delta^*(s,x)\cap F\neq \emptyset$ (In other words $M$ accepts $x$ if and only if there is at least one of the possible states in which the automaton could be after processing input $x$ is an accepting state) \textbf{The language accepted by} $M$, $L(M)$, is the set of strings accepted by $M$.
+\end{defn}
+
+
+\begin{theorem}
+  \textbf{Equivalence of DFSA and NFSA}
+  Any language that is accepted by a NFSA is accepted by a DFSA\\
+  DFSA is a special case of NFSA, where we restrict transition function in certain ways. Therefore, NFSA is at least as powerful as DFSA. We can construct a DFSA from a NFSA via \textbf{subset construction}
+\end{theorem}
+
+\begin{defn}
+  \textbf{Proof of correctness for NFSA} Just think about the path to accepted states and express it in terms of language; also think about the language and extrapolate what path the string will take the automata to, and if the final state is one of the accepting states.
+\end{defn}
+
+
+
+\section*{7.5 Closure properties of FSA-accepted languages}
+
+\begin{theorem}
+  The class of languages accepted by FSA is closed under complementation, union, intersection, concatenation, and Kleene star operation. In other wards, if $L$ and $L'$ are langauges that are accepted by FSA, then so are all of the following $\bar{L}, L\cup L', L\cap L', L\circ L', L^*$
+\end{theorem}
+
+
+\section*{7.6 Equivalence of regular expression and FSA}
+
+\begin{theorem}
+  For every regular expression $R$ there is a FSA $M$ such that
+  \[
+    L(M) = L(R)
+  \]
+  \begin{rem}
+    Intuitively we recursively construct FSA that accept the language by the subexpressions of $R$,  and combine these automata with $\epsilon$ transition to accept the language denoted by the entire expression $R$.
+    \begin{itemize}
+      \item we use an $\epsilon$ transition to concat two strings
+      \item we use branched $\epsilon$ transition to make unions
+      \item we use an $\epsilon$ transition leading to a previous state to represent Kleene star.
+    \end{itemize}
+  \end{rem}
+\end{theorem}
+
+\section*{7.6 Regular Languages}
+
+\begin{defn}
+  Let $L$ be a language, then the following statements are equivalent,
+  \begin{enumerate}
+    \item $L$ is denoted by a regular expression
+    \item $L$ is accepted by a deterministic FSA
+    \item $L$ is accepted by a nondeterminstic FSA
+  \end{enumerate}
+  A language is called \textbf{regular} if and only if it is denoted by some regular expression, or equivalently, if and only if it is accepted by a FSA.
+\end{defn}
+
+
+\section*{7.7 Proving nonregularity:  the Pumping Lemma}
+
+There are languages not accepted by FSA because FSA has only a fixed number of states, implying that it can only remember a bounded amount of things. For example,
+\[
+  \{ 0^n1^n: n\geq 0\}
+\]
+
+The \textbf{Pumping lemma} can be used to prove that languages are not regular. Intuitively, it states that any sufficiently long string of a regular language $L$ has a nonempty substring which can be repeated ('pumped') an arbitrary number of times, with the resulting string still being in $L$.
+
+\begin{theorem}
+  \textbf{Pumping Lemma} Let $L\subseteq \Sigma^*$ be a regular language. Then there is some $n\in\N$ (that depends on $L$) so that every $x\in L$ that has length $n$ or more satisfies the following property
+
+  \begin{center}
+    There are $u,v,w\in \Sigma^*$ such that $x=uvw$, $v\neq \epsilon$, and $uv^kw\in L$, for all $k\in\N$
+  \end{center}
+
+  \begin{rem}
+    To prove that a language is not regular, we assume for contradiction that $L$ is regular. Therefore we let $n\in\N$ be the natural numbe which the Pumping lemma assserts that exists if $L$ is regular. And then construct a string $x = uv^kw$ that is not in the language for all $k\in\N$. The trick is trying to pick an exponent $m$ such that $m>n$ so that pumping must have happened if $L$ is regular.
+  \end{rem}
+\end{theorem}
+
+
 
 
 

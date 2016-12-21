@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1479011433 "week6.tex" "week6.pdf" "week6" 1479011434
+["pdflatex"] 1481127802 "week6.tex" "week6.pdf" "week6" 1481127803
   "../../preamble.tex" 1479003251 1553 c43599249f8367dfa0b8a5c27cf030f7 ""
-  "./week6.out" 1479011434 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "./week6.out" 1481127803 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -193,11 +193,11 @@
   "/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1432479641 1764542 91654ba72bdb667e84ea24f076ae16d8 ""
   "/usr/local/texlive/2015/texmf-var/web2c/pdftex/pdflatex.fmt" 1432479681 3849859 39a7d258195bde2394e244961601fbc5 ""
   "/usr/local/texlive/2015/texmf.cnf" 1432479636 577 0d611272082f3cdb8e80e09a3c69cf07 ""
-  "week6.aux" 1479011434 1704 9ba5f3542a880903b4150d73e06a57a5 ""
-  "week6.out" 1479011434 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "week6.tex" 1479011433 13044 cab2a46d2de7322c39ff4fc45c139d0e ""
+  "week6.aux" 1481127803 1704 dcdb1e5570347fbd82f54fa12df50093 ""
+  "week6.out" 1481127803 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "week6.tex" 1481127800 13313 efacff2d546c2621ce71a866634688fb ""
   (generated)
-  "week6.log"
   "week6.pdf"
   "week6.aux"
   "week6.out"
+  "week6.log"

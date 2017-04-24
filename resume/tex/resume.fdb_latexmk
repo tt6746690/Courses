@@ -1,11 +1,11 @@
 # Fdb version 3
-["pdflatex"] 1469422514 "resume.tex" "resume.pdf" "resume" 1469422515
+["pdflatex"] 1489635494 "resume.tex" "resume.pdf" "resume" 1489635494
   "/usr/local/texlive/2015/texmf-dist/web2c/texmf.cnf" 1428852030 31983 18aeec08f48baa3cf3508d538dd5f459 ""
   "/usr/local/texlive/2015/texmf-var/web2c/pdftex/pdflatex.fmt" 1432479681 3849859 39a7d258195bde2394e244961601fbc5 ""
   "/usr/local/texlive/2015/texmf.cnf" 1432479636 577 0d611272082f3cdb8e80e09a3c69cf07 ""
   "deedy-resume-openfont.cls" 0 -1 0 ""
   "resume.aux" 1469416384 8 a94a2480d3289e625eea47cd1b285758 ""
-  "resume.tex" 1469422514 7769 7eacc1022fb83431513e6b49bcbbed90 ""
+  "resume.tex" 1489635494 7769 7eacc1022fb83431513e6b49bcbbed90 ""
   (generated)
   "resume.pdf"
   "resume.log"

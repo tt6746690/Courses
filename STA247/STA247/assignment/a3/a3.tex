@@ -1,0 +1,167 @@
+
+
+\documentclass[11pt]{article}
+\input{"../preamble"}
+
+% begin document
+\begin{document}
+
+\section*{Problem 1}
+A random variable $X$ has moment-generating function $m(t)=e^{9(e^t - 1)}$. Find $P(|X - \mu|\leq 2\sigma)$.
+\begin{solution}
+  $ $\\
+  Notice that because moment-generating function of a distribution is unique. $X \sim Poisson(\lambda = 9)$
+  \[
+    P(|X - \mu|\leq 2\sigma) = P(|X - 9| \leq 6) = P(3\leq X \leq 15) = 0.9717321
+  \]
+  The last step calculated using R with
+  \[
+    ppois(15, 9, lower.tail = TRUE) - ppois(2, 9, lower.tail = TRUE)
+  \]
+  Therefore the corresponding probability is 0.9717321
+\end{solution}
+
+
+\newpage
+
+\section*{Problem 2}
+The joint density of $M$ and $N$ is given by
+\[
+  f(m,n) =
+  \begin{cases}
+    me^{-(m+n)}, & m>0, n>0\\
+    0, & otherwise\\
+  \end{cases}
+\]
+\begin{enumerate}
+  \item Find the marginal distributions of $M$ and $N$.
+  \begin{solution}
+    \[
+      f_M(m) = \int_{0}^{\infty} me^{-(m+n)} dn = -me^{-(m+n)} \big|_{n=0}^{\infty} =
+      \begin{cases}
+         me^{-m}, & m>0 \\
+         0, & otherwise \\
+      \end{cases}
+    \]
+    \[
+      f_N(n) = \int_{0}^{\infty} me^{-(m+n)} dm = -me^{-(m+n)} - e^{-(m+n)} \big|_{m=0}^{\infty} =
+      \begin{cases}
+        e^{-n}, & n > 0  \\
+        0, & otherwise \\
+      \end{cases}
+    \]
+  \end{solution}
+  \item Find the conditional distribution of $M$ given $N=c$.
+  \begin{solution}
+    $ $\\
+    \[
+      P(M | N = c) = \frac{f(m, c)}{f_N(c)} = \frac{me^{-(m+c)}}{e^{-c}} =
+      \begin{cases}
+        me^{-m}, m>0\\
+        0, & otherwise
+      \end{cases}
+    \]
+  \end{solution}
+  \item Determine whether $M$ and $N$ are independent. How do you know?
+  \begin{solution}
+    $ $\\
+  \end{solution}
+  We verified that $\forall m > 0, n>0$,
+  \[
+    f(m, n) = me^{-(m+n)} = me^{-m} * e^{-n} = f_M(m) f_N(n)
+  \]
+  Then $M$ and $N$ are independent.
+  \item What is the distribution of $M$? $N$?
+  \begin{solution}
+    $ $\\
+    According to marginal distribution of $M$, note with $\alpha = 2$ and $\beta = 1$, then
+    \[
+      me^{-m} = \frac{1}{\Gamma{(2)}1^2}m^{2-1}e^{-\frac{x}{1}}
+    \]
+    Therefore, since PDFs are unique, $M \sim Gamma(2,1)$\\
+    According to marginal distribution of $N$, note with $\theta=1$
+    \[
+      e^{-n} = \frac{1}{1}e^{-\frac{n}{1}}
+    \]
+    Therefore, $M \sim Exponential(1)$
+  \end{solution}
+\end{enumerate}
+
+\newpage
+
+\section*{Problem 3}
+Let $T_1$ and $T_2$ denote the proportions of time (out of a school day) during which student A and student B spend working on this assignment. The joint density function of $T_1$ and $T2$ is modeled by:
+\[
+  f(t_1, t_2) =
+  \begin{cases}
+    t_1 + t_2, & 0\leq t_1 \leq 1, 0\leq t_2\leq 1\\
+    0, & otherwise
+  \end{cases}
+\]
+
+\begin{enumerate}
+  \item Find $P(T_1< \frac{1}{2},T_2 > \frac{1}{4})$
+  \begin{solution}
+    $ $\\
+    \begin{align*}
+        P(T_1< \frac{1}{2},T_2 > \frac{1}{4}) &= \int_{0}^{\frac{1}{2}} \int_{\frac{1}{4}}^{1} f(t_1, t_2) dt_2 dt_1 \\
+        &=  \int_{0}^{\frac{1}{2}} \int_{\frac{1}{4}}^{1} (t_1 + t_2) dt_2 dt_1 \\
+        &=  \int_{0}^{\frac{1}{2}} (\frac{15}{32} + \frac{3}{4}t_1) dt_1 \\
+        &= \frac{15}{32}t_1 + \frac{3}{8}t_1^2 \big|_{t_1 = 0}^{\frac{1}{2}}\\
+        &= \frac{21}{64}
+    \end{align*}
+  \end{solution}
+  \item  Find $P(T_1 + T_2 \leq 1)$
+  \begin{solution}
+    $ $\\
+    \begin{align*}
+      P(T_1 + T_2 \leq 1) &= \int_{0}^{1} \int_{0}^{1-t_2} (t_1 + t_2) dt_1 dt_2 \\
+      &= \int_{0}^{1} (\frac{1}{2} t_1^2 + t_2t_1 \big|_{t_1 = 0}^{1-t_2}) dt_2 \\
+      &=  \int_{0}^{1} (\frac{1}{2} - \frac{1}{2}t_2^2) dt_2 \\
+      &= \frac{1}{2}t_2 - \frac{1}{6}t_2^3 \big|_{t_2 = 0}^{1} \\
+      &= \frac{1}{3}
+    \end{align*}
+  \end{solution}
+  \item  Find the covariance of $T_1$ and $T_2$. Are $T_1$ and $T_2$ independent or dependent? How do you know?
+  \begin{solution}
+    $ $\\
+    \[
+      E(T_1T_2) = \int_0^1 \int_0^1 t_1t_2(t_1 + t_2)dt_1 dt_2 = \int_0^1 (\frac{1}{3}t_2 + \frac{1}{2}t_2^2) dt_2 = \frac{1}{3}
+    \]
+    \[
+      f_{T_1}(t_1) = \int_0^1 t_1 + t_2 dt_2 = t_1t_2 +  \frac{1}{2}t_2^2 \big|_{t_2 = 0}^1 = t_1 + \frac{1}{2}
+    \]
+    \[
+      f_{T_2}(t_2) = \int_0^1 t_1 + t_2 dt_1 = t_1t_2 +  \frac{1}{2}t_1^2 \big|_{t_1 = 0}^1 = t_2 + \frac{1}{2}
+    \]
+    \[
+      E(T_1) = \int_0^1 (t_1 f_{T_1}(t_1)) dt_1 = \int_0^1 (t_1^2 + \frac{1}{2}t_1) dt_1 = \frac{7}{12}
+    \]
+    \[
+      E(T_2) = \int_0^1 (t_2f_{T_2}(t_2)) dt_2 = \int_0^1 \frac{3}{2} t_2^3 dt_2 = \frac{7}{12}
+    \]
+    \[
+      COV(T_1, T_2) = E(T_1 T_2) - E(T_1)E(T_2) = \frac{1}{3} - \frac{7}{12}\frac{7}{12} = -0.006944
+    \]
+    Since covariance of $T_1$ and $T_2$ is not 0, $T_1$ and $T_2$ are not independent.
+  \end{solution}
+  \item  Find $P(0.22< T_1 < 0.33 | T_2\geq 0.3)$
+  \begin{solution}
+    $ $\\
+    \begin{align*}
+      P(0.22< T_1 < 0.33, T_2\geq 0.3) &= \int_{0.22}^{0.33} \int_{0.3}^1 (t_1 + t_2) dt_2 dt_1\\
+      &= \int_{0.22}^{0.33} (\frac{7}{10}t_1 + \frac{91}{200}) dt_1\\
+      &= \frac{7}{20}t_1^2 + \frac{91}{200}t_1 \big|_{t_1 = 0.22}^{0.33}\\
+      &= 0.0712
+    \end{align*}
+    \[
+      P(T_2 \geq 0.3) = \int_{0.3}^1 f_{T_2}(t_2) dt_2 = \int_{0.3}^1 (t_2 + \frac{1}{2}) dt_2 = 0.805
+    \]
+    \[
+      P(0.22< T_1 < 0.33 | T_2\geq 0.3) = \frac{P(0.22< T_1 < 0.33, T_2\geq 0.3)}{P(T_2 \geq 0.3)} = 0.0884
+    \]
+  \end{solution}
+\end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<HTML>
+<HEAD>
+<TITLE>CSC 363 Marks</TITLE>
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H1>CSC 363 Summer 2006<br>
+Online Marks</H1>
+
+<p>
+The link below contains your current raw marks on assignments and tests
+as well as your current standing in the class.
+Be sure to change your password the first time you use this system.
+If you cannot access this system, then you are <i>not</i> listed in the
+official class list and you should contact the instructor immediately.
+</p><p>
+<a href="marks.cgi">Current course marks online</a>.
+</p>
+
+<HR>
+
+<TABLE>
+<TR>
+<TD>
+<SMALL>
+Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>
+

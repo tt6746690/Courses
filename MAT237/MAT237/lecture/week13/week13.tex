@@ -1,0 +1,133 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+\section*{5 Vector Field}
+
+\subsection*{Vector Derivatives}
+
+
+\begin{defn*}
+  \textbf{Vector Field} is aa function $F: \R^2 \to \R^2$ which prescribes to every point $x\in \R^n$ an arrow, $F(x)$.
+\end{defn*}
+
+\begin{defn*}
+  The nabla operator is
+  \[
+    \nabla = \left(\frac{\partial}{\partial x_1}, \frac{\partial}{\partial x_2}, \cdots, \frac{\partial}{\partial x_n}\right)
+  \]
+  Then
+  \begin{enumerate}
+    \item \textbf{Gradient} Let $f:\R^n\to\R$ be $C^1$ function. The gradient of $f$ is
+    \[
+      grad\, f = \nabla f = \left(\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \cdots, \frac{\partial f}{\partial x_n}\right)
+    \]
+    which measures how quickly $f$ is changing in each of the given coordinate axes. And $\nabla f$ gives the direction of steepest ascent.
+    \item \textbf{Divergence} If $F:\R^n \to \R^n$ is a $C^1$-vector field, then the divergence of $F$ is
+    \[
+      div\, F = \nabla \cdot F = \frac{\partial F_1}{\partial x_1} + \cdots + \frac{\partial F_n}{\partial x_n}
+    \]
+    which measures the infinitesimal flux (how quickly field is spreading out) of the vector field, i.e. the amount of the field which is passing through an infinitesimal surface area. If $div\, F = 0$, we say that $F$ is incompressible.
+    \item \textbf{Curl} If $F:\R^3 \to \R^3$ is a $C^1$ vector field in $\R^3$ then the curl of $F$ is
+    \[
+      curl\, F = \nabla \times F = \left( \frac{\partial F_3}{\partial x_2} - \frac{\partial F_2}{\partial x_3}, \frac{\partial F_1}{\partial x_3} - \frac{\partial F_3}{\partial x_1}, \frac{\partial F_2}{\partial x_1} - \frac{\partial F_1}{\partial x_2} \right)
+    \]
+    which measures the infinitesimal circulation (how quickly field is spinning around) of the vector field. Note it is only valid in $\R^3$. If $grad\, F = 0$, we say that $F$ is irrotational.
+    \item \textbf{Laplacian} If $f:\R^m \to \R$ is a $C^1$ function, then the Laplacian of $f$ is
+    \[
+      \nabla^2 f = \nabla \cdot \nabla f = \triangle f = \frac{\partial^2 f}{\partial x_1^2} + \cdots + \frac{\partial^2 f}{\partial x_n^2}
+    \]
+    which measures the infinitesimal rate of change of the function $f$ in outward rays along spheres. Laplacian of a $f$ is the divergence of the gradient of $f$.
+  \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Properties} Let $f, g: \R^n \to \R$ and $F, G" \R^n \to \R^n$ all be $C^1$. then the following property holds
+  \begin{enumerate}
+    \item $\nabla (fg) = f\nabla g + g \nabla f$
+    \item $\nabla (f\cdot g) = (F\cdot \nabla)G + F\times (\nabla \times G) + (G\cdot \nabla)F + G\times (\nabla \times F) $
+    \item $\nabla \times (fG) = f(\nabla \times G) + (\nabla f)\times G $
+    \item $curl \enspace (grad \enspace f) = 0$ or $\nabla \times (\nabla f) = 0$
+    \item $div \enspace (curl \enspace F) = 0$ or $\nabla \cdot (\nabla \times F) = 0$
+    \item \textbf{de rham cohomology}
+    \[
+      f \xrightarrow{gradient} F \xrightarrow{curl} F \xrightarrow{divergence} f
+    \]
+  \end{enumerate}
+
+\end{defn*}
+
+
+\subsection*{Arc Length}
+
+\begin{defn*}
+  \textbf{Arc Length} Given a $C^1$ curve $C \in \R^n$, we approximate $C$ with infinitesimal straight line components and assign it to an \textbf{element of arc}
+  \[
+    ds = ||dx|| = \sqrt{dx_1^2 + \cdots + dx_n^2}
+  \]
+  To facilitate computation, we introduce a parameterization of $C$ with $x =  g:[a,b] \to \R^n$ such that
+  \[
+    dx = g'(t)dt = \left( \frac{dg_1}{dt},\cdots, \frac{dg_2}{dt}\right)dt
+  \]
+  Then
+  \[
+    ds = ||dx|| = \sqrt{ \left( \frac{dg_1}{dt} \right)^2,\cdots, \left(\frac{dg_2}{dt} \right)^2 }dt
+  \]
+  By integrating from $a$ to $b$
+  \[
+    Arclength(C) = \int_C ds = \int_a^b ||g'(t)||dt = \int_a^b \sqrt{ \left( \frac{dg_1}{dt} \right)^2,\cdots, \left(\frac{dg_2}{dt} \right)^2 }dt
+  \]
+  Here we can interpret $g'(t)$ as velocity and $|g'(t)|$ as speed. By integrating speed over time, we det distance travelled.
+  \begin{rem}
+    The arc length formula computes total distance travelled, not necessarily the graph of the curve. So have to restrict domain of parameterization to find proper distance.
+  \end{rem}
+\end{defn*}
+
+
+
+\begin{proposition*}
+  \textbf{Invariant of arc length under re-parameterization} If $g:[a,b]\to \R^n$ is a $C^1$ function and $\phi:[c,d]\to [a,b]$ is a re-parameterization of $g(t)$ so that $g\circ \phi: [c,d]\to\R^n$ then
+  \[
+    \int_{[c,d]} \left| \frac{d}{dt} (g\circ \phi)(t) \right| dt = \int_{[a,b]} |g'(t)|dt
+  \]
+  \begin{proof} By change of variable and chain rule we have
+    \begin{align*}
+      \int_{[a,b]} ||g'(t)||dt &= \int_{\phi^{-1}([a,b])} ||g'(\phi(t))||\,|\det D\phi(t)|dt\\
+      &=\int_{[c,d]} ||g'(\phi(t))||\, |\phi'(t)|dt\\
+      &= \int_{[c,d]} || \frac{d}{dt} (g\circ \phi)(t)||dt
+    \end{align*}
+  \end{proof}
+\end{proposition*}
+
+
+\subsection*{Line Integrals}
+
+\begin{defn*}
+  \textbf{Line Integral} A line integral is an integral where the function to be integrated is evaluated along a curve. The value of the line integral is the sum of values of the field at all points on the curve, weighted by some scalar function on the curve.
+  The function to be integrated may be a scalar field or a vector field.
+\end{defn*}
+
+
+
+\begin{enumerate}
+  \item \textbf{Scalar Field} Let $f:U\subseteq \R^n \to \R$ be continuous function and $C\subseteq U$ a smooth curve. Let $g: [a,b] \to \R^n$ be a parameterization of $C$. The line integral of a scalar function is given by
+  \[
+    \int_C f ds = \int_{[a,b]} f(g(t)) | g'(t) | dt
+  \]
+  Note that $\int_{U} f dA$ is the total volume between graph of $f(x)$ and the $\R^n$ plane; whereas $\int_C f ds$ represents the area which lies between the curve $C$ and the graph of $f(x)$.
+  \item \textbf{Vector Field} Let $F: \R^n \to \R^n$ be a vector field, and $C\subseteq \R^n$ be some smooth curve. Parameterize this curve by $g:[a,b] \to\R^n$. We think of vector field $F$ acting on curve at each point $t_0 \in [a,b]$ and the line integral is hence the total amount of work done by vector field on the curve, i.e. $F\cdot dx$. (note that $x = g(t)$ then $dx = g'(t)dt$)
+  \[
+    \int_C F \cdot dx = \int_C (F_1dx_1 + \cdots + F_ndx_n) = \int_a^b (F_1\frac{dg_1}{dt}dt + \cdots + F_n\frac{dg_n}{dt}dt) = \int_a^b F(g(t))\cdot g'(t)dt
+  \]
+  whose magnitude is invariant under re-parameterization but its sign is subject to change. Element of curve is given by $ds = | g'(t) | dt$ we have
+  \[
+    \int_a^b F(g(t)) \cdot \frac{g'(t)}{|g'(t)|}|g'(t)|dt = \int_a^b F(g(t)) \cdot \hat{T}(t)ds
+  \]
+  where $\hat{T}(t) = \frac{g'(t)}{|g'(t)|}$ is the unit speed vector. Note that $F(g(t)) \cdot \hat{T}(t)$ is the projection of $F$ in the direction of $\hat{T}$, which is precisely the component of $F$ doing work in direction of $\hat{T}$
+  \begin{rem}
+    Parameterization of curve has to be $C^1$ and regular (i.e. $\gamma'(t) \neq 0$ for all $t\in [a,b]$)
+  \end{rem}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,166 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\section*{Elements of Hypothesis Testing}
+
+\begin{defn*}
+  Given $X_1,\cdots, X_n \sim f_{\theta}$ Let $p_{\triangle} = p_{tr} - p_{pl}$.
+  \begin{enumerate}
+    \item \textbf{Null hypothesis} $\mathcal{H}_0$ is a simple hypothesis associated with a contradiction to a theory one would like to prove.
+    \item \textbf{Alternative Hypothesis} is a hypothesis (often composite) associated with a theory one would like to prove.
+    \item \textbf{Type I Error} incorrectly rejecting $\mathcal{H}_0$ (i.e. a false discovery / false positive)
+    \item \textbf{Type II Error} incorrectly retaining (not rejecting) $\mathcal{H}_0$ when we should (i.e. false negative)
+    \item \textbf{Parameter Space} $\Theta$ is holds all possible value of $\theta$ (in this case, $\Theta= [-1, 1]$) where competing hypothesis are of form
+    \[
+      \begin{cases*}
+         $\mathcal{H}_0: \theta \in \Theta_0$\\
+         $\mathcal{H}_1: \theta \in \Theta_1$\\
+      \end{cases*}
+    \]
+    \item \textbf{Simple Hypothesis} is any hypothesis which specifies the population distribution completely.
+    \[
+      \begin{cases*}
+         $\mathcal{H}_0: \theta = \theta_0$\\
+         $\mathcal{H}_1: \theta = \theta_1$\\
+      \end{cases*}
+    \]
+    where $\Theta = \{ \theta_0, \theta_1\}$.
+    \item \textbf{Composite Hypothesis} If a hypothesis does not completely specify the probability distribution. For example, when deciding if a particular model fits the data. The alternative hypothesis is any distribution that is not the initially intended one; hence alternative hypothesis not specified
+    \item A \textbf{Statistical test} is a procedure whose inputs are samples and whose result is a hypothesis, i.e. it is a data driven probabilitstic decision rule with regard to $\mathcal{H}_0$
+    \item \textbf{p-value} The probability, assuming the $\mathcal{H}_0$ is true, of observing a result at least as extreme as the test statistic.
+  \end{enumerate}
+
+\end{defn*}
+
+
+
+\begin{defn*}
+Suppose we test simple hypothesis
+  \[
+    \begin{cases*}
+       $\mathcal{H}_0: \theta = \theta_0$\\
+       $\mathcal{H}_1: \theta = \theta_1$\\
+    \end{cases*}
+  \]
+  \begin{enumerate}
+    \item \textbf{Size of a test} is the probability of incorrectly rejecting the $\mathcal{H}_0$, or equivalently the probability of Type I error (false positive). For composite hypotheses this is the supremum of the probability of rejecting the $\mathcal{H}_0$ over all cases covered by the null hypothesis.
+    \item \textbf{Significance level of a test} $\alpha$ is the upper bound imposed on the size of a test. Testing $\textcal{H}_0$ at significance level $\alpha$ means testing $\textcal{H}_0$ with a test whose size does not exceed $\alpha$.
+    \[
+      \alpha = \mathbb{P}(rejecting \quad \mathcal{H}_0 | \theta = \theta_0)
+    \]
+    \item \textbf{Power of a test} is the probability of correctly rejecting the $\mathcal{H}_0$, equivalently the probability of NOT making a type II error, $\pi = 1- \beta$ (false negative)
+    \[
+      \beta = \mathbb{P}(not \enspace rejecting \enspace \mathcal{H}_0 | \theta = \theta_1)
+    \]
+  \end{enumerate}
+  Note $\alpha$ and $\beta$ are tradeoffs. Minimizing $\alpha$ is given priority to minimizing $\beta$.
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{Test statistic} $T(\underline{X})$ is a sample statistic whose distribution under $\mathcal{H}_0$ is known, which allows p-value to be calculated. It is selected or defined in such a way as to quantify, within observed data, behaviours that would distinguish the null from the alternative hypothesis.
+  \begin{rem}
+    In determining if a coin is fair, the likelihood ratio of, or equivalently the number of heads, is called the test statistic. The probability distribution of number of heads when coin is fair ($\mathcal{H}_0$) is $Binom(10, 0.5)$ assuming 10 flips.
+  \end{rem}
+\end{defn*}
+
+
+
+
+\begin{defn*}
+  \textbf{Rejection Region} The set of values of the test statistic that leads to rejection of $\mathcal{H}_0$ is called the rejection region. Statistical test that is based on test statistic $T(\underline{X})$ with rejection region $\mathcal{C} \subseteq \R^n$ is of the form
+  \[
+    reject \quad \mathcal{H}_0 \quad if\quad T(\underline{x}) \in \mathcal{C}
+  \]
+  ($\underline{x}$ is a sample statistic calculated from observation)
+  \begin{rem}
+    Given $X_1, \cdots, X_n \sim \mathcal{N}(\mu, \sigma^2)$, with $\mathcal{H}_0: \mu = \mu_0; \mathcal{H}_1: \mu = \mu_1 > \mu_0$. Here we proposed test is to reject $\mathcal{H}_0$ if $\overline{X} \geq c$, for some $c$. Test statistic $\overline{X}$ has the following distribution under $\mathcal{H}_0$
+    \[
+      \overline{X} \stackrel{\mathcal{H}_0}{\sim} \mathcal{N} (\mu_0, \frac{\sigma^2}{n})
+    \]
+    And we want to find $c$ such that Type I error of the test is the specified $\alpha$ (such that our test is restricted to a confidence level of $\alpha$)
+    \[
+      \mathcal{C} = \{ (x_1,\cdots, x_n)\in\R^n : \overline{x} \geq \mu_0 + \frac{\sigma}{\sqrt{n}}  z_{1-\alpha}\}
+    \]
+    So the test \quad \textbf{reject $\mathcal{H}_0$ if $\overline{x}\geq \mu_0 + \frac{\sigma}{\sqrt{n}} z_{1 - \alpha}$} \quad has a confidence level $\alpha$
+  \end{rem}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Likelihood Ratio statistic} Given simple hypothesis
+    \[
+      \begin{cases*}
+         $\mathcal{H}_0: \theta = \theta_0$\\
+         $\mathcal{H}_1: \theta = \theta_1$\\
+      \end{cases*}
+    \]
+    based on $X_1,\cdots,X_n \sim f_{\theta}$. The \textbf{Likelihood Ratio} is a statistic given by
+    \[
+      \lambda(\underline{x}) = \frac{\mathcal{L}(\theta_1)}{\mathcal{L}(\theta_0)} = \frac{f(x_1,\cdots,x_n | \theta_1)}{f(x_1,\cdots,x_n | \theta_0)}
+    \]
+    which represents how likely $\mathcal{H}_1$ is true compared to $\mathcal{H}_0$
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Likelihood Ratio Test (LRT)} A statistical test based on the region
+  \[
+    \mathcal{C} = \{ \underline{x}\in\R^n : \lambda(\underline{x}) = \frac{\mathcal{L}(\theta_1)}{\mathcal{L}(\theta_0)} \geq c \}
+  \]
+  for some $c$ satisfying $\mathbb{P}(\lambda(\underline{x}) \geq c | \theta = \theta_0) = \alpha$ is called the the likelihood ratio test at significance level $\alpha$. Intuitively, LRT rejects $\mathcal{H}_0$ if $\lambda(\underline{x})$ is big enough. How big is big enough depends on the significance level of the test, i.e., on what probability of Type I error is considered tolerable
+  \begin{rem}
+    As an example, for $X_1, \cdots, X_n \stackrel{\mathcal{H}_0}{\sim} \mathcal{N}(\mu, \sigma^2)$ \quad \textbf{reject $\mathcal{H}_0$ if $\overline{x}\geq c$} \quad  is a likelihood ratio test. ($\underline{x}$, the test statistic is the result from evaluating $\lambda(\underline{x}) = \frac{\mathcal{L}(\theta_1)}{\mathcal{L}(\lambda_0)}$) Now we choose $c$ such that $\mathbb{P}(\overline{X} \geq c | \mu =\mu_0) = \alpha$, which gives
+    \[
+      c = \mu_0 + \frac{\sigma}{\sqrt{n}} z_{1 - \alpha}
+    \]
+    The strategy is to evaluate the likelihood ratio. Knowning null distribution of test statistic ($\overline{x} \sim \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}})$ in this case), makes it possible to choose a critical level $c$ such that the test yields a desired confidence level of $\alpha$. As we will see, the resulting test is also the most power test at significance level $\alpha$\\
+    LRT is often used for goodness-of-fit test to see if a particular distribution model fits the data.
+  \end{rem}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Most Powerful Test} Suppose observed $X_1, \cdots, X_n \sim f_{\theta}$ and consider the simple hypothesis $\mathcal{H}_0: \theta = \theta_0$ vs $\mathcal{H}_1: \theta = \theta_1$. We say that the most powerful (MP) test at level $\alpha$ if
+  \begin{enumerate}
+    \item the significant level of the test is $\alpha$
+    \item no other test at level $\alpha$ has a smaller $\beta$
+  \end{enumerate}
+  In other words, for a given size or significance level, the test with the greatest power for a given value of the parameter(s) being tested, contained in the alternative hypothesis.
+\end{defn*}
+
+\begin{theorem*}
+  \textbf{Heyman-Pearson Lemma} When performing a hypothesis test between two simple hypotheses $\mathcal{H}_0: \theta = \theta_0; \mathcal{H}_1: \theta = \theta_1$, the likelihood-ratio test based on rejection region
+  \[
+    \mathcal{C} = \{ \underline{x}\in\R^n : \lambda(\underline{x}) = \frac{\mathcal{L}(\theta_1)}{\mathcal{L}(\lambda_0)} \geq c \} \quad\quad \text{where}\quad\quad \mathbb{P}(\lambda(\underline{x}) \geq c | \theta = \theta_0) = \alpha
+  \]
+  is the most powerful test at significance level $\alpha$ for a threshold $c$
+  \begin{proof}
+    Proof consists of considering
+    \[
+      \alpha = \mathbb{P}(\underline{X}\in \mathcal{C} | \theta = \theta_0) = \int_{\mathcal{C}} f(\underline(x)|\theta_0) d\underline{x} = \int_{\mathcal{C}}\mathcal{L}(\theta_0)
+    \]
+    over disjoint sets $\mathcal{C} = (\mathcal{C}\cap \mathcal{D}) \cup (\mathcal{C}\cap \overline{\mathcal{D}})$ where $\mathcal{D}$ is the rejection region of an alternative test. Here we prove that the power $\pi$ for LRT is higher than that of the alternative test $\pi'$. We do this by recognizing that
+    \begin{align*}
+      \pi = \mathbb{P}(\underline{x}\in \mathcal{C} | \theta = \theta_1) = \int_{\mathcal{C}}\mathcal{L}(\theta_1)d\underline{x} \geq \int_{\mathcal{D}}\mathcal{L}(\theta_1)d\underline{x} = \mathbb{P}(\underline{x}\in \mathcal{D} | \theta = \theta_1) = \pi'
+    \end{align*}
+    where the inequality is derived from $\frac{\mathcal{L}(\theta_1)}{\mathcal{L}(\theta_0)} \geq c$ over $\mathcal{C}$ and $\frac{\mathcal{L}(\theta_1)}{\mathcal{L}(\theta_0)} < c$ over $\mathcal{D}\subseteq \overline{\mathcal{C}}$
+
+
+  \end{proof}
+\end{theorem*}
+
+\begin{rem}
+  \textbf{Interpretation}
+  The strength of Neyman-Pearson approach is that only distribution only null hypothesis is needed in order to construct a test. However, the theory requires specifying the significance level, $\alpha$, in advance of analyzing the data, but gives no buidance about how to make this choice. Another criticism is that it is built on the assumption that one must either reject of not reject a hypothesis. So say we made observation and find $t(\underline{x})  = 0.41$. the null hypothesis would have been rejected with $\alpha = 0.5$, if one were to reject / not reject. The \textit{evidence} of whether or not rejection is made is summarized as p-value, which is the smallest significance level at which the null hypothesis would be rejected. (i.e. p-value $ = 0.04$). In essence, \textit{p-value is a summarized evidence against null hypothesis}. The smaller the p-value the stronger the evidence against null.
+\end{rem}
+
+\begin{rem}
+  \textbf{Choise of Null}
+  \begin{enumerate}
+    \item It is conventional to choose simpler of the hypothesis as the null, i.e. distribution under which is easy to characterize.
+    \item Choose null where incorrectly rejecting it would cause graver issue than the other hypothesis being null.
+    \item Contextually, null hypothesis is often a simple explanation that must be discredited in order to demonstrate the presence of some physical phenomenon or effect.
+  \end{enumerate}
+\end{rem}
+
+
+\end{document}

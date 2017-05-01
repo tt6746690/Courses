@@ -1,0 +1,140 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+\begin{defn*}
+  \textbf{Composite Hypotheses} When alternative hypothesis is of form $\mathcal{H}_1: \theta\in\Theta_1$, where $\Theta_1$, the composite alternative, consists of more than a single possible value.
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Power function} of a statistical test os
+  \[
+    \pi(\theta^*) = \mathbb{P}\left( reject\enspace \mathcal{H}_0 \,|\, \theta = \theta^* \right)
+  \]
+  where $\theta^* \in\Theta_1$.
+\end{defn*}
+
+\begin{example}
+  Likelihood ratio test (Right tail test) for $\mathcal{H}_0: \mu = \mu_0$ vs $\mathcal{H}_1: \mu > \mu_0$ for Normal data with known variance,
+  \[
+    \pi(\mu^*) = \mathbb{P}(\underline{X} \in \mathcal{C} | \mu = \mu^*) = 1 - \Phi\left( \frac{-\sqrt{n}(\mu^* - \mu_0)}{\sigma} + z_{1 - \alpha} \right)
+  \]
+  where $\mu^* > \mu_0$
+  \begin{enumerate}
+    \item larger $n$, test becomes more powerful
+    \item The further apart null hypothesis and alternatives are, the greater the power
+    \item larger $\sigma$, less powerful the test
+    \item smaller $\alpha$, the smaller the power (the $\alpha$-$\beta$ trade-off)
+  \end{enumerate}
+  Now we can maximize power $\pi$ by increasing sample size $n$. We keep the probability of Type II error at less than $\beta$ (i.e. having power greater than $1 - \beta$) beyond differences larger than $\delta = \mu_1 - \mu_0$
+  \begin{align*}
+      &1 - \beta \leq \pi(\mu_1) = 1 - \Phi( - \frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma} + z_{1 - \alpha}) \\
+      &\Rightarrow -\frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma} = z_{1 - \alpha} \leq z_{\beta} = -z_{1 - \beta}\\
+      &\Rightarrow n \geq \left\{ \frac{\sigma(z_{1 - \alpha} + z_{1 - \beta})}{\mu_1 - \mu_0} \right\}^2
+  \end{align*}
+
+
+\end{example}
+
+\begin{defn*}
+  \textbf{Uniformly Most Poweful (UMP) Test} A test that is MP for every simple alternative $\theta \in \Theta_1$ is UMP. Consider testing $\mathcal{H}_0: \theta = \theta_0$ vs. $\mathcal{H}_1: \theta\in \Theta_1$ (a composite alternative). We say that a test at level $\alpha$ with power function $\pi(\theta)$ is a uniformly most powerful (UMP) test, if for any other test at level $\alpha$ with power function $\pi'(\theta)$, we have $\pi'(\theta) \leq \pi(\theta)$ for all $\theta \in \Theta_1$.
+\end{defn*}
+
+\begin{example}
+  For $X_1, \cdots, X_n \stackrel{i.i.d,}{\sim} \mathcal{N}(\mu, \sigma^2)$, the rejection region
+  \[
+    \mathcal{C} = \left\{ \underline{x}\in\R^n: \overline{x} \geq \mu_0 + \frac{\sigma}{\sqrt{n}}z_{1-\alpha} \right\}
+  \]
+  for testing simple hypothesis $\mathcal{H}_0: \mu = \mu_0$ vs. $\mathcal{H}_1: \mu = \mu_1 \,(\mu_1 > \mu_0)$ is the most powerful test at level $\alpha$ by Pearson-Neyman Lemma. Since rejection region does not depend on $\mu_1$, it is therefore the most powerful test for any $\mu \in\Theta_1$ where $\Theta_1 = (\mu_0, \infty]$. Hence the likelihood ratio test with above rejection region is the UMP test for testing $\mathcal{H}_0: \mu = \mu_0$ vs. one-tailed alternative $\mathcal{H}_1: \mu > \mu_1$.\\
+  Consider testing $\mathcal{H}_0: \mu = \mu_0$ vs. $\mathcal{H}_1: \mu \neq \mu_0$. Because the respective one tailed test is UMP, the test for two-sided alternatvie is not same for every alternative, hence it is not UMP. Usually, composite hypothesis has no UMP test.
+\end{example}
+
+\begin{defn*}
+  \textbf{p-value} the probability of observing an effect at least as extreme as the one in observed data, assuming the truth of $\mathcal{H}_0$.
+  \[
+    \text{p-value} = \mathbb{P}(Type\enspace I\enspace Error) = \mathbb{P}(\underline{X}\in \mathcal{C}\,|\, \theta = \theta_0) \quad \quad where \quad \quad \mathcal{C} = \{ T(\underline{X}) \geq t(\underline{x})\}
+  \]
+  where $T(X)$ the test statistic. Hence if p-value is very low, then $\mathcal{H}_0$ is most likely false. \\
+  Alternatively, it is the minimum $\alpha$ for which $\mathcal{H}_0$ will be rejected.
+  \[
+    Reject\enspace \mathcal{H}_0 \enspace at\enspace level\enspace \alpha \iff p-value \leq \alpha
+  \]
+  \begin{rem}
+    This avoids having to re-calculate the rejection region based on different $\alpha$. Now we reject $\mathcal{H}_0$ at $\alpha$ if and only if p-value is less than $\alpha$. However, this does not prove that the $\mathcal{H}_1$ is true. Also, The p-value does not support reasoning about the probabilities of hypotheses but is only a tool for deciding whether to reject the null hypothesis.
+  \end{rem}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Composite Null Hypothesis} It is more sensible to write
+  \[
+    \begin{cases*}
+      \mathcal{H}_0: \mu \leq \mu_0 \\
+      \mathcal{H}_1: \mu > \mu_0 \\
+    \end{cases*}
+    \quad \quad
+    \begin{cases*}
+      \mathcal{H}_0: \mu \geq \mu_0 \\
+      \mathcal{H}_1: \mu < \mu_0 \\
+    \end{cases*}
+  \]
+  for right-tailed and left-tailed test respectively. Correspondingly, we re-define $alpha$ to be
+  \[
+    \alpha = \sup_{\theta \in \Theta_0} \pi(\theta)
+  \]
+  as an example, for right tailed test for $\mathcal{H}_0: \mu \leq \mu_0$ vs $\mathcal{H}_1: \mu > \mu_0$ in case of Normal distribution with known variance, we have
+  \[
+    \pi(\mu^*) = 1 - \Phi\left( \frac{\sqrt{n}(\mu_0 - \mu^*)}{\sigma} + z_{1 - \alpha} \right)
+  \]
+  where $\mu^* \leq \mu_0$, Note $\pi(\mu^*)$ is monotonically increasing and achieves max at right endpoint when $\mu^* = \mu_0$, hence $\alpha = \sup_{\theta \in \Theta_0} \pi(\theta)$ holds.
+\end{defn*}
+
+\begin{example}
+  \textbf{Two-tailed test for Normal Mean}
+  \begin{enumerate}
+    \item \textbf{Rejection region} Large values of $|\overline{X} - \mu_0|$ is a strong evidence against $\mathcal{H}_0$
+    \[
+      \mathcal{C} = \left\{ | \overline{X} - \mu_0| \geq \frac{\sigma}{\sqrt{n}} z_{1 - \alpha / 2} \right\} =  \left\{ \overline{X} \leq \mu_0 - \frac{\sigma}{\sqrt{n}} z_{1 - \alpha / 2} \right\} \cup  \left\{ \overline{X} \geq \mu_0  + \frac{\sigma}{\sqrt{n}} z_{1 - \alpha / 2} \right\}
+    \]
+    Note we have $1 - \alpha / 2$ instead of $1 - \alpha$ for one tailed test. In general, its easier to reject one tailed test than to reject two tailed test
+    \item \textbf{p-value}
+    \[
+      \text{p-value} = \mathbb{P}\left(|\overline{X} - \mu_0| \geq |\overline{x} - \mu_0| \biggr\rvert \mu = \mu_0\right) = 2(1 - \Phi(\frac{|\overline{x} - \mu_0|}{\sigma / \sqrt{n}}) )
+    \]
+    We then plug in observed $\overline{x}$ and given parameter $\mu_0$, $\sigma$, $n$ to calculate the p-value. The result exactly doubles that of the one tailed test. Since $\alpha$ has to be larger than p-value for rejection to happen, it becomes harder to reject two tailed test than one tailed test (ex. an arbitrarily small p-value can be rejected by any $\alpha$ specified).
+    \item \textbf{Power Function}
+    \begin{align*}
+      \pi(\mu^*) &= \mathbb{P}(\underline{X}\in \mathcal{C} | \mu = \mu^*) \\
+      &= \mathbb{P}(\overline{X} \geq \mu_0 + \frac{\sigma}{\sqrt{n}}z_{1 - \alpha / 2} | \mu = \mu^*) + \mathbb{P}(\overline{X} \leq \mu_0 - \frac{\sigma}{\sqrt{n}}z_{1 - \alpha / 2} | \mu = \mu^*)\\
+      &= 1- \Phi(-\frac{\sqrt{n}(\mu^* - \mu_0)}{\sigma} + z_{1 - \alpha/2}) + \Phi(-\frac{\sqrt{n}(\mu^* - \mu_0)}{\sigma} - z_{1 - \alpha/2})\\
+    \end{align*}
+    A plot of $\pi(\mu^*)$ to $\mu^*$ resembles an upside down bell curve, where global minimum happens at $\mu^* = \mu_0$. Also note that two tail tests are not UMP test because one tail test are UMP test in their respective domains by Neyman-Pearson lemma.
+    \item \textbf{Confidence Intervals} Acceptance region and $(1-\alpha)\%$ confidence interval for $\mu$ are equivalent.
+    \begin{align*}
+        \text{Do not reject }\mathcal{H}_0: \mu = \mu_0 &\iff \overline{X}\not\subseteq \mathcal{C}\\
+        &\iff \overline{X} - \frac{\sigma}{\sqrt{n}} z_{1-\alpha/2} \leq \mu_0 \leq \overline{X} + \frac{\sigma}{\sqrt{n}} z_{1-\alpha/2}\\
+        &\iff \overline{X} - \frac{\sigma}{\sqrt{n}}z_{1 - \alpha/2} \leq \mu_0 \leq \overline{X} + \frac{\sigma}{\sqrt{n}}z_{1 - \alpha/2}\\
+        &\iff \mu_0 \text{ contained in the } (1 - \alpha)\% \text{ confidence interval for } \mu
+    \end{align*}
+     Confidence interval consists of precisely of all those values of $\mu_0$ for which the null hypothesis $\mathcal{H}_0: \mu = \mu_0$ is accepted, i.e. a set of plausible value for $\mu$. If we reject $\mathcal{H}_0:\mu = \mu_0$ then $\mu_0$ is not a plausible value. In general, the set of all $\theta_0$ for which $\mathcal{H}_0: \theta = \theta_0$ would not get rejected in a two-tailed set at level $\alpha$ forms a $(1-\alpha)\%$ \textit{confidence set} for $\theta$. Every confidence set has a corresponding two-tailed test.
+  \end{enumerate}
+\end{example}
+
+
+\begin{theorem*}
+  Suppose that for every $\theta_0 \in \Theta$ there is a test at level $\alpha$ of the hypothesis $\mathcal{H}_0: \theta = \theta_0$. Denote the acceptance region of the test by $A(\theta_0) = \Omega \setminus \mathcal{C}$, then the set
+  \[
+    I(\underline{X})=  \{ \theta: \underline{X} \in A(\theta)\}
+  \]
+  is a $100(1-\alpha)\%$ confidence region for $\theta$. That is for every $\theta_0$
+  \[
+    \mathbb{P}(\theta_0 \in I(\underline{X})\, | \, \theta = \theta_0) = 1 - \alpha
+  \]
+  \begin{rem}
+    A confidece region for $\theta$ consists of all those value $\theta_0$ for which the hypothesis that $\theta$ euqals $\theta_0$ will be rejected at level $\alpha$. The hypothesis that $\theta = \theta_0$ is accepted if $\theta_0$ lies in the confidence interval $I$.
+  \end{rem}
+\end{theorem*}
+
+
+
+\end{document}

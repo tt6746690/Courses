@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML LANG="en">
+<HEAD>
+<TITLE>CSC 165 Fall 2006 - Assignments</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H1><a href="..">CSC 165</a>: Assignments</H1>
+
+<h3>Assignment Schedule</h3>
+<table border=1 cellpadding="3">
+<tr> <th>Homework</th> <th> Weight</th> <th>Due date</th>
+</tr>
+
+<tr>
+  <td><a href="#a1">Assignment 1</a></td>
+  <td align="right">7%</td>
+  <td>Thursday, September 28</td>
+</tr>
+<tr>
+  <td><a href="#a2">Assignment 2</a></td>
+  <td align="right">7%</td>
+  <td>Thursday, October 12</td>
+</tr>
+<tr>
+  <td><a href="#a3">Assignment 3</a></td>
+  <td align="right">7%</td>
+  <td>Thursday, November 2</td>
+</tr>
+<tr>
+  <td><a href="#a4">Assignment 4</a></td>
+  <td align="right">7%</td>
+  <td>Thursday, November 16</td>
+</tr>
+<tr>
+  <td><a href="#a5">Assignment 5</a></td>
+  <td align="right">7%</td>
+  <td>Thursday, December 7</td>
+</tr>
+</table>
+
+<p>
+Announcements, clarifications, corrections and revisions to assigment
+specifications are posted to the
+<a href="../announcements.html">Announcements page</a>.
+Please read this page regularly.
+</p>
+
+<h2><a name="a5">Assignment 5</a></h2>
+
+<ul>
+  <li><a href="a5/handout.pdf">Assignment handout (PDF)</a>
+  <a href="a5/handout.ps">(PS)</a>
+  <li>Due by 12:00 noon inside CSC165 drop box in BA 2220 on
+  Thursday, December 7.
+  <li>Clarifications and hints:
+  <ul>
+  <li>Q1b: If you come up with an exact expression for T(n), technically you
+  would need to prove that it's correct. It might be less work to bound T(n)
+  from above and from below.
+  <li>Q2: yes, the floating point system includes zero and positive and
+  negative numbers.
+  <li>Q3b: reformulate to try to reduce the error. You might not be able to
+  avoid error completely. (Hint: it's a difference of squares.)
+  </ul>
+  <li>Sample solutions:
+  <a href="sol/a5solutions.pdf">PDF</a> or
+  <a href="sol/a5solutions.ps">PS</a>
+</ul>
+
+<h2><a name="a4">Assignment 4</a></h2>
+
+<ul>
+  <li><a href="a4/handout.pdf">Assignment handout (PDF)</a>
+  <a href="a4/handout.ps">(PS)</a>
+  <li>Due by 12:00 noon inside CSC165 drop box in BA 2220 on
+  Thursday, November 16.
+  <li><font color="red"><b>Update:</b></font>
+  Extension to Friday, November 17 at 5:00pm (in the drop box).
+  For 10% bonus, hand in by original due time.
+  No grace days can be used to further extend this assignment.
+  <li>[November 15] Clarifications and hints:
+  <ul>
+    <li>Q1a: Keep it simple. We're asking about a <i>single iteration</i>
+    of the loop. The "express symbolically" means tell us
+    precisely what you're proving in part (b). This is an easy question.
+    <li>Q2a: Don't worry if functions become negative. As long as they're
+    eventually always nonnegative, we're okay. If the negativeness in (a)
+    bothers you, add a constant of a million to the function, and solve that.
+    <li>Q4: When n is not a multiple of 8, n/8 has a fractional part, so only
+    use that fraction of another 16-bit int. (For the example, use only 1/2
+    of an int, or 8 bits.) Technically, we'll need the ceiling of n/8 elements
+    in the array.
+    <li>Q4b: To "show how to look up" the the ith nucleotide, just describe
+    how to determine its value. You do not need to write code. Saying "take
+    integer A[x]" and "look at bit y of this int" are permitted operations
+    (and can easily be coded in Java/C/etc. using advanced operations).
+    Each of these operations take constant time (i.e., doesn't depend on n).
+    <li>Q4b: "reprent" is just a new-age spelling of "represent". Oops.
+  </ul>
+  <li>Sample solutions:
+  <a href="sol/a4solutions.pdf">PDF</a> or
+  <a href="sol/a4solutions.ps">PS</a>
+</ul>
+
+<h2><a name="a3">Assignment 3</a></h2>
+
+<ul>
+  <li><a href="a3/handout.pdf">Assignment handout (PDF)</a>
+  <a href="a3/handout.ps">(PS)</a>
+  <li>Due by 12:00 noon inside CSC165 drop box in BA 2220 on
+  Thursday, November 2.
+  <li>[30 October] Clarifications and hints:
+  <ul>
+    <li>Q1a: Yes, 0 is a multiple of 3.
+    <li>Q1b: How do you negate "A &le; B &le; C"? Well, &le; is a binary
+    predicate, so think of replacing "a &le; b" with something like LTE(a,b).
+    Doesn't quite work, does it? That's because this form isn't exactly legal
+    according to our logical rules--it's a common shorthand for another
+    formula. Rewrite "A &le; B &le; C" in its proper form, then negate.
+    <li>Q1, Q2: Yes, you may use nested subcases. You may nest any of the proof
+    structures you've seen.
+    <li>Q3: More about <a href="http://en.wikipedia.org/wiki/Tic-tac-toe">tic-tac-toe</a>, in case you don't know the game.
+    <li>Q3b: WX(5,7) should be true, but WX(4,8) should be false.
+    The domain for m1 and m2 is M.
+    You don't have to worry about legality of moves here (that is, assume
+    m1 and m2 are allowed).
+    Any correct answer (including a great big disjunction) is fine.
+    <li>Q3c: Don't include any specific board positions here (use
+    quantification instead). This is related to a question from A2.<br>
+    Imagine this modified game of rock-paper-scissors: player 1 throws a shape,
+    then player 2 throws a shape. I might say "player 2 should win".
+    Formalize this statement (hint: whatever player 1 throws, there is a shape
+    that player 2 can throw and win the game). The answer to Q3c is similar.
+    <li>Q3c: It is optional to introduce a predicate to indicate which move
+    is made when (eg. a predicate that says m1 is X's next move, o1 is O's
+    move). We'll infer the ordering of the moves from their names or by
+    reading quantifiers left to right. (Strictly speaking, introducing such
+    predicates is necessary, but I want to keep things simple here.)
+    <li>Q3c: Yes, you may define a restriction of the domain of M
+    (perhaps M'={4,5,7,8,9}).
+    <li>Q4a,b: We are asking about a <i>single</i> iteration of the while loop.
+    Sometimes noting something simple about one iteration (a) allows us to
+    conclude something important about the entire algorithm (c,d)
+    that would ordinarily be hard to show.
+  </ul>
+  <li>Sample solutions:
+  <a href="sol/a3solutions.pdf">PDF</a> or
+  <a href="sol/a3solutions.ps">PS</a>
+</ul>
+
+<h2><a name="a2">Assignment 2</a></h2>
+
+<ul>
+  <li><a href="a2/handout.pdf">Assignment handout (PDF)</a>
+  <a href="a2/handout.ps">(PS)</a>
+  <li>Due by 12:00 noon inside CSC165 drop box in BA 2220 on
+  Thursday, October 12.
+  <li>Q5: Recall that "<i>a</i> divides <i>b</i>" means that
+  <i>b</i> = <i>ak</i> for some natural number <i>k</i>.
+  <li>[10 October] Q3: the term "class clown" means a student who acts like
+  a clown in class (like Bart Simpson). When formalizing,
+  make "student <i>x</i> is a class clown" a predicate.
+  <li>Q3: Use only one domain (students in the class) and only the class
+  clown predicate and equality (or inequality).
+  <li>Q4: The terms "first", "second" and "third" refer to the first, second
+  and third cards played (i.e., the first, second and third turns of the game).
+  Try to use predicates that are easy to determine whether true or false,
+  and combine them to express the meaning of the statements.
+  <li>Sample solutions:
+  <a href="sol/a2solutions.pdf">PDF</a> or
+  <a href="sol/a2solutions.ps">PS</a>
+  (with rough marks break-down)
+</ul>
+
+<h2><a name="a1">Assignment 1</a></h2>
+
+<ul>
+  <li><a href="a1/handout.pdf">Assignment handout (PDF)</a>
+  <a href="a1/handout.ps">(PS)</a>
+  <li>Due by 12:00 noon inside CSC165 drop box in BA 2220 on
+  Thursday, September 28.
+  <li>Q1: There are 4 regular playing cards before you on the table.
+  Two have their fronts showing (K and 6), and two have their backs showing
+  (so you can see if they are marked or not). Initially, no relationship 
+  between "face on front" and "marked on back" is asserted.<br>
+  Which of these 4 cards must you turn over (to see the other side) to verify
+  or disprove the statement, in each case?
+  <li>Q2: The relationship you must express in part (a) is that nothing is
+  in the "X" region (equivalently, everything is outside the "X" region).
+  <li>Q3: When you formalize these statements, be sure to define any domains
+  or predicates you use (such as P = set of pets, S(p) = pet p is soft, ...).
+  <li>Q4: Remember, not all sentences are necessarily quantified! Don't try
+  to add quantification if you don't need to!
+  <li>Sample solutions:
+  <a href="sol/a1solutions.pdf">PDF</a> or
+  <a href="sol/a1solutions.ps">PS</a>
+  (with rough marks break-down)
+</ul>
+
+<a name="submission"></a>
+<h2>Submission instructions</h2>
+
+<p>
+Assignments will consist of
+a number of "pen-and-paper" questions
+(whose solution <!--involves no computer programming and-->
+can be handwritten or typed),
+and must be handed in using the
+<a href="../admin/cover.pdf">cover sheet for assignments (Adobe PDF document)</a>
+<a href="../admin/cover.ps">(PS)</a>.
+</p>
+<p>
+All assignments must be submitted
+directly to the CSC 165 drop box in BA 2220
+or given directly to the instructor
+before the specified time on the due date.
+Late assignments will <em>not</em> be accepted
+<!--(including assignments submitted after the first 10 minutes of tutorial),-->
+except when using your grace day or
+in truly unusual circumstances.
+<!--
+(See the
+<a href="../admin/index.shtml#dates">important dates</a>
+for the exact due date of each assignment, and the
+<a href="../admin/index.shtml#special">policy on special consideration</a>
+for how to request an individual extension for unusual circumstances).
+-->
+</p>
+<p>
+Each student will have one grace day to use during the term, allowing
+the assignment to be handed into the drop box within 24 hours after the
+due time. This one grace day is indivisible and can only be used once
+(that is, you cannot use 4 hours for A1 and 20 hours for A2).
+To use a grace day, indicate its usage on the cover sheet.
+</p>
+<p>
+The cover sheet also includes a statement regarding the originality of
+your work and a disclosure of resources you used to complete your
+assignment (including any books, web sites, fellow students, tutors,
+other people, etc.). This disclosure allows us to see that types of
+resources students like to use, and gets you thinking about what is
+and isn't acceptable with regard to collaboration. Failure to disclose
+a collaboration may be an academic offense. Your disclosure
+<i>in no way whatsoever</i> affects your mark on the assignment.
+If you don't use any additional resources, indicate "none" in the space
+provided on the cover sheet.
+</p>
+
+<HR>
+
+<TABLE width="100%">
+<TR>
+<TD>
+<SMALL>
+<!--Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>-->
+<SCRIPT TYPE="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+<TD align=right>
+    <a href="http://validator.w3.org/check?uri=referer"><img border="0"
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

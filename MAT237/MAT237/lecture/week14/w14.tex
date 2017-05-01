@@ -1,0 +1,139 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+\section*{5.4 Green's Theorem}
+
+\begin{defn*} intro
+  \begin{enumerate}
+    \item \textbf{simple curve}: If $I \subseteq \R$ is an interval, a $C^1$ map $\gamma: I \to\R^2$ is a simple curve if $\gamma$ is injective on the interior of $I$ (injectivity intuitively means that there is no overlap in higher dimension graphs, thereby distinctness is preserved)
+    \item \textbf{simple closed curve}: a simple curve whose endpoints coincide. (i.e. a circle)
+    \item \textbf{Simple connected region} A region is simply connected if there is no holes.
+    \item \textbf{regular region} in $\R^n$ is a compact subset of $\R^n$ which is the closure of its interiors
+    \item A regular region $S\subseteq\R^n$ has a \textbf{piecewise smooth boundary} if its boundary $\partial S$ is a finite union of piecewise, simple closed curves.
+    \item \textbf{Stoke's Orientation} Given regular region $S\subseteq\R^n$ with piecewise smooth boundary $\partial S$, the stoke's orientatioon is the orientation of the boundary such that the interior of the set is on the left.
+    \item \textbf{x-simple (Type II region)} A region is x-simple if every line parallel to the x-axis satisfies
+    \begin{itemize}
+      \item the line does not touch the region
+      \item the line touches thet border of the region, either at single point or along an unbroken line segment,
+      \item the line passes through the interior of the region, once
+    \end{itemize}
+    In essence, for any two points the the line that are in the region, all the points in between are in the region too. Alternatively, a x-simple region can be defined as
+    \[
+      S = \{ c\leq y \leq d, \, \psi_1(y) \leq x \leq \psi_2(y) \}
+    \]
+    for $C^1$ function $\psi_1$ and $\psi_2$. Hence it is easy to fix $y$ and integrate over $x$ for a x-simple region
+    \item \textbf{y-simple (Type I region)} A region is y-simple if the region can be written as
+    \[
+      S = \{ a\leq x \leq b, \, \phi_1(x) \leq y \leq \phi_2(x) \}
+    \]
+    for $C^1$ function $\phi_1$ and $\phi_2$. Hence it is easy to fix $x$ and integrate over $y$ for a y-simple region
+    \item \textbf{simple region} A region is simple if it is both x-simple and y-simple
+  \end{enumerate}
+
+\end{defn*}
+
+
+\begin{theorem*}
+  \textbf{Green's Theorem} If $S\subseteq\R^2$ is a regular region with piecewise smooth boundary $\partial S$, endowed with the Stoke's orientation, and $F:\R^2\to\R^2$ is a $C^1$-vector field, then
+  \[
+    \oint_{\partial S} F\cdot dx = \iint_S \left( \frac{\partial F_2}{\partial x_1} - \frac{\partial F_1}{\partial x_2} \right)dA
+  \]
+  \begin{rem}
+    Green's theorem gives relationship between a line integral around a simple closed curve $C$ and a double integral over the plane region $S \subseteq \R^2$ bounded by $C = \partial S$. In essence, we can determine what is happening at interior of $S$ just by looking at its boundary $\partial S$, and vice versa. Additionally, the fundamental theorem of calculus only cares about information on the boundary.
+  \end{rem}
+\end{theorem*}
+
+
+\section*{5.5 Exact and closed vector field}
+
+\begin{theorem*}
+  \textbf{Fundamental Theorem of Calculus for Line Integrals} says that a line integral through a gradient field can be evaluated by evaluating the original scalar field at the endpoints of the curve. If $C\subseteq\R^n$ is a $C^1$ curve given by a parameterization $\gamma: [a,b]\to\R^n$ and $F:\R^n\to\R^n$ is a vector field such that there exists a $C^1$ function $f:\R^n \to\R$ satisfying $F = \nabla f$ (i.e. exact vector field) then
+  \[
+    \int_C F\cdot dx = f(\gamma(b)) - f(\gamma(a))
+  \]
+  In particular, the integrali only depends on endpoints $\gamma(a)$ and $\gamma(b)$ of the curve $C$ regardless of the path chosen.
+\end{theorem*}
+
+
+\begin{defn*}
+  \textbf{Exact (gradient) vector field} Any vector field $F:\R^n \to \R^n$ satisfying $F = \nabla f$ for some $C^1$ function $f:\R^n\to\R$ is called an exact vector field. The function $f$ is sometimes referred to as a scalar potential.
+  \begin{rem}
+    We can find the scalar potential from $F$ by integrating over partials... We can then easily compute line integral with exact vector field using the fundamental theorem of calculus for line integrals by just knowning the endpoints, without the need to parameterize the curve.
+  \end{rem}
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{Conservative Vector Field} If $F$ is a continuous vector field on an open set $U\subseteq\R^n$ then $F$ is a conservative vector field if any of the following equivalent condition is true
+  \begin{enumerate}
+    \item If $C_1$ and $C_2$ are any two oriented curves in $U$ with the same endpoints, then
+    \[
+      \int_{C_1} F\cdot dx = \int_{C_2}F\cdot dx
+    \]
+    \item If $C$ is a closed curve, then
+    \[
+      \int_C F\cdot dx = 0
+    \]
+  \end{enumerate}
+  The notion of conservative vector field is from physics. In a system in which energy is conserved, only initial and terminal configuration of state determine energy transfer.
+\end{defn*}
+
+\begin{theorem*}
+  \textbf{Equivalence of exact \& conservative vector field} If $S\subseteq\R^n$ is an open set, then a continuous vector field $F:S\to \R^n$ is conservative if and only if it is exact.
+\end{theorem*}
+
+\begin{defn*}
+  \textbf{Closed Vector Field} Any vector field $F:\R^n \to\R^n$ satisfying
+  \[
+    \frac{\partial F_i}{\partial x_j} - \frac{\partial F_j}{x_i} = 0, \quad\quad \forall i \neq j
+  \]
+  which is equivalent to $\nabla \times F = 0$ in $\R^3$
+  \begin{enumerate}
+    \item In $\R^3$, closed vector field are irrotational. This is true because the condition corresponds to components of the curl.
+    \item Conservative / exact vector field is closed.
+    \[
+      F = \nabla f \quad \Rightarrow \quad \nabla \times F = 0
+    \]
+    \begin{proof}
+      If $F = \nabla f$ then $F_i = \partial_i f$. Since mixed partials commute we have
+      \[
+        \partial_i F_j = \partial_i \partial_j f = \partial_j \partial_i f = \partial_j F_i
+      \]
+      hence $F$ is closed by definition. This proof requires that $F$ be $C^1$. Hence the converse does not necessarily hold when $F$ is not $C^1$.
+    \end{proof}
+    \item Closed vector field is locally exact.
+
+    \begin{theorem*}
+      \textbf{Poincare Lemma} If $U\subseteq\R^n$ is star-shaped and $F$ is a closed vector field on $U$, then $F$ is exact on $U$. i.e.
+      \[
+        \nabla \times F = 0 \quad \Rightarrow\quad  F = \nabla f
+      \]
+    \end{theorem*}
+
+
+  \end{enumerate}
+  \begin{rem}
+    Introduce an alternative way to determine if a vector field is conservative.
+  \end{rem}
+\end{defn*}
+
+\begin{defn*}
+  A set $U\subseteq \R^n$ is said to be \textbf{star-shaped} if there exists a point $a\in U$ such that for every point $x\in U$ the straight line connecting $x$ to $a$ is contained in $U$.
+  \begin{enumerate}
+    \item Every convex set is star shaped, converse need not be true.
+  \end{enumerate}
+\end{defn*}
+
+\begin{example}
+  \textbf{Lemniscate} defined by $x^4 = x^2 + y^2$ can be parameterized by
+  \[
+    \gamma: t \mapsto (\cos t, \sin t\cos t)
+  \]
+  which has a 8 figure graph that is not smooth at $(0,0)$
+\end{example}
+
+
+\end{document}

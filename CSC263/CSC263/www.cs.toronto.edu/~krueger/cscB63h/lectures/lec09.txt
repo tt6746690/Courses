@@ -1,0 +1,193 @@
+===========================================================================
+CSC B63                 Lecture Summary for Week  9             Summer 2008
+===========================================================================
+
+[[Q:  denotes a question that you should think about and
+      that will be answered during lecture.  ]]
+
+------
+Graphs [ Appendix B.4 ]
+------
+
+ * A graph G = (V,E) consists of a set of "vertices" (or "nodes") V and
+   a set of "edges" (or "arcs") E. 
+    
+    - In a "directed" graph, each edge is a pair of nodes (u,v), and
+      the pair (u,v) is considered different from the pair (v,u);
+      also, self-loops (edges of the form (u,u)) are allowed.
+      
+    - In an "undirected" graph, each edge is a set of two vertices {u,v}
+      (so {u,v} and {v,u} are the same), and self-loops are disallowed.
+      
+    - A "weighted" graph is either directed or undirected, and each
+      edge e in E is assigned a real number w(e) called its "weight"
+      (or sometimes "cost").
+
+ * Standard operations on graphs:
+
+    - Add a vertex; Remove a vertex; Add an edge; Remove an edge.
+
+    - Edge Query: given two vertices u,v, find out if the directed edge
+      (u,v) or the undirected edge {u,v} is in the graph.
+
+    - Neighbourhood: given a vertex u in an undirected graph, get the set
+      of vertices v such that {u,v} is an edge (denoted N(u) or Nbr(u)).
+
+    - In-neighbourhood, out-neighbourhood: given a vertex u in a directed
+      graph, get the set of vertices v such that (u,v) (or (v,u),
+      respectively) is an edge (denoted N_in(u) and N_out(u), respectively).
+
+    - Degree, in-degree, out-degree: compute the size of the neighbourhood,
+      in-neighbourhood, or out-neighbourhood, respectively (denoted deg(u),
+      deg_in(u) and deg_out(u)).
+
+    - Traversal: visit each vertex of a graph (in a particular order)
+      to perform some task.
+
+    - etc.
+
+[[Q:  What are the standard data structures for graphs?  ]]
+
+
+---------------------------------------
+Data structures for representing graphs [ Section 22.1 ]
+---------------------------------------
+
+Drawing a pretty picture of a graph works well for humans, but computers
+aren't so happy about a pictorial representation. We now discuss three ways
+to represent a graph in a computer.
+
+[[Q: Study the trade-offs between using each of these representations.
+     What is the space requirements for each representation?
+     What is the time requirement of each "common" operation for each?
+     Can you solve different problems more efficiently with different
+     representations? ]]
+
+  * adjacency-list representation
+
+      - array of n elements Adj[], each entry indexed by a vertex of G
+
+      - Adj[v] is a list of adjacent vertices (either linked list or array)
+
+      - works well for representing undirected or undirected graphs
+
+      - if weighted graph, store weights in Adj[v] along with vertex
+        (i.e., for edge (v,u) with weight w, store pair [u, w] in Adj[v] list)
+
+      - there are exactly 2m (undirected graph) or m (directed graph)
+        entries over all adjacency lists
+	  -> efficient space storage
+
+  * adjacency-matrix representation
+
+      - use n x n matrix A, where entry A[u,v] = 1 if (u,v) is an edge,
+        A[u,v] = 0 if (u,v) is not an edge
+
+      - efficient edge query operation, but uses more memory
+
+      - works well for representing undirected or undirected graphs
+
+      - for weighted graph, store weights in A
+        i.e., if all weights are nonzero, A[u,v] = 0 means edge (u,v) not
+	in graph, otherwise, A[u,v] = w(u,v)
+
+      - for undirected graph, notice that upper and lower triangles are
+        mirror images (since (u,v) edge iff (v,u) edge)
+	  -> need only store the matrix portion of main diagonal and above,
+	     reducing memory usage nearly by half
+
+      - additional storage win for unweighted graphs: only need a single bit
+        to store whether (u,v) is an edge instead of an entire word of memory
+	  -> only makes difference in constant factor of asymptotic notation
+
+  * edge-list representation
+
+      - store a list of edges (i.e., linked list, array of m entries, etc.)
+
+      - efficient memory storage
+
+      - works well for representing undirected or undirected graphs
+
+      - for weighted graphs, store weight along with the edge in list
+
+[[Q: Can you come up with other useful representations that permit some
+     of the "standard operations" to be answered in constant time? ]]
+
+
+--------------------
+Breadth-First Search [ Section 22.2 ]
+--------------------
+
+ * Starting from a specified "source" vertex s in V, BFS visits every
+   vertex v in G that can be reached from s, and in the process, constructs
+   for each v a path from v to s with the smallest number of edges (a
+   "BFS-tree" of the graph).  BFS works on directed or undirected graphs:
+   we describe it for directed graphs.
+
+ * To keep track of progress, each vertex is given a "colour", which is
+   initially white.  The first time that a vertex is encountered, its
+   colour is changed to gray, and once a vertex has been examined (we'll
+   see what the difference is between "encountered" and "examined" in a
+   second), its colour is changed to black.  At the same time, for each
+   vertex v, we also keep track of the predecessor (the parent) of v in the
+   BFS tree, p[v], and we keep track of the "distance" of v to s (the
+   number of edges from s to v), d[v].
+
+ * Intuitively, white vertices are "unknown" to BFS, black vertices are
+   "known" and have been fully "explored" (i.e., BFS has encountered all
+   their neighbours), and gray vertices are known but not fully explored:
+   they represent the "frontier".  The distinction between black and gray
+   vertices is important: it's how BFS keeps track of which vertices to
+   explore next so that it really is working in a "breadth-first" manner.
+   In order to manage the gray vertices, BFS stores them in a queue so that
+   they are dealt with in a first-in, first-out manner.
+
+         BFS(G=(V,E),s)
+            for all vertices v in V
+               colour[v] := white
+               d[v] := infinity
+               p[v] := NIL
+            end for
+            initialize an empty queue Q
+            colour[s] := gray
+            d[s] := 0
+            p[s] := NIL
+            ENQUEUE(Q,s)
+            while Q is not empty do
+               u := DEQUEUE(Q)
+               for each edge (u,v) in E do
+                  if colour[v] == white then
+                     colour[v] := gray
+                     d[v] := d[u] + 1
+                     p[v] := u
+                     ENQUEUE(Q,v)
+                  end if
+               end for
+               colour[u] := black
+            end while
+         END BFS
+
+ * Look at the example in the textbook.
+
+ * Each node is enqueued at most once, since a node is enqueued only when
+   it is white, and its colour is changed the first time it is enqueued.
+   In particular, this means that the adjacency list of each node is
+   examined at most once, so that the total running time of BFS is O(n+m),
+   linear in the size of the adjacency list.
+
+ * We can show that at the end of BFS, d[v] is equal to the number of edges
+   on a shortest path from s to v (i.e., a path with the smallest number of
+   edges).
+     -> proof is outlined in "BFS computes shortest-path proof" handout
+
+ * Applications:
+
+    - Computing single-source shortest paths / distance in an unweighted
+      graph (i.e., finding a shortest path through a maze).
+
+    - Discovering connected components in a graph.
+
+    - Identifying bipartite graphs, finding a 2-colouring of a graph.
+
+    - Used for traversing decision trees in artificial intelligence.
+

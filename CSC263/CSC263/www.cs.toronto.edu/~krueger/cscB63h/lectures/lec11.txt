@@ -1,0 +1,239 @@
+===========================================================================
+CSC B63                 Lecture Summary for Week 11             Summer 2008
+===========================================================================
+
+[[Q:  denotes a question that you should think about and
+      that will be answered during lecture.  ]]
+
+---------------------
+Minimum Spanning Tree [ chapter 23 ]
+---------------------
+  Input: connected undirected graph G=(V,E) with positive cost c(e) > 0
+        for each edge e in E.
+  Output: a spanning tree T subset of E such that cost(T) (sum of the
+        costs of edges in T) is minimum.
+
+  - Terminology:
+      . "Spanning tree": acyclic connected subset of edges.
+      . "Acyclic": does not contain any cycle.
+      . "Connected": contains a path between any two vertices.
+
+  [Note: the terms "cost" and "weight" mean the same thing,
+  as do c(e) and w(e) for cost or weight of an edge.
+  Different people use different terms, depending on the application.]
+
+Let's look at some algorithms for solving the MST problem:
+
+ A. Brute force: consider each possible subset of edges.
+    Runtime?  Exponential, even if we limit search to spanning trees of G.
+
+ B. Generalized MST algorithm:
+	General greedy approach: build a spanning tree edge by edge,
+	    including appropriate "small" edges and
+	    excluding appropriate "large" edges.
+        We can think of these algorithms as an edge-colouring process.
+	    - initially, all edges of the graph are uncoloured
+	    - one at a time colour edges either blue (accepted)
+	        or red (rejected) to maintain a "colour invariant"
+
+	Colour Invariant: there is a MST containing
+	    all the blue edges and none of the red edges
+
+	If we maintain this colour invariant and colour all the edges
+	of the graph, the blue edges will form a MST!
+
+        Terminology:
+	  . "cut": a vertex partition (X, V-X)
+	  . edge e "crosses" a cut if one end is in each side
+
+	Rules for colouring edges:
+	  . Blue Rule:
+	        Select a cut that no blue edges cross.
+	        Among the uncoloured edges crossing the cut,
+		select one of minimum cost and colour it blue.
+	  . Red Rule:
+	        Select a simple cycle containing no red edges.
+	  	Among the uncoloured edges in the cycle,
+		select one of maximum cost and colour it red.
+	Note the nondeterminism here: we can apply the rules at any time
+	and in any order.
+
+    Correctness?  What do we have to prove?
+        Theorem: All the edges of a connected graph are coloured and
+	the colour invariant is maintained in any application of a rule.
+
+    To prove: The colour invariant is maintained.
+        By induction on number of edges coloured.
+
+	Initially, no edges are coloured, so any MST satisfies CI.
+
+	Suppose CI true before blue rule is applied, colouring edge e blue.
+	    Let T be a MST that satisfies CI before e is coloured.
+	    If e in T, T still satisfies CI, done.
+	    If e not in T, consider the cut (X, V-X) used in the blue rule.
+	        There is a path in T joining the ends of e, and at least
+		one edge e' on this path crossses the cut.
+		By CI, no edge of T is red, and with blue rule,
+		e' is uncoloured and c(e') >= c(e).
+		Thus T - {e'} + {e} is a MST and it satisfies CI after
+		e is coloured.
+
+	Now suppose CI true before red rule is applied, colouring edge e red.
+	    Let T be a MST that satisfies CI before e coloured.
+	    If e not in T, T still satisfies CI, done.
+	    If e in T, deleting e from T divides T in 2 trees T_1 and T_2
+	        partitioning G (thus (T_1,T_2) is a cut).
+	        Consider the cycle including e used in the red rule.
+		This cycle must have another edge e' crossing cut (T_1,T_2).
+		Since e' not in T, by CI and red rule, e' is uncoloured
+		and c(e') <= c(e).
+		Thus T - {e} + {e'} is a MST and it satisfies CI after
+		e is coloured.
+
+    To prove: All edges in the graph are coloured?
+        Suppose this method "stops early"
+	(i.e., there is an uncoloured edge e but no rule can be applied)
+	By CI, blue edges forms a forest of blue trees (some trees might
+	just be isolated vertices).
+	If both ends of e are in the same blue tree,
+	    the red rule applies to the cycle that would be formed
+	    by adding e, contradiction.
+	If the ends of e are in different blue trees, say T_1 and T_2,
+	    the blue rule applies to the cut (T_1, V-T_1),
+	    contradiction.
+	Thus if any uncoloured edge remains, some rule must be applicable.
+
+
+ C. Kruskal's algorithm (1956):
+        // let m = |E| (# edges) and n = |V| (# vertices)
+        sort edges by cost, i.e., c(e_1) <= c(e_2) <= ... <= c(e_m)
+        T := {} // partial spanning tree
+        for each v in V: MakeSet(v) // initialize disjoint sets
+        for i := 1 to m:
+            let (u,v) := e_i
+            if FindSet(u) != FindSet(v): // u,v not already connected
+                T := T U {e_i}
+                Union(u,v)
+        return T
+    Runtime?  Theta(m log m) for sorting; main loop involves sequence of m
+        Union and FindSet operations on n elements which is Theta(m log n).
+        Total is Theta(m log n) since log m is Theta(log n).
+
+ D. Prim's algorithm (Jarnik 1930, Prim 1957, Dijkstra 1959):
+        Idea: start with some vertex s in V (pick arbitrarily) and at each
+        step, add lowest-cost edge that connects a new vertex.
+        -> More in tutorial.
+
+ E. Boruvka's algorithm (1926):
+    Idea: do steps like Prim's algorithm in parallel
+        initially n trees (the individual vertices)
+	repeat
+	    for every tree T, select a minimum-cost edge incident to T
+	    add all selected edges to the MST (causing trees to merge)
+	until only one tree 
+	return this tree T
+    Runtime?  Analysis similar to merge sort. Each pass reduces number of
+        trees by factor of two, so O(log n) passes. Each pass takes O(m)
+	time, so total is O(m log n)
+    Correctness?  Special case of red-blue algorithm.
+
+
+Running time of MST algorithms:
+
+  - Kruskal (using disjoint sets with "union-by-rank" and path compression):
+      O(m log n)
+
+  - Prim (using heap): O(m log n)
+
+  - Prim (using binomial heap): O(m + n log n)
+
+------------------------
+Approximation algorithms [ chapter 35.2, not on exam ]
+------------------------
+
+[ most of this is a preview of courses like CSC C73/373 or for interest,
+  but it's a nice example of using our data structures and algorithms
+  to solve a hard problem ]
+
+Some problems are hard to solve.
+  eg. NP-complete problems: no one knows how to solve in worst-case
+      polynomial time.
+
+  - Perhaps a "good" answer (near-optimal) answer found efficiently
+    is good enough.
+
+  - "approximation ratio": an algorithm has approximation ratio r(n)
+    if for any input of size n,
+      C_alg / C_opt <= r(n)
+    where C_alg is the "cost" of the solution found by the algorithm
+    and C_opt is the "cost" of the optimal solution.
+      - in some cases, ratio does not depend on n (constant approximation ratio)
+
+  - "r(n)-approximation algorithm": an algorithm (usually polynomial time)
+    that achieves a r(n) approximation ratio
+
+
+Travelling Salesperson Problem (TSP):
+-------------------------------------
+
+  - Input: complete graph G=(V,E) with non-negative (integer) edge costs c(e)
+  - Output: a tour of G with minimum cost
+
+  - a tour is a Hamiltonian cycle, that is, a simple cycle that visits every
+    vertex in G
+  - cost of a tour is the sum of edge costs in the tour
+  - TSP is NP-complete in general
+  - TSP is also hard to approximate
+
+  - "triangle inequality": one side of a triangle is no more than the sum of
+    the other two sides
+	c(u,w) <= c(u,v) + c(v,w)
+      - common when considering Euclidean or metric spaces
+
+  - TSP with triangle inequality: also NP-complete, but often interesting
+      - can approximate the solution within factor of 2
+
+TSP with triangle inequality:
+-----------------------------
+
+  - example: vertices are locations on a 6x5 grid
+
+      vertices: a at (1,4), b at (2,1), c at (0,1), d at (3,4),
+      		e at (4,3), f at (3,2), g at (5,2), h at (2,0).
+      edge costs: distance in Euclidean plane
+
+  - lower bound: cost of a minimum spanning tree
+      - an optimal tour minus one edge is a spanning tree
+  - upper bound: 2*cost of a minimum spanning tree
+      - we can traverse each edge of the MST twice to visit all the vertices
+      - need to make this more precise to prove
+
+  - example: an MST of example above is {(b,c), (b,h), (a,d), (d,e),
+  	(e,f), (e,g), (b,f)}
+
+  - algorithm:
+      pick a root vertex r
+      compute a MST T from the root r
+      L <- order of vertices in preorder walk of T
+      return Hamiltonian cycle H produced by visiting vertices in order L
+      (ignoring duplicated vertices)
+
+  - running time: clearly polynomial time
+
+  - Theorem: This is a 2-approximation algorithm for the TSP with triangle ineq.
+    Proof: Let Opt be an optimal tour, let T be a MST.
+      Deleting an edge from Opt yields a spanning tree, thus
+        c(T) <= c(Opt).
+      A full walk W of T lists vertices each time it is enountered in a
+      preorder traversal of T.
+        eg., abcbhbadefegeda
+      The walk traverses every edge of T twice, so
+        c(W) = 2*c(T).
+      Combining with above inequality,
+        c(W) <= 2*c(Opt).
+      In general, W is not a tour, since vertices may appear multiple times.
+      However, we can delete repeated vertices from W without increasing the
+      cost (by triangle inequality).
+      Repeat deleting repeated vertices until a valid tour H remains.
+      Then c(H) <= c(W) <= 2*c(Opt), showing our approximation ratio.
+

@@ -1,0 +1,131 @@
+Test 2 expected answers:
+
+These outline the expected answers. There may be other correct answers,
+or other answers which can score significant points.
+
+1. Denominations of 1, 10, and 25 making change for 30 cents is a
+counter-example.
+
+2. The problem is to find a minimum spanning tree. Apply the ideas of
+Kruskal's algorithm to solve with a greedy algorithm. We simply have a
+graph with weighted edges between every pair of vertices (towns).
+
+3. Dynamic programming, similar to a HW question. Let A[i,j,l] = # of ways
+to get symbol l (a, b or c) parenthesizing w_i...w_j.
+     A[i,i,l] = 1 if l=w_i, 0 otherwise
+     A[i,j,l] = sum for k = i to j-1 of A[i,k,l1] * A[k+1,j,l2]
+		such that l1 . l2 = l according to multiplication table
+
+4. Assume that the flows and capacities are integers (that should have
+been stated in the question).
+We already have a max flow on G, so consider f on G'. Form the
+residual network G'_f. Do a BFS / DFS / etc. to try to find an
+augmenting path. There is at most one (of capacity 1) since the
+increased capacity edge may be on all min cuts (so value of new max flow
+is |f|+1) or there is some min cut of G it is not on, meaning we cannot
+augment the flow. We only require one step to prove our possible
+augmented flow is maximum.
+
+
+Test 2 grading scheme:
+
+Question 1:	10 points for a valid counter-example.
+	Minor errors received slight deductions.
+
+For incorrect "proofs", up to 4 marks depending on quality of proof
+structure, approach, and size of hole in reasoning.
+
+
+Question 2:	10 points
+
+4 points for algorithm
+	4: correct approach, possibly a few minor errors.
+	3: right approach, a significant error
+	2: idea needs work, major errors
+	1: shows understanding of the problem and how to solve it
+	0: approach has no hope, not an algorithm
+
+3 points for outlining correctness argument
+	3: generally right
+	2: significant error
+	1: several significant errors
+	0: incorrect or missing
+
+3 points for time analysis
+	3: generally right
+	2: significant error
+	1: several significant errors
+	0: incorrect or missing
+
+Common problems:
+	- not looking for a MST
+	- T_opt extends T_{k-1} optimally, T_k = T_{k-1}, so T_opt extends
+	T_k optimally. (what if T_opt used line k? T_k rejected that line)
+
+
+Question 3:	10 points
+
+5 points for the algorithm and recurrence
+	5: generally correct DP
+	4: DP, but missing base case or computing in wrong order
+	3: reasonable DP attempt or correct D&C attempt, or only a recurrence
+	2: unreasonable or incorrect attempt
+	1: clearly wrong
+	0: doesn't make sense
+
+3 points for correctness
+	3: convincing explanation
+	2: some explanation / justification
+	1: wrong, missing some major points
+	0: junk (doesn't make sense, doesn't match algorithm/recurrence)
+
+2 points for time analysis
+	1 point for correctly stating time complexity
+	1 point for justification of time complexity
+
+Common problems:
+	- not giving / explaining / justifying recurrence
+	- trying to apply greedy-style proof structures
+	  (what does promising / optimal mean here?)
+	- not computing number of ways to get b
+	- not computing number of ways to get subparenthesizations that lead to b
+	- not parenthesizing all of w to get b
+
+
+Question 4:	10 points
+
+4 points for algorithm
+	4: algorithm idea correct, can work within time bound given
+	3: right approach, needs more work
+	2: major errors, or can't work within time bound
+	1: idea might solve the problem eventually
+	0: approach has no hope, not an algorithm
+
+3 points for outlining correctness argument
+	3: generally right
+	2: significant error
+	1: several significant errors
+	0: incorrect or missing
+
+3 points for time analysis
+	3: generally right
+	2: significant error
+	1: several significant errors
+	0: incorrect or missing
+
+Common problems:
+	- missing non-constant time cost steps in analysis
+	- wrong time complexity for BFS/searches
+	- incorrectly counting number of paths/iterations needed
+	- not expressing time in terms of input size
+
+
+
+Distribution of submitted answers:
+    Q1. most students, 1/3 correctly gave a counter-example, rest "proofs"
+    Q2. almost everyone
+    Q3. 1/3 of the class
+    Q4. 1/3 of the class
+    "I don't know" from 1/3 of the class as one of the handed-in answers
+
+

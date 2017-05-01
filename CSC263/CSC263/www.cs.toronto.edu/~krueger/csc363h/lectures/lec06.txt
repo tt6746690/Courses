@@ -1,0 +1,129 @@
+===========================================================================
+CSC 363H                Lecture Summary for Week  6             Summer 2006
+===========================================================================
+
+--------------------
+Mapping Reducibility (cont'd)
+--------------------
+
+Example: A_TM <=m REGULAR_TM:
+
+ -  Given <M,w>, construct <M'> such that M accepts w (<M,w> in A_TM) iff
+    L(M') is regular (<M'> in REGULAR_TM) as follows:
+        M' = "On input x:
+             1. Accept if x = 0^n1^n for some n >= 0.
+             2. Else, run M on w and do the same."
+    Clearly, this is computable.
+    Also, if M accepts w, then M' accepts everything, i.e., L(M') = Sigma^*
+    is regular; if M does not accept w, then M' accepts only 0^n1^n, i.e.,
+    L(M') = { 0^n1^n : n >= 0 } is not regular.
+
+Definition: A language is "co-recognizable" if its complement is recognizable.
+  (A similar definition for decidability unnecessary -- do you see why?)
+
+Examples:
+
+ -  EQ_TM is neither recognizable nor co-recognizable.
+
+    Show A_TM <=m EQ_TM (equiv. to A_TM^c <=m EQ_TM^c):
+        On input <M,w>, construct <M1,M2> as follows:
+            M1 = "On input x: run M on w (ignore x) and do the same."
+            M2 = "On input x: accept."
+	Clearly, this is computable.
+        Then, <M,w> in A_TM iff M accepts w iff M2 accepts every string iff
+        L(M1) = L(M2) iff <M1,M2> in EQ_TM.
+    This proves that EQ_TM is not co-recognizable.
+
+    Show A_TM <=m EQ_TM^c (equiv. to A_TM^c <=m EQ_TM):
+        On input <M,w>, construct <M1,M2> as follows:
+            M1 = "On input x: run M on w (ignore x) and do the same."
+            M2 = "On input x: reject."
+	Clearly, this is computable.
+        Then, <M,w> in A_TM iff M accepts w iff M2 accepts every string iff
+        L(M1) =/= L(M2) iff <M1,M2> not in EQ_TM iff <M1,M2> in EQ_TM^c.
+    This proves that EQ_TM is not recognizable.
+
+ -  INF_TM = { <M> : M a TM s.t. L(M) contains infinitely many strings }
+    is neither recognizable nor co-recognizable.
+
+    HALT_TM <=m INF_TM:
+        On input <M,w>, construct <M'> as follows:
+            M' = "On input x:
+                 1. Run M on w.
+                 2. Accept if M halts."
+	Clearly, this is computable.
+        If M halts on w, then M' accepts all strings so L(M') is infinite.
+        If M loops on w, then M' accepts no string so L(M') is finite.
+    This shows INF_TM^c is unrecognizable.
+
+    HALT_TM <=m INF_TM^c:
+        On input <M,w>, construct <M'> as follows:
+            M' = "On input x:
+                 1. Run M on w for |x| many steps.
+                 2. Accept if M has not halted."
+	Clearly, this is computable.
+        If M halts on w, then M' accepts only the strings up to a certain
+        length, so L(M') is finite.
+        If M loops on w, then M' accepts all strings so L(M') is infinite.
+    This shows INF_TM is unrecognizable.
+
+--------------
+Rice's Theorem
+--------------
+
+If P is a nontrivial property of recognizable languages, then P is
+undecidable.  ("Nontrivial" means there is at least one language that
+satisfies the property and at least one language that does not; a property
+of recognizable languages means a property of L(M) for TMs M -- it must be
+the case that the property depends only on L(M) and on no other aspect of
+M.)
+
+Examples (Rice's theorem applies to all of these languages, so each one is
+undecidable):
+
+ -  E_TM = { <M> : L(M) = {} }
+    (depends only on L(M) and is non-trivial: L(M) = {} for some M, and
+    L(M) != {} for others)
+
+ -  REGULAR_TM = { <M> : L(M) is regular }
+
+ -  DECIDABLE_TM = { <M> : L(M) is decidable }
+
+ -  INF_TM = { <M> : L(M) contains infinitely many strings }
+
+ -  { <M> : M accepts 00101 }
+    (because if L(M1) = L(M2), then <M1> and <M2> are either both in or
+    both out of the language, so this depends only on L(M) and the property
+    is non-trivial)
+
+ -  ...
+
+Languages that do NOT fall under Rice's theorem (so we cannot conclude
+anything about their decidability/undecidability -- anything is possible):
+
+ -  { <M> : L(M) is recognizable }
+    (trivial: L(M) is recognizable for every TM M, by definition)
+
+ -  { <M> : M has a useless state }
+    (not a property of L(M))
+
+ -  { <M> : M is a 2-tape TM that writes on its 2nd tape for some input }
+    (not a property of L(M))
+
+ -  ...
+
+Proof sketch:  Selected solution to problem 5.28 on p.215 of textbook
+(not in 1st edition).
+
+---------------
+Closing remarks
+---------------
+
+Undecidable problems from other domains:
+ -  Other models of computation.
+ -  Post correspondence problem (section 5.2 in textbook).
+ -  Conway's "game of life".
+ -  Check out http://en.wikipedia.org/wiki/Category:Computability
+    or http://en.wikipedia.org/wiki/List_of_undecidable_problems
+    for many more.
+

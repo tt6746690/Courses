@@ -1,0 +1,348 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>gdb tutorial</title>
+</head>
+
+<body>
+
+<p align="center"><font size="6">GDB Tutorial</font></p>
+<p align="right"><font size="2">by: Hoa Nguyen</font></p>
+<hr>
+
+<p align="left">As programmers, we all make errors. Certainly, most of us at 
+least have tried placing &quot;printf&quot; statements in our code hoping to catch the 
+errors, however, we need to know more than that. Debugger is a good tool for 
+tracing bugs. In this tutorial, we will show you how to use gdb -- a &quot;GNU&quot; 
+debugger.&nbsp; <br>
+&nbsp;</p>
+
+<p align="left"><font size="5"><b>Compiling programs to run with gdb:</b></font></p>
+
+<p align="left">Below is a not-so-well written program (<a href = 'crash.c'>crash.c</a>) 
+which reads a number n from standard input, calculates the sum from 1 to n and 
+prints out the result:</p>
+1&nbsp;&nbsp;&nbsp;&nbsp;
+#include &lt;stdio.h&gt; <br>
+2&nbsp;&nbsp;&nbsp;&nbsp;
+#include&lt;string.h&gt; <br>
+3&nbsp;&nbsp;&nbsp;&nbsp;
+#include&lt;stdlib.h&gt; <br>
+4 <br>
+5&nbsp;&nbsp;&nbsp;&nbsp; char * buf;<br>
+6<br>
+7&nbsp;&nbsp;&nbsp;&nbsp; int sum_to_n(int num)<br>
+8&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i,sum=0;<br>
+10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(i=1;i&lt;=num;i++)<br>
+11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sum+=i;<br>
+12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sum;<br>
+13&nbsp;&nbsp; } <br>
+
+14<br>
+15&nbsp;&nbsp;&nbsp; void printSum()<br>
+16&nbsp;&nbsp;&nbsp; {<br>
+17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char line[10];<br>
+18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf(&quot;enter a number:\n&quot;);<br>
+19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fgets(line, 10, stdin);<br>
+20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(line != null) <br>
+21&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strtok(line, 
+&quot;\n&quot;);&nbsp;&nbsp;&nbsp;&nbsp; <br>
+22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(buf,&quot;sum=%d&quot;,sum_to_n(atoi(line)));<br>
+23&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf(&quot;%s\n&quot;,buf);<br>
+24&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+25<br>
+26&nbsp;&nbsp;&nbsp;&nbsp; int main()<br>
+27&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printSum();<br>
+29&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+30&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+
+<p align="left">
+In order to run crash.c with gdb, we must compile it with the -g option which 
+tells the compiler to embed debugging information for the debugger to use. So, 
+we compile crash.c as follows:</p>
+
+<blockquote>
+
+<p align="left">
+gcc -g ocrash crash.c</p>
+
+</blockquote>
+
+<p align="left">
+Now, let's run the program.</p>
+
+<blockquote>
+
+./crash <br>
+enter a number: <br>
+5 <br>
+  Segmentation fault
+
+
+</blockquote>
+
+
+<p align="left">
+Looks familiar? The infamous &quot;Segmentation fault&quot; means there is some kind of 
+invalid memory access. Unfortunately, that is all the compiler tells us. Now, 
+let's see how we can use gdb to spot the problem(s).</p>
+
+
+<p align="left">
+<br>
+<font size="5"><b>Starting gdb:</b></font><br>
+<br>
+To start gdb for our crash.c, on the command prompt type &quot;gdb crash&quot;. You'll see 
+the following: <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$gdb crash<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GNU gdb Red Hat Linux 
+(6.1post-1.20040607.52rh)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Copyright 2004 Free Software 
+Foundation, Inc.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GDB is free software, covered by the 
+GNU General Public License, and you are<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; welcome to change it and/or 
+distribute copies of it under certain conditions.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Type &quot;show copying&quot; to see the 
+conditions.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; There is absolutely no warranty for 
+GDB. Type &quot;show warranty&quot; for details.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This GDB was configured as 
+&quot;i386-redhat-linux-gnu&quot;...Using host libthread_db library &quot;/lib/tls/libthread_db.so.1&quot;.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb)</p>
+
+
+<p align="left">
+&nbsp;Good! We have successfully loaded gdb with crash. Let's run the program 
+with 
+command &quot;<b>run</b>&quot; to see what kind of information we will get.</p>
+
+<p align="left"><font size="5"><b>r</b></font><font size="5"><b>un</b></font></p>
+<p align="left">The &quot;<b>run</b>&quot; command starts the program. If we do not set up any &quot;<b>breakpoints</b>&quot; 
+(we'll see how to use this command later) the program will run until it 
+terminates or core dumps.<br>
+</p>
+<blockquote>
+<p align="left">(gdb) run<br>
+Starting program: /student/nguyen_h/csc408/contribuition/crash<br>
+enter a number:<br>
+10<br>
+<br>
+Program received signal SIGSEGV, Segmentation fault.<br>
+0x0017fa24 in _IO_str_overflow_internal () from /lib/tls/libc.so.6</p>
+</blockquote>
+<p align="left">Ok, so it crashed. To get more information we use the &quot;<b>backtrace</b>&quot; 
+command.</p>
+<p align="left"><font size="5"><b>backtrace</b></font></p>
+<p align="left">The &quot;<b><i>backtrace</i></b>" command tells gdb to list all the 
+function calls (that leads to the crash) in the stack frame.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) backtrace<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #0 0x0017fa24 in _IO_str_overflow_internal 
+() from /lib/tls/libc.so.6<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #1 0x0017e4a8 in _IO_default_xsputn_internal 
+() from /lib/tls/libc.so.6<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #2 0x001554e7 in vfprintf () from 
+/lib/tls/libc.so.6<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #3 0x001733dc in vsprintf () from 
+/lib/tls/libc.so.6<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #4 0x0015e03d in sprintf () from 
+/lib/tls/libc.so.6<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #5 0x08048487 in printSum () at 
+crash.c:22<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #6 0x080484b7 in main () at 
+crash.c:28<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb)</p>
+<p align="left">
+
+Let's now have a careful look at the messages. As we can see, main() called 
+printSum() which in turn called sprintf() which then went on to call a bunch of 
+lower level functions which eventually led to the crash. Anything from sprintf() 
+down is not in our control, so let's carefully examine what we passed to sprintf(). 
+The output above tells us that we called sprintf() in line 20 inside function 
+printSum().<br>
+<br>
+22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(buf,&quot;sum=%d&quot;,sum_to_n(atoi(line)));</p>
+<p align="left">
+
+We now show how to use break points to examine the values of variables we are 
+interested in at the point we like to break.<br>
+</p>
+<p align="left"><b><font size="5">Break Points</font></b></p>
+<p align="left">This sets a break point. Its basic functionality is to type 
+break and a filename and line number. In our case we want to stop in crash.c 
+line 22, we could do the following in gdb:<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) break crash.c:22<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Breakpoint 1 at 0x804845b: file 
+crash.c, line 22.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb)<br>
+<br>
+Ok, we've set the break point, now let's re-run the program.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) run<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The program being debugged has been 
+started already.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start it from the beginning? (y or n) 
+y<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Starting program: /student/nguyen_h/csc408/contribuition/crash<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enter a number:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Breakpoint 1, printSum () at 
+crash.c:22<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 22 sprintf(buf,&quot;sum=%d&quot;,sum_to_n(atoi(line)));<br>
+</p>
+<p align="left"><b><font size="5">print</font></b></p>
+<p align="left">We now can retrieve the values of all variables we're interested 
+in. To do this we use the &quot;<b>print</b>&quot; command.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(gdb) print line<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $1 = &quot;10\000\000\000\000\000\000¨Á&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(gdb)<br>
+<br>
+The line variable has the character values '1' followed by '0' and then a null 
+terminator '\0', and then junk. So, this seems ok. Now, let's move on and 
+examine what buf holds. <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(gdb) print buf<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$2 = 0x0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(gdb)<br>
+<br>
+By now the error should be  obvious.  We're trying to copy  stuff into a buffer pointed to by buf 
+which hasn't been allocated resulting in a segmentation fault.  Note that we were lucky in this case: because buf is a global 
+variable and was automatically initialized to 0 (null pointer).  If it were not, it might 
+have contained an arbitrary 
+value like 0xbffff580 then it would be no longer obvious that the address points to 
+in memory is invalid. Bugs like this are a real pain to track down.<br>
+<br>
+<br>
+<b><font size="5">Conditional break points:</font></b><br>
+<br>
+Sometimes we wish to set a break point under some condition.  For example, we 
+may want to break at line 10 of crash.c only when the value of num is 50:</p>
+
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) break 
+crash.c:10<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Breakpoint 1 at 0x8048441: file 
+crash.c, line 10.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) condition 1 num==50<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) run<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Starting program: /student/nguyen_h/csc408/contribuition/crash<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enter a number:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 50<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Breakpoint 1, sum_to_n (num=50) at 
+crash.c:10<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 for(i=1;i&lt;=num;i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) continue<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Continuing.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Program received signal SIGSEGV, 
+Segmentation fault.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00689a24 in _IO_str_overflow_internal 
+() from /lib/tls/libc.so.6<br>
+<br>
+Note that you we resume execution with the &quot;<b>continue</b>&quot; command.<br>
+<br>
+<font size="5"><b>Some basic commands (used with break points):</b></font></p>
+
+Once our program has reached a break point, we can see the the 
+execution by using the following commands:<br>
+<b>n</b> (for &quot;next&quot;) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ This executes the current command, and moves to the next 
+command in the program.<br>
+<b>s</b> (for &quot;step&quot;) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+This steps through the next command. There are 
+differences between step and next. If you are at a function call, and you hit 
+next, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+then the function will execute and return. But if you hit step, then you 
+will go to the first line of that function.<br>
+<b>u</b> (for &quot;until&quot;) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ This is like <b>n</b>, except that if we are in a loop,
+<b>u</b> will continue execution until the loop is exited.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) break crash.c:10<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Breakpoint 1 at 0x8048441: file 
+crash.c, line 10.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) condition 1 num==50<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) run<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Starting program: /student/nguyen_h/csc408/contribuition/crash<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enter a number:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 50<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Breakpoint 1, sum_to_n (num=50) at 
+crash.c:10<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 for(i=1;i&lt;=num;i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) n<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11 sum+=i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) n<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 for(i=1;i&lt;=num;i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb) u<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12 return sum;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (gdb)<br>
+<br>
+<br>
+<b><font size="5">Other commands (used with break points) of interest:</font></b><br>
+<br>
+<b>list [line#]</b><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Prints lines from the source code around 
+line#.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If we give it a function name as the 
+argument function, it prints lines from the beginning of that function. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If we give it no argument, it prints 
+lines around the break point<br>
+<br>
+<b>delete [n]</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; With no argument, deletes all 
+breakpoints that we have set.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Deletes break point number n.<br>
+<br>
+<b>clear function_name</b> <br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Deletes the breakpoint set in that 
+function.<p><b>print var</b> <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Prints a variable located in the 
+current scope.<br>
+<br>
+<b>x address</b> <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Prints the content at address:<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(gdb) print &amp;num<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$1 = (int *) 0xbffff580<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(gdb) x 0xbffff580<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0xbffff580:     0x00000064<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(gdb)</p>
+<p><font size="5"><b>Useful links</b></font><b><font size="5">:</font></b><br>
+<p>Check out this <a href="http://www.andromeda.com/people/ddyer/topten.html"> Top ten list</a></p>
+<p><font size="5"><b>References:</b></font></p>
+<p>&nbsp;<a href="http://oucsace.cs.ohiou.edu/~bhumphre/gdb.html">http://oucsace.cs.ohiou.edu/~bhumphre/gdb.html</a>
+</p>
+</body>
+
+</html>

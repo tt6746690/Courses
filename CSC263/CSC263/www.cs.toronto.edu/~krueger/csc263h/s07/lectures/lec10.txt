@@ -1,0 +1,129 @@
+===========================================================================
+CSC 263                 Lecture Summary for Week 10             Summer 2007
+===========================================================================
+
+[[Q:  denotes a question that you should think about and
+      that will be answered during lecture.  ]]
+
+------------------
+Depth-First Search [ Section 22.3 ]
+------------------
+
+ * Just like for BFS, each vertex will be coloured white (when it hasn't
+   been "discovered" yet), gray (when it's been encountered but its
+   adjacency list hasn't been completely visited yet), or black (when its
+   adjacency list has been completely visited).  The philosophy of DFS is
+   "go as far as possible before backtracking", so we will also keep track
+   of two "timestamps" for each vertex: d[v] will indicate the discovery
+   time (when the vertex was first encountered) and f[v] will indicate the
+   finish time (when it's been completely visited).
+
+ * In order to implement the "depth-first" strategy, it is very natural to
+   write DFS recursively.  (We could also use a stack instead of a queue to
+   keep track of the vertices that remain to be examined, and write the
+   algorithm iteratively.)
+
+   Because DFS is commonly used to find information about the connected
+   components of a graph, there is one more "twist" to the implementation:
+   instead of being given a start vertex s as in BFS, the main DFS
+   subroutine is called repeatedly on each unvisited vertex until all
+   vertices have been visited.  (Note that the same trick could be used
+   with BFS to entirely visit each connected component of a graph.)
+
+ * Depth-First Search algorithm:
+
+      DFS(G=(V,E))                      DFS-VISIT(G=(V,E),u)
+         for each vertex v in V            colour[u] := gray
+            colour[v] := white             time := time + 1
+            d[v] := infinity               d[u] := time
+            f[v] := infinity               for each edge (u,v) in E
+            p[v] := NIL                       if colour[v] == white then
+         end for                                 p[v] := u
+         time := 0  (* global *)                 DFS-VISIT(G,v)
+         for each vertex v in V               end if
+            if colour[v] == white then     end for
+               DFS-VISIT(G,v)              colour[u] := black
+            end if                         time := time + 1
+         end for                           f[u] := time
+      END DFS                           END DFS-VISIT
+
+ * Look at the example in the textbook.
+
+ * As for BFS, since DFS-VISIT is only called on white vertices, and the
+   vertices immediately become gray, DFS-VISIT is called at most once for
+   each vertex.  Also, for each vertex, we visit its adjacency list at most
+   once, so the total running time is just like for BSF, Theta(n+m) (linear
+   in the size of the adjacency list).
+
+ * Note that DFS constructs a "DFS-tree" for the graph (or a "DFS-forest"
+   if it is called on each connected component), by keeping track of a
+   predecessor p[v] for each node v.  For certain applications, we need to
+   distinguish between different types of edges:
+
+    - Tree Edges are the edges in the DFS tree.
+
+    - Back Edges are edges from a vertex u to an ancestor of u in the DFS
+      tree.
+
+    - Forward Edges are edges from a vertex u to a descendent of u in the
+      DFS tree.
+
+    - Cross Edges are all the other edges that are not part of the DFS tree
+      (from a vertex u to another vertex v that is neither an ancestor nor
+      a descendent of u in the DFS tree).
+
+    [[Q: All these types of edges can appear in a DFS-forest of a
+      directed graph... but what about for an undirected graph?
+      Can all these types of edges appear in a DFS-forest of an undirected
+      graph?]]
+
+ * It's possible to prove many interesting properties about the timestamps
+   d[v] and f[v] maintained for each vertex, for example, they have
+   "parenthesis structure", i.e., for all vertices u and v,
+
+    either:
+    - v is a descendant of u in the DFS-tree and [d[v],f[v]] is
+      entirely contained within [d[u],f[u]], or
+    - u is a descendant of v in the DFS-tree and [d[u],f[u]] is
+      entirely contained within [d[v],f[v]], or
+    - neither vertex is a descendant of the other and the intervals
+      [d[u],f[u]] and [d[v],f[v]] are disjoint (i.e., they do not overlap).
+
+ * White-path Theorem (Theorem 22.9):
+   In a depth-first forest of a (directed or undirected) graph G = (V, E), 
+   vertex v is a descendant of vertex u if and only if
+   at the time d[u] that the search discovers u,
+   vertex v can be reached from u along a path consisting
+   entirely of white vertices.
+
+ Note: You can use any of the theorems given in class for your assignments,
+ on the exams, etc. 
+
+ * Applications:
+
+    - Discovering cycles in a graph.
+
+    - Discovering connected components, and strongly connected components
+      in a graph.
+
+    - Topologically sorting a graph (i.e., ordering the vertices so that if
+      there is a directed edge (u,v), then u <= v).
+
+ * Note on searching a component vs. searching the entire graph:
+   We presented BFS in the context of computing a single-source shortest
+   path tree, so we only did the search on the component containing s.
+   However, we presented DFS as computing a DFS-tree of the entire graph;
+   this makes more sense in the context of topological sort or finding
+   strongly connected components.
+
+   Either search algorithm can be modified to search either a single
+   component or the entire graph. Which option we want to employ depends on
+   why we are computing the DFS or BFS -- it depends on your application.
+
+ * Note on undirected vs. directed graphs:
+   Both BFS and DFS work on either undirected or undirected graphs,
+   and even multigraphs or directed multigraphs. Though we may not have
+   shown examples of both algorithms on all variants of graphs, you should
+   be able to apply the algorithms to each variant, and understand the
+   properties of the search trees/forests in each case.
+

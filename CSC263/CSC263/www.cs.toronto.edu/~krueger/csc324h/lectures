@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML LANG="en">
+<HEAD>
+<TITLE>CSC 324 Winter 2006</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H1><a href="..">CSC 324</a>: Lectures</H1>
+
+<table border="1" cellpadding="3">
+
+<tr>
+<th>Week</th>
+<th>Topics</th>
+<th>Lecture</th>
+<th>Tutorial</th>
+</tr>
+
+<tr>
+  <td align="center">1</td>
+  <td>Introduction to Programming Languages concepts<br>
+    Introduction to Scheme: variables, procedures, evaluation</td>
+  <td></td>
+  <td><i>no tutorial held</i></td>
+</tr>
+
+<tr>
+  <td align="center">2</td>
+  <td>Evaluating programming languages<br>
+    Basic Scheme: procedures, variables, conditionals, predicates</td>
+  <td></td>
+  <td><a href="tut02.txt">Exercises</a></td>
+</tr>
+
+<tr>
+  <td align="center">3</td>
+  <td>Scheme: lists (cons, car, cdr),
+    higher-order functions (apply, map, for-each)</td>
+  <td></td>
+  <td><a href="tut03.txt">Exercises</a></td>
+</tr>
+
+<tr>
+  <td align="center">4</td>
+  <td>Scheme: symbols, quoting, recursion, trees</td>
+  <td></td>
+  <td><a href="tut04.txt">Exercises</a></td>
+</tr>
+
+<tr>
+  <td align="center">5</td>
+  <td>Scheme: closures, mutations (set!), iteration, macros (define-syntax)</td>
+  <td><a href="lec05.txt">Notes</a></td>
+  <td><a href="tut05.txt">Exercises</a></td>
+</tr>
+
+<tr>
+  <td align="center">6</td>
+  <td>Scheme: symbolic list processing, pattern matching,
+    named let, continuations</td>
+  <td><a href="lec06.txt">Notes</a></td>
+  <td><a href="tut06.txt">Exercises</a></td>
+</tr>
+
+<tr>
+  <td align="center">--</td>
+  <td align="center" colspan=3><i>Reading week - no class</i></td>
+</tr>
+
+<tr>
+  <td align="center">7</td>
+  <td><a href="../exams">Midterm Test</a><br>
+    Scheme: continuations, cooperative multitasking</td>
+  <td><a href="lec07.txt">Notes</a></td>
+  <td><a href="tut07.txt">Exercises</a></td>
+</tr>
+
+<tr>
+  <td align="center">8</td>
+  <td>Typing, C++ generics</td>
+  <td><a href="lec08.txt">Notes</a></td>
+  <td><a href="tut08.txt">Intro to C++</a></td>
+</tr>
+
+<tr>
+  <td align="center">9</td>
+  <td>Objects, polymorphism</td>
+  <td></td>
+  <td><a href="tut09.txt">Exercises (C++)</a></td>
+</tr>
+
+<tr>
+  <td align="center">10</td>
+  <td>Type inference, unification
+    (<a href="ml_examples1.sml">ML examples</a>)<br>
+    Introduction to Prolog
+    (<a href="family.pl">Prolog example</a>)</td>
+  <td><a href="lec10.txt">Notes</a></td>
+  <td><a href="ST_Tutorial9.pdf">Intro to Prolog</a></td>
+</tr>
+
+<tr>
+  <td align="center">11</td>
+  <td>Prolog: resolution trees, continuation, cuts</td>
+  <td><a href="lec11.txt">Notes</a></td>
+  <td><a href="tut11.txt">Exercises</a></td>
+</tr>
+
+<tr>
+  <td align="center">12</td>
+  <td>Grammars (BNF), syntax specification</td>
+  <td><a href="lec12.txt">Notes</a></td>
+  <td><a href="tut12.pdf">Exercises</a></td>
+</tr>
+
+<tr>
+  <td align="center">13</td>
+  <td>Other PL concepts: garbage collection, passing parameters, exceptions<br>
+    Final review</td>
+  <td><a href="lec13.txt">Notes</a></td>
+  <td><i>no tutorial held</i></td>
+</tr>
+
+<tr>
+  <td align="center">--</td>
+  <td align="center" colspan=3><i><a href="../exams">Final exams</a>
+      -- April 17-29 --
+    <a href="http://www.utm.utoronto.ca/~w3reg/timetable/cal_pub.php">check exam schedule</a></i></td>
+</tr>
+
+</table>
+
+<p>
+Resources to supplement lectures and tutorials, or to use as reference,
+are listed on the <a href="../resources">Resources</a> page.
+A number of resources are also in the reserve section of the library.
+</p>
+
+<p>
+Tutorials tend to include several exercises, which you are encouraged to
+try yourself and understand. Try writing code for each question, and
+then reading the answer/discussion in the tutorial notes.
+</p>
+
+<!--
+<a name="outline"></a>
+<h2>Course outline</h2>
+
+<h3>Lecture/tutorial topics</h3>
+<p>
+The following topics will be covered in this course,
+probably in the order listed.
+For each topic,
+the approximate number of weeks required to cover that topic is listed
+as well as a list of the relevant sections in the textbook.
+</p>
+
+<ul>
+  <li>Greedy algorithms (Chapter 4): 2.5 weeks.</li>
+  <li>Dynamic programming (Chapter 6): 2.5 weeks.</li>
+  <li>Divide and conquer (Chapter 5): 2 weeks.</li>
+  <li>Network flow (Chapter 7): 2 weeks.</li>
+  <li>Linear programming (Section 11.6): 1 week.</li>
+  <li>Approximation and randomized algorithms
+      (parts of Chapters 11 and 13): 2 weeks.</li>
+</ul>
+
+<h3>Learning objectives</h3>
+<p>
+By the end of this course, students should
+be familiar with standard algorithm design techniques
+(divide-and-conquer, greedy strategies, dynamic programming,
+linear programming, randomization):
+</p>
+<ul>
+  <li>know the definitions of the various techniques,</li>
+  <li>be able to recognize algorithms that employ these techniques,</li>
+  <li>be able to write algorithms using these techniques,</li>
+  <li>understand what it means for algorithms written
+      using these techniques to be correct, and</li>
+  <li>be able to analyze the efficiency of algorithms
+      written using these techniques.</li>
+</ul>
+-->
+
+<HR>
+
+<TABLE width="100%">
+<TR>
+<TD>
+<SMALL>
+<!--Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>-->
+<SCRIPT TYPE="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+<TD align=right>
+    <a href="http://validator.w3.org/check?uri=referer"><img border="0"
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

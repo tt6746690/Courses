@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<TITLE>Combinatorics Seminar</TITLE>
+<!--<link type="text/css" rel="stylesheet" href="style.css">-->
+<STYLE type="text/css">
+body { 
+	color: black;
+	background: white;
+	margin-left: 5%; 
+	margin-right: 5%; 
+}
+h1 { margin-left: -3%; }
+h2 { margin-left: -3%; font-family: sans-serif; }
+h3 { margin-left: -3%; font-family: sans-serif; margin-top: 2.5em; }
+h4,h5,h6 { 
+	margin-left: -1em; margin-bottom: 0;
+	font-family: sans-serif;
+}
+p.name { font-weight: bold; color: teal; margin-top: 0.5em; }
+p.abstract,p.contact { text-indent: -1em; }
+hr { margin-left: -3%; margin-right: -3%; }
+</STYLE>
+</HEAD>
+
+<BODY bgcolor="white" LINK="#0000AA" VLINK="#602000">
+
+<H1><a href="index.html">Combinatorics Seminar Series</a></H1>
+
+<hr>
+
+<a name="fall2002"></a>
+<h2>Fall 2002 Schedule</h2>
+
+<dl>
+<dd>Friday, 20 September 2002.
+<a href="#sawada">Simple elimination orderings of strongly chordal graphs</a>.
+Joe Sawada, University of Toronto.
+<dd>Friday, 27 September 2002.
+<a href="#meir">Bicoloured Recursive trees and Eulerian Numbers</a>.
+Amram Meir, York University.
+<dd>Friday, 18 October 2002.
+<a href="#mathon">Searching for cliques and clusters in large graphs</a>.
+Rudi Mathon, University of Toronto.
+<dd>Friday, 25 October 2002.
+<a href="#ruskey">Drawing Venn Diagrams</a>.
+Frank Ruskey, University of Victoria.
+<dd><font color=red>Cancelled:</font> Friday 8 November 2002.
+<a href="#olariu">TBA</a>.
+Stephen Olariu, Old Dominion University
+<dd>Friday 15 November 2002.
+<a href="#salavatipour">Packing Steiner Trees</a>.
+Mohammad Salavatipour, University of Toronto
+<dd>Wednesday 20 November 2002.
+<a href="#dubois">The 3-XORSAT Threshold (tentative)</a>.
+Olivier Dubois, Universite de Paris IV.
+<font color=red><b>Late Announcement, strange day!</b></font>
+<dd>Friday 22 November 2002.
+<a href="#jamison">Isomorphic Factorizations of Trees</a>.
+Robert Jamison, Clemson University.
+<dd>Friday 29 November 2002.
+<a href="#penn">A Graph-Theoretic Approach to Polynomial-Time
+Recognition with the Lambek Calculus</a>.
+Gerald Penn, University of Toronto.
+</dl>
+
+
+<a name="sawada"></a>
+<h3>Friday, 20 September 2002, 12:10 - 1:00pm
+<font color=red>(note different time!)</font> in PT266</h3>
+<h4>
+Simple elimination orderings of strongly chordal graphs
+</h4>
+<p class=name>
+Joe Sawada<br>
+University of Toronto
+</p>
+<p class=abstract>
+Abstract:<br>
+A graph is strongly chordal if and only if it has a simple elimination
+ordering (SEO) of its vertices.  We focus on two interesting questions
+about a strongly chordal graph G:
+<p>
+(1) How fast can we find an SEO of G?
+<p>
+(2) How fast can we list all SEOs of G?
+<p>
+Currently, strongly chordal graphs cannot be recognized in linear time -
+despite a recent claim to the contrary.  We show that if we can find
+an SEO for G in linear time then we can also recognize strongly chordal
+graphs in linear time.
+<p>
+If there is time, we will discuss the second question.
+In particular, the set of all SEOs of a strongly chordal graph correspond
+to the basic words of a related antimatroid.  By discovering a constant time
+transposition "oracle" we can use an existing Gray code algorithm to list
+all SEO's in constant amortized time.
+</p>
+
+<center><p>[<a href="#fall2002">Back to schedule</a>]</p></center>
+
+<a name="meir"></a>
+<h3>Friday, 27 September 2002, 1:10 - 2:00pm in PT266</h3>
+<h4>
+Bicoloured Recursive trees and Eulerian Numbers
+</h4>
+<p class=name>
+Amram Meir<br>
+Department of Mathematics and Statistics<br>
+York University
+</p>
+<p class=abstract>
+Abstract:   The nodes of every non-trivial tree can be partitioned
+into two classes, A and B,  such that no two nodes of the same class
+are joined. Given a family F of trees , let Y(n,k) = Y(n,k; F) denote
+the number of trees T in F such that the classes A and B of T have k
+and n-k nodes , respectively;  and let Y(n) denote the total number of
+trees T in F having n nodes. The ratios Y(n,k) / Y(n), and, in
+particular, the ratio r(n) =Y(n,n/2) / Y(n)
+for even values of n , are of interest.
+<p>
+Asymptotic results for  Simply Generated families (including rooted
+labelled, binary, etc.) trees were obtained by us (1999), and  for
+unlabelled-unrooted  trees more recently by Pippenger (2001).
+<p>
+Here we consider the asymptotic behaviour of Y(n,k) / Y(n) for
+Recursive Trees.
+<p>
+This is joint work with J.W. Moon (University of Alberta).
+</p>
+
+<center><p>[<a href="#fall2002">Back to schedule</a>]</p></center>
+
+<a name="mathon"></a>
+<h3>Friday, 18 October 2002, 1:10 - 2:00pm in PT266</h3>
+<h4>
+Searching for cliques and clusters in large graphs
+</h4>
+<p class=name>
+Rudi Mathon<br>
+Department of Computer Science<br>
+University of Toronto
+</p>
+<p class=abstract>
+Abstract:
+A new algorithm will be described for finding subgraphs with
+a specified number of edges in a given graph. We employ a
+randomized strategy based on restricted local search.
+<p> 
+The algorithm has been successfully tested to find<br>
+(i) maximum cliques in 3 classes of random graphs with up to
+    100000 vertices,<br>
+(ii) maximum independent sets in block intersection graphs
+     yielding Steiner t-designs<br>
+(iii) extremal regular subgraphs in strongly regular graphs
+     to be used as switching sets to new sr-graphs<br>
+(iv) subgraphs of a given size with the maximum number of
+     edges in random multigraphs of a given density with
+     applications to clustering analysis in networks and
+     systems.
+</p>
+
+<center><p>[<a href="#fall2002">Back to schedule</a>]</p></center>
+
+<a name="ruskey"></a>
+<h3>Friday, 25 October 2002, 12:10 - 1:00pm 
+<font color=red>(note different time!)</font> in PT266</h3>
+<h4>
+Drawing Venn Diagrams
+</h4>
+<p class=name>
+Frank Ruskey<br>
+Department of Computer Science<br>
+University of Victoria
+</p>
+<p class=abstract>
+Abstract:  
+ Venn diagrams have long been used as an aid in understanding set
+ containment relationships and in certain logical arguments.
+ By extending in a natural way the familiar 3 circle Venn diagram
+ interesting graph theoretic, combinatorial, and geometrical
+ questions arise.  This talk is a survey  of what is known about
+ Venn diagrams, particularly the aesthetic and extremal
+ properties of the drawings, including recent results about symmetric
+ and minimum area Venn diagrams.  The talk is at the advanced
+ undergraduate level and includes many beautiful illustrations.
+ For more about Venn diagrams see
+<a href="http://www.theory.cs.uvic.ca/~cos/venn">
+http://www.theory.cs.uvic.ca/~cos/venn</a>.
+</p>
+<p class="contact">
+Contact: fruskey at csr.uvic.ca
+</p>
+
+<center><p>[<a href="#fall2002">Back to schedule</a>]</p></center>
+
+<a name="olariu"></a>
+<h3><font color="red">CANCELLED:</font>
+Friday, 8 November 2002, 1:10 - 2:00pm in PT266</h3>
+<h4>
+TBA
+</h4>
+<p class=name>
+Stephen Olariu<br>
+Old Dominion University
+</p>
+<p class=abstract>
+Abstract:  TBA
+</p>
+
+<center><p>[<a href="#fall2002">Back to schedule</a>]</p></center>
+
+<a name="salavatipour"></a>
+<h3>Friday, 15 November 2002, 1:10 - 2:00pm in PT266</h3>
+<h4>
+Packing Steiner Trees
+</h4>
+<p class=name>
+Mohammad Salavatipour<br>
+Department of Computer Science<br>
+University of Toronto
+</p>
+<p class=abstract>
+Abstract:
+The Steiner packing problem is to find the maximum number of edge-disjoint
+subgraphs of a given graph $G$ that connect a given set of required points
+$S$. This problem is motivated by practical applications in VLSI-layout
+and broadcasting, as well as theoretical reasons. In this paper, we study
+this problem and present an algorithm with an asymptotic approximation
+factor of $|S|/4$. This gives a sufficient condition for the existence of
+$k$ edge-disjoint Steiner trees in a graph in terms of the
+edge-connectivity of the graph. We will show that this condition is
+the best possible if the number of terminals is 3. At the end, we consider
+the fractional version of this problem, and observe that it can be reduced
+to the minimum Steiner tree problem via the ellipsoid algorithm.
+<p>
+This is joint work with Kamal Jain (Microsoft Research) and Mohammad Mahdian
+(CS Lab, MIT) to appear in SODA 2003.
+</p>
+
+<center><p>[<a href="#fall2002">Back to schedule</a>]</p></center>
+
+<a name="dubois"></a>
+<h3>Wednesday, 20 November 2002, 4:10 - 5:00pm in PT266
+<font color=red>Note different day and time</font> </h3>
+<h4>
+The 3-XORSAT Threshold (Strong Evidence in Favour of the
+Replica Method of Statistical Physics) (tentative)
+</h4>
+<p class=name>
+Olivier Dubois<br>
+Universite de Paris IV
+</p>
+<p class=abstract>
+Abstract: (tentative)<br>
+
+In this paper, he and J. Mandler determine the precise
+value of the 3-XOR-SAT threshold.  I.e., they determine
+a constant t, such that a uniformly random instance of 3-XOR-SAT
+on n variables and cn clauses is almost surely satisfiable
+for c&lt;t and is almost surely unsatisfiable for c&gt;t.
+</p>
+
+<center><p>[<a href="#fall2002">Back to schedule</a>]</p></center>
+
+<a name="jamison"></a>
+<h3>Friday, 22 November 2002, 1:10 - 2:00pm in PT266</h3>
+<h4>
+Isomorphic Factorizations of Trees
+</h4>
+<p class=name>
+Robert Jamison<br>
+Department of Mathematical Sciences<br>
+Clemson University
+</p>
+<p class=abstract>
+Abstract:
+An <i>isomorphic factorization</i> of a graph $G=(V,E)$ is a partition
+of the edge set $E$ into parts which determine isomorphic subgraphs of $G$.
+It is often convenient to think of the parts of the partition as
+color classes of edges.  Thus one can also speak of an
+isomorphic factorization of $G$ into $k$ parts as an
+<i>isomorphic $k$-coloring</i> of $G$.  We also say that a graph $G$
+<i>$k$-splits</i> if it has an isomorphic $k$-coloring
+<p>
+An obvious necessary condition, called the Divisibility Condition,
+for a graph $G$ to $k$-split is that $k$ divides the number
+of edges $e(G)$ of $G$.
+Under certain circumstances, this simple condition is also sufficient.
+This is the case<br>
+1) for certain regular graphs, including the complete graphs,<br>
+2) when $e(G) = 2k$,<br>
+and 3) when $k \ge \chi'(G)$, the edge chromatic number of $G$.
+<p>
+This talk will focus on <i>non-obvious</i> necessary conditions for
+certain classes of caterpillars  (trees obtained by adding a collection
+of ``hairs'' to a path ``spine'') to $k$-split.  In particular, a
+complete
+analysis will be given for several types of caterpillar, where the
+necessary and sufficient conditions are seen to be number-theoretic in
+nature.
+</p>
+<p class=contact>
+Contact: rejam at clemson.edu
+</p>
+
+<center><p>[<a href="#fall2002">Back to schedule</a>]</p></center>
+
+<a name="penn"></a>
+<h3>Friday, 29 November 2002, 1:10 - 2:00pm in PT266</h3>
+<h4>
+A Graph-Theoretic Approach to Polynomial-Time Recognition
+with the Lambek Calculus
+</h4>
+<p class=name>
+Gerald Penn<br>
+Department of Computer Science<br>
+University of Toronto
+</p>
+<p class=abstract>
+Abstract:
+The Lambek calculus is a substructural logic, lacking the classical
+rules of weakening, exchange, and permutation.  We will consider the
+question:
+<p align=center>
+ "Is the sequent A1...An |- B derivable in the Lambek Calculus?"
+<p>
+ where A1,...,An,B are (possibly implicational) types.  In
+ computational linguistics, these types are syntactic categories
+ assigned to words by a lexicon.  Given an LCG, G, and a string w1...wn,
+ with unique types, A1...An, given by G's lexicon, this amounts to
+ string recognition when B=s (sentence), the distinguished category of
+ G.  Although the string languages recognisable by LCGs are known to be
+ weakly equivalent to the context-free languages, no polynomial-time
+ decision procedure for this question is known.
+<p>
+ This talk seeks to contribute to this issue by presenting a simple
+ graph-theoretic construction for representing the well-formedness
+ constraints of an LCG derivation, reminiscent of Girard's (1987) "long
+ trip condition" for proof nets in linear logic.  An algorithm
+ resembling a standard CFG chart-parser is also provided for answering
+ the above sequent derivability question.  Crucially, this algorithm
+ takes exponential time in the worst case, so it does not put the
+ matter to rest.
+<p>
+By contrast, much of the recent work on parsing with LCGs has chosen
+to dwell on elegant implementations of LCG proof search in
+higher-order logic programming languages.  While these are indeed
+elegant, they are perhaps not the best choice for discovering the
+complexity of the problem at hand.  It is for this reason that we opt
+for a ``back-to-basics'' approach, using only a few simple algorithms
+and basic graph theory to characterise the problem.  Given our
+extensive knowledge about algorithmic efficiency and NP-completeness
+in the domain of graph theory, it is hoped either that the algorithm
+given here can be enhanced and proven to be polynomial, or that a
+failure to so enhance it will reveal an embedding of a known NP-hard
+problem into LCG recognition.
+</p>
+
+<center><p>[<a href="#fall2002">Back to schedule</a>]</p></center>
+
+<hr>
+
+<a name="summer2002"></a>
+<h2>Summer 2002 Seminars</h2>
+
+<h3>Tuesday, 16 July 2002,
+2:10pm - 3:00pm in PT266  (note the special day and time!)</h3>
+<h4>
+Graph representations and distance labeling problems<br>
+</h4>
+<p class=name>
+Christophe Paul<br>
+LIRMM, Montpellier
+</p>
+<p class=abstract>  
+Abstract:  The central question we are interested in is:  "How to encode
+information about a graph in such a way that an oracle is able to answer
+queries on that graph?"
+<p>
+Queries can deal with such issues as adjacency, connectivity, distances in
+graphs and comparability, least common ancestors in posets.  There are
+various types of representations such as centralized or distributed. As
+usual, we have to deal with the tradeoff between time and space: time for
+the query answer, space for the size of the encoding.
+<p>
+After presenting general considerations on graph representations, we will
+talk about results on encodings that enable the oracle to answer queries
+about distances, namely a "distance labeling scheme". Various schemes for
+a number of graph classes will be presented.
+</p>
+
+<center><p>[<a href="#summer2002">Back to schedule</a>]</p></center>
+
+<HR>
+
+<TABLE width="100%">
+<TR>
+<TD valign=middle>
+<SMALL>
+<SCRIPT type="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+<TD align=right>
+    <a href="http://validator.w3.org/check/referer"><img border="0"
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01!" height="31" width="88"></a>
+ <a href="http://jigsaw.w3.org/css-validator/check/referer">
+  <img src="http://jigsaw.w3.org/css-validator/images/vcss" 
+       alt="Valid CSS!" border="0" height="31" width="88"></a>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>
+

@@ -1,0 +1,291 @@
+===========================================================================
+CSC B63                 Lecture Summary for Week  4             Summer 2008
+===========================================================================
+
+-------
+B-Trees
+-------
+
+AVL trees are a type of balanced BINARY search tree, which gives good
+performance of dictionary operations, proportional to log_2 n,
+where n is the number of elements in the data structure (the base 2
+here comes from being a binary tree).
+
+What if we use trees with more children? Like trinary trees, etc.?
+  - expect running time to be proportional to log_k n, if k children
+  - operations still Theta(log n) though -- no change!
+  - only affects the constants, but might be important
+
+For example, if we must do a slow, expensive disk read operation each
+time we look at level of the tree, we'd want to make the tree bushier so
+that there are less levels to look at.
+
+Generalize this idea: B-trees
+
+A B-tree T is a rooted tree (whose root is root[T]) having the following
+properties:
+
+   1.  Every node x has the following fields:
+         - n[x], the number of keys currently stored in node x,
+         - the n[x] keys themselves, stored in nondecreasing order,
+	   so that key1[x] <= key2[x] <= ... <= keyn[x][x],
+         - leaf[x], a boolean value that is TRUE if x is a leaf and
+	   FALSE if x is an internal node.
+
+   2.  Each internal node x also contains n[x]+1 pointers c1[x], c2[x],
+    ..., cn[x]+1[x] to its children. Leaf nodes have no children, so their
+    ci fields are undefined.
+
+   3.  The keys keyi[x] separate the ranges of keys stored in each subtree:
+    if ki is any key stored in the subtree with root ci [x], then
+
+      k1 <= key1[x] <= k2 <= key2[x] <= ... <= keyn[x][x] <= kn[x]+1.
+
+   4.  All leaves have the same depth, which is the tree's height h.
+
+   5.  There are lower and upper bounds on the number of keys a node can
+    contain. These bounds are expressed in terms of a fixed integer t >= 2
+    called the minimum degree of the B-tree:
+
+         - Every node other than the root must have at least t - 1 keys.
+	   Every internal node other than the root has at least t children.
+	   If the tree is nonempty, the root must have at least one key.
+
+         - Every node can contain at most 2t - 1 keys.
+	   Therefore, an internal node can have at most 2t children.
+	   We say that a node is full if it contains exactly 2t - 1 keys.
+
+The simplest B-tree occurs when t = 2. Every internal node then has
+either 2, 3, or 4 children, and we have a 2-3-4 tree. In practice,
+however, much larger values of t are used, typically adjusted to block
+size of hard disks for efficient I/O.
+
+[[Q: Consider keeping a search tree on disk.  How many disk accesses would
+it take to search a tree of height h?  Why is this so important?]]
+
+When the OS reads from disk, it reads a minimum of 1 block of data from the
+disk.  That means that if all you want is one 2-node from a 2-3-4 tree
+(possibly 12 bytes) the OS must still read a full block.  It also has to
+spin the disk to the correct sector, move the head to the correct track
+etc.
+
+[[Q: So how could we design the tree better to take advantage of the fact
+that disk access is expensive but once we do the access we read at least
+one full block of data?]]
+
+We can compute the worst-case height of a B-tree with n elements (in
+terms of t): the height is at most log_t [(n+1)/2]
+where log_t means logarithm base t (recall t is fixed).
+[proof is in textbook, and useful to read]
+
+Note that when inserting a key in a B-tree, nodes might get too full
+(overflow), and when deleting a key, nodes might get too empty (underflow).
+Thus the insertion and deletion algorithms must SPLIT and MERGE nodes
+as necessary to maintain the B-tree properties.
+
+Example:
+
+In a B-tree with t=2 (a 2-3-4 tree), an internal node can have
+2, 3 or 4 children. Here is an example:
+
+                              ______17_____
+                             /             \
+                        __4____9_       20__30__41__
+                       /     |   \     /  |    |    \
+                    1_2_3   7_8   12  18  24  33   56_80
+
+Consider the node (4,9): it contains two values and has three children
+(the nodes (1,2,3), (7,8), and (12)).
+
+[[Q: What are the possible number of values a 2-3-4 tree internal node may
+    contain? ]]
+
+Notice the property relating the values in a subtree to the values in the
+parent node of its root.  This is formally defined in section 3.3.1
+(Multi-way Search Trees) in the text but is quite simple to see informally.
+
+  - Consider the subtree rooted at node (20,30,41).  All values in this
+    subtree must be greater than 17.
+    Now consider the subtree rooted at node (7,8).  All values in this
+    subtree must be greater than 4 and less than 9.
+
+    [[Q: What range of values would be allowed in any subtree rooted at
+         node (33)?]]
+
+    [[Q: If we were to insert the value 15 into the tree above, where would
+         it need to go to preserve the order property?]]
+
+Another property which must hold in 2-3-4 trees is that all external nodes
+must be at the same depth.  (This is the "depth property".)
+
+[[Q: Why do we want this property?]]
+
+[[Q: Given these two properties, what can we say about the height of a
+    2-3-4 tree which stores n items?
+    Hint: First consider how to relate the number of external nodes in a
+    2-3-4 tree to the number of values stored in the internal nodes.  Next
+    let h be the height of a 2-3-4 tree and then determine the maximum and
+    minimum number of external nodes as a function of h.]]
+
+[[Now, think about the three non-trivial operations (SEARCH, INSERT,
+  DELETE) and how to perform them on a 2-3-4 tree.]]
+
+Details of these operations will be covered in tutorial.
+
+Reading assignment: Chapter 18 - B-Trees
+
+
+--------------------------
+Augmenting Data Structures  [chapter 14]
+--------------------------
+
+Sometimes you only need a standard data structure.
+Sometimes they are not quite enough for your needs.
+  - for example, might need to be able to do some extra operations
+
+Often you can take a standard data structure and augment it slightly to
+fit your needs!
+
+How to augment?
+  - not automatic!
+  - often requires some creativity
+
+Often want to:
+  - store additional information,
+      and/or
+  - perform additional operations (efficiently)
+
+An "augmented" data structure is simply an existing data structure
+modified to store additional information and/or perform additional
+operations.
+
+To do it:
+  1. determine which additional information to store
+  2. check that this information can be "cheaply" maintained during each
+     of the original operations
+  3. implement the new operations
+
+
+Example: Dynamic Order Statistics
+
+  - We want to maintain a dynamic set S (i.e., the set changes over time)
+    of elements (data + key) that will allow us to perform the following
+    operations efficiently:
+    answer two types of
+    "rank" queries on sets of values, as well as having standard operations
+    for maintaining the set (INSERT, DELETE, SEARCH):
+
+      . SEARCH(k): Given a key k, return data associated with k
+
+      . INSERT(x): Given a key+data x, add it to S
+
+      . DELETE(x): Given a key+data x, remove it from S
+
+      . RANK(k): Given a key k, what is its "rank", i.e., its position
+        among the elements in the data structure?
+
+      . SELECT(r): Given a rank r, what is the key with that rank?
+
+    The first three operations are simply the DICTIONARY ADT operations;
+    the last two operations are new
+
+For example, if our set of values is {5,15,27,30,56},
+then RANK(15) = 2 and SELECT(4) = 30.
+
+Let's look at 3 different ways we could do this.
+
+ 1. Use AVL trees (or any balanced BST) without modification.
+
+      . can do SEARCH/INSERT/DELETE efficiently, but doing SELECT/RANK
+        queries is costly!
+
+      . Queries: Simply carry out an inorder traversal of the tree, keeping
+        track of the number of nodes visited, until the desired rank or key
+        is reached.
+
+    [[Q: What will be the time for a query? ]]
+
+    [[Q: Will the other operations (SEARCH/INSERT/DELETE) take any longer?]]
+
+    [[Q: What is the problem? Could we do better? ]]
+
+
+ 2. Augment AVL trees so that each node has an additional field 'rank[x]'
+    that stores its rank in the tree.
+
+    [[Q: What will be the time for a query? ]]
+
+    [[Q: Will the other operations (SEARCH/INSERT/DELETE) take any longer?]]
+
+    [[Q: What is the problem? Could we do better? ]]
+
+    Good: RANK and SELECT easy to do
+    Bad: maintaining rank info is expensive
+      -eg. try adding new element 2 -- all nodes must be updated!
+
+ 3. Augment the tree in a more sophisticated way.
+
+    Consider augmenting AVL trees so that each node x has an additional
+    field 'size[x]' that stores the number of keys in the subtree rooted at
+    x (including x itself).  This may seem unrelated to 'rank' at first,
+    but we'll see that it is enough to allow us to do what we want.
+
+  - Queries:
+
+      . Consider a node x in an AVL tree.  We know that
+        rank[x] = 1 + number of keys that come before x in the tree.
+	In particular, if we consider only the keys in the subtree rooted
+	at x, then rank[x] = size[left child's subtree] + 1
+	(this is NOT necessarily the true rank of x in the whole tree,
+	only its "relative" rank among the keys in the subtree rooted at x).
+
+      . Note: size[x] = size[left(x)] + size[right(x)] + 1
+        for any node x in the AVL tree, where left(x) and right(x) are
+	the left and right children of x
+
+      . RANK(k): Given key k, perform SEARCH on k keeping track of "current
+        rank" r: Each time you go down a level you must add the size of the
+        subtrees to the left that you skipped.  You must also add the key
+        itself that you skipped.
+
+        [[Q: When we recursively call SEARCH(v_i,k) what do we add to r?]]
+
+        [[Q: When we find x how to we compute its true rank?]]
+
+      . SELECT(r): Given rank r, start at x = root[T] and work down.
+
+        SELECT(x,k):
+	  rrx = size[left(x)] + 1
+	  if k = rrx then return x
+	  if k < rrx then return SELECT(left(x), k)
+	  if k > rrx then return SELECT(right(x), k-rrx)
+
+        Each call goes one level down in the tree. Tree height is
+	Theta(log n), so algorithm is O(log n) in worst case.
+      
+  - Updates: INSERT and DELETE operations consist of two phases for AVL trees:
+    the operation itself, followed by the fix-up (rebalancing) process.
+
+      . INSERT(x): 
+	Phase 1: Simply increment the size of the subtree rooted at every
+        node that is examined when finding the position of x (since x will
+        be added in that subtree).
+	Phase 2: Update balance factors of ancestor nodes. If a rotation
+	is required, recompute the size values for the rotated nodes
+	from its new children.
+
+      . DELETE(x): Consider the leaf y that is actually removed by the
+        operation (so y = x or y = successor(x)).  We know the size of the
+        subtree rooted at every node on the path from the root down to y
+        decreases by 1, so we simply traverse that path to decrement the
+        size of each node on that path. If a rotation is necessary, we
+	recompute the size of rotated nodes from its children, since we
+	know those values are correct.
+
+    Update time?  We have only added a constant amount of extra work
+    at each level of the tree, so the total time in the worst-case
+    is still Theta(log n).
+
+  - Now, we have finally achieved what we wanted: each operation (old or
+    new) takes time Theta(log n) in the worst-case.
+

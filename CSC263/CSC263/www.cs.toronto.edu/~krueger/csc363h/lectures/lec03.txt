@@ -1,0 +1,150 @@
+===========================================================================
+CSC 363H                Lecture Summary for Week  3             Winter 2006
+===========================================================================
+
+Enumerators:
+
+ -  No input but two tapes and a special state q_print.  Machine computes
+    and whenever it enters state q_print, string written on second tape is
+    "printed".  Language is set of strings printed during computation
+    (could be infinite if computation never halts).
+
+ -  Equivalent to TM: (Theorem 3.21 on p.135)
+     .  Given enumerator E for language A, construct TM M that recognizes A
+        as follows:
+        M = "On input w:
+             1. Run E; every time a string is "printed", compare it with w.
+             2. Accept if w is ever printed.
+                Reject if E stops without printing w."
+        If w in A, then E eventually prints w so M accepts w.
+        If w not in A, then E never prints w so M rejects or loops on w.
+     .  Given TM M that recognizes A, construct enumerator E for A as
+        follows, where s_1,s_2,s_3,... is a complete list of all strings
+        in S* (e.g., in lexicographic order):
+        E = "Repeat for i = 1, 2, 3, ...
+             1. Run M for i steps on each input string s_1,s_2,...,s_i.
+             2. Print every string that is accepted."
+        If w in A, then M accepts w so E will eventually print w
+        (infinitely many times).
+        If w not in A, then M rejects or loops on w so E will never print
+        w.
+    Note:  Second half uses technique called "dovetailing".  There are
+    other ways to achieve the same result, e.g., keep track of all ongoing
+    computations on tape, separated by special symbol '#', and at each
+    stage perform one more step of each computation as well as starting one
+    more computation for the next string, removing any computation that has
+    halted -- this avoids repeating computations and printing strings
+    multiple times, but is harder to describe (and understand).
+
+Computing functions:
+
+ -  More "natural" notion of computing: TM works on input w and "produces"
+    output f(w) (string left on tape when machine halts).  Many possible
+    formal definitions, depending on specific details.
+
+ -  Any function computable this way can also be "computed" by recognizing
+    language { w#f(w) : w in S* } -- and any such recognizable language
+    gives rise to a computable function.
+
+Other models:
+
+ -  Register machines, Post correspondence systems, recursive functions,
+    etc.: all have unrestricted access to unlimited memory, and each step
+    carries out only finite amount of work.
+
+ -  Given formal definitions of the different models, all have been shown
+    equivalent to each other!
+
+------------------------
+The Church-Turing thesis
+------------------------
+
+"All reasonable models of computation are equivalent (reasonable means has
+access to unlimited resources, can only carry out finite amount of work in
+one step)."
+
+(A "thesis" rather than a "theorem" because states something about informal
+notion of "reasonable model of computation".  Any formal model chosen can
+be proven equivalent to others.)
+
+In other words, any reasonable model of computation captures informal
+notion of "computation" precisely, i.e., there is a single, well-defined
+notion of "algorithm" independent of model used to define it.
+
+In particular, Turing machines are as powerful as any other model, and
+every pseudo-code algorithm you've ever seen has a TM implementation!
+
+Question:  Is there some language that cannot be recognized by a TM?
+(We'll get back to this question a little later.)
+
+--------------------------
+Turing machine conventions
+--------------------------
+
+Turing machine algorithms described in stages, with indentation for blocks
+that represent loops.  Each stage simple (and clear) enough that it is
+obvious it can be implemented on Turing machine.  Description always starts
+with input, always a string.  Use notation <O> to represent string encoding
+of object O (e.g., <G> represents string encoding of graph G).  TM can
+easily decode such strings and reject automatically if input does not
+follow proper encoding.  Description must always include clear, explicit
+conditions for accepting and rejecting.
+
+READ:  Example 3.23 on pp.157-158.
+
+------------------------------------
+Decidable and recognizable languages
+------------------------------------
+
+Relationship between decidability and recognizability?
+    Theorem 4.22 on pp.181-182:  Language L is decidable iff both L and L^c
+    are recognizable (L^c is complement of L).  Proof:  in tutorial.
+
+A_DFA = { <B,w> | B is a DFA that accepts input w } is decidable.
+
+ -  A TM can check <B> is valid encoding of DFA (using any reasonable
+    convention), then use tape to keep track of current state of B and
+    position on string w while simulating B's transitions one by one (going
+    back and forth to check description of B).  At the end, easy to check
+    if last state is accepting or rejecting.  Using conventions above:
+
+       "On input <B,w>:
+         1. Simulate B on w (use appropriate tape alphabet symbols to keep
+            track of position of B on input w; use separate portion of tape
+            to keep track of B's current state).
+         2. Accept if B accepts; reject if B rejects."
+
+    Since a DFA always halts, TM above is a decider for A_DFA.
+
+Recall constructions for transforming NFA into corresponding DFA, and RE
+into corresponding DFA.  These constructions are algorithmic so can be
+carried out by TMs (by Church-Turing thesis).  This immediately gives that
+A_NFA = { <B,w> | B is an NFA that accepts w } and A_RE = { <R,w> | R is a
+RE that can generate w } are decidable.
+
+READ:  Theorem 4.4 on p.168 for proof that
+E_DFA = { <B> | B is a DFA that accepts no string } is decidable.
+
+A_TM = { <M,w> | M is a TM that accepts input w } is recognizable.
+
+ -  There is a TM U (the "universal TM") that takes a reasonable encoding
+    of M and its input w, and that carries out M's computation on w.  U
+    accepts if M accepts w, U rejects if M rejects w, and U loops if M
+    loops on w.  More formally:
+
+       "On input <M,w>:
+         1. Simulate M on input w (use portion of tape to represent M's
+            configuration -- state and content of M's tape, including head
+            position -- and move back-and-forth between M's description and
+            M's configuration for each simulation step).
+         2. Accept if M accepts; reject if M rejects."
+
+    Difference from A_DFA: U could get stuck in infinite loop in stage 1
+    (if M never halts on w, U will simply keep simulating), so U recognizes
+    A_TM but U does not decide A_TM -- this does not show that A_TM
+    undecidable, just that U is not a decider for A_TM.
+
+    Note:  U is "general-purpose computer": like all TMs, hard-wired to
+    carry out exactly one task, but that task depends on instructions
+    provided in input.
+

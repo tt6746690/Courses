@@ -1,0 +1,349 @@
+===========================================================================
+CSC B63                 Lecture Summary for Week  5             Winter 2007
+===========================================================================
+
+--------------------------
+Constant-time dictionaries
+--------------------------
+
+Recall the dictionary ADT. The dictionary operations are:
+
+1. SEARCH
+2. INSERT
+3. DELETE
+
+Let U be the "universe" of possible keys.
+We now explore data structures that permit access to our dictionary
+in constant time (either in worst-case or average-case).
+
+---------------------
+Direct-address tables 
+---------------------
+
+Suppose the universe of possible keys U is not too large.
+(Let us assume for simplicity that keys are just integers.)
+I.e., U = {1, 2, ..., m}, m is not too large.
+
+We can store elements in a direct-address table (an array).
+Each slot i in the array can store the key i.
+
+Example:
+
+1  NIL
+2  NIL
+3  -> 3 data
+4  -> 4 data
+5  NIL
+6  NIL
+7  NIL
+8  NIL
+9  -> 9 data
+10 NIL
+ 
+Note: If there is no element at position i, T[i] = NIL.
+
+For a direct address table, insert, delete and search can all be done in 
+Theta(1) time. The memory used depends on the size of U, so if |U| is small,
+say a few hundred thousand, this is a feasible solution.
+
+What if our universe contains 2^{32} values? It would be extremely wasteful 
+(maybe even impossible) to keep an array with 2^{32} positions, especially
+when we only want to store a very few elements in the table. We need to
+"compress" the memory requirements, making it depend on n, the number of
+elements in the dictionary, instead of having it depend on |U|.
+
+For this reason, we introduce hashing.
+
+-----------
+Hash tables
+-----------
+
+Definition: Given a universe of keys U (the set of all keys possible),
+we will allocate a "hash table" T containing m positions (where m is
+smaller than the size of U).  
+We also define a "hash function" h : U -> {0, ..., m-1} that maps
+keys to positions in the hash table (so that for each key k in U,
+k will be stored in T at position h(k)).
+
+Benefit: The size of the table is Theta(m), and not the size of the universe.
+
+Problem: Two keys may hash to the same slot. We call this a _collision_,
+i.e., k_1 <> k_2, yet h(k_1) = h(k_2). (Collisions must occur when m < |U|.)
+How do we deal with collisions?
+
+Chaining
+--------
+
+Idea: at each table location, store all the keys that hashed to this location
+in an unordered singly-linked list.
+
+Example:
+  If we insert keys k1, k2, k3, k4, k5, k6 such that
+  h(k1) = h(k4) = h(k6) = 2,  h(k2) = h(k5) = 1, and h(k3) = m-1,
+  we get the following table: 
+
+         T                           
+        ---                             
+      0 |/|                           
+        ---  ------  ------
+      1 |*-->|k5|*-->|k2|/|             
+        ---  ------  ------  ------
+      2 |*-->|k6|*-->|k4|*-->|k1|/|
+        ---  ------  ------  ------
+         :
+        ---                            
+    m-2 |/|
+        ---  ------
+    m-1 |*-->|k3|/|
+        ---  ------
+
+What is the worst-case running time of operations on such a hash table? 
+
+  INSERT(T,x):
+   insert x at the head of list T[h(key[x])]
+
+  - takes Theta(1) worst-case running time 
+    IF the hash value h(key[x]) can be computed in O(1) time
+
+  SEARCH(T, k):
+   search for an element with key k in list T[h(k)]
+
+  - takes Theta(n) worst-case running time (i.e., all elements might hash to
+    the same slot)
+
+  DELETE(T, x)
+   search for and then delete x from the list T[h(key[x])]
+
+  - takes Theta(n) worst-case running time (since SEARCH is Theta(n))
+    (or Theta(1) if we're given a pointer to the element to delete)
+
+BUT: if we pick a "good" hash function, it will be unlikely that all the 
+elements hash to the same slot.
+SO: Look at the average-case running time
+
+The average performance of hashing depends on how well the hash function h 
+distributes the set of keys to be stored among the m slots, on the average. 
+
+We will make the following assumption:
+  Simple Uniform Hashing Assumption (SUHA):
+    Any given element is equally likely to hash into any of the m slots,
+    independently of where any other element has hashed to.
+
+  That is,
+        Pr[h(x)=i] =  SUM  Pr[x] = 1/m    for i = 1, 2, ..., m
+                     x in U
+                     h(x)=i
+
+  -> the expected number of items that hash to each bucket is the same.
+
+We define the "load factor" \alpha as the expected number of items in each
+bucket.
+
+        \alpha = n / m
+
+We assume the hash value h(k) can be computed in O(1) time.
+
+[[Q: does it make sense to use a hash function that cannot be computed in
+  constant time?]]
+
+Define the terms we need to be able to talk about average-case time:
+
+  - Random variables?  T(k) = # elements examined when searching for k.
+
+  - Let L_i be the number of elements in bucket i (length of chain in T[i]).
+    So n = SUM L_i.
+
+  - Probability space?  Pick k uniformly at random from U.
+
+Theorem 11.1: Time for an Unsuccessful search (k not in T)
+  In a hash table in which collisions are resolved by chaining,
+  an unsuccessful search takes expected time Theta(1 + \alpha),
+  under the assumption of simple uniform hashing.
+
+Proof:
+
+  - Under the assumption of simple uniform hashing, Pr[h(k)=i] = 1/m, so:
+
+     E[elements examined by unsuccessful search]
+
+             =  SUM  ( Pr[searching for k] * T(k) )
+               k in U
+
+                 m
+             =  SUM   SUM   ( Pr[searching for k] * T[k] )
+                i=1  k in U
+                     h(k)=i
+
+                m                          1  m        n
+            <=  SUM ( Pr[h(k)=i] * L_i ) = - SUM L_i = - = alpha
+                i=1                        m i=1       m
+
+  - since the expected number of elements examined in an unsuccessful search 
+    is \alpha, the total time required (including the time for computing h(k))
+    is Theta(1 + \alpha).
+
+This expected time is intuitively correct: 
+if we are searching for a key that is not in the hash table,
+we need to traverse one complete linked list whose average size is alpha.
+
+Theorem 11.2: Time for a Successful search (k in T)
+In a hash table in which collisions are resolved by chaining, a successful 
+search takes time Theta(1 + \alpha), on the average, under the assumption of 
+simple uniform hashing.
+
+Proof:
+
+  - the element being searched for is equally likely to be any of the n 
+    elements stored in the table. 
+
+  - the number of elements examined during a successful search for
+    an element k is 1 more than the number of elements that appear
+    before k in k's list, L_i. 
+
+  - so:
+
+        E[T] =  SUM   Pr[searching for k] * T(k)
+               k in T
+
+                m  (              L_i                                 )
+             = SUM ( Pr[h(k)=i] * SUM ( j * Pr[k is j-th in slot i] ) )
+               i=1 (              j=1                                 )
+
+                m            L_i           1    m  L_i
+             = SUM ( L_i/n * SUM j/L_i ) = - * SUM SUM j
+               i=1           j=1           n   i=1 j=1
+
+               1  m                  1  m             1  m
+             = - SUM L_i(L_i+1)/2 = -- SUM (L_i)^2 + -- SUM L_i
+               n i=1                2n i=1           2n i=1
+
+                1  m
+             = -- SUM (L_i)^2 + 1/2
+               2n i=1
+
+
+      under the assumption of simple uniform hashing, we know that
+      the average value of L_i is \alpha = n/m, so
+
+                     m
+        E[T] = 1/2n SUM (n/m)^2 + 1/2 = n^2/2nm + 1/2 
+                    i=1
+
+             = n/2m + 1/2
+	     = \alpha/2 + 1/2   which is in Theta(1 + \alpha)
+
+ 
+Devising a Hashing Function
+---------------------------
+
+Two issues:
+  - mapping keys k into integers (k could be a string or other type of
+    object that can be ordered);
+  - mapping the integer values for keys into the range [0..m-1] where m is
+    the size of the hash table.
+
+The second issue is a little easier.  Given an arbitrary integer x, we can
+map it into the range [0..m-1] by simply using the modulus function:
+  x mod m
+
+What are advantages?  Fast (one division operation) and easy to understand.
+What are some of the problems this may cause?  Collisions!
+  - patterns in keys can be translated into patterns in table locations,
+    leading to many collisions
+
+For this reason, m is usually chosen to be a prime number.  Patterns are
+still possible but less likely.
+
+We also want to avoid values of m near powers of 2.
+  - if m = 2^p, h(k) is just the low-order bits of k
+  - unless this is known to look like a uniform random distribution,
+    it's better to depend on all the bits of k
+
+For keys that are not integers: we can find a constant c, and compute:
+    x_0 + x_1 c + x_2 c^2 + ... + x_{k-1} c^{k-1}.
+(Assuming each character is stored as a numerical code to start with).
+
+
+Other collision resolution schemes: open addressing
+---------------------------------------------------
+
+So far we have only considered the case when we store all elements that
+collide at a table location in that "correct" table location. What if
+we can't or don't want to do that?
+
+Think about what you do in your personal phone book when you have too many 
+friends whose name begin with the same letter (say "W").
+
+You might start putting friends with last name "W" on the "X" page.
+We call this general approach "open addressing".
+
+Formally,
+  - we put (at most) one element in each bucket
+  - use a predetermined rule to calculate a sequence of buckets 
+    A_0, A_1, A_2, ... into which you would attempt to store an item
+  - this list of possible buckets is called a "probe sequence"
+  - we store the item in the first bucket along its probe sequence
+    which isn't already full.
+
+There are many ways to devise a probe sequence.
+
+  - Linear probing:
+
+    The easiest open addressing strategy is linear probing.  For n buckets,
+    key k and hash function h(k), the probe sequence is calculated as:
+
+            A_i = (h(k) + i) mod n    for i = 0,1,2,...
+
+    Note at A_0 (the home bucket for the item) is h(k) since h(k) should
+    map to a value between 0 and n-1.
+
+    [[Q: Work though an example where the h(k)= k mod 11, n = 11 and each
+	 bucket holds only one key.  Insert the keys 26,21,5,36,13,16,15
+         (in that order).]]
+
+    [[Q: What what are some problems with linear probing?]]
+
+    [[Q: How could we change the probing so that two items that hash to
+         different home buckets don't end up with nearly identical probe
+         sequences? ]]
+
+    Think of the SEARCH algorithm: how would you find a key in the table,
+    and how would you decide that a key did not exist in the table?
+
+    What happens when we delete an element? It might leave a "hole" in the
+    table. How do we now find elements that got put after this hole?
+      - need to leave a tombstone, saying "something was here, but it's
+	gone now"
+
+	[[Q: How does your SEARCH algorithm use tombstones?]]
+
+  - Non-Linear Probing:
+
+    Non-linear probing includes schemes where the probe sequence does not
+    involve steps of fixed size.  Consider quadratic probing where the
+    probe sequence is calculated as:
+
+            A_i = (h(k) + i^2 ) mod n    for i = 0,1,2,...
+
+    [[Q: Work though an example where the h(k)= k mod 11, n = 11 and each
+         bucket holds only one key.  Insert the keys  26,21,5,36,13,16,15
+         (in that order.)]]
+
+    Probe sequences will still be identical for elements that hash to the
+    same home bucket.
+
+  - Double Hashing:
+
+    In double hashing (another open addressing scheme) we use a different
+    hash function h_2(k) to calculate the step size.
+
+    The probe sequence is:
+
+            A_i = (h(k) + j * h_2(k)) mod n    for j = 0,1,2,...
+
+    Notice that it is important that h_2(k) not equal 0 for any key k!
+
+    [[Q: Why?  What other choices for h_2(k) would be poor? ]]
+
+Reading assignment: 11.1 - 11.3 (except 11.3.3) - Hash Tables,
+	Chapter 5 - Probabilistic Analysis and Randomized Algorithms

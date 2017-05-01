@@ -1,0 +1,179 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+\section*{3.2 Curves, Surfaces, and Manifolds}
+
+\subsection*{Curves}
+
+\begin{defn*}
+  A curve (1-dim) in $\R^2$ can be written as
+  \begin{enumerate}
+    \item The \textbf{graph} $\Gamma$ of a function. Let $f: \R \to \R$ and define the graph of $f$ to be
+    \[
+      \Gamma(f) = \{ (x, f(x)): x\in\R \}
+    \]
+    \item The \textbf{zero locus} of a function. Let $F:\R^2 \to \R$ and let $C = F^{-1}(0)$.
+    \item The \textbf{image of a parametric equation}. Let $s: (a,b) \to \R^2$ be given by $t\mapsto (s_1(t), s_2(T))$ and define the curve to be $p((a,b))$
+  \end{enumerate}
+\end{defn*}
+
+\begin{proposition*}
+  Every curve that can be expressed as the graph of a function $f:\R\to\R$ may also be written as the zero locus of a function$F:\R^2 \to \R$ and parametrically as the image of $p:\R \to \R^2$
+  \begin{rem}
+    Converse not true. For example, one can not describe a circle as a graph. In a sense, graph are the least expressive of the three. Note that this proposition also applies to surfaces
+  \end{rem}
+\end{proposition*}
+
+
+\begin{defn*}
+  \textbf{Smoothness} A connected set $C\subseteq \R^2$ is said to be a \textbf{smooth curve} if every point $a\in C$ has a neighborhood $N$ on which $C\cap N$ is the graph of a $C^1$ function. If $C$ is not connected, then we shall say that $C$ is smooth if each of its connected components is a smooth curve.
+\end{defn*}
+
+\begin{theorem*}
+  Partial conditions for zero locus and parametric function to be smooth.
+  \begin{enumerate}
+    \item \textbf{Graph of function} $\Gamma$ is smooth if $f$ is $C^1$. It is fairly easy to check this.
+    \item \textbf{Zero locus} Let $F:\R^2 \to \R$ be a $C^1$ function and $S = F^{-1}(0)$. If $p\in S$ and $\nabla F(p)\neq 0$ then there exists an open neighborhood $N$ of $p$ such that $N\cap S$ is the graph of a $C^1$ function
+    \item \textbf{Parameterization} Let $p:(a,b)\to \R^2$ be a $C^1$ function and let $S = p(a,b)$. If $t_0 \in (a,b)$ satisfies $p'(t) \neq 0$ then there is an open subinterval $I\subseteq (a,b)$ such that $p(I)$ is the graph of a $C^1$ curve.
+  \end{enumerate}
+
+\end{theorem*}
+
+\begin{defn*}
+  If $I\subseteq \R$ is an interval, a $C^1$ map $\gamma: I \to \R^2$ is said to be
+  \begin{enumerate}
+    \item A \textbf{regular curve} if $\gamma'(t)\neq 0$ for all $t\in I$
+    \item A \textbf{simple curve} if $\gamma$ is injective on the interior of $I$
+  \end{enumerate}
+  \begin{rem}
+    A regular curve guanrantees a neighborhood at each point whose image looks like a graph of a $C^1$ function. A simple curve implies there is no funny overlap. A regular and simple curve is smooth.
+  \end{rem}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Smoothness Condition} for a curve (one dimensional objects) in $\R^n$
+  \begin{enumerate}
+    \item If $C = \Gamma(f) = \{ (x, f(x): x\in [a,b] )\}$ is the graph of a \textbf{$C^1$} function $f: \R \to \R$ (i.e. $\R \to \R^{n-1}$), then $C$ is smooth.
+    \item If $C = F^{-1}(0)$ is the zero locus of $F: \R^2 \to \R$ (i.e. $\R^n \to \R^{n-1}$), then $C$ is smooth if $\nabla F\neq 0$ for every point in $C$ (For higher dimension, we must have $\{ \nabla F_i \}$ to be linearly independent)
+    \item If $C = p(a,b)$ where $p: \R \to \R^2$ (i.e. $\R \to \R^n$) is the image of a parameterization, then $C$ is smooth only if $p$ is regular ($p'(t) \neq 0$) and simple ($p$ is injective
+    )
+  \end{enumerate}
+  \begin{rem}
+    So $C\subseteq \R^n$ is smooth if it is connected and locally the graph of a $C^1$ function. If $C = F^{-1}(0)$ then linear independence of $\{ \nabla F_i \}$ guarantees that $C$ is a smooth curve. And the image of a regular, simple $C^1$ map $\R \to \R^n$ is also a smooth curve. Also note that the tangent space is same as long as conditions are satisfied
+  \end{rem}
+\end{defn*}
+
+
+\subsection*{Surfaces}
+
+\begin{defn*}
+   Surface are two dimensional objects of $\R^n$. A surface is
+   \begin{enumerate}
+     \item graph of a function $f: \R^2 \to \R$
+     \item zero locus of a function $F: \R^3 \to \R$  (i.e. $\R^n \to \R^{n-2}$)
+     \item image of a function $p: \R^2 \to \R^3$  (i.e. $\R^2 \to \R^{n}$)
+   \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*}
+  A \textbf{smooth surface} of $\R^3$ is a connected subset $S\subseteq \R^3$ such that, for every $p\in S$ there exists a neighborhood $N$ of $p$ such that $S\cap N$ is the graph of a $C^1$ function $f:\R^2 \to \R$.
+\end{defn*}
+
+
+\begin{theorem}
+  \textbf{Smoothness Condition} for a surface in $\R^n$
+  \begin{enumerate}
+    \item \textbf{Zero locus} Let $F:\R^3\to\R$ be a $C^1$ function and $S = F^{-1}(0)$. If $p\in S$ and $\nabla F(p)\neq 0$ then there exists an open neighbourhood $N$ of $p$ suchthat $N\cap S$ is the graph of a $C^1$ function (by Implicit Function Theorem)
+    \item \textbf{Parameterization} Let $p: U\subseteq \R^2 \to \R^3$ be a $C^1$ function and let $S = p(U)$. If the point $(s_0, t_0)\in U$ causes the matrx
+    \[
+      \left[ \frac{\partial P}{\partial s}(s_0, t_0) | \frac{\partial P}{\partial t}(s_0, t_0) \right]
+    \]
+    to have full rank (i.e. linearly independent), then there is an open subset $V\subseteq U$ of $(s_0, t_0)$ such that $p(V) \cap S$ is the graph of a $C^1$ function. (In $\R^3$, we can use $\frac{\partial P}{\partial s}\times \frac{\partial P}{\partial t} \neq 0$ to prove linear independence)
+  \end{enumerate}
+  \begin{rem}
+    Note for parametric definition, we require both regularity (linearly independent tangents shown as matrix above) and simplicity (global injectivity). As long as the matrix is linear independent we ensures that both $\frac{\partial P}{\partial s}$ and $\frac{\partial P}{\partial t}$ never vanishes (i.e. never slows to a stop or backtracks on itself) and that the image of $p$ is strictly a curve, instead of a line.
+  \end{rem}
+  \begin{note}
+    In general, there are $(n-2)$ element in $\{ \nabla F_i \}$, which if are linearly independent, span an $(n-2)$ dimension hyperplane of $\R^n$, whose orthogonal complement is the tangent space of the surface. In the parametric picture, $\partial_1 p$ and $\partial_2 p$ form a basis for the tangent space, so for this to be two dimensional, we require that they are everywhere linearly independent.
+  \end{note}
+\end{theorem}
+
+\subsection*{Manifolds}
+\begin{defn*}
+  \textbf{Manifold} A subset $M\subseteq \R^n$ is said to be a $C^r$ $k$-dimensional manifold where $k \leq n$ if for every point $x\in M$ $M$ is locally the graph of a $C^r$ function $f: \R^k \to \R$
+  \begin{rem}
+    So for a curve $k=1$ and a surface $k=2$.
+  \end{rem}
+\end{defn*}
+
+\begin{defn*}
+  $k$-dimensional subspaces can be defined by
+  \begin{enumerate}
+    \item The zero-locus of a function $F: \R^n \to \R^{n-k}$\\
+    If the space $M = F^{-1}(0)$ (zero locus), condition for the $k$-manifold to be \textbf{smooth} is
+    \[
+      rank DF(x) = n-k \text{,      } \forall x\in F^{-1}(0)
+    \]
+
+    \item The image of a function $p: \R^k \to \R^n$\\
+    If $M = p(U\subseteq \R^k)$ then we must have $p(t)$ injective on $U$ and
+    \[
+      rank[\partial_1 p(t) |  \cdots | \partial_k p(t)] = rank Dp(t) = k \text{,    } \forall t\in U
+    \]
+  \end{enumerate}
+
+  \begin{rem}
+    $DF(x)$ and $Dp(t)$ must have maximal rank at every point on the surface. Note $DF(x_0)$ is the rank of the normal plane at $x_0$ while rank $[\partial_i p(t_0)]$ is the rank of the tangent plane at $t_0$. Note a manifold is smooth if its tangent space does not change dimensions.\\
+    In the case of curve we find $\nabla F \neq 0$ as condition for smoothness. This is valid because a single vector is trivially linearly independent and therefore full rank.
+  \end{rem}
+\end{defn*}
+
+\begin{example}
+  A unit circle has parameterization
+  \[
+    p: \R\to\R^2 ; t \mapsto (\cos t, \sin t)
+  \]
+  Then
+  \[
+    J_p =
+    \begin{bmatrix}
+      -\sin t \\
+      \cos t
+    \end{bmatrix}
+    \neq
+    \begin{bmatrix}
+      0\\
+      0\\
+    \end{bmatrix}
+  \]
+  Note $J_p$ has full rank, which spans $k=1$ dimensional tangent space for all point on the circle. Hence the circle is a 1 dimensional manifold
+\end{example}
+
+\begin{example}
+  $f(x) = |x|$ is not smooth at origin. Although $f$ is a graph of $x$ at $(0,0)$, $f$ is not differentiable hence not $C^1$
+\end{example}
+
+\begin{example}
+  A line $L\in \R^3$ and a plane $P\in \R^3$. Then $L\cup P$ is not a manifold because $L$ and $P$ has different dimension tangent space.
+\end{example}
+
+
+\begin{defn*}
+  The vectors in a subset $S = \{ \vec{v_1}, \vec{v_2}, \cdots, \vec{v_n}\}$ of vector space $V$ is said to be \textbf{linearly dependent} if there exists a finite number of distinct vectors in $S$ and scalars $a_1, a_2, \cdots, a_k$, not all zero, such that
+  \[
+    a_1 \vec{v_1} + a_2 \vec{v_2} + \cdots + a_k \vec{v_k} = \vec{0}
+  \]
+  the vectors are \textbf{linearly independent} if the above equation can be satisfied by $a_i = 0$ for $i=1, \cdots, n$. This implies that no vector in the set can be represented as a linear combination of the remaining vectors in the set.
+  \begin{rem}
+    vectors are linearly independent if and only if the determinant of the matrix formed by taking vectors as columns are non-zero. We can also evaluate linear independence by row-reduction.
+  \end{rem}
+\end{defn*}
+
+\begin{rem}
+  To prove injectivity of parameterization, or injectivity in general. Beyond the method of using definition, we can solve for $t$ in terms of the coordiante of the image of parameterization. If we can find an inverse function $t = p^{-1}$ that solves for $t$ uniquely, then implies that $g$ is injective. This is necessary as the Inverse Function Theorem guanrantees local invertibility given $p'(t)$. Have to check singularity of curve (i.e. injectivity) to conclude about its smoothness.
+\end{rem}
+
+\end{document}

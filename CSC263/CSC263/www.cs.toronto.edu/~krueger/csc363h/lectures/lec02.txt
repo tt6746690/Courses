@@ -1,0 +1,112 @@
+===========================================================================
+CSC 363H                Lecture Summary for Week  2             Summer 2006
+===========================================================================
+
+Definitions:
+
+ -  The "language of M", L(M) = { w in S* | M accepts input w }.
+
+ -  L is "Turing-recognizable" (recognizable/semi-decidable/recursively
+    enumerable) if there is some TM M such that L = L(M).
+
+ -  L is "Turing-decidable" (decidable/recursive) if there is some TM M
+    that halts on every input such that L = L(M).  Such a TM is called a
+    "decider".
+
+Previous examples show { 0^{2^n} | n >= 0 } and { w#w | w in {0,1}* } are
+decidable.  We will see many other examples.
+
+--------
+Variants
+--------
+
+How do we know TMs are the "right" model?  Consider different decisions we
+made when defining TMs and how they affect the outcome.
+
+Compare different models by the languages they recognize: models that can
+recognize the same class of languages are equivalent.
+
+Turing machines with "stay put" head movement:
+
+ -  Allow head to stay on same square during a transition.  Formally,
+    d : Q x T -> Q x T x {L,R,S}.
+
+ -  Equivalent to TM: simulate stay put move by moving right to "extra"
+    state then left to correct state (need more than one extra state).
+
+ -  Details: tutorial exercise...
+
+Turing machines with doubly infinite tape:
+
+ -  Similar to regular TMs except no leftmost square.  Tape initially all
+    blank except for input, and head starts on first symbol of input.
+
+ -  Equivalent to regular TM:
+    .   Doubly-infinite tape TMs can simulate regular TMs: use a few extra
+        states at start of computation to write a special symbol to the
+        left of input; then, during computation, remain in same state and
+        move right whenever special symbol is read.
+    .   Regular TMs can simulate doubly-infinite tape TMs: start by placing
+        special symbol on leftmost square (shift input one square right if
+        necessary); during computation, whenever special symbol is read,
+        shift entire tape content one square right (insert blank), then
+        return to leftmost blank square to continue computation.
+
+ -  Note that both directions are necessary (even if one is easier).
+
+Multi-tape Turing machines:
+
+ -  Allow more than 1 tape, each with independent head.  Initially, all
+    tapes blank except tape 1 that contains input.  In one step, current
+    state and symbols read on all tapes determine next state, symbols
+    written and head movements for all tapes.
+    Formally, transition function d : Q x T^k -> Q x T^k x {L,R}^k.
+
+    Note:  Different from k independent machines running concurrently!
+
+ -  Equivalent to TM: keep track of contents of k tapes separated by
+    special symbol, as well as head positions by using additional symbols
+    (duplicates of tape alphabet), and use additional states to remember k
+    symbols to read/write (since k is fixed).  Simulating one step of
+    multi-tape machine requires single-tape machine to scan over its entire
+    tape twice: once to read k tapes, once to update k tapes.
+    Other direction is trivial since 1 tape is just a special case of k
+    tapes.
+
+ -  Details: Theorem 3.13 on p.149 (1st ed: 3.8 on p.137):
+ 	"Every multitape Turing machine has an equivalent single-tape
+	Turing machine."
+
+Non-deterministic Turing machines:
+
+ -  Allow transition function to specify more than one possible outcome for
+    any state and symbol.  Formally, d : Q x T -> P(Q x T x {L,R}), where
+    P(A) is the "power set" of A, the set of all subsets of A, i.e., given
+    state q and tape symbol a, d(q,a) gives a set of next states, symbols,
+    and head movements (possibly empty).
+
+ -  For deterministic TMs, computation is "straight-line": initial config
+    -> next config -> next config -> ...  For non-deterministic TMs, think
+    of initial config as root, and each config has finite number of next
+    configs (possibly none), which yields a computation "tree".
+
+    Convention: non-deterministic TM "accepts" if there is at least one
+    path in computation tree that leads to q_accept (irrespective of what
+    other paths do) -- intuitively, non-deterministic TMs carry out all
+    computation paths "in parallel" and stop as soon as one path accepts.
+    Non-deterministic TM (NTM) "rejects" if every path leads to q_reject.
+    NTM "loops" if no path accepts and at least one path never halts.
+
+ -  Note: NTMs cannot be implemented, unlike regular TMs.
+
+ -  Equivalent to TM!  Idea: go through all paths in computation tree in
+    breadth-first fashion (depth-first doesn't work because we could get
+    stuck in an infinite loop even though another path accepts).
+
+ -  READ:  Theorem 3.16 on pp.150-151 (1st ed: 3.10 on pp.138-139):
+      "Every nondeterministic Turing maching has an equivalent
+      deterministic Turing machine."
+    Note:  You will be responsible for this material, so please do take the
+    time to look at it and ask questions if there is anything that you
+    don't understand.
+

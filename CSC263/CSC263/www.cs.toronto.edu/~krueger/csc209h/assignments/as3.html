@@ -1,0 +1,462 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html><head><title>CSC 209H Summer 2006</title></head>
+
+
+<body bgcolor="#fbfbf0" link="#0000aa" vlink="#602000">
+
+<h1>CSC 209H: Assignment 3</h1>
+
+<!--<p><b>Grading:</b> 20 marks.</p>-->
+
+<p><b>Weight:</b> 10% of course grade.</p>
+
+<p><b>Due date:</b> 10:00 p.m. Monday, July 24</p>
+
+<hr>
+<h2>Introduction</h2>
+
+<p>
+In this assignment, you will be writing programs that will play the
+game of <a href="http://en.wikipedia.org/wiki/Blackjack">Blackjack</a>.
+</p>
+<p>
+Also known as Twenty-One, the game itself is quite simple.
+The goal of the game is to take cards to get as close to the total of
+twenty-one as possible, without going over. Cards 2 through 10 are
+worth their face value, while jacks, queens and kings (face cards) are
+worth 10. An ace can be counted either as 1 or 11.
+</p>
+<p>
+Blackjack is played between a number of players and the dealer.
+Each player competes only against the dealer (and not against each other).
+The player wins if the player's hand is closer to 21 (without going
+over) than the dealer's hand.
+If a hand totals more than 21, that player (or dealer) is said to
+bust, which is an automatic loss.
+</p>
+<p>
+A "blackjack" is a two-card hand consisting of an ace and a ten-value
+card (not necessarily a jack). A blackjack is an automatic winner,
+unless both the player and the dealer hold blackjacks, which is a tie.
+</p>
+
+<h3>Rules</h3>
+<p>
+For this assignment, we'll simplify some of the rules of blackjack
+from what is typically played in casinos. In each round, each player
+is dealt two cards face-up, and the dealer is dealt one face-up card
+and one card face-down (the "hole" card). Each player, in sequential order,
+gets to play his hand. If the player's current hand totals less than
+21, the player may choose to either <b>HIT</b> (add another card to
+his hand) or <b>STAND</b> (take no more cards). If a player hits and
+the total is over 21 (remember, an ace may count as either 11 or 1),
+the player has busted and loses.
+</p>
+<p>
+Once all players have either busted or chosen to stand, the dealer
+plays. The dealer reveals the hole card, and draws cards until the
+hand totals 17 or more. (So, the dealer hits on anything less than 17,
+but stands on 17 or more.)
+</p>
+<p>
+If the dealer busts, all non-busted players win. If the dealer does
+not bust, the dealer's hand is compared to each non-busted player's
+hand. If the player's total is greater than the dealer's total, that
+player wins. If the dealer's total is greater than the player's total,
+the player loses. If the player's hand and the dealer's hand have the
+same total, it is a "push" or tie (unless one of the hands is a
+blackjack). A blackjack beats anything except another blackjack.
+</p>
+
+<h3>Betting</h3>
+<p>
+Blackjack is inherently a gambling game, so we'll need to handle betting.
+Prior to each round, each player makes a bet (an integer). The minimum bet
+will be 1 chip. If the player loses the hand, the bet is lost. If the
+player ties the dealer, the player gets the bet back. If the player
+wins (without a blackjack), the player gets the bet back plus the
+value of the bet (so, on a bet of 2 chips, the player would win 2
+additional chips for a total of 4). If the player wins with a
+blackjack, the player is paid 3:2, rounded down to an integer (so, on
+a bet of 2 chips, the player would win 3 additional chips).
+</p>
+<!--<p>
+We'll assume all players have infinte chips, so we'll only track the
+relative winnings of the players. Each player starts with zero chips
+(meaning nothing won or lost), but can have a negative number of chips
+(meaning the player has lost that many chips).
+</p>-->
+
+<p>
+(For the pros: no splitting, double-down, surrender, insurance, or any
+other such rules for this assignment.)
+</p>
+
+<h3>Cards</h3>
+<p>
+Cards will be represented externally as two characters: the rank of the
+card and its suit. The first character will be one of
+2,3,4,5,6,7,8,9,T,J,Q,K,A (for ten, jack, queen, king and ace).
+The second character will be one of C,D,H,S (for clubs, diamonds,
+hearts and spades).
+</p>
+<p>
+Internally, you may represent a card in any way you wish. Suits are
+not used in blackjack, so you may freely ignore them.
+Some functions in <tt>utils.c</tt> might be useful, and can entirely
+take care of handling cards for you.
+</p>
+
+<hr>
+
+<h2>Part 1 - bjplayer</h2>
+
+<p>
+In this part you are asked to write a C program
+that will play blackjack.
+<i>There is no requirement that your program wins any hands!</i>
+Your program need only play according to the rules specified here.
+</p>
+
+<p>
+Your program will be named <tt>bjplayer</tt>.
+You will also submit a <tt>README</tt> text file briefly describing
+how your program works. Be sure to point out any interesting
+strategies you might be using!
+</p>
+
+<p>
+Your program will be executed with the following arguments:<br>
+</p>
+<p>
+<tt>$ bjplayer </tt> <i>num_players</i> <i>num_rounds</i> <i>num_decks</i> <i>chips</i><br>
+</p>
+<p>
+All command line arguments are mandatory.
+</p>
+
+<p>Your program will read from stdin and write to stdout.
+It will iteratively execute the following phases:
+<ul>
+<li>bet: print a positive integer (as a string) to stdout
+(representing the bet for this hand), followed by a newline
+<li>inital hands: read a line from stdin consisting of 3 cards: the
+player's two initial cards, and the dealer's up card. The format is 
+<tt>card1,card2|dealerup\n</tt>
+<li>playing: print the string <tt>HIT</tt> or <tt>STAND</tt> to
+stdout, followed by a newline. If the player hits, you will read a
+line containing a single card from stdin. If the total is less than or
+equal to 21, this phase is repeated. If the player busts, or the
+player chose to stand, you should proceed to the next phase.
+<li>result: read a line from stdin consisting of one of the strings:
+<tt>WIN</tt>, <tt>LOSS</tt>, <tt>TIE</tt>, <tt>BUST</tt>
+<li>dealer's hand: a line consisting of the cards in the dealer's
+hand, once dealer has completed play (cards are separated by commas)
+</ul>
+<p>
+When EOF is encountered on stdin instead of reading the initial hands,
+your program should terminate normally. If the player is reduced to
+zero chips, the program should terminate normally.
+</p>
+
+<p>
+Each program may assume it is playing a series of games with a single
+shuffle. A particularly clever program may count played cards and
+change its bet or its behaviour if the cards remaining in the deck are
+favorable.
+</p>
+<p>
+<b>Warning:</b> you will not be evaluated on how clever your program
+is, only that it follows the specification! Do not spend so much time
+on your player so that you do not complete the rest of the assignment!
+</p>
+
+<p><i>Tip:</i> To aid in debugging (particularly for part 2), you
+might want to send diagnostic or status information to standard error.
+Be sure to turn off this diagnostic output before handing in your
+assignment.
+</p>
+
+<h2>Example</h2>
+
+<p>
+The following may be an execution of such a program.
+</p>
+
+<blockquote>
+<pre>
+stdin	  stdout
+	  1
+4C,6S|6H  HIT
+QH	  STAND
+WIN
+6H,8S,JD
+</pre>
+</blockquote>
+
+<p>
+The player is playing a single hand, and wins the hand since the
+dealer busts. The player would win one additional chip (if the player
+began with just one chip remaining, the player would have two chips
+after this hand).
+</p>
+
+<h2>Hints and Clarifications</h2>
+
+<ul>
+<li>This should be a fairly straight-forward exercise. Don't spend too
+much time on this part, until you've completed part 2.
+You might want to start with a player that stands every time.</li>
+
+<li>Because your program uses a text interface on stdin and stdout,
+you should be able to pretend to be a dealer and play with your program.
+</li>
+
+<li>You might want to prefix your diagnostic output with your process
+id (the <tt>getpid()</tt> function), particularly while doing the
+second part of this assignment.
+</li>
+
+<li>To ensure your output to stdout is being written immediately, you
+might want to use the <tt>fflush()</tt> function following a print call.
+<!--Alternatively, you can turn off buffering on stdout, or use low-level
+functions.-->
+</li>
+</ul>
+
+<hr>
+
+<h2>Part 2 - bjdealer</h2>
+
+<p>
+In this part you will write a C program named <tt>bjdealer</tt> that
+will act as the dealer in a game of blackjack. The competitors will
+be executions of <tt>bjplayer</tt> programs.
+</p>
+
+<p>
+Your program should support being run in the following manner:
+</p>
+
+<p>
+<tt>$ bjdealer</tt> [<tt>-s</tt> <i>random_seed</i>]
+<i>num_rounds</i> <i>num_decks</i> <i>chips</i> <i>list-of-players</i>
+</p>
+
+<p>
+Following the <tt>-s</tt> option (if it exists) is an unsigned long integer
+<i>N</i>, the seed to the pseudo-random number generator (you may wish to
+use <tt>strtoul()</tt> to convert the argument to an unsigned long).
+If <tt>-s</tt>
+does not appear, the generator should be seeded from
+<tt>/dev/urandom</tt> (functions in <tt>utils.c</tt> might help).
+</p>
+<p>
+The remaining arguments are mandatory.
+The <i>num_rounds</i> specifies the number of rounds to play, and must
+be greater than 0. The <i>num_decks</i> is the number of standard
+decks to play with, and must be between 2 and 8.
+The <i>chips</i> is the number of chips every player starts with, and
+must be greater than 0.
+</p>
+<p>
+The <i>list-of-players</i> will be a list of path names of
+<i>bjplayer</i> programs, possibly (and probably) with duplicates. For
+example, a list might be <tt>bjplayer bjp2 ../other/bjplayer bjplayer
+bjplayer</tt> for a game 
+with 5 players. There must be at least 1 player specified, and no more
+than 8 players.
+</p>
+
+<p>
+Your program will do the following:
+</p>
+
+<ul>
+<li>Create one child process per player. The child process will
+<tt>exec</tt> the specified program (once the standard input and
+standard output are set up appropriately to communicate with the dealer).
+<!--Player names will be a combination of their number and the name of
+the program (i.e., "player 1 (rps1)").-->
+
+<li>Create a playing deck consisting of <i>num_decks</i> standard
+decks of 52 cards. This deck should be shuffled randomly (routines in
+<tt>utils.c</tt> might help you with this). The playing deck should
+contain 52 * <i>num_decks</i> cards.
+
+<li>For each round, deal two cards to each (currently executing)
+player program and one up card for the dealer. In order from the first
+player to the last, interact with the player (as described above) to
+determine the player's hand. Once all players have busted or stood,
+determine the dealer's hand (stand 17+, hit under 17) and inform each
+player of whether the result for that player is a
+<tt>WIN</tt>, <tt>LOSS</tt>, <tt>TIE</tt>, or <tt>BUST</tt>,
+and inform each player of the dealer's hand.
+</li>
+</ul>
+
+<p>
+The playing deck is shuffled once at the start of play, and the top
+card is drawn from the deck each time a card is needed. The deck is
+typically not reshuffled between rounds, nor are cards returned to the
+deck once they have been used.
+If, however, before a round begins there are strictly less than 52 cards
+remaining in the playing deck, all cards are collected and the playing
+deck is reshuffled (just as at the beginning of play).
+To indicate this in-play shuffle to the players, the dealer sends a
+<tt>SIGUSR1</tt> signal to each player process. The player program
+<i>must</i> handle this signal, as the default signal action is termination.
+</p>
+
+<p>
+The <tt>bjdealer</tt> program <i>must</i> communicate with its child
+processes using pipes.
+In the case that a player ceases to execute (or otherwise closes the
+pipe), your <tt>bjdealer</tt> program should forevermore ignore that
+player (cards may still be dealt if you wish, but your program should
+not wait for any further responses).
+</p>
+
+<p>
+[Update 23 Jul 2006] Once the specified number of rounds have been played
+(or all players have gone broke), your dealer program should print
+a report of how many chips each player ends with. The following is
+one such report:
+</p>
+
+<blockquote>
+<pre>
+Game outcome:
+Player 1 is broke!
+Player 2 finished the game with 2 chips
+</pre>
+</blockquote>
+
+<p>
+<b>Important:</b> Be sure to clean up any processes that may be left
+behind before logging out of your machine. The <tt>ps</tt> and
+<tt>top</tt> commands can help you find any lingering processes.
+</p>
+
+
+<!--
+<h2>Examples</h2>
+
+<p>
+</p>
+
+<blockquote>
+<pre>
+
+</pre>
+</blockquote>
+-->
+
+<h2>Hints and Clarifications</h2>
+
+<ul>
+<li>Start <b>now</b>! Try to get something <i>very</i> simple working
+first, then get the pipes set up to communicate with one child
+process, then continue adding functionality step by step.
+</li>
+
+<li>You <b>must</b> use pipes to communicate between processes for
+this assignment. Do not use sockets or other advanced IPC methods.
+</li>
+
+<li>Since pipes are half-duplex (one-way) communication, you will need
+two pipes to communicate with each child process.
+</li>
+
+<li>The <tt>bjplayer</tt> programs only know about stdin and stdout. You
+will need to use <tt>dup2()</tt> to reassign the file descriptors
+associated with the pipes. The defined constants <tt>STDIN_FILENO</tt>
+and <tt>STDOUT_FILENO</tt> refer to these file descriptors.
+</li>
+
+<li>If you are having trouble reading over the pipe from a child
+process, the output might be getting buffered by your 
+program. The <tt>fflush()</tt> function will make sure <tt>printf</tt>
+output is flushed to the pipe.
+</li>
+
+<li>You can throw away the diagnostic output from your children by
+redirecting stderr (file descriptor 2) to <tt>/dev/null</tt> under a
+Bourne shell.
+</li>
+
+<li>You should clean up any zombie children processes using one of the
+<tt>wait</tt> functions.
+</li>
+
+<li>You <b>must</b> check the return values from each library function
+call and take appropriate action based on these return values (such as
+printing an error message, exiting with error, or continuing normally).
+</li>
+
+<li>For full marks, your <tt>bjdealer</tt> program C code must be
+well-documented, follow good programming style, and be easily
+understandable by the marker.</li>
+
+</ul>
+
+<hr>
+
+<h2>Learning Objectives</h2>
+<ul>
+<li>Creating and controlling processes under UNIX (<tt>fork</tt>,
+<tt>wait</tt>, etc.).</li>
+<li>Executing programs using C (<tt>exec</tt>).</li>
+<li>Basic interprocess communication (pipes) in C.</li>
+<li>Understanding file descriptors in UNIX.</li>
+</ul>
+
+<h2>What to hand in</h2>
+
+<p>You will commit to the <code>a3</code> directory of your CSC209
+repository the following files:</p>
+
+<ul>
+<li>Your C source files for <code>bjplayer</code>.</li>
+<li>Your C source files for <code>bjdealer</code>.</li>
+<li>Any additional files needed by your programs (header files,
+<tt>utils.c</tt>, <tt>utils.h</tt>, etc.)</li>
+<li><code>Makefile</code>, containing commands to compile
+your <tt>bjplayer</tt> and <code>bjdealer</code> programs simply by running
+<tt>make</tt></li>
+<li><code>README</code>, briefly describing your <tt>bjplayer</tt>
+program.
+</ul>
+
+<p>
+You are strongly encouraged to take advantage of the version
+control system and commit your work frequently so that you can keep
+track of your progress.  Please note that perfectly fine (and even
+recommended) that you keep any additional files related to this
+assignment (such as files and scripts used for testing) under version
+control. The markers will simply ignore such files.
+</p>
+
+<hr>
+
+<table>
+<tbody><tr>
+<td>
+<small>
+<!--Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>-->
+<script language="JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</script>
+</small>
+</td>
+</tr>
+</tbody></table>
+
+</body></html>

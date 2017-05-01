@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\begin{defn*}
+  \textbf{Confidence Interval and Confidence Level} Let $X_1,\cdots, X_n \sim f_{\theta}$. A $100(1-\alpha)\%$ confidence interval for $\theta$ is a pair of statistics $L = L(X_1, \cdots, X_n)$ and $U=U(X_1, \cdots, X_n)$ such that
+  \[
+    P(L \leq \theta \leq U) = 1 - \alpha
+  \]
+  We call $100(1-\alpha)\%$ the confidence level
+  \begin{rem}
+    $L$ and $U$ are random variables while the population parameter $\theta$ is fixed and unknown. Therefore in construction of confidence interval, it is the interval itself that is random. It is incorrect to claim that $\theta$ has $100(1-\theta)\%$ chance of lying in the confidence interval. Or we expect $(1-\alpha)\%$ of the times that the interval covers the true population parameter. However, it is correct to say that if we had infinitely many random samples and calculated the confidence limits for each, $100(1-\alpha)\%$ of the resultant intervals would include the true parameter
+  \end{rem}
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{The Pivotal Method} A pivotal quantity (or simply pivot) is a function $g(X_1, \cdots, X_n;\theta)$ of the data and parameter of interest, whose distribution does not depend on any unknown parameter
+  \begin{enumerate}
+    \item Find a pivot $g(X_1, \cdots, X_n; \theta)$ and identify its distribution
+    \item Find $a$ and $b$ such that $P(a\leq g(X_1, \cdots, X_n)\leq b) = 1-\alpha$ using the distributinon
+    \item Find $L$ and $U$ such that $P(L\leq \theta \leq U) = 1-\alpha$
+  \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{The large number theory method} When it comes difficult to find pivot and its accopaning distribution, we invoke large number theory, namly $\hat{\theta}_{MLE} \sim AN(\theta, \mathcal{I}^{-1}(\hat{\theta}_{MLE}))$ We can construct a $(1-\alpha)\%$ confidence interval of the form
+  \[
+    \hat{\theta}_{MLE} \pm \frac{z_{1-\alpha/2 }}{\sqrt{\mathcal{I}(\hat{\theta}_{MLE})}}
+  \]
+  \begin{rem}
+    Here is some example $(1-\alpha)\%$ confidence interval calculated using the large number theory method
+    \begin{enumerate}
+      \item \textbf{Exponential} $\hat{\lambda}_{MLE} = 1 / \overline{X} $ and $\mathcal{I}(\lambda) = n / \lambda^2$ so then
+      \[
+        \frac{1}{\overline{X}} \pm \frac{z_{1-\alpha / 2}}{\overline{X} \sqrt{n}}
+      \]
+      \item \textbf{Poisson} $\hat{\lambda}_{MLE} = \overline{X}$ and $\mathcal{I}^{-1}(\lambda) = n / \lambda$ so then  we ahve
+      \[
+        \overline{X} \pm z_{1-\alpha / 2} \sqrt{\frac{\overline{X}}{n}}
+      \]
+    \end{enumerate}
+  \end{rem}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Standar Error} The standard deviation of the sampling distribution is called standard error of $\theta$
+  \[
+    \sigma_{\hat{\theta}} = \sqrt{\frac{\theta}{n}}
+  \]
+  We can derive an approximation by substituting $\theta$ with $\hat{\theta}$
+  \[
+    s_{ \hat{\theta} } = \sqrt{ \frac{ \hat{\theta}}{n} }
+  \]
+\end{defn*}
+
+\begin{defn*}
+  The \textbf{Squared error loss} is given by
+  \[
+    l(\hat{\theta}, \theta) = (\theta- \hat{\theta})^2
+  \]
+  which inflicts harsh penulties on large deviatios from true parameter value and forgiving for small deviations.
+\end{defn*}
+
+\begin{defn*}
+  The \textbf{Mean Squared Error} of an estimator $\hat{\theta}$ of a parameter $\theta$ is
+  \[
+    MSE(\hat{\theta}, \theta) = \E[(\hat{\theta}- \theta)^2]
+  \]
+  which is a measure of estimation accuracy
+\end{defn*}
+
+
+\begin{theorem*}
+  \textbf{The Bias-Variance Decomposition} Let $\hat{\theta}$ be an estimator of a parameter $\theta$. The bias of $\hat{\theta}$ is given by
+  \[
+    b(\hat{\theta}, \theta) = \E[\hat{\theta}] - \theta
+  \]
+  Then
+  \[
+    MSE(\hat{\theta}, \theta) = b^2(\hat{\theta}, \theta) + Var[\hat{\theta}]
+  \]
+\end{theorem*}
+
+
+\begin{defn*}
+  \textbf{Comparison of estimator of normal variance} For $X_1, \cdots, X_n \stackrel{i.i.d.}{\sim} \mathcal{N}(\mu, \sigma^2)$. Compure following estimators of $\sigma^2$
+  \begin{enumerate}
+    \item $S^2 \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2$ (sample variance)
+    \item $\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2$ (MME and MLE)
+  \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Unbiased Estimator} We say that $\hat{\theta}$ is an unbiased estimator of $\theta$ if
+  \[
+    \E[\hat{\theta}] = \theta \quad { or }\quad b(\hat{\theta}, \theta) = 0
+  \]
+  \begin{rem}
+    $ $\\
+    \begin{enumerate}
+      \item $\overline{X}$ is an unbiased estimator of $\mu =\E[X]$ by law of large numbers.
+      \item $S^2$ is an unbiased estimator of $\sigma^2 = Var[X]$ (using $\chi_n^2$)
+      \item Unbiased estimator has property $MSE(\hat{\theta},\theta) = Var[\hat{\theta}]$
+    \end{enumerate}
+  \end{rem}
+\end{defn*}
+
+\begin{theorem*}
+  \textbf{Cramer-Rao Lower Bound} Let $X_1, \cdots, X_n \sim f_{\theta}$ and let $\hat{\theta}$ be an unbiased estimator of $\theta$. Under some regularity conditions,
+  \[
+    Var[\hat{\theta}] \geq \mathcal{I}^{-1}(\theta)
+  \]
+  where $\mathcal{I}(\theta)$ is the Fisher Information. Intuitively, the variance of any unbiased estimator is at least as high as the inverse of the Fisher information.
+  \begin{rem}
+    This theorem provides that the maximum likelihood estimator $(MLE)$ is asymptotically optimal, as in such condition $\hat{\theta}_{ MLE}$ is unbiased and achieves the lower bound. This means that no consistent estimator has lower asymptotic mean squared error than the $MLE$ (or other estimators attaining this bound). For a finite sample size however, the MLE estimate may not be efficient.
+  \end{rem}
+\end{theorem*}
+
+\begin{defn*}
+  \textbf{Efficiency}
+  \begin{enumerate}
+    \item We say that an \textbf{unbiased estimator} $\hat{\theta}$ of a parameter $\theta$ is \textbf{finite sample efficient} (or simply efficient) if
+    \[
+      Var[\hat{\theta}] = \mathcal{I}^{-1}(\theta)
+    \]
+    In other word, an unbiased estimator which achieves the Cremer-Rao lower bound is said to be efficient. This implies that such a solution achieves the lowest possible $MSE$ among all unbiased methods
+    \item We say that $\hat{\theta}$ is \textbf{asymptotically efficient} if
+    \[
+      \lim_{n\to\infty} \frac{Var[\hat{\theta}]}{\mathcal{I}^{-1}(\theta)} = 1
+    \]
+    \item The \textbf{relative efficiency} of an unbiased estimator $\hat{\theta}_1$ of $\theta$ with respect to another unbiased estiamtor $\hat{\theta}_2$ is
+    \[
+      eff(\hat{\theta}_1, \hat{\theta}_2) = \frac{Var[\hat{\theta}_2]}{Var[\hat{\theta}_1]}
+    \]
+    If efficiency is smaller than 1, $\hat{\theta}_1$ has a larger variance. This comparison is useful when two estimators have different bias.
+  \end{enumerate}
+  \begin{rem}
+    $ $\\
+    Some examples of unbiased estimators and their efficiency
+    \begin{enumerate}
+      \item $\overline{X}$ of normal distribution is efficient
+      \item $S^2$ is asymptotically efficient
+      \item $MLE$ is asymptotically unbiased and asymptotically efficient. Although $MLE$ is not necessarily unbiased and efficient for finite sample size.
+    \end{enumerate}
+  \end{rem}
+
+\end{defn*}
+
+
+\end{document}

@@ -1,0 +1,185 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\begin{defn*}
+  \textbf{Generalized Likelihood Ratio Tests (GLRT)} Consider testing $\mathcal{H}_0: \theta \in\Theta_0$ vs. $\mathcal{H}_1: \theta \in \Theta_1$, such that $\Theta_0 \,\cup\, \Theta_1  = \Theta$ (entire parameter space), based on $X_1, \cdots, X_n \sim f_{\theta}$
+  \begin{enumerate}
+    \item The statistic
+    \[
+      \Lambda(\underline{X}) = \frac{ \sup\limits_{\theta\in\Theta} \mathcal{L}(\theta)}{\sup\limits_{\theta\in\Theta_0}\mathcal{L}(\theta)}
+    \]
+    is called the \textbf{generalized likelihood ratio (GLR)}
+    \item The test based on the rejection region
+    \[
+      \mathcal{C} =  \{ \underline{X}\in\R^n: \Lambda(\underline{X}) \geq c\} \quad\quad \text{for critical value $c$ satisfying} \quad\quad \sup_{\theta} \left\{ \mathbb{P}(\Lambda(\underline{X}) \geq c\,|\, \theta \in \Theta_0) \right\}= \alpha
+    \]
+    is called the \textbf{generalized likelihood ratio tets (GLRT)} at level $\alpha$
+  \end{enumerate}
+  \begin{rem}
+    General likelihood ratio test is generally not optimal but performs reasonably well. In essence each likelihood is evaluated at value of $\theta$ that maximizes it.
+  \end{rem}
+  \begin{rem}
+    To find $GLRT$ we need to find
+    \begin{enumerate}
+      \item \textbf{unrestricted MLE} \quad $\hat{\theta} = \argmax_{\theta \in \Theta} \mathcal{L}(\theta)$
+      \item \textbf{restricted MLE} \quad $\hat{\theta}_0 = \argmax_{\theta \in \Theta_0} \mathcal{L}(\theta_0)$
+      \item \textbf{simpler statistic} $T(\underline{X})$ such that $\Lambda(\underline{X})$ is a monotonically increasing function of $T(\underline{X})$, whose distribution when $\theta = \hat{\theta_0}$ is known.
+      \item \textbf{critical value $c$} such that $\mathbb{P}(T(\underline{X}) \geq c | \theta = \hat{\theta_0}) = \alpha$
+    \end{enumerate}
+
+  \end{rem}
+\end{defn*}
+
+\begin{example}
+  \textbf{One sample t test for mean (Normal)} For one sample t test, where $\mathcal{H}_0: \mu = \mu_0$ vs. $\mathcal{H}_1 = \mu \neq \mu_0$, based on $X_1, \cdots, X_n \stackrel{i.i.d.} {\sim} \mathcal{N}(\mu, \sigma^2)$, where $\sigma^2$ is unknown. We first find unrestricted and restricted MLE and plug them into likelihood function
+  \[
+    \mathcal{L}(\hat{\mu},\hat{\sigma}^2) = (2\pi e \hat{\sigma}^2)^{-n/2} \quad\quad and\quad\quad \mathcal{L}(\hat{\mu},\hat{\sigma}_0^2) = (2\pi e \hat{\sigma}_0^2)^{-n/2}
+  \]
+  Then
+  \[
+    \Lambda(\underline{X}) = \frac{\mathcal{L}(\hat{\mu}, \hat{\sigma}^2)}{\mathcal{L}(\hat{\mu}_0, \hat{\sigma}_0^2)} = \left( \frac{\hat{\sigma}_0^2}{\hat{\sigma}^2} \right)^{n/2} = \left\{ 1 + \frac{n(\overline{X} - \mu_0)^2}{\sum_{i=1}^n (X_i - \overline{X})^2} \right\}^{n/2} = \left\{ 1 + \frac{1}{n-1} \left( \frac{\overline{X} - \mu_0}{S / \sqrt{n}} \right)^2 \right\}^{n / 2}
+  \]
+  Let $\mathcal{T} =  \frac{\overline{X} - \mu_0}{S / \sqrt{n}}$; note $\Lambda(\underline{X}) \propto |\mathcal{T}|$. Hence rejection region is
+  \[
+    \mathcal{C} = \{ \Lambda(\underline{X}) \geq c \} = \{ | \mathcal{T}| \geq c'\}
+  \]
+  If $\mathcal{H}_0: \mu = \mu_0$ then $\mathcal{T} \sim t_{n-1}$. (distribution is under $\mathcal{H}_0$ is known)
+  \[
+    \alpha = \mathbb{P}\left(\underline{X} \in \mathcal{C} | \mu = \mu_0\right) = \mathbb{P}\left( |\mathcal{T}| \geq c'| \mu = \mu_0 \right) \quad \iff \quad \alpha = t_{n-1, 1 - \alpha/2}
+  \]
+  The rejection region to test $\mathcal{H}_0: \mu = \mu_0$ vs. $\mathcal{H}_1: \mu \neq \mu_0$ at level $\alpha$ is
+  \[
+    \mathcal{C} = \left\{ |\mathcal{T}| = \left| \frac{\overline{X} - \mu_0}{S / \sqrt{n}} \right| \geq t_{n-1, 1-\alpha/2} \right\}
+  \]
+  For one tailed test
+  \[
+    \mathcal{C}_{Right} = \{ \mathcal{T}\geq t_{n-1, 1 - \alpha}\} \quad and\quad \mathcal{C}_{Left} = \{ \mathcal{T}\leq -t_{n-1, 1 - \alpha}\}
+  \]
+\end{example}
+
+
+
+\subsection*{11 Comparing two independent Samples}
+
+
+\begin{example}
+  \textbf{F test for equality of variances (normal)} Suppose independent sample $X_1, \cdots, X_m \stackrel{i.i.d.}{\sim} \mathcal{N}(\mu_X, \sigma_X^2)$ and $Y_1, \cdots, Y_n \stackrel{i.i.d.}{\sim}\mathcal{N}(\mu_Y, \sigma_Y^2)$ now test $\mathcal{H}: \sigma_X^2 = \sigma_Y^2$ vs. $\mathcal{H}_1: \sigma_X^2 \neq \sigma_Y^2$. We try to find unrestricted parameters
+  \[
+    \hat{\mu}_X = \overline{X} \quad \hat{\sigma}_X^2 = \frac{1}{m}\sum_{i=1}^m (X_i - \overline{X})^2 = \frac{(m-1)S_X^2}{m} \quad \hat{\mu}_Y = \overline{Y} \quad \hat{\sigma}_Y^2 =\frac{(n-1)S_Y^2}{n}
+  \]
+  plug into likelihood function
+  \[
+    \mathcal{L}(\hat{\mu_X}, \hat{\mu_Y}, \hat{\sigma}_X^2, \hat{\sigma}_Y^2) \propto (\hat{\sigma}_X^2)^{-m/2}(\hat{\sigma}_Y^2)^{-n/2} \propto (S_X^2)^{-m/2} (S_Y^2)^{-n/2}
+  \]
+  as well as restricted parameters $\hat{\mu}_X^0 = \overline{X} \quad \hat{\mu}_Y^0 = \overline{Y}$ and
+  \[
+    \sigma_X^2 = \sigma_Y^2 = \hat{\sigma}_0^2 = \frac{\sum_{i=1}^m (X_i - \overline{X})^2 + \sum_{i=1}^n (Y_i - \overline{Y})^2}{m+n} = \frac{(m-1)S_X^2 + (n-1)S_Y^2}{m+n}
+  \]
+  Plug into likelihood function
+  \[
+    \mathcal{L}(\hat{\mu}_X^0, \hat{\mu}_Y^0, \hat{\sigma}_0^2) \propto (\hat{\sigma}_0^2)^{\frac{m+n}{2}} \propto [(m-1)S_X^2 + (n-1)S_Y^2]^{-\frac{m+n}{2}}
+  \]
+  Now we GLR,
+  \begin{align*}
+    \Lambda(\underline{x}) = \frac{\mathcal{L}(\hat{\mu_X}, \hat{\mu_Y}, \hat{\sigma}_X^2, \hat{\sigma}_Y^2)  }{\mathcal{L}(\hat{\mu}_X^0, \hat{\mu}_Y^0, \hat{\sigma}_0^2)} &\propto \frac{[ (m-1)S_X^2 + (n-1)S_Y^2 ]^{\frac{m+n}{2}}}{(S_X^2)^{m/2} (S_Y^2)^{n/2}} \\
+    &= \frac{[ (m-1)S_X^2 + (n-1)S_Y^2 ]^{m/2}}{(S_X^2)^{m/2}}\frac{[ (m-1)S_X^2 + (n-1)S_Y^2 ]^{n/2}}{(S_X^2)^{n/2}} \\
+    &\propto [1 + \mathcal{F}^{*-1}]^{m/2}[1 + \mathcal{F}^*]^{n/2}
+  \end{align*}
+  where $\mathcal{F}^* = \frac{(m-1)S_X^2}{(n-1)S_Y^2}$. The rejection region is hence
+  \[
+    \mathcal{C} = \{ \Lambda(\underline{X}) \geq c\} = \left\{ \mathcal{F}^* \leq a_1 \right\} \bigcup \left\{ \mathcal{F}^* \geq a_2 \right\}
+  \]
+  Since $\mathcal{F} = \frac{S_X^2}{S_Y^2} = \frac{(n-1)\mathcal{F}^*}{m-1}$ then
+  \[
+    \mathcal{C} =  \left\{ \mathcal{F} \leq b_1 \right\} \bigcup \left\{ \mathcal{F} \geq b_2 \right\}
+  \]
+  So we find $b_1$ $b_2$ by
+  \[
+    \alpha = \mathbb{P}\left(\mathcal{F}\leq b_1 | \sigma_X^2 = \sigma_Y^2\right) + \mathbb{P}\left(\mathcal{F}\geq b_2 | \sigma_X^2 = \sigma_Y^2\right)
+  \]
+  Note when $\sigma_X^2 = \sigma_Y^2$, $\mathcal{F} = F_{m-1, n-1}$
+  \[
+    \mathcal{C} =  \left\{ \mathcal{F} \leq F_{m-1, n-1, \alpha/2} \right\} \bigcup \left\{ \mathcal{F} \geq F_{m-1, n-1, 1-\alpha/2} \right\}
+  \]
+  for statistic $\mathcal{F} = \frac{S_X^2}{S_Y^2}$
+  \begin{rem}
+    \[
+      F_{v_1, v_2. q} = \frac{1}{F_{v_2, v_1, 1-q}}
+    \]
+  \end{rem}
+\end{example}
+
+\begin{example}
+  \textbf{t Test for Equality of Means} Suppose $X_1, \cdots, X_n \stackrel{i.i.d.}{\sim} \mathcal{N}(\mu_X, \sigma^2)$ and  $Y_1, \cdots, Y_n \stackrel{i.i.d.}{\sim} \mathcal{N}(\mu_Y, \sigma^2)$, assuming same variance for the two population. Now we wish to test $\mathcal{H}_0: \mu_X = \mu_Y$ vs. $\mathcal{H}_1:\mu_X \neq \mu_Y$ Now we compute likelihood ratio
+  \[
+    \Lambda = \left\{ 1 + \frac{\mathcal{T}^2}{m+n-2} \right\}
+  \]
+  where
+  \[
+    \mathcal{T} = \frac{\overline{X} - \overline{Y}}{S_p \sqrt{\frac{1}{m} + \frac{1}{n}}} \quad\quad\quad S_p^2 = \frac{(m-1)S_X^2 + (n-1)S_Y^2}{m+n-2}
+  \]
+  Now we find distribution for statistic $\mathcal{T}$. First we determine the distribution of composing expressions.
+  \[
+    \overline{X} - \overline{Y} \sim \mathcal{N}(\mu_X, \frac{\sigma^2}{m}) - \mathcal{N}(\mu_Y, \frac{\sigma^2}{n}) \stackrel{\mathcal{H}_0}{=} \mathcal{N}(0, \sigma^2 [\frac{1}{m} + \frac{1}{n}])
+  \]
+  and
+  \[
+    S_p^2 = \frac{(m-1)S_X^2}{\sigma^2} + \frac{(n-1)S_Y^2}{\sigma^2} \sim \chi_{m-1}^2 + \chi_{n-1}^2 = \chi_{m+n-2}^2
+  \]
+  Now then
+  \[
+    \mathcal{T} = \frac{\overline{X} - \overline{Y}}{S_p \sqrt{\frac{1}{m} + \frac{1}{n}}} = \frac{(\overline{X} - \overline{Y}) / \sigma \sqrt{\frac{1}{m} + \frac{1}{n}}}{\sqrt{ \frac{ (m-1)S_X^2 + (n-1)S_Y^2 }{ \sigma^2(m+n-2) }  }} \sim \frac{\mathcal{N}(0,1)}{\sqrt{\frac{\chi_{m+n-2}^2}{m+n-2}}} = t_{m+n-2}
+  \]
+  Hence the rejection region is
+  \[
+    \mathcal{C} = \left\{ |\mathcal{T}| \geq t_{m+n-2, 1-\alpha/2} \right\}
+  \]
+  where we estimate $\sigma^2$ with $S_p^2$ is called the \textit{pooled sample variance}, which is an unbiased estimator of $\sigma^2$ that is smaller than each of $S_X^2$ and $S_Y^2$. $S_p^2$ is a weighted average of the sample variances of $X$ and $Y$. We then calculate confidence interval for mean difference $\mu_X - \mu_Y$ is
+  \[
+    (\overline{X} - \overline{Y}) \pm \sqrt{\frac{1}{m} + \frac{1}{n}} S_p t_{m+n-2, 1-\alpha/2}
+  \]
+  forms $100(1-\alpha)\%$ confidence interval for $\mu_X - \mu_Y$
+\end{example}
+
+
+
+\begin{note}
+  Consider
+  \begin{enumerate}
+    \item Unless experiment is carried out in controlled environmnet, we cannot infer \textit{causation} from a statistically significant test result.
+    \item The risk in drawing conclusion in this setting is ignoring existence of \textbf{confounder}, a factor other than the treatmnet factor, that is associated with both treatment and response.
+    \item We can therefore only conclude that say smoking is \textbf{associated} with lower birth weight, not causation
+  \end{enumerate}
+\end{note}
+
+
+\begin{example}
+  \textbf{Paired Sample t Test for Normal Mean} Randomized paired design specifies that we randomly select $n$ paired experimental units from the referenced population, within each assigning one of the pair to one treatment group at random (and the other to the other group), and measure the responses at the end of assigned time. The motivation for paired sample test is the reduced difference in variance
+  \[
+    Var(X_i - Y_i) = Var(X_i) + Var(Y_i) - 2Cov(X_i, Y_i) \ll Var(X_i) + Var(Y_i)
+  \]
+  when $X_i$ and $Y_i$ are not independent of each other. We then have reduced noise and higher power, since we can detect differences between grouops more easily. Now we define hypothesis
+  \[
+    \begin{cases*}
+      \mathcal{H}_0: \mu_D = 0 \\
+      \mathcal{H}_1: \mu_D > 0, \neq, < 0\\
+    \end{cases*}
+  \]
+  where $D := X - Y$ and $\mu_D := \mu_X - \mu_Y$. We have the following assumptions
+  \begin{enumerate}
+    \item different pairs are independent
+    \item difference $X-Y$ follows a Normal distribution
+  \end{enumerate}
+  which satisfies condition for one sample $t$ test on $D_i = X_i - Y_i$, based on statistic
+  \[
+    \mathcal{T} = \frac{\overline{D}}{S_D / \sqrt{n}} \stackrel{\mathcal{H}_0}{\sim} t_{n-1}
+  \]
+\end{example}
+
+
+
+
+
+
+\end{document}

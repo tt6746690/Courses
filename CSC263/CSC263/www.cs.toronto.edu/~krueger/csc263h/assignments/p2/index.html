@@ -1,0 +1,151 @@
+<html><head>
+
+  <meta name="generator" content="HTML Tidy for Windows (vers 1st August 2004), see www.w3.org"><title>CSC&nbsp;263H Fall 2007 -- Programming question for Homework 2</title></head><body style="color: black; background-color: white;" alink="red" link="blue" vlink="navy">
+<h3>Programming question for Homework 2: AVL Trees</h3>
+<p>Implement a dictionary class.
+The dictionary should be implemented as
+a height-balanced balanced binary search tree (an <i>AVL tree</i>),
+encapsulated in a class called&nbsp;<code>AVLTree</code>. 
+<!--The tree used to represent the dictionary is stored 
+in a collection of instances of the <code>Node</code> class.-->
+The provided starter code implements an ordinary binary search tree;
+you must revise this code to implement an AVL tree.
+Your implementation should be consistent with the algorithms described in
+the "AVL tree notes" handout posted on the course website.
+</p>
+
+<p>
+This implementation of an AVL tree will use a simplified
+<code>Node</code> class to store information at each node of the tree.
+Each node will store a <var>key</var> and
+<var>data</var> of generic types, references to the <var>parent</var>,
+<var>left</var> child and <var>right</var> child, and an
+integer balance factor <var>bf</var>.
+</p>
+
+<p>
+You should implement the following methods of the&nbsp;<span style="font-family: monospace;">AVLTree</span> class (described in the
+starter code):</p>
+<ul>
+  <li><code>singleLeftRotation()</code></li>
+  <li><code>singleRightRotation()</code></li>
+  <li><code>doubleRightLeftRotation()</code></li>
+  <li><code>doubleLeftRightRotation()</code></li>
+  <li><code>balance()</code></li>
+</ul>
+<p>
+You should also alter the following methods of the
+<code>AVLTree</code> class to support the update of node balance factors
+and, when necessary, appropriately call the <code>balance()</code> method:
+</p>
+<ul>
+  <li><code>treeInsert()</code></li>
+  <li><code>delete()</code></li>
+</ul>
+
+<p>
+The <code>delete()</code> may require significant rewriting.
+During an insert or delete, all necessary updates of node balance
+factors must be completed
+in <strong>O(log <var>n</var>)</strong> total time, 
+where <var>n</var> is the number of nodes in the tree following
+the operation.
+The worst-case time complexity of <code>balance()</code>
+and each of the rotation methods should be <strong>O(1)</strong>.
+</p>
+
+<p>To mark your assignment, we will test the above methods using
+<strong>our own secret</strong> tester routine.
+Successfully running the <code>AVL</code> class we provide does <span style="font-weight: bold;">not</span> guarantee that your code is
+correct or will pass our marking tester routine.
+You are encouraged to derive your own test cases.
+Your code may be tested with an auto-marker routine and/or by TA
+inspection to check that your routines are implemented correctly (as
+described in the comments or the "AVL tree nodes" handout) and
+in the correct time bounds.
+<!--Each method
+gets 5
+marks if it works correctly,
+and gets 0 marks otherwise.-->
+</p>
+<!--Each one of
+these four procedures gets 5 marks if it works correctly,
+and gets 0 marks otherwise.<br>-->
+<hr>
+<p>For more details, including exact specifications of the
+methods that you should implement, see the starter code. All of your
+work must be done inside the <code>AVLTree</code> class,
+where indicated by comments that start with: "<code>// TODO:</code>".
+You may also add appropriate private instance variables or helper
+methods.</p>
+
+<p>
+Starter code:
+</p>
+<ul>
+  <li><a href="AVLTree.java"><code>AVLTree.java</code></a></li>
+  <li><a href="Node.java"><code>Node.java</code></a></li>
+</ul>
+
+<p>
+The code in <code>AVL.java</code> creates an AVL tree and executes
+basic operations on it. The sequence of operations and their arguments are
+read from the input in the form of user-defined commands. The commands
+supported are add, delete, search and print.
+This class may be useful for testing your code.
+</p>
+<ul>
+  <li><a href="AVL.java"><code>AVL.java</code></a></li>
+</ul>
+<hr style="width: 100%; height: 2px;">
+<p><span style="font-weight: bold;">Submission Instructions</span>
+</p>
+<ol>
+  <li>Submit your code <span style="font-weight: bold;">using the
+"submit" mechanism on CDF </span>(<span style="font-weight: bold;">by
+5:30pm on the due date)</span>. The <a href="http://www.cdf.utoronto.ca/workathome/">CDF FAQ</a>
+contains general instructions for submitting your code electronically
+(under the "Submitting Work" section). </li>
+  <br>
+  <li>Submit <span style="font-weight: bold;">only</span> the .java
+file&nbsp;<span style="font-family: monospace;">AVLTree.java</span>
+of the starter code (after
+you have implemented the missing parts) to the directory called <span style="font-weight: bold;">PGM2</span>.
+All the code that you
+implement should be inside this file.</li>
+  <br>
+  <li>Do not submit any other files, and in particular, do not submit
+any
+class files. If you do, we will delete them before we compile
+your code.</li>
+  <br>
+  <li>Do <span style="font-weight: bold;">not</span> submit any
+printout of the code. </li>
+  <br>
+  <li>Do not rename the file&nbsp;<code>AVLTree.java</code>, or any
+of the methods and
+variables found in our starter code.</li>
+  <br>
+  <li><span style="font-weight: bold;">Write your name, student number
+and CDF username in a comment at
+the
+top of the&nbsp;</span><span style="font-family: monospace; font-weight: bold;">AVLTree.java</span><span style="font-weight: bold;"> file</span>.<span style="font-weight: bold;"> If you have a partner, you should also
+write the corresponding information about your partner.</span></li>
+  <br>
+  <li>We will compile your code by typing 
+"<code>javac&nbsp;AVLTree.java</code>" <!--and
+"<code>javac&nbsp;.java</code>",--> and we
+will test
+the
+resulting .class file(s) using our own tester code (which is similar
+to, but more thorough than,
+the
+tester code that we provide as part of the starter code).</li>
+  <br>
+  <li>Your code must compile and run on the CDF Unix/Linux system.
+Test it there! Programs that do not
+compile and run
+get 0 marks.</li>
+</ol>
+
+</body></html>

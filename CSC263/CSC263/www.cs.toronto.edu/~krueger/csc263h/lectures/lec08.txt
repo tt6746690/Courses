@@ -1,0 +1,214 @@
+===========================================================================
+CSC 263                 Lecture Summary for Week  8               Fall 2007
+===========================================================================
+
+[[Q:  denotes a question that you should think about and
+      that will be answered during lecture.  ]]
+
+------------------
+Amortized Analysis
+------------------
+
+ * Often, we want to analyze the complexity of performing a sequence of
+   operations on a particular data structure.  In some cases, knowing the
+   complexity of each operation in the sequence is important, so we can
+   simply analyze the worst-case complexity of each operation.  In other
+   cases, only the time complexity for processing the entire sequence is
+   important.
+
+ * We can define the "worst-case sequence complexity" of a sequence of m
+   operations as the MAXIMUM total time over *all* sequences of m operations
+   (this is similar to the way that worst-case running time is defined).
+
+   That is, let T(m) = worst-case cost of doing a sequence of m operations
+   (over all possible sequences of m operations).
+
+[[Q: How does "worst-case sequence complexity" relate to "worst-case
+     time complexity" of a single operation? ]]
+
+   For example, suppose that we want to maintain a sorted linked list of
+   elements under the operations INSERT, DELETE, SEARCH, starting from an
+   initially empty list.  If we perform a sequence of m operations, what is
+   the worst-case total time for all the operations?  We know that the
+   worst-case time for a single operation is Theta(k) (i.e., it is >= dk and
+   <= ck for some constants d,c) if the linked list contains k elements.
+   Also, the maximum size of the linked list after k operations have been
+   performed is k.  Hence, the worst-case running time of operation number i
+   is <= c(i-1), so the worst-case sequence complexity of the m operations
+   is <= sum_{i=0}^{m-1} ci = cm(m-1)/2.  Also, if we consider the sequence
+   INSERT(1),INSERT(2),...,INSERT(m), the size of the list before performing
+   INSERT(i) is exactly i-1 so the time taken for INSERT(i) is >= d(i-1).
+   Hence, the worst-case sequence complexity is >= dm(m-1)/2, i.e., it is
+   Theta(m^2).
+
+ * Sometimes T(m) << m times (worst-case cost of a single operation).
+   i.e., the "bad" cases might not happen very often.
+   Sometimes the "bad" cases happen so rarely that the "cheap" cases
+   dominate the running time, so
+     T(m) / m << worst-case cost of a single operation
+   In this case, amortized analysis allows us to share the cost of
+   expensive operations amongst the many cheap operations over a sequence
+   of m operations.
+
+ * The "amortized sequence complexity" of a sequence of m operations is
+   defined as follows:
+
+                                      worst-case sequence complexity
+      amortized sequence complexity = ------------------------------
+                                                    m
+
+   So the amortized complexity represents the "average worst-case"
+   complexity of each operation.  But be careful: this is *different* from
+   the average-case time complexity of one operation!  The amortized
+   complexity involves *NO* probability (the average is simply taken over
+   the number of operations performed).
+
+   [[Q:  In our example above, what is the amortized sequence complexity? ]] 
+
+ * Amortized analyses make more sense than a plain worst-case time analysis
+   in many situation, e.g.,
+
+    - A mail-order company employs a person to read customer's letters and
+      process each order: we care about the time taken to process a day's
+      worth of orders, for example, and not the time for each individual
+      order.
+
+    - A symbol table in a compiler is used to keep track of information
+      about variables in the program being compiled: we care about the time
+      taken to process the entire program, i.e., the entire sequence of
+      variables, and not about the time taken for each individual variable.
+
+ * We will cover two basic methods for doing amortized analyses: the
+   "aggregate" method and the "accounting" method.  We're going to look at
+   another example to illustrate both methods.
+
+--------------
+Dynamic Arrays:
+--------------
+
+ * Consider the following data structure: we have an array of some fixed
+   size, and two operations, APPEND (store an element in the first free
+   position of the array) and DELETE (remove the element in the last
+   occupied position of the array).  This data structure is the standard way
+   to implement stacks using an array.
+
+ * It has one main advantage (accessing elements is very efficient), and one
+   main disadvantage (the size of the structure is fixed).  We can get
+   around the disadvantage with the following idea: when trying to APPEND an
+   element to an array that is full, first create a new array that is twice
+   the size of the old one, copy all the elements from the old array into
+   the new one, and then carry out the APPEND operation.
+
+ * Think about the cost of performing n APPEND operations, starting from an
+   empty array of size 1, in the amortized sense.
+
+
+ * The Aggregate Method:
+
+   In the aggregate method, we simply compute the worst-case sequence
+   complexity of a sequence of operations and divide by the number of
+   operations in the sequence.
+
+   APPEND on array of size 1 holding 0: cost 1, result size 1    total cost=1
+   APPEND on array of size 1 holding 1: cost 2, result size 2    tc = 3
+   APPEND on array of size 2 holding 2: cost 3, result size 4    tc = 6
+   APPEND on array of size 4 holding 3: cost 1, result size 4    tc = 7
+   APPEND on array of size 4 holding 4: cost 5, result size 8    tc = 12
+   APPEND on array of size 8 holding 5: cost 1, result size 8    tc = 13
+   APPEND on array of size 8 holding 6: cost 1, result size 8    tc = 14
+   APPEND on array of size 8 holding 7: cost 1, result size 8    tc = 15
+   APPEND on array of size 8 holding 8: cost 9, result size 16   tc = 24
+
+
+   APPEND on array of size 2^n holding 2^{n}-1: cost 1, result size 2^n
+          tc = 2*2^n - 1 = 2^{n+1}-1
+
+   We can prove this by induction on n. 
+
+                                     2^{n+1}-1     
+   Amortized cost over 2^n APPENDS = ---------  = 2 - 1/2^n
+                                        2^n
+
+ * The Accounting Method:
+
+   In the accounting method, each operation is assigned a "cost" that
+   represents its worst-case running time, and a "charge" that represents
+   its amortized worst-case running time, approximately.  Moreover,
+   individual elements in the data structure will be assigned a "credit" in
+   the following way: when an operation's charge is greater than or equal to
+   its cost, the charge is used to "pay" for the operation's cost and
+   whetever is left over will be assigned as "credit" to specific elements
+   in the data structure.  When an operation's charge is less than its cost,
+   some of the credit assigned to particular elements will be used to pay
+   for the cost of the operation.
+
+   If we assign charges and distribute credits carefully, we can ensure that
+   each operation's cost will be paid and that the total credit stored in
+   the data structure is never negative.  This indicates that the total
+   amount charged for a sequence of operations is greater than or equal to
+   the total cost of the sequence, so we can use the total charge to compute
+   an upper bound on the amortized complexity of the sequence.  An advantage
+   of the accounting method over the aggregate method is that different
+   operations can be assigned different charges, representing more closely
+   the actual amortized cost of each operation.
+
+   Return to the dynamic arrays example.
+
+   Consider charging $3 for every APPEND. The costs of appends which do not
+   increase the array are $1 each. The costs of appends which increase the
+   array size depend on how many array elements are copied to the larger array.
+   The true cost is $1 per copied element and $1 additionally to add the new
+   element. 
+
+   Consider again APPENDING to an empty array with size 0. 
+   The cost for this operation is $1 and the charge is $3. This leaves a 
+   $2 credit.
+
+        $$
+       -----
+       | X | 
+       ----- 
+
+   Now the next append, causes the array size to double. This operation costs
+   $2 ($1 for the copy and $1 for the new append) but we charge $3. So the 
+   credit is $1.) 
+  
+        $$   $
+       ---------
+       | X | X |
+       --------- 
+
+   Now the next append, causes the array size to double again. This operation
+   costs $1 per copy and $1 to append the new item. Notice that each of the
+   items which needs to be copied, has associated with it at least $1 credit.
+   The new picture after the copy but before the insert of the new item is: 
+
+        $     
+       -----------------
+       | X | X |   |   |
+       ----------------- 
+
+   Now after inserting the item we have 
+
+        $       $$
+       -----------------
+       | X | X | X |   |
+       ----------------- 
+ 
+  [[Q: Why is there a $2 credit above the 3rd item?]]
+
+  [[Q: Draw the array after the 4th item is inserted.]]
+
+  When the 5th item is to be inserted, the array first doubles in size. The
+  'cost' of the doubling is paid for by the 'credits' on the last half of the
+  current array. Each element in the upper half has a $2 credit. 
+
+  [[Q: Draw the array after the expansion but before element 5 is inserted.]]
+
+  Now the insertion of each element into the empty upper half will cost $1 and
+  charge $3 giving a $2 credit. 
+
+  For an array of length n (where n = 2^k for some integer k) the credit
+  after n insertions will be 2n + 1. At no point does the credit ever become
+  negative. The cost per insertion is 3. 
+  So for n insertions the amortized cost is O(n).  

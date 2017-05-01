@@ -1,0 +1,334 @@
+===========================================================================
+CSC B63                 Lecture Summary for Week  1             Summer 2008
+===========================================================================
+
+===================
+Course Introduction
+===================
+  - see course information sheet
+  - course textbook is CLRS, available for free online at the library
+  - make sure you have CSCB36/236 and stats (STAB52/STA247/STA257)
+    prerequisites!
+      - for stats, you should be able to understand chapter 5 of CLRS
+  - there is a programming component, so be sure to get your computer
+    account working
+
+  - Plagiarism and other Academic Offenses:
+      - plagiarism isn't just copying large chunks of text, it's using
+	someone else's words, code or ideas in something you submit
+      - words, code and ideas can be transmitted either by actually sharing
+	files or simply by talking too much
+      - avoid seeing each other's work or talking about it in any detail!
+      - helping someone commit plagiarism is also a serious academic offense
+
+    http://www.cs.toronto.edu/~fpitt/documents/plagiarism.html
+        Plagiarism and how to avoid it.
+    http://www.cs.toronto.edu/~clarke/acoffences/
+        A little more general. Includes an explanation of the process for
+        dealing with an offence.
+
+
+
+========================
+ADTs and Data Structures
+========================
+
+Abstract Data Type (ADT):
+------------------------
+A set of objects together with a set of operations that can be performed
+on these objects.
+
+Example:
+ Object: Stack
+
+ Operations: PUSH(S,x): adds an element x as the last element of S
+             POP(S): deletes the last element of nonempty S and returns
+             this element
+             EMPTY(S): returns true if S is empty, false otherwise
+ *No implementation details are given
+
+Data Structure:
+--------------
+An implementation of an ADT; this includes a way to represent the objects 
+and the algorithms for the operations.
+
+Example:
+ we could implement a stack using a singly-linked list or an array with a 
+ counter to keep track of the last element.
+
+ To complete this example, we need to give the pseudocode to implement PUSH,
+ POP and EMPTY.
+
+Recap:
+------
+An ADT is a way to describe WHAT the data type is and WHAT you can do with it.
+A data structure is a way to describe HOW the data type is implemented and 
+HOW the operations are performed.
+
+
+-----------------------------------------
+Analysis of Data Structure and Algorithms
+-----------------------------------------
+
+-The complexity of an algorithm is the amount of resources it uses.
+-In general, resources might include:
+   time
+   space
+   network usage
+   database locks
+-We express the resources as a function of the size of the input.
+
+The definition of the size of the input depends on the type of object.
+ integers = number of bits to represent
+ lists = number of elements
+ graphs = number of vertices and edges
+
+Formally, the running time of an algorithm on a particular input is the
+number of primitive operations or "steps" executed.
+
+We use asymptotic notation to express the running time of an algorithm, since
+it is hard to calculate the number of primitive operations.
+
+Asymptotic Notation Review
+--------------------------
+Suppose f and g are functions mapping natural numbers to nonnegative reals.
+
+f is in O(g)  iff
+    there exists real c > 0, natural n_0 > 0 such that 
+    for all natural n >= n_0,  f(n) <= c g(n)
+=> up to a constant factor, g is an upper bound on the growth rate of f
+
+f is in Omega(g)  iff
+    there exists real c > 0, natural n_0 > 0 such that
+    for all natural n >= n_0,  f(n) >= c g(n)
+=> up to a constant factor, g is a lower bound on the growth rate of f
+
+f is in Theta(g) iff f in O(g) and f in Omega(g)
+=> up to a constant factor, f and g grow at the same rate
+
+Notice that 2n is in O(n), O(n^2), O(n^3), etc.
+and that 2n is in Omega(n), Omega(1), Omega(1/n), etc.
+[convince yourself of this now!]
+
+Note that asymptotic notation is talking about *functions* and has no mention
+of running time! In computer science we frequently use asymptotic notation
+to bound functions that measure running time. [Make this distinction now!]
+
+MISCONCEPTION BUSTER: Given an algorithm,
+  O(f) does NOT mean that the worst case is f(n)
+  Omega(g) does NOT mean that the best case is g(n)
+  Theta(h) does NOT mean that the average case is h(n)
+[Believing that the "not"s should be removed above is a sure way to fail
+computer science. I don't want that to happen, so come talk to me.]
+
+
+For the first part of this course, we focus on worst-case time complexity.
+
+Worst-case time complexity
+--------------------------
+A: an algorithm
+t(x): exact number of steps taken by algorithm A on the input x
+T(n): -function representing the worst-case time complexity of A
+      -the maximum number of steps taken by A on an input of size n 
+      T(n) = max { t(x) | x is input of size n }
+
+[ draw graph ]
+
+Proving Asymptotic Bounds
+-------------------------
+T(n) is O(g(n)) : show that if x is an input of size n, 
+                   then t(x) <= c g(n)
+
+                   i.e. for some constants c and n_0,
+                   if n >= n_0, then A takes **at most** c*g(n) steps 
+                   for **every input** of size n
+
+T(n) is Omega(g(n)): show that there is some input x of size n
+                     with t(x) >= c g(n)
+
+                     i.e. for some constants c and n_0,
+                     if n >= n_0 then A takes **at least** c*g(n) steps
+                     for **one** input of size n 
+
+T(n) is Theta(g(n)): show that T(n) is O(g(n)) and T(n) is Omega(g(n))
+
+Tips:
+----
+1) It is highly unlikely that you can calculate the exact number of steps taken
+  -(always) use the words **at most** (for O) and **at least** (for Omega)
+
+2) It is very hard to prove that some input **is** the worst-case
+  - if you find **some** input of size n, (to prove Omega, for example) 
+    then the worst-case input of size n will take **at least** as many steps
+
+3) To show T (n) is O(g(n)), T(n) is Omega(g(n)) and T(n) is Theta(g(n)) 
+you must find inputs that work for all n >= n_0. 
+  - never set n (i.e. never let n=3)
+
+------------------------------------------------------------------------
+
+Example: PRINT(i)
+
+A is an array of n elements.
+
+PRINT(i) prints the first i element (or n if i > n)
+
+PRINT(i)
+ counter = 0
+ for (counter <= i and counter <= n)
+   output A[counter]
+   counter = counter + 1
+ end for
+
+Let T(n) be the function representing the worst-case running time of PRINT(i).
+
+Show that T(n) in O(n), T(n) in Omega(n), and T(n) in Theta(n).
+
+------------------------------------------------------------------------
+
+  
+===============
+Priority Queues
+===============
+
+A max-priority queue abstract data type supports the following operations
+(among possibly other operations):
+
+INSERT(S,x): inserts element x into the set S.
+
+MAXIMUM(S): returns the element of S with the largest key.
+
+EXTRACT-MAX(S): removes and returns the element of S with the largest key.
+
+INCREASE-KEY(S,x,k): increases the value of element x's key to the new value k,
+which is assumed to be at least as large as x's current key value.
+
+A min-priority queue supports the operations INSERT, MINIMUM, EXTRACT-MIN,
+and DECREASE-KEY. For the remainder of these notes, interpret "MAX" as
+meaning "of highest priority", which might mean either largest integer
+or smallest integer (a max queue or a min queue) depending on the application.
+
+How can we implement a max-priority queue?
+1) unsorted array
+2) sorted array
+3) BST
+4) Heap
+5) etc... (we'll see more ways later)
+
+-----
+Heaps
+-----
+
+A heap is a nearly complete binary tree.
+
+The tree is completely filled on all levels except possibly the lowest,
+which is filled from the left to the right.
+
+-> the height of a heap is Theta(log n)
+
+Max-heap-order property:
+  - the root has the maximum value key
+  - a key stored at a non-root node is at most the value of its parent.
+
+Therefore:
+  - any path from the root to a leaf is in non-increasing order
+  - left and right sub-trees are unrelated.
+
+Max-heap example
+----------------
+
+                 16
+               /    \
+              14     10
+             /  \   /  \
+            8    7  9   3
+           / \   /
+          2   4  1
+
+A heap can be stored as an array:
+
+16 14 10 8 7 9 3 2 4 1
+
+The root of the heap is A[1].
+Given a node n at index i:
+  - the parent of n is at index floor(i/2),
+  - the left child of n is at 2i, and
+  - the right child of n is at 2i+1.
+
+Max-heap operations
+-------------------
+
+MAXIMUM(S):
+   return A[1]
+
+The worst-case running time of MAXIMUM(S) is Theta(1).
+
+INCREASE-KEY(A,i,k):   //increases the key of element A[i] to k
+  if k < A[i]
+    return 'error'
+  A[i] = k
+  while i > 1 and A[floor(i/2)] < A[i]
+    exchange A[i] and A[floor(i/2)]
+    i = floor(i/2)
+
+Example: (array locations in square brackets)
+-------
+                   16    [1]
+                 /    \
+          [2]   14      10  [3]
+              /    \   /    \
+       [4]   8   [5]7  9[6]  3 [7]
+           /   \   /
+      [8] 2 [9]4  1 [10]
+
+INCREASE-KEY(A,10,15)
+
+                 16
+               /    \
+              14     10
+             /  \   /  \
+            8    7  9   3
+           / \   /
+          2   4  15
+
+Exchange 1:
+
+                 16
+               /    \
+              14     10
+             /  \   /  \
+            8   15  9   3
+           / \   /
+          2   4  7
+
+Exchange 2/Final tree:
+
+                 16
+               /    \
+              15     10
+             /  \   /  \
+            8   14  9   3
+           / \   /
+          2   4  7
+
+Worst-case running time?
+  O(log n): traverses at most all the nodes along a path from a leaf to the 
+    root node. This path is at most the height of the tree.
+  Omega(log n): if we increase the key of a leaf node to a value greater than 
+    the root, we examine at least log n nodes
+
+=> INCREASE-KEY has Theta(log n) worst-case running time.
+
+INSERT(A,key):
+
+Can we implement INSERT(A,key) using the INCREASE-KEY operation?
+
+MAX-HEAP-INSERT(A,key):
+  heap_size[A] = heap_size[A] +1            <- constant
+  A[heap_size[A]] = - infinity              <- constant
+  INCREASE-KEY(A, heap_size[A],key)         <- Theta(log n)
+
+=> The worst-case running time is Theta(log n)
+
+Reading assignment: Chapter 6 - Heaps, heapsort and priority queues
+

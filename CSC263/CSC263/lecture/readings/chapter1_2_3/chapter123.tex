@@ -1,0 +1,270 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+
+% begin document
+\begin{document}
+
+\marginnote{Jan 12, 2017}
+
+\section*{1 Algorithm in Computing}
+
+\begin{defn*}
+  An \textbf{algorithm} is any well-defined computational procedure that takes an input to an output
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Sorting Problem}\\
+  \textbf{Input}: A sequence of $n$ numbers $<a_1, a_2, \cdots, a_n>$ \\
+  \textbf{Output}: A permutation (reordering) $<a_1', a_2', \cdots, a_n'>$ such that $a_1'\leq a_2' \leq \cdots \leq a'_n$
+\end{defn*}
+
+\begin{defn*}
+  An algorithm is said to be \textbf{correct} if, for every instance, it hals with the correct output. Here, \textbf{instance}  of a problem consists of the input (satisfying constraints) needed to compute a solution to the problem. We say a correct algorithm \textbf{solves} the given computational problem.
+\end{defn*}
+
+\begin{defn*}
+  A \textbf{data structure} is a way to store and organize data in order to facilitate access and modification
+\end{defn*}
+
+\section*{2 Getting Started}
+
+\textbf{Insertion Sort} An efficient algorithm for sorting a small number of elements.
+
+\begin{rem}
+  Like playing cards. Start with empty hands and cards face down on the table. We remove card one at a time from table and insert it to correct position in left hand. To find the correct position, we compare it with each of cards already in hand from right to left
+\end{rem}
+
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon
+  \SetKwFunction{is}{Insertion-Sort}
+  \KwIn{An array of elements $A$ unsorted}
+  \KwOut{Array $A$ is sorted}
+
+  \For{$j=2$ \KwTo $A.length$}{
+      $key = A[j]$
+      \tcc*{insert $A[j]$ into the sorted sequence $A[1..j-1]$}
+      $i = j-1$ \\
+      \While{$i > 0$ and $A[i] > key$}{
+        $A[i+1] = A[i]$ \\
+        $i = i-1$
+      }
+      $A[i+1] = key$
+    }
+  \caption{\sc Insertion Sort}
+\end{algorithm}
+
+\begin{defn*}
+  \textbf{Analyzing} an algorithm has come to mean predicting the resources that the algorithm requires
+\end{defn*}
+
+\begin{defn*}
+  The \textbf{input size} depends on problem being studied.
+  \begin{itemize}
+    \item \textit{number of items in the input} for sorting problems
+    \item \textit{number of bits} for multiplying two integers
+    \item \textit{more than a single number} for graphs
+  \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+  The \textbf{running time} $t(x)$ of an algorithm on a particular input $x$ is the number of primitive operations or steps executed
+  \begin{rem}
+    Basic assumption is that a constant time is required to execute each line of pseudocode. One line may take different amount of time than another and assume $i$ line takes time $c_i$. However we can ignore the abstract cost $c_i$ when computing running time
+  \end{rem}
+\end{defn*}
+
+\begin{note}
+  The running time for insertion sort depends on which input given a fixed size. The best case occurs if the array is already sorted, where $T(n) \in \mathcal{O}(n)$. If the array is in reverse sorted order, the worst case results, the inner while loop is executed $j$ times. The worst case runing time follows $T(n)\in \Theta(n^2)$
+\end{note}
+
+\begin{defn*}
+  The \textbf{worst-case running time} is the longest runing time for \textit{any} input of size $n$.
+  \[
+    T(n) = max \{ t(x): x \text{ is an input of size } n \}
+  \]
+  \begin{rem}
+    Finding the worst case running time gives us an upper bound on the running time of any input. Knowing it provides a gurantee that the algorithm will never take any longer. The average case is often roughtly as bad as the worst case. We are most interested in the \textbf{rate of growth} of running time by ignoring the leading coefficients and lower order terms.
+  \end{rem}
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{Divide-and-conquer} is an approach that break the problem into several subproblems that are similar to the original problem but smaller in size, solve the subproblems recursively, and then combine these solutions to create a solution to the original problem
+\end{defn*}
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon
+  \SetKwFunction{merge}{Merge}
+
+  \Fn{\merge$(A, p, q, r)$}{
+    \KwIn{$A$ is an array and $p,q,r$ are indices in the array such that $p \leq q< r$. Also $A[p..q]$ and $A[q+1..r]$ are sorted}
+    \KwOut{$A[p..r]$ retains the same element and sorted}
+    $n_1 = q - p + 1$\\
+    $n_2 = r-q$\\
+    let $L[1..n_1 + 1]$ and $R[1..n_2+1]$ be new arrays \\
+    \For{$i=1$ \KwTo n_1 }{
+      $L[i] = A[p+i-1]$
+    }
+    \For{$j=1$ \KwTo n_2 }{
+      $R[j] = A[q+j]$
+    }
+    $L[n_1 + 1] = \infty$\tcc*{Insert a sentinel $\infty$ to the end}\\
+    $R[n_2 + 1] = \infty$\tcc*{Avoids having to check if $L,R$ are empty}\\
+    $i= j = 1$\\
+    \For{$k=p$ \KwTo $r$}{
+      \If{$L[i] \leq R[j]$}{
+        $A[k] = L[i]$\\
+        $i = i+1$
+      }
+      \Else{
+        $A[k] = L[j]$\\
+        $j = j+1$
+      }
+    }
+  }
+
+  \caption{\sc Merge}
+\end{algorithm}
+
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon
+  \SetKwFunction{mergesort}{Merge-Sort}
+
+  \Fn{\mergesort$(A, p, r)$}{
+    \If{$p<r$}{
+      $q = \lfloor \frac{p+r}{2}\rfloor$ \\
+      \mergesort$(A, p, q)$\\
+      \mergesort$(A, q+1, r)$\\
+      \textsc{Merge}$(A, p, q, r)$
+    }
+  }
+\end{algorithm}
+
+
+\begin{defn*}
+  \textbf{Recurrence relation} describes overall running time on a problem of size $n$ in terms of the running time on smaller inputs.
+  \[
+    T(n) =
+    \begin{cases}
+      \Theta(1) & n\leq c\\
+      aT(\frac{n}{b}) + D(n) + C(n) & \text{otherwise}  \tag{$D$ - divide; $C$ - combine}
+    \end{cases}
+  \]
+\end{defn*}
+
+\begin{proposition*}
+  A \textbf{recursion tree} with $n$ leaves, i.e. input size, has $\log_2(n) + 1$ levels
+\end{proposition*}
+
+
+\section*{Growth of Functions}
+
+\begin{defn*}
+  The \textbf{asymptotic} efficiency of algorithms is how the running time of an algorithm increases with the size of the input in the limit, as the size of the input increases without bound. The \textbf{asymptotic notation} is a mathematical notation that describes the limiting behavior of a \textit{function} when the argument tends towards a particular value or infinity.
+\end{defn*}
+
+\begin{defn*}
+  \[
+    \Theta(g(n)) = \{ f(n): \exists c_1, c_2, n_0 > 0 \text{ such that } 0\leq c_1g(n)\leq f(n) \leq c_2g(n) \text{ for all } n\geq n_0\}
+  \]
+  where $g(n)$ is an \textbf{asymptotically tight bound} for $f(n)$
+  \begin{rem}
+    The definition requires that every $f(n)\in \Theta(g(n))$ be \textbf{asymptotically nonnegative} (for sufficiently large $n$) Consequently the function $g(n)$ must be asymptotically nonnegative as well, otherwise $\Theta(g(n)) = \emptyset$. Also beware of conventions
+    \begin{itemize}
+      \item $f(n) = \Theta(g(n)) \iff n\in \Theta(g(n))$
+      \item $2n^2 + 3n + 1 = 2n^2 + \Theta(n)$ is equivalent to $2n^2 + 3n + 1 = 2n^2 + f(n)$  such that $f(n) = \Theta(n)$
+    \end{itemize}
+  \end{rem}
+\end{defn*}
+
+\begin{proposition*}
+  For any polynomial $p(n) = \sum_{i=0}^{d} a_i n^i$, where $a_i \in \R$ and $a_d > 0$ we have $p(n) = \Theta(n^d)$
+\end{proposition*}
+
+\begin{defn*}
+  \[
+    \mathcal{O}(g(n)) = \{ f(n): \exists c, n_0 > 0 \text{ such that } 0\leq f(n) \leq cg(n) \text{ for all } n\geq n_0\}
+  \]
+  where $g(n)$ is an \textbf{asymptotically upper bound} for $f(n)$
+  \begin{rem}
+    The upper bound $\mathcal{O}(g(n))$ on the worst-case running time of an algorithm bounds every input. However a tight bound $\Theta(g(n))$ on the worst-case running time of an algorithm does not imply that it bounds every input. (i.e. Although for insertion sort, the worst case running time is $\Theta(n^2)$; the best-case input runs only in $\mathcal{O}(n)$, when the array is already sorted)
+  \end{rem}
+\end{defn*}
+
+
+\begin{defn*}
+  \[
+    \Omega(g(n)) = \{ f(n): \exists c, n_0 > 0 \text{ such that } 0 \leq cg(n)\leq f(n)  \text{ for all } n\geq n_0\}
+  \]
+  where $g(n)$ is an \textbf{asymptotically lower bound} for $f(n)$
+  \begin{rem}
+    We say that the running time of an algorithm is $\Omega(g(n))$ by no matter what particular input of size $n$ (i.e. best / worst - case) is chosen for each value of $n$, the running time is bounded by $g(n)$. This is equivalent to $\Omega(g(n))$ for best-case running time.
+  \end{rem}
+\end{defn*}
+
+\begin{theorem*}
+  For any two functions $f(n), g(n)$, we have $f(n) = \Theta(g(n))$ if and only if $f(n) = \mathcal{O}(g(n))$ and $f(n) = \Omega(g(n))$
+\end{theorem*}
+
+
+\begin{defn*}
+  \[
+    o(g(n)) = \{ f(n): \forall c > 0 \exists n_0 > 0 \text{ such that } 0\leq f(n) \leq cg(n) \text{ for all } n\geq n_0\}
+  \]
+  where $g(n)$ is an \textbf{upper bound that is not asymptotically tight}
+  \begin{rem}
+    For example, $2n = o(n^2)$ but $2n^2 \neq(n^2)$. Intuitively, $f(n)$ becomes insignificant relative to $g(n)$ as $n$ approaches infinity, i.e. $\lim_{n\to \infty} \frac{f(n)}{g(n)} = 0$
+  \end{rem}
+\end{defn*}
+
+
+
+\begin{defn*}
+  Similarly, a \textbf{lower bound that is not asymptotically tight} may be defined as
+  \[
+    f(n) \in \omega(g(n)) \iff g(n) \in o(f(n))
+  \]
+  \begin{rem}
+    For example $\frac{n^2}{2} = \omega(n)$. Intuitively $f(n)$ becomes arbitrarily large relative to $g(n)$ as $n$ approaches infinity, i.e. $\lim_{n\to \infty} \frac{f(n)}{g(n)} = \infty$
+  \end{rem}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Monotonicity} A functions is monotonically increasing if $m\leq n$ implies $f(m)\leq f(n)$. A function is strictly increasing if $m<n$ implies $f(m) < f(n)$
+\end{defn*}
+
+\begin{defn*}
+  For any real number $x$, denote the greatest integer less than or eequal to $x$  by $\lfloor x \rfloor$ and the least integer greater than or equal to $x$ by $\lceil x \rceil$. Some important properties
+  \begin{enumerate}
+    \item $x - 1 < \lfloor x \rfloor \leq x \leq \lceil x \rceil < x+1$
+    \item $\lceil \rfrac{n}{2} \rceil + \lfloor \rfrac{n}{2}\rfloor = n$
+  \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{modular arithmetic} For any integer $a$ and any positive integer $n$, the valule $a \mod n$ is the remainder of the quotient
+  \[
+    a\mod n = a - n \lfloor \rfrac{a}{n} \rfloor
+  \]
+  so follows that
+  \[
+    0 \leq a\mod n < n
+  \]
+\end{defn*}
+
+\begin{defn*}
+  Given $d \geq 0$, a \textbf{polynomial in $n$ of degree $d$} is a function $p(n)$ of the form
+  \[
+    p(n) = \sum_{i=0}^{d} a_i n^i
+  \]
+  where $a_i$ are coefifcients of the polynomial. A function is polynomial bounded if
+  \[
+    f(n) = \mathcal{O}(n^k)
+  \]
+\end{defn*}
+
+
+
+\end{document}

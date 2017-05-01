@@ -1,0 +1,115 @@
+===========================================================================
+CSC B63                 Lecture Summary for Week  8             Winter 2007
+===========================================================================
+
+[[Q:  denotes a question that you should think about and
+      that will be answered during lecture.  ]]
+
+------
+Graphs [ Appendix B.4 ]
+------
+
+ * A graph G = (V,E) consists of a set of "vertices" (or "nodes") V and
+   a set of "edges" (or "arcs") E. 
+    
+    - In a "directed" graph, each edge is a pair of nodes (u,v), and
+      the pair (u,v) is considered different from the pair (v,u);
+      also, self-loops (edges of the form (u,u)) are allowed.
+      
+    - In an "undirected" graph, each edge is a set of two vertices {u,v}
+      (so {u,v} and {v,u} are the same), and self-loops are disallowed.
+      
+    - A "weighted" graph is either directed or undirected, and each
+      edge e in E is assigned a real number w(e) called its "weight"
+      (or sometimes "cost").
+
+ * Standard operations on graphs:
+
+    - Add a vertex; Remove a vertex; Add an edge; Remove an edge.
+
+    - Edge Query: given two vertices u,v, find out if the directed edge
+      (u,v) or the undirected edge {u,v} is in the graph.
+
+    - Neighbourhood: given a vertex u in an undirected graph, get the set
+      of vertices v such that {u,v} is an edge (denoted N(u) or Nbr(u)).
+
+    - In-neighbourhood, out-neighbourhood: given a vertex u in a directed
+      graph, get the set of vertices v such that (u,v) (or (v,u),
+      respectively) is an edge (denoted N_in(u) and N_out(u), respectively).
+
+    - Degree, in-degree, out-degree: compute the size of the neighbourhood,
+      in-neighbourhood, or out-neighbourhood, respectively (denoted deg(u),
+      deg_in(u) and deg_out(u)).
+
+    - Traversal: visit each vertex of a graph (in a particular order)
+      to perform some task.
+
+    - etc.
+
+[[Q:  What are the standard data structures for graphs?  ]]
+
+
+---------------------------------------
+Data structures for representing graphs [ Section 22.1 ]
+---------------------------------------
+
+Drawing a pretty picture of a graph works well for humans, but computers
+aren't so happy about a pictorial representation. We now discuss three ways
+to represent a graph in a computer.
+
+[[Q: Study the trade-offs between using each of these representations.
+     What is the space requirements for each representation?
+     What is the time requirement of each "common" operation for each?
+     Can you solve different problems more efficiently with different
+     representations? ]]
+
+  * adjacency-list representation
+
+      - array of n elements Adj[], each entry indexed by a vertex of G
+
+      - Adj[v] is a list of adjacent vertices (either linked list or array)
+
+      - works well for representing undirected or undirected graphs
+
+      - if weighted graph, store weights in Adj[v] along with vertex
+        (i.e., for edge (v,u) with weight w, store pair [u, w] in Adj[v] list)
+
+      - there are exactly 2m (undirected graph) or m (directed graph)
+        entries over all adjacency lists
+	  -> efficient space storage
+
+  * adjacency-matrix representation
+
+      - use n x n matrix A, where entry A[u,v] = 1 if (u,v) is an edge,
+        A[u,v] = 0 if (u,v) is not an edge
+
+      - efficient edge query operation, but uses more memory
+
+      - works well for representing undirected or undirected graphs
+
+      - for weighted graph, store weights in A
+        i.e., if all weights are nonzero, A[u,v] = 0 means edge (u,v) not
+	in graph, otherwise, A[u,v] = w(u,v)
+
+      - for undirected graph, notice that upper and lower triangles are
+        mirror images (since (u,v) edge iff (v,u) edge)
+	  -> need only store the matrix portion of main diagonal and above,
+	     reducing memory usage nearly by half
+
+      - additional storage win for unweighted graphs: only need a single bit
+        to store whether (u,v) is an edge instead of an entire word of memory
+	  -> only makes difference in constant factor of asymptotic notation
+
+  * edge-list representation
+
+      - store a list of edges (i.e., linked list, array of m entries, etc.)
+
+      - efficient memory storage
+
+      - works well for representing undirected or undirected graphs
+
+      - for weighted graphs, store weight along with the edge in list
+
+[[Q: Can you come up with other useful representations that permit some
+     of the "standard operations" to be answered in constant time? ]]
+

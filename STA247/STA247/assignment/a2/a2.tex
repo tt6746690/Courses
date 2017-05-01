@@ -1,0 +1,238 @@
+
+
+\documentclass[11pt]{article}
+\input{"../preamble"}
+
+% begin document
+\begin{document}
+
+
+
+\section*{Problem 1}
+The number of stress-free students that show up in Bahen can be modeled with a Poisson random variable. On average, 4 stress-free students will show up on any given day.
+\begin{enumerate}
+  \item  What is the probability that while studying in Bahen that you’ll spot more than 4 stress-free students?
+
+  \begin{solution}
+    $ $\\
+    Let $X$ be a random variable representing the number of stress-free student showing up in bahen in a given day. $X \sim Poisson(4)$.
+    \begin{align*}
+      P(X > 4) &= 1 - P(X\leq 4)\\
+      &=0.3711631 \tag{using R to compute $ppois(4, 4)$}
+    \end{align*}
+    On average, the probability of more than 4 stress-free students show up in bahen in any given day is 0.371
+  \end{solution}
+
+  \item What is the probability that over the next 7 days, only three days will have exactly 5 stress-free students showing up in Bahen? Hint: Start with finding the probability that there are exactly 5 stress-free students on any given day.
+
+  \begin{solution}
+    $ $\\
+    Assume previous set up of $X$, then
+
+    \[
+      P(X = 5)= \frac{4^5e^{-4}}{5!} = 0.1562935
+    \]
+
+    To account for only 3 days having exactly 5-stress free student, let $Y$ be a random variable representing the number of days in a total of 7 days that bahen has exactly 5 stress-free students. Then $Y\sim Bin(7, 0.1562935)$,
+    \[
+      P(Y = 3) = \binom{7}{3}0.1562935^3(1-0.1562935)^4 = 0.0677
+    \]
+  \end{solution}
+  The probability that over the next 7 days, only 3 days will have exactly 5 stress-free students showing up in bahen is 0.0677
+\end{enumerate}
+
+\pagebreak
+
+\section*{Problem 2}
+A binomial random variable $Y$ has $\mu = 5.4$ and $\sigma^2 = 2.97$.
+
+\begin{enumerate}
+  \item Find $P(Y = 8)$
+  \begin{solution}
+    $ $\\
+    As $\mu = np$ and $\sigma^2 = np(1-p)$ where $n$ is the total number of trials and $p$ be the probability of success for each trial, then $np = 5.4$ and $np(1-p) = 2.97$. Then we can compute $n$ and $p$ from the system of equations: $p = 0.45$ and $n = 12$. Then,
+    \[
+      P(X = 8) = \binom{12}{8}0.45^8(1-0.45)^4 = 0.07616511
+    \]
+  \end{solution}
+
+  \item Find $P(Y \geq 9|Y \geq 2)$
+  \begin{solution}
+    $ $\\
+    \begin{align*}
+      P(Y \geq 9|Y \geq 2) &= \frac{P(Y \geq 9\cap Y \geq 2)}{Y \geq 2}\\
+      &= \frac{ P(Y \geq 9)}{Y \geq 2} \tag{$Y \geq 9$ implies $Y \geq 2$}\\
+      &= \frac{1-P(Y\leq 8)}{1-P(Y\leq 1)} \\
+      &= \frac{0.03557487}{0.9917109} \tag{compute $pbinom(k,12,0.45)$, using R}\\
+      &=0.03587222
+    \end{align*}
+  \end{solution}
+\end{enumerate}
+
+
+\pagebreak
+
+\section*{Problem 3}
+You arrive at a bus stop at 8:30 AM to get to school. You have reasons to believe that the bus will arrive at a time that is uniformly distributed between 8:30 AM and 8:50 AM. By 8:37 AM, you’re still waiting for the bus. What is the probability that you will have to wait at least another 5 minutes for the bus?
+
+\begin{solution}
+  $ $\\
+  Let $T$ be the time starting at 8:30 AM until the bus arrives. $T$ is uniformly distributed over interval 8:30 AM and 8:50 AM. Then $T\sim Uniform(0, 20)$. The probability to wait another 5 min when already waited 7 minutes is,
+  \begin{align*}
+    P(T\geq 12 | T\geq 7) &= \frac{P(T\geq 12 \cap T\geq 7)}{T\geq 7}\\
+    &= \frac{P(T\geq 12)}{T\geq 7} \tag{since $T\geq 12$ implies $T\geq 7$}\\
+    &= \frac{\displaystyle\int_{12}^{20} \frac{1}{20-0}dt }{\displaystyle\int_{7}^{20} \frac{1}{20-0}dt}\\
+    &=\rfrac{8}{13}
+  \end{align*}
+
+  The probability to wait another 5 minutes when already waited 7 minutes is $\frac{8}{13}$
+\end{solution}
+
+\pagebreak
+
+\section*{Problem 4}
+ A multiple-choice test consists of 20 items, each with four choices. For each question, the student can always ignore one of the choices because they know it is incorrect. For the remaining three choices, the student will randomly select one to be her answer. In order to pass this test, the student must get 12 or more questions correct.
+
+ \begin{enumerate}
+   \item What is the probability that the student passes?
+   \begin{solution}
+     $ $\\
+     Since student can eliminate a choice, the probability of then randomly selecting the correct answer is $\rfrac{1}{3}$. Let $X$ be the number of correctly answered questions in the set of 20 questions, with probability of answering correctly $p=\rfrac{1}{3}$. Then $X\sim Bin(20, \rfrac{1}{3})$
+     \begin{align*}
+      P(X\geq 12) &= 1-P(X\leq 11)\\
+      &=  0.0130 \tag{Compute using $pbinom(11,20, \rfrac{1}{3})$ with R}
+    \end{align*}
+    The probability that student pass is 0.0130
+   \end{solution}
+   \item If instead, the student can eliminate two of the choices for each question, what is her probability of passing now?
+   \begin{solution}
+     $ $\\
+     Since student can eliminate two choices, the probability of then randomly selecting the correct answer is $\rfrac{1}{2}$. Let $X$ be the number of correctly answered questions in the set of 20 questions, with probability of answering correctly $p=\rfrac{1}{2}$. Then $X\sim Bin(20, \rfrac{1}{2})$
+     \begin{align*}
+      P(X\geq 12) &= 1-P(X\leq 11)\\
+      &=  0.252 \tag{Compute using $pbinom(11,20, \rfrac{1}{2})$ with R}
+    \end{align*}
+   \end{solution}
+   This time, the probability that student passes is 0.252
+ \end{enumerate}
+\pagebreak
+
+\section*{Problem 5}
+A continuous random variable $T$ has probability density function:
+\[
+  f(t) =
+  \begin{cases}
+    \frac{1+\alpha t}{2} , & -1\leq t\leq 1\\
+    0 , & \text{ otherwise }
+  \end{cases}
+\]
+where $-1 \leq \alpha \leq 1$
+
+\begin{enumerate}
+  \item Show that $f$ is a density.
+  \\First,
+  \begin{align*}
+    &\displaystyle\int_{-\infty}^{\infty} f(t) dt = \int_{-1}^1 \frac{1+\alpha t}{2} dt = (\frac{1}{2}t + \frac{\alpha}{4}t^2)\Big\vert_{-1}^1 = 1 \\
+  \end{align*}
+  Then, when $-1\leq t\leq 1$, $\frac{1+\alpha t}{2} \geq 0$ because of the $\alpha$ and $t$ are bounded between -1 and 1. Otherwise, $f(t) = 0 \geq 0$. Therefore $\forall x\in \R, f(x)\geq 0$. Also $f(t)$ is continuous in $\R$ because its a linear function when $-1\leq t\leq 1$ and a constant otherwise.\\
+  Therefore $f$ is a valid density function.
+
+  \item Find the corresponding cumulative distribution function.\\
+  Let $F$ be cumulative distribution of $T$. Then,
+
+  \[
+    F(t) =
+    \begin{cases}
+      0, & t<-1\\
+      \frac{1}{2}t + \frac{\alpha}{4}t^2 + \frac{1}{2} - \frac{\alpha}{4}, & -1 \leq t \leq 1 \tag{compute $\int_{-1}^t \frac{1 + \alpha x}{2} dx$}\\
+      1, & t > 1\\
+    \end{cases}
+  \]
+
+  \item Find the median of the distribution in terms of $\alpha$.\\
+  Median is the 50 percentile. Find median $t$ such that $0.5 = F(t)$ requires solving
+  \[
+    \frac{1}{2}t + \frac{\alpha}{4}t^2 - \frac{\alpha}{4} = 0
+  \]
+  Use the quadratic formula, we find,
+  \[
+    t = \frac{-2 + \sqrt{4 + 4\alpha^2}}{2\alpha}
+  \]
+
+
+
+\end{enumerate}
+
+
+\pagebreak
+
+\section*{Problem 6}
+The lifetime (in years) of an electric component follows an expo- nential distribution with $\lambda = 0.2$.
+
+\begin{enumerate}
+  \item Find the probability that the lifetime is less than 10 years.
+  \begin{solution}
+    $ $\\
+    Let $X$ be the lifetime in years of an electric component such that $X\sim exp(\lambda = 0.2)$. Then, the cumulative density function $F$ is as follows,
+    \[
+      F(a) = P(X\leq a) =\int_0^a \lambda e^{-\lambda u}du = -e^{-\lambda u}\Big\vert_0^{a} = 1 - e^{-\lambda a}
+    \]
+    Therefore
+    \[
+      P(X<10) = F(10) = 1-e^{-0.2 \times 10} = 0.865
+    \]
+    The proabability that an electronic component last less than 10 years is 0.865
+  \end{solution}
+
+  \item Find the probability that the lifetime is between 5 and 15 years.
+  \begin{solution}
+    $ $\\
+    Use the cumulative density function from previous question,
+    \[
+      P(5<X<15) = F(15) - F(5) = (1-e^{-0.2 \times 15}) - (1-e^{-0.2 \times 5}) = 0.318
+    \]
+    The probability that lifetime is between 5 and 15 years is 0.318
+  \end{solution}
+  \item Find $t$ such that the probability that the lifetime is greater than $t$ is 0.01. What percentile would this be?
+  \begin{solution}
+    $ $\\
+    Equivalently, find $t$ such that $P(X\leq t) = 0.99$. Then,
+    \[
+      0.99 = P(X\leq t) = F(t) = 1 - e^{-0.2t}
+    \]
+    Then $t=23.026$. Here $t$ is the 99th percentile.
+
+  \end{solution}
+\end{enumerate}
+
+
+\section*{Problem 7}
+The number of phone calls that an office receives can be modeled as a Poisson process with $\lambda = 2$ per 15 minutes.
+
+\begin{enumerate}
+  \item If the secretary steps out to grab coffee for 10 minutes, what is the probability the phone rings during the time he is gone?
+  \begin{solution}
+    $ $\\
+    Let $X$ be the number of phone calls in 10 minutes having a corresponding $\lambda = \frac{4}{3}$. Then $X\sim Poisson(\lambda = \frac{4}{3})$
+    \[
+      P(X\geq 1) = 1- P(X=0) = 1-\frac{\lambda^0e^{-\lambda}}{0!} = 1- e^{-\frac{4}{3}} = 0.736
+    \]
+    Then the probability that the phone rings during time he is gone is 0.736.
+  \end{solution}
+  \item How long can the secretary be gone for if he wants the probability of receiving no phone calls during that time to be less than 0.5?
+  \begin{solution}
+    $ $\\
+    Let $X$ be the number of phone calls in $15t$ minutes, thereby $\lambda = 2t$. Then $X\sim Poisson(2t)$.
+    \begin{align*}
+      P(X=0) =\frac{\lambda^0e^{-\lambda}}{0!} &\leq 0.5\\
+      e^{-2t} &\leq 0.5 \\
+      t &\geq  0.347
+    \end{align*}
+    Therefore, the secretary can be gone for $15t = 5.1986$ minutes so that probability of receiving no phone calls during that time to be less than 0.5.
+  \end{solution}
+\end{enumerate}
+
+
+
+
+\end{document}

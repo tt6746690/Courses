@@ -1,0 +1,153 @@
+===========================================================================
+CSC 363H                Lecture Summary for Week  9             Summer 2006
+===========================================================================
+
+---------------------
+Polytime reducibility
+---------------------
+
+Defn:  Language A is "polytime reducible" to language B (written A <=p B)
+if there is a polytime computable function f : Sigma* -> Sigma* such that
+for all w in Sigma*, w in A iff f(w) in B.
+
+Almost identical to many-one reducibility, with added constraint that f can
+be computed in polytime.
+
+Just like <=m, think of "<=p" as comparing the difficulty of deciding the
+languages.  So A <=p B intuitively says "A is no more difficult to solve
+than B" or equivalently, "B is at least as hard to solve as A".
+
+Theorem:  A <=p B and B in P (or NP) -> A in P (or NP).
+Main proof idea:  On input x (or <x,c>), compute f(x), in polytime, then
+    run decider for B on f(x) (or verifier for B on <f(x),c>), in polytime.
+
+Corollary: A <=p B and A not in P (or NP) -> B not in P (or NP).
+
+Just like for decidability/recognizability, one example of a language not
+in P could be used to prove more, using <=p.
+Problem:  such languages hard to find, and only known examples are outside
+NP...  Want to focus on NP because it contains a vast majority of problems
+from "real life" applications.
+
+Idea: try to identify "hardest" problems in NP.
+
+Defn:  Language A is "NP-complete" (NPc) if
+ -  A in NP,
+ -  B <=p A for all B in NP (A is "NP-hard").
+
+Theorem:  If A is NPc, then A in P iff P = NP.
+Proof:
+ -  If P = NP, then A NPc -> A in NP -> A in P.
+ -  If A in P, then A NPc -> for all B in NP, B <=p A -> B in P (because
+    A in P), i.e., NP subset of P so P = NP.
+
+Corollary:  If P != NP and A is NPc, then A not in P.
+So proving NP-completeness "as good as" proving not in P.
+
+---------------
+NP-completeness
+---------------
+
+ -  SAT = { F : F is a propositional formula that is satisfiable, i.e.,
+                there is some assignment of truth-values to the variables
+                of F that makes F true }
+
+ -  Cook-Levin Theorem:  SAT is NPc
+    SAT in NP: Given <F,c>, check that c encodes an assignment of truth
+        values to the variables of F that makes F evaluate to TRUE.
+        This can be done in polytime, and F is satisfiable iff
+        there is some value of c that makes the verifier accept.
+    SAT is NP-hard: (high-level idea only)
+        For an arbitrary language A in NP, by definition, there is some NTM
+        M_A that decides A in time <= C n^k for some constants C, k.
+        Given an input x, we can construct a formula F_x that describes
+        possible computation paths (of length at most C |x|^k) of M_A on x,
+        such that F_x is satisfiable iff there is some computation path of
+        M_A that accepts x.  Intuitively, we are simulating the TM model of
+        computation using propositional formulas, which are similar to
+        digital circuits.  Details are in the textbook and are needed to
+        ensure that this can be done in polytime.
+
+In general, to prove A is NP-hard, it's sufficient to show B <=p A for some
+B known to be NP-hard: if B <=p A then for all L in NP, L <=p B (by
+definition of NP-hardness for B) so L <=p A (since <=p is transitive,
+something you can prove as an easy exercise).
+
+Examples:
+
+ -  3SAT is NPc:
+    3SAT in NP because it's a special case of SAT.
+    In proof of Cook-Levin, possible to construct formula F_x in CNF, so
+    CNF-SAT is NP-complete; CNF-SAT <=p 3SAT is proven separately (see
+    additional lecture notes for week 9 -- you are responsible for reading
+    them and asking questions if there's anything you don't understand).
+
+    Note:  Careful with directions!  Trivially, 3SAT <=p CNF-SAT (3SAT is
+    special case of CNF-SAT).  But we need other direction, transforming
+    instances of general problem into instances of restricted problem.
+
+ -  VERTEX-COVER is NPc:  (see textbook)
+    VERTEX-COVER (VC for short) = { <G,k> : G is a graph that contains a
+    vertex cover of size k, i.e., a set C of k vertices such that each edge
+    of G has at least one endpoint in C }
+     .  VC in NP:  certificate = vertex cover of size k.
+     .  VC is NP-hard:  3SAT <=p VC.
+        Given F = (a1 \/ b1 \/ c1) /\ ... /\ (ar \/ br \/ cr), where
+        ai,bi,ci in {x1,~x1,x2,~x2,...,xs,~xs}, construct G=(V,E) and k
+        such that F satisfiable iff G contains vertex cover of size k, as
+        follows:
+            k = s + 2r
+            V = { a1,b1,c1, ..., ar,br,cr, x1,~x1, ..., xs,~xs }
+            E = { (xi,~xi) : 1 <= i <= s } U
+                { (ai,bi),(bi,ci),(ci,ai) : 1 <= i <= r } U
+                { (l,x) : l = ai or bi or ci, and x = xj or ~xj
+                          corresponding to l }
+        For example, if
+        F = (x1 \/ ~x2 \/ ~x4) /\ (x2 \/ ~x3 \/ x1) /\ (~x3 \/ x4 \/ ~x2),
+        then a1=x1, b1=~x2, c1=~x4, a2=x2, b2=~x3, c2=x1, a3=~x3, b3=x4,
+        c3=~x2 so
+        k = 4 + 2*3 = 10
+        V = {a1,b1,c1, a2,b2,c2, a3,b3,c3, x1,~x1, x2,~x2, x3,~x3, x4,~x4}
+        E = { (x1,~x1), (x2,~x2), (x3,~x3), (x4,~x4),
+              (a1,b1), (b1,c1), (c1,a1), (a1,x1), (b1,~x2), (c1,~x4),
+              (a2,b2), (b2,c2), (c2,a2), (a2,x2), (b2,~x3), (c2,x1),
+              (a3,b3), (b3,c3), (c3,a3), (a3,~x3), (b3,x4), (c3,~x2) }
+
+        Clearly, construction can be done in polytime (with one scan of F).
+
+        Also, if F is satisfiable, then there is an assignment of truth
+        values that make at least one literal in each clause true.  Pick a
+        cover C as follows: for each variable, C contains xi or ~xi,
+        whichever is true under the truth assignment; for each clause, C
+        contains every literal except one that's true (pick arbitrarily if
+        more than one true literal).  C contains exactly s+2r vertices and
+        is a cover: all edges (xi,~xi) are covered; all edges in clause
+        triangles are covered (because we picked two vertices from each
+        triangle); all edges between "clauses" and "variables" are covered
+        (two from inside triangle, one from true literal for that clause).
+
+        Finally if G contains a cover C of size k=s+2r, C must contain at
+        least one of xi or ~xi for each i (because of edges (xi,~xi)) and
+        at least two of ai,bi,ci for each i (because of triangle), so only
+        way for C to have size s+2r is to contain exactly one of xi or ~xi
+        and exactly two of ai,bi,ci, for each i.  Since C covers all edges
+        with only two vertices per triangle, the third vertex in each
+        triangle must have its "outside" edge covered because of xi or ~xi.
+        If we set literals according to choices of xi or ~xi in C, this
+        will make formula F true: at least one literal will be true in each
+        clause (because at least one edge from "variables" to "clauses" is
+        covered by the variable in C).
+
+---------------------------------------------------------------------------
+
+Template for proofs of NP-completeness:  To show A is NPc, prove that
+    A in NP: Describe a polytime verifier for A.
+        "Given <x,c>, check c has right format and properties..."
+        Argue that verifier runs in polytime and that
+        x in A iff verifier accepts <x,c> for some c.
+    A is NP-hard: Show B <=p A for some NP-hard B.
+        "Given y, construct x as follows: ..."
+        Argue that construction can be carried out in polytime
+        and that y in B iff x in A
+        (often by showing y in B -> x in A and x in A -> y in B).
+

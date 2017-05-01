@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML LANG="en">
+<HEAD>
+<TITLE>CSC 373 Winter 2006</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H1><a href="..">CSC 373</a>: Term Tests and Final Exam</H1>
+
+<h3>Test Schedule</h3>
+<table border=1 cellpadding="3">
+<tr> <th>Test</th> <th> Weight</th> <th>Date</th>
+</tr>
+
+<tr>
+  <td><a href="#test1">Term Test 1</a></td>
+  <td align="right">15%</td>
+  <td>Wednesday, February 8</td>
+</tr>
+<tr>
+  <td><a href="#test2">Term Test 2</a></td>
+  <td align="right">15%</td>
+  <td>Wednesday, March 22</td>
+</tr>
+<tr>
+  <td><a href="#final">Final Exam</a></td>
+  <td align="right">40%</td>
+  <td><a href="http://www.utm.utoronto.ca/~w3reg/timetable/cal_pub.php">Exam period</a></td>
+</tr>
+</table>
+
+
+<a name="general"></a>
+<h2>General information</h2>
+
+<p>
+Check the <a href="#pastofferings">past course offerings</a>
+section for links to previous offerings of this course,
+where you can find term tests and assignments to practice on.
+</p>
+
+<p>
+The term tests will last <em>50 minutes</em>
+and will be held during regularly scheduled lecture time.
+</p>
+
+<p>
+If you have any serious conflict
+with the time or date of the test(s),
+please inform your instructor <em>immediately</em>
+to make alternative arrangements.
+</p>
+
+<p>
+The midterm test will be <em>closed book</em>
+(<em>i.e.</em>, NO aids allowed),
+and should be written in <em>pen</em>
+(remarking requests for tests written in pencil will not be accepted)
+&mdash; the test paper will have lots of room for rough work.
+</p>
+
+<h3>The "20% rule"</h3>
+
+<p>
+We want to encourage you to be aware of (and honest about)
+what you know and what you do not know,
+because it's important to be aware of the level of your own knowledge.
+(Also, to be quite frank,
+this will spare you the trouble of writing
+&mdash; and us the trouble of reading &mdash;
+lots of random or irrelevant bits of information
+in the hopes of getting a few part marks.)
+For this reason,
+if you cannot answer a question
+(or part of a question)
+on a term test or on the final exam,
+you will receive 20% of the marks for that question
+(or part of a question) if you write
+</p>
+<blockquote><p>
+      <em>I don't know.</em>
+</p></blockquote>
+<p>
+(or something similar)
+in the space reserved for your answer.
+<em>You will NOT receive the 20%
+if you leave your answer completely blank,
+or if you write anything in addition to the sentence above</em>,
+because neither of those cases
+show that you are aware of what you don't know.
+However, if you cross off an answer that you realized was wrong
+(so it will not be marked),
+and then write the sentence above,
+you will receive the 20%.
+</p>
+
+<p>
+Note that it is certainly possible to get less than 20% on a question,
+if you write an answer that is mostly incorrect.
+Note also that this rule <em>does not apply on assignments</em>,
+where you have the time (and the responsibility)
+to ask questions and learn how to solve each problem.
+</p>
+
+<h3><a name="pastofferings">
+Past Course Offerings</a></h3>
+
+<p>Some previous offerings of this course:
+<a href="/%7Ebor/373f05/">Fall 2005</a>;
+<a href="/%7Embraverm/CSC373/">Summer 2005</a>;
+<a href="/%7Efpitt/CSC373/20051/">Winter 2005</a>;
+<a href="/%7Ebor/373f04/">Fall 2004</a>.
+</p>
+
+<hr>
+
+<h2><a name="final">Final Examination Details</a></h2>
+
+<p>
+The final exam will be written at the time set by the
+<a href="http://www.utm.utoronto.ca/~w3reg/timetable/cal_pub.php">Final Exam Timetable</a>.
+Make sure you note the date, time and room carefully.
+</p>
+
+<p>
+The exam is set for <i>three hours</i> in length.
+The exam is <i>closed-book</i> but a <i>handwritten</i> notes-sheet is
+permitted as your only aid.
+It must be a US letter-sized sheet of paper (8.5" by 11") and must contain
+only hand-written notes on both sides.
+You must make your notes-sheet available to the exam presiding officers
+for inspection at any time.
+Make sure you have only handwritten notes on the sheet: otherwise is will
+be confiscated and you may face penalties and sanctions as specified by the
+Registrar's Office.
+</p>
+
+<p>
+The final exam will consist of 5-6 questions.
+Each will consist of a problem (or series of related problems) for which
+you will give an efficient algorithm to solve or approximate,
+prove that an algorithm solves or approximates the problem, or both.
+</p>
+
+<p>
+The exam will cover the following topics: greedy algorithms and their proofs,
+dynamic programming algorithms, divide-and-conquer algorithms,
+expressing problems using network flow, expressing problems as linear programs,
+and approximation algorithms.
+</p>
+
+<p>
+The textbook exercises and past exams are good sources of study questions.
+In the back of each chapter there are solved exercises you can try and check,
+and many problems you can try solving.
+The Past Course Offerings section contains links to some of these exams.
+The Faculty of Arts and Science on St. George campus also has a website
+containing many of the past final exams for their courses.
+</p>
+
+<hr>
+
+<h2><a name="test2sol">Term Test 2 Answers</a></h2>
+
+<p>
+Sample solutions to term test 2:
+<a href="test2sol.pdf">PDF</a> and
+<a href="test2sol.ps">PS</a>
+
+</p>
+
+
+<h2><a name="test2">Term Test 2 Details</a></h2>
+
+<p>
+The second term test will be 50 minutes long, and written in the first hour
+of lecture on March 22. The test will take place in the regular lecture
+room. No aids will be allowed (closed book, no calculators, etc.).
+</p>
+
+<p>
+Coverage and test format was decided in class prior to the test.
+The test will cover divide-and-conquer algorithms and network flow.
+I will provide to you the Master Theorem, so you don't need to memorize it
+-- concentrate instead on how to use it (or better yet, on how to come up
+with and analyze divide-and-conquer algorithms).
+I expect you to know:
+</p>
+<ul>
+  <li>how to come up with and argue running time of a simple
+  divide-and-conquer algorithm,
+  <li>the Ford-Fulkerson algorithm for maximum network flow,
+  <li>how to prove a flow is maximum and how to find a minimum
+  capacity cut, 
+  <li>how to model simple problems as network flows, and
+  <li>how to use a flow to extract a solution for such a problem.
+</ul>
+
+<p>
+Sample solutions to Assignment 3 will not be available online before the
+test, though the TA went through them in tutorial. There is a chance marks
+might be available prior to the test, so watch the Announcements page.
+</p>
+
+<p>
+The term test 2 from last year might be a useful practice tool:
+<a href="http://www.cs.toronto.edu/~fpitt/CSC373/20051/termtests/index.shtml">Winter 2005</a>.
+</p>
+
+<hr>
+
+<h2><a name="test1">Term Test 1 Details</a></h2>
+
+<p>
+The first term test will be 50 minutes long, and written in the first hour
+of lecture on February 8. The test will take place in the regular lecture
+room.
+</p>
+
+<p>
+The test will cover greedy algorithms and dynamic programming algorithms.
+Questions will typically ask for to come up with an efficient algorithm
+to solve some problem, prove that an algorithm is correct, or both.
+Problems will be similar to homework problems (except easier).
+Often test problems are related to or similar in nature to problems you
+have seen in lecture, tutorial, or in the assigned readings from the textbook.
+I will try to return Assignment 1 prior to the test, so you can get feedback
+from the TA.
+</p>
+
+<p>
+The format of the test is four problems, do three.
+Read over the entire test first, then choose which problems you would
+like to solve. Only three problems will be marked, so don't try to
+finish all four... you won't get any extra credit.
+</p>
+
+<HR>
+
+<TABLE width="100%">
+<TR>
+<TD>
+<SMALL>
+<!--Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>-->
+<SCRIPT TYPE="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+<TD align=right>
+    <a href="http://validator.w3.org/check?uri=referer"><img border="0"
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

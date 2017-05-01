@@ -1,0 +1,589 @@
+\documentclass[8pt]{article}
+\usepackage[a4paper,margin=0.12in,landscape]{geometry}
+\setlength{\tabcolsep}{2pt}
+\input{/Users/markwang/.preamble}
+\begin{document}
+\begin{tabular}{l l l l l l l l l l l}
+	distribution    & parameter                                    & support                  & $f(x|\theta)$                      & $F(x)$                                   & $\E$ & $Var$  & $m(t) = \E(e^{tX})$               & $\mathcal{I}$  & ind. $\sum_{i=1}^n X_i \sim$  & $\hat{\theta}_{MLE}$              \\
+  \hline
+
+  $Bernoulli(p)$ & $0<p<1$ & $k\in \{0,1\}$ & $p$ if $k=1$ $(1-p)$ if $k=0$ & $1-p$ & $p$ & $p(1-p)$ & $(1-p) + pe^t$ & $\frac{1}{p(1-p)}$ & $Binom(n,p)$ & $\overline{X}$\\
+
+
+	$Binomial(n,p)$ & $n$-\# of trial; $p$- $\mathbb{P}$ of success & $k\in \{ 0, \cdots, n\}$ & $\binom{n}{k}p^kq^{n-k}$ & $\sum_{i=1}^x \binom{n}{x}p^xq^{n-x}$ & $np$        & $np(1-p)$ & $(1 - p + pe^t)^n$ & $\frac{n}{p(1-p)}$& $Binom(\sum_{i=1}^n n_i , p)$ & $\overline{X}$ \\
+
+  $Geom(p)$ & $0<p\leq 1$; $k$-\# of trials & $k \in \{ 1,2,\cdots\}$ & $(1-p)^{k-1}p$ & $1 - (1-p)^k$ & $\frac{1}{p}$ & $\frac{1-p}{p^2}$ & $\frac{pe^t}{1 - (1-p)e^t}$ & $\frac{n}{p^2(1-p)}$ & $NegBin(n, p)$ & $\frac{1}{\overline{X}}$\\
+
+  $NegBin(r, p)$ & $r$-\# of success; $x$- \# of fails & $x \in \{0, \cdots \}$ & $\binom{x+r-1}{r-1}p^r (1-p)^x$ & & $\frac{r(1-p)}{p}$ & $\frac{r(1-p)}{p^2}$ & $\left(\frac{1-p}{1-pe^t} \right)^{n-k}$ & \\
+
+  $Poisson(\lambda)$ & $\lambda>0$ - mean & $k\in \N \cup 0$ & $\frac{\lambda^k}{k!}e^{-\lambda}$ & $e^{-\lambda}\sum_{i=0}^{k} \frac{\lambda^i}{i!}$ & $\lambda$ & $\lambda$ & $e^{\lambda(e^t - 1)}$ & $\frac{n}{\lambda}$ &  $Poisson(\sum_{i=1}^n \lambda_i)$ & $\overline{X}$\\
+
+  $Uniform(a,b)$ & $-\infty< a< b<\infty$ & $x\in [a,b]$ & $\frac{1}{b-a}$ & $\frac{x-a}{b-a}$ & $\frac{1}{2}(a+b)$ & $\frac{1}{12}(b-a)^2$ & $\frac{e^{tb} - e^{ta}}{t(b-a)}$ & & & $X_{(n)}$\\
+
+
+  $Exp(\lambda)$ & $\lambda > 0$ - rate & $x\in [0, \infty)$  & $\lambda e^{-\lambda x}$ & $1 - e^{-\lambda x}$ & $\frac{1}{\lambda}$ & $\frac{1}{\lambda^2}$ & $\frac{\lambda}{\lambda -t}$ & $\frac{n}{\lambda^2}$ & $Gamma(n, \lambda)$  & $\frac{1}{\overline{X}}$\\
+
+
+  $Gamma(\alpha, \lambda)$ & $\alpha$ - shape; $\lambda$ - rate & $x\in (0, \infty)$ & $\frac{\lambda^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1}e^{-\lambda x}$ & & $\frac{\alpha}{\lambda}$ & $\frac{\alpha}{\lambda^2}$ & $\left(\frac{\lambda}{\lambda - t}\right)^{\alpha}$ & & $Gamma(\sum_{i=1}^n \alpha_i, \lambda)$ & $\frac{\alpha}{\overline{X}}$\\
+
+  $\mathcal{N}(\mu, \sigma^2)$ & $\mu$ - mean; $\sigma^2$ - variance & $x\in \R$ & $\frac{1}{\sqrt{2\sigma^2 \pi}} exp\{-\frac{(x-\mu)^2}{2\sigma^2}\}$ & & $\mu$ & $\sigma^2$ & $exp\{ \mu t + \frac{1}{2}\sigma^2 t^2\}$ &  $\frac{1}{\sigma^2}$, $\frac{n}{2\sigma^4}$ & $\mathcal{N}(\sum_{i=1}^n \mu_i, \sum_{i=1}^n \sigma^2_i)$\\
+
+  $\Phi$  & & $x\in \R$ & $\frac{1}{\sqrt{2\pi}} e^{-x^2 / 2}$&  $\frac{1}{\sqrt{2\pi}} \int_{-\infty}^x e^{-t^2 /2 } dt$ & 0 & 1 & $exp\{\frac{t^2}{2}\}$ & \\
+
+  $Cauchy(\theta)$ & & $x\in\R$ & $\frac{1}{\pi [1 + (x-\theta)^2]}$ & & n/a & n/a & n/a \\
+  $Multi(n,p_1,\cdots,p_k)$ &$n$-# of trial, $p_i$-event $\mathbb{P}$ & $X_i\in \{0, \cdots, n\}$ & $\frac{n!}{x_1!\cdots x_k!}p_1^{x_1}\cdots p_k^{x_k}$ & & $np_i$ & $np_i(1-p_i)$ & $\left( \sum_{i=1}^k p_i e^{t_i} \right)^n$
+
+\end{tabular}
+
+\newpage
+
+\begin{multicols}{3}
+  {\itshape
+  \subsection*{Probability}\\
+  \begin{tabular}{l l}
+    If $A_i \cap A_j = \emptyset$ &$P(\bigcup_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty} P(A_i)$\\
+    Cond. probability & $P(A|B) = \frac{P(A \cap B)}{P(B)}$\\
+    If $B_i$ mutually ind. & $P(A) = \sum_{i=1}^n P(A|B_i)P(B_i)$\\
+    Independence & $P(A\cap B) = P(A)P(B)$\\
+    Bayes' Rule & $P(B_j | A) = \frac{P(A|B_j)P(B_j)}{\sum_{i=1}^n P(A|B_i)P(B_i)}$\\
+  \end{tabular}
+
+  \subsection*{Distribution Function}\\
+  $F_X(x) = P(X\leq x) = \int_{-\infty}^{x} f_X(x)dx$ \\
+  $f_X(x) = \frac{d}{dx} F_X(x)$\\
+  $F(x_1, \cdots, x_n) = P(X_1 \leq x_1, \cdots X_n\leq x_n)$\\
+  If $X_i$ independent, then $f_{\underline{X}}(\underline{x}) = \prod_{i=1}^n f_{X_i}(x_i)$\\
+  \textbf{Transformation method} $f_Y(y) = f_X(g^{-1}(y))|\frac{dg^{-1}(y)}{dy}|$
+
+
+  \subsection*{Order statistc}\\
+  Let $X_{(1)} = V = min\{X_1, \cdots, X_n\}$\\
+  and $X_{(n)} = U = max\{X_1, \cdots, X_n\}$\\
+  $F_U(u) = P(U \leq u) = [F_X(u)]^n$\\
+  $f_U(u) = nf_X(u)[F_X(u)]^{n-1}$\\
+  $F_V(v) = 1 - [1 - F_X(v)]^{n}$\\
+  $f_V(v) = nf_X(v)[1 - F_X(v)]^{n-1}$\\
+
+
+  \subsection*{Expected Value and Variance}\\
+  \textbf{Excepted value} $\E(X) = \sum_i x_i f_X(x_i) = \int_{-\infty}^{\infty} xf(x)dx$\\
+  \textbf{Invariance} If $Y = g(X)$ then $\E[Y] = \int_{-\infty}^{\infty} g(x)f(x)dx$\\
+  \textbf{Linearity} If $Y = a+\sum_{i=1}^n b_i X_i$ then $\E[Y] = a + \sum_{i=1}^n b_i \E[X_i]$\\
+  If $X_i$ independent, then $\E[\prod_{i=1}^n X_i] = \prod_{i=1}^n \E[X_i]$\\
+  \textbf{Variance} $Var(X) = \E\{ (X - \E[X])^2\} = \int_{-\infty}^{\infty} (x-\mu)^2 f(x)dx$\\
+  $Var(X) = \E[X^2] - (\E[X])^2$\\
+  If $Y = a+bX$ then $Var(Y) = b^2Var(X)$\\
+  $Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)$\\
+  If $X_i$ independent, then $Var(\sum_{i=1}^n X_i) = \sum_{i=1}^n Var(X_i)$\\
+  \textbf{Conditional Expectation of $X$ given the event $Y=y$}
+  \[
+    \E[X|Y=y] = \sum_{x\in\mathcal{X}} xP(X=x | Y=y) =  \sum_{x\in\mathcal{X}} x\frac{P(X=x, Y=y)}{P(Y=y)}
+  \]
+  \[
+    \E[X|Y=y] = \int_{\mathcal{X}} xf_X(x,y) dx =  \int_{\mathcal{X}} x \frac{f_{X,Y}(x,y)}{P(Y=y)} dx
+  \]
+  \textbf{Conditional Expectation w.r.t. a random variable} $Y$
+  \[
+    g: y \mapsto \E(X|Y=y) \quad \quad E(X|Y) = g(Y): \omega \mapsto \E[X|Y = Y(\omega)]
+  \]
+  \begin{tabular}{l l}
+    \textbf{Law of total $\mathbb{P}$} & $\E[\E[X|Y]] = \E[X]$\\
+    \textbf{conditional variance} & $Var[X|Y] = \E[(X-\E[X|Y])^2 | Y)$ \\
+    \textbf{Formula for variance} & $Var[X|Y] = E[X^2 | Y] - (\E[X|Y])^2$\\
+    \textbf{Law of total variance} & $Var(X) = \E[Var(X|Y)] + Var(\E[X|Y])$\\
+  \end{tabular}
+
+
+  \subsection*{Covariance}\\
+  $Cov(X,Y) = \E[(X-\mu_X)(Y - \mu_Y)] = \E[XY] - \E[X]\E[Y]$\\
+  If $U = a + \sum_{i=1}^n b_iX_i$ and $V=c + \sum_{j=1}^m d_j Y_j$, \\
+  then $Cov(U,V) = \sum_{i=1}^n \sum_{j=1}^m b_i d_j Cov(X_i, Y_j)$\\
+  $Cov(aX + bY, cZ) = acCov(X, Z) + bcCov(Y, Z)$\\
+  $\rho = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}} = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}$\\
+
+  \subsection*{Moment generating function} \\
+  $M(t) = \E[e^{tX}] = \int_{-\infty}^{\infty} e^{tx} f(x)dx$\\
+  $k$th moment $E(X^k) = M^{(k)}(0)$\\
+  $\frac{d^k}{dt^k}M(t) = \frac{d^k}{dt^k}\E[e^{tX}] = \frac{d^k}{dt^k}\E[X^k e^{tX}]|_{t=0} = \E[X^k]$\\
+  If $Y = a+bX$, then $M_Y(t) = e^{at}M_X(bt)$\\
+  If $X_i$ independent, $M_{\sum_{i=1}^n X_i}(t) = \prod_{i=1}^n M_{X_i}(t)$\\
+
+  \subsection*{Limit Theorem}\\
+  \textbf{Convergence in Probability} A sequence $\{ X_n\}$ converges in probability to $X$ if for all $\epsilon> 0$ we have
+  \[
+    \lim_{n\to\infty}\mathbb{P}(|X_n - X| \geq \epsilon) = 0 \iff X_n \stackrel{p}{\to} X
+  \]
+  \textbf{Convergence in Distribution} A sequence $\{ X_n \}$ with cdf $F_n$ converges in distribution to $X$ with cdf $F$ if
+  \[
+    \lim_{n\to\infty} F_n(X) = F(x) \iff X_n \stackrel{d}{\to} X
+  \]
+  \textbf{Law of Large Number} If $X_i$ be $i.i.d.$ with $\E[X_i] = \mu$ and $Var(X_i) = \sigma^2$. Let $\overline{X} = \frac{1}{n}\sum_{i=1}^n X_i$ Then
+  \[
+    P\left( \left|\overline{X}- \mu \right| > \epsilon \right) \stackrel{n\to\infty}{\to} 0 \quad or \quad \overline{X} \overset{p}{\rightarrow} \mu
+  \]
+  \textbf{Continuity Theorem} If $M_n(t) \to M(t)$ then $F_n(x)\to F(x)$.\\
+  \textbf{Standardization}
+  \[
+    Z = \frac{X - \E[X]}{\sqrt{Var(X)}}
+  \]
+  \textbf{Central Limit Theorem} Let $X_i$ be $i.i.d.$ RV with $\E[X_i] = \mu$ and $Var[X_i] = \sigma^2$ and let $S_n = \sum_{i=1}^n X_i$ then
+  \[
+    Z_n = \frac{S_n - n\mu}{\sigma \sqrt{n}} \stackrel{d}{\to} \phi(x) \quad or \quad \sqrt{n}(\overline{X}-\mu) \stackrel{d}{\to} \mathcal{N}(0, \sigma^2)
+  \]
+
+  \subsection*{Distribution from Normal}\\
+  \[
+    \overline{X} = \frac{1}{n}\sum_{i=1}^n X_i \quad S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \overline{X})^2
+  \]
+  If $X_i \sim \mathcal{N}(\mu, \sigma^2)$ then $\overline{X} \sim \mathcal{N}(\mu, \frac{\sigma^2}{n})$\\
+  \textbf{Chi-squared} Let $Z_i \stackrel{i.i.d.}{\sim} \mathcal{N}(0,1)$ then $\chi_n^2 = \sum_{i=1}^n Z_i^2$ with $n$ d.f.
+  \begin{enumerate}
+    \item $\chi_n^2 \sim \Gamma(\frac{n}{2}, \frac{1}{2})$ so $\E[\chi_n^2] = n$ and $Var(\chi_n^2) = 2n$
+    \item mgf of $Y\sim \chi_n^2$ is $M_Y(t)= (1-2t)^{-n/2}$
+    \item $\chi_n^2 + \chi_m^2 \sim \chi^2_{m+n}$
+    \item $\frac{(n-1)S^2}{\sigma^2} \sim \chi_{n-1}^2$ (simplify RHS and by mgf uniqueness)
+  \end{enumerate}
+  \textbf{t distribution} $t_{n} = \frac{\mathcal{N}(0,1)}{\sqrt{\chi_n^2 / n}}$\\
+  \begin{enumerate}
+    \item $\frac{\overline{X} - \mu}{S / \sqrt{n}} \sim t_{n-1}$ (standardization of sampling mean)
+  \end{enumerate}
+  \textbf{F distribution} $F_{m,n} = \frac{\chi_m^2 / m}{\chi_n^2 / n}$\\
+  \begin{enumerate}
+    \item If $X_1,\cdots, X_m, Y_1,\cdots,Y_n \stackrel{i.i.d.}{\sim} \mathcal{N}(\mu, \sigma^2)$ \\then $S^2_X / S^2_Y \sim F_{m-1,n-1}$\\
+  \end{enumerate}
+
+  \subsection*{Misc}\\
+  \begin{tabular}{l l}
+    Gamma & $\Gamma(x) = \int_0^{\infty} u^{x-1}e^{-u}du$ \\
+    & $\Gamma(\alpha) = (\alpha -1)\Gamma(\alpha-1)$ and $\Gamma(1/2) = \sqrt{\pi}$\\
+    & if $X\sim \Gamma(\alpha, \lambda)$ then $cX \sim \Gamma(\alpha, \lambda / c)$ \\
+    Binomial coef. & $(a+b)^n = \sum_{k=0}^{\infty} \binom{n}{k}a^kb^{n-k}$\\
+    Markov Ineq. & $P(X\geq t) \leq \frac{E(X)}{t}$\\
+    Chebyshev Ineq. & $P(|X-\mu|>t) \leq \frac{\sigma^2}{t^2}$\\
+  \end{tabular}
+
+  \subsection*{Parameter Estimation}\\
+  \textbf{Consistent Estimator} $\hat{\theta} \stackrel{p}{\to} \theta$ \\\
+  $\overline{X} \stackrel{p}{\to} \mu$ by WLLN; $\hat{\sigma}^2$ and $S^2$ are consistent estimators\\
+  \textbf{MME} equating moments $\mu_k = \E[X^k]$ with $m_k = \frac{1}{n}\sum_{i=1}^n X_i^k$\\
+  \begin{enumerate}
+      \item $m_k \stackrel{p}{\to} \mu_k$ for any $k$
+      \item $\hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n X_i^2 - \overline{X}^2 =  \frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})^2$
+  \end{enumerate}
+  \textbf{Property of convergence in probability}
+  Let $\hat{\theta}_n \stackrel{p}{\to} \theta$ and $\hat{\eta}_n \stackrel{p}{\to} \eta$
+  \begin{enumerate}
+    \item $\hat{\theta}_n + \hat{\eta}_n \stackrel{p}{\to} \theta + \eta$
+    \item $\hat{\theta}_n \hat{\eta}_n \stackrel{p}{\to} \theta\eta$
+    \item $g(\hat{\theta}_n)\stackrel{p}{\to} g(\theta)$ for any continuous $g$
+  \end{enumerate}
+  \textbf{MLE} $\hat{\theta}_{MLE} = \argmax_{\theta} \mathcal{L}(\theta)$ where \\
+   $L(\theta) = f(x_1, \cdots, x_n|\theta) = \prod_{i=1}^n f(X_i = x_i|\theta)$\\
+   $l(\theta) = \log L(\theta) = \sum_{i=1}^n \log f(X_i = x_i |\theta)$\\
+   \textbf{Normal}: $\hat{\mu}_{MLE} = \overline{X}$  $\hat{\sigma}^2_{MLE} = \frac{1}{n} \sum_{i}^n (X_i - \overline{X})^2$\\
+   \textbf{Newton-Raphson Method} $\hat{\theta}_{n+1} =  \hat{\theta}_n - \frac{l'(\hat{\theta}_n)}{l''(\hat{\theta}_n)}$\\
+
+   \subsection*{Large Number Theory of MLE}
+   \textbf{Asymptotically Normality} $X_i\sim f_{\theta}$ then
+   \[
+    F_{Z_n}(z) \stackrel{n\to \infty}{\to} \Phi(z) \iff \sqrt{n}(\hat{\theta} - \theta) \stackrel{d}{\to} \mathcal{N}(0,\sigma^2)
+   \]
+   where $F_{Z_n}$ is the cdf of $Z_n = \frac{\hat{\theta}_n - \theta}{\sigma / \sqrt{n}}$.\\
+   \textbf{Score} $u(\theta) = l'(\theta)$. \\
+   \begin{enumerate}
+     \item $\E[u(\theta)]= \int \frac{\partial \log f(x|\theta)}{\partial \theta} f(x|\theta) dx =0$
+     \item $Var(u(\theta)) = \E [u^2(\theta)] = \mathcal{I}(\theta)$
+   \end{enumerate}
+   \textbf{Fisher Information} $\mathcal{I}(\theta) = - \E[l''(\theta)]$ \\
+   Single observation, $\mathcal{I}^* = - \E [\frac{\partial^2 \log f(x|\theta)}{\partial \theta^2} ]$ & $\mathcal{I}(\theta) = n \mathcal{I}^* (\theta)$\\
+   \textbf{Slutsky's Theorem} Let $X_n \stackrel{D}{\to} X$ and $Y_n \stackrel{P}{\to} c$ then for continuous $g$ we have
+   \[
+     g(X_n, Y_n) \stackrel{D}{\to} g(X, c)
+   \]
+   $X_n + Y_n \stackrel{d}{\to} X + c$ \quad $X_n Y_n \stackrel{d}{\to} cX$ \quad $X_n / Y_n \stackrel{d}{\to} X / c$\\
+   \textbf{Asymptotic normality of MLE}
+   \[
+    \sqrt{n}(\hat{\theta}_{MLE} - \theta) \stackrel{D}{\to}\mathcal{N}(0, \frac{1}{\mathcal{I}^{*}(\theta)}) \iff \hat{\theta}_{MLE} \sim AN(\theta, \mathcal{I}^{-1}(\theta))
+   \]
+   \begin{enumerate}
+     \item $\frac{u(\theta)}{\sqrt{n}} \stackrel{d}{\to} \mathcal{N}(0, \mathcal{I}^*(\theta))$ (asymptotically normal)
+     \item $-\frac{1}{n} \frac{\partial^2 l(\theta)}{\partial \theta^2} \stackrel{p}{\to} \mathcal{I}^* (\theta)$
+     \item If $X_i \stackrel{i.i.d.}{\sim} Bernoulli(p)$ then $\hat{p} \sim AN(p, \frac{p(1-p)}{n})$
+   \end{enumerate}
+   \textbf{Invariance of MLE} let $\eta = g(\theta)$ for some transform $g$. Then
+   \begin{enumerate}
+     \item $\hat{\eta}_{MLE} = g(\hat{\theta}_{MLE})$
+     \item If $g$ is differentiable then $\hat{\eta}_{MLE} \sim AN(\eta, [g'(\theta)]^2 \mathcal{I}^{-1}(\theta))$
+   \end{enumerate}
+   \textbf{Consistency of MLE} $\hat{\theta}_{MLE}\stackrel{p}{\to} \theta$  (regularity condition) \\
+   \textbf{Plug-in Principle} $\hat{\theta}_{MLE} \sim AN(\theta, \mathcal{I}^{-1}(\hat{\theta}_{MLE}))$ with \textbf{estimated standard error} of $\hat{\sigma}_{\hat{\theta}_{MLE}} = \mathcal{I}^{-1/2}(\hat{\theta}_{MLE})$\\
+
+   \subsection*{Confidence Interval \& Efficiency}
+   \textbf{Confidence Interval} A $100(1-\alpha)\%$ confidence interval for $\theta$ is a pair of statistics $L, U$ such that $P(L \leq \theta \leq U) = 1 - \alpha$\\
+   \textbf{Pivot method} Find a pivot $g(X_1, \cdots, X_n; \theta)$ and its distribution. such that $P(a\leq g(X_1, \cdots, X_n)\leq b) = 1-\alpha$\\
+   \textbf{Normal mean (unknown variance)}
+   \[
+      \frac{\overline{X} -\mu}{S / \sqrt{n}} \sim t_{n-1} \quad \mathbb{P}\left( t_{n-1, \alpha/2} \leq \frac{\overline{X} -\mu}{S / \sqrt{n}} \leq t_{n-1, 1-\alpha/2} \right)
+   \]
+   \[
+    95\%CI \quad \overline{X}\pm \frac{S}{\sqrt{n}}t_{n-1,1-\alpha/2}
+   \]
+   \textbf{Normal variance}
+   \[
+    \frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1} \quad \mathbb{P}\left( \chi^2_{n-1,\alpha/2}\leq  \frac{(n-1)S^2}{\sigma^2} \leq \chi^2_{n-1, 1-\alpha/2} \right)
+   \]
+   \[
+    95\% CI \quad \left[ \frac{(n-1)S^2}{\chi^2_{n-1,1-\alpha/2}}, \frac{(n-1)S^2}{\chi^2_{n-1,\alpha/2}} \right]
+   \]
+   \textbf{Large number theory method} construct a $100(1-\alpha)\%$ CI of the form
+   \[
+    \hat{\theta}_{MLE} \sim AN(\theta, \mathcal{I}^{-1}(\hat{\theta}_{MLE}))  \quad \hat{\theta}_{MLE} \pm \frac{z_{1-\alpha/2 }}{\sqrt{\mathcal{I}(\hat{\theta}_{MLE})}}
+   \]
+   \subsection*{Goodness-of Estimation}
+   \begin{tabular}{l l}
+     \textbf{Standard Error loss} &$l(\hat{\theta}, \theta) = (\theta- \hat{\theta})^2$\\
+     \textbf{Mean Squared Error} &$MSE(\hat{\theta}, \theta) = \E[(\hat{\theta}- \theta)^2]$\\
+     \textbf{Bias} &
+     $b(\hat{\theta}, \theta) = \E[\hat{\theta}] - \theta$  ($\overline{X}, S^2$ unbiased)\\
+     \textbf{Bias-Variance Decomp.} &$MSE(\hat{\theta}, \theta) = b^2(\hat{\theta}, \theta) + Var[\hat{\theta}]$
+   \end{tabular}
+   \textbf{Cramer-Rao Lower Bound} Let $X_1, \cdots, X_n \sim f_{\theta}$ and let $\hat{\theta}$ be an unbiased estimator of $\theta$. Under some regularity conditions,
+   \[
+     Var[\hat{\theta}] \geq \mathcal{I}^{-1}(\theta)
+   \]
+   For unbiased estimator $\hat{\theta}$\\
+   \begin{tabular}{l l}
+      \textbf{efficient} & $Var[\hat{\theta}] = \mathcal{I}^{-1}(\theta)$\\
+      \textbf{asymptotically efficient} & $\lim_{n\to\infty} \frac{Var[\hat{\theta}]}{\mathcal{I}^{-1}(\theta)} = 1$\\
+      \textbf{relative efficiency} & $eff(\hat{\theta}_1, \hat{\theta}_2) = \frac{Var[\hat{\theta}_2]}{Var[\hat{\theta}_1]}$
+   \end{tabular}\\
+   $\hat{\lambda}_{MLE} = \overline{X}$ for Poisson is efficient; $\hat{\sigma}^2 = S^2$ is asymptotically efficient. Asymptotically, MLE are unbiased and efficient. \\
+
+   \subsection*{Sufficiency}
+   \textbf{Likelihood Principle} All relevant experimental information is contained in the likelihood function for the observed $(x_1, \cdots, x_n)$\\
+   \textbf{Sufficiency} $T(\underline{X}) = T(x_1, \cdots,T_n)$ is sufficient for an unknown parameter $\theta$ if the conditional (joint) distribution of $X_1, \cdots, X_n$ given $T(\underline{X}) = t$ does not depend on $\theta$ for any given value of $t$.
+   \[
+     P(\underline{X} = \underline{x}|T(\underline{x}) = t) = P(\underline{X} = \underline{x}|T(\underline{x}) = t, \theta)
+   \]
+   \textbf{Factorization Theorem}  $T(\underline{X})$ is sufficient if and only if for any value of $\theta$, There exists functions $g, h$ such that
+   \[
+     \mathcal{L}(\theta) = g(T(x_1, \cdots, x_n), \theta)h(x_1, \cdots, x_n)
+   \]
+   \textbf{Exponential family of distributions} has $f(x|\theta)$ of form
+   \[
+     f(x|\theta) =
+     \begin{cases}
+       \exp \left\{c(\theta) T(x) + d(\theta) + S(x)\right\} & x\in A\\
+       0 & otherwise
+     \end{cases}
+   \]
+   where support $A$ does not depend on $\theta$. Then $\sum_{i=1}^n T(x_i)$ is a sufficient statistic. Normal, Exponential, Gamma, Chi-squared, Bernoulli, and Poisson are examples.\\
+   \textbf{Rao-Blackwell Theorem} Let the Rao-Blackwell estimator be $\hat{\theta}^* = \E[\hat{\theta} | T]$ where $T$ is sufficient. Then for all $\theta$,
+   \[
+     MSE(\hat{\theta}^*, \theta) \leq MSE(\hat{\theta}, \theta)
+   \]
+   where equality holds if and only if $\hat{\theta}^* = \hat{\theta}$.
+   \begin{enumerate}
+     \item $\hat{\theta}^*$ and the starting estimator $\hat{\theta}$ have the same bias (by law of total expectation)
+     \item $\hat{\theta}_{RB}$ is always a function of sufficient statistic $T$.
+   \end{enumerate}
+
+   \subsection*{Simple Hypothesis}
+   \begin{tabular}{l l}
+     \textbf{Type I Error} & incorrectly rejecting $\mathcal{H}_0$ (false positive)\\
+     \textbf{Type II Error} & incorrectly retaining $\mathcal{H}_0$ (false negative)
+   \end{tabular}
+   $ $\\
+   \textbf{Significance Level}: Upper bound on size of test
+   \[
+    \alpha = \mathbb{P}(rejecting \quad \mathcal{H}_0 | \theta = \theta_0)
+   \]
+   \textbf{Power $\pi = 1-\beta$}: probability of correctly rejecting $\mathcal{H}_0$
+   \[
+    \beta = \mathbb{P}(not \enspace rejecting \enspace \mathcal{H}_0 | \theta = \theta_1)
+   \]
+   \textbf{Likelihood Ratio Tests} A statistical test based on
+   \[
+    \mathcal{C} = \{ \underline{x}\in\R^n : \lambda(\underline{x}) = \frac{\mathcal{L}(\theta_1)}{\mathcal{L}(\theta_0)} \geq c \}
+   \]
+   for some $c$ satisfying $\mathbb{P}(\lambda(\underline{x}) \geq c | \theta = \theta_0) = \alpha$. First find test statistic as a simple function of $\lambda(\underline{x})$ and use condition on $\alpha$ to determine $c$\\
+   \textbf{Most Powerful Test}: We say that the most powerful (MP) test at level $\alpha$ if the significant level of the test is $\alpha$ and no other test at level $\alpha$ has a smaller $\beta$\\
+   \textbf{Neyman-Pearson Lemma} When performing a hypothesis test between two simple hypotheses $\mathcal{H}_0: \theta = \theta_0; \mathcal{H}_1: \theta = \theta_1$, the likelihood-ratio test based on rejection region
+   \[
+     \mathcal{C} = \{ \underline{x}\in\R^n : \lambda(\underline{x}) = \frac{\mathcal{L}(\theta_1)}{\mathcal{L}(\lambda_0)} \geq c \} \quad \quad \mathbb{P}(\lambda(\underline{x}) \geq c | \theta = \theta_0) = \alpha
+   \]
+   is the most powerful test at significance level $\alpha$ for a threshold $c$\\
+   \textbf{Normal (known $\sigma^2$)} Given $X_1, \cdots, X_n \sim \mathcal{N}(\mu, \sigma^2)$, with $\mathcal{H}_0: \mu = \mu_0; \mathcal{H}_1: \mu = \mu_1 > \mu_0$ (or simply $\mathcal{H}_1: \mu > \mu_0$).
+   \[
+    \overline{X} \stackrel{\mathcal{H}_0}{\sim} \mathcal{N} (\mu_0, \frac{\sigma^2}{n}) \quad   \mathcal{C} = \{ (\underline{x}) : \overline{x} \geq \mu_0 + \frac{\sigma}{\sqrt{n}}  z_{1-\alpha}\}
+   \]
+   \[
+      \pi(\mu^*) = \mathbb{P}(\underline{X} \in \mathcal{C} | \mu = \mu^*) = 1 - \Phi\left( \frac{-\sqrt{n}(\mu^* - \mu_0)}{\sigma} + z_{1 - \alpha} \right)
+   \]
+   Hence larger $n$ or $\sigma$ or $\alpha$, or further apart null and alternatives are, the larger the power. If we want probability of type II error less than $\beta$, we have $n \geq \left\{ \frac{\sigma(z_{1 - \alpha} + z_{1 - \beta})}{\mu_1 - \mu_0} \right\}^2$\\
+   \textbf{Exponential} Let $X_1, \cdots, X_n \stackrel{i.i.d.}{\sim} Exp(\lambda)$ and test $\mathcal{H}_0: \lambda = \lambda_0$ vs. $\mathcal{H}_1: \lambda = \lambda_1$. We have MP test
+    \[
+      2\lambda\sum_{i=1}^n X_i \sim \chi^2_{2n} \quad \mathcal{C} = \left\{ \sum_i^n X_i \leq \frac{\chi^2_{2n, \alpha}}{2\lambda_0} \right\}
+    \]
+    \[
+      \pi = \mathbb{P}\left( 2\lambda_1 \sum_{i=1}^n X_i \leq \frac{\lambda_1 \chi^2_{2n, \alpha}}{\lambda_0} | \lambda_1 \right) = F_{\chi^2_{2n}}\left( \frac{\lambda_1 \chi^2_{2n, \alpha}}{\lambda_0} \right)
+    \]
+   \subsection*{Composite Hypothesis}
+   \textbf{Power Function} $\pi(\theta^*) = \mathbb{P}\left( reject\enspace \mathcal{H}_0 \,|\, \theta = \theta^* \right)$, $\theta^* \in\Theta_1$.\\
+   \textbf{Uniformly Most Poweful (UMP) Test} A test that is MP for every simple alternative $\theta \in \Theta_1$ is UMP. A test at level $\alpha$ with power function $\pi(\theta)$ is a uniformly most powerful (UMP) test, if for any other test at level $\alpha$ with power function $\pi'(\theta)$, we have $\pi'(\theta) \leq \pi(\theta)$ for all $\theta \in \Theta_1$. (One tailed test for normal mean is UMP by Neyman-Pearson Lemma, two-tailed test is not)\\
+   \textbf{p-value} the probability of observing an effect at least as extreme as the one in observed data, assuming the truth of $\mathcal{H}_0$.
+   \[
+     \text{p-value} = \mathbb{P}(Type\enspace I\enspace Error) = \mathbb{P}(T(\underline{X}) \geq t(\underline{x})\,|\, \theta = \theta_0)
+   \]
+   it is the minimum $\alpha$ for which $\mathcal{H}_0$ will be rejected.
+   \[
+     Reject\enspace \mathcal{H}_0 \enspace at\enspace level\enspace \alpha \iff p-value \leq \alpha
+   \]
+   \textbf{Two-tailed test for normal mean (known $\sigma^2$)} $\mathcal{H}_0: \mu = \mu_0$ vs. $\mathcal{H}_1: \mu\neq \mu_0$ two-tailed p-value doubles that of one-tailed, hence harder to reject
+   \begin{align*}
+     &\overline{X} \stackrel{\mathcal{H}_0}{\sim} \mathcal{N} (\mu_0, \frac{\sigma^2}{n}) \quad  \mathcal{C} = \left\{ | \overline{X} - \mu_0| \geq \frac{\sigma}{\sqrt{n}} z_{1 - \alpha / 2} \right\}\\
+     &\text{p-value} = \mathbb{P}\left(|\overline{X} - \mu_0| \geq |\overline{x} - \mu_0| \biggr\rvert \mu = \mu_0\right) = 2(1 - \Phi(\frac{|\overline{x} - \mu_0|}{\sigma / \sqrt{n}}) )\\
+     & \pi(\mu^*) = 1- \Phi(-\frac{\sqrt{n}(\mu^* - \mu_0)}{\sigma} + z_{1 - \alpha/2}) + \\ &\Phi(-\frac{\sqrt{n}(\mu^* - \mu_0)}{\sigma} - z_{1 - \alpha/2}) \approx 1- \Phi(-\frac{\sqrt{n}(\mu^* - \mu_0)}{\sigma} + z_{1 - \alpha/2}) \\
+     & 95\% CI: \quad \overline{X} - \frac{\sigma}{\sqrt{n}}z_{1 - \alpha/2} \leq \mu_0 \leq \overline{X} + \frac{\sigma}{\sqrt{n}}z_{1 - \alpha/2}
+   \end{align*}
+   \subsection*{Generalized LRT}
+   \textbf{Generalized Likelihood Ratio Tests (GLRT)} Consider testing $\mathcal{H}_0: \theta \in\Theta_0$ vs. $\mathcal{H}_1: \theta \in \Theta_1$, such that $\Theta_0 \,\cup\, \Theta_1  = \Theta$ (entire parameter space), based on $X_1, \cdots, X_n \sim f_{\theta}$
+   \begin{enumerate}
+     \itemsep0em
+     \item The statistic
+     \[
+       \Lambda(\underline{X}) = \frac{ \sup\limits_{\theta\in\Theta} \mathcal{L}(\theta)}{\sup\limits_{\theta\in\Theta_0}\mathcal{L}(\theta)}
+     \]
+     is called the \textbf{generalized likelihood ratio (GLR)}
+     \item The test based on the rejection region
+     \begin{align*}
+       &\mathcal{C} =  \{ \underline{X}\in\R^n: \Lambda(\underline{X}) \geq c\} \\
+       &\sup_{\theta} \left\{ \mathbb{P}(\Lambda(\underline{X}) \geq c\,|\, \theta \in \Theta_0) \right\}= \alpha
+     \end{align*}
+     is called the \textbf{generalized likelihood ratio tets (GLRT)} at level $\alpha$
+   \end{enumerate}
+   \begin{enumerate}
+     \itemsep0em
+     \item \textbf{unrestricted MLE} \quad $\hat{\theta} = \argmax_{\theta \in \Theta} \mathcal{L}(\theta)$ calculate $\mathcal{L}(\hat{\theta})$
+     \item \textbf{restricted MLE} \quad $\hat{\theta}_0 = \argmax_{\theta \in \Theta_0} \mathcal{L}(\theta_0)$ calculate $\mathcal{L}(\hat{\theta}_0)$
+     \item \textbf{simpler statistic} $T(\underline{X})$ such that $\Lambda(\underline{X})$ is a monotonically increasing function of $T(\underline{X})$, whose distribution when $\theta = \hat{\theta_0}$ is known.
+     \item \textbf{critical value $c$} such that $\mathbb{P}(T(\underline{X}) \geq c | \theta = \hat{\theta_0}) = \alpha$
+   \end{enumerate}
+   \textbf{One Sample t test for Normal Mean} $\mathcal{H}_0: \mu = \mu_0$ vs. $\mathcal{H}_1 = \mu \neq \mu_0$, based on $X_1, \cdots, X_n \stackrel{i.i.d.} {\sim} \mathcal{N}(\mu, \sigma^2)$, where $\sigma^2$ is unknown.
+   \[
+      \mathcal{C} = \left\{ |\mathcal{T}| = \left| \frac{\overline{X} - \mu_0}{S / \sqrt{n}} \right| \geq t_{n-1, 1-\alpha/2} \right\} \quad \overline{X} \pm \frac{S}{\sqrt{n}}t_{n-1, 1-\alpha/2}
+   \]
+   \[
+    \mathcal{C}_{Right} = \{ \mathcal{T}\geq t_{n-1, 1 - \alpha}\} \quad and\quad \mathcal{C}_{Left} = \{ \mathcal{T}\leq -t_{n-1, 1 - \alpha}\}
+   \]
+   \[
+    p-value = \mathbb{P}\left( |\mathcal{T} \geq t(\underline{x}) | \mu =\mu_0 \right)
+   \]
+   \textbf{One sample $\chi^2$ test for Normal Variance} Let $X_1, \cdots, X_n\sim \mathcal{N}(\mu, \sigma^2)$ and test $\mathcal{H}_0: \sigma^2 = \sigma^2_0$ vs. $\mathcal{H}_1: \sigma^2 \neq \sigma^2_0$
+   \[
+      \mathcal{C} = \{ \mathcal{X}^2 \leq \chi^2_{n-1, \alpha/2} \} \bigcup \{ \mathcal{X}^2 \geq \chi^2_{n-1, 1-\alpha/2}\}
+   \]
+   \[
+    \mathcal{X}^2 = \frac{1}{\sigma^2_0}\sum_{i=1}^n (X_i - \overline{X})^2
+   \]
+   \textbf{T Test for Equality of Normal Means} Suppose $X_1, \cdots, X_n \stackrel{i.i.d.}{\sim} \mathcal{N}(\mu_X, \sigma^2)$ and  $Y_1, \cdots, Y_n \stackrel{i.i.d.}{\sim} \mathcal{N}(\mu_Y, \sigma^2)$, assuming same variance for the two population. Now we wish to test $\mathcal{H}_0: \mu_X = \mu_Y$ vs. $\mathcal{H}_1:\mu_X \neq \mu_Y$
+   \[
+      \mathcal{T} = \frac{\overline{X} - \overline{Y}}{S_p \sqrt{\frac{1}{m} + \frac{1}{n}}} \sim t_{m+n-2} \quad S_p^2 = \frac{(m-1)S_X^2 + (n-1)S_Y^2}{m+n-2}
+   \]
+   \[
+    \mathcal{C} = \left\{ |\mathcal{T}| \geq t_{m+n-2, 1-\alpha/2} \right\} \quad (\overline{X} - \overline{Y}) \pm \sqrt{\frac{1}{m} + \frac{1}{n}} S_p t_{m+n-2, 1-\alpha/2}
+   \]
+   \textbf{F Test for Equality of Normal Variance} Suppose independent sample $X_1, \cdots, X_m \stackrel{i.i.d.}{\sim} \mathcal{N}(\mu_X, \sigma_X^2)$ and $Y_1, \cdots, Y_n \stackrel{i.i.d.}{\sim}\mathcal{N}(\mu_Y, \sigma_Y^2)$ now test $\mathcal{H}: \sigma_X^2 = \sigma_Y^2$ vs. $\mathcal{H}_1: \sigma_X^2 \neq \sigma_Y^2$.
+   \[
+     \mathcal{C} =  \left\{ \mathcal{F} \leq F_{m-1, n-1, \alpha/2} \right\} \bigcup \left\{ \mathcal{F} \geq F_{m-1, n-1, 1-\alpha/2} \right\}
+   \]
+   where $\mathcal{F} = \frac{S_X^2}{S_Y^2} \sim F_{m-1, n-1}$ ($F_{v_1, v_2, q} = \frac{1}{F_{v_2, v_1, 1-q}}$)\\
+   \textbf{Paired Sample t Test for Normal Mean} Randomized paired design reduce pair-to-pair variance. Now we test $\mathcal{H}_0: \mu_D = 0, \mathcal{H}_1: \mu_D > 0, \neq, < 0$ where $D := X - Y$ and $\mu_D := \mu_X - \mu_Y$ assuming different pairs are independent and that the difference $X-Y$ follows a Normal distribution (problem reduces to one sample t test)
+   \[
+      \mathcal{T} = \frac{\overline{D}}{S_D / \sqrt{n}} \stackrel{\mathcal{H}_0}{\sim} t_{n-1}
+   \]
+   \textbf{Wilks' Theorem} Let $X_1, \cdots, X_n \sim f_{\theta}$ where $\theta = (\theta_1, \cdots, \theta_p)\in \Theta$ is a vector of parameters, and we wish to test the null hypothesis
+   \[
+     \mathcal{H}_0: \theta_1 = \theta_1^0, \theta_2 = \theta_2^0, \cdot, \theta_r = \theta_r^0 (1 \leq r \leq p)
+   \]
+   against unrestricted alternative for GLRT. Then under some regularity conditions,
+   \[
+     2\log \Lambda(\underline{X}) \xrightarrow[\mathcal{H}_0]{\mathcal{D}} \chi_r^2
+   \]
+   where $r$ is the number of paramters constrained by $\mathcal{H}_0$, or that the d.f. equal to $dim \Theta - dim \Theta_0$ (the dimensinon of free parameters)\\
+   \textbf{Test for equality of Poisson means} Let $X_1, \cdots, X_m \stackrel{i.i.d.}{\sim} Pois(\lambda_X)$ and $Y_1, \cdots, Y_n \stackrel{i.i.d.}{\sim} Pois(\lambda_Y)$ be two independent samples, suppose we want to test $\mathcal{H}_0: \lambda_X = \lambda_Y$ vs. $\mathcal{H}_1: \lambda_X \neq \lambda_Y$ (Consider $\mathcal{H}_0: \theta = \frac{\lambda_X}{\lambda_Y} = 1$ vs. $\mathcal{H}_1: \theta \neq 1$)
+   \[
+    \mathcal{C} = \left\{ 2\log \left( (\overline{X})^{m\overline{X}}(\overline{Y})^{n\overline{Y}} \left( \frac{m\overline{X} + n\overline{Y}}{m+n} \right)^{-m\overline{X}-n\overline{Y}} \right) \geq \chi_{1,1-\alpha}^2 \right\}
+   \]
+   \textbf{GLRT by parametric bootstrap} We evaluate test directly by taking large number of simulations
+   \begin{enumerate}
+     \item Sample data under $\mathcal{H}_0$: two random Poisson samples with same $\lambda$ with size $m$ and $n$
+     \item Evaluate test statistic $2\log \Lambda$ at simulated data
+     \item repeat for very large number of times
+     \item empirical p-value given by
+     \[
+       p-value = \frac{\text{\# of samples }2\log \Lambda \geq t(\underline{x})}{N}
+     \]
+   \end{enumerate}
+   \textbf{Goodness of Fit Test} Suppose $X_1, \cdots, X_n$ is a random sample from a discrete distribution with $k$ possible values $s_1, \cdots, s_k$, with corresponding probabilities $p_1, \cdots, p_k$ i.e. $p_j = \mathbb{P}(X = s_j)$. Now we dnote $O_j = \# \{ i: X_i = s_j\}$ (the observed $j$th cell count) Now we want to test $\mathcal{H}_0: p_1 = p_1^0, \cdots, p_k = p_k^0$ vs unrestricted alternative. Find the generlized likelihood ratio
+   \[
+     \Lambda = \prod_{i=1}^k \left( \frac{O_i}{np_i^0} \right)^{O_i} = \prod_{i=1}^k \left( \frac{O_i}{\E_i} \right)^{O_i}
+   \]
+   where $\E_j := np_i^0$ is the expected $j$th cell count under $\mathcal{H}_0$ By Wilk's Theorem
+   \[
+    2\log \Lambda = 2 \sum_{i=1}^k O_i \log{\left( \frac{O_i}{\E_i} \ \right)} \xrightarrow[\mathcal{H}_0]{\mathcal{D}} \chi_{k-1}^2
+   \]
+   \textbf{Pearson's $\chi^2$ test of goodness of fit} establishes whether an observed freuency distribution differs from a theoretical distribution. Test $\mathcal{H}_0: p_1 = p_1^0, \cdots, p_k = p_k^0$ vs unrestricted alternative.
+   \[
+     \mathcal{C} =\{ \mathcal{X}^2 \geq \chi_{k-1, 1-\alpha}^2 \} \quad \mathcal{X}^2 := \sum_{i=1}^k \frac{(O_i - \E_i)^2}{\E_i} \xrightarrow[\mathcal{H}_0]{\mathcal{D}} \chi_{k-1}^2
+   \]
+    d.f. is the number of categories - 1 ($dim\Theta$) reduced by number of parameters of the fitted distribution ($dim\Theta_0$, i.e. number of unknown parameter requiring estimation to compute cell probabilitie. ex. Poisson with unknown $\lambda$ $df = k -2$).\\
+   \textbf{Pearson's $\chi^2$ test of independence} assess whether unpaired observations on 2 categorical variables are independent of each other. Test $\mathcal{H}_0$: 2 variables are independent of each other vs. unrestricted alternatives. We estimate marginal distribution of two variables using fixed table margin and law of independence $\mathbb{P}(X, Y) = \mathbb{P}(X) \mathbb{P}(Y)$ After computing the expected contingency table $E$. We use
+   \[
+     \mathcal{X}^2 = \sum_{i=1}^{\#rows} \sum_{j=1}^{\#cols} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}  \xrightarrow[\mathcal{H}_0]{\mathcal{D}} \chi_{(r-1)(c-1), 1-\alpha}^2
+   \]
+   $df = (r -1)(c-1)$ where $r$ is number of categories in one varialbe and $c$ is number of categories in another variable.
+   \subsection*{Simple Linear Regression}
+   \textbf{Method of Least Squares} A method for determining parameters in curve fitting problems. Consider fitting $Y = \beta_0 + \beta_1 X$ with $i$-th residue $e_i = y_i - \beta_0 - \beta_1 x_i = y_i - \hat{y}_i$. The least squares estimators of $\beta_0$ and $\beta_1$ are the minimizers of the \textbf{residual sum of squares (RSS)}
+   \[
+     RSS(\beta_0, \beta_1) := \sum_{i=1}^n e_i^2 = \sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i)^2
+    \]
+    In other words we choose a linear fit $\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X$ such that
+    \[
+     (\hat{\beta}_0 ,\hat{\beta}_1) = \argmin_{\beta_0, \beta_1} \sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i)^2
+    \]
+    \textbf{Least Squares Estimators} of $\beta_0$ and $\beta_1$ are given by
+    \[
+      \hat{\beta}_1 = \frac{S_{XY}}{S_X^2} \quad \hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}
+    \]
+    \[
+      S_{XY} = \frac{1}{n-1} \sum_{i=1}^n (x_i - \overline{x})(y_i - \overline{y}) \quad S_X^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \overline{x})^2
+    \]
+    where $S_{XY}$ is the sample covariance of $X$ and $Y$ and $S_X^2$ is the sample variance of $X$. The following properties are handy
+    \[
+      \sum_{i=1}^n (x_i - \overline{x})^2 = \sum_{i=1}^n x_i^2 - 2n\overline{x}^2 + n\overline{x}^2= \sum_{i=1}^n x_i^2 - n\overline{x}^2
+    \]
+    \[
+      \sum_{i=1}^n (x_i - \overline{x})(y_i - \overline{y}) = \sum_{i=1}^n x_iy_i - 2n\overline{x}\overline{y} + n\overline{x}\overline{y} =\sum_{i=1}^n x_iy_i - n\overline{x}\overline{y}
+    \]
+    \textbf{The normal equations}
+    \[
+      0 = \sum_{i=1}^n (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) = \sum_{i=1}^n (y_i - \hat{y}_i) = \sum_{i=1}^n e_i
+    \]
+    \[
+      0 = \sum_{i=1}^n x_i (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) = \sum_{i=1}^n x_i (y_i - \hat{y}_i) = \sum_{i=1}^n x_i e_i
+    \]
+    \textbf{Standard Statistical Model} stipulates that the observed value of $y$ is a linear function of $x$ plus random noise
+    \[
+      y_i = \beta_0 + \beta_1 x_i + \epsilon_i, \quad i = 1, \cdots, n
+    \]
+    \[
+      \E[\epsilon_i] = 0 \text{ } \forall i  \quad Var(\epsilon_i) = \sigma^2 \text{ } \forall i \quad \E[\epsilon_i \epsilon_j] = 0 \text{ for } i\neq j
+    \]
+    \[
+      hence \quad Var[y_i] = 0 \quad \quad Cov(y_i, y_j) = 0 \text{ for } i\neq j
+    \]
+    \textbf{Homoscedastic} Variance around regression line is same $\forall X$\\
+    \textbf{LS estimator as linear estimator} Let $y_1, \cdots, y_n\sim f_{\theta}$. Any estimator of $\theta$ of the form $\hat{\theta} = \sum_{i=1}^n c_i y_i$ is called a linear estimator
+    \[
+      \hat{\beta}_1 = \sum_i \left[\frac{ (x_i - \overline{x})}{\sum_j (x_j - \overline{x})^2} \right] y_i \quad
+      \hat{\beta}_0 = \sum_i \left[ \frac{1}{n} - \frac{\overline{x}(x_i - \overline{x})}{\sum_j (x_j - \overline{x})^2} \right]y_i
+    \]
+    \[
+      \E[y_i] = \beta_0 + \beta_1 x_i \quad \E[\hat{\beta}_1] = \beta_1 \quad \E[\hat{\beta}_0] = \beta_0
+    \]
+    \[
+      Var[\hat{\beta}_1] = \frac{\sigma^2}{\sum_i (x_i - \overline{x} )^2} \quad Var[\hat{\beta}_0] = \sigma^2 \left[ \frac{1}{n} + \frac{\overline{x}^2}{\sum_i (x_i - \overline{x})^2} \right]
+    \]
+    \[
+      Cov(\hat{\beta}_0, \hat{\beta}_1) = -\frac{\sigma^2 \overline{x}}{ \sum_i (x_i - \overline{x})^2} \quad \quad S^2_{\epsilon} = \frac{1}{n - 2} \sum_{i=1}^n e_i^2
+    \]
+    \textbf{The Gauss-Markov Theorem} Under standard model assumptions, no linear unbiased estimator of $\beta_0$ ($\beta_1$) has a smaller variance than the least squares estimator $\hat{\beta}_0$ ($\hat{\beta}_1$). Hence LS estimators are Best Linear Unbiased Estimators\\
+    \textbf{Correlation Coefficient} The correlation coefficient of random variables $X$ and $Y$ is
+    \[
+      \rho_{XY} = \frac{Cov(X, Y)}{\sigma_X \sigma_Y}
+    \]
+    where $\sigma_X$ and $\sigma_Y$ are the standard deviations of $X$ and $Y$, respectively.\\
+    \item \textbf{Sample Correlation Coefficient} is defined to be
+    \[
+      r_{XY} = \frac{S_{XY}}{S_X S_Y} = \frac{\sum_i (x_i - \overline{x}) (y_i - \overline{y}) }{ \sqrt{ \sum_i (x_i - \overline{x})^2  }  \sqrt{ \sum_i (y_i - \overline{y})^2  } }
+    \]
+    \textbf{Explained Variation} Variation in value of $Y$ is the Total Sum of Squares
+    \begin{align*}
+      \sum_{i=1}^n (y_i - \overline{y})^2 &= \sum_{i=1}^n (y_i - \hat{y}_i)^2 + \sum_{i=1}^n (\hat{y}_i - \overline{y})^2\\
+      TSS &= RSS + ESS\\
+    \end{align*}
+    the \textbf{Proportion of explained variance} is defined to be
+    \[
+      R^2 = \frac{ESS}{TSS} = \frac{ \sum_{i=1}^n (\hat{y}_i - \overline{y})^2 }{ \sum_{i=1}^n (y_i - \overline{y})^2} \quad \quad \text{ and }  \quad\quad  R^2 = r_{XY}^2
+    \]
+    $R^2$ is an indication of good linear fit\\
+    \textbf{Statistical Inference under Gaussian Noise} A linear model with following assumptions allows for statistical inference
+    \begin{enumerate}
+      \item $y_i = \beta_0 + \beta_1 x_i + \epsilon_i$ where $i = 1, \cdots, n$
+      \item $\E[\epsilon_i] = 0$ for $i = 1,\cdots,n$
+      \item $Var(\epsilon_i) = \sigma^2$ $i = 1,\cdots, n$ (homoscedastic) and $\E[\epsilon_i \epsilon_j] = 0$ for $i\neq j$ (uncorrelated)
+      \item distribution of $\epsilon_i$  is normal for $i = 1,\cdots,n$
+      \item Uncorrelated normal random variable is independent.
+    \end{enumerate}
+    \textbf{Inference on regression coeffcient} An unbiased estimator of noise variance $\sigma^2$ is given by
+    \[
+      S^2 = \frac{1}{n - 2} \sum_{i=1}^n e_i^2  \quad \text{ with } \quad \frac{(n-2)S^2}{\sigma^2} \sim \chi_{n-2}^2
+    \]
+    Since $\epsilon_i$ is normal, we have
+    \[
+      y_i \sim \mathcal{N}(\beta_0 + \beta_1 x_i, \sigma^2) \quad \hat{\beta}_1 \sim \mathcal{N}(\beta_1, \frac{\sigma^2}{\sum_i (x_i - \overline{x})^2})
+    \]
+    \textbf{Hypothesis tests on the slope $\beta_1$ to evaluate correlation} Testing $\mathcal{H}_0: \beta_1 = 0$ vs. $\mathacl{H}_1: \beta_1 \neq 0$, then, by
+    \[
+      \mathcal{T} =
+      \frac{\hat{\beta}_1 - \beta_1}{s_{\hat{\beta}_1}} \stackrel{\mathacl{H}_0}{\sim} t_{n-2} \quad\quad \text{ where }\quad\quad s_{\hat{\beta}_1} = \sqrt{\frac{\frac{1}{n-2} \sum_i e_i^2}{\sum_i (x_i - \overline{x})^2}}
+    \]
+    and a $100(1-\alpha)\%$ confidence interval for $\beta_1$ is given by
+    \[
+      \hat{\beta}_1 \pm t_{n-2, 1 - \alpha/2} \frac{S}{\sqrt{\sum_i (x_i - \overline{x})^2 }}
+    \]
+    The prediction at $x_0$ may be used as an estimator
+    \[
+      \hat{y}(x_0) = \hat{\beta}_0 + \hat{\beta}_1 x_0
+    \]
+    \[
+      \E[\hat{y}(x_0)] = \E[\hat{\beta}_0 + \hat{\beta}_1 x_0] = \E[\hat{\beta}_0] + \E[\hat{\beta}_1] x_0 = \beta_0 + \beta_1 x_0
+    \]
+    \[
+      Var[\hat{y}(x_0)] = Var[\hat{\beta}_0 + \hat{\beta}_1 x_0] = \sigma^2 \left\{ \frac{1}{n} + \frac{(x_0 - \overline{x})^2}{\sum_i (x_i - \overline{x})^2}  \right\}
+    \]
+    \[
+      \hat{y}(x_0) \sim \mathcal{N} \left( \mu(x_0), \sigma^2 \left\{ \frac{1}{n} + \frac{(x_0 - \overline{x})^2}{\sum_i (x_i - \overline{x})^2}  \right\}  \right)
+    \]
+    \[
+      \hat{y}(x_0) \pm t_{n-2, 1-\alpha/2} S \sqrt{ \frac{1}{n} + \frac{(x_0 - \overline{x})^2}{\sum_i (x_i - \overline{x})^2} }
+    \]
+    is a $100(1-\alpha)\%$ confidence interval for mean response $\E[y(x_0)]$, where $\hat{y}(x_0) = \hat{\beta}_0 + \hat{\beta}_1 x_0$.\\
+    \textbf{Least Square Estimators under standard normal model are MLEs} Under additional assumption that random noise is Gaussian, the least squares estimators $\hat{\beta}_0^{LS}$ and $\hat{\beta}_1^{LS}$ are maxmum likelihood estimators of $\beta_0$ and $\beta_1$, respectively.\\
+    \textbf{Diagnostic Plot} Linear regression model relies heavily on assumptions about random errors $\epsilon_i$. the residual $e_i$ should be
+    \begin{enumerate}
+      \item normal
+      \item independent
+      \item homoscedasticitic
+      \item distribution of \textbf{standardized residuals} $\frac{e_i}{S} \sim \mathcal{N}(0,1)$
+    \end{enumerate}
+    Two plots are given
+    \begin{enumerate}
+      \item \textbf{Residuals vs Fitted Value Plot} plot of $e_i$ vs. $\hat{y}_i$.
+        \begin{enumerate}
+          \item Symmetry about 0, with homogeneity of the noise variance (homoscedastic), and no trends or pattern implies a good fit for linear models
+          \item Streaks of positive/negative residual indicates observation is correlated, violating the independence assumption
+          \item The trend resembles an upward or downward curve indicates model misspecification. The assumption of linearity is violated
+          \item Increasing variance along the dependent $\hat{y}_i$ axis violates homoscedasticity assumption
+        \end{enumerate}
+      \item \textbf{Quantile-Quantile Plot} A plot for comparing two probability distributions by plotting their quantiles against each other. In evaluating good fit for linear model we plot sample quantiles of standardized residues vs. theoretical quantiles of standard normal distribution.
+      \begin{enumerate}
+        \item If points approximately lie on the line $y=x$, then the distribution in comparison are similar, i.e. $\frac{e_i}{S} \sim \mathcal{N}(0,1)$.
+        \item If lower quantiles are too small and upper quantiles are too large - a heavy-tailed noise. Perhaps assuming t distribution, thus violating the normality assumption
+      \end{enumerate}
+    \end{enumerate}
+
+\end{multicols}
+
+\end{document}

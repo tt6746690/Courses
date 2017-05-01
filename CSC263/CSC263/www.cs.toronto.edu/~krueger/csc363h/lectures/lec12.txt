@@ -1,0 +1,183 @@
+===========================================================================
+CSC 363H                Lecture Summary for Week 12             Summer 2006
+===========================================================================
+
+----------------
+Space complexity
+----------------
+
+SPACE(s(n)) = { L : L is a language that can be decided by a TM running in
+                worst-case space O(s(n)), i.e., the TM never uses more than
+                O(s(n)) tape cells on any input }
+
+NSPACE(s(n)) = { L : L is a language that can be decided by a NTM running
+                in worst-case space O(s(n)), i.e., the NTM never uses more
+                than O(s(n)) tape cells on any input }
+
+Fact: If language L is recognized by a TM M running in space O(s(n)), then
+    L is decidable.
+Proof:
+    Main idea:  The only way that M can loop is by repeating a
+    configuration exactly (because it is limited in how many cells it can
+    use).  We can simulate M until it stops or repeats a configuration,
+    thereby deciding L(M).
+    Details:  Since M uses <= c*s(n) tape cells on any input, there are at
+    most m^{c*s(n)} possible tape contents that M can enter during its
+    computation (where m = number of symbols in tape alphabet) -- m symbols
+    per cell for c*s(n) cells.  For each possible tape content, there are
+    c*s(n) positions that M's head can be in, and k = |Q| different states
+    that M can be in.  So M can run through at most k*c*s(n)*m^{c*s(n)}
+    many different configurations before it enters some configuration twice
+    (meaning M is in an infinite loop).  Since k, c, m are constants with
+    respect to the input size, this means it is possible to decide L(M) by
+    simulating M and rejecting if M ever runs for more than
+    k*c*s(n)*m^{c*s(n)} = 2^{O(s(n))} steps.
+
+Corollary (of proof):  SPACE(s(n)) subset of TIME(2^O(s(n))).
+
+Unlike time, space much less affected by details of model (e.g., using k
+tapes saves time but not space -- information must still be stored).
+
+Surprising result:  SAT in SPACE(n) -- keep track of original formula,
+truth-value assignment to its variables, and simplified formula, all in
+linear space; simply evaluate formula on each possible truth-value
+assignment, reusing space.
+
+So space seems much more "powerful" than time.  Intuition: space can be
+reused; time cannot.
+
+Surprising result (Savitch's Theorem):
+    NSPACE(s(n)) subset of SPACE((s(n))^2).
+Proof idea:
+    NTM running in space O(s(n)) runs in nondeterministic time 2^O(s(n)).
+    Trying out all computation branches takes too much space.  Instead, use
+    algorithm to test whether NTM can get from initial configuration to
+    accepting configuration by recursively breaking up computation in two
+    halves -- doing this properly (see textbook) gets space usage down to
+    O((s(n))^2): O(s(n)) for storing configurations, and log(2^O(s(n))) =
+    O(s(n)) for recursion depth.
+
+PSPACE = U_{k >= 0} SPACE(n^k)
+       = { all languages decided in polyspace }
+
+By Savitch's Theorem, NPSPACE = PSPACE.
+
+Clearly, P subset PSPACE and NP subset NPSPACE,
+so P subset NP subset NPSPACE = PSPACE.
+
+What about coNP?  coNP subset coNPSPACE = coPSPACE = PSPACE
+(because deterministic polyspace decider for L yields deterministic
+polyspace decider for L^C by simply swapping accept/reject).
+
+Even more so than with NP, it seems "clear" that P =/= PSPACE
+(think of the linear-space algorithm for SAT).
+However, question still open!
+
+Given we can't prove P =/= PSPACE, what to do?  Same as for NP: identify
+"hardest" problems in PSPACE.
+
+Language A is PSPACE-complete if:
+ -  A in PSPACE.
+ -  A is PSPACE-hard: B <=p A for all B in PSPACE.
+
+Notice we still use polytime reductions (<=p), because we're concerned with
+P vs PSPACE so we need notion of reduction no stronger than smallest class
+of interest, to ensure property: if B <=p A and A in P, then B in P.
+
+Examples:
+
+ -  TQBF = { fully quantified boolean formulas that are true }
+    TQBF in PSPACE:
+        On input F:
+         -  If F has no quantifiers, then evaluate F and accept iff it is
+            true.
+         -  If F = -] x F', then recursively evaluate F'[x=0] and F'[x=1]
+            and accept iff either computation accepts.
+            (using "-]" to represent existential quantifier)
+         -  If F = \-/ x F', then recursively evaluate F'[x=0] and F'[x=1]
+            and accept iff both computations accept.
+            (using "\-/" to represent universal quantifier)
+        Recursion depth = number of variables of F and each level stores
+        value of one variable, so total space used for recursion is linear.
+        Evaluating F at each level also requires linear space, but this can
+        be shared between calls.
+    TQBF is PSPACE-hard:
+        For any language A in PSPACE, construct a quantified formula that
+        represents the computation of a PSPACE TM for A.  Details are in
+        the textbook.
+
+ -  Many types of two-player games for which we can ask: given a certain
+    game configuration, does player 1 have a guaranteed win?
+
+Even more so than NP-complete problems, these have no time-efficient
+solutions.  However, they still have efficient solutions in their memory
+usage, and their time complexity has not been proven to be outside P.
+
+So are the any languages that we can _prove_ are outside P?  We return to
+this after considering another important space complexity class.
+
+Log-space:
+
+ -  L = SPACE(log n) = { languages decided by TM in space O(log n) }
+    NL = NSPACE(log n) = { languages decided by NTM in space O(log n) }
+    coNL = { complements of languages in NL }
+
+ -  Q:  How can TM use less than linear space when it needs at least that
+    much to store input?
+    A:  Measure "work" space independently of space to store input: use
+    2-tape TM with read-only "input tape" and read-write "work tape", and
+    count only cells used on work tape.
+
+ -  Note:  Sublinear time not useful (can't even read entire input) but
+    sublinear space useful (we'll see examples).
+
+ -  Example 1: { 0^k 1^k : k >= 0 }
+     .  Can't just scan back-and-forth marking 0s and 1s because input tape
+        is read-only and marking would require copying to work tape, using
+        more than log n space.
+     .  Idea: count instead!  Read over 0s and use work tape to record
+        number of 0s read as a binary counter; when we start reading 1s,
+        decrease counter; accept iff no 0 is encountered following a 1 and
+        counter = 0 when we reach end of input and not before.
+     .  Space usage: counting up to k requires O(log_2 k) bits, so space is
+        logarithmic.
+
+ -  Think of L as languages that can be recognized by using a fixed number
+    of counters/pointers (counters can be used to keep track of positions
+    into the input string).
+
+ -  Example 2:
+        PATH = { <G,s,t> : G is a graph that contains a path from s to t}
+    No known deterministic log-space algorithms, but easy nondeterministic
+    log-space algorithm: store index of current node, start at s and
+    nondeterministically select next node, accepting when t is reached.
+    This only requires room to store one node index, O(log n), and there is
+    some computation path that accepts iff there is some path from s to t
+    in G.
+
+ -  L subset of NL but NL subset of L unknown: Savitch's Theorem shows NL
+    subset of SPACE((log n)^2), but that's all.
+
+ -  What about NL and P?
+    PATH is NL-complete (w.r.t. L):
+     .  PATH in NL
+     .  for all A in NL, A <=L PATH, using "log space reduction" <=L
+        (using 3-tape TM with read-only input tape, write-only output tape,
+        and worktape, and measuring only worktape used)
+    Idea:  The question "does w belong to A" is equivalent to "is there a
+    path from the initial configuration to an accepting configuration in
+    the computation tree of the nondeterministic log space TM for A".
+
+ -  Note:  If A in L and B <=L A, then B in L.  However, must be careful:
+    output of log space reduction could take up more than log space.  To
+    get a log space algorithm for B, must use log space algorithm for A and
+    recompute log space reduction each time, keeping only one output symbol
+    at a time on work tape.
+
+ -  Since PATH in P, and A <=L B implies A <=p B (TM running in space
+    O(log n) has at most n * 2^O(log n) possible configurations = O(n^k)
+    for some constant k), NL subset of P.
+
+ -  L = NL?  Unknown!  P = NL?  Unknown!
+    However:  NL = coNL!  NL =/= PSPACE!
+

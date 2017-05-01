@@ -1,0 +1,124 @@
+CSC363H -- Examples of polytime reduction (from Francois Pitt)
+=========================================
+
+NOTE:  This example is long because there are many details to take care of,
+although the main idea is not that difficult.  You will NOT be expected to
+come up with reductions similar to this one, but you will be expected to
+understand this reduction.  The goal is to make you more familiar with
+basic complexity results about propositional formulas.
+
+ -  A propositional formula is in "Conjunctive Normal Form" ("CNF") if it
+    is a conjunction of one or more "clauses" (C_1 /\ C_2 /\ ...  /\ C_k),
+    where each clause is a disjunction of one or more "literals" (a_1 \/
+    a_2 \/ ... \/ a_r), where each literal is either a variable (x) or a
+    negated variable (~x).  For example,
+
+        (x1 \/ x2) /\ (~x1) /\ (x2 \/ ~x3 \/ x3 \/ x5 \/ ~x4)
+
+ -  A propositional formula is in "3-CNF" if it is in CNF where each clause
+    contains exactly 3 literals.  For example,
+
+        (x1 \/ x2 \/ ~x4) /\ (x1 \/ x1 \/ ~x2)
+
+ -  A propositional formula is "satisfiable" if there is at least one
+    assignment of truth values to the variables that makes the formula
+    true.
+
+    Note that to satisfy a formula in CNF, each clause must be true,
+    meaning at least one literal in each clause must be set to true.
+
+ -  Now we are ready to define the following languages:
+
+        CNF-SAT = { <F> : F is a CNF formula that is satisfiable }
+        3SAT = { <F> : F is a 3-CNF formula that is satisfiable }
+
+ -  3SAT <=p CNF-SAT:
+    Given <F> (a 3-CNF formula), output <F> (the same formula), since 3-CNF
+    is just a special case of CNF.  Trivially, this can be done in polytime
+    and <F> is satisfiable iff <F> is satisfiable.
+
+    Since we know CNF-SAT is NP-complete, this shows something we already
+    knew: 3SAT in NP (because CNF-SAT in NP and 3SAT <=p CNF-SAT).  It does
+    NOT show that 3SAT is NP-hard (we need the other direction for that).
+
+ -  CNF-SAT <=p 3SAT:
+    Given <F> (a CNF formula), construct <F'> (a 3-CNF formula) such that F
+    is satisfiable iff F' is satisfiable, as follows.  Note that it is not
+    necessary to make F and F' logically equivalent in order to achieve
+    this.
+    For each clause C of F:
+
+     -  If C = (a1), then replace C with (a1 \/ a1 \/ a1).
+
+     -  If C = (a1 \/ a2), then replace C with (a1 \/ a1 \/ a2).
+
+     -  If C = (a1 \/ a2 \/ a3), then leave C the same.
+
+     -  If C = (a1 \/ a2 \/ ... \/ ar) where r > 3, then replace C with
+        (a1 \/ a2 \/ z1) /\ (~z1 \/ a3 \/ z2) /\ (~z2 \/ a4 \/ z3) /\ ...
+         /\ (~z{r-4} \/ a{r-2} \/ z{r-3}) /\ (~z{r-3} \/ a{r-1} \/ ar),
+        where z1, z2, ..., z{r-3} are new variables (not in F).
+
+    For example, if
+        F = (x1 \/ x2) /\ (~x1) /\ (x2 \/ ~x3 \/ x3 \/ x5 \/ ~x4)
+    then
+        F' = (x1 \/ x1 \/ x2) /\ (~x1 \/ ~x1 \/ ~x1) /\
+             (x2 \/ ~x3 \/ z3) /\ (~z3 \/ x3 \/ z4) /\ (~z4 \/ x5 \/ ~x4)
+
+    Clearly, this transformation can be carried out in polytime: at most,
+    each clause of length r gets replaced with O(r) 3-clauses using O(r)
+    new variables.
+
+    Also, if F is satisfiable, then there is an assignment of truth values
+    to the variables of F that makes at least one literal true in each
+    clause of F.  This assignment can be extended to include values for the
+    new variables of F' that will make each clause of F' true:
+
+     -  For 1-/2-/3-clauses of F with at least one true literal, the
+        corresponding clause in F' is also true because it contains the
+        same literals, at least one of which is true.
+
+     -  For r-clauses of F with at least one true literal, say the original
+        clause is (a1 \/ a2 \/ ... \/ ar) and the true literal is ai.  Then
+        pick values for the new variables as follows:
+         .  if i=1 or i=2, then (a1 \/ a2 \/ z1) is satisfied so pick
+            z1 = z2 = ... = z{r-3} = false to satisfy every other clause;
+         .  if i=r-1 or i=r, then (~z{r-3} \/ a{r-1} \/ ar) is satisfied so
+            pick z1 = z2 = ... = z{r-3} = true to satisfy every other
+            clause;
+         .  if 2 < i < r-1, then (~z{i-2} \/ ai \/ z{i-1}) is satisfied so
+            pick z1 = z2 = ... = z{i-2} = true to satisfy the first i-2
+            clauses and pick z{i-1} = zi = ... = z{r-3} = false to satisfy
+            the last r-i-1 clauses.
+        For example, if x3 = true satisfies (x2 \/ ~x3 \/ x3 \/ x5 \/ ~x4),
+        then pick z1 = true and z2 = false to satisfy
+        (x2 \/ ~x3 \/ z1) /\ (~z1 \/ x3 \/ z2) /\ (~z2 \/ x5 \/ ~x4)
+        (the first clause is satisfied by z1 = true, the second clause is
+        satisfied by x3 = true, the last clause is satisfied by z2 =
+        false).
+
+    Finally, if F' is satisfiable, then the assignment of values to the
+    variables of F' must include values to the variables of F that satisfy
+    F:
+
+     -  If the new clauses
+        (a1 \/ a2 \/ z1) /\ (~z1 \/ a3 \/ z2) /\ (~z2 \/ a4 \/ z3) /\ ...
+         /\ (~z{r-4} \/ a{r-2} \/ z{r-3}) /\ (~z{r-3} \/ a{r-1} \/ ar)
+        are satisfied, then let zi be the first new variable set to false
+        (so either i = 1 or z1 = z2 = ... = z{i-1} = true):
+         .  if i = 1, then (a1 \/ a2 \/ z1) can only be satisfied by
+            setting a1 = true or a2 = true;
+         .  if i > 1, then (~z{i-1} \/ a{i+1} \/ zi) can only be satisfied
+            by setting a{i+1} = true;
+        in all cases, one of the original literals must be set to true so
+        the original clause (a1 \/ a2 \/ ... \/ ar) is also satisfied.
+
+     -  If the new clause (a1 \/ a2 \/ a3) is satisfied, then the original
+        clause is also satisfied because it's the same, and similarly for
+        the new clauses (a1 \/ a1 \/ a2) and (a1 \/ a1 \/ a1), because they
+        are logically equivalent to the original clauses.
+
+    We have shown that any CNF formula F can be transformed in polytime to
+    a 3-CNF formula F' such that F is satisfiable iff F' is satisfiable;
+    this completes the polytime reduction from CNF-SAT to 3SAT.
+

@@ -1,0 +1,147 @@
+===========================================================================
+CSC 363H                Lecture Summary for Week  8             Summer 2006
+===========================================================================
+
+-----------------------
+Examples in the class P
+-----------------------
+
+ -  PATH = { <G,s,t> : G is a directed graph that has a directed path
+    	     from s to t }
+ -  PATH in P? Yes.
+    Note that brute force (examining all potential paths) doesn't work.
+    A potential path is sequence of at most n nodes (since repeating nodes
+    isn't necessary). There are roughly n^n such sequences, which is
+    exponential in number of nodes (and size of input).
+
+    Instead, we use a graph search (such as breadth-first search) starting
+    from s. BFS takes O(n+m) time, which is polynomial in the size of the
+    input. [See textbook for formal algorithm and proof of correctness.]
+
+
+------------
+The class NP
+------------
+
+We've seen that nondeterminism is not "practical".  Why use it, then?
+
+Because a large number of real-life problems have no known efficient
+solution (i.e., are not known to belong to P), yet can be solved
+efficiently using nondeterminism.  So nondeterminism allows us to
+characterize a large class of problems.  Also, nondeterminism is an elegant
+way to add (what seems to be) significant power to the model.
+
+Nondeterminism vs. Verifiers:
+ -  Acceptance condition for NTMs: there exists an accepting computation
+    path.
+ -  Verifiers capture that notion directly:
+    verifier for language L = algorithm V that takes input <x,c> such
+    that x in L iff V accepts <x,c> for some c.
+    Runtime measured as a function of n=|x| only (ignoring c).
+
+NTIME(t(n)) =
+    { L : L is a language decided by a NTM in worst-case time O(t(n)) }
+NP = U_k NTIME(n^k)
+   = { L : L is decided by some polytime NTM }
+   = { L : L has a polytime verifier }
+
+By tractability thesis, NP independent of specific details of
+nondeterministic model (as long as it's nondeterministic).
+
+Note that a polytime verifier can only examine a polynomial number of
+characters from c. The string c is often called a certificate or proof
+of membership in L.
+
+Examples:
+
+ -  COMPOSITES = { x : x is a composite number }
+    COMPOSITES in P?  Unknown (checking all possible factors not polytime.)
+    COMPOSITES in NP?  Yes:
+        On input <x,c>:
+         1. Check that 1 < c < x.
+         2. Check that c divides x evenly.
+         3. Accept if all checks succeed; reject if any fail.
+    If x is composite, then the verifier will accept <x,c> when c is a
+    factor of x.  If x is prime, then the verifier will reject <x,c> for
+    all values of c.
+    Moreover, the verifier runs in polytime:
+    comparing integers (1 < c < x) can be done in linear time;
+    dividing integers can be done in quadratic time.
+
+ -  HAMPATH = { <G> : G is an undirected graph that contains a Hamiltonian
+    path, i.e., a path that includes every vertex exactly once }
+    HAMPATH in P?  Unknown (checking all possible paths not polytime.)
+    HAMPATH in NP?  Yes:
+        On input <G,c>:
+         1. Check c encodes a list of vertices (v_1,v_2,...,v_n).
+         2. Check c contains every vertex of G exactly once, i.e.,
+            V = {v_1,v_2,...,v_n}.
+         3. Check G contains every edge between successive vertices in c:
+            (v_1,v_2) in E, (v_2,v_3) in E, ..., (v_{n-1},v_n) in E.
+         4. Accept if all checks succeed; reject if any fail.
+    By definition of the language, if G in HAMPATH, then verifier accepts
+    <G,c> for some value of c (a Hamiltonian path in G); if G not in
+    HAMPATH, then verifier rejects <G,c> for all values of c.  Moreover,
+    verifier runs in polytime: if G contains n vertices and m edges,
+    runtime is at most O(n^2 m).
+
+-----------
+P, NP, coNP
+-----------
+
+Further examples of languages in NP:
+
+ -  CLIQUE = { <G,k> | G is an undirected graph that contains a k-clique --
+                       a subset of k vertices with all edges between them }
+    Verifier = "On input <G,k,c>:
+     1. check that c encodes a set of vertices;
+     2. check that every vertex in c belongs to G;
+     3. check that c contains k vertices;
+     4. check that G contains the edge between
+        every pair of vertices from c;
+     5. accept if all checks pass, reject otherwise."
+    Verifier runs in polytime:
+     1. checking encodings can be done in polytime,
+     2. time O(kn), where n = number of vertices of G,
+     3. time O(k),
+     4. time O(k^2 n^2) (O(k^2) pairs in c, time O(n^2) for each one).
+    If <G,k> in CLIQUE, then verifier accepts when c = a k-clique of G.
+    If <G,k> not in CLIQUE, then no value of c makes verifier accept.
+
+ -  SUBSET-SUM = { <S,t> | S = {x_1,x_2,...,x_k} and there is a set
+                           {y_1,y_2,...,y_j} such that sum y_i = t }
+    Verifier = "On input <S,t,c>:
+     1. check that c encodes a set of numbers;
+     2. check that c subset of S;
+     3. check that SUM_{y in c} y = t;
+     4. accept if all checks pass, reject otherwise."
+    Clearly runs in polytime, and accepts for some c
+    iff <S,t> in SUBSET-SUM.
+
+Notes:
+
+ -  HAMPATH^C, CLIQUE^C, SUBSET-SUM^C don't appear to belong to NP:
+    apparently, no way to give a short certificate of NON-membership in
+    HAMPATH, CLIQUE, or SUBSET-SUM.
+
+ -  On the other hand, COMPOSITES^C = PRIMES can be shown to belong to NP
+    (using number theory).  In fact, recent research result (Agrawal,
+    Kayal, Saxena 2002) showed that PRIMES is actually in P (for more
+    details, see http://crypto.cs.mcgill.ca/~stiglic/PRIMES_P_FAQ.html).
+
+Definition: coNP = { L^C | L in NP } = { complements of languages in NP }.
+Note: coNP =/= NP^C!  L in coNP iff L^C in NP but L in NP^C iff L notin NP.
+
+[Picture: P subset of NP intersect coNP, all subset of decidable;
+analogy with computability where
+decidable = recognizable intersect co-recognizable.]
+
+Open question:  P ?= NP intersect coNP  (No strong concensus.)
+
+Open question:  NP ?= coNP  (Strongly believed to be NO.)
+
+Open question:  P ?= NP  (Strongly believed to be NO.)
+
+Answering these questions is worth 1 million dollars!  (They are some of
+the "Millenium Problems" recognized by the Clay Mathematics Institute.)
+

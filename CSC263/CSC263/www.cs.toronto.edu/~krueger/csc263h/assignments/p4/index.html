@@ -1,0 +1,149 @@
+<html><head><title>CSC&nbsp;263H Fall 2007 -- Programming question for Homework 4</title></head><body style="color: black; background-color: white;" alink="red" link="blue" vlink="navy">
+<h3>Programming question for Homework 4: TTC trip planner</h3>
+
+<p>
+In this assignment you will be modifying your Dijkstra's algorithm
+implementation from your previous programming
+assignment to construct a rudimentary bus/subway trip planner.
+Some rudimentary data regarding TTC bus, streetcar and subway routes
+will be made available for you to test your program.
+A basic text interface system is provided for you.
+</p>
+
+<p>
+You will modify your Dijkstra's single-source shortest path algorithm
+from assignment 3 (or as described in CLRS) to support queries on a
+much more complicated graph structure. The TTCGraph extends the graph
+data structures you developed in assignment 3 to store information
+about when and where buses (or other transit vehicles) transit.
+Each edge represents a particular route joining two consecutive stops
+(since many routes may run between two locations, this is a multigraph).
+We have provided code to parse input files and generate some of the
+graph structure; you will need to complete the weight function which
+will give how long a customer needs to wait for the next
+bus/train/etc. and transit to the next stop.
+Your modified Dijkstra algorithm will use this dynamic weight function
+to try to find a shortest route between two given locations in the
+loaded transit network.
+</p>
+
+<p>
+The <tt>/u/csc263h/fall/pub/p4/data</tt> directory on CDF contains
+a number of files describing the lists of stops and stop times for
+several actual TTC routes (routes 1 through 4 represent the subway and
+SRT routes). These data are parsed from the <tt>../rawdata</tt> files,
+which were downloaded directly from the TTC website.
+Though some of the <tt>data</tt> files contain accurate data, many
+routes contain estimated data and a reduced number of stops to
+help simplify your testing process.
+</p>
+
+<p>
+This assignment is somewhat open-ended: you are free to improve this
+code in any way you wish. A few marks will be devoted to design
+improvements or extra features. You will include a <i>short</i> report
+(in a <tt>report.txt</tt> file)
+describing how you implemented the missing TODO portions of code, and
+any extra features you chose to implement.
+Your report <b>must not</b> be more than one page (66 lines by 80 columns!).
+The bulk of the marks will
+be for completeness and correctness of the TODO portions, with extra
+marks devoted to any extra features you successfully implement.
+</p>
+
+<hr>
+<p>For more details, including exact specifications of the
+methods that you should implement, see the starter code.
+You must complete the portions marked 
+by comments that start with: "<code>// TODO:</code>",
+however, you may also make any other modifications to the code
+that you wish!
+Be sure to describe any additional features you implement in
+your report.
+</p>
+
+<p>
+Starter code (here is all the starter code in <a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/handout.tar.gz">one big .tar.gz file</a>):
+</p>
+<ul>
+<li>Reading ttc schedules and represening them in a consistent way:
+  <ul>
+  <li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TTCStop.java">TTCStop.java</a>
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TTCStopComparator.java">TTCStopComparator.java</a>
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TTCTime.java">TTCTime.java</a>
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TTCLine.java">TTCLine.java</a> &nbsp; (Contains TODO)
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/StringComparator.java">StringComparator.java</a>
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TTC.java">TTC.java</a>
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/AVL.jar">AVL.jar</a> &nbsp; (A2 solution, used by starter code)
+  </li></ul>
+
+</li><li>Creating a graph.
+  <ul>
+  <li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TTCEdge.java">TTCEdge.java</a> &nbsp; (Contains TODO)
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TTCShortestPathInfo.java">TTCShortestPathInfo.java</a>
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TTCGraph.java">TTCGraph.java</a>
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/Node.java">Node.java</a>
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TTCDijkstra.java">TTCDijkstra.java</a> &nbsp; (Contains TODO)
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/Graph.jar">Graph.jar</a> &nbsp; (A3 solution)
+  </li><li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TernaryHeap.class">TernaryHeap.class</a> &nbsp; (A1 solution - requires PriorityComparator.class as in A3)
+  </li></ul>
+
+</li><li>Interface with user (text)
+  <ul>
+  <li><a href="http://www.cs.toronto.edu/%7Ekrueger/csc263h/assignments/p4/TTCDriver.java">TTCDriver.java</a>
+  </li></ul>
+</li></ul>
+
+<p>
+Since we are providing some starter code in the form of a <code>.jar</code>
+file, you'll need either to add this file to your classpath (i.e.,
+use a command like "<code>javac -cp .:Graph.jar:AVL.jar *.java</code>"
+to compile and give the same option to <code>java</code> to run)
+or unpack each .jar using a command like
+"<code>jar xf Graph.jar<code>" (run for each .jar file).
+</code></code></p>
+
+<hr style="width: 100%; height: 2px;">
+<p><span style="font-weight: bold;">Submission Instructions</span>
+</p>
+<ol>
+  <li>Submit your code <span style="font-weight: bold;">using the
+"submit" mechanism on CDF </span>(<span style="font-weight: bold;">by
+11:59pm on Friday, December 7)</span>. The <a href="http://www.cdf.utoronto.ca/workathome/">CDF FAQ</a>
+contains general instructions for submitting your code electronically
+(under the "Submitting Work" section). </li>
+  <br>
+  <li>Submit <span style="font-weight: bold;">all</span> <tt>.java</tt> files 
+you modified and your <tt>report.txt</tt> file
+to the directory called
+<span style="font-weight: bold;">PGM4</span>.
+All the code that you implement should be inside these files.</li>
+  <br>
+  <li>Do not submit 
+any class files. If you do, we will delete them before we compile
+your code.</li>
+  <br>
+  <li>Do <span style="font-weight: bold;">not</span> submit any
+printout of the code.</li>
+  <br>
+  <li>Do not rename the files, or any of the methods and
+variables found in our starter code.</li>
+  <br>
+  <li><span style="font-weight: bold;">Write your name, student number
+and CDF username in a comment at the top of the&nbsp;</span>
+<span style="font-family: monospace; font-weight: bold;">TTCDijkstra.java</span>
+<span style="font-weight: bold;"> file.
+If you have a partner, you should also
+write the corresponding information about your partner.</span></li>
+  <br>
+  <li>We will compile your code and test it using
+various data. A portion of your mark will be devoted to the clarity of
+your report and how accurately it describes your code.</li>
+  <br>
+  <li>Your code must compile and run on the CDF Unix/Linux system.
+Test it there! Programs that do not
+compile and run
+get 0 marks.</li>
+</ol>
+
+</body></html>

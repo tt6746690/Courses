@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<HTML>
+<HEAD>
+<TITLE>CSC 364 Tests</TITLE>
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H2>CSC 364H Summer 2002</H2>
+<h2>Test #1 Information</H2>
+
+<p>
+<i>Homework solutions:</i><br>
+Several people have asked me about solutions for the assignment. I will
+not be posting the solutions. But you are welcome to come to office
+hours, or use the newsgroup and email if you have any questions about
+solving the problems.
+</p>
+
+<p>
+<i>What do I expect you to know for the test?</i>
+<ul>
+<li>The test will cover everything up to the end of reducibilities.
+Greedy algorithms will not be on the test.
+<li>I expect that you have solved all the homework in some form (for
+question 6, solving the write-twice TM is sufficient).
+<li>Turing machines: formal definition, creating, proving correctness
+(induction).
+<li>Proving two models of computation equivalent.
+<li>Nondeterminism: I expect you to be aware of nondeterminism and what
+it is, but I will not ask you specific questions about it (yet).
+So no nondeterministic Turing machines are required, though you are
+welcome to use it if you want to.
+<li>Decidable and semi-decidable languages.
+<li>Three methods for proving undecidability: diagonalization,
+contradiction and reduction.
+</ul>
+</p>
+
+<p>
+<i>What is the format of the test?</i><br>
+It will be a series of 5 problems similar to those on the homework, except
+(hopefully) much easier. Unlike the homework, I will not expect you to
+come up with new and novel ideas. You will be able to apply the ideas
+required for the homework to solve the test questions.
+</p>
+
+<p>
+<i>How long is the test?</i><br>
+It will be between 60 and 90 minutes long. Time should be sufficient if
+you have kept up with the homework.
+</p>
+
+<p>
+<i>How do I apply diagonalization?</i><br>
+As an example, let us consider how we defined DIAG. Since sigma* is
+recursively enumerable, we can write each string in a big list (like how
+we can write each natural number in a list). Let us consider only the
+strings which describe Turing machines and list them. We will list
+whether that machine accepts each string in our table (Y means the the
+machine on the left accepts the string on the top):
+
+<center>
+<table border=1><tr>
+<th align=center rowspan=2>TM</th><th colspan=6>Accepts string ...?</th>
+</tr><tr>
+<td>&lt;M<sub>1</sub>&gt;</td>
+<td>&lt;M<sub>2</sub>&gt;</td>
+<td>&lt;M<sub>3</sub>&gt;</td>
+<td>...</td>
+<td>&lt;M<sub>DIAG</sub>&gt;</td>
+<td>...</td>
+</tr><tr>
+<td align=center>M<sub>1</sub></td>
+<td align=center>Y</td>
+<td align=center>N</td>
+<td align=center>Y</td>
+<td></td>
+<td align=center>Y</td>
+</tr><tr>
+<td align=center>M<sub>2</sub></td>
+<td align=center>N</td>
+<td align=center>Y</td>
+<td align=center>Y</td>
+<td></td>
+<td align=center>N</td>
+</tr><tr>
+<td align=center>M<sub>3</sub></td>
+<td align=center>Y</td>
+<td align=center>N</td>
+<td align=center>N</td>
+<td></td>
+<td align=center>Y</td>
+</tr><tr>
+<td align=center>...</td>
+</tr><tr>
+<td align=center>M<sub>DIAG</sub></td>
+<td align=center>N</td>
+<td align=center>N</td>
+<td align=center>Y</td>
+<td></td>
+<td align=center>?</td>
+</tr><tr>
+<td align=center>...</td>
+</tr></table>
+</center>
+
+Recall that DIAG = { &lt;M&gt; | &lt;M&gt; is not accepted by M }.
+But if DIAG was recognizable, then M<sub>DIAG</sub> would appear in the
+list somewhere. But we picked DIAG so that it was different than the
+language of every machine in the list on at least one string, namely
+&lt;M&gt;. So DIAG must be different than L(M<sub>DIAG</sub>), which is
+a paradox. So the list of all machines does not include a machine for
+DIAG, hence no machine recognizes DIAG, and thus DIAG is not
+recognizable.
+</p>
+<p>
+To do a proof by diagonalization, list all the machines and languages
+(or whatever is applicable), and pick a suitable diagonal set (for
+example, a language which is different than each language in the list).
+It should be easy to then prove that language is undecidable, since we
+constructed it to have that property.
+</p>
+
+<HR>
+
+<TABLE>
+<TR>
+<TD>
+<SMALL>
+Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>
+

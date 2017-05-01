@@ -1,0 +1,50 @@
+258\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+
+% begin document
+\begin{document}
+
+\marginnote{Jan 13, 2017}
+
+\section*{6 Heap Sort}
+
+\begin{defn*}
+  A \textbf{sorting problem} is one where
+  \begin{itemize}
+    \item \textbf{Input}: A sequence of $n$ numbers $<a_1, a_2, \cdots, a_n>$
+    \item \textbf{Output}: A permutation (reordering) $<a_1', a_2',\cdots, a_n'>$ of the input sequence such that $a_1' \leq \cdots \leq a_n'$
+  \end{itemize}
+\end{defn*}
+
+
+1194
+
+\begin{defn*}
+  A \textbf{free tree} is a connected, acyclic, undirected graph. A \textbf{forest} is an undirected, acyclic but possibly disconnected graph.
+\end{defn*}
+
+\begin{defn*}
+  A \textbf{rooted tree} is a free tree in which one of the vertices is distinguished from the others. This distinguished verex is the \textbf{root} of the tree. Vertex of a rooted tree is a \textbf{node} of the tree. Assume a node $x$ in a rooted tree $T$ with root $r$. Any node $y$ on the unique simple path from $r$ to $x$ an \textbf{ancestor} of $x$. If $y$ is an ancestor of $x$ then $x$ is a \textbf{descendent} of $y$. The \textbf{subtree rooted at $x$} is the tree induced by descendents of $x$, rooted at $x$. The root is the only node in $T$ with no parent. If two nodes have the same parent they are \textbf{siblings}, A node with no children is a \textbf{leaf}. A nonleaf node is an \textbf{internal node}. The number of children of a node $x$ in a rooted tree $T$ equals the \textbf{degree} of $x$. The length of the simple path from the root $r$ to a node $x$ is the \textbf{depth} of $x$ in $T$. A \textbf{level} of a tree consists of all nodes at the same depth. The \textbf{height} of a node in a tree is the number of edges on the longest simple downward path from the node to a leaf. The height of a tree is the height of its root. An \textbf{ordered tree} is a rooted tree in which the children of each node are ordered. That is if a node has $k$ children, then there is a $k$th child.
+\end{defn*}
+
+\begin{defn*}
+  A \textbf{binary tree} $T$ is a structure defined on finite set of nodes that either
+  \begin{itemize}
+    \item contains no nodes, or
+    \item is composed of three disjoint sets of nodes;
+    \begin{enumerate}
+      \item a root node
+      \item a binary tree called its \textbf{left subtree}
+      \item a binary tree called its \textbf{right subtree}
+    \end{enumerate}
+  \end{itemize}
+  The binary tree that contains no nodes is called the \textbf{empty / null tree}, denoted with \textsc{Nil}. A \textbf{full binary tree} is a binary tree that each node is either
+  \begin{itemize}
+    \item a leaf or
+    \item has degree exactly 2
+  \end{itemize}
+\end{defn*}
+
+
+
+\end{document}

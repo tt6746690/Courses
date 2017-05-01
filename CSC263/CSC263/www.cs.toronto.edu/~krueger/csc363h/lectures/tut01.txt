@@ -1,0 +1,43 @@
+===========================================================================
+CSC 363H              Tutorial Exercises for Week  1            Summer 2006
+===========================================================================
+
+ -  This exercise concerns TM M_2 whose description and state diagram
+    appear in Example 3.7 (on p.143 of the textbook).  In each of the
+    parts, give the sequence of configurations that M_2 enters when
+    started on the indicated input string.
+
+     a. 0
+     c. 000
+
+    (This is exercise 3.1 on p.159 of the textbook.)
+
+ -  Examine the formal definition of a Turing machine to answer the
+    following questions, and explain your reasoning.
+
+     a. Can a Turing machine ever write the blank symbol _ on its tape?
+     b. Can the tape alphabet T be the same as the input alphabet S?
+     c. Can a Turing machine's head *ever* be in the same location in two
+        successive steps?
+     d. Can a Turing machine contain just a single state?
+
+    (This is exercise 3.5 on p.160 of the textbook -- sample answers appear
+    on p.162 but you should try to answer them yourself first, to make sure
+    you understand the definition of Turing machine.)
+
+ -  Write a formal-level description of a Turing machine that decides the
+    language consisting of all strings of 0s whose length is a power of 2
+    { 0^{2^n} : n >= 0 }, using the alternate convention mentioned in
+    lecture (where the initial configuration has one blank square to the
+    left of the input string).
+
+ -  Give implementation-level descriptions of Turing machines that decide
+    the following languages over the alphabet {0,1}:
+
+     a. { w | w contains an equal number of 0s and 1s }
+     b. { w | w contains twice as many 0s as 1s }
+     c. { w | w does not contain twice as many 0s as 1s }
+
+    (This is exercise 3.8 on p.160 of the textbook -- a sample solution for
+    part (a) appears on p.163.)
+

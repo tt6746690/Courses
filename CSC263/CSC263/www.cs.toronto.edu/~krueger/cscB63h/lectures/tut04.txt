@@ -1,0 +1,276 @@
+TUTORIAL 4: B-trees
+===================
+
+Recall that B-trees are like BSTs, except:
+
+-each node has a size property. i.e., the number of keys stored in the node 
+-the tree has a depth property i.e., all leaves must be at the same depth.
+
+In this tutorial, we will look at B-trees with minimum degree t=2.
+
+
+Here is an example of a B-tree with minimum degree t=2 
+
+                              ______17______
+                             /              \
+                        __4____9_        20____30____41__
+                       /     |   \      /    |    |      \
+                    1 2 3   7 8   12   18   24   33    56 80
+                    
+---------
+ Search 
+---------
+
+Question: In what order would the nodes be examined if you were searching for
+the key 7? Which keys are examined at each node and what questions
+are asked? 
+Answer: Starting with the root, is key=17 ? Is key > 17? No, so use
+        the left subtree.
+     Next node (4,9). Is key=4 ? Is key > 4? Yes, so move to next key.
+     Is key=9 ? Is key > 9? No, so use subtree to left of 9.
+     Next node (7,8). Is key=7? Yes. Found. 
+
+Question: What about searching for key = 11? 
+Answer: Starts the same but when evaluating the node (4,9) we find that
+     key > 9 and there are no more keys in that node to check. We therefore go
+     to the right-most subtree. Then when we evaluate that key <12, we look to
+     the left sub-tree of 12 which is a leaf.This tells us that 11 is not
+     in the tree. 
+
+
+-----------
+ Insertion
+-----------
+Consider inserting 6 into the above tree. Where does the 6 go?
+
+
+                              ______17______
+                             /              \
+                        __4____9__       20____30____41__
+                       /     |    \      /    |    |      \
+                    1 2 3  6 7 8   12   18   24   33    56_80
+
+
+Remember that if a key is inserted into a node with 1 or 2 existings keys, the 
+insertion is easy.  We just put the new element into the correct position 
+so that the order property still holds.
+
+If the destination node has 3 keys already then inserting the new node will
+violate the size property.
+
+Consider inserting 5 now. When we insert 5, the node (5,6,7,8) is formed 
+which has too many keys.  We resolve the problem by doing a SPLIT.
+
+In this case we form the node (5) and the node (7,8) and give them the
+parent (6). We insert the subtree
+
+                    __6__
+                   /     \
+                 5       7 8
+
+
+into node (4,9) which was the original parent of (5,7,8).
+
+Question: What does the final tree look like after the insertion?
+Answer: The final tree is:
+
+                              ______17_____________
+                             /                     \
+                        __4_____6___9_       20____30____41___
+                       /      |    |  \      /    |    |      \
+                    1 2 3     5   7 8  12   18   24   33    56_80
+
+
+
+
+Another example: Starting with an empty tree, insert the following keys into
+the tree: 5, 16, 22, 45, 2, 10, 18, 30, 50, 12, 31 
+
+Answer:
+    Inserting 5:
+
+        (5)
+
+    Inserting 16:
+
+        (5,16)
+
+    Inserting 22:
+
+        (5,16,22)
+
+    Inserting 45:
+
+            (16)
+           /    \
+        (5)  (22, 45)
+
+    Inserting 2:
+
+            (16)
+           /    \
+        (2, 5)  (22, 45)
+
+    Inserting 10:
+
+            (16)
+           /    \
+     (2, 5, 10)  (22, 45)
+
+   Inserting 18:
+            (16)
+           /    \
+     (2, 5, 10)  (18, 22, 45)
+
+    Inserting 30:
+            (16 , 22)
+           /    |   \
+    (2, 5, 10) (18)  (30, 45)
+
+    Inserting 50:
+            (16 , 22)
+           /    |   \
+    (2, 5, 10) (18)  (30, 45, 50)
+
+    Inserting 12:
+          ( 5,  16 , 22 )
+         /     |   |    \
+      (2) (10, 12) (18)  (30, 45, 50)
+
+    Inserting 31: (show the steps)
+	a. split root:
+                16
+               /   \
+          ( 5 )     ( 22 )
+         /    \      /   \
+      (2) (10, 12) (18) (30, 45, 50)
+	b. walk down tree, split leaf
+                16
+               /   \
+          ( 5 )     ( 22, 45 )
+         /    \      /   |   \
+      (2) (10, 12) (18) (30) (50)
+        c. add 31 to leaf
+                16
+               /   \
+          ( 5 )     ( 22, 45 )
+         /    \      /   |     \
+      (2) (10,12) (18) (30,31) (50)
+
+
+-----------
+ Deletion
+-----------
+
+Consider the following 2-3-4 tree:
+
+
+                              ______17_____________
+                             /                     \
+                        __4____6____9_       20____30____41___
+                       /     |    |   \      /    |    |      \
+                    1 2 3    5   7 8   12   18   24   33    56_80
+
+
+Question: How would the tree change if we deleted the element with key 2?
+Answer: just remove the 2.
+
+Question: What would be the problem if we deleted the element 4 in the same way?
+Answer: 4 isn't in a leaf node, so we would need a key to replace 4 or 
+else the subtree (1-2-3) is lost since (6,9) can only have 3 children.
+
+We can find the predecessor for 4 and swap the elements. In this case 4's 
+predecessor is 3. 
+
+So, we can safely only consider the case where we are deleting an element
+whose children are leaves.
+
+Question: Which tree property is violated if we delete the element with key 12
+from the above tree?
+A: There is a problem with the size property. The node which used to hold 12
+has no key (which is an illegal size).
+
+The problem is called UNDERFLOW.
+
+We solve this problem by BORROWING a key from a sibling.
+In this case the sibbling (7,8) has 2 keys so it can spare one. But notice that
+if we shifted 8 over to the node 12 we would have the following subtree
+
+      _9_
+     /   \
+    7     8
+
+which would violate the ordering property. So instead we ROTATE. We
+shift the 9 from the parent into 12's old position and the 8 from (7,8)
+into the hole left from moving 9.
+
+Notice that this could happen from either sibling so if we were to delete
+5, we could rotate 3,4 and 5 or else 7,6 and 5.
+
+Question: Will this work if we want to delete 24? Who will rotate or why won't
+it work?
+Answer: It won't work because both direct siblings are 2-nodes. They have
+no extra keys to spare. If we borrowed from either of them, they would
+underflow.
+
+In this case we don't borrow but we MERGE.
+
+We combine the node 24 with one of its 2-node siblings and the key from
+their parent which divides them. In this case, one choice is
+to combine 18,20 and 24. We delete node 24 from this and attach the combined
+node as the subtree of the parent. Here is the resulting tree:
+
+
+                              ______17_____________
+                             /                     \
+                        __4____6____9_        ___30____41___
+                       /     |    |   \      /       |      \
+                    1 2 3    5   7 8  12   18 20   33    56_80
+
+
+Notice that we only need to merge when the sibling is a 2-node so the new
+resulting node is always a 2-node. Notice also that we could merge with
+either sibling.
+
+Question: What is the net result to the parent when we merge?
+Answer: The parent has one fewer key and one fewer child.
+
+This could cause the parent p to underflow. When this occurs we resolve the
+underflow by borrowing from or merging with a sibling of p.
+
+Consider a brand-new tree example:
+
+                              ______31________
+                             /                \
+                          __6___          ____78 __
+                        /       \        /         \
+                    1_2_3        7_8   60          100
+                  /  | | \      / | \ /  \        /   \
+
+Delete 60 from this tree.
+
+60 can't borrow from 100. 100 is already a 2-node.
+60 can't borrow from (7,8). They are not siblings.
+
+So 60 is deleted and 100 merges with 78 and now the parent 78 underflows.
+
+                              ______31________
+                             /                \
+                          __6___            ___? __
+                        /       \                 \
+                    1_2_3        7_8            78_100
+                  /  | | \      / | \          /  |   \
+
+Now ? could borrow from node 6 if it were a 3-node or 4-node but because it
+is a 2-node 6 is merged with 31 resulting in:
+
+
+                              ?
+                             /
+                          __6______31__
+                        /      |       \
+                    1_2_3     7_8    78_100
+
+
+Since 31 came from a 2-node it now underflows. Because it is the root, it
+is simply removed from the tree and (6,31) becomes the new root.

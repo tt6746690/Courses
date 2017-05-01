@@ -1,0 +1,737 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\section*{Question 1}
+In this question, you must use the insertion and deletion algorithms as described
+in the “Balanced Search Trees: AVL trees” handout posted on the course web site. (10 marks);
+
+\begin{enumerate}[label=\alph*.]
+\item Insert keys 17, 7, 8, 14, 19, 6, 10, 21, 15, 12, 9, 11 (in this order) into an initially empty
+AVL tree, and show the resulting AVL tree \textit{T}, including the balance factor of each node. (5 marks)
+\item Delete key 17 from the above AVL tree \textit{T}, and show the resulting AVL tree, including the
+balance factor of each node. (5 marks)
+\end{enumerate}
+
+\noindent
+In each of the above questions, only the final tree should be shown: intermediate trees will be disregarded,
+and not given partial credit.
+
+\begin{solution}
+  \item a. We define our final tree as follows:
+  \item
+  \begin{center}
+  \begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {$14$ \\ -1}
+    child
+    {
+        node [treenode] {$8$ \\ +1}
+        child
+        {
+            node [treenode] {$7$ \\ -1}
+            child
+            {
+                node [treenode] {$6$ \\ 0}
+            }
+            child[missing]
+            {
+            }
+        }
+        child
+        {
+            node [treenode] {$10$ \\ +1}
+            child
+            {
+                node [treenode] {$9$ \\ 0}
+            }
+            child
+            {
+                node [treenode] {$12$ \\ -1}
+                child
+                {
+                    node [treenode] {$11$ \\ 0}
+                }
+                child[missing]
+                {
+                }
+            }
+        }
+    }
+    child
+    {
+        node [treenode] {$17$ \\ +1}
+        child
+        {
+            node [treenode] {$15$ \\ 0}
+        }
+        child
+        {
+            node [treenode] {$19$ \\ +1}
+            child[missing]
+            {
+            }
+            child
+            {
+                node [treenode] {$21$ \\ 0}
+            }
+        }
+    };
+  \end{tikzpicture}
+  \end{center}
+  \item b. Once we delete 17, the resulting tree is doubly left heavy. To rebalance the tree, we require two rotations based on pivots centered around nodes 14 (the current root), 8 (left child of 14), and 10 (right child of 8). We first perform a left rotation on this cluster, and then a right rotation on the cluster. The result is the following tree:
+  \item
+  \begin{center}
+  \begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {$10$ \\ 0}
+    child
+    {
+        node [treenode] {$8$ \\ -1}
+        child
+        {
+            node [treenode] {$7$ \\ -1}
+            child
+            {
+                node [treenode] {$6$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+        child
+        {
+            node [treenode] {$9$ \\ 0}
+        }
+    }
+    child
+    {
+        node [treenode] {$14$ \\ 0}
+        child
+        {
+            node [treenode] {$12$ \\ -1}
+            child
+            {
+                node [treenode] {$11$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+        child
+        {
+            node [treenode] {$19$ \\ 0}
+            child
+            {
+                node [treenode] {$15$ \\ 0}
+            }
+            child
+            {
+                node [treenode] {$21$ \\ 0}
+            }
+        }
+    };
+  \end{tikzpicture}
+  \end{center}
+\end{solution}
+
+\section*{Question 2}
+In this question, you must use the insertion and deletion algorithms described
+in the “Balanced Search Trees: AVL trees” handout posted on the course web site. (10 marks)
+
+\begin{enumerate}[label=\alph*.]
+\item Prove or disprove: “For any AVL tree \textit{T} and any key \textit{x} in \textit{T}, if we let \textit{T}$\prime$ = DELETE(\textit{T}, \textit{x})
+and \textit{T}$\prime\prime$ = INSERT(\textit{T}$\prime$, \textit{x}), Then \textit{T}$\prime\prime$ = \textit{T}." State clearly whether you are attempting to prove or disprove
+the statement. If proving, give a clear general argument; if disproving, give a concrete example where you
+show clearly each tree \textit{T}, \textit{T}$\prime$, \textit{T}$\prime\prime$ with the balance factors indicated beside each node. (5 marks)
+
+\begin{solution}
+  \item We will disprove this statement. Thus, we must show that in an arbitrary tree $T$, there exists a key $k$ such that deleting $k$ and then re-inserting $k$ will result in a tree $T''$ such that $T \neq T''$.
+  \item Define equality here as, if $T = T'$ then all edges of $T'$ connect to the same pattern of nodes as in $T$, and all keys and balance factors of $T'$ are identical to those of $T$.
+  \item We can actually use the example from Question 1a. Let $k$ be node $17$ and $T$ be our initial tree of Question 1a:
+  \item
+  \begin{center}
+  \begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {$14$ \\ -1}
+    child
+    {
+        node [treenode] {$8$ \\ +1}
+        child
+        {
+            node [treenode] {$7$ \\ -1}
+            child
+            {
+                node [treenode] {$6$ \\ 0}
+            }
+            child[missing]
+            {
+            }
+        }
+        child
+        {
+            node [treenode] {$10$ \\ +1}
+            child
+            {
+                node [treenode] {$9$ \\ 0}
+            }
+            child
+            {
+                node [treenode] {$12$ \\ -1}
+                child
+                {
+                    node [treenode] {$11$ \\ 0}
+                }
+                child[missing]
+                {
+                }
+            }
+        }
+    }
+    child
+    {
+        node [treenode] {$17$ \\ +1}
+        child
+        {
+            node [treenode] {$15$ \\ 0}
+        }
+        child
+        {
+            node [treenode] {$19$ \\ +1}
+            child[missing]
+            {
+            }
+            child
+            {
+                node [treenode] {$21$ \\ 0}
+            }
+        }
+    };
+  \end{tikzpicture}
+  \end{center}
+  \item We then delete $17$ resulting in the tree from 1b, which we can call $T'$. Thus:
+  \item
+  \begin{center}
+  \begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {$10$ \\ 0}
+    child
+    {
+        node [treenode] {$8$ \\ -1}
+        child
+        {
+            node [treenode] {$7$ \\ -1}
+            child
+            {
+                node [treenode] {$6$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+        child
+        {
+            node [treenode] {$9$ \\ 0}
+        }
+    }
+    child
+    {
+        node [treenode] {$14$ \\ 0}
+        child
+        {
+            node [treenode] {$12$ \\ -1}
+            child
+            {
+                node [treenode] {$11$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+        child
+        {
+            node [treenode] {$19$ \\ 0}
+            child
+            {
+                node [treenode] {$15$ \\ 0}
+            }
+            child
+            {
+                node [treenode] {$21$ \\ 0}
+            }
+        }
+    };
+  \end{tikzpicture}
+  \end{center}
+  \item Finally, we reinsert $k = 17$. This results in the tree $T''$ which is as follows:
+  \item
+  \begin{center}
+  \begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {$10$ \\ 1}
+    child
+    {
+        node [treenode] {$8$ \\ -1}
+        child
+        {
+            node [treenode] {$7$ \\ -1}
+            child
+            {
+                node [treenode] {$6$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+        child
+        {
+            node [treenode] {$9$ \\ 0}
+        }
+    }
+    child
+    {
+        node [treenode] {$14$ \\ 1}
+        child
+        {
+            node [treenode] {$12$ \\ -1}
+            child
+            {
+                node [treenode] {$11$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+        child
+        {
+            node [treenode] {$19$ \\ -1}
+            child
+            {
+                node [treenode] {$15$ \\ 1}
+                child [missing]
+                {
+                }
+                child
+                {
+                    node [treenode] {$17$ \\ 0}
+                }
+            }
+            child
+            {
+                node [treenode] {$21$ \\ 0}
+            }
+        }
+    };
+  \end{tikzpicture}
+  \end{center}
+  \item And we can clearly see that, by our definition of equality of trees, $T'' \neq T$, thus disproving the conjecture.
+\end{solution}
+\item Find an AVL tree \textit{T} and a key \textit{x} in \textit{T} such that calling DELETE(\textit{T}, \textit{x}) causes two rebalancing
+operations to take place. Your tree \textit{T} should be as small as possible, in terms of the number of nodes, so
+that this takes place (you do not have to prove that it is indeed the smallest). Show your original tree
+\textit{T} and the key \textit{x}, then show the result of each rebalancing operation. Make sure to clearly indicate the
+balance factor next to each node. (5 marks)
+\begin{solution}
+  \item The AVL tree has a minimum size of 12 nodes shown below, we will delete 35 from the AVL tree.
+  \begin{center}
+  \begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 7cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {$29$ \\ -1}
+    child
+    {
+        node [treenode] {$15$ \\ -1}
+        child
+        {
+            node [treenode] {$7$ \\ +1}
+            child
+            {
+                node [treenode] {$4$ \\ 0}
+            }
+            child
+            {
+                node [treenode] {$9$ \\ -1}
+                child
+                {
+                    node [treenode] {$8$ \\ 0}
+                }
+                child [missing]
+                {
+                }
+            }
+        }
+        child
+        {
+            node [treenode] {$17$ \\ -1}
+            child
+            {
+                node [treenode] {$16$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+    }
+    child
+    {
+        node [treenode] {$30$ \\ -1}
+        child
+        {
+            node [treenode] {$25$ \\ -1}
+            child
+            {
+                node [treenode] {$20$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+        child
+        {
+            node [treenode] {$35$ \\ 0}
+        }
+    };
+  \end{tikzpicture}
+  \end{center}
+  \item After deleting $35$, we rebalance the tree at node $N_1$ where $N_1$ is the node with key 30.
+  \item
+  \begin{center}
+  \begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 7cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {$29$ \\ -2}
+    child
+    {
+        node [treenode] {$15$ \\ -1}
+        child
+        {
+            node [treenode] {$7$ \\ +1}
+            child
+            {
+                node [treenode] {$4$ \\ 0}
+            }
+            child
+            {
+                node [treenode] {$9$ \\ -1}
+                child
+                {
+                    node [treenode] {$8$ \\ 0}
+                }
+                child [missing]
+                {
+                }
+            }
+        }
+        child
+        {
+            node [treenode] {$17$ \\ -1}
+            child
+            {
+                node [treenode] {$16$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+    }
+    child
+    {
+        node [treenode] {$25$ \\ 0}
+        child
+        {
+            node [treenode] {$20$ \\ 0}
+        }
+        child
+        {
+            node [treenode] {$30$ \\ 0}
+        }
+    };
+  \end{tikzpicture}
+  \end{center}
+  \item The previous rebalancing operation reduces the subtree rooted at $N_1$ by one. The change propagates upward and render the entire tree to be imbalanced. Here we introduce an introduce an additional rebalancing operation at the root of the AVL tree. The rebalancing procedure terminates with the following AVL tree.
+  \begin{center}
+  \begin{tikzpicture}[->,>=stealth', level/.style={sibling distance = 5cm/#1, level distance = 1.5cm}, scale=0.6,transform shape]
+    \node [treenode] {$15$ \\ 0}
+    child
+    {
+        node [treenode] {$7$ \\ +1}
+        child
+        {
+            node [treenode] {$4$ \\ 0}
+        }
+        child
+        {
+            node [treenode] {$9$ \\ -1}
+            child
+            {
+                node [treenode] {$8$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+    }
+    child
+    {
+        node [treenode] {$29$ \\ 0}
+        child
+        {
+            node [treenode] {$17$ \\ -1}
+            child
+            {
+                node [treenode] {$16$ \\ 0}
+            }
+            child [missing]
+            {
+            }
+        }
+        child
+        {
+            node [treenode] {$25$ \\ 0}
+            child
+            {
+                node [treenode] {$20$ \\ 0}
+            }
+            child
+            {
+                node [treenode] {$30$ \\ 0}
+            }
+        }
+    };
+  \end{tikzpicture}
+  \end{center}
+  \item Which is a valid AVL tree.
+\end{solution}
+
+\end{enumerate}
+
+
+\section*{Question 3}
+Give a simple, linear-time algorithm that determines if a Binary Search Tree (BST) satisfies the AVL balancing condition. The algorithm’s input is a pointer to the root of a BST \textit{T}
+where each node \textit{u} has the following fields: an integer \textit{key}, an \textit{lchild} and \textit{rchild} which are pointers to the left and right children of \textit{u} in \textit{T} (if \textit{u} has no left or right child, then \textit{u.lchild} = NIL or \textit{u.rchild} = NIL, respectively). \textbf{There is no balance factor or height information already stored in any node.} The algorithm’s output is TRUE if \textit{T} satisfies the AVL balancing condition, and FALSE otherwise. (15 marks)
+
+\noindent
+The worst-case running time of your algorithm \textit{\textbf{must be}} $\Theta$(\textit{n}) where \textit{n} is the number of nodes in \textit{T}.
+
+\noindent
+Describe your algorithm by giving its pseudo-code, and explain why its \textit{\textbf{worst-case}} running time is $\Theta$(\textit{n}). (15 marks).
+
+
+
+\begin{algorithm}[H]
+  \caption{$ $}
+  \SetKwFunction{cac}{Check-AVL-Condition}
+  \SetKwFunction{ah}{Assign-Height}
+  \SetKwFunction{main}{Main}
+
+  \Fn{\main$(root)$}{
+    \KwIn{$root$ is a pointer to the binary tree $T$ given}
+    \KwOut{$True$ if $T$ satisfies AVL balancing condition, $False$ otherwise}
+
+    \ah$(root)$\\
+    \Return{\cac$(root)$}
+  }
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \caption{$ $}
+  \SetKwFunction{ah}{Assign-Height}
+  \SetKwFunction{max}{Max}
+
+  \Fn{\ah$(u)$}{
+    \KwIn{$u$ is a node in a binary tree $T$}
+    \KwOut{None; Assigns height attribute to each node in subtree rooted at $u$}
+
+    \If{$u$ is $NIL$}{
+      $u.height = -1$
+    }
+    \Else{
+      \ah$(u.lchild)$\\
+      \ah$(u.rchild)$\\
+      $u.height = \max(u.lchild, u.rchild) + 1$ \\
+    }
+  }
+\end{algorithm}
+
+
+
+\begin{algorithm}[H]
+  \caption{$ $}
+  \SetKwFunction{cac}{Check-AVL-Condition}
+  \SetKwFunction{ah}{Assign-Height}
+  \SetKwFunction{max}{Max}
+
+  \Fn{\cac$(u)$}{
+    \KwIn{$u$ is a node in a binary tree $T$ where every node in the tree has an attribute $height$}
+    \KwOut{$True$ if subtree rooted at $u$ satisfies AVL balancing condition, $False$ otherwise}
+
+    \If{$u$ is $NIL$}{
+      \Return{True}
+    }
+    \Else{
+      $left =$ \cac$(u.lchild)$ \\
+      $right =$ \cac$(u.rchild)$ \\
+      $self = True$ \\
+      $heightDiff = u.lchild.height - u.rchild.height$\\
+      \If( \tcc*[f]{node $u$ not balanced}){$heightDiff \geq 2$ or $heightDiff \leq -2$}{
+        $self = False$\\
+      }
+      \If{any one of $left$, $right$, or $self$ is $False$}{
+        \Return{$False$}\\
+      }
+      \Return{$True$}\\
+    }
+
+
+  }
+\end{algorithm}
+
+\begin{solution}
+  $\textsc{Main}$ calls $\textsc{Assign-Height}(root)$ and $\textsc{Check-AVL-Condition}(root)$. Here we show that both both subroutines are $\Theta(n)$.
+  \begin{enumerate}
+    \item $\textsc{Assign-Height}(root)$ Let $T(n)$ be time taken by the algorithm when given the the root of a binary tree (subtree) $T$ of size $n$. Since for any $T$ of any given size, $\textsc{Assign-Height}(root)$ visits every single node in the tree, spending a constant amount of operation. Then the running time $T(n)$ where $n$ is size of binary tree is in $\Omega(n)$. \\
+    Now we prove $T(n) = O(n)$. Let $c>0$ such that $T(0) = c$ (i.e. When evaluating the node that is $NIL$) When $n>0$, as $\textsc{Assign-Height}(u)$ is called on an arbitrary node $u$ whose left subtree has $k$ node and right subtree has $n-k-1$ node, we characterize $T(n)$ by recurrence relation,
+    \[
+      T(n) = T(k) + T(n-k-1) + d
+    \]
+    for some $d>0$, denoting the upper bound on the operation performed in node $u$, exclusive of the time spent in recurrence calls. Define predicate $P(n): T(n) \leq (c+d)n + c$. When $n=0$, $T(n) = (c+d)\cdot 0 + c \leq c$, hence $P(0)$ holds. When $n>0$,
+    \begin{align*}
+        T(n) &\leq T(k) + T(n-k-1) + d \\
+        &= (c+d)k + (c+d)(n-k-1) + d \tag{inductive hypothesis}\\
+        &= (c+d)n + c\\
+    \end{align*}
+    Therefore $P(n)$ holds by induction. Here We proved that $T(n) = O(n)$. \\
+    In summary $T(n) = \Theta(n)$
+    \item $\textsc{Check-AVL-Condition}(root)$ Following the exact same logic / procedure as shown above.
+  \end{enumerate}
+  In conclusion, the worst time running time for $\textsc{Main}(root) = \Theta(n)$
+\end{solution}
+
+
+\section *{Question 4}
+We want an efficient algorithm for the following problem. The algorithm is given an integer \textit{m} $\geq$ 2, and then a (possibly infinite) sequence of distinct keys are input to the algorithm, \textit{\textbf{one at a time.}} A \textit{query} operation can occur at any point between any two key inputs in the sequence. When a \textit{query} occurs, the algorithm must return, \textit{\textbf{in sorted order}}, the \textit{m} smallest keys among all the keys that were input before the \textit{query}. Assume that at least \textit{m} keys are input before the first \textit{query} occurs.
+
+\noindent
+For example, suppose \textit{m} = 3, and the key inputs and query operations occur in the following order:
+
+\begin{center}
+20, 15, 31, 6, 13, 24, \textit{query}, 10, 17, \textit{query}, 9, 16, 5, 11, \textit{query}, 14, . . .
+\end{center}
+
+\noindent
+Then the first \textit{query} should return 6, 13, 15; the second \textit{query} should return 6, 10, 13; the third \textit{query}
+should return 5, 6, 9.
+
+\noindent
+Describe a simple algorithm that, for every \textit{m} $\geq$ 2, solves the above problem with the following worst-case
+time complexity:
+
+\begin{itemize}
+  \item \textit{O}(log \textit{m}) to process each input key, and
+  \item \textit{O}(\textit{m}) to perform each \textit{query} operation.
+\end{itemize}
+
+
+
+\noindent
+\textit{\textbf{Your algorithm must use a data structure that we learned in class without any modification
+to the data structure.}}
+
+\noindent
+To answer this question, you must:
+
+\begin{enumerate}
+  \item State which data structure you are using, and describe the items that it contains.
+
+  We will be using an AVL tree of size $m$. The AVL tree contains at most $m$ input keys with proper balancing factors assigned. The tree is maintained in a way such that the $m$ smallest keys are within the AVL tree.
+
+  \item Explain your algorithm \textit{\textbf{clearly}} and \textit{\textbf{concisely}}, in English.
+
+  Note we are not going in detail to the algorithm taught in class but instead focus on the algorithm in question.\\
+  The algorithm roughly consists of two subroutines,
+  \begin{enumerate}
+    \item \textbf{\textsc{Process-Key}$(T, x)$} \\
+    Input key $x$ is processed where $T$ is an AVL tree. In particular, if $T$ is empty, we create a new AVL tree with root $x$ with $\textbf{\textsc{AVL-Create}}$. Otherwise, $x$ is inserted into $T$ the same way that a node is inserted into an AVL tree using \textbf{\textsc{AVL-Insert}$(T, x)$}, which includes possible rotation and rebalancing procedues. Now we check the size of AVL tree. If $T.size$ exceeds the limit $m$, then we find the largest element in AVL tree using \textbf{\textsc{Maximum}}$(T)$, which traverses through the right child until it finds node $j$ with the maximum key. We then delete this node with \textbf{\textsc{AVL-Delete}}$(T, j)$ to preserve the size limit of the tree while still maintaining the balancing condition. In this step, the $m$ smallest key in the sequence up to $x$ is preserved in the AVL tree. The AVL tree's size (i.e. cannot exeed $m$) is invariant.
+    \item \textbf{\textsc{Query}$(T)$} \\
+    The algorithm traverses the binary tree in order of keys, from the smallest to largest, similar to BST inorder traversal. We allocate memory for an array $A$ of size $m$. During the traversal, we copy key of every node we visit to the the array $A$. The array $A$ is returned as output. We see that $A$ is a sorted array of the smallest $m$ element for all keys inputed before \textbf{\textsc{Query}$(T)$} as the AVL tree maintains such property.
+  \end{enumerate}
+
+
+  \item Give the algorithm’s \textit{\textbf{pseudo-code}}, including the code to process an input key \textit{k}, and the code for \textit{query}.
+
+
+  \begin{algorithm}[H]
+    \caption{$ $}
+    \SetKwFunction{pk}{Process-Key}
+    \SetKwFunction{create}{AVL-Create}
+    \SetKwFunction{insert}{AVL-Insert}
+    \SetKwFunction{max}{Maximum}
+    \SetKwFunction{delete}{AVL-Delete}
+
+    \Fn{\pk$(T, k)$}{
+      \KwIn{$T$ is an AVL tree of at most size $m$, $k$ is input key to be processed}
+      \KwOut{None; AVL tree's size and balancing condition maintained, and contains at most $m$ smallest element for the sequence of key up to $k$}
+
+      \If{$T$ is empty}{
+        $T = $ \create$()$\\
+      }
+      \insert$(T, k)$\\
+      \If{$T.size > m$}{
+        $maxNode = $ \max$(T)$\\
+        \delete$(T, maxNode)$\\
+      }
+    }
+  \end{algorithm}
+
+
+  \begin{algorithm}[H]
+    \caption{$ $}
+    \DontPrintSemicolon
+    \SetKwFunction{pk}{Process-Key}
+    \SetKwFunction{create}{AVL-Create}
+    \SetKwFunction{insert}{AVL-Insert}
+    \SetKwFunction{max}{Maximum}
+    \SetKwFunction{delete}{AVL-Delete}
+    \SetKwFunction{q}{Query}
+    \SetKwFunction{push}{Push}
+    \SetKwFunction{pop}{Pop}
+
+
+    \Fn{\q$(T)$}{
+      \KwIn{$T$ is an AVL tree of size $m$}
+      \KwOut{Returns the $m$ keys stored in $T$ in sorted order}
+
+      $L = LinkedList$\\
+      $S = Stack$ \\
+      $x = T.root$ \\
+      $S.\push(x)$\\
+
+      \While{$S$ is not empty or $x$ is not NIL}{
+
+        \tcc{push til smallest value reached}
+        \If{$x.left$ is not NIL}{
+          $S.\push(x.left)$\\
+          $x \leftarrow x.left$\\
+        }
+
+        \tcc{Now we pop and consider right child}
+        \If{$S$ is not empty}{
+          $x \leftarrow S.\pop()$\\
+          $L.next \leftarrow x$ \\
+          $x \leftarrow x.right$\\
+        }
+      }
+      \Return{L}
+    }
+  \end{algorithm}
+
+
+  \item Explain why your algorithm achieves the required worst-case time complexity described above.
+
+  \begin{solution}$ $\\
+
+      \begin{enumerate}
+        \item \textbf{\textsc{Process-Key($T,k$)}} achieves $\Theta(\log m)$ worst-case time complexity to process each input key because \textbf{\textsc{AVL-Create}()} takes constant time, and \textbf{\textsc{AVL-Insert}($T,k$)}, \textbf{\textsc{Maximum}($T$)}, \textbf{\textsc{AVL-Delete}($T, maxNode$)} all take $\Theta(\log m)$ time, assuming the AVL tree has at most $m$ nodes. This condition is maintained as explained previously.
+        \item  Since a constant amount of time is taken during visiting each node, \textbf{\textsc{Query}($T$)} is essentially the iterative algorithm for binary search which we have learnt in class to be $\Theta(m)$ where $m$ is the size of the tree.
+      \end{enumerate}
+
+  \end{solution}
+
+\end{enumerate}
+
+
+
+
+
+\end{document}

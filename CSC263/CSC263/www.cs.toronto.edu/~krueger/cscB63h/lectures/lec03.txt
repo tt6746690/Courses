@@ -1,0 +1,511 @@
+===========================================================================
+CSC B63                 Lecture Summary for Week  3             Summer 2008
+===========================================================================
+
+--------------
+Dictionary ADT
+--------------
+
+Common data type where we are storing data along with a key (to retrieve
+it with).
+
+Examples: storing employee info with their SIN number,
+	storing student grades indexed by student number,
+	storing objects with priorities, etc.
+  => simple form of database
+
+Want to be able to add/remove items, and look up the data associated
+with a particular key.
+
+Dictionary ADT:
+ Objects: each object x is composed of a key and one or more data items
+   (can assume data is one "compound" item or one pointer to data);
+   key[x] comes from a totally ordered universe (i.e., integer, char, etc.)
+ Operations:
+   SEARCH(D,key): A query that, given dictionary D and key k, returns a 
+   pointer x to an element in D such that key[x] = k or returns NIL
+   if no such element belongs to D
+   INSERT(D,x): A modifying operation that adds the element pointed to by
+   x to D.
+   DELETE(D,x): A modifying operation that deletes the element pointed to 
+   by x from D.
+
+[[Question: why not DELETE(S,k)?]]
+
+Many variations possible:
+  - require unique keys / allow duplicate keys,
+  - add operations to change information associated with a specific key,
+  - etc.
+
+
+What data structures can we use to implement a dictionary?
+
+1) unsorted array: if the dictionary has n elements, the first n positions
+   of the array are filled with these elements. A counter nextEmpty indicates 
+   the next available position (n+1 in this case).
+
+   good: insert can be implemented in constant time.
+   -simply add the element with key k to the next empty position in the array
+   and increase the counter by one
+
+   bad: search(D,k) requires linear time in the worst-case (must look at all
+   the elements in the array).
+
+Can we find a better data structure?
+
+2) sorted array: 
+   good: searching can be done faster when the array is sorted
+   bad: insert takes linear time in the worst-case (we have to shift all 
+   the elements in the array to the left if we delete the first element)
+
+This leads us to investigate Binary Search Trees.
+
+-----
+Trees
+-----
+
+Binary tree properties:
+  - trees are composed of nodes
+  - each node x has 3 pointers
+      -> lchild: left child of x
+      -> rchild: right child of x
+      -> parent: parent of c
+  - node also has a key field (and potentially one or more value fields)
+  - there is one root node with parent=NIL
+  - each tree has a pointer "root" to the root node
+  - any node with lchild=NIL and rchild=NIL is called a leaf
+  - technicality: if x is the parent of y, then y is either the left or 
+    right child of x
+  - a tree has no cycles
+  (each node has one parent and up to two children)
+
+The length of a path from the root r to a node x is the _depth_ of x in T.
+The _height_ of a node in a tree is the number of edges on the longest
+ simple downward path from the node to a leaf.
+The _height of a tree_ is the height of its root.
+
+Example:
+height 3:       7      <- depth 0 
+     ----------/-\---
+height 2:_____3_| 8    <- depth 1 
+             / \---\-------
+height 1:   2 | 4    12 <- depth 2
+         --/--   
+height 0: 1            <- depth 3
+
+We say that nodes in a tree are connected by edges
+
+Fact: a tree with n nodes has n-1 edges
+
+-------------------------
+Binary Search Trees (BST)
+-------------------------
+
+Binary Search Tree Property:
+  For every node x in the tree:
+     x.key >= y.key for each node y in the left subtree of x
+     x.key <= y.key for each node y in the right subtree of x 
+
+Example:
+        10
+       /  \
+      6    20
+     / \   / \
+    3  8  13 30
+           \
+           18
+
+BST SEARCH:
+ Given the root R of a BST and a key k to look for, first consider
+  the special case when R = NIL (return NIL), then recursively
+  SEARCH either the left or right subtree depending on whether
+  k < key[R] or k > key[R] until we find a node R such that key[R] = k,
+  or until we reach NIL.  Since this algorithm makes at most 1
+  recursive call at each step, it's easy to implement it
+  iteratively instead.
+
+    SEARCH(T,k):
+      x = root[T]
+      while x != NIL and k != key[x] do
+        if k < key[x] then  x := left[x]
+        else  x := right[x]
+      return x
+ 
+Worst-case running time? Let H be the height of the tree.
+
+O(H): the algorithm only examines nodes in a single path from the root
+down to a leaf. In particular, the while loop exits once it cannot traverse
+down the tree any farther (x = NIL).
+
+Omega(H): if we search for the key in the leaf node that is farthest from
+the root, then we examine at least H+1 nodes. 
+
+What is the height of a BST in the worst-case? It could have height n.
+       10
+       /
+      9
+     /
+  ...
+ /
+1
+
+Thus, the worst case running time for SEARCH is in Theta(n).
+
+We can't really improve better than the height of the tree, so we
+want the height to be less than n.
+Solution: "balance" the tree, so that we don't have these long arms.
+
+---------
+AVL trees [online notes]
+---------
+
+We say a binary tree is _height-balanced if heights of left and right
+subtrees of _every_ node of the tree differ by at most one.
+
+Height-balanced binary search trees were studied by Soviet mathematicians 
+Adelson-Velski and Landis, so we call them AVL trees (from their initials).
+
+Eg.   5         5         6
+               /        /   \
+	      3        5     9
+	              /     / \
+		     2     7   13
+		              /  \
+			     11	 15
+
+Fact: The height of an AVL tree with n nodes is at most 1.44 log_2(n+2)
+(and at least log_2 n)  [log_2 means base-2 logarithm]
+  i.e., the height of an AVL tree with n nodes is Theta(log n)
+
+AVL tree properties
+-------------------
+- left and right subtrees of every node must differ by at most one
+- a balance factor is stored at each node
+- the BST property holds (i.e., right child key <= my key <= left child key)
+
+The balance factor is either -2, -1, 0, +1, +2 
+                          or --, -,  0, +,  ++
+
+The balance factor at node x =
+    height of the subtree rooted at x's right child 
+    - height of the subtree rooted at x's left child
+
+Example #1: Add the balance factors
+
+                 9 (+)
+               /    \
+             6 (-)   15 (0)
+            /       /   \
+         2 (0)   13 (-)  20 (0)
+                 /       /  \
+               12(0) 18(0)  30(0)
+
+SEARCH
+------
+Since AVL trees satisfy the BST property, we can use the *same* algorithm 
+for SEARCH.
+  - the worst-case running time is still Theta(H), where H is the height
+    of the AVL tree.
+  - in this case, search takes Theta(log n).
+This is better!
+
+INSERT
+------
+How do we insert a node? Try using the BST INSERT.
+
+The general idea for BST insert:
+  - a node z will be inserted as a leaf
+  - we search for z's parent y
+  - the loop works with two pointers
+
+INSERT(T,z):
+    y := nil
+    x := root[T]
+    while x != nil do
+    begin
+      y := x
+      if key[z] < key[x] then
+        x := left[x]
+      else
+        x := right[x]
+    end
+ 
+    parent[z] := y
+ 
+    if y = nil then
+      root[T] := z // the tree was empty
+    else
+      // set the references from the parent
+      if key[z] < key[y] then
+        left[y] := z
+      else
+        right[y] := z
+
+Example: INSERT(T,35)
+
+                 9 
+               /  \
+             6    15 
+            /    /  \
+           2    13  20 
+               /   /  \
+              12  18   30
+                         \
+                         35
+
+This algorithm runs in worst-case time Theta(H), where H is the height 
+of the tree.
+  -intuitively, we traverse one path from the root node to a leaf
+
+This algorithm is good for BSTs, but for AVL trees, we need to ensure that
+the AVL tree property holds after an insertion.
+
+We must update balance factors and perform rotations to ensure that the 
+AVL tree properties hold.
+
+Consider the last example after the insert:
+
+                 9 (++)
+               /    \
+             6 (-)   15 (+)
+            /       /   \
+         2 (0)   13 (-)  20 (+)
+                 /       /  \
+               12(0) 18(0)  30(+)
+                             \
+                              35(0)
+
+The node with key 9 is too unbalanced: the difference of the heights of
+its subtrees (its balance factor) is +2. How can we fix this imbalance?
+  - intuitively, we want to push/rotate the tree to the left to balance
+    the two sides of the tree (moving one node from the "right side" to
+    the "left side" should do, but we must not break the BST property)
+
+Solution: do a single left rotation
+
+In this example, we want to rotate 15 up to the root (intuitively, it's
+the "centre" node now). Where do we put the other nodes?
+  - 9 must be the left child of 15 (BST property)
+  - 20 must be to the right of 15 (its right child)
+  - the subtree rooted at 13 must not be lost... where can it go?
+     - make it the right child of 9
+
+                 15 (0)
+               /     \
+             9 (0)    20 (+)
+           /  \      /   \
+         6(0) 13(-) 18(0) 30(+)
+         /    /             \
+       2(0)  12(0)          35(0)
+
+The tree is now rebalanced.
+
+[[Q: How many pointers did we change?]]
+
+The symmetric operation is a single right rotation (for a -- node).
+
+What happens if the node was instead added to the "centre" of the AVL tree
+(instead of one of the edges)? The single rotation won't fix things!
+
+Example: adding 14, then 11 to the previous example (instead of 35)
+  after the insert of 11 (and updating the balance factors):
+
+                 9 (++)
+               /     \
+             6 (-)    15 (-)
+            /       /    \
+         2 (0)   13 (-)   20 (0)
+                /  \        /   \
+              12(-) 14(0) 18(0)  30(0)
+              / 
+	    11(0)
+
+Right child of root is again too heavy, but single rotation won't fix it.
+  - need a double rotation to shift heaviness at 15 to right, then
+    balance heaviness at root
+  - this is a double right left rotation
+
+     - first rotate right:
+                 9 (++)
+               /     \
+             6 (-)    13 (+)
+            /       /     \
+         2 (0)   12 (-)    15 (+)
+                /          /    \
+              11(0)      14(0)  20(0)
+	                        /  \
+		              18(0) 30(0)
+
+     - then rotate left (just like in previous case):
+                 13 (0)
+               /     \
+             9 (0)    15 (+)
+           /  \      /   \
+         6(-) 12(-) 14(0) 20(0)
+         /    /           /  \
+       2(0)  11(0)      18(0) 30(0)
+
+
+AVL Rotations
+-------------
+Rotations may be necessary during the INSERT or DELETE operations.
+
+There are 4 different types of rotations:
+1) Rotate right:
+
+        A --                               B
+       / \                                / \
+    - B   T_3                           T_1  A
+     / \                ->                  / \
+    T_1 T_2                                T_1 T_3
+
+Three links must be updated
+
+2) Rotate left:
+
+        A ++                               B
+       / \                                / \
+     T_1  B +                            A   T_3
+         / \                ->          / \
+        T_2 T_3                        T_1 T_2
+
+
+Three links must be updated
+
+3) Double left right rotation:
+
+         A --                      A --                         C
+       /   \                     /   \                       /     \
+    +  B   T_3     step 1     - C    T_3       step 2       B       A
+     /   \           ->        /  \             ->        /   \   /   \
+    T_1   C                   B   T_22                  T_1 T_21 T_22  T_3
+        /   \                / \ 
+       T_21  T_22           T_1 T_21
+
+4) Double right left rotation: similar to double left right rotation
+         A ++                   A ++                           C
+       /   \                  /   \                         /     \
+     T_1    B -    step 1   T_1    C +        step 2       A       B
+          /   \      ->           /  \         ->        /   \   /   \
+         C     T_3              T_21  B                T_1 T_21 T_22  T_3
+       /   \                         / \ 
+     T_21  T_22                    T_22 T_3
+
+
+Cost of Insertion:
+------------------
+-find the position to insert the key:
+  -we can traverse at most the height of the tree to find a postion
+  -it is possible that we insert a node farthest from the root
+  -the height of an AVL tree is Theta(log n)
+=> this step takes Theta(log n) in worst-case
+
+-update balance factors
+  -we update the balance factors on the path from the newly inserted node to 
+   the root
+  -this path is at most the height of the tree
+  -it is possible that it is exactly the height of the tree
+=> updating the balance factors takes Theta(log n) time in worst-case
+
+-rotations
+  -a constant number of pointers are updated for each rotation
+  -a constant number of balance factors are updated
+  -we perform at most one rotation of the 4 types of rotations
+   (i.e., we traverse up the tree from the newly inserted node and if we find 
+   a node with a balance factor of ++ or -- we perform a rotation, and the 
+   tree becomes an AVL tree.)
+=> the rotations take Theta(1) time in the worst-case
+
+The total worst-case time for INSERT is Theta(log n)
+
+Cost of Deletion:
+----------------
+-may depend on whether we are given a pointer to the node to delete
+
+First assume that we are not (i.e., we only know the key k to delete)
+
+1) find the location of the node x with key k
+=> Theta(log n) time (same argument as INSERT)
+
+2) Delete the key k
+ a) if x is a leaf, delete x  -constant time
+ b) if x has one child, then let the parent of x point to the child of x 
+    -constant time
+ c) if x has two children, find the successor of the node x
+    -we traverse at most a path from the root to a leaf.
+    -this happens if we delete the key in the root node
+    -> this step takes Theta(log n) time
+=> this step takes Theta(log n) in the worst-case
+
+3) Updating balance factors
+=> Theta(log n) time (same argument as insert)
+
+4) Rotations
+ -constant number of pointers are updated for each rotation
+ -constant number of balance factors are updated for each rotation
+ -at most one of the 4 types of rotation is performed at _each_level_of_
+  the_tree. Tthis is different than INSERT!!
+=> The total cost of rotations is Theta(log n) in the worst-case
+
+The total worst-case time for delete is Theta(log n)
+
+Note: This does not change if we have a pointer to the node x
+
+Deletion example:
+-----------------
+
+                  15 -
+              /        \
+             - 7        20 + 
+           /     \     /   \
+        - 4    0 10   19 0  22 -
+        /   \   /  \        /
+     0 2   0 5 9 0 11 0    21 0 
+      / \
+    0 1  3 0
+
+Delete(T,19):
+
+                  15 ?
+              /        \
+             - 7        20 ++ 
+           /     \         \
+        - 4    0 10        22 -
+        /   \   /  \        /
+     0 2   0 5 9 0 11 0    21 0 
+      / \
+    0 1  3 0
+
+Double right left rotation needed
+
+step 1: right rotation
+                 15 ?
+              /        \
+             - 7        20 ++ 
+           /     \         \
+        - 4    0 10        21 +
+        /   \   /  \        \
+     0 2   0 5 9 0 11 0      22 0 
+      / \
+    0 1  3 0
+
+step 2: left rotation
+                 15 --
+              /        \
+             - 7        21 0 
+           /     \     /   \
+        - 4    0 10   20 0  22 0
+        /   \   /  \        
+     0 2   0 5 9 0 11 0       
+      / \
+    0 1  3 0
+
+step 3: right rotation
+                  7 0
+              /        \
+             - 4         15 0 
+           /     \     /    \
+        0 2    0 5   10 0   21 0
+        /   \        /  \   /    \
+     0 1   0 3     9 0 11 0 20 0 22 0 
+

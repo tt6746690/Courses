@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML LANG="en">
+<HEAD>
+<TITLE>CSC 363 Summer 2006</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H1><a href="..">CSC 363</a>: Assignments</H1>
+
+<h3>Assignment Schedule</h3>
+<table border=1 cellpadding="3">
+<tr> <th>Homework</th> <th> Weight</th> <th>Due date</th>
+</tr>
+
+<tr>
+  <td><a href="#a1">Assignment 1</a></td>
+  <td align="right">10%</td>
+  <td>Thursday, June 8</td>
+</tr>
+<tr>
+  <td><a href="#a2">Assignment 2</a></td>
+  <td align="right">10%</td>
+  <td><s>Thursday, June 29</s><br>
+  	Tuesday, July 4 in class</td>
+</tr>
+<tr>
+  <td><a href="#a3">Assignment 3</a></td>
+  <td align="right">10%</td>
+  <td><s>Thursday, July 20</s><br>
+  Monday, July 24</td>
+</tr>
+<tr>
+  <td><a href="#a4">Assignment 4</a></td>
+  <td align="right">10%</td>
+  <td>Thursday, August 10</td>
+</tr>
+</table>
+
+<p>
+Announcements, clarifications, corrections and revisions to assigment
+specifications are posted to the
+<a href="../announcements.html">Announcements page</a>.
+Please read this page regularly.
+</p>
+
+<h2><a name="a4">Assignment 4</a></h2>
+
+<ul>
+  <li><a href="a4/handout.pdf">Assignment handout (PDF)</a>
+  <a href="a4/handout.ps">(PS)</a>
+  <li>Due by 7:00pm inside drop box in BA 2220 on Thursday, August 10.<br>
+  <li>Some people asked about the game of Amazons. Here are some pictures
+  I stole from the Internet showing the initial state of the 10x10 game,
+  a middle game state (illustrating a move), and an end game position
+  (all the amazons are separated, assuming good play,
+  so we can determine who will win).<br>
+  <img src="a4/amazons-initial.gif" alt="Amazons initial game position">
+  <img src="a4/amazons-ingame.gif" alt="Amazons in-game position">
+  <li>Q1: Do not try to solve TSP in polynomial time (you proved that TSP
+  is NP-complete on Test 2, so it's unlikely you'll be able to do it).
+  Just show that TSP is polytime self-reducible.
+  <li>Sample solutions:
+  <a href="sol/A4sol.pdf">PDF</a> or
+  <a href="sol/A4sol.ps">PS</a>
+</ul>
+
+<hr>
+
+<h2><a name="a3">Assignment 3</a></h2>
+
+<ul>
+  <li><a href="a3/handout.pdf">Assignment handout (PDF)</a>
+  <a href="a3/handout.ps">(PS)</a>
+  <li><s>Due by 7:00pm inside drop box in BA 2220 on Thursday, July 20.</s><br>
+  Extended: now due 7:00pm inside drop box in BA 2220 on Monday, July 24.
+  <li>Sample solutions:
+  <a href="sol/A3sol.pdf">PDF</a> or
+  <a href="sol/A3sol.ps">PS</a>
+  [updated 27 Jul to correct an error on Q4]
+</ul>
+
+<hr>
+
+<h2><a name="a2">Assignment 2</a></h2>
+
+<ul>
+  <li><a href="a2/handout.pdf">Assignment handout (PDF)</a>
+  <a href="a2/handout.ps">(PS)</a>
+  <li>Due in lecture at the start of class (6:10pm) on Tuesday, July 4.<br>
+  Do not put your assignments in the drop box for this assignment.
+  <li>Sample solutions:
+  <a href="sol/Assignment2Solutions.pdf">PDF</a> or
+  <a href="sol/Assignment2Solutions.ps">PS</a>
+  <li><a href="sol/A2MarkingNotes.txt">Marker's notes</a>
+</ul>
+
+<hr>
+
+<h2><a name="a1">Assignment 1</a></h2>
+
+<ul>
+  <li><a href="a1/handout.pdf">Assignment handout (PDF)</a>
+  <a href="a1/handout.ps">(PS)</a>
+  <li>Due by 7:00pm inside drop box in BA 2220 on Thursday, June 8.
+  <li>For question 2, a picture of the initial configuration of
+  a multitrack Turing machine (on input <tt>abc</tt>) might look
+  something like the following:
+<pre>
++-----+
+|     |
+| q_0 |------+
+|     |      |
++-----+      |
+             V
+           +---+---+---+---+---+---+---+--
+           | a | b | c |   |   |   |   | ...
+           +---+---+---+---+---+---+---+--
+           |   |   |   |   |   |   |   | ...
+           +---+---+---+---+---+---+---+--
+           |   |   |   |   |   |   |   | ...
+           +---+---+---+---+---+---+---+--
+
+</pre>
+  <p>
+  I have drawn seven "cells" from left to right, and there are three tracks
+  in this example.
+  Remember that the single read/write head reads and writes all tracks
+  (all three tracks in this example) at once for a particular cell.
+  </p>
+
+  <li><a href="a1/a1.marking.notes.txt">Marking notes from the TA</a> - 
+  the TA makes several important points about common errors students were
+  making. Please read his notes, even if you aced the assignment, to see
+  where students typically go wrong and why it's wrong.
+  <li>Sample solutions:
+  <a href="sol/CSC363S06_A1sol.pdf">PDF</a> or <a href="sol/CSC363S06_A1sol.ps">PS</a>
+</ul>
+
+<a name="submission"></a>
+<h2>Submission instructions</h2>
+
+<p>
+Every assignment will consist of
+a number of "pencil-and-paper" questions
+(whose solution involves no computer programming and
+can be handwritten or typed).
+<!--, and
+must be handed in using the
+<a href="cover.pdf">cover sheet for assignments</a>
+(Adobe PDF document).-->
+Please recall that the 20% rule does not apply to assignments,
+where you have the time (and the responsibility) to ask questions
+and learn how to solve each problem.
+</p>
+<p>
+All assignments must be submitted
+directly to the CSC 363 drop box in BA 2220
+or given directly to the instructor
+before the specified time on the due date.
+Late assignments will <em>not</em> be accepted
+<!--(including assignments submitted after the first 10 minutes of tutorial),-->
+except in truly unusual circumstances.
+<!--
+(See the
+<a href="../admin/index.shtml#dates">important dates</a>
+for the exact due date of each assignment, and the
+<a href="../admin/index.shtml#special">policy on special consideration</a>
+for how to request an individual extension for unusual circumstances).
+-->
+</p>
+
+<HR>
+
+<TABLE width="100%">
+<TR>
+<TD>
+<SMALL>
+<!--Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>-->
+<SCRIPT TYPE="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+<TD align=right>
+    <a href="http://validator.w3.org/check?uri=referer"><img border="0"
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

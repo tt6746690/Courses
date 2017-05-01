@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<HTML>
+<HEAD>
+<TITLE>CSC 209H Fall 2005</TITLE>
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H2><a href="..">CSC 209H</a>: Assignments</H2>
+
+
+<h3>Assignment Schedule</h3>
+<table border=1>
+<tr> <td>Assignment</td> <td>Topic</td> <td> Weight</td> <td>Due at 10 p.m.</td>
+
+</tr>
+
+<tr>
+<td align="right">  1</td> <td><a href="as1.html">Shell Programming</a></td> <td align="right">10%</td> 
+        <td>Thursday October 6 </td>
+</tr>
+<tr>
+<td align="right">  2</td> <td><a href="as2.html">System calls</a></td> <td align="right">10%</td>
+
+        <td>Thursday October 27</td>
+</tr>
+
+<td align="right">  3</td> <td><a href="as3.html">Processes and IPC</a></td> <td align="right">10%</td>
+<td><s>Thursday November 17</s><br>
+<font color="red">Saturday November 19</font></td>
+</tr>
+<tr>
+<td align="right">  4</td> <td><a href="as4.html">Sockets and Select</a></td> <td align="right">10%</td>
+
+        <td>Thursday December 8</td>
+</tr>
+</table>
+
+<p>
+Announcements, clarifications, corrections and revisions to assigment
+specifications are posted to the
+<a href="../announcements.html">Announcements page</a>
+and the course newsgroup. Please read these regularly.
+</p>
+
+<h2>Assignment 1: macro and printdepends</h2>
+
+<ul>
+<li><a href="as1.html">Specifications</a>
+</ul>
+
+<h2>Assignment 2: phonem and newerthan</h2>
+
+<ul>
+<li><a href="as2.html">Specifications</a>
+<li>Starter <a href="Makefile">Makefile</a>
+<li>Sample C file from tutorial - <a href="printdirs.c">printdirs.c</a>
+<!--<li>Sample solutions -
+<a href="a2sol/phonem.c">phonem.c</a>
+<a href="a2sol/newerthan.c">newerthan.c</a>
+<a href="a2sol/Makefile">Makefile</a>-->
+</ul>
+
+<h2>Assignment 3: Roshambo</h2>
+
+<ul>
+<li><a href="as3.html">Specifications</a>
+<li>Sample executables are in <tt>/u/csc209h/fall/pub/a3</tt> on CDF.
+These programs print diagnostic information to <tt>stderr</tt>, which
+your final programs should not do!
+<li>To eliminate the debugging ouput from the
+sample programs, redirect the <tt>stderr</tt> to
+<tt>/dev/null</tt>.
+For example (under <tt>sh</tt> or <tt>bash</tt> only),<br>
+<tt>$ ./roshambo.sample rps0 rps0 2&gt; /dev/null</tt><br>
+Your output should look like this result.
+<li>To make symbolic links to the sample programs in your working
+directory, use the command<br>
+<tt>ln -s /u/csc209h/fall/pub/a3/{roshambo.sample,rps0} .</tt>
+<li><a href="as3pt3.html">Part 3</a> (optional, for A3 bonus marks)
+<li><a href="http://www.cdf.utoronto.ca/~csc209h/fall/tournament/">Tournament results</a>
+<!--<li>Sample solutions -
+<a href="a3sol/rps0.c">rps0.c</a>
+<a href="a3sol/roshambo.c">roshambo.c</a>-->
+</ul>
+
+<h2>Assignment 4: chatserver and chatclient</h2>
+
+<ul>
+<li><a href="as4.html">Specifications</a>
+<font color="red">(revised: Roshambo requirements removed)</font>
+<li>Which port should you use? We should be able to specify the port at compile time, so that the person compiling your program need not edit your code to change the port. In your code (possibly a header file), include:
+<pre>
+#ifndef PORT
+#define PORT 30000
+#endif
+</pre>
+and set in your <tt>Makefile</tt> something like:
+<pre>
+PORT=10000
+CFLAGS = -DPORT=$(PORT) -g -Wall
+</pre>
+The <tt>-D</tt> flag for the compiler tells gcc to define the symbol.
+The "<tt>#ifndef</tt>" tells the compiler to only include the code if the symbol hasn't already been defined.<br>
+Now, if you type "<tt>make PORT=15000</tt>" the program will be compiled with the macro PORT defined as 15000. If you type "<tt>make</tt>" it will use the value defined for PORT in the Makefile. Finally, if PORT is not defined on the compile line, it will still have the value from your source code file. This method of setting a port value will make it possible for us to test your code by choosing a port value to compile your program with.
+<li>A sample chatserver might be running on werewolf.cdf.utoronto.ca at
+TCP port 22428 (that's "2-CHAT") for you to test with.
+<li>Sample executables are located in </tt>/u/csc209h/fall/pub/a4</tt> on CDF.
+They are configured to talk on port 22428.
+If you want to run them from your own directory, use the <tt>ln -s</tt>
+command to make a symbolic link.
+<!--<li>Sample solutions -
+<a href="a4sol/chatserver.c">chatserver.c</a>
+<a href="a4sol/chatclient.c">chatclient.c</a>
+<a href="a4sol/chatheader.h">chatheader.h</a>
+<a href="a4sol/Makefile">Makefile</a>-->
+</ul>
+
+</BODY>
+</HTML>

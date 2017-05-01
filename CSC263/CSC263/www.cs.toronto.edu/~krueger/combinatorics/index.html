@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<TITLE>Combinatorics Seminar</TITLE>
+<!--<link type="text/css" rel="stylesheet" href="style.css">-->
+<STYLE type="text/css">
+body { 
+	color: black;
+	background: white;
+	margin-left: 5%; 
+	margin-right: 5%; 
+}
+h1 { margin-left: -3%; }
+h2 { margin-left: -3%; font-family: sans-serif; }
+h3 { margin-left: -3%; font-family: sans-serif; margin-top: 2.5em; }
+h4,h5,h6 { 
+	margin-left: -1em; margin-bottom: 0;
+	font-family: sans-serif;
+}
+p.name { font-weight: bold; color: teal; margin-top: 0.5em; }
+p.abstract,p.contact { text-indent: -1em; }
+hr { margin-left: -3%; margin-right: -3%; }
+</STYLE>
+</HEAD>
+
+<BODY bgcolor="white" LINK="#0000AA" VLINK="#602000">
+
+<H1>Combinatorics Seminar Series</H1>
+
+<p>
+Welcome to the University of Toronto <i>combinatorics seminar</i> web site.
+This seminar series, held jointly by the
+<a href="http://www.cs.utoronto.ca">Department of Computer Science</a>
+and the <a href="http://www.math.utoronto.ca">Department of Mathematics</a>,
+discusses recent developments in applied discrete mathematics, including,
+but not limited to, problems in combinatorial theory, graph theory,
+and their algorithms. We invite researchers from around the University,
+around the province, and around the world to present their latest work.
+</p>
+<p>
+The combinatorics seminar is traditionally held weekly on Friday
+afternoons, from 1pm to 2pm, in
+room 266 of the D.L. Pratt building (6 King's College Road, Toronto)
+on the University of Toronto downtown campus. You may find this
+<a href="http://oracle.osm.utoronto.ca/map/">campus map</a> useful; the
+Pratt building is labelled PT near the bottom. Occasionally we depart
+from this tradition, but any differences will be distinguished.
+</p>
+<p>
+If you would like to be added to the combinatorics announcement and
+discussion mailing list, or to schedule a talk by yourself or one of
+your visitors, please contact the coordinators. For the 2003-2004 year,
+the coordinator is Mike Molloy who can be contacted at
+molloy in cs.toronto.edu.
+</p>
+
+<hr>
+
+<a name="schedule"></a>
+<h2>Winter 2004 Schedule</h2>
+
+<dl>
+<dd>Thursday, February 5, 2004.
+<a href="#Kratochvil">Complexity of locally constrained graph homomorphisms</a>.
+Jan Kratochvil, Charles University, Prague.
+<font color="red"><b>(Note room, day and time!)</b></font>
+<dd>Friday, February 20, 2004.
+<a href="#Thilikos">Monotonicity issues in search and conquest games on graphs</a>.
+Dimitrios Thilikos, Universitat Politecnica de Catalunya, Barcelona, Spain.
+<dd>Thursday, April 15, 2004.
+<a href="#Lau">An Approximate Max-Steiner-Tree-Packing Min-Steiner-Cut Theorem</a>.
+Lap Chi Lau, University of Toronto.
+<font color="red"><b>(Note day and time!)</b></font>
+<dd>Friday, April 23, 2004.
+<a href="#Dimitromanolakis">Large near-optimal Golomb rulers, a
+computational search for the verification of Erd&ouml;s conjecture on Sidon
+sets</a>.
+Apostolos Dimitromanolakis, University of Toronto.
+</dl>
+
+<p>
+<a href="#pastseminars">Past seminars</a>.
+</p>
+
+<hr>
+
+<a name="Kratochvil"></a>
+<h3>Thursday, February 5, 2004, 12:10 - 1:00pm in SF3207
+<font color=red>(note different room, day and time!)</font></h3>
+<h4>
+Complexity of locally constrained graph homomorphisms
+</h4>
+<p class=name>
+Jan Kratochvil<br>
+Charles University, Prague
+</p>
+<p class=abstract>
+Abstract:
+Graph homomorphism is an edge preserving vertex mapping between two
+graphs. This algebraically motivated notion is also a natural
+generalization of the graph coloring concept - a k-coloring of a graph
+G is a homomorphism from G into the complete graph on k vertices. From the
+complexity point of view, the H-homomorphism problem is well understood.
+This problem, parametrized by a (fixed) graph H, asks when an input graph
+G allows a homomorphism into H. It is also referred to as the H-coloring
+problem. As Hell and Nesetril proved, this problem is polynomially solvable
+when H is bipartite and NP-complete otherwise.
+<p>
+A similar question will be discussed for locally constrained homomorphisms,
+i.e., homomorphisms for which the neighborhood of every vertex needs to be
+mapped bijectively/injectively/surjectively into/onto the neighborhood of
+its image. Interesting relations to topological graph theory and to the
+generalized frequency assignment problem will be presented. The latter is   
+also referred to as the distance-constrained graph labeling problem, since
+it asks for a labeling of the vertices of the input graph by nonnegative
+integers such that the labels assigned to vertices which are close to each
+other differ by at least a certain specified amount. Several complexity
+results on this problem, including the complexity of L(2,1)-labeling
+regular graphs and L(p,q)-labeling prelabeled trees will be surveyed.
+</p>
+<!--
+<p class=contact>
+Contact: 
+</p>
+-->
+
+<center><p>[<a href="#schedule">Back to schedule</a>]</p></center>
+
+<a name="Thilikos"></a>
+<h3>Friday, February 20, 2004, 1:10 - 2:00pm in PT266</h3>
+<h4>
+Monotonicity issues in search and conquest games on graphs
+</h4>
+<p class=name>
+Dimitrios M. Thilikos<br>
+Departament de Llenguatges i Systemes Informatics<br>
+Universitat Politecnica de Catalunya,<br>
+Barcelona, Spain
+</p>
+<p class=abstract>
+Abstract:
+ In this talk we present the games of conquest and searching in graphs.  The
+ goal in these games is to systematically maneuver several searches in
+ order to capture an omniscient fugitive who flees around the graph.
+ Such games have several applications in network security where
+ we need to clean a computer network that is ``contaminated'' by
+ mobile viruses or eavesdroppers. We describe the computational
+ complexity of these games, and their connections to graph-theoretic
+ parameters. In particular, we consider the "recontamination question":
+<p>
+ Is it possible to search/conquest a graph using fewer searchers if we
+ allow retreat, i.e., if the fugitive can visit an already searched
+ location?
+<p>
+ We present a structural theorem providing conditions for a negative answer
+ to this question and describe its consequences and applications. The basic
+ idea of the proof is to determine the structures defining strategies of
+ "efficient resistance" that can be applied no matter whether the
+ search/conquest strategy includes retreat or not. Finally, we present an
+ example of a search game in which the answer to the recontamination
+ question is positive and we evaluate the benefits of retreat in trees and
+ in general graphs for this type of search game.
+</p>
+<!--
+<p class=contact>
+Contact: 
+</p>
+-->
+
+<center><p>[<a href="#schedule">Back to schedule</a>]</p></center>
+
+<a name="Lau"></a>
+<h3>Thursday, April 15, 2004, 2:10 - 3:00pm in PT266
+<font color=red>(note different day and time!)</font></h3>
+<h4>
+An Approximate Max-Steiner-Tree-Packing Min-Steiner-Cut Theorem
+</h4>
+<p class=name>
+Lap Chi Lau<br>
+Dept of Computer Science<br>
+University of Toronto
+</p>
+<p class=abstract>
+Abstract:
+Given an undirected multigraph G and a subset of vertices S,
+the Steiner Tree Packing problem is to find a largest collection of
+edge-disjoint trees that each connects S. This problem and its
+generalization have attracted considerable attention from researchers in
+different areas because of their wide applicability. This problem was
+shown to be APX-hard (no polytime approximation scheme unless P=NP).
+In fact, prior to this work, not even an approximation algorithm with
+asymptotic ratio better than O(n) was known.
+<p>
+In this talk, we present the first polynomial time constant factor
+approximation algorithm for the Steiner Tree Packing problem. The main
+theorem is an approximate min-max relation between the minimum size of an
+edge-cut that disconnects some vertices in S (i.e. S-cut) and the maximum
+number of edge-disjoint trees that each connects S (i.e. S-trees).
+Specifically, we prove that if the minimum S-cut in G has k edges, then G
+has at least k/26 edge-disjoint S-trees; this answers Kriesell's
+conjecture affirmatively up to a constant multiple. The techniques that
+we use are purely combinatorial, where matroid theory is the underlying
+ground work.
+</p>
+<!--
+<p class=contact>
+Contact: 
+</p>
+-->
+
+<center><p>[<a href="#schedule">Back to schedule</a>]</p></center>
+
+<a name="Dimitromanolakis"></a>
+<h3>Friday, April 23, 2004, 1:10 - 2:00pm in PT266</h3>
+<h4>
+Large near-optimal Golomb rulers, a computational search for
+the verification of Erd&ouml;s conjecture on Sidon sets
+</h4>
+<p class=name>
+Apostolos Dimitromanolakis<br>
+Dept of Computer Science<br>
+University of Toronto
+</p>
+<p class=abstract>
+Abstract:
+Golomb rulers are sets of positive integers having a unique difference
+between any two numbers in the set. The goal is to find an optimal
+Golomb ruler which has the smallest possible largest element for a
+specified numer of marks (elements of the set). It is not only a very
+interesting combinatorial problem but also has many applications in
+engineering as well. The same problem with a different notation can also
+be found under the Sidon set or B_2 sequence name which is more common
+among the mathematicians. Finding an optimal Golomb ruler is a very
+difficult combinatorial problem and although it has not been proven to
+be NP-hard, no polynomial algorithms exists for finding an optimal
+ruler.  Optimal rulers are known today for up to 24 marks and are all of
+sub-quadratic length. Indeed, a conjecture by Erd&ouml;s and Atkinson
+(independently) states that sub-quadratic length rulers exist for any
+number of marks. Previous works were able to verify this for up to 150
+marks. In this talk we will present how we were able to verify the
+conjecture for Golomb rulers having up to 65000 marks and at the same
+time produce a vast amount of near-optimal rulers useful in
+applications.
+</p>
+<!--
+<p class=contact>
+Contact: 
+</p>
+-->
+
+<center><p>[<a href="#schedule">Back to schedule</a>]</p></center>
+
+<hr>
+
+<a name="pastseminars"></a>
+<h2>Past Seminars</h2>
+
+<ul>
+<li>Fall 2003
+<li><a href="summer03.html#summer2003">Summer 2003</a>
+<li><a href="winter03.html#winter2003">Winter 2003</a>
+<li><a href="fall02.html#fall2002">Fall 2002</a>
+<li><a href="fall02.html#summer2002">Summer 2002</a>
+</ul>
+
+
+<HR>
+
+<TABLE width="100%">
+<TR>
+<TD valign=middle>
+<SMALL>
+<SCRIPT type="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+<TD align=right>
+    <a href="http://validator.w3.org/check/referer"><img border="0"
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01!" height="31" width="88"></a>
+ <a href="http://jigsaw.w3.org/css-validator/check/referer">
+  <img src="http://jigsaw.w3.org/css-validator/images/vcss" 
+       alt="Valid CSS!" border="0" height="31" width="88"></a>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>
+

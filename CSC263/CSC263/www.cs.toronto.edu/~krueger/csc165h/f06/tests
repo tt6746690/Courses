@@ -1,0 +1,598 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML LANG="en">
+<HEAD>
+<TITLE>CSC 165 Fall 2006 - Tests and Quizzes</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H1><a href="..">CSC 165</a>: Quizzes, Term Tests and Final Exam</H1>
+
+<table width="100%" cellspacing=10><tr>
+    <td valign="top" width="50%">
+<h3>Quiz Schedule</h3>
+<table border=1 cellpadding="3">
+<tr> <th>Quiz</th> <th>Date</th>
+</tr>
+
+<tr>
+  <td><a href="#quiz1">Quiz 1</a></td>
+  <td>Friday, September 22</td>
+</tr>
+<tr>
+  <td><a href="#quiz2">Quiz 2</a></td>
+  <td>Friday, October 6</td>
+</tr>
+<tr>
+  <td><a href="#quiz3">Quiz 3</a></td>
+  <td>Friday, October 27</td>
+</tr>
+<tr>
+  <td><a href="#quiz4">Quiz 4</a></td>
+  <td>Friday, November 10</td>
+</tr>
+<tr>
+  <td><a href="#quiz5">Quiz 5</a></td>
+  <td>Friday, December 1</td>
+</tr>
+</table>
+
+</td><td valign="top">
+
+<h3>Test Schedule</h3>
+<table border=1 cellpadding="3">
+<tr> <th>Test</th> <th> Weight</th> <th>Date</th>
+</tr>
+
+<tr>
+  <td><a href="#test1">Term Test 1</a></td>
+  <td align="right">10%</td>
+  <td>Monday, October 16</td>
+</tr>
+<tr>
+  <td><a href="#test2">Term Test 2</a></td>
+  <td align="right">10%</td>
+  <td>Monday, November 20</td>
+</tr>
+<tr>
+  <td><a href="#final">Final Exam</a></td>
+  <td align="right">35%</td>
+  <td><a href="http://www.artsci.utoronto.ca/current/undergraduate/exams/december">Exam period</a></td>
+</tr>
+</table>
+
+</td></tr>
+</table>
+
+<a name="general"></a>
+<h2>General information</h2>
+
+<p>
+Check the <a href="#pastofferings">past course offerings</a>
+section for links to previous offerings of this course,
+where you can find old term tests and assignments to practice on.
+</p>
+
+<p>
+The term tests will last <em>50 minutes</em>
+and will be held during regularly scheduled lecture time.
+The quizzes will last approximately <em>15 minutes</em>
+and will be held during regularly scheduled tutorial time.
+Quizzes will also include a <em>peer marking</em> component,
+where you will evaluate another student's answers.
+Your total mark on the quiz will be composed both of the
+quality of your answers and the quality of your marking.
+</p>
+
+<p>
+If you have any serious conflict
+with the time or date of any of the tests or quizzes,
+please inform your instructor <em>immediately</em>
+to make alternative arrangements.
+</p>
+
+<p>
+The tests and quizzes will be <em>closed book</em>
+(<em>i.e.</em>, NO aids allowed),
+and should be written in <em>pen</em>
+(remarking requests for tests written in pencil will not be accepted)
+&mdash; the test paper will have lots of room for rough work.
+</p>
+
+
+<hr>
+
+<h2><a name="quiz5">Quiz 5 Details</a></h2>
+
+<p>
+The fifth quiz will be held during tutorial on Friday, December 1.
+It will last approximately 15 minutes, and will cover running time proofs
+using asymptotic notation.
+</p>
+<p>
+The quiz <b>must</b> be written in pen (just cross things out if
+you make a mistake).
+The quiz will consist of one "big-O" proof for the running time (best case
+or worst case) of a simple algorithm for you to write, then evaluating
+the proof written by one of your peers.
+</p>
+<p>
+<a href="quiz/q5.ps">Quiz 5 as written (PS)</a><br>
+<a href="quiz/q5sol.pdf">Quiz 5 solutions (PDF)</a>
+<a href="quiz/q5sol.ps">(PS)</a>
+</p>
+
+<h2><a name="quiz4">Quiz 4 Details</a></h2>
+
+<p>
+The fourth quiz will be held during tutorial on Friday, November 10.
+It will last approximately 15-20 minutes, and will cover asymptotic notation
+proofs.
+</p>
+<p>
+The quiz <b>must</b> be written in pen (just cross things out if
+you make a mistake).
+The quiz will consist of one "big-O" proof for you to write, then evaluating
+the proof written by one of your peers.
+</p>
+<p>
+<a href="quiz/q4.pdf">Quiz 4 as written</a>
+<a href="quiz/q4.ps">(PS)</a><br>
+<a href="quiz/q4sol.pdf">Quiz 4 solutions (PDF)</a>
+<a href="quiz/q4sol.ps">(PS)</a>
+</p>
+
+<p>
+<h2><a name="quiz3">Quiz 3 Details</a></h2>
+
+<p>
+The third quiz will be held during tutorial on Friday, October 27.
+It will last approximately 20 minutes, and will cover proofs and
+application of proof structures.
+</p>
+<p>
+The quiz <b>must</b> be written in pen (just cross things out if
+you make a mistake).
+The quiz will consist of a proof for you to write, then evaluating
+a peer's proof.
+</p>
+
+<p>
+<a href="quiz/q3.pdf">Quiz 3 as written</a>
+<a href="quiz/q3.ps">(PS)</a><br>
+<a href="quiz/q3sol.pdf">Quiz 3 solutions (PDF)</a>
+<a href="quiz/q3sol.ps">(PS)</a>
+</p>
+
+<h2><a name="quiz2">Quiz 2 Details</a></h2>
+
+<p>
+The second quiz will be held during tutorial on Friday, October 6.
+It will last approximately 15 minutes, and will cover manipulation
+of formal statements and basic proof techniques.
+</p>
+<p>
+The quiz <b>must</b> be written in pen (just cross things out if
+you make a mistake).
+The format of the quiz will be similar to the first quiz:
+some question(s) to answer, based on lecture and/or tutorial material,
+followed by peer marking of another student's quiz.
+Also, you can't mark a quiz from the same person more than once.
+</p>
+<p>
+We'll evaluate you both on your answers and your marking effort.
+Typically you'll get the grade awarded by the peer marking (since your
+classmate worked hard to give you the correct grade), but
+we reserve the right to change/correct it.
+While peer marking, though most answers are clearly right or wrong,
+"close calls" can happen and you won't be penalized if you give a
+good and reasonable marking effort.
+</p>
+
+<p>
+<a href="quiz/q2.ps">Quiz 2 as written (PS)</a><br>
+<a href="quiz/q2sol.pdf">Quiz 2 solutions (PDF)</a>
+<a href="quiz/q2sol.ps">(PS)</a>
+</p>
+
+<h2><a name="quiz1">Quiz 1 Details</a></h2>
+
+<p>
+The first quiz will be held during tutorial on Friday, September 22.
+It will last approximately 15 minutes, and will cover universal quantification,
+implication and translation between English and precise symbolic notation.
+</p>
+
+<p>
+The first part will be answering a few questions similar to those
+pondered in lecture and tutorial. The second part will consist of
+peer marking another student's quiz. Part 1 is meant to help you
+keep up with the course material and confirm that you understand it
+sufficiently to complete the assignments, while Part 2 is meant to
+help you understand qualitative differences in answers (how answers
+can be presented better or more clearly).
+Student evaluation will be based both on the answers to the
+question(s) and the quality of the peer marking.
+</p>
+
+<p>
+<a href="quiz/q1.ps">Quiz 1 as written (PS)</a><br>
+<a href="quiz/q1sol.pdf">Quiz 1 solutions (PDF)</a>
+<a href="quiz/q1sol.ps">(PS)</a>
+</p>
+
+<hr>
+
+<h2><a name="test1">Test 1 Details</a></h2>
+
+<p>
+Term Test 1 will be written during regularly scheduled lecture time
+on Monday, October 16, lasting about 50 minutes (12:10-1:00pm).
+<b>The test will be written in room GB 404</b>,
+not the regular lecture room! GB is the Galbraith Building,
+which is between Convocation Hall and Bahen Centre.
+(GB 404 has tables, which will be easier than writing
+on the chair arms in the lecture room).
+</p>
+<p>
+The test will cover everything up to and including the lecture and tutorial
+of the preceeding week (and including assignment 2).
+The test will be similar to the tests from past terms,
+so they (and the assignments and tutorial exercises)
+will be a good source of study material.
+Indeed, some test questions may be identical to tutorial exercises.
+</p>
+<p>
+Test paper as written:
+<a href="T1-paper.pdf">PDF</a> or
+<a href="T1-paper.ps">PS</a><br>
+Sample solutions and marking scheme:
+<a href="T1-sol.pdf">PDF</a>
+</p>
+<!--
+<p>
+Sample solutions and marking scheme:
+<a href="sol/T1.pdf">PDF</a> or <a href="sol/T1.ps">PS</a><br>
+<a href="sol/T1markingNotes.txt">Marker's notes</a>
+</p>
+-->
+
+<h2><a name="test2">Test 2 Details</a></h2>
+
+<p>
+Term Test 2 will be written during regularly scheduled lecture time
+on Monday, November 20, lasting about 50 minutes (12:10-1:00pm).
+<b>The test will again be written in room GB 404</b>,
+not the regular lecture room!
+</p>
+
+<p>
+Coverage will focus on proofs and material covered from week 5 - 10
+(this material of course builds on and depends on the earlier material).
+The test will be similar to the tests from past terms, so they (and the
+assignments and tutorial exercises) will be a good source of study material.
+</p>
+<p>
+More specifically, the test may cover proof structures, proofs and disproofs
+of symbolic statements, proofs and disproofs of asymptotic notation statements,
+proving statements about algorithms or programs, and binary notation basics.
+</p>
+<p>
+Test paper as written:
+<a href="t2-paper.ps">PS</a><br>
+Sample solutions and marking scheme:
+<a href="t2-sol.pdf">PDF</a> or
+<a href="t2-sol.ps">PS</a>
+</p>
+
+<hr>
+
+<h2><a name="pastofferings">
+Past Course Offerings</a></h2>
+
+<p>Some previous offerings of this course:
+<a href="http://www.cs.toronto.edu/~yilan/csc165/">Summer 2006</a>
+<a href="http://www.cs.toronto.edu/~gfb/csc165/2006W/index.shtml">Winter 2006</a>
+<a href="http://www.cs.toronto.edu/~gfb/csc165/2005F/">Fall 2005</a>
+<a href="http://www.cs.toronto.edu/~heap/165/S2005/index.shtml">Summer 2005</a>
+</p>
+
+<h3>Past midterm tests</h3>
+<p>Please note that the order of material might be different in some offerings,
+so not all questions might be applicable to our class. Also note that some
+terms there is only one midterm test.</p>
+<p>Unfortunately, I do not have any
+test solutions or test papers that are not listed below (though if you find
+some, please let me know and I'll add them to this list!).</p>
+   <p>2006Summer <a href="http://www.cs.toronto.edu/~yilan/csc165/quiz/2006Smid.pdf">Midterm</a> <a href="http://www.cs.toronto.edu/~yilan/csc165/quiz/2006SmidSol.pdf">Solutions</a>.</p>
+   <p>2006Winter <a href="http://www.cs.toronto.edu/~gfb/csc165/2006W/2006W.165.mt2.solns.pdf">Midterm 2</a>.</p>
+   <p>2005Fall <a href="http://www.cs.toronto.edu/~gfb/csc165/2005F/mt1.solns.pdf">Midterm 1 solutions</a>,
+   <a href="http://www.cs.toronto.edu/~gfb/csc165/2006W/2005F.mt2.pdf">Midterm 2</a> <a href="http://www.cs.toronto.edu/~gfb/csc165/2005F/mt2.solns.pdf">Solutions</a>.</p>
+   <p>2005Summer <a href="http://www.cs.toronto.edu/%7Eheap/165/S2005/mt1sol.pdf">Midterm 1 solutions</a>,
+   <a href="http://www.cs.toronto.edu/%7Eheap/165/S2005/mt2sol.pdf">Midterm 2 solutions</a>.</p>
+   <p>2005Winter <a href="http://www.cs.toronto.edu/~gfb/csc165/2005F/L0101.ps">L0101</a>
+   <a href="http://www.cs.toronto.edu/~gfb/csc165/2005F/L5101.ps">L5101</a>.</p>
+   <p>2004Fall <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04f/assignments/midterm04f.pdf">Midterm solutions</a>.</p>
+
+   <p>2004Winter <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/tests/L0101.pdf">L0101</a>
+      (Note: add <code>return false;</code> to the end of Q3)
+      <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/tests/L0101soln.pdf">Solutions</a>.</p>
+   <p>2004Winter <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/tests/L0201.pdf">L0201</a>
+      <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/tests/L0201soln.pdf">Solutions</a>.</p>
+   <p>2004Winter <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/tests/L0301.pdf">L0301</a>
+      <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/tests/L0301soln.pdf">Solutions</a>.</p>
+   <p>2004Winter <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/tests/L5101.pdf">L5101</a>
+      <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/tests/L5101soln.pdf">Solutions</a>.</p>
+
+   <p><a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/assignments/tests/03f/mid-paper.pdf">2003Fall</a>
+      <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/assignments/tests/03f/mid-soln.pdf">Solutions</a>.</p>
+   <p><a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/assignments/tests/03w/20031-1.pdf">2003Winter L0101</a>
+      <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/assignments/20031-1-solns.pdf">Solutions</a>.</p>
+
+   <p><a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/assignments/tests/03w/20031-2.pdf">2003Winter L5101</a>
+      <a href="http://www.cs.toronto.edu/%7Ecampbell/165/04w/assignments/20031-2-solns.pdf">Solutions</a>.</p>
+
+<hr>
+
+<h2><a name="final">Final Examination Details</a></h2>
+
+<p>
+The final exam will be written at the time set by the
+<a href="http://www.artsci.utoronto.ca/current/undergraduate/exams/december">Final Exam Timetable</a>, which is now available.
+Make sure you note the date, time and room carefully.
+Follow the instructions provided by the faculty if you
+have a conflict for the final exam.
+</p>
+
+<p>
+The exam is set for <i>three hours</i> in length, though it might not
+take you the entire time.
+The exam is <i>closed-book</i>.
+Be sure you are familiar with the <a href="http://www.artsci.utoronto.ca/current/undergraduate/exams/rules">Rules for the Conduct of Examinations</a>,
+as the Faculty of Arts and Science runs the examinations separately
+from your instructor (thus your instructor can't do much to help
+you in the exam room if you unintentionally break the rules).
+Pay particular attention to prohibited items (such as electronic devices).
+Further details about the exam, and a number of past exams,
+will be posted later.
+</p>
+
+<p>
+Old final exams are a great source of study questions.
+The Library indexes most of the past exams for many of the UofT courses.
+Visit the
+<a href="http://eres.library.utoronto.ca/">UofT Library Past Exams website</a>
+to get scanned copies of old exams.
+</p>
+
+<!--
+The exam is <i>closed-book</i> but a <i>handwritten</i> notes-sheet is
+permitted as your only aid.
+It must be a US letter-sized sheet of paper (8.5" by 11") and must contain
+only hand-written notes on both sides.
+You must make your notes-sheet available to the exam presiding officers
+for inspection at any time.
+Make sure you have only handwritten notes on the sheet: otherwise it will
+be confiscated and you may face penalties and sanctions as specified by the
+Registrar's Office (I have no control over that).
+</p>
+
+<p>
+The final exam will consist of 5-6 questions.
+Each will consist of a problem (or series of related problems) for which
+you will give an efficient algorithm to solve or approximate,
+prove that an algorithm solves or approximates the problem, or both.
+</p>
+
+<p>
+The exam will cover the following topics: greedy algorithms and their proofs,
+dynamic programming algorithms, divide-and-conquer algorithms,
+expressing problems using network flow, expressing problems as linear programs,
+and approximation algorithms.
+</p>
+
+<p>
+The textbook exercises and past exams are good sources of study questions.
+In the back of each chapter there are solved exercises you can try and check,
+and many other problems you can try solving.
+The Past Course Offerings section contains links to some of these exams.
+The Faculty of Arts and Science on St. George campus also has a website
+containing many of the past final exams for their courses.
+<a href="http://eres.library.utoronto.ca/">UofT Library Past Exams website</a>.
+In addition to past exams for CSC 363 (and CSC 365, the enriched version
+of this course), about half the material on past CSC 364 exams is similar
+to material on our exam (CSC 364 used to be 363+373).
+</p>
+
+<p>
+More past exams:
+<a href="oldexams/paper1.pdf">Fall 2005 (STG)</a>
+<a href="oldexams/paper2.pdf">Fall 2005 (UTM)</a>
+<a href="oldexams/paper.pdf">Winter 2005</a>
+</p>
+-->
+
+<H3>Warning</H3>
+
+<p>
+I've been asked to pass on the following warning, in that no one
+inadvertently violates the (unfortunately necessarily) strict rules:
+</p>
+
+<blockquote>
+The Faculty of Arts and Science has become very strict about unauthorized
+aids at final exams.  This is a response to some innovative cheaters.
+The consequences have been significant: students don't only lose the
+aid, but they may lose the exam.  This is the case whether or not they
+intended to use the unauthorized aid to cheat.
+<p>
+There have been a lot of cases recently with cell phones, pagers and
+unauthorized calculators.  Cell phones and pagers are not allowed,
+even if they will be used just to tell the time.                          
+<p>
+There was a case last year involving two friends who were communicating.
+They may just been rolling their eyes as if to say "this test is
+stupid/annoying, ha ha", but there was obviously communication going on
+and they got charged.  Unfortunately it's completely untenable to have a
+rule which says that communication is allowed iff it's not on the topic of
+the exam.  So people who can't help communicating should take care not to
+sit near each other.
+</blockquote>
+
+<!--
+<p>
+Even bringing in a photocopied aid sheet would be a violation, which
+would be treated very strictly by the Faculty &mdash; don't do it!
+</p>
+-->
+
+<!--
+<h3>Final Exam Tips</h3>
+
+<p>
+Many of the following hints were written by a previous instructor,
+but are so valuable I'm copying them for you.
+</p>
+
+<p>
+<i>Studying for the exam</i><br>
+
+For the final exam, you will be allowed to bring ONE 8.5" x 11" sheet of
+paper, HANDwritten on both sides, and nothing else (no calculator or other
+electronic device &mdash; be aware that the Chief Presiding Officers appointed
+by the Faculty of Arts and Science have recently been more strict about
+taking away cellphones, pagers, and other unauthorized electronic devices).
+<p>
+For your aid sheet, I recommend that you start by writing down the main
+topics and subtopics of the course, and review all of the lecture and
+tutorial notes; make sure that you understand everything in the notes,
+including all of the proofs, and ask questions if you don't.
+<p>
+You should also read all of the relevant chapters in the textbook, but you
+can safely ignore any sections that cover material that was never
+mentioned in lectures, tutorials, assignments, or term tests.
+<p>
+Make sure you go over ALL of the assignment solutions and that you
+understand them.  Make sure that you also understand the mistakes you may
+have made, why they were mistakes, and what the correct answers were.
+That's the whole point of learning: to make mistakes and understand the
+difference between what's correct and what isn't so that you don't repeat
+your mistakes!
+<p>
+Also, by reading the posted solutions carefully, you may notice things you
+hadn't thought of when you were working on the problems, and maybe learn a
+few new techniques or tricks for solving certain types of problems.
+<p>
+Do the same for the term tests.
+<p>
+As you're going over all of this course material, keep notes on the
+important points, on details you know you have trouble remembering, etc.:
+this is exactly the stuff that you should put down on your aid sheet.
+<p>
+Once your aid sheet is ready, the best way to get ready is practice,
+practice, practice!  Go over as many exercises and problems from the
+textbook as you can, and the same for previous year's assignments, tests,
+and exams (which you can get from the CSSU or the UofT Library website &mdash;
+there's a link above).
+<p>
+
+<i>Writing the exam</i><br>
+
+READ THE QUESTIONS!  If you answer the wrong question, even if it's because
+you were nervous and you misread it, there is nothing that we can do.  If
+something is unclear, don't be afraid to ask.
+<p>
+SHOW WHAT YOU KNOW!  Your strategy during the exam should be:
+<ul>
+<li>  identify the questions that you know how to answer (this means that you
+    must read EVERY question before you start answering any of them);
+<li>  answer those questions right away;
+<li>  go back to the questions you're not sure about, and work on them;
+<li>  if you get stuck on a question, move on to the next one and come back
+    later (don't waste your time) &mdash; you can figure out ahead of time how
+    much time to devote to each question (based on how much it's worth),
+    and stick to that estimate as much as possible.
+</ul>
+<p>
+If you have an idea how to solve a question but no time to do it in detail,
+then of course you should write down your idea.  Also, for most questions,
+you will get roughly half of the marks for having the correct structure
+(i.e., clearly showing that you know what you are supposed to do), even if
+you cannot fill in the details.
+<p>
+EXPLAIN WHAT YOU'RE DOING!  When you give an answer, make sure that you
+give at least a short statement of what you're doing before giving us the
+answer: if your answer is incorrect, this can make the difference between
+getting NO mark (because we can't tell if you understand what you're doing)
+or getting part marks (if we see that you have the right idea but simply
+made a small error, or that you have the wrong idea but wrote it up
+correctly).
+<p>
+DON'T RAMBLE!  Write concise, to-the-point answers.  If you ramble, the
+feeling it gives us is that you don't know the correct answer.  Also, be
+aware that if you give us a correct answer followed by explanations that
+are clearly wrong or irrelevant, you will lose marks!  So only write down
+what you know is correct: if you're not sure, either say so explicitly or
+don't say anything.
+<p>
+On the other hand, if you start writing down an answer and you realize that
+it's wrong, SAY SO!  You'll get more part marks for showing that you
+understand your mistake, even if you're not sure how to fix it, than if you
+simply leave it like that (which gives the impression that you don't even
+realize that what you did was wrong).
+<p>
+On a related note, don't feel like you must fill all of the available
+space: it is quite possible that a correct answer will require only part of
+the space for some questions.
+<p>
+RELAX!  You'll function much better if you are well-rested and relaxed than
+if you are tired or tense.  If you know that you are the type of person who
+gets extremely nervous during a final exam, then take the time to talk to
+other people to find out what they do to relax, or go to the Learning
+Skills Centre in the Koffler building and talk to the people there.  They
+have experience helping people cope with "exam anxiety" to allow you to
+really show what you know.
+
+-->
+
+<h3>Paper and solutions</h3>
+
+<p>
+<a href="final-paper.ps">Final exam as written (PS)</a><br>
+<a href="final-solutions.pdf">Final exam solutions (PDF)</a>
+<a href="final-solutions.ps">(PS)</a>
+</p>
+
+
+<HR>
+
+<TABLE width="100%">
+<TR>
+<TD>
+<SMALL>
+<!--Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>-->
+<SCRIPT TYPE="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+<TD align=right>
+    <a href="http://validator.w3.org/check?uri=referer"><img border="0"
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

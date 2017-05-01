@@ -1,0 +1,10 @@
+Dan 12000
+Michelle 11400
+Diane 10700
+Anya 9900
+Arnold 9200
+Jen 8000
+Paul 7000
+Danny 4500
+Karen 4400
+Andrew 1337

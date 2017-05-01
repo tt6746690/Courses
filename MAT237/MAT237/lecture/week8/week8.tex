@@ -1,0 +1,153 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\section{Optimization}
+
+
+\begin{defn*}
+  \textbf{Multiple Variable} Let $f: \R^n \to \R$.
+  \begin{enumerate}
+    \item We say that $a\in\R^n$ is a \textbf{local maximum} of $f$ if there exists a neighborhood $U\subseteq \R^n$ containing $a$ such that $f(x) \leq f(a)$ for all $x\in U$ (i.e. There exists an open ball $B_{\epsilon}(a)$ such that $f(a) > f(x)$ for all $x\in B_{\epsilon}(a)$)
+    \item We say that $a\in\R^n$ is a \textbf{local minimum} of $f$ if there exists a neighborhood $U\subseteq \R^n$ containing $a$ such that $f(x) \geq f(a)$ for all $x\in U$
+  \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*}
+  If $f:\R^n \to \R$ is differentiable, we say that $c\in \R^n$ is a critical point of $f$ if $\nabla f(c) = 0$. If $c$ is a \textbf{critical point}, we say that $f(c)$ is a \textbf{critical value}. All points which are not critical are termed \textbf{regular points}
+  \begin{rem}
+    If $f: \R^n \to \R^k$ we say that $c\in \R^n$ is a critical point if $Df(c)$ does not have maximal rank. Also critical points may be entire curves / planes in higher dimensions
+  \end{rem}
+\end{defn*}
+
+\begin{defn*}
+  The column rank of $A$ is the dimension of the column space of $A$, while the row rank of $A$ is the dimension of the row space of $A$. Column rank and row rank are always equal. A matrix is said to have \textbf{full rank} if its rank equals the largest possible for a matrix of the same dimensions, which is the lesser of the number of rows and columns.
+\end{defn*}
+
+\begin{proposition*}
+  \textbf{Single Variable} If $f: [a,b]\to \R$ is differentiable and $c$ is an interior point which is either a local maximum or local minimum, then necessarily $f'(c) = 0$
+\end{proposition*}
+
+\begin{proposition*}
+  \textbf{Multiple Variable (Fermat's Theorem)} Let $U\subseteq \R^n$. If $f: U \to \R$ is differentiable and $c\in U$ (note $c\in intU$) is either a local maximum or minimum of $f$, then $\nabla f(c) = 0$
+  \begin{rem}
+    The theorem implies that all local maxima and minima of a differentiable function occur at critical points. It is a method to find local maxima and minima of differentiable functions on \textit{open} sets by showing that every local extremum of the function is a stationary point (the function derivative is zero in that point). Note that critical points would be necessary but not sufficient for extrema to occur. There are cases where critical point does not yield extrema. For example, $f(x,y) = y^2 - x^2$ has ctitical point at $(0,0)$, which is not an extrema
+  \end{rem}
+\end{proposition*}
+
+\begin{defn*}
+  If $f: \R^n \to \R$ is $C^2$ and $c$ is a critical point of $f$,  then we say that $c$ is a \textbf{degenerate critical point} if $f$ is rank $H(c) < n$
+  \begin{rem}
+    When doing 2nd Derivative Test, we first evaluate if the Hessian matrix yield degenerate critical point. Subsequent discussion depends on the critical point being non-degenerate. If the critical point is degenerate, then the behavior of $f$ in a neighborhood of $c$, even in a very qualitative sense and in a very small neighborhood, may depend on higher-order terms in the Taylor series. Remember that we ignored Taylor polynomial for terms with order larger than 3 when discussing about the 2nd Derivative Test
+  \end{rem}
+\end{defn*}
+
+
+\begin{proposition*}
+  If $f:\R^2 \to \R$ and $c$ be a critical point
+  \begin{enumerate}
+    \item If $det H(c) < 0$ then $c$ is a saddle point
+    \item If $det H(c) > 0$
+    \begin{enumerate}
+      \item If $\partial_{11} f > 0$ then $c$ is a minimum
+      \item If $\partial_{11} f < 0$ then $c$ is a maximum
+    \end{enumerate}
+    \item If $det H(c) = 0$ then this is inconclusive
+   \end{enumerate}
+\end{proposition*}
+
+
+\begin{defn*}
+  Given a square matrix $A\in \R^{n\times n}$ and a vector $x\in \R^n$, $x^TAx$ is called a \textbf{quadratic form}
+  \begin{enumerate}
+    \item A symmetric matrix $A\in S^n$ is \textbf{positive definite} if for all non-zero vectors $x\in \R^n$, $x^TAx > 0$. Or simply all eigenvalues are positive.
+    \item A symmetric matrix $A\in S^n$ is \textbf{positive semifinite} if for all non-zero vectors $x\in \R^n$, $x^TAx \geq 0$. Or simply all eigenvalues are non-negative.
+  \end{enumerate}
+  \begin{rem}
+    One important property of positive definite and negative definit matrices is that they are always full rank, and hence, invertible. Also, if $A$ is positive definite then $-A$ is negative definite and vice versa.
+  \end{rem}
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{Sylvester's Criterion} a matrix $A$ is positive definite iff the determinants associated with all upper-left submatrices of $A$ are positive.
+  \begin{rem}
+    Used to determine if the Hessian matrix is positive definite. To see if the matrix is negative definite, we simply evaluate negatives of upper-left submatrices $-A$
+  \end{rem}
+\end{defn*}
+
+\begin{theorem*}
+  For every symmetric real matrix $A$ there exists a real orthogonal matrix $Q$ such that $D = Q^TAQ$ is a diagonal matrix. Every symmetric matrix is thus, up to choice of an orthonormal basis, a diagonal matrix.
+\end{theorem*}
+
+
+\begin{proposition*}
+  \textbf{2nd Derivative Test}
+  let $f: \R^2 \to \R$ be $C^2$ in the neighborhood of a critical point $a$. Assume $\nabla f(a) = 0$. Form Hessian matrix $H$ at point $a$
+  \begin{enumerate}
+    \item If $H$ is positive definite (i.e. All eigenvalues positive), then $a$ is (strictly) local minimum
+    \item If $H$ is negative definite (i.e. All eigenvalues negative), then $a$ is (strictly) local maximum
+    \item If $H$ is neither (i.e. A mix of positive and negative eigenvalues), but $det(H)  \neq 0$ at point $a$, then $a$ is a saddle point.
+    \item If $det(H) = 0$ test is inconclusive
+  \end{enumerate}
+  \begin{proof}
+    Since $\nabla f(a) = 0$, the second-order Taylor polynomial tells us that the function is approximately,
+    \[
+      f(x) = f(a) + \frac{1}{2}(x-a)^T H(a)(x-a)
+    \]
+    If $H$ is positive definite or all its eigenvalues are positive, i.e. $(x-a)^T H(a)(x-a) > 0$, then
+    \[
+      f(x) > f(a)
+    \]
+    we see that $a$ is a local minimum
+    \begin{rem}
+      There are cases where all eigenvalues of $H(a)$ is nonnegative but $a$ is not a local min.
+    \end{rem}
+  \end{proof}
+
+\end{proposition*}
+
+
+\begin{proposition*}
+  For a matrix $A\in \R^{n\times n}$, $\lambda$ is an eigenvalue if there exists a non-zero $v\in\R^n$ such that
+  \[
+    Av = \lambda v \iff (A - \lambda I) v = 0
+  \]
+  which is a linear system of equations with $(A - \lambda I)$ as coefficients. The system has one solution if and only if $(A - \lambda I)$ is invertible, i.e. $det(A - \lambda I) \neq 0$. Since the zero vector is a solution and we know that $v\neq 0$, we must have
+  \[
+    det(A - \lambda I)  = 0
+  \]
+  From this we can ensure that diagonal matrices has eigenvalues as entries on its diagonals
+\end{proposition*}
+
+
+
+\begin{theorem*}
+  \textbf{Constrained Optimization by method of Lagrange Multipliers} Let $f: G: \R^n \to \R$ be $C^1$ functions, and set $S = G^{-1}(0)$, i.e. $S$ provides $x\in\R^n$ such that $G(x) = 0$. If the restriction $f: S\to \R$ has a maximum or a minimum at a point $c\in S$ and $\nabla G(c) \neq 0$ then there exists $\lambda \in \R$ such that
+  \[
+    \nabla f(c) = \lambda \nabla G(c)
+  \]
+  \begin{proof}
+    \textbf{Intuition:} $\nabla f(x)$ is the direction of $f$ at point $x$. As long as we are not moving perpenticular to $\nabla f(x)$, we are either moving uphill or downhill. $f$ achieves its local extrema at $c$ whenever we are only restricted to move in directions perpendicular to $\nabla f (c)$. This is made possible because we have to abind by the constraint $G(x) = 0$; that is, we can only move along the tangents to the constraint surface $G$. Note that $\nabla G$ is always perpenticular to the tangent space, direction of possible movements because $G$ is a constant function. Together, at local extrema $c$, $\nabla f(c)$ and $\nabla G(c)$ both become perpenticular to the tangent space of the constraint surface. Therefore $\nabla f(c)$ and $\nabla G(c)$ are parallel and hence proportional to each other by an arbitrary constant $\lambda$, the Lagrange Multiplier
+  \end{proof}
+  \begin{rem}
+    We can use 2nd Derivative Test wherever possible, i.e. for interior of sets, for finding critical points. For determining critical points on the boundary, we apply the method of lagrange multiplier. We can then infer that absolute extrema of $f$ exists by arguing with Extreme Value Theorem. Since absolute extrema are also themselves local extrema, they must have been in one of the critical points determined previously. Then, we simply evaluate $f$ at those critical points. The largest value corresponds to where maximum occurs. Also note that when $\nabla G(c) = 0$, we consider $c$ as a critical point because the constraint surface is not smooth. We would still evaluate $f(c)$ and compare to other critical points
+  \end{rem}
+\end{theorem*}
+
+
+\begin{proposition*}
+  For multiple constraints, we need additional multipliers. More precisely, if $G: \R^n \to \R^m$ is given by $G(x) = (G_1(x), \cdots, G_m(x))$, we set $S = G^{-1}(0)$,  and we tasked with optimizing $f: S\to\R$, then if $c\in S$ is a maximum or minimum there exists $\lambda_1, \cdots, \lambda_m \in \R$ such that
+  \[
+    \nabla f(c) = \sum_{i=1}^{\infty} \lambda_i \nabla G_i (c)
+  \]
+  \begin{rem}
+    If $\nabla G_i(c)$ happens to be linear dependent of each other, it's valid to reduce the expression to just linearly independent $G_i(c)$.
+  \end{rem}
+\end{proposition*}
+
+
+
+
+\end{document}

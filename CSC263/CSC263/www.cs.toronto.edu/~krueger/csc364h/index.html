@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<HTML>
+<HEAD>
+<TITLE>CSC 364H Summer 2002</TITLE>
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H2>CSC 364H1Y: Computational Complexity and Computability<BR>
+Wednesday Section L5201 - Summer Session 2002</H2>
+
+<dl>
+<dt><b>Instructor:</b> Richard Krueger
+<dd><b>email:</b>
+<a href="mailto:krueger@cs.toronto.edu">krueger@cs.toronto.edu</a>
+(or krueger@cdf)
+<dd><b>phone:</b> DCS Main Office at 978-6025 and leave message
+(for emergencies only)
+<dt><b>Lectures:</b>  Wednesdays 6pm-8pm in BL 205
+<dt><b>Tutorials:</b> Wednesdays 8pm-9pm
+(please attend the tutorial session to which you are assigned)
+<dd>BL 114 &nbsp; Spyros Angelopoulos &nbsp; (last names A to G)
+(new room)<br>
+<dd>RW 142 &nbsp; Ying Zhu &nbsp; (last names H to M)<br>
+<dd>RW 229 &nbsp; Babak Farzad / William Andreopoulos &nbsp; (last names N to Z)<br>
+<dt><b>Office hours:</b> by appointment, or either
+<dd>Mondays 5pm-6pm in SF 2110 with TA (except holidays), or
+<dd>Thursdays 1pm-2pm in SF 2110 with instructor
+<dt><b>Newsgroup:</b>
+<a href="news://newssrv.cdf.toronto.edu/ut.cdf.csc364h">ut.cdf.csc364h</a><BR>
+<dt><b>Note:</b> This is not the webpage for the Tuesday night section
+(L5101). For that section, please follow this 
+<a href="http://www.cs.toronto.edu/~hsc/364/index.html">link</a>. 
+</dl>
+
+<p>
+<b>Final Announcement:</b>
+I hope everyone enjoyed the course. I wish everyone a good year this
+fall.
+Any remaining unreturned work (including regrades) is available from me
+in SF3213 (please do not bother my officemates, they do not know where I
+am, when I'll be back, or where I am storing your work for return).
+Once the CSSU is set up, I will be giving any remaining items to them.
+</p>
+
+
+<ul>
+<li><a href="http://www.cs.toronto.edu/~krueger/csc364h/Outline.ps">
+Course outline (Postscript)</a> (<a href="Outline.pdf">PDF</a>)
+<li><a href="#dates">Schedule and assigned readings</a>
+<li><a href="http://www.cs.toronto.edu/~hsc/364/notes/">
+Lecture notes</a>
+<li><a href="#hw">Assignments and homework questions</a>
+    <ul>
+    <li><a href="hw/coverk.ps">Cover page</a> for assignments
+    <li><a href="remark.ps">Remark request page</a> for assignments,
+    quizzes and tests
+    </ul>
+<li><a href="gradingscheme/">Grading schemes for term work</a>
+(including HW3)
+<li>Test information
+    <ul>
+    <li><a href="test1info.html">Test #1</a>,
+    <a href="gradingscheme/test1scheme.txt">answers</a>
+    <li><a href="test2info.html">Test #2</a>,
+    <a href="gradingscheme/test2scheme.txt">answers and grading scheme</a>
+    <li><a href="finalinfo.html">Final exam</a>
+    </ul>
+<li><a href="marks/">Current course marks</a>
+(updated for HW3 and term work totals) -- final term work totals, with
+adjustments
+</ul>
+
+<p>
+Students should consult this page at least once a week for important
+information. 
+</p>
+
+<hr>
+
+
+<h2>Course Description</h2>
+
+<p>
+General techniques for efficient algorithm design: greedy
+algorithms, dynamic programming; other topics may include network flow,
+linear programming, randomized algorithms. Introduction to
+complexity theory: models of computation, the classes P and NP,
+polynomial time reducibility and NP-completeness, provably hard problems.
+Introduction to the theory of computability: Church's thesis, computable
+and noncomputable functions, reductions, the analogies
+between complexity and computability theory.<br>
+Prerequisite: CSC238H1/(MAT246Y1/247H1, plus some
+knowledge of programming); CGPA 3.0/enrolment in a CSC subject POSt
+</p>
+
+
+<h2>Course Organization</h2>
+
+<p>
+More information relevant to this incarnation of the course is available
+in the <a href="Outline.ps">course outline</a>.
+There are main three topics to this course.
+<ul>
+<li><i>Computability Theory</i> -- What is a computer? How do we model
+computation? What are things we can and cannot compute?
+<li><i>Efficient Algorithm Design</i> -- What techniques can we use to
+solve problems efficiently? When do they work? When do they not work?
+<li><i>Complexity Theory</i> -- What are complexity classes? How do we
+show problems are easier or harder than other problems?
+</ul>
+This is basically the order in which the topics will be covered.
+Each section will roughly compose a third of the course, each taking
+about 4 weeks to cover.
+</p>
+<p>
+<i>Homework:</i>
+Each week a number of problems will be assigned relating to the course
+material. You will be expected to complete some of the problems to be
+handed in and graded. These problems will compose three assignments
+throughout the term.
+Some problems will be assigned yet not form part of the assignments.
+You are encouraged to work on these problems and solve them, as they
+will further your understanding of the material (and may appear on
+quizzes!).
+</p>
+<p>
+<i>Quizzes:</i>
+Occasionally quizzes will be held in the tutorial session. 
+One (or a few) of these weekly assigned problems, or a closely related
+problem, will be asked. The quizzes will be closed book and presume you
+know how to solve the assigned problems.
+</p>
+<p>
+<i>Grading:</i>
+Most of the problems in this course will involve proofs or
+counterexamples. Answers must be concise, clear, well thought out and
+presented neatly to obtain full marks. Up to 25% will be deducted for
+overly long, rambling, sloppy or unclear answers, at the grader's
+discretion.
+</p>
+<p>
+<i>Fifth Rule:</i>
+In mathematics it is important to know both how to solve problems and
+when one does not know how to solve a given problem. Hence incorrect
+answers may be given zero credit, whereas if you recognize that you
+cannot solve a problem and state only this, you will be given one fifth (20%)
+credit on the problem. In other words, a wrong answer will earn zero
+marks, but an answer of "I don't know the answer" will earn 1/5 marks.
+</p>
+<p>
+<i>Policy on Lateness, Absence and Extensions:</i>
+Late assignments will generally not be accepted.
+In the case of a missed quiz or test, a mark of zero will be recorded.
+No make-up quiz or test will be provided.
+Only in exceptional circumstances will requests for extensions for
+assignment deadlines or excuses for missed tests be entertained.
+Any such request must be presented to the course instructor (not a TA)
+with all supporting documentation as soon as possible. 
+The sole remedy available in exceptional circumstances for missed tests
+is redistribution of its weight to other components.
+</p>
+
+
+<h2>Textbooks</h2>
+
+<!--
+<p>NOTE: Order online at <a
+href="http://www.uoftbookstore.com">www.uoftbookstore.com</a> by May 17
+to save 5%. I don't know how the price compares to, say, Discount
+Textbooks, so shop around! Sale is online only.</p>
+-->
+
+<p><b>Required:</b>
+Cormen, Leiserson, Rivest and Stein.
+<a href="http://mitpress.mit.edu/algorithms/">
+Introduction to Algorithms</a> (2nd edition)<br>
+This text (CLRS) is also used in CSC378.
+The most relevant chapters are 3,15,16,25,26,34.
+It does not cover all the complexity and computability material we require.
+Regardless, any computer scientist should have a good book on algorithms.
+It should serve as a valuable reference throughout your career.
+</p>
+
+<p><b>Recommended:</b>
+M. Sipser. <u>Introduction to the Theory of Computation</u><br>
+The most relevant chapters are 0,3,4,5,7,8.
+This text (Sipser) covers only computability and complexity.
+</p>
+
+<p><b>Optional:</b>
+Garey and Johnson. <u>Computers and Intractability: A Guide to the Theory
+of NP-Completeness</u><br>
+The introductory chapters 1,2,3 are especially relevant.
+This is a classic book, deserving a spot on any bookshelf.
+</p>
+
+<p>
+There are several
+<a href="http://www.cs.toronto.edu/~hsc/364/notes/">notes</a>
+composed by previous instructors of this course.
+They will serve as a valuable, concise reference.
+They will be updated during the term as we cover the material, so only
+print out the current pieces.
+</p>
+
+
+<h2>Marking Scheme</h2>
+
+<table>
+<tr>
+<th align=left>Component</th><th>Total Weight</th>
+</tr><tr>
+<td>3 Homework Assignments (4% each)</td>
+<td align=center>12%</td>
+</tr><tr>
+<td>4 Quizzes in tutorial (4% each)</td>
+<td align=center>16%</td>
+</tr><tr>
+<td>2 Midterm Tests (16% each)</td>
+<td align=center>32%</td>
+</tr><tr>
+<td>1 Final Exam</td>
+<td align=center>40%</td>
+</tr>
+</table>
+
+
+<h2><a name="dates">Important Dates</a></h2>
+
+<table border=1 cellpadding=3><tr>
+<th>Week of</th><th>Anticipated Lecture Topics</th>
+<th>Events</th><th>Readings</th>
+</tr><tr>
+<td>May 15</td>
+<td>Introduction to computation and Turing machines<br>
+Review of polynomials, asymptotic notation, space/time complexity
+</td>
+<td>First lecture. First tutorial.<br>No Monday office hour</td>
+<td>CLRS: 3<br>
+Sipser: 0, 3.1</td>
+</tr><tr>
+<td>May 22</td>
+<td>Introduction to decision problems and languages<br>
+Other models of computation, decidable vs. recognizable languages</td>
+<td>Monday office hour cancelled (Victoria Day)</td>
+<td>Sipser: 3.2-3.3</td>
+</tr><tr>
+<td>May 29</td>
+<td>Church-Turing Thesis, Nondeterminism, Goedel's theorem</td>
+<td>Quiz #1 in tutorial session</td>
+<td>Sipser: 4</td>
+</tr><tr>
+<td>June 5</td>
+<td>Universality, non-computability, diagonalization, reductions</td>
+<td></td>
+<td>Sipser: 5</td>
+</tr><tr>
+<td>June 12</td>
+<td>Efficiency of algorithms, 
+greedy algorithms</td>
+<td>Quiz #2 in tutorial session
+<br>Assignment #1 due (Thursday 6pm)</td>
+<td>CLRS: 16</td>
+</tr><tr>
+<td>June 19</td>
+<td>The divide & conquer technique</td>
+<td><font color="red">Test #1 in lecture/tutorial</font></td>
+<td>CLRS: 2.3, 33.4</td>
+</tr><tr>
+<td>June 26</td>
+<td>Dynamic programming</td>
+<td></td>
+<td>CLRS: 15</td>
+</tr><tr>
+<td>July 3</td>
+<td>Flows and cuts, linear programming</td>
+<td>Monday office hour cancelled (Canada Day)</td>
+<td>CLRS: 26.1-26.3,<br>CLRS: 29.1-29.3</td>
+</tr><tr>
+<td>July 10</td>
+<td>Hard problems, classes of P and NP, efficiency vs. tractability</td>
+<td>Quiz #3 in tutorial
+<br>Assignment #2 due (Thursday 6pm)</td>
+<td>Sipser: 7.1-7.3</td>
+</tr><tr>
+<td>July 17</td>
+<td>Reductions and reducibility</td>
+<td><font color="red">Test #2 in lecture/tutorial</font><br>
+Last day to withdraw without penalty July 21</td>
+<td>CLRS: 34.1-34.3</td>
+</tr><tr>
+<td>July 24</td>
+<td>Cook's theorem and NP-completeness</td>
+<td></td>
+<td>CLRS: 34.3<br>
+Sipser: 7.4</td>
+</tr><tr>
+<td>July 31</td>
+<td>Guest lecturer!<br>
+More NP-complete problems, related classes (co-NP, poly heirarchy)</td>
+<td>Quiz #4 in tutorial
+<br>Assignment #3 due (Thursday 6pm)</td>
+<td>CLRS: 34.4-34.5<br>
+Sipser:7.5</td>
+</tr><tr>
+<td>August 7</td>
+<td>Dealing with hard problems,
+randomization, approximation</td>
+<td>Monday office hour cancelled (Civic Holiday)
+<br>Last day of class. Last tutorial.</td>
+<td>CLRS: 35</td>
+</tr><tr>
+<td>August 12-16</td>
+<td colspan=2 align=center>Final Exam week -- see
+<a href="http://www.artsandscience.utoronto.ca/current/exams/index.shtml">
+Faculty for date and time</a><br>
+Good luck!</td>
+</tr>
+</table>
+
+<h2>Policy on Collaboration</h2>
+
+<p>
+You are expected to work on each problem on your own and present your
+own solution. You may use the textbooks, notes, lectures, instructors,
+tutors and classmates to help you find general strategies to solve the
+problems, but you may not go out and find complete solutions to the
+problems.
+You may discuss the strategies to solve these problems with your fellow
+students, but you may not discuss complete solutions.
+You cannot take written notes or solutions away from a discussion with
+another student.
+Using other people's work or solutions, whether cited or not, is
+considered plagiarism and carries stiff academic penalties.
+If you are unsure whether an activity may constitute plagiarism or
+undue collaboration, consult the instructor immediately.
+You are encouraged to review the University of Toronto
+<a href="http://www.utoronto.ca/govcncl/pap/policies/behaveac.html">
+Code of Behaviour on Academic Matters</a>.
+</p>
+<p>
+Another instructor explains Academic Honesty very well
+<a href="http://www.cs.toronto.edu/~hsc/364/honesty.html">here</a>.
+I encourage you to read it.
+</p>
+
+
+<h2><A NAME="hw">Assigned Questions</A></h2>
+
+<p>
+Assignments are due by 6pm on the Thursday due date in the CSC 364
+drop box on 2nd floor of Sandford Flemming Building. Assignments may
+also be turned in to the instructor at lecture preceeding
+the due date.
+Late assignments will not be accepted in the drop box.
+</p><p>
+Every assignment must include <a href="hw/coverk.ps">this cover page
+(PS)</a> (<a href="hw/coverk.pdf">PDF</a>)
+as the first page of your assignment. Be sure to completely fill in  and
+sign this page before submitting.
+Assignments should be stapled securely: do not submit within an envelope,
+binder or folder, or bound with paper-clips, string, or any origami
+technique.
+Remember you should only hand in the questions indicated by a star *.
+<ul>
+<li><a href="hw/hw1.ps">Assignment 1 (PS)</a>
+<a href="hw/hw1.pdf">(PDF)</a>.
+Due Thursday June 13 at 6pm.<br>
+Covers weeks 1 through 4. Question 9 (week 3) fixed!<br>&nbsp;
+<li><a href="hw/hw2.ps">Assignment 2 (PS)</a>
+<a href="hw/hw2.pdf">(PDF)</a>.
+Due Thursday July 11 at 6pm.<br>
+Covers weeks 5 through 8.<br>&nbsp;
+<li><a href="hw/hw3.ps">Assignment 3 (PS)</a>
+<a href="hw/hw3.pdf">(PDF)</a>.
+Due Thursday August 1 at 6pm.<br>
+Covers weeks 9 through 11.
+Note that there are two hand-in problems for week 11!<br>&nbsp;
+<li><a href="hw/hw4.ps">Assignment 4 (PS)</a>
+<a href="hw/hw4.pdf">(PDF)</a>.
+Not for hand-in.<br>
+Covers weeks 12 through 13.
+</ul>
+Any requests for remarking must be submitted in writing using 
+<a href="remark.ps">this remarking form (PS)</a>
+<a href="remark.pdf">(PDF)</a>, with the
+complete <i>original</i> marked assignment, quiz or test.
+The deadline for remarking is two weeks following the return of the
+marked paper. Note that a remark may result in changes to marks assigned
+on other questions, and could possibly lower your total mark.
+If the remarking is not satisfactory, it must be presented
+in entirety to the instructor within one week of the date of the remark.
+All mark appeals on term work and tests must be submitted before the
+final exam is held.
+</p>
+
+<HR>
+
+<TABLE>
+<TR>
+<TD>
+<SMALL>
+Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,349 @@
+
+\documentclass[11pt]{article}
+
+% math packages
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}    % Math symbols such as \mathbb
+\usepackage{amsthm}
+\usepackage{pgfplots}   % plots
+
+% other packages
+\usepackage{graphicx}
+\graphicspath{ {../assets/} }
+\usepackage{enumitem}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{hyperref}
+
+% proper inline math display, adjust height for symbols like \sum
+\everymath{\displaystyle}
+
+% define tags for math use..
+\theoremstyle{plain}% default
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{exmp}{Example}[section]
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem{case}{Case}
+
+% Gives begin{solution} same formating as \begin{proof}
+\newenvironment{solution}
+  {\begin{proof}[Solution]}
+  {\end{proof}}
+
+
+% define quotes
+\DeclareMathSymbol{\mlq}{\mathord}{operators}{``}
+\DeclareMathSymbol{\mrq}{\mathord}{operators}{`'}
+
+
+
+%running fraction with slash - requires math mode.
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+%shortcut to mathbb
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\I}{\mathbb{I}}
+% color highlighting
+\newcommand{\hilight}[1]{\colorbox{yellow}{#1}}
+
+
+\title{CSC236 Assignment \#1}
+\author{Zian Qin, Peiqi Wang}
+
+% begin document
+\begin{document}
+
+% title page
+\maketitle
+
+
+% problem 1
+\section*{Problem 1}
+Consider the Fibonacci-esque function $g$:
+
+\[
+  g(n) =
+  \begin{cases}
+    1 &\text{if $n=0$}\\
+    3 &\text{if $n=1$}\\
+    g(n-2) + g(n-1) &\text{if $n>1$}\\
+  \end{cases}
+\]
+
+Use complete induction to prove that if $n$ is a natural number greater than 1, then $2^{\rfrac{n}{2}} \leq g(n) \leq 2^n$. You may not derive or use a closed-form $g(n)$ in your proof.
+
+\begin{proof}
+  $ $ \\
+
+  Let predicate $P$ be
+  \[
+    P(n): 2^{\rfrac{n}{2}} \leq g(n) \leq 2^n \text{ with the given } g(n)
+  \]
+
+  \textbf{Basis}:\\
+  Show $P(n)$ holds for $n=2$,
+  \begin{align*}
+  g(2) &= g(1) + g(0) = 3 + 1 = 4\\
+  2^{2/2} = 2 \le g(2) &= 4 \le 2^2 = 4\\
+  \therefore P(2) \text{ is true }\\
+  \end{align*}
+  %%
+  Show $P(n)$ holds for $n=3$,
+  \begin{align*}
+  g(3) &= g(2) + g(1) = 4 + 3 = 7\\
+  2^{3/2} = 2\sqrt{2} < 2(3) \le g(3) &= 7 \le 2^3 = 8\\
+  \therefore P(3) \text{ is true }\\
+  \end{align*}
+
+  %%
+  \vskip 10pt
+  \textbf{Inductive Step}:\\
+  Let n $\ge$ 4 be any\\
+  Assume  $2^{m/2} \le g(m) \le 2^{m} \text{ } \forall m \in [2,n]$ \\
+  $$\text{WTS }2^{(n+1)/2} \le g(n+1) \le 2^{n+1}$$
+  \begin{align*}
+  g(n+1) &= g(n) + g(n-1)\\
+  \text{By the inductive hypothesis, }&\text{we know the following:}\\
+  2^{n/2} &\le g(n) \le 2^{n}\\
+  &\text{and}\\
+  2^{(n-1)/2} &\le g(n-1) \le 2^{n-1}\\
+  \text{Combining the two } & \text{ inequalities we get:}\\
+  2^{n/2} + 2^{(n-1)/2}&\le g(n) + g(n-1)\le 2^n + 2^{n-1}\\
+  2^{n/2} + 2^{n/2-1/2}&\le g(n+1)\le 2^n + 2^{n}2^{-1}\\
+  2^{n/2} + 2^{n/2}2^{-1/2}&\le g(n+1)\le 2^n(1+1/2)\\
+  2^{n/2}(1+2^{-1/2})&\le g(n+1)\le 2^n(1.5) \le 2^n(2)\\
+  2^{n/2}(1.5)\le 2^{n/2}(1+2^{-1/2})&\le g(n+1)\le 2^n2=2^{n+1}\\
+  2^{n/2}(\sqrt{2})\le 2^{n/2}(1.5) &\le g(n+1)\le 2^{n+1}\\
+  2^{(n+1)/2}= 2^{n/2 + 1/2} = 2^{n/2}(\sqrt{2}) &\le g(n+1)\le 2^{n+1}\\
+  2^{(n+1)/2} &\le g(n+1) \le 2^{n+1}\\
+  \therefore &P(n+1) \text{ holds }
+  \end{align*}
+  Therefore Given any $n\geq 4$, we proved $\forall 2\leq m \leq n, P(m) \Rightarrow P(n+1)$. \\
+  By Complete Induction, $\forall n \in \mathbb{N}, n>1 \Rightarrow 2^{n/2} \le g(n) \le 2^n $
+
+\end{proof}
+
+
+
+\section*{Problem 2}
+Suppose $B$ is a set of binary strings of length $n$, where $n$ is positive (greater than $0$), and no two strings in $B$ differ in fewer than 2 positions. Use simple induction to prove that $B$ has no more than $2^{n-1}$ elements
+
+\begin{proof}
+  $ $\\
+  Before formally proving the problem, here is a claim that is derived in both lecture notes and lecture sessions, and therefore I will be using it directly:
+  \[
+    \forall l\in \N \text{, there are } 2^l \text{ binary strings of length } l
+  \]
+
+  Let $A_n$ be a set of binary strings of length $n$ where $n > 0$. Because of the previously stated claim, $|A_n| = 2^n$ holds. Let $B_n$ be a set of binary strings of length $n$ where $n > 0$ and no two strings in $B_n$ differ in fewer than 2 positions, let predicate P be,
+  \[
+    P(n): |B_n| \leq 2^{n-1}
+  \]
+  Proof by Simple induction, \\
+  \textbf{Basis}: \\
+  When $n=1$, $B_1 = \emptyset$ because any binary string of length 1 cannot differ in 2 positions. Therefore $|B_1| = 0 \leq 2^{1-1} = 1$. Therefore $P(1)$ holds. \\
+  \textbf{Inductive Step}: Show $P(n) \Rightarrow P(n+1)$ for any $n\in \N$ \\
+  Let arbitrary $i\in\I$, P(i) holds, meaning $|B_i| \leq 2^{i-1}$. Here $A_i$ is every possible binary string of length $i$. Here we define a map $M: A_{i} \to B_{i+1}$ whereby binary string in the domain appends either a 0 or a 1. We claim that $M$ cannot append 1 and append 0 to the same element in the $A_i$. Proof by contradiction. Assume $a\in A_i$, and that $b_0, b_1 \in B_{i+1}$ be binary string appended with 0 and 1 to $a$ respectively. Because $b_0, b_1$ differ by exactly one position, which is the last position, $b_0,b_1$ cannot be $B_{i+1}$ at the same time. However we assumed $b_0, b_1 \in B_{i+1}$, contradiction arises. Therefore, $M$ can append 1 or 0 only once to the same element in $A_i$. Hence, there are at most $|A_i| = 2^{i}$ elements in $B_{i+1}$, or that $|B_{i+1}| \leq 2^{(i+1)-1}$. We proved $P(n+1)$ holds. Since $i$ is arbitrary, $\forall n\in\N, P(n) \Rightarrow P(n+1)$ \\
+
+  By simple induction, $P(n)$ holds for all $n\in\N, n>0$.
+
+
+\end{proof}
+
+
+
+
+\section*{Problem 3}
+Define $T$ as the smallest set of strings such that:
+
+\begin{enumerate}
+  \item $" b " \in T$
+  \item if $t_1, t_2\in T$, then $t_1 + "ene" + t_2 \in T$, where $+$ operator is string concatenation.
+\end{enumerate}
+
+Use structural induction to prove that if $t\in T$ has $n \textbf{ }"b"$ characters, then $t$ has $2n-2 \textbf{ }"e"$ characters.
+
+\begin{proof}
+  $ $\\
+
+  Define \\
+  \[
+    C(t_i, t_2): t_1 + \text{"ene"} + t_2 \text{ for some } t_1, t_2 \in T
+  \]
+  \[
+    b(t): \text{ the number of "b" characters in t}
+  \]
+  \[
+    e(t): \text{ the number of "e" characters in t}
+  \]
+  \[
+    P(t): e(t) = 2b(t)-2
+  \]
+
+  \textbf{Basis}:\\
+  let $t_1\in T$ be character "b".
+  \begin{align*}
+    b(t) &= 1 \\
+    e(t) &= 0 = 2*1 - 2 \\
+  \end{align*}
+  Therefore P(t) holds\\
+
+  \textbf{Recursive step}:\\
+  Show that $\forall t_1, t_2\in T, P(t_1) \land P(t_2) \Rightarrow P(C(t_1, t_2))$ \\
+  $P(t_1)$ and $P(t_2)$ implies that $e(t_1) = 2b(t_1) -2$ and $e(t_2) = 2b(t_2) - 2$. Since by construction of set $T$,
+  \begin{align*}
+    & b(C(t_1, t_2)) = b(t_1) + b(t_2)\\
+    & e(C(t_1, t_2)) = e(t_1) + e(e_2) + 2\\
+  \end{align*}
+  Then,
+  \begin{align*}
+    e(C(t_1, t_2)) &= e(t_1) + e(e_2) + 2\\
+    &= 2b(t_1) - 2 + 2b(t_2) - 2 + 2\\
+    &= 2b(C(t_1, t_2)) - 2\\
+  \end{align*}
+  Therefore $P(C(t_1, t_2))$ holds\\
+  By structural induction, for any $t\in T$, if $t$ has $n$ "b" characters, then $t$ has $2n-2$ "e" characters.
+\end{proof}
+
+
+
+\section*{Problem 4}
+Note the quantity $\phi = \rfrac{(1+\sqrt{5})}{2}$ is shown closely related to Fibonacci function. You may assume that $1.61803 < \phi < 1.61804$. Complete the steps below to show that $\phi$ is irrational.
+
+\begin{enumerate}[label=\alph*]
+  \item show that $\phi(\phi-1)=1$
+  \begin{align*}
+    \phi(\phi -1 )&= \frac{1+\sqrt{5}}{2} \left( \frac{1+\sqrt{5}}{2} - 1 \right) \\
+    & = \frac{\sqrt{5}+1}{2} \left( \frac{\sqrt{5}+1}{2} - \frac{2}{2} \right)\\
+    & = \frac{\sqrt{5}+1}{2} \left( \frac{\sqrt{5}+1-2}{2} \right)\\
+    & = \frac{\sqrt{5}+1}{2} \left( \frac{\sqrt{5}-1}{2} \right)\\
+    & = \frac{(\sqrt{5})^2-(1)^2}{4} &\#\text{difference of squares}\\
+    & = \frac{5-1}{4} = 4/4 = 1\\
+    \therefore \phi(\phi -1 ) &= 1\\
+  \end{align*}
+
+  \item Rewrite the equation in the previous step so that you have $\phi$  on the left-hand side, and on the right-hand side a fraction whose numerator and denominator are expressions that may only have integers, $+$ or $-$ , and $\phi$. There are two different fractions, corresponding to the two different factors in the original equation's left-hand side. Keep both fractions around for future consideration. \\
+
+  \[
+    \phi = \frac{1}{\phi-1} \text{ and } \frac{1+\phi}{\phi}
+  \]
+
+  \item Assume, for a moment, that there are natural numbers $m$ and $n$ such that $\phi = \rfrac{n}{m}$. Re-write the right-hand side of both equations in the previous step so that you end up with fractions whose numerators and denominators are expressions that may only have integers, $+$ or $-$ , $m$ and $n$.
+
+  \begin{align*}
+    \phi &= \frac{1}{\phi-1} \\
+    &= \frac{1}{\frac{n}{m}-1} \\
+    &= \frac{1}{\frac{n-m}{m}}\\
+    &= \frac{m}{n-m}\\
+  \end{align*}
+  \begin{align*}
+    \phi &= \frac{1+\phi}{\phi} \\
+    &= \frac{1+\frac{n}{m}}{\frac{n}{m}}\\
+    &= \frac{m+n}{m} \frac{m}{n}\\
+    &= \frac{m+n}{n}\\
+  \end{align*}
+
+  \item Use your assumption from the previous part to construct a non-empty subset of the natural numbers that contains $m$. Use the Principle of Well-Ordering, plus one of the two expressions for $\phi$ from the previous step to derive a contradiction.
+
+  Let $\{ M_k\}$ $\{ N_k\}$ be sequences. Let arbitrary $m_0, n_0\in\N$ such that $\phi = \frac{m_0}{n_0-m_0}$ as previously assumed. We construct $\forall k\in\N, k> 0, m_{k+1} = n_{k} - m_{k}$ and $n_{k+1} = m_{k}$. Note that $\{ M_k\}$,$\{ N_k\}\in\N$ due to construction. Given arbitrary $i$ such that $\phi = \frac{m_i}{n_i - m_i}$. Note that $m_{k+1}$ will always be in the natural numbers because the difference between 2 natural number remains a natural number. Then, We can find $m_{i+1}$, $n_{i+1}$ such that
+  \begin{align*}
+    \phi &= \frac{m_i}{n_i - m_i}\\
+    &= \frac{n_{i+1}}{m_{i+1}}\tag{by definition of sequence}\\
+    &= \frac{m_{i+1}}{n_{i+1} - m_{i+1}} \tag{$\phi = \frac{n}{m} = \frac{m}{n-m}$ for some $n,m\in\N$}
+  \end{align*}
+  The fraction representation of $\phi = \frac{m}{n-m}$ persisted and we can always get another $m_i$ such that $m_i < m_{i-1}$. The sequence $\{ M_k\}$ is a proper sequence in that it has infinitely many elements. However by the well ordering principle, $\{ M_k\}\in\N$ always has a smallest element. Here contradiction arises.
+
+
+  \item Combine your assumption and contradiction from the previous step into a proof that $\phi$  cannot be the ratio of two natural numbers. Extend this to a proof that $\phi$ is irrational.
+
+  Given $\phi = \frac{1+\sqrt{5}}{2}$, we proved $\phi(\phi - 1) = 1$ by computation. By arrangements, we get $\phi = \frac{1}{\phi-1}$. We prove that $\phi$ is irrational by contradiction. Assume $\phi$ is rational, then $\exists n,m\in\N, \phi = \frac{n}{m}$. By substituting in $\phi = \frac{1}{\phi-1}$, we can express $\phi$ using another fraction $\phi = \frac{m}{n-m}$.
+
+  \begin{rem}
+    I will just copy things from previous question...
+  \end{rem}
+
+  Let $\{ M_k\}$ $\{ N_k\}$ be sequences. Let arbitrary $m_0, n_0\in\N$ such that $\phi = \frac{m_0}{n_0-m_0}$ as previously assumed. We construct $\forall k\in\N, k> 0, m_{k+1} = n_{k} - m_{k}$ and $n_{k+1} = m_{k}$. Note that $\{ M_k\}$,$\{ N_k\}\in\N$ due to construction. Given arbitrary $i$ such that $\phi = \frac{m_i}{n_i - m_i}$. Note that $m_{k+1}$ will always be in the natural numbers because the difference between 2 natural number remains a natural number. Then, We can find $m_{i+1}$, $n_{i+1}$ such that
+  \begin{align*}
+    \phi &= \frac{m_i}{n_i - m_i}\\
+    &= \frac{n_{i+1}}{m_{i+1}}\tag{by definition of sequence}\\
+    &= \frac{m_{i+1}}{n_{i+1} - m_{i+1}} \tag{$\phi = \frac{n}{m} = \frac{m}{n-m}$ for some $n,m\in\N$}
+  \end{align*}
+  The fraction representation of $\phi = \frac{m}{n-m}$ persisted and we can always get another $m_i$ such that $m_i < m_{i-1}$. The sequence $\{ M_k\}$ is a proper sequence in that it has infinitely many elements. However by the well ordering principle, $\{ M_k\}\in\N$ always has a smallest element, hence contradiction.
+  \\
+  Therefore, $\phi$ cannot be expressed as a ratio of two natural numbers and thus irrational.
+
+\end{enumerate}
+
+
+
+\section*{Problem 5}
+Consider function $f$, where $3 \div 2 = 1$ (integer division)
+\[
+  f(n) =
+  \begin{cases}
+    1 &\text{if $n=0$}\\
+    f^2(n \div 3) + 3f(n \div 3)&\text{if $n>0$}\\
+  \end{cases}
+\]
+Use complete induction to prove that for every natural number $n$ greater than 2, $f(n)$ is a multiple of 7. NB: Think carefully about which natural numbers you are justified in using the inductive hypothesis for.
+
+
+
+\begin{proof}
+  $ $\\
+  Let
+  \[
+    P(n):\exists k\in \N, f(n) = 7k
+  \]
+  \\
+  \textbf{Basis}:\\
+  Prove that $\forall x\in \{3,4,5,6,7,8 \}: P(x)$ holds. Given $f(n)$ defined previously, we can compute the $f(x)$,
+
+  \begin{center}
+    \begin{tabular}{l*{5}{c}r}
+      $x$              & 3 & 4 & 5 & 6 & 7  & 8 \\
+      \hline
+      $f(x)$           & 28 & 28 & 28 & 28 & 28 & 28   \\
+    \end{tabular}
+  \end{center}
+  Just to show how the computation works,
+  \begin{align*}
+    f(1)&= f^2(1\div 3) + 3f(1\div 3) \\
+    &= f^2(0) + 3f(0)\tag{$1\div 3=0$} \\
+    &= 1^2 + 3*1 \tag{$f(0) = 1$} \\
+    &= 4
+  \end{align*}
+  \begin{align*}
+    f(3) &= f^2(3\div 3) + 3f(3\div 3) \\
+    &= f^2(1) + 3f(1) \tag{$3\div 3 = 1$}\\
+    &= 4^2 + 3*4 \tag{$f(1) = 4$} \\
+    &= 28
+  \end{align*}
+  Other $f(x)$ are computed in the same way and will not be listed here. In every case $28 = 4*7$. Therefore, $P(x)$ holds.\\
+
+
+  \textbf{Inductive step}:\\
+  For any $i\in\N, i\geq 9$, given that $\forall j\in \N,  3 \leq j < i$, P(j) holds. Need to prove that P(i) holds. Beause $i\geq 9$, $ 3\leq i\div 3 < i$, and hence $P(i\div 3)$ holds. Therefore, $\exists k\in \N, f(i\div 3) = 7 k$. Let $k_0 \in\N, f(i\div 3) = 7k_0$
+  \begin{align*}
+    f(i) &= f^2(i \div 3) + 3f(i \div 3) \\
+    &= (7k_0)^2 + 3(7k_0)\\
+    &= 7(7k_0^2 + 3k_0) \\
+    &= 7k_1 \tag{Let $k_1 = 7k_0^2 + 3k_0$, then $k_1\in\N$}
+  \end{align*}
+  Therefore $\exists k\in \N, f(i) = 7k$. P(i) holds. \\
+  By complete induction, we proved that $f(n)$ is a multiple of 7 for all $n>2$
+
+\end{proof}
+
+
+
+
+% end document
+\end{document}

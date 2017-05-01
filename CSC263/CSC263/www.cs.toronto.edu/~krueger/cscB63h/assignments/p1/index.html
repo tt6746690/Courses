@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<title>CSC&nbsp;B63H Summer 2008 -- Programming question for Homework 1</title>
+</head>
+
+<h3>Programming question for Homework 1: Trinomial Heaps
+</h3>
+
+<h3>Purpose: </h3>
+<p>
+In class, you learned about binomial heaps. In this question, you will investigate another type of priority queue, which we will call a <i>trinomial heap</i>. The goal of the assignment is to make you more familiar with both binomial heap and trinomial heap operations, and how priority queue data structures are programmed.
+</p>
+
+<h4>Trinomial heaps:</h4>
+
+<p>In order to define a trinomial heap, we must first define a trinomial tree. A <i>trinomial tree</i> can be defined recursively:
+<ul>
+<li> the trinomial tree T<sub>0</sub> consists of a single node</li>
+<li> the trinomial tree  T<sub>k</sub> consists of <i>three</i> trinomial trees T<sub>k-1</sub> that are linked together: the roots of two trees are the leftmost and second leftmost children of the root of the third tree. 
+</ul>
+</p>
+
+<p>
+The trinomial trees T<sub>0</sub>, T<sub>1</sub> and T<sub>2</sub> are shown below: </p>
+
+<img src="trinomialtree.gif" alt="Trinomial tree examples" hspace=25% align="middle"></img>
+
+<p>
+The trinomial tree T<sub>k</sub> has the following properties:
+<ul>
+<li> tree T<sub>k</sub> has 3<sup>k</sup> nodes,</li>
+<li> tree T<sub>k</sub> has height k, and </li>
+<li> the root of tree T<sub>k</sub> has 2k children.
+</ul>
+</p>
+
+A <i>trinomial heap</i> H is a set of trinomial trees that satisfies the following two properties:
+<ul>
+<li>Each binomial heap obeys the <i>min-heap</i> property, and</li>
+<li>For any nonnegative integer k, there are at most <i>two</i> trinomial trees in H with height k.</li>
+</ul>
+
+<h3>Task: </h3>
+
+The file <a href="THeap.java"><tt>THeap.java</tt></a> is an implementation of a binomial heap. You must modify the code in the file <tt>THeap.java</tt> to turn it into a trinomial heap implementation. In particular, the operations <tt>insert</tt>, <tt>minimum</tt>, <tt>extractMin</tt> and <tt>decreaseKey</tt> must all work correctly for a trinomial heap. It is your task to figure out what code needs to be changed and to change it.
+</p>
+
+<h3>Interface file:</h3>
+
+To assist you with this question, we are also providing a file <a href="Heap.java"><tt>Heap.java</tt></a> to test the THeap methods. <i>Do not submit this file</i>. Once you have downloaded the file <tt>THeap.java</tt> and <tt>Heap.java</tt>, you can use the command <tt> javac Heap.java</tt> to compile the code, and  use the command <tt>java Heap</tt> to run the code. 
+(This is exactly how the marker will compile and run your program!)
+
+<h4>About the print command:</h4>
+
+The print command will print a binomial heap in the following format:
+
+<tt>
+<pre>
+key = 9, degree = 0
+key = 3, degree = 2
+  key = 4, degree = 1
+    key = 6, degree = 0
+  key = 5, degree = 0
+</pre>
+</tt> 
+
+The indentation represents the depth of a node in the binomial tree. Thus, all siblings have the same amount of indentation. The parent of a node x is the last node printed above x with one less indent. For example, in the printout above, the nodes with the keys 4 and 5 are the children of the node with key 3, and the node with key 6 is the child of the node with key 4. A drawing of the binomial heap is given below. 
+<p>
+<img src="example.gif" alt="Binomial heap example" hspace=25% align="middle"></img>
+</p>
+<h3>Testing:</h3>
+
+<p>
+We will test your <tt>THeap.java</tt> file using a secret set of test cases. (You will not be surprised to learn that we will be mainly testing the <tt>insert</tt>, <tt>minimum</tt>, <tt>extractMin</tt> and <tt>decreaseKey</tt> methods to ensure that your code is correct.) 
+</p><p>Do not change the names of the methods in the file <tt>THeap.java</tt> or any of the input parameters or return types. We will not be able to call the methods if you change them! Also, do not change any code in the print method! You may add new methods, however, if needed.
+</p>
+
+<p>
+<i>
+If your code does not compile on the UTSC computer system, you will receive a mark of 0 on the programming component. 
+</i>
+</p>
+
+<h3>Submission instructions:</h3>
+
+<ol>
+  <li>
+  <p>Submit your code <b>using the "submit" mechanism on fissure</b>
+  (<b>by 6:00pm on Sunday, June 1</b>).
+  Use the following command from the directory containing your solution:<br>
+  <tt>submit -N p1 cscb63s THeap.java</tt><br>
+  The command "man submit"
+  contains general instructions for submitting your code electronically.</p>
+
+  <li>
+  <p>Submit <b>only</b> the file <tt>THeap.java</tt>.
+  Do not submit any other files, and in particular, do not submit
+  any class files.
+  Any other files submitted will be deleted <i>before</i> we test
+  your program.</p>
+
+  <li><p>Do not submit any printout of the code.</p>
+
+  <li><p><b>Fill in your name, student number
+  and login name in the comment at the
+  top of the <code>THeap.java</code> file.</b></p>
+
+  <li><p>Your code must compile and run on the fissure system.
+  Test it there! Programs that do not compile and run get 0 marks.</p></li>
+
+</ol>
+
+<h3>Hints:</h3>
+<ul>
+<li>Compare the definitions of trinomial tree and trinomial heap with the deifnitions of binomial tree and binomial heap on pages 457 and 459 of the textbook (Chapter 19).</li>
+<li>Make sure you understand the output of the print command.</li>
+<li>Think carefully about what needs to be changed before making any changes!</li>  
+</ul>
+</body>
+</html>

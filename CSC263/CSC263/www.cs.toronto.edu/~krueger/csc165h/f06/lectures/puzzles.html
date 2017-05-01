@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML lang="en">
+<HEAD>
+<TITLE>CSC 165 Fall 2006</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H2><a href=".">CSC 165</a>:
+Warm-up puzzles</h2>
+
+<p>
+The following puzzles serve as indirect motivation for this course.
+Each of these problems relates in some way to problems we encounter
+in computer science. We'll be examining techniques that help us
+reason about such problems and solve them.
+</p>
+
+<p>
+The level of difficulty of these problems varies.
+Some of these puzzles are easy, and most people can solve them in a few
+minutes. Some are difficult, and unlikely you will solve them without
+knowledge of some specific techniques. Solutions can probably be easily
+discovered with a little research, but are much more rewarding if
+you work them out yourself.
+</p>
+
+<ol>
+<li><b>3 boxes</b><br>
+Suppose you are a contestant on a game show and you are presented
+with 3 boxes. Inside one is a prize, which you will win if you chose the
+correct box.
+The game goes thusly: you choose a box, and the host opens one of the
+remaining boxes which is empty. You may then switch your choice to the
+remaining box or stay with your original choice.<br>
+Which box would you choose for the best chance of winning the prize? Why?
+
+<li><b>3 labelled boxes</b><br>
+In the next round, you are again presented with 3 boxes, one containing a
+small prize. This time, you must choose one box, and if you choose correctly,
+you win the prize. On closer examination, you notice a label on each box.
+<table><tr>
+    <td><table border=1><tr><td>The prize is not here.</td></tr></table></td>
+    <td><table border=1><tr><td>The prize is here.</td></tr></table></td>
+    <td><table border=1><tr><td>The prize is not here.</td></tr></table></td>
+</tr></table>
+Which box do you choose?
+
+<li><b>2 labelled boxes</b><br>
+In the net round, you are presented with just two boxes, with one containing
+a prize. The host explains that
+two stagehands Adam and Brian pack the boxes. Adam always puts a true statement
+on the box, and Brian always puts a false statement on the box. You don't know
+who packed the boxes, or ever if they were both packed by the same person or
+different people. The boxes say:
+<table><tr>
+    <td><table border=1><tr><td>The prize is not here.</td></tr></table></td>
+    <td><table border=1><tr><td>Exactly one box was packed by Brian.</td></tr></table></td>
+</tr></table>
+Which box do you choose?
+
+<li><b>2 labelled boxes surprise</b><br>
+In the final round, you are presented with two more boxes. The host tells you
+one box contains the grand prize, but if you choose the wrong one, you lose
+everything. The labels say:
+<table><tr>
+    <td><table border=1><tr><td>The prize is not here.</td></tr></table></td>
+    <td><table border=1><tr><td>Exactly one statement on the boxes is false.</td></tr></table></td>
+</tr></table>
+You reason that if the statement on the right box is true, the left box
+statement must be false, so the prize is in the left box. If the statement
+on the right box is false, either both statements are true or both are false.
+They cannot both be true, since the one on the right is false. So both are
+false, and the prize must be in the left box. So you choose the left box.<br>
+You open it and it's empty! The host claims he didn't lie to you.<br>
+What's wrong? (The difference between this and the previous puzzle is
+subtle but basic and essential for rigorous treatment of logic.)
+
+<li><b>Knights and Knaves</b><br>
+On the island of knights and knaves, every inhabitant is either a knight or a knave.  Knights always tell the truth, and knaves always lie.  You come across two inhabitants, let's call them A and B.
+
+<ol>
+<li>Person A says: "I am a knave or B is a knight."<br>
+Can you determine what A and B are?
+
+<li> Person A says: "We are both knaves."<br>
+What are A and B?
+
+<li> Person A says: "If B is a knave, then I'm a knight."<br>
+Person B says: "We are different."<br>
+What are A and B?
+
+<li> You ask A: "Are you both knights?"  A answers either Yes or No, but you don't know enough to solve the problem.<br>
+You then ask B: "Are you both knaves?"  B answers either Yes or No,
+and now you know the answer.<br>
+What are A and B?
+
+<li> A and B are guarding two doors, one leading to treasure and one leading to a ferocious lion which will surely eat you.  You must choose one door.  You may ask one guard one yes/no question before choosing a door.  What question do you ask?  Is it easier if you know one is a knight and one is a knave (but you don't know which is which)?
+</ol>
+
+<li><b>Mother Eve</b><br>
+<i>Theorem:</i> There is a woman on Earth such that is she becomes sterile, the whole human race will die out because all women will become sterile.<br>
+<i>Proof:</i> Either all women will become sterile or not.  If yes, then any woman satisfies the theorem.  If no, then there is some woman that does not become sterile.  She is then the one such that if she becomes sterile (but she does not), the whole human race will die out.<br>
+Is this argument convincing?
+
+
+<li><b>Santa Claus</b><br>
+<i>Wife:</i> Santa Claus exists, if I am not mistaken.<br>
+<i>Husband:</i> Well of course Santa Claus exists, if you are not mistaken.<br>
+<i>Wife:</i> Hence my statement is true.<br>
+<i>Husband:</i> Of course!<br>
+<i>Wife:</i>  So I was not mistaken, and you admitted that if I was not mistaken, then Santa Claus exists. Therefore Santa Claus exists.<br>
+
+Are you convinced? Why or why not?
+
+
+<li><b>Daemon in a Pentagon</b><br>
+There is a pentagon and at each vertex there is an integer number.
+The numbers can be negative, but their sum is positive. 
+A daemon living inside the pentagon manipulates the numbers with the following atomic action. If it spots a negative number at one of the vertices, it adds that number to its two neighbours and negates the number at the original vertex.
+Prove that no matter what numbers we start with, eventually the daemon cannot change any of the numbers.
+
+<!--
+<li><b>Mad hatters</b><br>
+<li><b></b><br>
+-->
+</ol>
+
+<small>These puzzles were collected from a number of sources,
+including H.J.Hoover and P.Rudnicki, Wikipedia, and the Internet at large.</small>
+
+<HR>
+
+<TABLE width="100%">
+<TR>
+<TD>
+<SMALL>
+<!--Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>-->
+<SCRIPT TYPE="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+<TD align=right>
+    <a href="http://validator.w3.org/check?uri=referer"><img border="0"
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+</TD>             
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

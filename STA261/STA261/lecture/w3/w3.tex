@@ -1,0 +1,161 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\section*{Large Number theorey of MLE}
+
+\subsection*{Asymptotic Normality of MLE}
+
+In essense, we approximate sampling distribution of MLE estimator by using limiting argument as sample size increases.
+
+\begin{defn*}
+  \textbf{Asymptotically Normal} Let $X_1,\cdots, X_n \sim f_{\theta}$ We say that $\hat{\theta}_n = \hat{\theta}_n(X_1, \cdots, X_n)$ is asymptotically normal with mean $\theta$ and variance $\frac{\sigma^2}{n}$ if for all $z\in \R$
+  \[
+    F_{Z_n}(z) \stackrel{n\to \infty}{\to} \Phi(z)
+  \]
+  where $F_{Z_n}$ is the cdf of $Z_n = \frac{\hat{\theta}_n - \theta}{\sigma / \sqrt{n}}$. Equivalent to convergence in distribution
+  \[
+    \sqrt{n}(\hat{\theta} - \theta) \stackrel{D}{\to} \mathcal{N}(0,\sigma^2)
+  \]
+\end{defn*}
+
+\begin{defn*}
+  Let $X_1, \cdots, X_n\sim f_{\theta}$ with $l(\theta) = \log f(x_1, \cdots, c_n | \theta)$
+  \begin{enumerate}
+    \item the \textbf{Score} with respect to $\theta$ is
+    \[
+      u(\theta) := l'(\theta)
+    \]
+    Under regularity conditions, the first moment $\E[u(\theta)]= \int \frac{\partial \log f(x|\theta)}{\partial \theta} f(x|\theta) dx =0$; the second moment is the Fisher information $\E[u^2(\theta)] = \mathcal{I}(\theta)$
+    \item the \textbf{Fisher Information} for $\theta$ is
+    \[
+      \mathcal{I}(\theta) := - \E [l{''}(\theta)]
+    \]
+    where $l(\theta) = \sum_{i=1}^n \log f(x_i | \theta)$
+    \item Fisher information of $\theta$ based on a single observation
+    \[
+      \mathcal{I}^* := - \E [\frac{\partial^2 \log f(x|\theta)}{\partial \theta^2} ]
+    \]
+    We notice that $\mathcal{I}(\theta) = n \mathcal{I}^* (\theta)$
+  \end{enumerate}
+\end{defn*}
+
+\begin{proposition*}
+    Under some regularity conditions
+    \begin{enumerate}
+        \item $\mathcal{I}(\theta) = \E [u^2(\theta)]$
+        \item $\frac{u(\theta)}{\sqrt{n}} \stackrel{D}{\to} \mathcal{N}(0, \mathcal{I}^*(\theta))$ (asymptotically normal)
+        \item $-\frac{1}{n} \frac{\partial^2 l(\theta)}{\partial \theta^2} \stackrel{p}{\to} \mathcal{I}^* (\theta)$
+    \end{enumerate}
+\end{proposition*}
+
+
+\begin{theorem*}
+  \textbf{Slutsky's Theorem} Let $\{ X_n \}$ and $\{ Y_n \}$ be two sequences of RV such that $X_n \stackrel{D}{\to} X$ and $Y_n \stackrel{P}{\to} c$ for some $c\in\R$ then for any continuous function $g$ we have
+  \[
+    g(X_n, Y_n) \stackrel{D}{\to} g(X, c)
+  \]
+  \begin{enumerate}
+    \item $X_n + Y_n \stackrel{D}{\to} X + c$
+    \item $X_n Y_n \stackrel{D}{\to} cX$
+    \item $X_n / Y_n \stackrel{D}{\to} X / c$
+  \end{enumerate}
+  In particular if $X_n \stackrel{D}{\to} \mathcal{N}(0,\sigma^2)$ and $Y_n \stackrel{P}{\to} c$ we have
+  \[
+    X_n Y_n \stackrel{D}{\to} \mathcal{N}(0, c^2 \sigma^2)
+  \]
+\end{theorem*}
+
+
+\begin{theorem*}
+  \textbf{Asymptotic Normality of MLEs} Let $X_1, \cdots, X_n$ be random sample from $f_{\theta}$ and let $\hat{\theta}_n$ denote the maximum likelihood estimator of $\theta$. Under some regularity conditions, $\hat{\theta}_n$ is asymptotically normal with mean $\theta$ and variance $\mathcal{I}^{-1}(\theta)$. in other words,
+  \[
+    \sqrt{n}(\hat{\theta}_{MLE} - \theta) \stackrel{D}{\to}\mathcal{N}(0, \frac{1}{\mathcal{I}^{*}(\theta)})
+  \]
+  \[
+    \hat{\theta}_{MLE} \sim AN(\theta, \mathcal{I}^{-1}(\theta))
+  \]
+\end{theorem*}
+
+
+\begin{theorem*}
+  \textbf{Invariance of MLE and transformation}
+  Let $X_1, \cdots, X_n$ be a sample from $f_{\theta}$ and let $\eta = g(\theta)$ for some transform $g$. Then
+  \begin{enumerate}
+    \item $\hat{\eta}_{MLE} = g(\hat{\theta}_{MLE})$
+    \item If $g$ is differentiable then $\hat{\eta}_{MLE} \sim AN(\eta, [g'(\theta)]^2 \mathcal{I}^{-1}(\theta))$
+  \end{enumerate}
+  \begin{rem}
+    We can derive MLE for function of $\theta_{MLE}$ with this theorem. For example, we can find MLE for log-odds
+    \[
+      \psi = \log \frac{p}{1-p}
+    \]
+    where $X_1, \cdots, X_n \stackrel{i.i.d}{\sim} Binom(1,p)$ by first computing MLE for Bernoulli distribution, i.e. $\hat{p}_{MLE} = \overline{X}$ with Fisher information $\mathcal{I}(p) = \frac{n}{p(1-p)}$ then,
+    \[
+      \hat{\psi}_{MLE} = \log \frac{\overline{X}}{1 - \overline{X}}
+    \]
+    To compute asymptotic sampling distribution, let $g(p) = \log \frac{p}{1-p}$. we calculate the asymptotic variance given by
+    \[
+      [g'(p)]^2 \mathcal{I}^{-1}(p) = (\frac{1-p}{p} \frac{1-p+p}{(1-p)^2})^2 \frac{p(1-p)}{n} = \frac{1}{np(1-p)}
+    \]
+    Since g is differentiable
+    \[
+      \log \frac{\overline{X}}{1 - \overline{X}} \sim AN(\log \frac{p}{1-p}, \frac{1}{np(1-p)})
+    \]
+  \end{rem}
+\end{theorem*}
+
+\begin{theorem*}
+  \textbf{Consistency in MLE} If the regularity condition for asymptotic normality is satisfied, the MLE is consistent (in probability)
+  \begin{proof}
+    Given MLE is asymptotically normal $(\hat{\theta}_{MLE} - \theta) \sim AN(0, \mathcal{I}^{-1}(\theta)) $, then
+    \[
+      F_{Z_n}(z) \sim \Phi(z) \quad \text{for}\quad Z_n = \sqrt{n \mathcal{I}^*(\theta)}(\hat{\theta}_{MLE} - \theta)
+    \]
+    Let $\epsilon > 0$ be given, then
+    \[
+      P(| \hat{\theta}_{MLE} - \theta | \leq \epsilon) = P(|  \sqrt{n \mathcal{I}^*(\theta)}(\hat{\theta}_{MLE} - \theta)| \leq \epsilon \sqrt{n \mathcal{I}(\theta)}) = 2\Phi(\sqrt{n \mathcal{I}^*(\theta)}\epsilon) - 1 + \delta_n
+    \]
+    where deviation from normality $\delta_n \stackrel{n\to\infty}{\to} 0$. Hence
+    \[
+        P(| \hat{\theta}_{MLE} - \theta | \leq \epsilon) = 2 - 1 + 0 = 1
+    \]
+    $\hat{\theta}_{MLE}\stackrel{p}{\to} \theta$ so then MLE is a consistent estimator
+    \begin{rem}
+      The proof is basically proving convergence in probability given convergence in distribution (although this is not true in all cases)
+    \end{rem}
+  \end{proof}
+\end{theorem*}
+
+\begin{defn*}
+  \textbf{Standard Error} The standard deviation of an estimator $\hat{\theta}$ of a parameter $\theta$ is called the standard error of $\hat{\theta}$; In other word, it is the standard deviation of the sampling distribution of a statistic.
+\end{defn*}
+
+\begin{theorem*}
+  \textbf{The Plug-in Principle} Let $\hat{\theta}$ be the MLE of $\theta$ satisfying the regularity condition for asymptotic normality, then by Slutsky's Theorem,
+  \[
+    \hat{\theta} \sim AN(\theta, \mathcal{I}^{-1}(\theta))
+  \]
+  Then for any \textbf{consistent estimator} $\hat{\theta}$ of $\theta$
+  \[
+    \hat{\theta} \sim AN(\theta, \mathcal{I}^{-1}(\hat{\theta}))
+  \]
+  In particular,
+  \[
+    \hat{\theta} \sim AN(\theta, \mathcal{I}^{-1}(\hat{\theta}_{MLE})
+  \]
+  Then the \textbf{estimated standard error} is
+  \[
+    \hat{\sigma}_{\hat{\theta}_{MLE}} = \mathcal{I}^{-1/2}(\hat{\theta}_{MLE})
+  \]
+  \begin{rem}
+    We are motivated to do this because $\mathcal{I}^{-1}(\theta)$ is a function of population parameter which we do not know. Instead we approximate it with $\hat{\theta}_{MLE}$ instead. And this theorem ensures that if we do so, asymptotic normality of $MLE$ is preserved
+  \end{rem}
+\end{theorem*}
+
+
+\begin{defn*}
+  \textbf{MLE estimate of multinomial cell probability}
+\end{defn*}
+
+\end{document}

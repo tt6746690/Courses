@@ -1,0 +1,158 @@
+===========================================================================
+CSC 363H                Lecture Summary for Week 11             Summer 2006
+===========================================================================
+
+-----------------
+Self-reducibility
+-----------------
+
+Note:  This material is not in the textbook.  This summary will therefore
+be slightly more detailed than usual.
+
+Problem of deciding language A sometimes called "decision problem": given
+input x, solution = yes/no answer.  But many problems are more naturally
+"search problems": given input x, find solution y.
+
+Examples:
+ -  Given prop. formula F, find satisfying assignment, if one exists.
+ -  Given graph G, integer k, find a clique of size k in G, if one exists.
+ -  Given graph G, find a Hamiltonian path in G, if one exists.
+ -  Given set of numbers S, target t, find subset of S whose sum equals t,
+    if one exists.
+ -  etc.
+
+Many languages come from natural search problems.  Clearly, efficient
+solution to search problem would give efficient solution to corresponding
+decision problem.  So proof that decision problem is NP-hard implies that
+search problem is "NP-hard" as well (in some generalized sense of NP-hard),
+and does not have efficient solution.
+
+But exactly how much more difficult are search problems?
+
+Perhaps surprisingly, many are only polynomially more difficult than
+corresponding decision problem, in the following sense: any efficient
+solution to the decision problem can be used to solve the search problem
+efficiently.  This is called "self-reducibility".
+
+Example 1:  CLIQUE-SEARCH
+    Input:  Undirected graph G, positive integer k.
+    Output:  A clique of size k in G, if one exists; special value NIL if
+    there is no such clique in G.
+
+ -  Idea:  For each vertex in turn, remove it iff resulting graph still
+    contains a k-clique.
+
+ -  Details:  Assume we have an algorithm CL(G,k) that returns true iff G
+    contains a clique of size k.  We construct an algorithm to solve
+    CLIQUE-SEARCH as follows.
+
+    CLS(G,k):
+        if not CL(G,k):  return NIL  # no k-clique in G
+        for each vertex v in V:
+            # remove v and its incident edges
+            V' = V - {v};  E' = E - { (u,v) : u in V }
+            # check if there is still a k-clique
+            if CL(G'=(V',E'),k):
+                # v not required for k-clique, leave it out
+                V = V';  E = E'
+        return V
+
+ -  Correctness:  CL(G=(V,E),k) remains true at every step so at the end,
+    V contains every vertex in a k-clique of G.  At the same time, every
+    other vertex will be taken out because it is not required, so V will
+    contain no other vertex.  Hence, the value returned is a k-clique of G.
+
+ -  Runtime:  Each vertex of G examined once, and one call to CL for each
+    one, plus linear amount of additional work (removing edges).  Total is
+    O((n+1)*t(n,m) + n*(n+m)) where t(n,m) is runtime of CL on graphs with
+    n vertices and m edges; this is polytime if t(n,m) is polytime.
+
+ -  Exercise:  What happens if G contains more than one k-clique?
+
+General technique to prove self-reducibility:
+ -  assume algorithm to solve decision problem,
+ -  write algorithm to solve search problem by making calls to decision
+    problem algorithm (possibly many calls on many different inputs),
+ -  make sure that search problem algorithm runs in polytime if decision
+    problem algorithm does -- argue at most polynomially many calls to
+    subroutine are made and at most polytime spent outside those calls.
+
+Example 2:  HAMPATH-SEARCH
+    Input:  Graph G, vertices s,t.
+    Output:  A Ham. path in G from s to t.
+
+ -  Idea 1:  For each vertex in turn, remove it iff resulting graph still
+    contains a Ham. path.
+
+    Problem:  Every vertex must be in the path anyway, and this does not
+    say where to put each vertex (which edges to use to travel through this
+    vertex).
+
+ -  Idea 2:  Remove s and its edges.  Then consider each neighbour of s
+    (must keep track of them separately), find one that has a Ham. path to
+    t and remove it and its edges.  Repeat until t is reached.
+
+ -  Idea 3:  For each edge in turn, remove it iff resulting graph still
+    contains a Ham. path -- same as for CLIQUE above, except considering
+    edges one-by-one instead of vertices.
+
+    Both ideas work, although their runtime is slightly different and the
+    last one is simpler.
+
+Example 3:  VERTEX-COVER-SEARCH
+    Input:  Graph G, integer k.
+    Output:  A vertex cover of size k, if one exists (NIL otherwise).
+
+ -  Idea 1:  Remove vertices one-by-one as long as resulting graph still
+    contains a vertex cover of size k.
+
+ -  Problem:  If G contains a VC of size k, then G-v (remove v and all
+    incident edges) also contains a VC of size k, whether or not v is in
+    the cover (unless k=n, trivial to solve)!
+
+ -  Idea 2:  Check if G-v contains a VC of size (k-1).
+
+ -  Algorithm:
+
+        VCS(G,k):
+            if not VC(G,k):  return NIL
+            C = {}  # the vertices in a vertex cover of G
+            for each vertex v in V, and while k > 0:
+                if VC(G-v, k-1):
+                    C = C U {v};  G = G - v;  k = k - 1
+            return C
+
+ -  Correctness:  Loop invariant: G contains a VC of size k.  At each
+    iteration,
+     .  if G-v contains a VC of size (k-1), then G contains a VC of size k
+        that includes v: say C is VC of size (k-1) in G-v, then C U {v} is
+        a VC of size k in G;
+     .  if G contains a VC of size k that includes v, then G-v contains a
+        VC of size (k-1) (taking the contrapositive: if G-v does not
+        contain a VC of size (k-1), then v does not belong to any VC of
+        size k in G).
+
+ -  Runtime:  O((n+1)*t(n,m) + n*(n+m)) -- for each vertex v, we perform
+    one call to VC in time t(n,m) and compute G-v in time O(n+m).
+
+Optimization problems:
+
+ -  Some search problems with one or more numerical parameters naturally
+    occur in practice in the form of optimization problems, e.g.,
+
+     .  MAX-CLIQUE
+     .  MIN-VERTEX-COVER
+     .  etc.
+
+    As in the case of vertex cover above, optimization problem can also be
+    self-reducible by using decision problem algorithm to find optimal
+    value of relevant parameter(s).
+
+    Example:  MAX-CLIQUE
+        Idea:  Given G, perform binary search in range [1,n] by making
+        calls to CL(G,k) for various values of k, in order to find maximum
+        value k such that G contains a k-clique but no (k+1)-clique.  Then,
+        use search algorithm to find k-clique.
+        (Note:  Linear search for value of k would also be OK because
+        search is in the range [1,n] and input size = n.)
+

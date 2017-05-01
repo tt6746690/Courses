@@ -1,0 +1,189 @@
+===========================================================================
+CSC 363H                Lecture Summary for Week  1             Summer 2006
+===========================================================================
+
+--------------------------
+Administrative information
+--------------------------
+
+Course information sheet; see web page for office hours
+
+Lectures:
+ -  each week, readings from textbook
+ -  read and understand basic material and bring questions
+ -  lectures will go over basic material more quickly and spend more time
+    on "intermediate"-level material
+
+Tutorials:
+ -  each week, exercises to work on
+ -  prepare solutions for tutorial
+ -  TA will discuss and work on solutions together with you
+ -  tutorials intended more like problem sessions than lectures
+ -  tutorials are integral part of course and not optional (material needs
+    to be thought about and worked on to be learned)
+
+Prerequisites: if you don't have CSC 236H/238H/240H, you
+will find this course very difficult -- need good background in proving
+algorithm correctness, analysis of algorithm complexity, and formal
+language theory (regular languages, context-free languages).
+
+---------------------------
+Computational Computability
+---------------------------
+
+Outline (topics and textbook sections):
+
+ 1. Turing machines: definitions, examples (3.1)
+
+ 2. Variants, the Church-Turing thesis (3.2, 3.3)
+
+ 3. Diagonalization, the Halting problem (4.1, 4.2)
+
+ 4. Decidability and recognizability, examples (4.2, 5.1)
+
+ 5. Reducibility, examples (5.1, 5.2)
+
+ 6. Mapping reducibility, examples (5.3)
+
+---------------
+Turing machines
+---------------
+
+Motivation:
+
+ -  Goal: define "computation" as abstractly and generally as possible.
+
+ -  Many possible formalizations: start with one, study it, then compare
+    with others.
+
+Informal idea: similar to FSA but with no limitation on access to input:
+
+ -  one-way infinite "tape" divided into "squares"
+    (each square holds one symbol);
+
+ -  read-write "head" positioned on one square at a time;
+
+ -  "control" can be in one of a fixed number of states;
+
+ -  initially, tape contains input (one symbol per square) and blanks,
+    and head is on leftmost input symbol;
+
+ -  current state and symbol read determine next state, symbol written,
+    and movement of head (one square left or right).
+
+Differences between FSA and Turing machines:
+
+ -  TM can both read and write symbols.
+
+ -  Infinite tape.
+
+ -  Head can move left or right (convention:
+    moving left on leftmost square leaves head where it is).
+
+ -  Special "accept" and "reject" states that stop computation immediately.
+
+Example: M_1 that accepts only strings of the form w#w for w in {0,1}*.
+    Read first symbol and cross it off (replace with new symbol 'x'), move
+    right until #, keep moving right until first non-x symbol to verify
+    same as first symbol seen earlier (remembered through states), cross it
+    off and go back to leftmost non-x symbol to repeat.  If more than one #
+    or different symbols or more symbols on one side than the other,
+    reject; otherwise, accept.
+
+Formal definition:
+
+ -  A Turing machine is a 7-tuple (Q,S,T,d,q_0,q_accept,q_reject), where
+     .  Q is a fixed, non-empty, finite set of "states"
+     .  S is a fixed, non-empty, finite set of symbols
+        (the "input alphabet", with "blank" symbol _ not in S)
+     .  T is a fixed, non-empty, finite set of symbols
+        (the "tape alphabet", with S subset of T and _ in T)
+     .  q_0 in Q is the "start state" (or "initial state")
+     .  q_accept in Q is the "accepting state"
+     .  q_reject in Q is the "rejecting state" (q_reject =/= q_accept)
+     .  delta : Q-{q_accept,q_reject} x T -> Q x T x {L,R}
+        is the "transition function"
+	(in ASCII we'll write delta as d)
+
+ -  A "configuration" of a TM represents the current state, tape content,
+    and head position as follows: "u q v", where q is current state, uv is
+    current tape content (nonblank portion), and head is on leftmost symbol
+    of v.  Note: because tape is infinite to the right, configuration
+    "u q v" is equivalent to "u q v_", "u q v__", "u q v___", etc.
+
+ -  For all states q_i in Q-{q_accept,q_reject}, q_j in Q, symbols a, b, c
+    in T, strings u, v in T*,
+     .  if d(q_i,b) = (q_j,c,R), then configuration "u q_i bv" yields
+        "uc q_j v" in one step of computation;
+     .  if d(q_i,b) = (q_j,c,L), then configuration "ua q_i bv" yields
+        "u q_j acv" in one step of computation and configuration "q_i bv"
+        yields "q_j cv" (because head cannot move "off" left end).
+
+ -  On input w, a Turing machine M computes as follows:
+     .  start from initial (or "start") configuration C_1 = "q_0 w" --
+        alternate convention C_1 = "_ q_0 w" to simplify computation;
+     .  go from configuration to configuration following the transition
+        function (i.e., C_1 yields C_2 yields C_3 yields ...);
+     .  stop as soon as a "halting configuration" is reached:
+        either an "accepting configuration" (where state is q_accept)
+        or a "rejecting configuration" (where state is q_reject) --
+        third possibility is infinite loop (never reach halting state).
+
+Example 3.7 on pp.143-144 (1st ed: 3.4 on pp.131-132): TM to accept all
+strings 0^{2^n}, i.e., all strings that contain a power of 2 many 0s (0,
+00, 0000, 00000000, ...)
+
+    Idea: repeatedly cross off every other 0 (cuts down number of 0s in
+    half), until only one 0 remains, by going back-and-forth over input; if
+    at any point, number of 0s is odd and > 1, reject.  One twist: to be
+    able to recognize left "edge" of input, replace first 0 with _
+    (EXERCISE: write modified machine using alternate convention for
+    initial configuration).
+
+    Details:
+    Q = {q_1,q_2,q_3,q_4,q_5,q_accept,q_reject}
+    S = {0}
+    T = {0,x,_}
+    start state = q_1
+    d described by table below (easier than picture in ASCII!) --
+    find current state down left side and current symbol across top,
+    the entry at that row/column gives next state, symbol, head move
+    (using q_A, q_R as shorthand for q_accept, q_reject, respectively)
+
+                  0          x          _
+
+        q_1:  (q_2,_,R)  (q_R,x,R)  (q_R,_,R)
+
+        q_2:  (q_3,x,R)  (q_2,x,R)  (q_A,_,R)
+
+        q_3:  (q_4,0,R)  (q_3,x,R)  (q_5,_,L)
+
+        q_4:  (q_3,x,R)  (q_4,x,R)  (q_R,_,R)
+
+        q_5:  (q_5,0,L)  (q_5,x,L)  (q_2,_,R)
+
+    Trace on input 0000, using notation introduced earlier (configurations)
+
+         q_1 0000_
+        _ q_2 000_
+        _x q_3 00_
+        _x0 q_4 0_
+        _x0x q_3 _
+        _x0 q_5 x_
+        _x q_5 0x_
+        _ q_5 x0x_
+         q_5 _x0x_
+        _ q_2 x0x_
+        _x q_2 0x_
+        _xx q_3 x_
+        _xxx q_3 _
+        _xx q_5 x_
+        _x q_5 xx_
+        _ q_5 xxx_
+         q_5 _xxx_
+        _ q_2 xxx_
+        _x q_2 xx_
+        _xx q_2 x_
+        _xxx q_2 _
+        _xxx_ q_A 
+

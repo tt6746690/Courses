@@ -1,0 +1,240 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\section*{6 Distributions Derived from the Normal Distribution}
+
+\begin{defn*}
+  The random variable $X_1, \cdots, X_n$ are called a \textbf{random sample of size $n$ form the population} if $X_1, \cdots, X_n$ are all independent random variables and the marginal pdf (continuous case) or pmf (discrete case) of each $X_i$ is $f(x)$. In other words,
+  \[
+    X_1, \cdots, X_n \stackrel{iid}{\sim} f(x)
+  \]
+\end{defn*}
+
+
+\begin{defn*}
+  Any function $g(X_1, \cdots, X_n)$ of the sample is called a (sample) statistics.
+\end{defn*}
+
+\begin{defn*}
+  The distribution of a statistic $T=g(X_1, \cdots, X_n)$ is called the \textbf{sampling distribution} of $T$
+\end{defn*}
+
+\begin{defn*}
+  Let $X_1, \cdots, X_n$ be a random sample from some distribution/population. Then \textbf{sample mean} and \textbf{sample variance} is
+  \[
+    \overline{X} = \frac{1}{n}\sum_{i=1}^{n}X_i \text{  and  } S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2
+  \]
+  The sampling distribution can be partially characterized by
+  \[
+    E[\overline{X}] = E[\frac{1}{n}\sum_{i=1}^n X_i] = \frac{1}{n}\sum_{i=1}^n E[X_i] = \frac{1}{n} \cdot n\mu =\mu
+  \]
+  \[
+    Var(\overline{X}) = Var(\frac{1}{n}\sum_{i=1}^n X_i) = \frac{1}{n^2}\sum_{i=1}^n Var(X_i) = \frac{1}{n^2} \cdot n\sigma^2 = \frac{\sigma^2}{n}
+  \]
+  Note that in practice, we can compute
+  \begin{rem}
+    If $X_i \sim \mathbb{N} (\mu, \sigma^2)$ then
+    \[
+      \overline{X}\sim \mathcal{N} \left( \mu, \frac{\sigma^2}{n} \right)
+    \]
+    If $n$ is large, even if $X_i$ are not normal, by CLT we have
+    \[
+      \overline{X}\sim \mathcal{N}(\mu, \frac{\sigma^2}{n}) \iff P(\overline{X}\leq t) \approx \Phi (\frac{t-\mu}{\sigma / \sqrt{n}} )
+    \]
+  \end{rem}
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{chi-squred distribution}
+  If $Z \sim \mathcal{N}(0,1)$ , the distribution of $U = Z^2$ is called the chi-squared distribution with 1 degree of freedom. Let $Z_1, \cdots, Z_n \stackrel{iid}{\sim} \mathcal{N}(0,1)$, the distribution of statistic $X^2 = \sum_{i=1}^n Z_i^2$ is called \textbf{chi-squred distribution with $n$ degrees of freedom} and is denoted by $\chi_n^2$
+  \begin{rem}
+    $ $
+    \begin{enumerate}
+      \item $\chi_1^2 = \Gamma(\frac{1}{2}, \frac{1}{2})$ and $\chi_n^2 = \Gamma(\frac{n}{2}, \frac{1}{2})$ and therefore $E[\chi_n^2] = n$ and $Var[\chi_n^2] = 2n$
+      \item MGF of $Y\sim \chi_n^2$ is $M_Y(t) = (1-2t)^{-n / 2 }$ (note mgf for gamma $(1-\theta t)^{-k}$)
+      \item $X\sim \chi_m^2$ and $Y\sim \chi_n^2$ then $X+Y\sim \chi^2_{m+n}$
+    \end{enumerate}
+  \end{rem}
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{t distribution}
+  If $Z\sim \mathcal{N}(0,1)$ and $U\sim \chi_n^2$ and $Z$ and $U$ are independent, then the distribution of $Z / \sqrt{U / n}$ is called the t distribution with $n$ degrees of freedom.
+  \begin{rem}
+    \begin{enumerate}
+      \item density function is symmetric, i.e. $f(x) = f(-x)$.
+      \item As $n\to\infty$, $Z \stackrel{d}{\sim} \mathcal{N}(0,1)$
+    \end{enumerate}
+  \end{rem}
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{F distribution}
+  Let $U$ and $V$ be independent chi-squared random variable with $m$ and $n$ degrees of freedom. The distribution of
+  \[
+    W = \frac{U / m}{V / n}
+  \]
+  is called F distribution with $m$ and $n$ degrees of freedom and denoted by $F_{m,n}$
+  \begin{rem}
+    Let $X_1, \cdots, X_m$ and $Y_1, \cdots, Y_n$ be two independent random samples from a $\mathcal{N}(\mu, \sigma^2)$ distribution and let $S_X^2$ and $S_Y^2$ be their sample variances. Then
+    \[
+      F = \frac{S_X^2}{S_Y^2} \sim F_{m-1, n-1}
+    \]
+  \end{rem}
+\end{defn*}
+
+
+
+\begin{theorem*}
+  \textbf{independence of $\overline{X}$ and $S^2$}
+  Let $X_1, \cdots, X_n\stackrel{iid}{\sim}\mathcal{N}(\mu, \sigma^2) $ and let $\overline{X}$ and $S^2$ be sample mean and variance, then $\overline{X}$ and $S^2$ are independent
+\end{theorem*}
+
+\begin{theorem*}
+  \textbf{relationship between $S^2$ and chi-squared distribution}
+  Let $X_1, \cdots, X_n \stackrel{iid}{\sim} \mathcal{N}(\mu, \sigma^2)$ and let $S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2$ be sample variance, then
+  \[
+    \frac{(n-1)S^2}{\sigma^2} \sim \chi_{n-1}^2
+  \]
+\end{theorem*}
+
+\begin{corollary*}
+  \textbf{sample standardization converges to t distribution}
+  Let $\overline{X}$ and $S^2$ be given, then
+  \[
+    \frac{\overline{X} - \mu}{S / \sqrt{n}} \sim t_{n-1}
+  \]
+  \begin{proof}
+    \[
+      \frac{\overline{X} - \mu}{S / \sqrt{n}} = \frac{\frac{\overline{X} - \mu}{\sigma / \sqrt{n}}}{\sqrt{S^2 / \sigma^2}} = \frac{\mathcal{N}(0,1)}{\sqrt{\chi_{n-1}^2 / (n-1)}} \sim t_{n-1}
+    \]
+  \end{proof}
+\end{corollary*}
+
+
+\section*{8 Parameter Estimation and Fitting of Probability Distribution}
+
+\begin{defn*}
+  \textbf{estimator of parameter} Let $X_1, \cdots, X_n$ be a random sample from some distribution, and let $\theta$ be a parameter of that distribution. Any statistic $U=U(X_1, \cdots, X_n)$ that is used to estimate $\theta$ is called an estimator of $\theta$, $\hat{\theta}$
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Method of Moments Estimator} The $k$th moment of a distribution is defined as
+  \[
+    \mu_k = E[X^k]
+  \]
+  The $k$th \textbf{sample moment} is defined as
+  \[
+    m_k = \frac{1}{n}\sum_{i=1}^n X_i^k
+  \]
+  Suppose the goal is to estimate $\theta = (\theta_1, \cdots, \theta_p)$ characterizing the distribution $f_X(x|\theta)$. The methods of moment estimator of  is the solution to
+  \[
+    \mu_{i}(\hat{\theta}) = m_i \text{    } i=0,\cdots, p
+  \]
+  \begin{rem}
+    The idea is by using this system of equation, we express population parameters $\theta$ with parameters. Then replace known parameter by estimates $\hat{\theta}$
+  \end{rem}
+  The following comes up in simplifying equality for second moments $m_2 -m_1 = \sigma^2$,
+  \begin{align*}
+    \frac{1}{n}\sum_{i=1}^n  X_i^2 - \overline{X}^2 &= \frac{1}{n}\sum_{i=1}^n  X_i^2 - 2\overline{X}^2 + \overline{X}^2 \\
+    &= \frac{1}{n}\sum_{i=1}^n  X_i^2 - \frac{2\overline{X}}{n}\sum_{i=1}^n X_i  + \frac{1}{n}\sum_{i=1}^n \overline{X}^2 \\
+    &= \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2 \tag{looks similar to $S^2$}
+  \end{align*}
+\end{defn*}
+
+
+
+\begin{defn*}
+  \textbf{Consistent Estimator} Let $X_1, \cdots, X_n \sim f_{\theta}$ (a sample from a distribution characterized by $\theta$). We say that $\hat{\theta_n} = \hat{\theta_n}(X_1, \cdots, X_n)$ is a consistent estimator of $\theta$ if $\hat{\theta_n}$ converges in probability to $\theta$ as $n$ approaches infinity; that is, for any $\epsilon >0$
+  \[
+    \lim_{n\to\infty} \mathbb{P}\left(\left|\hat{\theta_n} - \theta \right| > \epsilon \right) = 0
+  \]
+  \begin{rem}
+    Remember how weak law of large number (LLN) implies that sample moments converges in probability to population moments, that is for any $\epsilon > 0$,
+    \[
+      \lim_{n\to\infty} \pr \left(\left| \frac{1}{n} \sum_{i=1}^n X_i - \E[X] \right| > \epsilon \right) = 0
+    \]
+    Or equivalently, sample moment $m_1 = \overline{X}$ is a consistent estimator for population moment $\mu_1 = \E[X]$. Since function relating estimates to sample moments are continuous, the estimates will converge to parameters as the sample moments converge to population moments. In general for any $k$
+    \[
+      m_k \stackrel{p}{\to} \mu_k
+    \]
+  \end{rem}
+
+\end{defn*}
+
+  \begin{theorem*}
+    \textbf{Property for Convergence in Probability}
+    Let $\hat{\theta}_n \stackrel{p}{\to} \theta$ and $\hat{\eta}_n \stackrel{p}{\to} \eta$
+    \begin{enumerate}
+      \item $\hat{\theta}_n + \hat{\eta}_n \stackrel{p}{\to} \theta + \eta$
+      \item $\hat{\theta}_n \hat{\eta}_n \stackrel{p}{\to} \theta\eta$
+      \item $g(\hat{\theta}_n)\stackrel{p}{\to} g(\theta)$ for any continuous $g$
+    \end{enumerate}
+    \begin{rem}
+      Method of Moments Estimators are usually consistent. Take MME estimator for normal distribution.
+      \[
+        \hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})^2 = m_2 - m_1^2
+      \]
+      By Weak Law of Large Numbers, $m_1 = \overline{X} \stackrel{p}{\to} \E[X]$ and by its generalization $m_2 = \frac{1}{n}\sum_{i=1}^n X_i^2 \stackrel{p}{\to} \E[X^2]$, so by property for convergence in probability
+      \[
+        \hat{\sigma}^2 = m_2 - m_1^2 \stackrel{p}{\rightarrow} \E[X^2] - (\E[X])^2 = \sigma^2
+      \]
+      implies that both $\hat{\mu}$ and $\hat{\sigma^2}$ are consistent estimator for normal distribution. Note that sample variance is also consistent
+      \[
+        S^2 = \frac{n}{n-1} \hat{\sigma^2} \stackrel{p}{\to} 1 \cdot \sigma^2 = \sigma^2
+      \]
+    \end{rem}
+  \end{theorem*}
+
+
+\subsection*{The Method of Maximum Likelihood}
+
+
+\begin{defn*}
+  \textbf{Likelihood Function} Let $X_1, \cdots, X_n$ be continuous random variables with joint pdf $f(x_1, \cdots, x_n | \theta)$, where $\theta$ is a parameter. For a given vector of observations $(x_1, \cdots, x_n)$, the probability of observing the given data as a function of parameter $\theta$, i.e. the likelihood function, is given by
+  \[
+    \mathcal{L} = f(x_1, \cdots, x_n | \theta)
+  \]
+  If $X_1$ are assumed to be i.i.d., their joint density is the product of marginal densities
+  \[
+    \mathcal{L} = \prod_{i=1}^n f(X_i = x_i| \theta)
+  \]
+  For convinience of maximizing $\mathcal{L}$ we maximize the log likelihood
+  \[
+    l(\theta) = \sum_{i=1}^n \log f(X_i = x_i| \theta)
+  \]
+\end{defn*}
+
+
+\begin{defn*}
+  The \textbf{Maximum Likelihood Estimator (MLE)} of $\theta$ is
+  \[
+    \hat{\theta}_{MLE} = \argmax_{\theta} \mathcal{L}(\theta)
+  \]
+  \begin{rem}
+    We can also maximize log likelihood $l(\theta)$. For simplificity sake, we compute $\theta$ as critical points which satisfies the condition that first order partial $l'(\theta) = 0$ in order to find the maximum. We then use second derivative test to verify it is indeed the maximum point, i.e. $l^{''}(\theta) < 0$ One thing to note that the final $\hat{\theta}$ should not depend on population parameter $\theta$ but be expressed entirely of sample statistics
+  \end{rem}
+\end{defn*}
+
+
+
+
+\begin{defn*}
+  The \textbf{Newton-Raphson Method} finds successively better approximations to the roots (or zeroes) of a real-valued function $x: f(x) = 0$. The following process is repeated until a sufficiently accurate value $x_{n+1}$ is reached
+  \[
+    x_{n+1} = x_{n} - \frac{f(x_n)}{f'(x_n)}
+  \]
+  where $x_0$ is the initial guess for the root of function
+  \begin{rem}
+    Sometimes there is no closed form solution (i.e. maximum value) to $\frac{\partial l}{\partial \theta} = 0$. We use Newton-Raphson method to find $\hat{\theta}$ that satisfies the function. We iterate over $\theta$ to convergence
+    \[
+      \hat{\theta}_{new} = \hat{\theta}_{old} - \frac{l'(\hat{\theta}_{old})}{l^{''}(\hat{\theta}_{old})}
+    \]
+  \end{rem}
+\end{defn*}
+
+\end{document}

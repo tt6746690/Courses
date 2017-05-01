@@ -1,0 +1,247 @@
+===========================================================================
+CSC 263                 Lecture Summary for Week 12               Fall 2007
+===========================================================================
+
+--------------------------------
+Minimum Spanning Tree algorithms (continued from last week)
+--------------------------------
+
+Running time of MST algorithms:
+
+  - Kruskal (using disjoint sets with "union-by-rank" and path compression):
+      O(m log n)
+
+  - Prim (using heap): O(m log n)
+
+  - Prim (using binomial heap): O(m + n log n)
+
+------------------------
+Approximation algorithms [ chapter 35.2, not on exam ]
+------------------------
+
+[ most of this is a preview of courses like CSC373 or for interest,
+  but it's a nice example of using our data structures and algorithms
+  to solve a hard problem ]
+
+Some problems are hard to solve.
+  eg. NP-complete problems: no one knows how to solve in worst-case
+      polynomial time.
+
+  - Perhaps a "good" answer (near-optimal) answer found efficiently
+    is good enough.
+
+  - "approximation ratio": an algorithm has approximation ratio r(n)
+    if for any input of size n,
+      C_alg / C_opt <= r(n)
+    where C_alg is the "cost" of the solution found by the algorithm
+    and C_opt is the "cost" of the optimal solution.
+      - in some cases, ratio does not depend on n (constant approximation ratio)
+
+  - "r(n)-approximation algorithm": an algorithm (usually polynomial time)
+    that achieves a r(n) approximation ratio
+
+
+Travelling Salesperson Problem (TSP):
+-------------------------------------
+
+  - Input: complete graph G=(V,E) with non-negative (integer) edge costs c(e)
+  - Output: a tour of G with minimum cost
+
+  - a tour is a Hamiltonian cycle, that is, a simple cycle that visits every
+    vertex in G
+  - cost of a tour is the sum of edge costs in the tour
+  - TSP is NP-complete in general
+  - TSP is also hard to approximate
+
+  - "triangle inequality": one side of a triangle is no more than the sum of
+    the other two sides
+	c(u,w) <= c(u,v) + c(v,w)
+      - common when considering Euclidean or metric spaces
+
+  - TSP with triangle inequality: also NP-complete, but often interesting
+      - can approximate the solution within factor of 2
+
+TSP with triangle inequality:
+-----------------------------
+
+  - example: vertices are locations on a 6x5 grid
+
+      vertices: a at (1,4), b at (2,1), c at (0,1), d at (3,4),
+      		e at (4,3), f at (3,2), g at (5,2), h at (2,0).
+      edge costs: distance in Euclidean plane
+
+  - lower bound: cost of a minimum spanning tree
+      - an optimal tour minus one edge is a spanning tree
+  - upper bound: 2*cost of a minimum spanning tree
+      - we can traverse each edge of the MST twice to visit all the vertices
+      - need to make this more precise to prove
+
+  - example: an MST of example above is {(b,c), (b,h), (a,d), (d,e),
+  	(e,f), (e,g), (b,f)}
+
+  - algorithm:
+      pick a root vertex r
+      compute a MST T from the root r
+      L <- order of vertices in preorder walk of T
+      return Hamiltonian cycle H produced by visiting vertices in order L
+      (ignoring duplicated vertices)
+
+  - running time: clearly polynomial time
+
+  - Theorem: This is a 2-approximation algorithm for the TSP with triangle ineq.
+    Proof: Let Opt be an optimal tour, let T be a MST.
+      Deleting an edge from Opt yields a spanning tree, thus
+        c(T) <= c(Opt).
+      A full walk W of T lists vertices each time it is enountered in a
+      preorder traversal of T.
+        eg., abcbhbadefegeda
+      The walk traverses every edge of T twice, so
+        c(W) = 2*c(T).
+      Combining with above inequality,
+        c(W) <= 2*c(Opt).
+      In general, W is not a tour, since vertices may appear multiple times.
+      However, we can delete repeated vertices from W without increasing the
+      cost (by triangle inequality).
+      Repeat deleting repeated vertices until a valid tour H remains.
+      Then c(H) <= c(W) <= 2*c(Opt), showing our approximation ratio.
+
+
+------------------------
+Lower bounds on problems [ chapter 8.1 ]
+------------------------
+
+A _problem_ in computer science is an input/output relationship:
+given some input, determine a/the correct output or answer.
+
+  - example: the sorting problem
+    Given Input: a sequence of n numbers (a_1, ..., a_n)
+    Find Output: a permutation (reordering) (a_1', ..., a_n') of this
+      sequence such that a_1' <= a_2' <= ... <= a_n'
+
+Review of running times for algorithms
+
+  - an algorithm solves some problem (at least a correct algorithm does)
+
+  - for each input X, the algorithm will take some time T(X) to compute
+    its answer
+
+  - often we wish to know the worst-case running time of the algorithm over
+    all inputs of a certain size n
+
+      T(n) = max { T(X) | X is an input of size n }
+
+  - a smaller worst-case running time means a better performance guarantee
+    (you're guaranteed an answer faster)
+
+  - when do we know we have the BEST algorithm? i.e., can you prove that
+    your algorithm has the lowest possible worst-case running time?
+
+To answer this question, we can't just look at your algorithm... we need to
+look at ALL algorithms that solve the problem (even those that we haven't
+invented yet!)
+
+  - let A be the set of all algorithms that solve a particular problem P
+
+  - let us define a function for the best worst-case running time (on inputs
+    of size n) over all algorithms in A:
+
+      BWC(n) = min { T_a(n) | a in A }
+
+  - we can lower bound this function (asymptotically)
+      - i.e., a function LB(n) such that LB(n) <= T_a(n) for all a in A
+
+  - this is a lower bound for the problem
+    (a lower bound on the worst-case time complexity of any algorithm that
+    solves this problem)
+
+Note that it might be hard to argue about ALL possible problems. Often we
+must restrict ourselves to looking at a particular type of algorithm.
+Let's look at an example.
+
+Lower bound on (comparison-based) sorting
+-----------------------------------------
+
+A _comparison-based_ algorithm is an algorithm where the behaviour of the 
+algorithm is based only on the _comparisons_ between elements.
+
+We will examine _lower_bounds_ for comparison-based _sorting_ (lower bounds 
+for searching will be covered in tutorial).
+
+In a comparison-based sort, we only use comparisons between elements to
+gain information about the order of a sequence. Given two elements a_i 
+and a_j, we perform one of the tests: a_i < a_j, a_i <= a_j, a_i = a_j, 
+a_i => a_j, or a_i > a_j.
+We can say that each test returns one of the following outcomes:
+(<=,>), (<,=>), (<=,=>), (<, =, >),  (=, not =)
+
+
+We can express a comparison sort as a _decision_tree_ 
+
+Example: Let's look at a _particular_ decision tree for sorting 3 elements.
+-internal nodes = comparisons
+-leaf nodes = final sorted orders
+-each branch is labelled with the outcome of a comparison
+
+Sort A, B, C:
+                   A:B
+               <=      >
+             B:C       etc.
+        <=      >
+     <A,B,C>    A:C
+              <=    >
+          <A,C,B>   <C,A,B>
+
+Note: This is only a particular decision tree for this sort.. there are
+other possibilities. The decision tree depends on the algorithm that we
+are using.
+
+Observe: 
+-this decision tree has 6 leaves
+-every permutation of the elements is in a leaf node
+
+Important Fact:
+The length of the longest path from the root of the decision tree to a leaf
+represents the worst-case number of comparisons that the sorting algorithm
+performs.
+=> worst-case number of comparisons = the height of the decision tree
+
+How can we find the algorithm with the SMALLEST worst-case number of 
+comparisons?
+We find the decision tree with the SMALLEST height.
+
+In other words: to find the worst-case running time of the "best" algorithm 
+(i.e., the one with the smallest worst-case number of comparisons),
+we want to find a LOWER BOUND on the height of the decision trees.
+
+Fact 1: the number of ways to sort n numbers is n! (each permutation of the 
+numbers is possible)
+This implies: the number of leaves in the decision tree is at least n! (there
+may be duplicate leaves)
+
+Fact 2: There are at most 3 outcomes (branches) at any level of the tree: 
+(<, =, >) 
+[Recall the other possible outcomes are: (<=,>), (<,=>), (<=,=>), (=, not =)]
+
+Fact 3: A ternary tree of height h has at most 3^h leaves
+(In other words: a tree with at least 3^h leaves must have height at least h)
+
+We can conclude: the decision tree for sorting has height at least log_3 n!
+
+Since log_3 n! in Theta(n log n), the height of the tree is in Omega(n log n).  
+=> the worst-case number of comparisons for ANY comparison-based sorting 
+algorithm is in Omega(log n).
+
+Aside: How do we show that log_3 n! in Theta(log n)
+
+First, recall that log_2 n! is in Theta(n log_2 n). We proved this earlier
+in the term. [You should be able to show that log_3 n! is in Theta(n log_3 n).]
+
+Now let k = log_3 n
+=> 3^k = n  (take both sides as the exponent of 3)
+=> k log_2 3 = log_2 n  (take the log_2 of both sides)
+=> log_3 n = log_2 n / log_2 3 (replace k with log_3 n, and divide both sides
+by log_2 3)
+
+Therefore log_3 n is in Theta(log_2 n).
+Therefore log_3 n! in Theta(log n).
+

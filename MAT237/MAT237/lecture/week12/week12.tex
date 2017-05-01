@@ -1,0 +1,173 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+\subsection*{Integration Beyond 2-dimensions}
+
+\begin{defn*}
+  \textbf{Generalization of Integrals}
+  \begin{enumerate}
+    \item A \textbf{Rectangle} in $\R^n$ is any set of the form
+    \[
+      R = [a_1, b_1] \times \cdots \times [a_n, b_n]
+    \]
+    with \textbf{volume} $V(R) = (b_1 - a_1) \times \cdots \times (b_n - a_n)$
+    \item A \textbf{Partition} of $R$ is an $n$ partition of $\R$ each decomposing $[a_i, b_i]$
+    \item Let $R_{i_1, \cdots, i_n}$ be \textbf{sub-rectangle} corresponding to $(i_1, \cdots, i_n)$ element, then \textbf{Riemann Sum} over $R$ is any of the form
+    \[
+      S(f,P) = \sum_{(i_1, \cdots, -In)} f(t_{(i_1, \cdots, i_n)}) V(R_{(i_1,\cdots,i_n)}) \quad\quad t\in R_{(i_1, \cdots, i_n)}
+    \]
+    \item $f: \R^n \to \R$ is \textbf{Riemann Integrable} if and only if for every $\epsilon >0$ there exists a partition $P$ such that
+    \[
+      U(f,P) - u(f,P) < \epsilon
+    \]
+    \item The \textbf{Jordan measure} of a set $S$ is defined as the infimum of the volumes of all covering rectangles, and $S$ is \textbf{Jordan measurable} if its boundary has measure zero.
+    \item If $k<n$ then the image of a $C^1$ map $f: \R^k \to \R^n$ has Jordan measure zero.
+    \item A function $f:S \to \R$ is \textbf{integrable} if $S$ is Jordan measurable and if the set of discontinuities of $f$ on $S$ has Jordan measure zero. We denote such integral to be
+    \[
+      \int \cdots \int_S f dV = \int \cdots \int f(x) d^nx = \int \cdots\int f(x_1, \cdots, x_n) dx_1 \cdots dx_n
+    \]
+  \end{enumerate}
+\end{defn*}
+
+
+\subsection*{Iterated Integrals}
+
+\begin{theorem*}
+  \textbf{Fubini's Theorem} Let $ = [a,b]\times[ c,d]$ be a rectangle and $f: R\to\R$ an integrable function on $R$. If for each $y_0\in [c,d]$ the function $f_{y_0}: [a,b]\to \R$ given by $x\mapsto f(x, y_0)$ is integrable on $[a,b]$, and $g(y)=  \int_a^b f(x,y) dx$ is integrable on $[c,d]$, then
+  \[
+    \int_R f dA = \int_c^d \int_a^b f(x,y) dx dy
+  \]
+\end{theorem*}
+
+\begin{defn*}
+  \textbf{Double Integral over non-rectangles}
+    Integration over Jordan measurable sets $S\subseteq \R^2$ can be done in a similar manner. Suppose $S$ has its boundary defined by piecewise $C^1$ function (hence $S$ Jordan measurable, and if $f$ continuous over a measure zero set of discontinuities, $f$ integrable)
+    \[
+      S = \{ (x,y): a \leq x \leq b, \alpha(x)\leq y \leq \beta(x)\}
+    \]
+    Then integration becomes
+    \[
+      \int_S f dA = \int_a^b \int_{\alpha(x)}^{\beta(x)} f(x,y) dy dx
+    \]
+    Sometimes we need to change the boundary of $S$ so that integration becomes easier.
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Triple Integral over non-rectangles} Suppose $S$ has its boundary defined by piecewise $C^1$ function.
+  \[
+    S = \{ (x,y,z): a \leq x \leq b, \alpha(x)\leq y\leq \beta(x), \varphi(x,y)\leq z\leq \psi(x,y) \}
+  \]
+  and integration becomes
+  \[
+    \iiint_S f(x,y,z) dA = \int_a^b \int_{\alpha(x)}^{\beta{x}} \int_{\varphi(x,y)}^{\phi(x,y)} f(x,y,z) dz dy dx
+  \]
+\end{defn*}
+
+
+\textbf{Integral rules}
+\begin{enumerate}
+  \item
+  \[
+    \int \ln(x)dx = x \ln (x) - x + C
+  \]
+\end{enumerate}
+
+\begin{defn*}
+  \textbf{Trig substitition} \\
+  \begin{tabular}{l l l}
+    integrand & $x=$ & identity\\
+    \hline
+    $a^2 - x^2$ & $a\sin \theta$ & $1-sin^2\theta = \cos^2 \theta$\\
+    $a^2 + x^2$ & $a\tan\theta$ & $1 + \tan^2 \theta = \sec^2 \theta$\\
+    $x^2 - a^2$ & $a\sec \theta$ & $\sec^2 \theta - 1 = \tan^2 \theta$\\
+
+  \end{tabular}
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Some Trig identities}\\
+  \begin{enumerate}
+    \item $\sin(2\theta) = 2\sin(\theta)\cos(\theta)$
+    \item $\cos(2\theta) = \cos^2(\theta) - \sin^2(\theta) = 2\cos^2(\theta) - 1 = 1 - 2\sin^2(\theta)$
+    \item $\cos(u)\cos(v) = \frac{1}{2}\left( \cos(u-v) + \cos(u+v) \right) $
+  \end{enumerate}
+\end{defn*}
+
+
+
+\section*{4.4 Change of Variables}
+
+\begin{defn*}
+  \textbf{Diffeomorphism} If $U,V\in\R^n$ and $f: U\to V$ is a $C^1$ bijection with $C^1$ inverse $f^{-1}:V\to U$, then we say that $f$ is a diffeomorphism.
+  \begin{rem}
+    Space $U$ and $V$ are identical with respect to differentiation.
+  \end{rem}
+\end{defn*}
+
+\begin{theorem*}
+  If $T: V\to W$ is a linear transformation between vector spaces of same dimension, and $S\subseteq V$ is measurable with measure $m(S)$, then
+  \[
+    m(TS) = |det T| m(S)
+  \]
+  \begin{rem}
+    The absolute value of the Jacobian determinant at point $p\in V$ gives us the factor by which the function $f$ expands or shrinks volumes near $p$;
+  \end{rem}
+\end{theorem*}
+
+
+\begin{theorem*}
+  \textbf{One-Var Change of Variable} Let $I\subseteq \R$ be an interval and $\varphi:[a,b]\to I$ be a differentiable function with integrable derivative. Suppose $f: I\to\R$ is a continuous function. Then
+  \[
+    \int_{\varphi(a)}^{\varphi(b)} f(x)dx = \int_{a}^{b} f(\varphi(t))\varphi'(t) dt
+  \]
+  where $x = \varphi(t)$ and $dx = \varphi'(t)dt$. Equivalently
+  \[
+    \int_{I} f(x)dx = \int_{\varphi^{-1}(I)} f(\varphi(t))\varphi'(t) dt
+  \]
+  \begin{proof}
+    Let $f: I\to \R$ be a continuous; Let $\varphi: [a,b]\to I$ be  a differentiable function such that $\varphi'$ is integrable on $[a,b]$. Then function $f(\varphi(t))\varphi'(t)$ is also integrable on $[a,b]$. Hence,
+    \[
+      \int_{\varphi(a)}^{\varphi(b)} f(x)dx \quad\quad \int_a^b f(\varphi(t))\varphi'(t) dt
+    \]
+    exists. Since $f$ is continuous, it has antiderivative $F$. Since $F$ and $\varphi$ are differentiable, we have
+    \[
+      (F \circ \varphi)'(t) = F'(\varphi(t))\varphi'(t) = f(\varphi(t))\varphi'(t)
+    \]
+    By the fundamental theorem of calculus twice
+    \[
+      \int_a^b f(\varphi(t))\varphi'(t) dt = \int_a^b (F\circ \varphi)'(t) dt = (F\circ \varphi)(b) - (F\circ \varphi)(a) = F(\varphi(b)) - F(\varphi(a)) = \int_{\varphi(a)}^{\varphi(b)} f(x) dx
+    \]
+  \end{proof}
+\end{theorem*}
+
+\begin{theorem*}
+  \textbf{Multivariable Change of Variables} If $S,T\subseteq \R^n$ are measurable and $G:S\to T$ is a diffeomorphism, then for any integrable function $f:T\to \R$ we have
+  \[
+    \int_{T} f(u)du = \int_{G^{-1}(T)} f(G(x)) |\det DG(x)|dx
+  \]
+  \begin{rem}
+    \begin{eumerate}
+      \item \textbf{Polar Coordinate} $f:(r, \theta) \to (x,y) = (r\cos(\theta), r\sin(\theta))$ we have
+      \[
+        \det Df = r \quad \quad dxdy = rdrd\theta
+      \]
+      As an example, the area of circle of radius $r = a$ is
+      \[
+        A = \int_{x^2 + y^2 \leq a^2} dxdy = \int_0^{2\pi} \int_0^a r drd\theta = \pi a^2
+      \]
+      \item \textbf{Cylindrical Coordinate} $f:(r, \theta, z) \to (x, y, z) = (r\cos(\theta), r\sin(\theta), z)$ we have
+      \[
+        \det Df = r \quad\quad dxdydz = r drd\theta dz
+      \]
+      \item \textbf{Spherical Coordinate} $f: (\rho, \theta,\phi) = (x,y,z) = (\rho\sin(\phi)\cos(\theta), \rho\sin(\phi)\sin(\theta), \rho\cos(\phi))$ where $0 \leq\rho \leq \R$, $0 \leq \phi \leq \pi$, and $0\leq \theta \leq 2\pi$ so then
+      \[
+        \det Df = -\rho^2 \sin(\phi) \quad\quad dxdydz = \rho^2\sin(\phi)d\rho d\theta d\phi
+      \]
+      \end{eumerate}
+  \end{rem}
+\end{theorem*}
+
+\end{document}

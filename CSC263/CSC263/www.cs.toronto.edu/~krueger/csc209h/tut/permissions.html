@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Understanding Permissions</title>
+  </head>
+
+  <body bgcolor="#FFFFFF">
+    <h1>Understanding File Permissions</h1>
+<p>Although the same letters are used to denote permissions for regular
+	  files and for directories, they have slightly different meanings.
+
+<p>
+<table border=1>
+<tr><td><b>Attribute</b></td><td><b>File</b></td><td><b>Directory</b></td></tr>
+<tr><td>r</td><td>read</td><td>read</td></tr>
+<tr><td>w</td><td>write</td><td>create/remove</td></tr>
+<tr><td>x</td><td>execute</td><td>search</td></tr>
+</table>
+
+<p> For regular files, r means that the file can be displayed by cat, w
+	  means that it can be changed by an editor, and x means that is can be 
+	  executed as a program.
+<p> For example:
+<pre>
+-rwxr-xr-x   1 reid            0 Jan 11 22:26 allexec*
+-rw-r--r--   1 reid            0 Jan 11 22:23 allread
+-rw-------   1 reid            0 Jan 11 22:23 ownerread
+-r--r--r--   1 reid            0 Jan 11 22:23 readonly
+</pre>
+
+<ul>
+<li>Everyone can read <tt>allread</tt> and <tt>readonly</tt>.
+<li>Everyone can execute <tt>allexec</tt>.
+<li>Only the owner of <tt>ownerread</tt> can read and write it.
+<li>If the owner of <tt>readonly</tt> tries to edit it the editor will not
+		allow the owner to save the changes.
+<li>If anyone tries to execute <tt>allread</tt> (or <tt>ownerread</tt>, or
+		<tt>readonly</tt>) they will get the message "Permission denied."
+</ul>
+
+<p>A directory is a file that stores a list of filenames along with the
+	  inode number of the file. (The inode is a data structure that stores
+	  data about a file and pointers to disk blocks that hold the file's
+	  data.)
+<p>Read permission for a directory means that <b>ls</b> can read the list
+	  of filenames stored in that directory.  If you remove read permission 
+	  from a directory, <b>ls</b> won't work.
+
+<p>For example:
+<pre>
+% ls -ld testdir
+d-wx--x--x   2 reid          512 Jan 11 22:41 testdir/
+% ls -l testdir
+testdir unreadable
+% cat testdir/hidefile
+I can still read this file
+</pre>
+
+<p>Note that it is still possible to read and write files inside testdir
+	  even though we cannot list its contents.
+
+<p>Write permission for a directory means that you can create and remove
+	  files from that directory.  You should never allow write permission
+	  for others on any of your directories. If you did, any other user
+	  could remove all of your files from such a directory.
+<pre>
+% ls -l
+-rw-r--r--   1 reid            0 Jan 11 22:23 allread
+dr-xr-xr-x   2 reid          512 Jan 11 22:42 testdir/
+% cp allread testdir
+cp: cannot create testdir/allread: Permission denied
+</pre>
+
+<p> When write permission is removed from <tt>testdir</tt>, I can no longer
+copy a file into <tt>testdir</tt>.
+
+<p>Execute permission for a directory means that you can "pass through" the 
+	  directory in searching for subdirectories.  You need to have
+	  executable permissions for every directory on a path to run a command 
+	  on that path or to used that path as an argument for another command.
+<p>For example, when I remove execute permission from <tt>testdir</tt> I
+	  can no longer really do anything with files and directories under
+	  <tt>testdir</t> 
+<pre>
+% ls -l testdir/
+total 2
+-rw-r--r--   1 reid           28 Jan 11 22:42 hidefile
+drwxr-xr-x   2 reid          512 Jan 11 23:02 subdir/
+% ls -l testdir/subdir
+total 1
+-rwxr--r--   1 reid          136 Jan 11 23:02 var.sh*
+% chmod a-x testdir
+% ls -ld testdir
+drw-r--r--   3 reid          512 Jan 11 23:02 testdir/
+% testdir/subdir/var.sh
+testdir/subdir/var.sh: Permission denied.
+% cd testdir
+testdir: Permission denied.
+% ls testdir/subdir
+ls: testdir/subdir: Permission denied
+% cat testdir/hidefile
+cat: cannot open testdir/hidefile
+</pre>
+    <hr>
+
+<!-- Created: Thu Jan 11 22:07:08 EST 2001 -->
+<!-- hhmts start -->
+Last modified: Thu Jan 11 23:10:47 EST 2001
+<!-- hhmts end -->
+  </body>
+</html>

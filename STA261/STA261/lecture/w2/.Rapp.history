@@ -1,0 +1,6 @@
+ls
+a = c(1,2,3)
+a
+setwd(dir="$STASH")
+setwd(dir="/Users/markwang/School/2016-2017 courses/STA261/lecture/w2/")
+source(file="2_r_code.r")

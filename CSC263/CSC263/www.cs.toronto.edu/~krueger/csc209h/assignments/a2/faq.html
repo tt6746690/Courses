@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML LANG="en">
+<HEAD>
+<TITLE>CSC 209 Summer 2006</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H1><a href="..">CSC 209</a>: Assignment 2 FAQ</H1>
+
+<p>
+Here are some answers to commonly asked (or should be commonly asked)
+questions, along with some hints for getting your code to work.
+</p>
+
+<h3>Part 0</h3>
+<ul>
+  <li>How do I get a memory address for each of the areas in memory?
+  <br>Cause some memory to be allocated in the segment, and use the address
+  operator (<tt>&</tt>) or print the value of a pointer.
+
+  <li>How do I print the value of a pointer?
+  <br>With one of the <tt>printf</tt> conversions. There's one specifically
+  for pointers.
+
+  <li>How do I get the man page for the <tt>printf</tt> function?
+  <tt>man printf</tt> gives a man page for a system command!
+  <br>It's in chapter 3 of the manual, so use <tt>man 3 printf</tt>.
+
+  <li>How can I get an address in the code segment?
+  <br>Code is stored on the code segment. The name of a function is actually
+  a pointer to the function, just like the name of an array is actually a
+  pointer to the array. (We'll talk more about function pointers later in
+  the course.)
+
+  <li>What is stored in the ______ segment?
+  <br>Consider where local, global and static variables are stored, and where
+  dynamically allocated memory is allocated.
+</ul>
+
+<h3>Part 1</h3>
+<ul>
+  <li>Do I have to read input into an array of characters?
+  <br>Yes! <tt>fgets</tt> does not allocate any space, so you have to allocate
+  it yourself, either by declaring an array of characters or using malloc.
+
+  <li>I want to get a pointer to the <i>i</i>'th TAB character in a string
+  I read with <tt>fgets</tt>. How do I do it without duplicating code?
+  <br><tt>strchr</tt> gives you a pointer to the first occurrence of a
+  character in the string. If you want a pointer to the second, that's
+  equivalent to calling <tt>strchr</tt> on the string returned by
+  <tt>strchr</tt> (plus 1). A loop will make your code look pretty.
+
+  <li>How do I convert a string representing an integer (such as in a byte list)
+  to an actual integer?
+  <br>Consider the <tt>atoi</tt> function.
+
+  <li>How do I convert an integer to a string representation?
+  <br>Well, <tt>printf</tt> does it for output, so look at its related
+  function named <tt>sprintf</tt> that "prints formated output to a string."
+
+  <li>What is the maximum length of a line of input?
+  <br>I don't know. Get it working with a very large maximum length first
+  (maybe a few thousand characters) before worrying about getting it to work
+  on arbitrary lengths (arbitrary line length isn't needed for this assignment,
+  but you should think about how you could do it).
+</ul>
+
+<h3>Part 2</h3>
+<ul>
+  <li>none yet!
+</ul>
+
+<HR>
+
+<TABLE width="100%">
+<TR>
+<TD>
+<SMALL>
+<!--Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>-->
+<SCRIPT TYPE="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+<TD align=right>
+    <a href="http://validator.w3.org/check?uri=referer"><img border="0"
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

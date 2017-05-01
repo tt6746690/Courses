@@ -1,0 +1,15 @@
+===========================================================================
+CSC 363H              Tutorial Exercises for Week  3            Summer 2006
+===========================================================================
+
+ -  For any language L, show that if both L and the complement of L
+    (written as L^c) are recognizable, then they are decidable.
+    (Hint:  Think of a TM that uses the recognizer for L together with the
+    recognizer for L^c.)
+
+ -  Problems 3.15, 3.16 on p.161.
+
+ -  Decidable languages are closed under complementation.  Why isn't it
+    possible to show that recognizable languages are also closed under
+    complementation (i.e., what goes wrong if you try to prove this)?
+

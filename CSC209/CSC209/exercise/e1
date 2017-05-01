@@ -1,0 +1,75 @@
+Practicing Shell Commands
+
+Introduction
+
+This set of exercises will give you the opportunity to practice a few different shell utilities. You can try out the various commands on your own, but the checkstep programs are available so you can see if you are getting it right. This exercise will not be marked.
+
+To take advantage of the checkstep programs, you must do all of the exercises on one of the CDF lab machines. After you perform each task, you may run a program that tells you whether your results for that task are correct, and sends those results to us. There is no penalty for incorrect answers, so you can fix any mistakes you made and try again.
+
+The checkstep programs will only give you valid output if you follow the instructions carefully. Remember, you must do all of the steps on a CDF machine from your own account. You can do it from home if you are logged into a CDF server (using NX, Putty, ssh).
+
+Commands or programs that you need to do this assignment were mostly covered in class, but there may be a few that weren't. A possibly incomplete list of these commands: ls, cd, chmod, cut, grep, ps, mkdir, touch, export.
+
+1. Create a directory (folder) to work in
+
+Create a directory in your home directory called csc209-ex1. Change into that directory using cd.
+
+Use a text editor to create a file inside the current working directory called results.txt Enter your name and your UTORid as the first line of the file. Save the file. The programs that check your results will be adding to this file, but you shouldn't need to edit it by hand any more until you paste it into PCRS later.
+
+Run /u/csc209h/winter/pub/bin/checkstep1
+
+Read the output to check to see if the checking program thinks you did the first step correctly. If not, fix it and rerun the program before you move on.
+
+2. Change your shell
+
+If you haven't already changed your shell to bash, do it now using chsh. Note that chsh needs two arguments. The first is your user name, and the second is "bash". The chsh program connects to a password server to make the change. You will need to log out and log back in to see the effect and it may take a few minutes for the change to propagate.
+
+You can temporarily change your shell to bash by typing bash.
+
+Run /u/csc209h/winter/pub/bin/checkstep2
+
+3. Add /u/csc209h/winter/pub/bin to your PATH
+
+It's kind of annoying to have to keep typing in the full path to the projects that check your work for this assignment, so add /u/csc209h/winter/pub/bin to your PATH variable.
+
+When a shell variable is used, it must be prefaced with a $, but when it is defined it does not have the $ at the front. In order to make variables visible to programs running inside the shell (or subshells), use export command. To add the directory /foo to your path you could use the command export PATH=/foo:$PATH. Note that there cannot be any spaces around the "=", and recall that the PATH is a colon-separated list of paths. Also remember that we want to concatenate the old value of $PATH with the direcotory we want to add to it.
+
+Use echo $PATH to see if you have succeeded.
+
+Now run checkstep3 (without using the full path to it).
+
+4. Add it permanently
+
+Now add the path from step 3 to your PATH variable so that when you start up a new shell the csc209 directory will be in your PATH. You can do this by adding the command from step 3 to your .bashrc file.
+
+(We're not checking this step.)
+
+5. Environment variables
+
+You have already seen a few standard environment variables. You can also create your own. Create an environment variable called COLOUR with the value of your favourite colour. Use echo to print it to the screen. (Remember that the convention is that environment variables are all upper case.)
+
+Run checkstep5.
+
+6. Files and permissions
+
+Create a directory somewhere in your account where you can create a set of file and subdirectories so that when you run ls -l you will see the following. You will see a different owner, group, dates, and you may see a different file size, but the permissions and the files names should be exactly the same as below.
+
+You can create directories using mkdir and you can create files using your favourite editor or using touch. Read the man pages for these two commands to find out how they work (e.g., man mkdir).
+
+sh-3.2$ ls -l
+total 2
+drwxr-xr-x 2 reid instrs 512 Sep 16 10:07 adir
+-rw-r----- 1 reid instrs   0 Sep 16 10:04 file1
+-rwxrwxrwx 1 reid instrs   0 Sep 16 10:04 file2
+-rwx------ 1 reid instrs   0 Sep 16 10:05 file3
+
+Make sure you are in the directory where the ls commands will run as shown above. The current working directory must be the one that contains the 3 files and 1 directory as shown above. Now run checkstep6
+
+That's the end
+
+You have reached the end of the tasks for this exercise. Remember that you can repeat them and rerun the checkstep programs as often as you like. Because the checkstep programs log the results, you should be able to tell exactly how many steps you have completed successfully.
+
+Submission
+
+Go to the exercise 1 form and paste in the contents of your results.txt file.
+The checkstep programs are also sending their output to a little web program, so we will also verify the results there.

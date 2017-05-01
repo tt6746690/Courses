@@ -1,0 +1,71 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+\section*{2 Random Variable}
+
+
+\subsection*{Poisson Distribution}
+
+\begin{defn*}
+  The \textbf{Poisson frequency function} with parameter $\lambda > 0$ is
+  \[
+    P(X = k) =\frac{\lambda^k}{k!}e^{-\lambda}, \text{         } k = 0,1,2.\cdots
+  \]
+  where $\lambda$ is the average number of events per interval. Since $e^{\lambda} = \sum_{k=0}^n \frac{\lambda^k}{k!}$ it follows that the frequency sum up to 1. The \textbf{distribution function} is derived as limit of a binomial distribution as number of trials $n$ approaches infinity and the probability of success on each trial, $p$, approaches zero such that $np =\lambda$. Poisson distribution is a good model if
+  \begin{enumerate}
+    \item $K$ is the number of times an event occurs in an interval and $K$ can take values $0, 1, 2\cdots$
+    \item Events occur independently.
+    \item The rate at which events occur is constant.
+    \item Two events cannot occur at exactly the same instant.
+  \end{enumerate}
+  \begin{rem}
+    In the partical emission case, $\lambda$ is total number of emission divided by total time
+  \end{rem}
+\end{defn*}
+
+
+\subsection*{Gamma Density}
+
+\begin{defn*}
+  $\sim Gamma(\alpha, \lambda)$ The \textbf{gamma density function} is defined to be
+  \[
+    g(t) = \frac{\lambda^{\alpha}}{\Gamma(\alpha)} t^{\alpha-1}e^{\lambda t} \text{      } t \geq 0
+  \]
+  where
+  \[
+    \Gamma(x) = \int_0^{\infty} u^{x-1}e^{-u}du
+  \]
+  and
+  \[
+    E[X] = \frac{\alpha}{\lambda} = \alpha\theta \text{    } Var(X) = \frac{\alpha}{\lambda^2} = \alpha\theta^2
+  \]
+\end{defn*}
+
+\subsection*{Multinominal Distribution}
+
+\begin{defn*}
+  For $n$ independent trials each of which leads to a success for exactly one of $k$ categories, with each category having a given fixed success probability, the multinomial distribution gives the probability of any particular combination of numbers of successes for the various categories.\\
+  The probability mass function is defined by
+  \[
+    f(x_1, \cdots, x_k; p_1, \cdots, p_k) =
+    \begin{cases}
+      \frac{n!}{\prod_{i=1}^k x_i!} \prod_{i=1}^k p_i^{x_i} & \sum_{i=1}^n x_i = n\\
+      0 & otherwise
+    \end{cases}
+  \]
+  \begin{rem}
+    If $n=1$ $k=2$, the multinomial distribution is Bernoulli distribution. When $k$ is 2 and number of trials are more than $1$ it is the binomial distribution.
+  \end{rem}
+\end{defn*}
+
+\subsection*{Cauchy distribution}
+
+\begin{defn*}
+  \[
+    f(x|\theta) = \frac{1}{\pi [ 1 + (x-\theta)^2]}
+  \]
+\end{defn*}
+
+\end{document}

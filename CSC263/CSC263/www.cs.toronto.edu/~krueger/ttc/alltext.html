@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">-->
+
+<HTML LANG="en">
+<HEAD>
+<TITLE>TTC Route Table Generator</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+</HEAD>
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H1>TTC Route Table Generator</H1>
+
+<p>(this site is in no way affiliated with or endorsed by the Toronto
+Transit Commission nor any other organization)</p>
+
+<p>Do you hate using the <a href="http://www.ttc.ca">TTC website</a> to
+look up schedules? It's fine for finding out when the next bus is
+supposed to arrive at a particular stop, but if you have to be
+somewhere at a certain time, it's nearly impossible to figure out when
+to leave.</p>
+
+<p>Well I've had enough. No more will I crawl through the times trying
+to match up busses to try to figure out how long it will take to get
+there. I wrote a simple little script to automatically parse the TTC
+schedules and convert it to tabular form.</p>
+
+<p>Simply find your stop(s), find the column with the time you need to
+arrive/leave, and follow the column to find out how long the trip
+should be. Each column corresponds to a single bus making stops. The
+letter at the top of the column is the branch on the route.</p>
+
+<p>There are also handy links direct to the official TTC schedules and
+maps to verify your trip. Hopefully this will make your (and my) life
+somewhat easier!</p>
+
+
+<h2>Table generator</h2>
+
+<p>Select a route and direction: <br>
+(use your browser's Find feature to find a route by name)
+
+<p>
+          <a href="routetable.cgi?route=5N">5 Avenue Rd N</a><br>
+          <a href="routetable.cgi?route=5S">5 Avenue Rd S</a><br>
+          <a href="routetable.cgi?route=6N">6 Bay N</a><br>
+          <a href="routetable.cgi?route=6S">6 Bay S</a><br>
+          <a href="routetable.cgi?route=7N">7 Bathurst N</a><br>
+*          <a href="routetable.cgi?route=7S">7 Bathurst S</a><br>
+          <a href="routetable.cgi?route=8E">8 Broadview E</a><br>
+          <a href="routetable.cgi?route=8W">8 Broadview W</a><br>
+          <a href="routetable.cgi?route=9N">9 Bellamy N</a><br>
+          <a href="routetable.cgi?route=9S">9 Bellamy S</a><br>
+          <a href="routetable.cgi?route=10E">10 Van Horne E</a><br>
+          <a href="routetable.cgi?route=10W">10 Van Horne W</a><br>
+          <a href="routetable.cgi?route=11N">11 Bayview N</a><br>
+          <a href="routetable.cgi?route=11S">11 Bayview S</a><br>
+          <a href="routetable.cgi?route=12E">12 Kingston Rd E</a><br>
+          <a href="routetable.cgi?route=12W">12 Kingston Rd W</a><br>
+          <a href="routetable.cgi?route=14E">14 Glencairn E</a><br>
+          <a href="routetable.cgi?route=14W">14 Glencairn W</a><br>
+          <a href="routetable.cgi?route=15E">15 Evans E</a><br>
+          <a href="routetable.cgi?route=15W">15 Evans W</a><br>
+          <a href="routetable.cgi?route=16N">16 McCowan N</a><br>
+          <a href="routetable.cgi?route=16S">16 McCowan S</a><br>
+          <a href="routetable.cgi?route=17N">17 Birchmount N</a><br>
+          <a href="routetable.cgi?route=17S">17 Birchmount S</a><br>
+          <a href="routetable.cgi?route=20E">20 Cliffside E</a><br>
+          <a href="routetable.cgi?route=20W">20 Cliffside W</a><br>
+          <a href="routetable.cgi?route=21N">21 Brimley N</a><br>
+          <a href="routetable.cgi?route=21S">21 Brimley S</a><br>
+          <a href="routetable.cgi?route=22N">22 Coxwell N</a><br>
+          <a href="routetable.cgi?route=22S">22 Coxwell S</a><br>
+          <a href="routetable.cgi?route=23N">23 Dawes N</a><br>
+          <a href="routetable.cgi?route=23S">23 Dawes S</a><br>
+*          <a href="routetable.cgi?route=24N">24 Victoria Park N</a><br>
+*          <a href="routetable.cgi?route=24S">24 Victoria Park S</a><br>
+          <a href="routetable.cgi?route=25N">25 Don Mills N</a><br>
+*          <a href="routetable.cgi?route=25S">25 Don Mills S</a><br>
+          <a href="routetable.cgi?route=26E">26 Dupont E</a><br>
+          <a href="routetable.cgi?route=26W">26 Dupont W</a><br>
+          <a href="routetable.cgi?route=28E">28 Davisville E</a><br>
+          <a href="routetable.cgi?route=28W">28 Davisville W</a><br>
+          <a href="routetable.cgi?route=29N">29 Dufferin N</a><br>
+          <a href="routetable.cgi?route=29S">29 Dufferin S</a><br>
+          <a href="routetable.cgi?route=30E">30 Lambton E</a><br>
+          <a href="routetable.cgi?route=30W">30 Lambton W</a><br>
+          <a href="routetable.cgi?route=31N">31 Greenwood N</a><br>
+          <a href="routetable.cgi?route=31S">31 Greenwood S</a><br>
+          <a href="routetable.cgi?route=32E">32 Eglinton West E</a><br>
+*          <a href="routetable.cgi?route=32W">32 Eglinton West W</a><br>
+          <a href="routetable.cgi?route=33N">33 Forest Hill N</a><br>
+          <a href="routetable.cgi?route=33S">33 Forest Hill S</a><br>
+          <a href="routetable.cgi?route=34E">34 Eglinton East E</a><br>
+          <a href="routetable.cgi?route=34W">34 Eglinton East W</a><br>
+*          <a href="routetable.cgi?route=35N">35 Jane N</a><br>
+          <a href="routetable.cgi?route=35S">35 Jane S</a><br>
+*          <a href="routetable.cgi?route=36E">36 Finch West E</a><br>
+*          <a href="routetable.cgi?route=36W">36 Finch West W</a><br>
+          <a href="routetable.cgi?route=37N">37 Islington N</a><br>
+          <a href="routetable.cgi?route=37S">37 Islington S</a><br>
+          <a href="routetable.cgi?route=38E">38 Highland Creek E</a><br>
+          <a href="routetable.cgi?route=38W">38 Highland Creek W</a><br>
+          <a href="routetable.cgi?route=39E">39 Finch East E</a><br>
+          <a href="routetable.cgi?route=39W">39 Finch East W</a><br>
+          <a href="routetable.cgi?route=40E">40 Junction E</a><br>
+          <a href="routetable.cgi?route=40W">40 Junction W</a><br>
+          <a href="routetable.cgi?route=41N">41 Keele N</a><br>
+          <a href="routetable.cgi?route=41S">41 Keele S</a><br>
+          <a href="routetable.cgi?route=42E">42 Cummer E</a><br>
+          <a href="routetable.cgi?route=42W">42 Cummer W</a><br>
+          <a href="routetable.cgi?route=43N">43 Kennedy N</a><br>
+          <a href="routetable.cgi?route=43S">43 Kennedy S</a><br>
+          <a href="routetable.cgi?route=44N">44 Kipling South N</a><br>
+          <a href="routetable.cgi?route=44S">44 Kipling South S</a><br>
+          <a href="routetable.cgi?route=45N">45 Kipling N</a><br>
+          <a href="routetable.cgi?route=45S">45 Kipling S</a><br>
+          <a href="routetable.cgi?route=46N">46 Martin Grove N</a><br>
+          <a href="routetable.cgi?route=46S">46 Martin Grove S</a><br>
+          <a href="routetable.cgi?route=47N">47 Lansdowne N</a><br>
+          <a href="routetable.cgi?route=47S">47 Lansdowne S</a><br>
+          <a href="routetable.cgi?route=48E">48 Rathburn E</a><br>
+          <a href="routetable.cgi?route=48W">48 Rathburn W</a><br>
+          <a href="routetable.cgi?route=49E">49 Bloor West E</a><br>
+          <a href="routetable.cgi?route=49W">49 Bloor West W</a><br>
+          <a href="routetable.cgi?route=50E">50 Burnhamthorpe E</a><br>
+          <a href="routetable.cgi?route=50W">50 Burnhamthorpe W</a><br>
+          <a href="routetable.cgi?route=51N">51 Leslie N</a><br>
+          <a href="routetable.cgi?route=51S">51 Leslie S</a><br>
+          <a href="routetable.cgi?route=52E">52 Lawrence West E</a><br>
+          <a href="routetable.cgi?route=52W">52 Lawrence West W</a><br>
+*          <a href="routetable.cgi?route=53E">53 Steeles East E</a><br>
+*          <a href="routetable.cgi?route=53W">53 Steeles East W</a><br>
+          <a href="routetable.cgi?route=54E">54 Lawrence East E</a><br>
+          <a href="routetable.cgi?route=54W">54 Lawrence East W</a><br>
+          <a href="routetable.cgi?route=55N">55 Warren Park N</a><br>
+          <a href="routetable.cgi?route=55S">55 Warren Park S</a><br>
+          <a href="routetable.cgi?route=56N">56 Leaside N</a><br>
+          <a href="routetable.cgi?route=56S">56 Leaside S</a><br>
+          <a href="routetable.cgi?route=57N">57 Midland N</a><br>
+          <a href="routetable.cgi?route=57S">57 Midland S</a><br>
+          <a href="routetable.cgi?route=58E">58 Malton E</a><br>
+          <a href="routetable.cgi?route=58W">58 Malton W</a><br>
+          <a href="routetable.cgi?route=59E">59 Maple Leaf E</a><br>
+          <a href="routetable.cgi?route=59W">59 Maple Leaf W</a><br>
+*          <a href="routetable.cgi?route=60E">60 Steeles West E</a><br>
+          <a href="routetable.cgi?route=60W">60 Steeles West W</a><br>
+          <a href="routetable.cgi?route=61N">61 Avenue Rd North N</a><br>
+          <a href="routetable.cgi?route=61S">61 Avenue Rd North S</a><br>
+          <a href="routetable.cgi?route=62E">62 Mortimer E</a><br>
+          <a href="routetable.cgi?route=62W">62 Mortimer W</a><br>
+          <a href="routetable.cgi?route=63N">63 Ossington N</a><br>
+          <a href="routetable.cgi?route=63S">63 Ossington S</a><br>
+          <a href="routetable.cgi?route=64N">64 Main N</a><br>
+          <a href="routetable.cgi?route=64S">64 Main S</a><br>
+          <a href="routetable.cgi?route=65N">65 Parliament N</a><br>
+          <a href="routetable.cgi?route=65S">65 Parliament S</a><br>
+          <a href="routetable.cgi?route=66N">66 Prince Edward N</a><br>
+          <a href="routetable.cgi?route=66S">66 Prince Edward S</a><br>
+          <a href="routetable.cgi?route=67N">67 Pharmacy N</a><br>
+          <a href="routetable.cgi?route=67S">67 Pharmacy S</a><br>
+          <a href="routetable.cgi?route=68N">68 Warden N</a><br>
+          <a href="routetable.cgi?route=68S">68 Warden S</a><br>
+          <a href="routetable.cgi?route=69N">69 Warden South N</a><br>
+          <a href="routetable.cgi?route=69S">69 Warden South S</a><br>
+          <a href="routetable.cgi?route=70E">70 O Connor E</a><br>
+          <a href="routetable.cgi?route=70W">70 O Connor W</a><br>
+          <a href="routetable.cgi?route=71N">71 Runnymede N</a><br>
+          <a href="routetable.cgi?route=71S">71 Runnymede S</a><br>
+          <a href="routetable.cgi?route=72N">72 Pape N</a><br>
+          <a href="routetable.cgi?route=72S">72 Pape S</a><br>
+          <a href="routetable.cgi?route=73N">73 Royal York N</a><br>
+          <a href="routetable.cgi?route=73S">73 Royal York S</a><br>
+          <a href="routetable.cgi?route=74N">74 Mt Pleasant N</a><br>
+          <a href="routetable.cgi?route=74S">74 Mt Pleasant S</a><br>
+          <a href="routetable.cgi?route=75N">75 Sherbourne N</a><br>
+          <a href="routetable.cgi?route=75S">75 Sherbourne S</a><br>
+          <a href="routetable.cgi?route=76N">76 Royal York South N</a><br>
+          <a href="routetable.cgi?route=76S">76 Royal York South S</a><br>
+          <a href="routetable.cgi?route=77N">77 Swansea N</a><br>
+          <a href="routetable.cgi?route=77S">77 Swansea S</a><br>
+          <a href="routetable.cgi?route=78E">78 St Andrews E</a><br>
+          <a href="routetable.cgi?route=78W">78 St Andrews W</a><br>
+          <a href="routetable.cgi?route=79N">79 Scarlett Rd N</a><br>
+          <a href="routetable.cgi?route=79S">79 Scarlett Rd S</a><br>
+          <a href="routetable.cgi?route=80E">80 Queensway E</a><br>
+          <a href="routetable.cgi?route=80W">80 Queensway W</a><br>
+          <a href="routetable.cgi?route=81N">81 Thorncliffe Park N</a><br>
+          <a href="routetable.cgi?route=81S">81 Thorncliffe Park S</a><br>
+          <a href="routetable.cgi?route=82E">82 Rosedale E</a><br>
+          <a href="routetable.cgi?route=82W">82 Rosedale W</a><br>
+          <a href="routetable.cgi?route=83N">83 Jones N</a><br>
+          <a href="routetable.cgi?route=83S">83 Jones S</a><br>
+          <a href="routetable.cgi?route=84E">84 Sheppard West E</a><br>
+*          <a href="routetable.cgi?route=84W">84 Sheppard West W</a><br>
+*          <a href="routetable.cgi?route=85E">85 Sheppard East E</a><br>
+*          <a href="routetable.cgi?route=85W">85 Sheppard East W</a><br>
+*          <a href="routetable.cgi?route=86E">86 Scarborough E</a><br>
+*          <a href="routetable.cgi?route=86W">86 Scarborough W</a><br>
+          <a href="routetable.cgi?route=87E">87 Cosburn E</a><br>
+*          <a href="routetable.cgi?route=87W">87 Cosburn W</a><br>
+          <a href="routetable.cgi?route=88E">88 South Leaside E</a><br>
+          <a href="routetable.cgi?route=88W">88 South Leaside W</a><br>
+          <a href="routetable.cgi?route=89N">89 Weston N</a><br>
+          <a href="routetable.cgi?route=89S">89 Weston S</a><br>
+          <a href="routetable.cgi?route=90N">90 Vaughan N</a><br>
+          <a href="routetable.cgi?route=90S">90 Vaughan S</a><br>
+          <a href="routetable.cgi?route=91N">91 Woodbine N</a><br>
+          <a href="routetable.cgi?route=91S">91 Woodbine S</a><br>
+          <a href="routetable.cgi?route=92N">92 Woodbine South N</a><br>
+          <a href="routetable.cgi?route=92S">92 Woodbine South S</a><br>
+          <a href="routetable.cgi?route=94E">94 Wellesley E</a><br>
+          <a href="routetable.cgi?route=94W">94 Wellesley W</a><br>
+          <a href="routetable.cgi?route=95E">95 York Mills E</a><br>
+*          <a href="routetable.cgi?route=95W">95 York Mills W</a><br>
+          <a href="routetable.cgi?route=96E">96 Wilson E</a><br>
+          <a href="routetable.cgi?route=96W">96 Wilson W</a><br>
+*          <a href="routetable.cgi?route=97N">97 Yonge N</a><br>
+*          <a href="routetable.cgi?route=97S">97 Yonge S</a><br>
+          <a href="routetable.cgi?route=98N">98 Willowdale-Senlac N</a><br>
+          <a href="routetable.cgi?route=98S">98 Willowdale-Senlac S</a><br>
+          <a href="routetable.cgi?route=99N">99 Arrow Rd N</a><br>
+          <a href="routetable.cgi?route=99S">99 Arrow Rd S</a><br>
+          <a href="routetable.cgi?route=100N">100 Flemingdon Park N</a><br>
+          <a href="routetable.cgi?route=100S">100 Flemingdon Park S</a><br>
+          <a href="routetable.cgi?route=101E">101 Parc Downsview Park E</a><br>
+	  <a href="routetable.cgi?route=101W">101 Parc Downsview Park W</a><br>
+          <a href="routetable.cgi?route=102N">102 Markham Rd N</a><br>
+          <a href="routetable.cgi?route=102S">102 Markham Rd S</a><br>
+          <a href="routetable.cgi?route=103N">103 Mt Pleasant North N</a><br>
+          <a href="routetable.cgi?route=103S">103 Mt Pleasant North S</a><br>
+          <a href="routetable.cgi?route=104N">104 Faywood N</a><br>
+          <a href="routetable.cgi?route=104S">104 Faywood S</a><br>
+          <a href="routetable.cgi?route=105N">105 Dufferin North N</a><br>
+          <a href="routetable.cgi?route=105S">105 Dufferin North S</a><br>
+          <a href="routetable.cgi?route=106N">106 York University N</a><br>
+          <a href="routetable.cgi?route=106S">106 York University S</a><br>
+          <a href="routetable.cgi?route=107N">107 Keele North N</a><br>
+          <a href="routetable.cgi?route=107S">107 Keele North S</a><br>
+          <a href="routetable.cgi?route=108E">108 Downsview E</a><br>
+          <a href="routetable.cgi?route=108W">108 Downsview W</a><br>
+          <a href="routetable.cgi?route=109N">109 Ranee N</a><br>
+          <a href="routetable.cgi?route=109S">109 Ranee S</a><br>
+          <a href="routetable.cgi?route=110N">110 Islington South N</a><br>
+          <a href="routetable.cgi?route=110S">110 Islington South S</a><br>
+          <a href="routetable.cgi?route=111N">111 East Mall N</a><br>
+          <a href="routetable.cgi?route=111S">111 East Mall S</a><br>
+          <a href="routetable.cgi?route=112N">112 West Mall N</a><br>
+          <a href="routetable.cgi?route=112S">112 West Mall S</a><br>
+          <a href="routetable.cgi?route=113E">113 Danforth E</a><br>
+          <a href="routetable.cgi?route=113W">113 Danforth W</a><br>
+          <a href="routetable.cgi?route=115E">115 Silver Hills E</a><br>
+          <a href="routetable.cgi?route=115W">115 Silver Hills W</a><br>
+          <a href="routetable.cgi?route=116E">116 Morningside E</a><br>
+          <a href="routetable.cgi?route=116W">116 Morningside W</a><br>
+          <a href="routetable.cgi?route=117N">117 Alness N</a><br>
+          <a href="routetable.cgi?route=117S">117 Alness S</a><br>
+          <a href="routetable.cgi?route=120E">120 Calvington E</a><br>
+          <a href="routetable.cgi?route=120W">120 Calvington W</a><br>
+          <a href="routetable.cgi?route=122E">122 Graydon Hall E</a><br>
+          <a href="routetable.cgi?route=122W">122 Graydon Hall W</a><br>
+          <a href="routetable.cgi?route=123N">123 Shorncliffe N</a><br>
+          <a href="routetable.cgi?route=123S">123 Shorncliffe S</a><br>
+          <a href="routetable.cgi?route=124E">124 Sunnybrook E</a><br>
+*          <a href="routetable.cgi?route=124W">124 Sunnybrook W</a><br>
+          <a href="routetable.cgi?route=125E">125 Drewry E</a><br>
+          <a href="routetable.cgi?route=125W">125 Drewry W</a><br>
+          <a href="routetable.cgi?route=126N">126 Christie N</a><br>
+          <a href="routetable.cgi?route=126S">126 Christie S</a><br>
+          <a href="routetable.cgi?route=127E">127 Davenport E</a><br>
+          <a href="routetable.cgi?route=127W">127 Davenport W</a><br>
+          <a href="routetable.cgi?route=129N">129 McCowan North N</a><br>
+          <a href="routetable.cgi?route=129S">129 McCowan North S</a><br>
+          <a href="routetable.cgi?route=130N">130 Middlefield N</a><br>
+          <a href="routetable.cgi?route=130S">130 Middlefield S</a><br>
+          <a href="routetable.cgi?route=131E">131 Nugget E</a><br>
+          <a href="routetable.cgi?route=131W">131 Nugget W</a><br>
+          <a href="routetable.cgi?route=132E">132 Milner E</a><br>
+          <a href="routetable.cgi?route=132W">132 Milner W</a><br>
+          <a href="routetable.cgi?route=133N">133 Neilson N</a><br>
+          <a href="routetable.cgi?route=133S">133 Neilson S</a><br>
+          <a href="routetable.cgi?route=134E">134 Progress E</a><br>
+          <a href="routetable.cgi?route=134W">134 Progress W</a><br>
+          <a href="routetable.cgi?route=135E">135 Gerrard E</a><br>
+          <a href="routetable.cgi?route=135W">135 Gerrard W</a><br>
+          <a href="routetable.cgi?route=139E">139 Finch East E</a><br>
+          <a href="routetable.cgi?route=139W">139 Finch East W</a><br>
+          <a href="routetable.cgi?route=141N">141 Downtown/Mt Pleasant N</a><br>
+          <a href="routetable.cgi?route=141S">141 Downtown/Mt Pleasant S</a><br>
+          <a href="routetable.cgi?route=142N">142 Downtown/AvenueE N</a><br>
+          <a href="routetable.cgi?route=142S">142 Downtown/Avenue S</a><br>
+          <a href="routetable.cgi?route=143E">143 Downtown/Beach Exp E</a><br>
+          <a href="routetable.cgi?route=143W">143 Downtown/Beach Exp W</a><br>
+          <a href="routetable.cgi?route=144N">144 Downtown/Don Valley N</a><br>
+          <a href="routetable.cgi?route=144S">144 Downtown/Don Valley S</a><br>
+          <a href="routetable.cgi?route=160N">160 Bathurst North N</a><br>
+          <a href="routetable.cgi?route=160S">160 Bathurst North S</a><br>
+          <a href="routetable.cgi?route=161E">161 Rogers Rd E</a><br>
+          <a href="routetable.cgi?route=161W">161 Rogers Rd W</a><br>
+          <a href="routetable.cgi?route=162E">162 Lawrence-Donway E</a><br>
+          <a href="routetable.cgi?route=162W">162 Lawrence-Donway W</a><br>
+          <a href="routetable.cgi?route=165E">165 Weston Rd North E</a><br>
+          <a href="routetable.cgi?route=165W">165 Weston Rd North W</a><br>
+          <a href="routetable.cgi?route=167N">167 Pharmacy North N</a><br>
+          <a href="routetable.cgi?route=167S">167 Pharmacy North S</a><br>
+          <a href="routetable.cgi?route=168N">168 Symington N</a><br>
+          <a href="routetable.cgi?route=168S">168 Symington S</a><br>
+          <a href="routetable.cgi?route=169E">169 Huntingwood E</a><br>
+          <a href="routetable.cgi?route=169W">169 Huntingwood W</a><br>
+          <a href="routetable.cgi?route=172E">172 Cherry Street E</a><br>
+          <a href="routetable.cgi?route=172W">172 Cherry Street W</a><br>
+          <a href="routetable.cgi?route=190E">190 Scarborough Centre Rocket E</a><br>
+          <a href="routetable.cgi?route=190W">190 Scarborough Centre Rocket W</a><br>
+          <a href="routetable.cgi?route=191N">191 Highway 27 Rocket N</a><br>
+          <a href="routetable.cgi?route=191S">191 Highway 27 Rocket S</a><br>
+          <a href="routetable.cgi?route=192N">192 Airport Rocket N</a><br>
+          <a href="routetable.cgi?route=192S">192 Airport Rocket S</a><br>
+          <a href="routetable.cgi?route=196N">196 York University Rocket N</a><br>
+*          <a href="routetable.cgi?route=196S">196 York University Rocket S</a><br>
+          <a href="routetable.cgi?route=224N">224 Victoria Park North N</a><br>
+          <a href="routetable.cgi?route=224S">224 Victoria Park North S</a><br>
+          <a href="routetable.cgi?route=300E">300 Bloor-Danforth E</a><br>
+          <a href="routetable.cgi?route=300W">300 Bloor-Danforth W</a><br>
+          <a href="routetable.cgi?route=301E">301 Queen E</a><br>
+          <a href="routetable.cgi?route=301W">301 Queen W</a><br>
+          <a href="routetable.cgi?route=302N">302 Danforth Rd-McCowan N</a><br>
+          <a href="routetable.cgi?route=302S">302 Danforth Rd-McCowan S</a><br>
+          <a href="routetable.cgi?route=303N">303 Don Mills N</a><br>
+          <a href="routetable.cgi?route=303S">303 Don Mills S</a><br>
+          <a href="routetable.cgi?route=305E">305 Eglinton East E</a><br>
+          <a href="routetable.cgi?route=305W">305 Eglinton East W</a><br>
+          <a href="routetable.cgi?route=306E">306 Carlton E</a><br>
+          <a href="routetable.cgi?route=306W">306 Carlton W</a><br>
+          <a href="routetable.cgi?route=307E">307 Eglinton West E</a><br>
+          <a href="routetable.cgi?route=307W">307 Eglinton West W</a><br>
+          <a href="routetable.cgi?route=308E">308 Finch East E</a><br>
+          <a href="routetable.cgi?route=308W">308 Finch East W</a><br>
+          <a href="routetable.cgi?route=309E">309 Finch West E</a><br>
+          <a href="routetable.cgi?route=309W">309 Finch West W</a><br>
+          <a href="routetable.cgi?route=310N">310 Bathurst N</a><br>
+          <a href="routetable.cgi?route=310S">310 Bathurst S</a><br>
+          <a href="routetable.cgi?route=311N">311 Islington N</a><br>
+          <a href="routetable.cgi?route=311S">311 Islington S</a><br>
+          <a href="routetable.cgi?route=312E">312 St Clair E</a><br>
+          <a href="routetable.cgi?route=312W">312 St Clair W</a><br>
+          <a href="routetable.cgi?route=313N">313 Jane N</a><br>
+          <a href="routetable.cgi?route=313S">313 Jane S</a><br>
+          <a href="routetable.cgi?route=316N">316 Ossington N</a><br>
+          <a href="routetable.cgi?route=316S">316 Ossington S</a><br>
+          <a href="routetable.cgi?route=319E">319 Wilson E</a><br>
+          <a href="routetable.cgi?route=319W">319 Wilson W</a><br>
+          <a href="routetable.cgi?route=320N">320 Yonge N</a><br>
+          <a href="routetable.cgi?route=320S">320 Yonge S</a><br>
+          <a href="routetable.cgi?route=321E">321 York Mills E</a><br>
+          <a href="routetable.cgi?route=321W">321 York Mills W</a><br>
+          <a href="routetable.cgi?route=322E">322 Coxwell E</a><br>
+          <a href="routetable.cgi?route=322W">322 Coxwell W</a><br>
+          <a href="routetable.cgi?route=324N">324 Victoria Park N</a><br>
+          <a href="routetable.cgi?route=324S">324 Victoria Park S</a><br>
+          <a href="routetable.cgi?route=329N">329 Dufferin N</a><br>
+          <a href="routetable.cgi?route=329S">329 Dufferin S</a><br>
+          <a href="routetable.cgi?route=352E">352 Lawrence West E</a><br>
+          <a href="routetable.cgi?route=352W">352 Lawrence West W</a><br>
+          <a href="routetable.cgi?route=353E">353 Steeles East E</a><br>
+          <a href="routetable.cgi?route=353W">353 Steeles East W</a><br>
+          <a href="routetable.cgi?route=354E">354 Lawrence East E</a><br>
+          <a href="routetable.cgi?route=354W">354 Lawrence East W</a><br>
+          <a href="routetable.cgi?route=385E">385 Sheppard East E</a><br>
+          <a href="routetable.cgi?route=385W">385 Sheppard East W</a><br>
+		  <a href="routetable.cgi?route=501E">501 Queen E</a><br>
+		  <a href="routetable.cgi?route=501W">501 Queen W</a><br>
+		  <a href="routetable.cgi?route=502E">502 Downtowner E</a><br>
+		  <a href="routetable.cgi?route=502W">502 Downtowner W</a><br>
+		  <a href="routetable.cgi?route=503E">503 Kingston Rd E</a><br>
+		  <a href="routetable.cgi?route=503W">503 Kingston Rd W</a><br>
+		  <a href="routetable.cgi?route=504E">504 King E</a><br>
+		  <a href="routetable.cgi?route=504W">504 King W</a><br>
+		  <a href="routetable.cgi?route=505E">505 Dundas E</a><br>
+		  <a href="routetable.cgi?route=505W">505 Dundas W</a><br>
+		  <a href="routetable.cgi?route=506E">506 Carlton E</a><br>
+		  <a href="routetable.cgi?route=506W">506 Carlton W</a><br>
+		  <a href="routetable.cgi?route=508E">508 Lake Shore E</a><br>
+		  <a href="routetable.cgi?route=508W">508 Lake Shore W</a><br>
+		  <a href="routetable.cgi?route=509E">509 Harbourfront E</a><br>
+		  <a href="routetable.cgi?route=509W">509 Harbourfront W</a><br>
+		  <a href="routetable.cgi?route=510N">510 Spadina N</a><br>
+		  <a href="routetable.cgi?route=510S">510 Spadina S</a><br>
+		  <a href="routetable.cgi?route=511N">511 Bathurst N</a><br>
+		  <a href="routetable.cgi?route=511S">511 Bathurst S</a><br>
+		  <a href="routetable.cgi?route=512E">512 St Clair E</a><br>
+		  <a href="routetable.cgi?route=512W">512 St Clair W</a><br>
+
+
+<HR>
+
+Back to <a href="index.html">Route list as drop-down box</a>
+
+<br>
+<HR>
+<SMALL>
+Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>
+<SCRIPT TYPE="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+
+</BODY>
+</HTML>

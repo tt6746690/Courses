@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML LANG="en">
+<HEAD>
+<TITLE>CSC 263 Summer 2007 - Assignments</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</HEAD>
+
+<BODY bgcolor="#FBFBF0" LINK="#0000AA" VLINK="#602000">
+
+<H1><a href="..">CSC 263</a>: Assignments</H1>
+
+<h3>Assignment Schedule</h3>
+<table border=1 cellpadding="3">
+<tr> <th>Homework</th> <th> Weight</th> <th>Due date</th>
+</tr>
+
+<tr>
+  <td><a href="#a1">Assignment 1</a></td>
+  <td align="right">10%</td>
+  <td>Tuesday, June 5</td>
+</tr>
+<tr>
+  <td><a href="#a2">Assignment 2</a></td>
+  <td align="right">10%</td>
+  <td><s>Tuesday, June 19</s> extended to Tuesday, June 26</td>
+</tr>
+<tr>
+  <td><a href="#a3">Assignment 3</a></td>
+  <td align="right">10%</td>
+  <td><s>Tuesday, July 10</s> extended to Tuesday, July 17</td>
+</tr>
+<tr>
+  <td><a href="#a4">Assignment 4</a></td>
+  <td align="right">10%</td>
+  <td>Tuesday, July 31</td>
+</tr>
+</table>
+
+<p>
+Announcements, clarifications, corrections and revisions to assignment
+specifications are posted to the
+<a href="../announcements.html">Announcements page</a>.
+Please read this page regularly.
+</p>
+
+<h2><a name="a4">Assignment 4</a></h2>
+
+<ul>
+  <li><a href="w4.pdf">Assignment handout (PDF)</a>
+  <a href="w4.ps">(PS)</a> and the
+  <a href="p4/index.html">programming question</a>
+  <li>Written part due by 6:10 pm on Tuesday, July 31.
+  Please submit the written questions directly to your instructor
+  at the start of lecture, or alternatively to the drop box in BA2220
+  at least 30 minutes prior to the due time.
+  <li><font color="red">Programming part is due by 11:59pm on <i>Friday, August 10</i>.</font>
+  <li>For the programming question, please submit all required files
+  electronically using the <tt>submit</tt> command:<br>
+  <tt>submit -c csc263h -a PGM4 -f report.txt *.java</tt><br>
+  <li><a href="sol/Dijkstra.java">Dijkstra.java</a> - sample solution from p3
+<!--
+  <li>Hints and clarifications:
+  <ul>
+    <li>Q2: Assume that the k lists each contain at least 1 element,
+    thus n &ge; k.
+  </ul>
+-->
+  <li>Sample solutions:
+  <a href="sol/s4.pdf">PDF</a> or
+  <a href="sol/s4.ps">PS</a>
+  <li>Programming question
+  <a href="sol/p4/in">sample input</a> and
+  <a href="sol/p4/sout">sample output</a>
+  (the TA used this as an example run, but also looked at the code)<br>
+  The breakdown of the 40 marks is:
+  <ul>
+    <li>TTCEdge.weight(): 15
+    <li>TTCDijkstra :     15
+    <li>Report:           10
+  </ul>
+  Not handling infinity (max_int) and generating loops was -5 marks. Not
+  dealing with non-Time objects (dashes -) was also -5 marks. Marks were
+  deducted also for computing wrong weights (e.g. ignoring waiting times or
+  computing them in a wrong way).
+</ul>
+
+<h2><a name="a3">Assignment 3</a></h2>
+
+<ul>
+  <li><a href="w3.pdf">Assignment handout (PDF)</a>
+  <a href="w3.ps">(PS)</a> and the
+  <a href="p3/index.html">programming question</a>
+  <li>Due by 6:10 pm on Tuesday, July 17.
+  Please submit the written questions directly to your instructor
+  at the start of lecture, or alternatively to the drop box in BA2220
+  at least 30 minutes prior to the due time.
+  <li>For the programming question, please submit all required files
+  electronically using the <tt>submit</tt> command:<br>
+  <tt>submit -c csc263h -a PGM3 AdjMatrixGraph.java AdjListsGraph.java Dijkstra.java</tt><br>
+  or (if you've previously submitted and want to submit a new version):<br>
+  <tt>submit -c csc263h -a PGM3 -f AdjMatrixGraph.java AdjListsGraph.java Dijkstra.java</tt>
+  <li>Sample solutions:
+  <a href="sol/s3.pdf">PDF</a> or
+  <a href="sol/s3.ps">PS</a>
+  <li><a href="sol/p3/GraphTester.java">Programming question tester</a><br>
+  The breakdown of 25 marks is
+  <ul>
+    <li>5 marks for adding edges in the AdjMatrixGraph correctly
+    <li>5 marks for adding edges in the AdjListsGraph correctly
+    <li>2.5 marks for correct Matrix2Lists conversion
+    <li>2.5 marks for correct Lists2Matrix conversion
+    <li>10 marks for correct Dijkstra (I tried both on a list and a matrix
+  representation, if either worked they got full marks)
+  </ul>
+</ul>
+
+<h2><a name="a2">Assignment 2</a></h2>
+
+<ul>
+  <li><a href="w2.pdf">Assignment handout (PDF)</a>
+  <a href="w2.ps">(PS)</a> and the
+  <a href="p2/index.html">programming question</a>
+  <li>Due by 6:10 pm on <s>Tuesday, June 19</s> Tuesday, June 26.
+  Please submit the written questions directly to your instructor
+  at the start of lecture, or alternatively to the drop box in BA2220
+  at least 30 minutes prior to the due time.
+  <li>For the programming question, please submit all required files
+  electronically using the <tt>submit</tt> command:<br>
+  <tt>submit -c csc263h -a PGM2 AVLTree.java</tt><br>
+  or (if you've previously submitted and want to submit a new version):<br>
+  <tt>submit -c csc263h -a PGM2 -f AVLTree.java</tt>
+<!--
+  <li>Hints and clarifications:
+  <ul>
+    <li>Q2: Assume that the k lists each contain at least 1 element,
+    thus n &ge; k.
+  </ul>
+-->
+  <li>Sample solutions:
+  <a href="sol/s2.pdf">PDF</a> or
+  <a href="sol/s2.ps">PS</a>
+  <li><a href="sol/p2.tester.tar.gz">Programming question tester (.tar.gz)</a><br>
+  Instructions: The tester files are:
+  AVLTestTree.java   CheckStruct.java  Tester.java<br>
+  Place the files in the directory that contains
+  AVLTree.java and Node.java. To run the test:
+  <pre>
+  javac *.java
+  java Tester < input
+  </pre>
+</ul>
+
+<h2><a name="a1">Assignment 1</a></h2>
+
+<ul>
+  <li><a href="w1.pdf">Assignment handout (PDF)</a>
+  <a href="w1.ps">(PS)</a> and the
+  <a href="p1/index.html">programming question</a>
+  <li>Due by 6:10 pm on Tuesday, June 5.
+  Please submit the written questions directly to your instructor,
+  preferably at the start of lecture.
+  <li>For the programming question, please submit all required files
+  electronically using the <tt>submit</tt> command:<br>
+  <tt>submit -c csc263h -a PGM1 TernaryHeap.java TernaryHeapSort.java</tt><br>
+  or (if you've previously submitted and want to submit a new version):<br>
+  <tt>submit -c csc263h -a PGM1 -f TernaryHeap.java TernaryHeapSort.java</tt>
+  <li>Hints and clarifications:
+  <ul>
+    <li>Q2: Assume that the k lists each contain at least 1 element,
+    thus n &ge; k.
+  </ul>
+  <li>Sample solutions:
+  <a href="sol/s1.pdf">PDF</a> or
+  <a href="sol/s1.ps">PS</a>
+  <li><a href="sol/p1.ExtendedTester.java">Programming question tester</a>
+</ul>
+
+<a name="submission"></a>
+<h2>Submission instructions</h2>
+
+<p>
+Assignments will consist of
+a number of "pen-and-paper" questions
+(the "written" portion,
+whose solution involves no computer programming and
+can be handwritten or typed)
+and a number of "programming" questions
+(whose solution is entirely computer programming).
+</p>
+<p>
+The <b>written portion</b> must be handed in using the
+<a href="../admin/cover.pdf">cover sheet for assignments (Adobe PDF document)</a>
+<a href="../admin/cover.ps">(PS)</a>.
+If you are working in a group (of at most two students),
+only submit one copy of your solutions and write both
+students' names on the cover sheet.
+All written portions must be submitted
+directly to the instructor by the beginning of class
+on the specified due date, or submitted to the course drop box
+in BA 2220 at least 30 minutes prior to class.
+Late assignments will <em>not</em> be accepted
+(including assignments submitted after the first 5 minutes of class)
+except in truly unusual circumstances.
+(See the
+<!--
+<a href="../admin/index.shtml#dates">important dates</a>
+for the exact due date of each assignment, and the
+-->
+<a href="../admin/special.html">policy on special consideration</a>
+for how to request an individual extension for unusual circumstances).
+</p>
+<p>
+The <b>programming portion</b> must be handed in electronically.
+<!--using the UTSC submit command.-->
+Hardcopies (such as computer printouts) will not be accepted,
+as your code will be executed to determine your mark. 
+If you are working in a group (of at most two students),
+only submit one copy of your programming solutions
+and include both students' names in the file headers.
+Though your programming portion is due at the same time as the
+written portion, we will not collect the electronic submissions
+until Thursday at 5:30pm (so you may think of this as an automatic extension).
+It is your responsibility to ensure your programming solution is
+submitted on time, as we cannot automatically disable acceptance
+through submit at a predetermined time.
+Ensure your programs work correctly on the CDF computer system;
+if they do not, you will not receive any credit.
+</p>
+<h3>
+Frequently solved problems:
+</h3>
+<ul>
+  <li><i>I need a computer account. How do I get one?</i><br>
+  You should already have your account info. Read details at the
+  <a href="http://www.cdf.toronto.edu/welcome/">CDF Wecome</a> website.
+
+  <li><i>What computing resources do I have access to?</i><br>
+  Read the <a href="http://www.cdf.toronto.edu/welcome/cdf.html">Student's Guide to CDF</a>.
+
+  <li><i>How do I submit my files?</i><br>
+  Make sure you're in the directory that contains the file(s) you want
+  to submit, and use the command:<br>
+  <tt>submit -c csc263h -a </tt><i>&lt;assignment&gt;</i><tt> </tt><i>&lt;files&gt;</i><br>
+  replacing <i>&lt;assignment&gt;</i> with the assignment name (PGM1, PGM2, ...)
+  and replacing <i>&lt;files&gt;</i> with the list of files you are submitting.
+  <br>
+  There is also a web interface described in the "Submitting Work" section
+  of the <a href="http://www.cdf.toronto.edu/workathome/">Working at Home</a>
+  tutorial.
+
+  <li><i>What else do I need to know about the submit tool?</i><br>
+  Typing <tt>man submit</tt> will give you the manual page. Some highlights:
+
+  <ul>
+    <li>Submit files foo.c and bar.h for assignment named PGM1 in course
+    csc263h:<br>
+    <tt>submit -c csc263h -a PGM1 foo.c bar.h</tt>
+
+    <li>Resubmit file foo.c to the same place:<br>
+    <tt>submit -c csc263h -f -a PGM1 foo.c</tt>
+
+    <li>List submitted files:<br>
+    <tt>submit -l -c csc263h -a PGM1</tt>
+  </ul>
+
+<!--
+  <li><i>I tried to submit and got the error:
+    "submit: You're not in the cscb63s group." What do I do?</i><br>
+  The computer system doesn't know you're in the class.
+  Make sure that you're officially enrolled in the course.
+  In general, if you enrolled in the class recently, you might have to wait
+  a couple of days before the system administrators give you permission to
+  submit files to our course.
+  -->
+
+  <li><i>I submitted an old version of my file, and now I want to resubmit
+    my new version. How do I do it?</i><br>
+  First of all, good idea! Submitting early and often makes sure the
+  submit system is working for you, and if anything happens (you sleep in,
+  your computer crashes, etc.), you already have a copy submitted for
+  marking. We only keep the most recent copy that you submitted.
+  To submit a new version, use the "-f" option for submit to overwrite
+  the old version:<br>
+  <tt>submit -c csc263h -f -a </tt><i>&lt;assignment&gt;</i> <i>&lt;files&gt;</i><br>
+</ul>
+
+<HR>
+
+<TABLE width="100%">
+<TR>
+<TD>
+<SMALL>
+<!--Copyright &#169;
+Richard Krueger
+<BR>
+All rights reserved.
+<BR>-->
+<SCRIPT TYPE="text/JavaScript">
+<!--
+if (Date.parse(document.lastModified) != 0)
+        document.write('<BR>Last update: ' + document.lastModified);
+//-->
+</SCRIPT>
+</SMALL>
+</TD>
+<TD align=right>
+    <a href="http://validator.w3.org/check?uri=referer"><img border="0"
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

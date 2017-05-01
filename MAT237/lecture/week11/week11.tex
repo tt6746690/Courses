@@ -1,0 +1,334 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\section*{Integration}
+
+\subsection*{Integration in $\R$}
+
+\begin{defn*}
+  \textbf{Partition} A finite partition $P$ of $[a,b]$ is an ordered collection of points $P = \{ a = x_0 < x_1 < \cdots < x_n = b\}$. The \textbf{order of $P$} is defined to be $|P| = n$ (i.e. the number of subintervals) and the \textbf{length of $P$} is
+  \[
+    l(P) = \underset{i = i, \cdots, |P|}{max} [x_i - x_{i-1}]
+  \]
+  that is, the length of $P$ is the length of the longest interval whose endpoints are in $P$. In other words, if $\mathcal{P}_{[a,b]}$ is the set of all finite partitions of $[a,b]$ then $l: \mathcal{P}_{[a,b]} \to \R_{+}$ gives the worst case scenario for width of subintervals.
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{Refinement} If $P$ and $Q$ are two partitions of $[a,b]$ then $Q$ is the refinement of $P$ if $P\subseteq Q$
+  \begin{rem}
+    Any two partition $P,Q\in \mathcal{P}_{[a,b]}$ admits a common partition $R$, where $R=P\cup Q$
+  \end{rem}
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{Riemann sum} Given a function $f:[a,b]\to \R$, a Riemann sum of $f$ with respect to the partition $P = \{ x_0<x_1<\cdots <x_{n-1}<x_n\}$ is any sum of the form
+  \[
+    S(f, P) = \sum_{i=1}^n f(t_i) (x_i - x_{i-1}), \quad \quad t_i\in [x_{i-1}, x_i]
+  \]
+  By how we pick $t_i$ we have
+  \begin{enumerate}
+    \item \textbf{Left- and Right-endpoint Riemann sums}
+    \[
+      L(f, P) = \sum_{i=1}^n f(x_{i-1}) (x_i - x_{i-1}) \quad\quad R(f, P) = \sum_{i=1}^n f(x_{i}) (x_i - x_{i-1})
+    \]
+    \item \textbf{Lower and Upper Riemann sums} Fix partition $P\in \mathcal{P}_{[a,b]}$ and $f:[a,b]\to \R$. Define
+    \[
+      m_i = \underset{x\in [x_{i-1}, x_i]}{inf} f(x) \quad\quad M_i = \underset{x\in [x_{i-1}, x_i]}{sup} f(x)
+    \]
+    so $m_i$ is the smallest value $f$ takes on $[x_{i-1}, x_i]$ while $M_i$ is the largest
+    \[
+      u(f, P) = \sum_{i=1}^n m_i (x_i - x_{i-1}) \quad\quad U(f, P) = \sum_{i=1}^n M_i (x_i - x_{i-1})
+    \]
+  \end{enumerate}
+\end{defn*}
+
+\begin{proposition*}
+  If $Q$ is a refinement of $P$ then we have
+  \[
+    u(f, P) \leq u(f, Q) \quad \quad U(f, P) \geq U(f,Q)
+  \]
+  Intuitively, $u$ is increasing function over refinement of $P$ while $U$ is decreasing for refinement of $P$
+\end{proposition*}
+
+\begin{lemma*}
+  Let $A,B$ be sets such that $A \subseteq B$ then if infimum and supremum exists, we have
+  \[
+    \inf A \geq \inf B \quad \quad \sup A \leq \sup B
+  \]
+\end{lemma*}
+
+\begin{defn*}
+  The \textbf{Lower and Upper Integral} is defined to be
+  \[
+    u(f) = \underset{P}{\sup} [u(f,P)] \quad\quad U(f) = \underset{P}{\inf} [U(f, P)]
+  \]
+  In other words, the lower integral is the lower Riemann sum for sufficiently fine $P$; while the upper integral is the upper Riemann sum for sufficiently fine $P$.
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{Riemann Integrable} We say that a function $f: [a,b]\to \R$ is Riemann integrable on $[a,b]$ with integral $I$ if for every $\epsilon >0$ if for every $\epsilon >0$ there exists a $\delta >0$ such that whenever $P\in\mathcal{P}_{[a,b]}$ satisfies $l(P) < \delta$, then
+  \[
+    |S(f,P) - I| < \epsilon
+  \]
+  where $I$ is denoted as $I = \int_{a}^b f(x) dx$.
+  \begin{rem}
+    Roughly, a function is Riemann integrable with integral $I$ if we can approximate $I$ arbitrarily well by taking a sufficiently fine partition $P$.
+  \end{rem}
+  The following definition are equivalent
+  \begin{enumerate}
+    \item $f$ is Riemann integrable
+    \item $\underset{P \in \mathcal{P}_{[a,b]}}{sup} u(f,P) = \underset{P \in \mathcal{P}_{[a,b]}}{inf} U(f,P)$.
+    In other word, the lower and upper integral are equal
+    \item For every $\epsilon>0$ there exists a partition $P\in\mathcal{P}_{[a,b]}$ such that $U(f,P) - u(f,P) < \epsilon$ (Cauchy Criterion)
+    \item For every $\epsilon > 0$ there exists a $\delta >0$ such that whenever $P,Q\in \mathcal{P}_{[a,b]}$ satisfy $l(P) < \delta$ and $l(Q) < \delta$ then $|S(f,P) - S(f,Q)| < \epsilon$
+  \end{enumerate}
+  \begin{rem}
+    To prove that a function is Riemann integrable, we use the third definition. Specifically, we pick a partition $P$ with $|P| = n$ and show that the difference between upper and lower Riemann sums converges. To prove that a function is \textit{not} Riemann integrable, the characteristic function of rationals on $[0,1]$ is not integrable
+    \[
+      \chi_{Q}(x) =
+      \begin{cases}
+        1 & x\in Q\cap [0,1]\\
+        0 & otherwise
+      \end{cases}
+    \]
+  \end{rem}
+  Since $Q$ is dense in $[0,1]$, then $M_i = 1$ and $m_i = 0$ and so
+  \[
+    U(f,P) = \sum_{i=1}^n M_i (x_i - x_{i-1}) = x_1 - x_0 = 1 \neq 0 = \sum_{i=1}^n m_i (x_i - x_{i-1}) = u(f,P)
+  \]
+  holds for any partition $P$, any $\epsilon <1$ fails the definition of integrability
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{Properties of Integral}
+  \begin{enumerate}
+    \item \textbf{Additivity of Domain} If $f$ is integrable on $[a,b]$ and $[b,c]$ then $f$ is integrable on $[a,b]$ and
+    \[
+      \int_a^c f(x)dx = \int_a^b f(x)dx + \int_b^c f(x)dx
+    \]
+    \item \textbf{Additivity of Integral} If $f,g$ are integralon $[a,b]$ then $f+g$ also integrable on $[a,b]$ and
+    \[
+      \int_a^b f(x) + g(x) dx = \int_a^b g(x)dx + \int_a^b f(x)dx
+    \]
+    \item \textbf{Scalar Multiplication} If $f$ integrable on $[a,b]$ and $c\in\R$ then $cf$ is integrable on $[a,b]$
+    \[
+      \int_a^b cf(x) dx = c\int_a^b f(x)dx
+    \]
+    \item \textbf{Inherited Integrability} $f$ is integrable on $[a,b]$ then $f$ is integrable on any subinterval $[c,d]\subseteq [a,b]$
+    \item \textbf{Monotonicity of Integral} If $f,g$ are integrable on $[a,b]$ and $f(x)\leq g(x)$ for all $x\in [a,b]$ then
+    \[
+      \int_a^b f(x)dx \leq \int_a^b g(x)dx
+    \]
+    \item \textbf{Subnormality} If $f$ is integrable on $[a,b]$ then $|f|$ is integrable on $[a,b]$ and satisfies
+    \[
+      |\int_a^b f(x)dx|\leq \int_a^b |f(x)|dx
+    \]
+    \item Let $S_1, S_2$ be two subsets. Let $S = S_1 \cup S_2$ and $T = S_1 \cap S_2$, Suppose $f$ is integrable over $S_1,S_2$ then $f$ is integrable over $S$ and $T$, moreover
+    \[
+      \int_S f  +\int_T f = \int_{S_1} f + \int_{S_2} f
+    \]
+    \item Let $S\subseteq \R^n$ Let $f,g:S \to \R$ Let $F(x) = max\{ f(x), g(x)\}$ and $G(x) = min\{ f(x), g(x)\}$ then
+    \begin{enumerate}
+      \item If $f,g$ are continuous at $x_0$ then so are $F$ and $G$
+      \item If $f,g$ are integrable over $S$, so are $F$ and $G$
+    \end{enumerate}
+  \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*}
+  \textbf{Fundamental Theorem of Calculus}
+  \begin{enumerate}
+    \item If $f$ is integrable on $[a,b]$ and $x\in[a,b]$ define $F(x) = \int_a^x f(t)dt$. The function $F$ is continuous on $[a,b]$ and moreover, $F'(x)$ exists and equals $f(x)$ at every point $x$ at which $f$ is continuous
+    \item Let $F$ be continuous function on $[a,b]$ that is differentiable except possibly at finitely many points in $[a,b]$ and take $f =F'$ at all such points. If $f$ is integrable on $[a,b]$, then
+    \[
+      \int_a^b f(x)dx = F(b) - F(a)
+    \]
+  \end{enumerate}
+\end{defn*}
+
+\subsection*{Sufficient condition for integrability}
+
+\begin{theorem*}
+  \textbf{If $f$ is bounded and monotone on $[a,b]$ then $f$ is integrable}
+  \begin{rem}
+    It is easy to write down upper and lower Riemann sums for monotone functions. We select a partition $P$ and prove that the upper and lower integral converges by bounding $l(P) \leq \delta$
+  \end{rem}
+\end{theorem*}
+
+
+\begin{theorem*}
+  \textbf{Every continous function on $[a,b]$ is integrable}
+  \begin{proof}
+    Cannot use the previous theorem because there are functions that is continuous on $[a,b]$ while not monotone, i.e. $\sin (\frac{1}{x})$ around origin. Use the fact that continuous function over a compact set is uniformly continuous. Given $\epsilon >0$ we can find $\delta$ such that whenever $|x-y| < \delta$ we have $|f(x) - f(y)|<\frac{\epsilon}{b-a}$. So then we find a partition $P$ such that $l(P) < \delta$ such that $M_i - m_i$ on every subinterval is bounded by $\frac{\epsilon}{b-a}$. We then have
+    \begin{align*}
+        U(f,P) - u(f,P) &= \sum_{i=1}^n (M_i - m_i)(x_i - x_{i-1}) \\
+        &\leq  \sum_{i=1}^n \frac{\epsilon}{b-a}(x_i - x_{i-1}) \\
+        &=  \frac{\epsilon}{b-a} \sum_{i=1}^n (x_i - x_{i-1}) \\
+        &= \frac{\epsilon}{b-a} (b-a) \\
+        &= \epsilon
+    \end{align*}
+  \end{proof}
+\end{theorem*}
+
+
+Integral over a single point or any finite set of point is zero. Now we consider the integral infinitely many points with the idea of Jordan Measure.
+
+\begin{defn*}
+    \textbf{Jordan Meansure} If $I = [a,b]$ let the length of $I$ be $l(I) = b-a$. If $\mathcal{P}(\R)$ is the power-set of $\R$, we define \textbf{Jordan outer measure} as the function $m: \mathcal{P} \to \R_{\geq 0}$ given by
+    \[
+      m(S) = \inf \left\{ \sum_{k=1}^n l(I_k) : S \subseteq \cup_{k=1}^n I_k \text{ where $I$ is an interval }\right\}
+    \]
+    If $m(S)$ exists and $m(\partial S) = 0$, we say that $S$ is \textbf{Jordan Measurable}. (If countable cover is used instead we say that the set is Lebesque measurable / zero)\\
+    If $m(S)=0$ we say that $S$ has \textbf{Jordan Measure Zero}.
+    \begin{rem}
+      For proofs of Jordan Measure zero, it suffices to show that for all $\epsilon >0$, $\sum_{k=1}^n l(I_k) < \epsilon$ by definition of infimum. Some examples below,
+        \begin{enumerate}
+          \item Jordan measure of any finite set is 0
+          \item Jordan measure of any interval $[a,b]$ is $m([a,b]) = b-a$
+          \item $m(\R)$ does not exist because no finite cover for $\R$
+          \item If $S = \mathbb{Q}\cap [0,1]$, then $\partial S = [0,1]$ and $m(\partial S) = 1\neq 0$, hence not Jordan measurable
+        \end{enumerate}
+      In essense, Jordan measure is an extension of the notion of size (length, area, volume) to shape more complicated than say triangle, rectangles... Let $M$ be a bounded set in the plane, i.e.,  $M$ is contained entirely within a rectangle. The outer Jordan measure of $M$ is the greatest lower bound of the areas of the coverings of $M$, consisting of finite unions of rectangles.
+    \end{rem}
+\end{defn*}
+
+\begin{proposition*}
+  \textbf{Content (Jordan) zero implies Measure (Lebesque) Zero; Converse true only if the the set is compact and measure zero}
+\end{proposition*}
+
+\begin{theorem*}
+  \textbf{Bounded and continuous function on a compact interval with a Jordan Measure Zero set of discontinuities is integrable} If $S\subseteq [a,b]$ is a Jordan measure zero set, and $f: [a,b]\to \R$ is bounded and continuous everywhere except possibly at $S$, then $f$ is integrable.
+  \begin{proof}
+    Given Jordan measure zero, we can find a finite cover $I_k$ over the set of discontinuities $W = \cup_j I_j$ such that $\sum_j l(I_j) < \frac{\epsilon}{2(M-m)}$. We denote the set $V = [a,b] \setminus W$. By the fact that $f$ is continuous over a compact set $V$, we can find a partition $P$ such that $U(f|_V, P) - u(f|_V, P) < \frac{\epsilon}{2}$. Refine $P$ such that subintervals contain endpoints of $I_k$. Then we can bound $U(f|_W, P) - u(f_W, P)$ so together $U(f,P) - u(f,P) < \epsilon$
+  \end{proof}
+\end{theorem*}
+
+\begin{corollary*}
+  If $f,g$ are integrable on $[a,b]$ and $f=g$ up to a set of Jordan measure zero, then $\int_a^b f(x)dx = \int_a^b g(x)dx$
+\end{corollary*}
+
+
+
+\subsection*{4.2 Integration in $\R^n$}
+
+\begin{defn*}
+  $ $\\
+  A \textbf{Rectangle $R\in\R^2$} is any set which can be written as $[a,b]\times[c,d]$. A \textbf{Partition $P = P_x \times P_y$} is a partition of $R$ where $P_x = \{ a = x_0 < \cdots < x_n = b\}$ and $P_y = \{ c = y_0 < \cdots < y_m = d\}$ are partitions of their respective intervals $[a,b]$ and $[c,d]$ with \textbf{subrectangles}
+  \[
+    R_{ij} = [x_{i-1}, x_i]\times[y_{j-1}, y_j] \quad x = 1,\cdots, n\quad y = 1,\cdots, m
+  \]
+  The \textbf{Area of rectangle $R_{ij}$} is given by
+  \[
+    A(R_{ij}) = (x_i - x_{i-1})(y_j - y_{j-1})
+  \]
+  in which case the \textbf{Riemann Sum} for $f:\R^2 \to \R$ over partition $P$ is given by
+  \[
+    S(f,P) = \sum_{\overset{i=1,\cdots, n}{j=1,\cdots, m}} f(t_{ij}) A(R_{ij}) \quad \quad t_{ij}\in R_{ij}
+  \]
+  and the \textbf{upper and lower Riemann sum} are defined as
+  \[
+    U(f,P) = \sum_{\overset{i=1,\cdots, n}{j=1,\cdots, m}} \underset{x\in R_{ij}}{\sup}f(x) A(R_{ij}) \quad\quad
+    u(f,P) = \sum_{\overset{i=1,\cdots, n}{j=1,\cdots, m}} \underset{x\in R_{ij}}{\inf}f(x) A(R_{ij})
+  \]
+  $f:\R^2\to\R$ is \textbf{Riemann Integrable} if for any $\epsilon > 0$ there exists a partition $P$ (i.e. exists $\delta$ such that $A(P) < \delta$ where $A(P) = \max\{ A(R_{ij})\}$ for all subrectangles $R_{ij}$ of $P$) such that
+  \[
+    U(f,P) - u(f,P) < \epsilon
+  \]
+  The \textbf{Integral} is given by
+  \[
+    \iint_{R} f dA \quad or \quad \iint f(x,y)dxdy
+  \]
+\end{defn*}
+
+\begin{theorem*}
+  \textbf{Properties of double integrals}
+  \begin{enumerate}
+    \item \textbf{Linearity of Integral} If $f_1, f_2$ are integrable on $R$ and $c_1, c_2\in\R$ then $c_1f_c + c_2f_2$ is integrable on $S$ and
+    \[
+      \iint_R [c_1f_1 + c_2f_2]dA = c_1\iint_R f_1 dA + c_2\iint_R f_2 dA
+    \]
+    \item \textbf{Additivity of Domain} If $f$ is integrable on disjoint rectangles $R_1$ and $R_2$ th en $f$ is integrable on $R_1\cup R_2$ and
+    \[
+      \iint_{R_1\cup R_2} fdA = \iint_{R_1}fdA + \iint_{R_2} fdA
+    \]
+    \item \textbf{Monotonicity} If $f_1\leq f_2$ are integrable functions on $R$ then
+    \[
+      \iint_{R} f_1dA \leq \iint_R f_2 dA
+    \]
+    \item \textbf{Subnormality} If $f$ is integrable on $R$ and $|f|$ is integrable on $R$ then
+    \[
+      |\iint fdA | \leq \iint |f|dA
+    \]
+    \item \textbf{If $f$ is continuous, then $f$ is integrable}
+  \end{enumerate}
+\end{theorem*}
+
+
+\begin{defn*}
+  \textbf{Generalized Jordan outer measure} of a set $S\in \R^2$ is defined to be
+  \[
+    m(S) = \inf \left\{ \sum_{i,j}^n A(R_{ij}) : S \subseteq \cup_{i,j}^n R_{ij} \text{ where $R_{ij}$ is an rectangle }\right\}
+  \]
+  If $m(S)$ exists and $m(\partial S) = 0$, we say that $S$ is \textbf{Jordan Measurable}. \\
+  If $m(S)=0$ we say that $S$ has \textbf{Jordan Measure Zero}.
+
+  \begin{rem}
+    One can think of Jordan measure as the area, and zero-measure set as one that does not have any area. In $\R^n$, sets of any sub-dimension $S$ has no volumne, hence $m(S) = 0$.
+    \begin{enumerate}
+      \item $B^2 =  \{ (x,y): x^2 + y^2 \leq 1\}$ the unit disk has $m(B^2)=  \pi$
+      \item $S =  [0,1] \times \{ 0\} \subseteq \R^2$ has zero Jordan measure
+    \end{enumerate}
+  \end{rem}
+\end{defn*}
+
+\begin{theorem*}
+  \textbf{sub-manifolds is Jordan measure zero} If $f:\R \to \R^2$ is of $C^1$, then for every interval $I\subseteq \R$ we have that $f(I)$ has zero content. In other words, the image of a continuous $C^1$ function (curve) has Jordan measure zero,  (i.e. covered by finitely many rectangles).
+\end{theorem*}
+
+
+
+\begin{defn*}
+  \textbf{Piecewise $C^1$ function} A function $f:[a,b]\to\R^2$ is piecewise $C^1$ if it is $C^1$ at all but a finite number of points.
+\end{defn*}
+
+\begin{corollary*}
+  Any set $S\subseteq \R^2$ such that $\partial S$ is defined by a piecewise $C^1$ curve is Jordan measurable.
+  \begin{proof}
+    By the previous theorem, $\partial S$ as the image of a $C^1$ curve has Jordan measure zero. i.e. $m(\partial S) = 0$ Hence $S$ is Jordan measurable.
+  \end{proof}
+\end{corollary*}
+
+\begin{theorem*}
+  \textbf{If $R$ is a rectangle and $f$ is continuous on $R$ up to a set of Jordan measure zero, then $f$ is integrable.} If $S \subseteq R$ is Jordan measure zero set, and $f: R \to \R$ is continuous every where except possibly at $S$, then $f$ is integrable.
+  \begin{rem}
+    A generalization of a previous theorem where function is continuous up to a set of Jordan measure zero interval is integrable. However, we still want to know integrability over non-rectangles, whose condition is given by the next theorem.
+  \end{rem}
+\end{theorem*}
+
+\begin{theorem*}
+  \textbf{If $S$ is Jordan measurable and the set of discontinuities of $f: S\to \R^2$ has zero measure then $f$ is Riemann integrable}
+  \begin{proof}
+    Fix a rectangle $R$ such that $S\subseteq R$. Extend $f: S \to \R^2$ with a characteristic function
+    \[
+      \chi_S(x) =
+      \begin{cases}
+        1 & x\in S\\\
+        0 & otherwise
+      \end{cases}
+    \]
+    Thus the function $f \chi_S: \R \to \R^2$ is just $f(x)$ on $S$ and 0 everywhere else inside $R$. Let $D$ be the set of discontinuities of $f$ and note that the set of discontinuities of $\chi_S$ is given by $\partial S$. Then we have $m(D) = 0$ as given and $m(\partial S) = 0$ by the fact that $S$ is Jordan measurable. Then the set of discontinuities of $f_{\chi_S}$ on $R$ is $D\cup \partial S$. Since the union of zero measure sets has zero measure, i.e. $m(D\cup \partial S) = 0$. Since $f\chi_S$ has zero-measure discontinuities (while continuous elsewhere) on rectangle $R$ and hence Riemann Integrable by previous theorem.
+  \end{proof}
+\end{theorem*}
+
+\begin{corollary*}
+  \textbf{If $S\subseteq R^2$ is Jordan measurable then $m(S) = \int_S \chi_S$}
+\end{corollary*}
+
+
+\end{document}

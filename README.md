@@ -1,3 +1,1 @@
-
-
-# University Notes @UofT
+# Notes @UofT

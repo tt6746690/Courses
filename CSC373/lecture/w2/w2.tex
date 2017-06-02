@@ -1,0 +1,316 @@
+\documentclass[11pt]{article}
+
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\subsection*{Divide-and-Conquer}
+
+\begin{enumerate}
+  \item binary search
+  \item merge sort
+  \item powering a number
+  \item multiplying 2 number
+  \item matrix multiplication
+  \item embedding a complete binary tree
+\end{enumerate}
+
+\begin{example} how to compute $F_n$ for a fibonnaci sequence
+\begin{solution}
+  $ $\\
+  \begin{enumerate}
+    \item \textbf{Brute force $O(n)$}
+    \[
+      F_1 = F_2 = 1
+    \]
+    \[
+      \text{For $i = 3$\dots n}
+    \]
+    \[
+      F_i = F_{i-1} + F_{i-2}
+    \]
+    \item \textbf{Bottom up $O(n)$}
+    \begin{align}
+      &F[0] = 1\\
+      &F[1] = 1\\
+      &\text{for } i = 2\cdots n\\
+      &\quad F[i] = F[i-1] + F[i-2]
+    \end{align}
+    Idea is that result is stored in array. so dont have to compute any value again.
+    \item \textbf{math formula $O(\lg n)$}
+    \[
+      F_n = \left\lfloor \frac{\phi^n}{\sqrt{5}} \right\rfloor \quad \phi = \frac{1 + \sqrt{5}}{2}
+    \]
+    however $\phi$ is irrational. will cause underflow and overflow errors. Underflow happens when multiplying a number $n < 1$ many number of times, the values after significant digits are dropped in each iteration. At some point, it will be reduced to a very small number $0.00000\cdots 0001$ whose next iteration will cause underflow error
+    \item \textbf{math formula II $O(\lg n)$}
+    Prove for every $n\geq 2$
+    \[
+      \begin{bmatrix}
+        F_{n+1} & F_{n} \\
+        F_n & F_{n-1}
+      \end{bmatrix}
+      =
+      \left(\begin{bmatrix}
+        1 & 1 \\
+        1 & 0
+      \end{bmatrix}\right)^n
+    \]
+    powering a matrix same as taking power of number. so $O(\lg n)$
+    \begin{proof}
+      Proof by induction. \\
+      \textbf{Basis}:
+      \[
+        LHS = \begin{bmatrix}
+        F_3 & F_2 \\
+        F_2 & F_1
+      \end{bmatrix} = \begin{bmatrix}
+        2 & 1 \\
+        1 & 1
+      \end{bmatrix}
+      = \begin{bmatrix}
+        1 & 1 \\
+        1 & 0
+    \end{bmatrix} \begin{bmatrix}
+      1 & 1 \\
+      1 & 0
+  \end{bmatrix} = RHS
+      \]
+      \textbf{Inductive step}: Given
+      \[
+        \begin{bmatrix}
+          F_{n_0+1} & F_{n_0} \\
+          F_{n_0} & F_{n_0-1}
+        \end{bmatrix}
+        =
+        \left(\begin{bmatrix}
+          1 & 1 \\
+          1 & 0
+        \end{bmatrix}\right)^n
+      \]
+      Prove holds for $n_0+1$, i.e.
+      \[
+        \begin{bmatrix}
+          F_{n_0+2} & F_{n_0+1} \\
+          F_{n_0 + 1} & F_{n_0}
+        \end{bmatrix}
+        =
+        \left(\begin{bmatrix}
+          1 & 1 \\
+          1 & 0
+        \end{bmatrix}\right)^{n+1}
+      \]
+      \[
+        RHS = \left(\begin{bmatrix}
+          1 & 1 \\
+          1 & 0
+        \end{bmatrix}\right)^n \begin{bmatrix}
+          1 & 1 \\
+          1 & 0
+        \end{bmatrix} = \begin{bmatrix}
+          F_{n_0+1} & F_{n_0} \\
+          F_{n_0} & F_{n_0-1}
+        \end{bmatrix} \begin{bmatrix}
+          1 & 1 \\
+          1 & 0
+        \end{bmatrix} = \begin{bmatrix}
+        F_{n_0 + 1} + F_{n_0} & F_{n_0 + 1}\\
+        F_{n_0} + F_{n_0 - 1} & F_{n_0}
+      \end{bmatrix} = LHS
+      \]
+      No underflow error any more since the procedure includes only addition operation. The complexity is just integer multiplication which we can use divide and conquer to simplify
+    \end{proof}
+  \end{enumerate}
+\end{solution}
+
+
+\end{example}
+
+
+
+\begin{example}
+  Every horse in the world is of the same color
+  \begin{proof}
+    By induction on the number of horses.\\
+    \textbf{Basis}: trivially true \\
+    \textbf{Inductive step}: Assume holds for $n_0$ horses, i.e. any set of $n_0$ horses has same color.
+  \end{proof}
+  Fallacy since cant prove for $n=2$
+\end{example}
+
+\subsection*{Greedy algorithm}
+
+\begin{example}
+  \textbf{Finding function global min} with
+  \textbf{newton-raphson algorithm}
+  randomly selecting points, and find mins. Not really helpful in finding global min, so being greedy here doesnt really help
+\end{example}
+
+\begin{example}
+  \textbf{Interval scheduling} Given a set of requests $R = \{ r_1, r_2, \cdots \}$, each one has a starting time. $s_{r_i}$ and ending time $t_{r_i}$. Goal is to schedule max number of jobs possible. Assumes there is only one resource, hence no two job's interval may overlap, i.e. working on one resource concurrently.
+  \begin{approach}
+    Greedy approach. Define some simple rule to decide which request to pick next.
+    \begin{enumerate}
+      \item pick the job that has the smallest duration, i.e. $(t_{r_i} - s_{r_i})$. doesnt work, ex. two longer intervals that doesnt overlap vs a smaller interval that overlaps with both two longer intervals
+      \item take the job that starts the earliest. doesnt work, take example where there is one long interval vs. several smaller nonoverlapping intervals
+      \item pick the job that ends earlist. works...
+    \end{enumerate}
+    To prove a rule is optimal. Use
+    \begin{enumerate}
+      \item \textbf{stay ahead}
+      \item \textbf{exchange argument}
+      \item \textbf{lowerbound}
+    \end{enumerate}
+  \end{approach}
+  \begin{solution}
+    sort the reqeusts $R$ by end time. Let $A = \emptyset$ While $R$ is not
+
+    \begin{align*}
+      &\text{sort request $R$ by end time}\\
+      &A = \emptyset\\
+      &\text{while $R$ not empty}\\
+      &\quad\quad i = R \text{ first item } \\
+      &\quad\quad \text{add $i$ to A} \\
+      &\quad\quad \text{remove $i$ from $R$ and every job overlapping with $i$}\\
+      &\text{return } A
+    \end{align*}
+    \begin{proof}
+      Let $\Theta$ be optimal solution. Want to show $|A| = |\Theta|$, i.e.
+      \[
+        A = \{ i_1, i_2, \cdots i_k\} \quad \quad |A| = k
+      \]
+      \[
+        \Theta = \{ j_1, j_2, \cdots j_m\} \quad \quad |\Theta| = m
+      \]
+      \textbf{claim}: For each pick $s = 1, \cdots, k$
+      \[
+        t_{i_s} \leq t_{j_s}
+      \]
+      \textit{Proof by induction} on $s$. \textbf{basis} $s=1$. since greedy algo picked the job ending first. so claim holds \textbf{inductive hypothesis} Assume result holds for $s_0$. show that claim holds for $s_0 + 1$. Hence, the next job that greedy algo picks is the one that ends soonest among the remaining non-overlapping requests. And $j_{s_0+1}$ , i.e. the next request the optimal solution picks, is one such requests. hence the claim holds. \\
+      \textit{Proof by contradiction} Assume $k\neq m$. since $\Theta$ optimal i.e. $m \geq k$, we have $m>k$. Apply \textbf{claim} to $s=k$, we know $t_{i_k} \leq t_{j_k}$. now greedy algo terminates, but the optimal solution has $j_{k+1}$ because $m>k$. But $j_{k+1}$ is a perfectly valid nonoverlapping interval with
+      \[
+        t_{i_{k}} \leq t_{j_{k}} < t_{j_{k+1}}
+      \]
+      therefoer, $j_{k+1}\in R$ when $i_k$ and its overlapping request are removed from $R$. $R\neq \emptyset$ so contradition...
+    \end{proof}
+  \end{solution}
+\end{example}
+
+
+\begin{example}
+  \textbf{Weighted interval scheduling} One resource and each job has its own weight. goal is to select jobs with most weights\\
+\end{example}
+
+\begin{example}
+  \textbf{Schedule all interals} multiple resources. the goal is to schedule all intervals with as few resources as possible
+\end{example}
+
+\begin{example}
+  \textbf{Huffman coding and data compression} Given alphabet $S = \{ a, b, c, d, e\}$, encode the text in minimum number of bits possible. As an example, a total of 32 letters requires using 5 bits encoding with fixed length encoding (i.e. every letter encoded by a sequence of 5 bits) vs variable length encoding (i.e. every letter are not encoded with fixed number of bits). Note that both fixed/variable encoding require same numbe of bits. So if text has 8 characters in total, the total number of bits required to encode the text is $8\times 5 = 40$. \\
+  \textbf{frequency of letters in text} let $x\in S$. let $f_x$ be fraction of times $x$ occurs in the text. Let the size of the text be $n$. then $x$ occurs $nf_x$ times. Let $C$ be the set of corresponding encodings. Let $\gamma: S\to C$. hence the code for $x$ is denoted by $\gamma(x)$. The total length of encoding of the text
+  \[
+    L = \sum_{x\in S} n f_x \cdot | \gamma(x) |
+  \]
+  The average number of bits per letter is given by
+  \[
+    ABL(\gamma) = \sum_{x\in S} f_x \cdot | \gamma(x) |
+  \]
+  The goal is to come up with encoding $\gamma$ such that $ABL(\gamma)$ is minimum possible. The idea is to encode higher frequency letters with smaller number of bits (with variable length encoding)
+
+  \begin{enumerate}
+    \item \textbf{How to get variable length encoding work (i.e. eliminate ambiguity)} Consider $a = 0, b = 1, c = 01$ the problem is that $a$ is part of $c$ so cant distinguish $a$ with $c$. The solution to this problem is \textbf{prefix code} $\gamma$ for $S$ is an encoding such that for any two letter $x,y\in S$. $\gamma(x)$ is not a prefix of $\gamma(y)$. Now consider a full binary tree with leaves representing a letter. Prefix left subtree with 0 and prefix right subtree with 1. ($a = 00, b=01, c = 10, d = 110, e = 111$) The argument is that for any $x$ to be a prefix of $y$, $x$ has to be an internal node on the path from root to $y$. Since no letter is an internal node, hence no two letter are prefix of each other. Also note that the conversion between prefix code and binary tree can be converted to each other.
+    \item \textbf{how to get the most optimal encoding with above approach}
+    \begin{enumerate}
+      \item  one solution involves using divide-conquer algo. Let $S = \{ x_1, x_2, \cdots, x_n\}$ with weights $W = \{ w_1, w_2, \cdots, w_n\}$. Sort $S$ by weights $W$ and divide into approx. two parts, recursively make binary tree. and later combine the two binary trees. the solution is simple but not optimal.
+      \item Another solution involes greedy algo, which works! Let $T^*$ is most optimal tree, suppose $u$ and $v$ are two leaves of $T^*$. leaf $u$ is labelled with $x$ and leaf $v$ is labelled $y$ with $depth(u) < depth(v)$, then
+      \[
+        f_x \geq f_y
+      \]
+    \end{enumerate}
+
+    \begin{defn*}
+      \textbf{Greedy algo for Huffman encoding}
+      \begin{enumerate}
+        \item If $S$ has two letters then encode one with 0 and encode the other with 1
+        \item Let $y^*$ and $z^*$ be two least frequent letters, form a new alphabet
+        \[
+          S' = S \cup \{ w \} \setminus \{ y^* , z^*\} \quad\quad \text{ with } \quad \quad f(w) = f(y^*) + f(z^*)
+        \]
+        Recursively construct a prefix code $\gamma'$ for $S'$ with tree $T'$. Define a prefix code for $S$ as follows. Starts with $T'$, take the leaf labelled $w \in T'$, add two children below it, labelled $x^*$ and $z^*$
+      \end{enumerate}
+    \end{defn*}
+
+
+
+    \begin{proposition*}
+      Most optimal solution is a full binary tree
+      \begin{proof}
+        If not full, then can replace parent with child and get a more optimal tree
+      \end{proof}
+    \end{proposition*}
+
+
+
+    \begin{proposition*}
+      Let $x$, $y$ be least frequent letter, there is some (not all) optimal tree where $x$ and $y$ are siblings
+
+      \begin{proof}
+        Let $T$ be an optimal tree for $(S, f)$, where $S$ is a set of alphabets and $f: S \to \R$ is the frequency of letters. Let $x$ and $y$ be two least frequent letters. If $x$ and $y$ are siblings, then done, otherwise $x$ and $y$ are not siblings, then they are on different levels. Without loss of generality, assume $|\gamma(x)| \geq |\gamma(y)|$, i.e. $f(x) \leq f(y)$. By previous proposition, $x$ has sibling $w$. Now we derive tree $T'$ by interchanging $w$ and $y$. We claim that that $T'$ is optimal. Let $\gamma'$ be encoding of tree $T'$.
+        \begin{align*}
+          ABL(T') - ABL(T)
+          &= f(w)|\gamma'(w)| + f(y)|\gamma'(y)| -  f(w)|\gamma(w)| - f(y)|\gamma(y)| \\
+          &= f(w)|\gamma(y)| + f(y)|\gamma(w)| - f(w)|\gamma(w)| - f(y)|\gamma(y)| \\
+          &= (f(w) - f(y))(|\gamma(y)| - |\gamma(w)|)
+        \end{align*}
+        Since $x$ and $w$ on same level $|\gamma(w)| = |\gamma(x)|$ hence
+        \[
+          ABL(T') - ABL(T) \leq 0
+        \]
+        Since $T$ is the optimal tree, implies
+        \[
+          ABL(T') - ABL(T) \geq 0
+        \]
+        Hence $T'$ is also an optimal tree, claim holds.
+      \end{proof}
+    \end{proposition*}
+
+
+    \begin{proposition*}
+      \textbf{Correctness for Huffman encoding with greedy algo}
+      \begin{proof}
+        $ $\\
+        \begin{enumerate}
+          \item \textbf{basis} $S = \{ a, b\}$, assign $\gamma(a) = 0$ and $\gamma(b) = 1$
+          \item \textbf{inductive step} Assume Huffman encoding gives optimal tree for any alphabet $S$ of size $n$. Prove it works for alphabet size $n+1$. Let $T$ be the Huffman tree for $S$ and assume $O$ be an arbitrary optimal tree for $S$. By algo, replace $x^*$, $y^*$ with $w$ such that
+          \[
+            S' = S \cup \{ w \} \setminus \{ y^* , z^*\} \quad\quad \text{ with } \quad \quad f(w) = f(y^*) + f(z^*)
+          \]
+          Since $|S'| = n$, by induction hypothesis, Huffman encoding gives the optimal tree $T'$ for $S'$.
+          \begin{align*}
+            ABL(T) &=  \sum_{x \in S} f(x) |\gamma(x)| \\
+            &= \sum_{x\in S \setminus \{ y^*, z^*\}} f(x) | \gamma(x)| + f(y^*) | \gamma(y^*)| + f(z^*)|\gamma(z^*)| \\
+            &= \sum_{x\in S \setminus \{ y^*, z^*\}} f(x) | \gamma(x)| \ |\gamma(x)| + (f(y^*) + f(w^*)) (|\gamma(w)| + 1) \\
+            &= \sum_{x\in S \setminus \{ y^*, z^*\}} f(x) | \gamma(x)| + f(w) (|\gamma(w)| + 1)\\
+            &= \sum_{x\in S \cup \{ w\} \setminus \{ y^*, z^*\}} f(x) | \gamma(x)| + f(w)\\
+            &= ABL(T') + f(w) \\
+            &= ABL(T') + f(y^*) + f(z^*)
+          \end{align*}
+          Assume for contradiction that $T$ is not optimal,
+          Since $y^*$ and $z^*$ are least frequent letters, hence by previous proposition, then $y^*$ and $z^*$ are siblings in $O$. If remove $y^*$ and $z^*$ from $O$ replace them by $w$ with $f(w) = f(y^*) + f(z^*)$ then $O'$ must be optimal for $S'$. (This is true since assume $O'$ is not optimal, exists $O''$ that is optimal, $ABL(O'') + f(y^*) + f(z^*) < ABL(O') + f(y^*) + f(z^*) = ABL(O)$, which contradicts with assumption that $O$ is optimal.) Then
+          \begin{align*}
+              ABL(O') &= ABL(T') \\
+              ABL(O') + f(y^*) + f(z^*) &= ABL(T') + f(y^*) + f(z^*) \\
+              ABL(O) &= ABL(T)
+          \end{align*}
+          Proved Huffman tree of size $n+1$ $T$ is optimal
+
+        \end{enumerate}
+      \end{proof}
+    \end{proposition*}
+  \end{enumerate}
+
+
+\end{example}
+
+
+
+
+\end{document}

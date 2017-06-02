@@ -1,0 +1,124 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\subsection*{Interval scheduling}
+
+\textbf{Weighted Interval Scheduling}
+\begin{enumerate}
+  \item \textbf{Input} $R = \{ r_1, r_2, \cdots, r_n \}$, each job $r_i$ has interval $(s_i, f_i)$ and weight/value $v_i$.
+  \item \textbf{Goal} Maximize the total value of jobs scheduled, i.e.
+  \[
+    \sum_{i\in S} v_i
+  \]
+\end{enumerate}
+
+\textbf{Approach}
+\begin{enumerate}
+  \item \textbf{Choose the highest value}  Not optimal, consider
+  \[
+    ------3-------
+  \]
+  \[
+    --2-- \quad\quad --2--
+  \]
+  \item \textbf{Choose by the maximum value/length ratio} Not optimal. consider
+  \[
+     -----1----- \quad ------1------
+  \]
+  \[
+              --1--
+  \]
+  \item \textbf{Choose earliest ending job} Not optimal, consider
+  \[
+    --10-- \quad --10--\quad --10--
+  \]
+  \[
+    ------100------
+  \]
+  \item \textbf{Choose job with least value/\#conflict ratio} Not optimal, consider
+  \[
+    --------21 (7)----------
+  \]
+  \[
+    --10(10)-- \quad --6(6)-- \quad --2(2)--
+  \]
+\end{enumerate}
+Nothing really works, usually greedy algo are simple in nature, not involving complex ratios..
+
+
+\subsection*{Dynamic Programming}
+Decompose a problem into subproblems, and combine solutions.
+
+\begin{example}
+  \textbf{scheduling} Schedule a job $S\subseteq R$. Determine if $r_n \in S$. \\
+  Sort all jobs by finish time $f_i$. Define function $P: R \to R$ such that $P(r_i) = r_j$, where $f_j < f_i$ is the job with largest finish time such that $r_j$ does not overlap with $r_i$. Hence all jobs between $r_j$ and $r_i$ overlap with $r_i$
+  \begin{enumerate}
+    \item \textbf{case 1} $r_n\in S$. Any job between $P(r_n)$ and $r_n$ is not in $S$, next job we can possibly schedule is $P(r_n)$, next recursively search $\{ r_1, \cdots, P(r_n)\}$
+
+    \item \textbf{case 2} $r_n\not\in S$ next job we can possibly schedule is $r_{n-1}$, next recursively search $\{ r_1, \cdots, r_{n-1}\}$
+  \end{enumerate}
+\end{example}
+
+
+\begin{solution}
+
+  Let $O_j$ be an optimal subproblem $\{ r_1, \cdots, r_j\}$, where $1\leq j \leq n$. Let $OPT_j$ is total value of that optimal solution
+  \[
+    \sum_{i\in S_{O_j}} v_i
+  \]
+  \begin{enumerate}
+    \item If $r_j \in S_{O_j}$, $OPT_j = OPT_{P(j)} + v_j$
+    \item If $r_j \not\in S_{O_j}$, $OPT_j = OPT_{j-1}$
+    \item together $OPT_j = max \{ OPT_{j-1}, OPT_{P(j)} + v_j\}$
+    \begin{enumerate}
+      \item If $OPT_j > OPT_{P(j)} + v_j$
+      \item otherwise $r_j \in S_{O_j}$ otherwise $r_j \neq S_{O_j}$
+    \end{enumerate}
+  \end{enumerate}
+
+  \begin{align*}
+    Wei&ghted-Interval-Scheduling-Help(j, P)\\
+    &If\quad j == 0\\
+    &\quad \quad return \quad 0\\
+    &else \\
+    &\quad \quad S_1 = Weighted-Interval-Scheduling(P(j), P)\\
+    &\quad \quad S_2 = Weighted-Interval-Scheduling(j-1, P)\\
+    &return \quad max(S_1, S_2)\\
+  \end{align*}
+
+  Complexity: $O(2^n)$. Since each iteration reduce a problem of size $n$ to two subproblems of size $n-1$ with recurrene relation of $T(n) = 2T(n-1)$. We can avoid repeated computation by caching
+
+  \begin{align*}
+    Wei&ghted-Interval-Scheduling-Value(j, P, M)\\
+      &If\quad M[j] \quad defined\\
+      &\quad \quad return \quad M[j]\\
+      &else \\
+      &\quad \quad a = Weighted-Interval-Scheduling-Help(j ,P)\\
+      &\quad \quad M[j] = a\\
+      &\quad \quad return \quad a\\
+  \end{align*}
+
+  Complexity: $O(n)$. Since require only one computation, with result stored in array $A$
+
+
+  \begin{align*}
+    Wei&ghted-Interval-Scheduling-Value(n, P, M)\\
+    Wei&ghted-Interval-Schedule(j, P, A)\\
+    &If\quad M[j] == M[P(j)] + v_j\\
+    &\quad \quad print \quad r_j\\
+    &\quad \quad g = P(j)\\
+    &Else\\
+    &\quad \quad g = j - 1\\
+    &Return \quad Weighted-Interval-Schedule(g, P, M)
+  \end{align*}
+\end{solution}
+
+\textbf{Key points of dynamic programming}
+\begin{enumerate}
+  \item Optimal substructure
+  \item Recursion relation between subproblem and the main problem
+  \item Implementing recursion correctly will likely have an exponential growth (i.e. solving same subproblem over and over again, similar to brute force). We improve upon this using memoization, upon which the complexity drops from exponential to (sub-)polynomial.
+\end{enumerate}
+
+\end{document}

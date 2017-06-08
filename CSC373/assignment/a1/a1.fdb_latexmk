@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1496882176 "a1.tex" "a1.pdf" "a1" 1496882177
-  "./a1.out" 1496882177 0 d41d8cd98f00b204e9800998ecf8427e ""
+["pdflatex"] 1496897484 "a1.tex" "a1.pdf" "a1" 1496897485
+  "./a1.out" 1496897485 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/Users/markwang/.preamble.tex" 1496851205 3250 656c8b5e4a17b5cf70c6ebea9760b362 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -25,7 +25,10 @@
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
+  "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmti7.tfm" 1136768653 1492 86331993fe614793f5e7e755835c31c5 ""
+  "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmti8.tfm" 1136768653 1504 1747189e0441d1c18f3ea56fafc1c480 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
+  "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm" 1136768653 768 d7b9a2629a0c353102ad947dc9221d49 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1248133631 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb" 1248133631 32166 b0c356b15f19587482a9217ce1d8fa67 ""
@@ -235,11 +238,11 @@
   "/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1432479641 1764542 91654ba72bdb667e84ea24f076ae16d8 ""
   "/usr/local/texlive/2015/texmf-var/web2c/pdftex/pdflatex.fmt" 1432479681 3849859 39a7d258195bde2394e244961601fbc5 ""
   "/usr/local/texlive/2015/texmf.cnf" 1432479636 577 0d611272082f3cdb8e80e09a3c69cf07 ""
-  "a1.aux" 1496882177 662 b2b94621371df8d9296b8bf5bec1b851 ""
-  "a1.out" 1496882177 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "a1.tex" 1496882176 11734 54262f75da5813b7580f8f42a6bb42f8 ""
+  "a1.aux" 1496897485 662 b2b94621371df8d9296b8bf5bec1b851 ""
+  "a1.out" 1496897485 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "a1.tex" 1496897483 17382 901d853b38662c1c23cb3b7a7008d609 ""
   (generated)
-  "a1.aux"
   "a1.log"
+  "a1.aux"
   "a1.pdf"
   "a1.out"

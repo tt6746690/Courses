@@ -102,30 +102,30 @@ Here is another variant on the problem of Interval Scheduling. Suppose we now ha
 \begin{enumerate}
   \item Design an algorithm (write a pseudocode) to solve the above problem in time $O(n^2)$, i.e., strictly less than $O(n^2)$.\\
 
-  Let $J: \{ 1, 2, \cdots, n\}$ be the input set of jobs given. Here we define that a job $j\in J$, having start time $s$, is \textit{compatible} with $A_i$ or processor $i$ if
+  Let $J: \{ 1, 2, \cdots, n\}$ be the input set of jobs given. Here we define that a job $j\in J$, having start time $s$, is \textit{compatible} with $J_s\subseteq J$ if $j$ starts after every job in $J_s$ finishes, in other words,
   \[
-    \forall j \in A_i: f_j \leq s
+    \forall j \in J_s: f_j \leq s
   \]
   Let subproblem $J_t$ be a set of jobs such that
   \[
     \forall j \in J_t: f_t \leq s_j
   \]
   in otherwords, $J_t$ is the set of jobs that starts after job $t$ ends. \\
-  We define waste time $W_i$ for a job $j$, having start time $s$, with respect to a compatible $A_i$ as
+  We define \textit{waste time} $W_i$ for a job $j$, having start time $s$, with respect to a compatible set of jobs $J_s$ as
   \[
-    W_i = s - \underset{j\in A_i}{Max}\{ f_j \}
+    W_i = s - \underset{j\in J_s}{Max}\{ f_j \}
   \]
-  in other words, the waste time is the time period between the finish time of the last finishing jobs already in $A_i$ and the start time of the job $j$ in consideration
+  in other words, the waste time is the time period between the finish time of the last finishing jobs in $J_s$ and the start time of the job $j$ in consideration
 
   \begin{enumerate}
-    \item Let $(A_1, A_2)$ be set of jobs scheduled on processor 1 and 2 respectively.
+    \item Let $(A_1, A_2) = (\O, \O)$
     \item Sort $(s_i, f_i)$ by finish time such that for all $i\leq j$, $f_i \leq f_j$
     \item Starting from the start of the sorted job array and for each job $j \in J$ do
     \begin{enumerate}
       \item Test if $j$ is compatible with $A_1$ and $A_2$.
-      \item If $j$ is not compatible with either processor set, continue to next iteration
-      \item If $j$ is compatible with only one of $A_1$ and $A_2$, then add $j$ to the set of jobs scheduled on the compatible processor
-      \item If $j$ is compatible with both $A_1$ and $A_2$, then add $j$ to the set of jobs $A_i$ such that waste time for job $j$ with respect to $A_i$, $W_i$, is minimized
+      \item If $j$ is not compatible with either set, continue to next iteration
+      \item If $j$ is compatible with only one of $A_1$ and $A_2$, then add $j$ to the compatible set
+      \item If $j$ is compatible with both $A_1$ and $A_2$, then add $j$ to $A_i$ such that waste time for job $j$ with respect to $A_i$, $W_i$, is minimized.
     \end{enumerate}
     \item Return $(A_1, A_2)$
   \end{enumerate}
@@ -138,25 +138,111 @@ Here is another variant on the problem of Interval Scheduling. Suppose we now ha
   \end{proposition*}
 
   \begin{proof}
-    Let $(A_1, A_2)$ be some optimal solution to the subproblem $J_t$. Let $j_e\in J_t$ be job with earliest finish time. By definition of $J_t$, $j_e$ is compatible with at least one of $A_i$. Suppose $j_e$ is compatible with exactly one of $A_i$, the claim is true based on proof of correctness of interval scheduling on a single processor in class. Otherwise, $j_e$ is compatible with both $A_1$ and $A_2$. Without loss of generality, suppose $W_1 < W_2$, hence the greedy choice assigns $j_e$ to $A_1$. Let $j_m$ be the job in $A_1$ with earliest finish time and similarly let $j_n$ be such for $A_2$. Now consider,
+    Let $(O_1, O_2)$ be some optimal solution to the original problem $J$. Let $(A_1 \subseteq O_1, A_2\subseteq O_2)$ be the optimal solution to the subproblem $J_t$ with respect to $(O_1, O_2)$. and let $(B_1 \subseteq O_1, B_2\subseteq O_2)$ be the optimal solution to subproblem $J\setminus J_t$. Let $j_e\in J_t$ be job with earliest finish time. By definition of $J_t$, $j_e$ is compatible with at least one of $B_i$.
     \begin{enumerate}
-      \item If $j_e = j_m$, optimal solution contains the greedy choice, claim true
-      \item If $j_e \neq j_n$, then
+      \item Suppose $j_e$ is compatible with exactly one of $B_i$, without loss of generality, suppose $B_1$ is the compatible set and $B_2$ is the in-compatible set. Let $j_a \in A_1$ be the first finishing job in $A_1$. Then we have,
       \begin{enumerate}
-        \item $j_e\in A_2$, since $j_n$ is earliest finishing job in $A_2$, $j_e = j_n$. We can construct a new solution set $(A_1', A_2')$ such that
+        \item If $j_e = j_a$, then the proposition holds
+        \item If $j_e \neq j_a$. Since $j_e$ is not compatible with $B_2$, $j_e\not\in A_2$. Then consider a new solution set $A_1' = A_1 \cup \{ j_e \} \setminus \{ j_a\}$. Note $A_2$ is unchanged. jobs in $A_1'$ are disjoint because $A_1$ is disjoint, $j_a\in A_1$ is the first job to finish and $f_{j_e} \leq f_{j_a}$. Since $|A_1'| + |A_2| = |A_1| + |A_2|$, $(A_1', A_2)$ is an optimal solution to subproblem $J_t$ that contains $j_e$, hence the proposition holds.
       \end{enumerate}
-
-
+      Similar argument holds if $B_2$ is the compatible set
+      \item Now consider the case where $j_e$ is compatible with both $B_1$ and $B_2$. Without loss of generality, suppose $W_1 < W_2$, hence the greedy algorithm assigns $j_e$ to $B_1$. Let $j_a\in A_1$ be the earlist finishing job in $A_1$; let $j_b\in A_2$ be the earlist finishing job in $A_2$,
+      \begin{enumerate}
+        \item If $j_e = j_a$, then the proposition holds
+        \item If $j_e \neq j_a$, Since $j_e$ is compatible with $B_2$ as well as $B_1$ there are two cases as to where $j_e$ might end up
+        \begin{enumerate}
+          \item If $j_e = j_b$, then consider a new solution set where $A_1' = A_2$ and $A_2' = A_1$, i.e. switching the set of jobs for processor 1 and 2. Note $A_1'$ and $A_2'$ are disjoint sets of jobs since $A_1$ and $A_2$ are disjoint sets. and $|A_1'| + |A_2'| = |A_1| + |A_2|$. Since $(A_1, A_2)$ optimal, then $(A_1', A_2')$ are optimal solutions and that $A_1'$ now contains $j_e$, because $j_e = j_b \in A_2 = A_1'$. The proposition hence holds.
+          \item If $j_e$ is not in either $A_1$ or $A_2$, then consider a new solution $A_1' = A_1 \cup \{ j_e\} \setminus \{ j_a \}$. Proposition holds with same argument provided in $(a). ii.$
+        \end{enumerate}
+      \end{enumerate}
+      Similar argument holds if $W_1 > W_2$.
     \end{enumerate}
 
 
+    \begin{proposition*}
+      This scheduling problem exhibits optimal substructure.
+    \end{proposition*}
+    \begin{proof}
+      Given arbitrary index $t$, we separate the problem into a greedy choice and a single subproblem, i.e. $\{ j_e \}$ and $J_t$. Let $(A_1, A_2)$ be the optimal solution for $J_t$. We make the greedy choice of adding $j_e$ to $A_i$ or skipping $j_e$ (i.e. $j_e = \O$) to maximize time as a resource for subsequent jobs, and to minimize waste time as a resource if there is a choice to select one assuming both processors are available at the time. Assume such greedy choice is optimal, we are left with processing a smaller subproblem $J_{after} = J_t \setminus \{ j_e \}$. We claim that if $(A_1, A_2)$ is optimal, then solution to subproblem $J_{after}$, $(C_1, C_2)$ must also be optimal. Consider an alternative solution $(C_1', C_2')$ that is even more optimal, i.e. $|C_1'| + |C_2'| \geq |C_1| + |C_2|$. We can construct a new solution by replacing $(C_1, C_2)$ with $(C_1, C_2)$ and get an overall more optimal solution $(A_1' = \{ j_e \} \cup C_1', A_2' = \{ j_e \}\cup C_2')$ such that
+      \[
+        |A_1'| + |A_2'| < |A_1| + |A_2|
+      \]
+      Contradicts assumption that $(A_1, A_2)$ is optimal. Hence solution to subproblem $J_{after}$ must be optimal
+    \end{proof}
 
-
+    We conclude by combining propositions proved earlier. By optimal substructure of the problem, given that at each step the greedy choice is optimum and we are left with finding optimal solution to a smaller subproblem, i.e. $J_{after}$, the solution to the original solution is optimal, specifically, the algorithm schedules most jobs on two processors.
   \end{proof}
 
-
-
   \item Briefly describe an efficient implementation of the algorithm, making it clear what data structures you are using. Express the running time of your implementation as a function of $n$ (the number of jobs), using appropriate asymptotic notation.
+
+  Let $A_1$ and $A_2$ be two linked list. Job $j$ may be appended to the tail of $A_1$ or $A_2$ in constant time $O(1)$. Assume that the last job added to $A_i$ can be efficiently looked up in $O(1)$ time with $A_1.tail$ operation.
+
+
+  \begin{algorithm}[H]
+     \SetKwFunction{st}{Schedule-On-Two-CPU}
+     \SetKwFunction{ll}{Linked-List}
+     \SetKwFunction{cp}{Compatible}
+
+     \SetKwFunction{both}{Both}
+     \SetKwFunction{none}{None}
+     \SetKwFunction{one}{diff-one}
+     \SetKwFunction{two}{diff-two}
+
+     \SetKwFunction{test}{T}
+
+
+     \Fn{\cp$(j, A_1, A_2, s, f)$}{
+      \KwOut{Returns \none if $j$ not compatible with $A_1$ or $A_2$, Return \both if $j$ is compatible with both $A_1$ and $A_2$, and return the processor number, either 1 or 2, if $j$ is compatible with only $A_1$ or $A_2$. Each return statement also include the computed waste time $W_1$ and $W_2$}
+
+      $\one = s[j] - f[A1.tail]$ \\
+      $\two = s[j] - f[A2.tail]$ \\
+
+      \If{$\one > 0$ and $\two > 0$}{
+        \Return{$(\both, \one, \two)$}
+      }\ElseIf{$\one \leq 0$ and $\two\leq 0$}{
+        \Return{$(\none, \one, \two)$}
+      }\Else{
+        \If{$\one \geq 0$}{
+          \Return{$(1, \one, \two)$}
+        }\Else{
+          \Return{$(2, \one, \two)$}
+        }
+      }
+
+
+      \If{ and }
+     }
+
+
+     \Fn{\st$(s, f)$}{
+        \KwIn{$s,f$ are arrays of size $n$, representing job $j_i = (s_i, f_i)$ at index $i$}
+        \KwOut{$(A_1, A_2)$ is a set of solution to the problem given}
+
+        $A_1,A_2 \leftarrow$ \ll\\
+        $A_1.append(1)$ \quad \quad \quad \tcp{Add first finishing job arbitrarily to $A_1$}\\
+        \For{$j=2$ \KwTo $n$}{
+          $(\test, W_1, W_2) = \cp(j, A_1, A_2, s, f)$ \\
+          \If{\test is \both}{
+            \If{$W_1 < W_2$}{
+              $A_1.append(j)$
+            }\Else{
+              $A_2.append(j)$
+            }
+          }
+          \ElseIf{\test is 1}{
+            $A_1.append(j)$
+          }\ElseIf{\test is 2}{
+            $A_2.append(j)$
+          }
+        }
+        \Return{$(A_1, A_2)$}
+     }
+   \end{algorithm}
+
+   Now we analyze running time. There are $O(n)$ iterations, and in each iteration, at most one $append$ operation and $tail$ operation, each $O(1)$, is required for Linked List operation. There is also some $O(1)$ array lookup in $s$ and $f$. Hence the algorithm has a worst case running time of $O(n)$
+
+   
+
 \end{enumerate}
 
 

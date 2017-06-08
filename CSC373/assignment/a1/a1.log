@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  7 JUN 2017 20:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  8 JUN 2017 00:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -972,29 +972,85 @@ Underfull \hbox (badness 10000) in paragraph at lines 103--104
 
  []
 
-[4] [5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 166.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 166.
+
+LaTeX Warning: Command \O invalid in math mode on input line 121.
+
+
+LaTeX Warning: Command \O invalid in math mode on input line 121.
+
+[4]
+
+LaTeX Warning: Command \O invalid in math mode on input line 166.
+
+[5]
+./a1.tex:214: Argument of \algocf@Ifmain has an extra }.
+<inserted text> 
+                \par 
+l.214      }
+            
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+
+Runaway argument?
+./a1.tex:214: Paragraph ended before \algocf@Ifmain was complete.
+<to be read again> 
+                   \par 
+l.214      }
+            
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+
+./a1.tex:239: LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.239      }
+            
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (0.79999pt too wide) detected at line 240
+|[]|
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 181--240
+$[]$ 
+ []
+
+[6] [7]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 252.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 252.
  (./a1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 166.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 166.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 252.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 252.
 Package rerunfilecheck Info: File `a1.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 35379 strings out of 493089
- 828965 string characters out of 6134842
- 1033703 words of memory out of 5000000
- 38251 multiletter control sequences out of 15000+600000
- 10325 words of font info for 39 fonts, out of 8000000 for 9000
+ 35437 strings out of 493089
+ 829511 string characters out of 6134842
+ 1035702 words of memory out of 5000000
+ 38271 multiletter control sequences out of 15000+600000
+ 11362 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,18n,77p,888b,681s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 64i,21n,77p,1024b,762s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mtt10.pfb>
-Output written on a1.pdf (5 pages, 159280 bytes).
+Output written on a1.pdf (7 pages, 172205 bytes).
 PDF statistics:
- 137 PDF objects out of 1000 (max. 8388607)
- 115 compressed objects within 2 object streams
- 48 named destinations out of 1000 (max. 500000)
+ 187 PDF objects out of 1000 (max. 8388607)
+ 163 compressed objects within 2 object streams
+ 83 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

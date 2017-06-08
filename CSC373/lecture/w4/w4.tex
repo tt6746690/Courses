@@ -1,0 +1,352 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\subsection*{5 steps of Dynamic Programming}
+
+\begin{enumerate}
+    \item \textbf{Optimal substructure}
+    \item \textbf{Memorization} by define arrays for storing previously computed values
+    \item \textbf{Rewrite the recurrence relation} in terms of arrays defined previously
+    \item \textbf{Bottom-up approach}: write down an iterative solution
+    \item \textbf{Compute a path to an actual solution}
+\end{enumerate}
+
+
+\subsection*{Weighted interval scheduling problem}
+
+Given a set of jobs $\{ 1, 2, \cdots, n \}$ with start time $s_i$, finish time $f_i$, and weight $w_i$ for each job at index $i$. The goal is to schedule jobs in such a way that you obtain maximum possible value/weight.
+
+\begin{solution}
+
+  Sort the jobs by finish time and define $P(j)$ be maximum job $i$ such that $i < j$ and $i$ does not overlap with $j$ (i.e. first job before $j$ that does not overlap with $j$)
+  \begin{enumerate}
+    \item \textbf{optimal substructure} Let $O_n$ denote an optimal solution and let $OPT(n)$ be such value.
+    \begin{enumerate}
+      \item \textbf{Case 1}: $n\in O_n$, then $OPT(n) = w_n + OPT(P(n))$
+      \item \textbf{Case 2}: $n\not\in O_n$, then $OPT(n-1)$
+    \end{enumerate}
+    \item \textbf{Define array for caching} Define $M[j]$ be optimal value obtained with jobs $\{ 1 , \cdots, j \}$
+    \item \textbf{Rewrite recurrence relation}:
+    \[
+      M[j] =
+      \begin{cases}
+        w_j + M[P(j)] & j \in O_j \\
+        M[j-1] & j\not\in O_j \\
+      \end{cases}
+    \]
+    \item \textbf{Convert from recursive to bottom-up approach}
+
+    \begin{algorithm}[H]
+       \SetKwFunction{copt}{Recursive-Compute-OPT}
+       \Fn{\copt$(j)$}{
+          \If{$j = 0$}{
+            \Return{0}
+          }
+          \If{$M[j]$ is defined}{
+            \Return{$M[j]$}
+          }
+          \Else{
+            $M[j] = Max\{ \copt(j-1), w_j + \copt(P(j)) \}$\\
+            \Return{$M[J]$}
+          }
+       }
+     \end{algorithm}
+     $M[n]$ is the final optimal value. Complexity is $O(n)$ since each job in index is processed just once and the computed result is stored in memo.\\
+
+     \begin{algorithm}[H]
+        \SetKwFunction{copt}{Iterative-Compute-OPT}
+        \Fn{\copt}{
+          $M \leftarrow [0\cdots n]$\\
+          $M[0]= 0$\\
+          \For{$j=1$ \KwTo $n$}{
+            $M[j] = Max\{  M[j-1], w_j + M[P(j)]\}$\\
+          }
+          \Return{$M[n]$}
+        }
+      \end{algorithm}
+      Complexity $\Theta(n)$
+      \item \textbf{Find an actual solution with the optimal value}
+
+      \begin{algorithm}[H]
+         \SetKwFunction{cp}{Compute-Path}
+         \Fn{\cp$(j, M)$}{
+            \If{$j=0$}{
+              \Return{""}
+            }{
+              \If{$w_j + M[P(j)] > M[j-1]$}{
+                Output \cp$(P[j], m) + j$
+              }{
+                Output \cp$(j-1, n)$
+              }
+            }
+         }
+       \end{algorithm}
+  \end{enumerate}
+\end{solution}
+
+weighted interval scheduling where sort by start time and similar recurren relation? does it work? what is special about sorting by finish time
+
+
+\subsection*{Problem 2: Rod cutting problem}
+
+Given a rod of length $n$, we have $P(i)$ which holds the price of rod with length $i$. The goal is to cut the rod into pieces such that the prices of the pieces is maximized
+
+
+\begin{enumerate}
+  \item \textbf{Optimal substructure} If you cut the rod at location $i$ then
+  \[
+    OPT(n) = \underset{1 \leq i \leq n}{Max} \{ P(i) + OPT(n-i)\}
+  \]
+  \item \textbf{Array definition}: $M[j]$ holds optimal value on a rod of length $j$
+  \item \textbf{Recurrence relation}:
+  \[
+    M[j] = \underset{1 \leq i \leq j}{Max} \{ P(i) + M(j-i)\}
+  \]
+  \item \textbf{Bottom-up approach}:
+
+  \begin{algorithm}[H]
+    \SetKwFunction{bcut}{Bottom-Up-Cut-Rod}
+    \Fn{\bcut$(P, n)$}{
+
+      $M \leftarrow [0\cdots n]$\\
+      $M[0] = 0$\\
+      \For{$j = 1$ \KwTo $n$}{
+        \For{$i = 1$ \KwTo $j$}{
+          $M[j] = Max\{ M[j], P[i] + M[j-i]\}$
+        }
+      }
+    }
+  \end{algorithm}
+
+  Complexity $\Theta(n^2)$
+
+  \item \textbf{Find a way of cutting rod optimally}
+
+  \begin{algorithm}[H]
+    \SetKwFunction{bcut}{Cut-Rod}
+    \SetKwFunction{pcut}{Print-Cut-Rod}
+    \Fn{\bcut$(P, n)$}{
+
+      $M, S \leftarrow [0\cdots n]$\\
+      $M[0] = 0$\\
+      \For{$j = 1$ \KwTo $n$}{
+        $q\leftarrow -\infty$\\
+        \For{$i = 1$ \KwTo $j$}{
+          \If{$q < P[i] + M[j-i]$}{
+            $q = P[i] + M[j-i]$\\
+            $S[j] = i$\\
+          }
+        }
+        $M[j] = q$\\
+      }
+      \Return{$(S, M)$}
+    }
+
+    \Fn{\pcut$(p, n)$}{
+      $(S, M) = \bcut(p, n)$\\
+      \While{$n>0$}{
+        print $s[n]$\\
+        $n = n - s[n]$\\
+      }
+    }
+  \end{algorithm}
+
+  $S[i]$ holds index of first cut in optimal solution for rod of length $i$
+
+
+
+
+\end{enumerate}
+
+\begin{proposition*}
+  Correctness of the algorithm
+\end{proposition*}
+\begin{proof}
+  Prove by strong induction
+  \begin{enumerate}
+    \item \textbf{basis}: $n=0$, $M[0] = 0$
+    \item \textbf{inductive step}: Assume $M[j]$ is the optimal value for $0 \leq j < n$.i.e. $M[j] = O[j]$ for all $0 \leq j < n$. Now prove $M[n]$ is optimal with dynamic programming. Let the first cut for the optimal solution be at $i$ where $1\leq i \leq n$, then $O[n] = P[i] + O[n-i]$. By inductive hypothesis then $O[n] = P[i] + M[n-i] \leq M[n]$ (since $M[n] =\underset{1 \leq i \leq j}{Max} \{ P(i) + M(j-i)\}$). Since $O$ optimal hence $O[n] = M[n]$.
+  \end{enumerate}
+\end{proof}
+
+\subsection*{Subset Sum \& Knapsack Problem}
+
+
+\begin{enumerate}
+  \item \textbf{subset sum} Given jobs $J = \{1, \cdots, n\}$ with non-negative weights $w_1, \cdots, w_n$ The goal is to find $S\subseteq J$ that maximizes $\sum_{i\in S} w_i$ such that $\sum_{i\in S}w_i \leq W$
+  \item \textbf{knapsack problem} Given jobs $J = \{1, \cdots, n\}$ with non-negative weights $w_1, \cdots, w_n$ and value $v_1,\cdots, v_n$ The goal is to find $S\subseteq J$ that maximizes $\sum_{i\in S} v_i$ such that $\sum_{i\in S}w_i \leq W$. \\
+  \item Hence subset sum problem is a special case of knapsack problem where $v_i = w_i$
+\end{enumerate}
+
+
+
+\begin{enumerate}
+  \item \textbf{optimal substructure} Let $O_n$ be optimal solution and $OPT(n)$ be the optimal value.
+  \[
+    OPT(n) = w_n + OPT(n-1) \quad \quad \text{wrong because the weight constraint not satisfied}
+  \]
+  To take care of the constraint,
+  \begin{enumerate}
+    \item If $n\not\in O_n$, then
+    \[
+      OPT(n, W) = OPT(n-1, W)
+    \]
+    \item If $n\in O_n$, then
+    \[
+      OPT(n, W) = w_n + OPT(n-1, W-w_n)
+    \]
+  \end{enumerate}
+  Hence
+  \[
+    OPT(j, W) = Max\{ OPT(j-1, W), w_n + OPT(j-1, W-w_j) \}
+  \]
+  \item \textbf{Define array} $M[1\cdots n][1\cdots W]$. Hence $M[j][W]$ is the optimal value on $\{ 1, \cdots, j\}$ jobs with weights $w \in \{ 1\leq w\leq W\}$,
+  \item \textbf{Redefine recurrence relation}
+  \[
+    M[j][W] =  Max\{ M[j-1][W], w_n + M[j_i][W-w_j]\}
+  \]
+  For knapsack
+  \[
+    M[j][W] = Max\{ M[j-1][W], v_j + M[j-1][W-w_j]\}
+  \]
+  where we use $v_j$ instead of $w_j$
+  \item \textbf{Bottom-Up Approach}
+
+  \begin{algorithm}[H]
+    \SetKwFunction{ss}{Subset-Sum}
+    \Fn{\ss$(n, W)$}{
+      $M \leftarrow [0\cdots n][0 \cdots W]$\\
+      $M[0, w] = 0$ for $w = 0\cdots W$\\
+      \For{$j=1$ \KwTo $n$}{
+        \For{$w=1$ \KwTo $W$}{
+          \If{$w < w_j$}{
+            $M[j][w] = M[j-1][w]$\\
+          }
+          \Else{
+            $M[j][w] = Max\{ M[j-1][w], w_n + M[j_i][w-w_j]\}$\\
+          }
+        }
+      }
+    }
+  \end{algorithm}
+
+  Complexity $\Theta(nW)$ Polynomial expression involving an actual input value is called pseudo-polynomial. If $W$ is really large cant really control it... Knapsack is NP hard, so use approximation algorithms instead.
+
+  \item \textbf{Actual solution} Run through array $M[j][W]$ and figure out if $j$ was is included or not. With time complexity of $\Theta(n)$
+\end{enumerate}
+
+\subsection*{Longest Commmon Subsequence Problem}
+
+Given two sequences
+\[
+  X = \langle x_1, x_2, \cdots, x_m \rangle
+\]
+\[
+  Y = \langle y_1, y_2, \cdots, y_n \rangle
+\]
+The goal is to find a subsequence that is common to both $X$ and $Y$ and that has the maximum possible length
+
+\begin{example}
+  \[
+    X = \langle 5, 10, 13, 12, 11, 7 \rangle
+  \]
+  \[
+    Y = \langle 6, 10, 13, 7, 11, 8 \rangle
+  \]
+
+  \[
+    \langle 10, 13 \rangle \quad \text{ is a commmon subsequence of $X$ and $Y$}
+  \]
+  \[
+    \langle 10, 13, 11 \rangle \quad \text{ is the longest commmon subsequence of $X$ and $Y$}
+  \]
+\end{example}
+
+
+
+\begin{enumerate}
+  \item \textbf{optimal substructure}
+  \begin{enumerate}
+    \item $x_m = y_n$, in other words, the last 2 item in $X$ and $Y$ same, hence
+    \[
+      OPT(X, Y) = OPT(X_{1\cdots m-1}, Y_{1\cdots n-1}) + 1
+    \]
+    \item $x_m\neq y_n$
+    \[
+      OPT(X_{1\cdots m}, Y_{1\cdots n}) = Max\{ OPT(X_{1\cdots m-1}, Y_{1\cdots n}), OPT(X_{1\cdots m}, Y_{1\cdots n-1}) \}
+    \]
+  \end{enumerate}
+  \item \textbf{Array definition} $M[0\cdots m, 0\cdots n]$
+  \[
+    M[i, j] := \text{ legnth of a LCS of $X_{1\cdots i}$ and $Y_{1\cdots j}$}
+  \]
+  \item \textbf{recurrence relation}
+  \[
+    M[i, j] =
+    \begin{cases}
+      M[i-1, j-1] + 1 &  \text{if } x_i = x_j\\
+      Max\{ M[i-1, j], M[i, j-1]\} &  \text{if } x_i \neq x_j\\
+    \end{cases}
+  \]
+  \item \textbf{Bottom-Up Approach}
+
+  \begin{algorithm}[H]
+    \SetKwFunction{lcs}{Longest-Common-Subsequence}
+    \Fn{\lcs$(X, Y)$}{
+      $M \leftarrow M[0\cdots m, 0\cdots n]$ \\
+      Initialize $M[i, 0]$ and $M[0, j]$ to be zero \\
+
+      \For{$i=1$ \KwTo $m$}{
+        \For{$j = 1$ \KwTo $n$}{
+          \If{$X[i] = Y[i]$}{
+            $M[i, j] = M[i-1, j-1] + 1$\\
+          }
+          \Else{
+            $M[i, j] = Max\{ M[i-1, j], M[i, j-1]\}$\\
+          }
+        }
+      }
+      \Return{$M[m, n]$}
+
+    }
+  \end{algorithm}
+  \item \textbf{Actual solution}
+
+
+  \begin{algorithm}[H]
+    \SetKwFunction{lcs}{Longest-Common-Subsequence-Path}
+    \Fn{\lcs$(M, X, Y, i, j)$}{
+      \If{$i=0$ or $j=0$}{
+        \Return{}
+      }
+      \ElseIf{$X[i] = Y[j]$}{
+        \Return{\lcs$(M, X, Y, i-1, j-1) + X[i]$}
+      }
+      \Else{
+
+        \If{$M[i, j-1] > M[i-1, j]$}{
+          \Return{\lcs$(M, X, Y, i, j-1)$}
+        }
+        \Else{
+          \Return{\lcs$(M, X, Y, i-1, j)$}
+        }
+      }
+    }
+  \end{algorithm}
+  Complexity $\Theta(m + n)$. each recursion $i$ and $j$ are decremented by 1 each time, so total of $m+n$ function call
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

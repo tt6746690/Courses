@@ -388,8 +388,75 @@
                 + when wakeup is sent to a process still awake, set this bit, 
                 + later when process tries to go to sleep, if the bit is on, it will be turned off but process will stay awake
     + _semaphores_  
+        + description 
+            + _semaphore_ 
+                + a recorde (integer) of how many units of a particular resource are available, coupled with operations to adjust that record safely (i.e. to avoid race conditions) as units are required or become free, and, if necessary, wait until a unit of the resource becomes available
+            + _binary semaphores_ 
+                + initialized to `1` to ensure only one of them can enter its critical region 
+            + _atomic action_ 
+                + a group of related operations are either all performed without interruption or not performed at all.
+            +  __[Atomic]__ `down`
+                + checks if value is greater than 0
+                    + if so decrement value and continues
+                    + otherwise process put to sleep (not completing `down` yet)
+            +  __[Atomic]__ __[Non-blocking]__ `up`
+                + increments value of semaphore addressed. 
+                + If one or more processes where sleeping on that semaphore, unable to complete an ealrier `down` operation, one of them is chosen (by system at random) and is allowed to complete its `down`
+            + `up` and `down` implementation 
+                + as syscalls where the system disables all briefly disables all interrupts while it is testing the semaphore, updating it and putting the process to sleep
+                + or on multi-processor systems, as `TSL` to prevent multiple CPU from accessing it concurrently
+            + _semaphores  (blocking)_ vs. `TSL` (_busy waiting_)
+                + `TSL` on preventing concurrent access to semaphore is different from the producer/consumer busy waiting (with `TSL`) for the other to empty/fill the buffer. 
+                + semaphore operation takes a few microseconds 
+                + producer/consumer might take arbitrarily long
+        + _solution to producer-consumer lost-wakeup problem_   
+            + ![](2017-06-02-20-06-01.png)
+            + `full`: counts number of slots full 
+            + `empty`: counts number of slots empty
+                + both are for _synchronization_ (i.e. making sure certain event sequences do not occur)
+            + `mutex`: make sure producer/consumer do not access the buffer at same time
+                + _binary semaphore_ init to `1`
+                + if `down` before enter and `up` before exit, then _mutual exlusion_ guaranteed
+        + simulation 
+            + `full = 0`, `empty = N`, `mutex = 1`
+    + _Mutexes_ 
+        + description 
+            + simplified semaphore where the ability to count is not needed 
+        + `mutex` ADT
+            + shared variable in one of 2 states 
+                + `unlocked <- 0` 
+                + `locked <- non-zero`
+            + procedures 
+                + `mutex_lock`  
+                    + request access to critical region 
+                    + if `mutex` is `unlocked`, then call succeeds and calling thread is free to enter critical region 
+                    + otherwise, if `mutex` is `locked`, the calling thread is blocked until thread in critical region finishes and calls `mutex_unlock`; if multiple threads blocked on the `mutex`, then any one of them is chosen at random and allowed to acquire `mutex`
+                + `mutex_unlock`
+                + __[optional]__ `mutex_trylock`
+                    + acquire lock or return code for failure, but does not lock
+            + implementation 
+                + ![](2017-06-02-20-18-48.png)
+                + easily with `TSL` in userspace 
+                + simlar to `enter_region`, but differs in scheduling 
+                    + `enter_region` uses _busy waiting_, 
+                        + _processes_ clock will eventually run out and some other process is scheduled to run, sooner or later the process holding the lock gets to run and releases it 
+                        + _threads_ there is no clock to stop thread from running too long, hence thread tries to acquire a lock by busy waiting will loop forever, and never acquire the lock because it never allows any other threads to run and release the lock  
+                    + `mutex_lock`, no _busy waiting_
+                        + failure to acquire lock calls `thread_yield` to give up CPU to another thread, hence no busy waiting
+                        + `thread_yield` is a call to thread scheduler in userspace, hence 
+                            + no need for kernel trap 
+                            + very fast 
+    + _Futexes_ 
+        + tradeoff
+            + _spinlocks_ with busy waiting is fast if the wait is short, but waste CPU cycles if not 
+            + _semaphores/mutexes_ may be more efficient as they block processes and let kernel unblock it only when lock is free, but continuous switch to kernel mode is expensive
+        + solution 
+            + _fast user space mutex (futex)_
+                + avoids dropping into kernel unless it really has to 
+    + _Mutexes in `Pthreads`_
         + 
 
+                        
 
 
 

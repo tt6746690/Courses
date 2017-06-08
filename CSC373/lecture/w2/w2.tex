@@ -33,7 +33,7 @@
       &F[0] = 1\\
       &F[1] = 1\\
       &\text{for } i = 2\cdots n\\
-      &\quad F[i] = F[i-1] + F[i-2]
+      &\quad F[i] = F[i-1] + F[i-2]\\
     \end{align}
     Idea is that result is stored in array. so dont have to compute any value again.
     \item \textbf{math formula $O(\lg n)$}
@@ -149,8 +149,20 @@
   \begin{approach}
     Greedy approach. Define some simple rule to decide which request to pick next.
     \begin{enumerate}
-      \item pick the job that has the smallest duration, i.e. $(t_{r_i} - s_{r_i})$. doesnt work, ex. two longer intervals that doesnt overlap vs a smaller interval that overlaps with both two longer intervals
+      \item pick the job that has the smallest duration, i.e. $(t_{r_i} - s_{r_i})$. doesnt work
+      \[
+        -------\quad--------
+      \]
+      \[
+        ----
+      \]
       \item take the job that starts the earliest. doesnt work, take example where there is one long interval vs. several smaller nonoverlapping intervals
+      \[
+        -----------
+      \]
+      \[
+        \quad--- \quad ---
+      \]
       \item pick the job that ends earlist. works...
     \end{enumerate}
     To prove a rule is optimal. Use
@@ -172,6 +184,10 @@
       &\quad\quad \text{remove $i$ from $R$ and every job overlapping with $i$}\\
       &\text{return } A
     \end{align*}
+
+    \begin{proposition*}
+      the greedy choice is in some optimal solution of the problem
+    \end{proposition*}
     \begin{proof}
       Let $\Theta$ be optimal solution. Want to show $|A| = |\Theta|$, i.e.
       \[
@@ -184,7 +200,7 @@
       \[
         t_{i_s} \leq t_{j_s}
       \]
-      \textit{Proof by induction} on $s$. \textbf{basis} $s=1$. since greedy algo picked the job ending first. so claim holds \textbf{inductive hypothesis} Assume result holds for $s_0$. show that claim holds for $s_0 + 1$. Hence, the next job that greedy algo picks is the one that ends soonest among the remaining non-overlapping requests. And $j_{s_0+1}$ , i.e. the next request the optimal solution picks, is one such requests. hence the claim holds. \\
+      \textit{Proof by induction} on $s$.\\ \textbf{basis} $s=1$. since greedy algo picked the job ending first. so claim holds\\ \textbf{inductive hypothesis} Assume result holds for $s_0$. show that claim holds for $s_0 + 1$. Hence, the next job that greedy algo picks is the one that ends soonest among the remaining non-overlapping requests. And $j_{s_0+1}$ , i.e. the next request the optimal solution picks, is one such requests. hence the claim holds. \\
       \textit{Proof by contradiction} Assume $k\neq m$. since $\Theta$ optimal i.e. $m \geq k$, we have $m>k$. Apply \textbf{claim} to $s=k$, we know $t_{i_k} \leq t_{j_k}$. now greedy algo terminates, but the optimal solution has $j_{k+1}$ because $m>k$. But $j_{k+1}$ is a perfectly valid nonoverlapping interval with
       \[
         t_{i_{k}} \leq t_{j_{k}} < t_{j_{k+1}}

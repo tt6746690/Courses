@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  8 JUN 2017 00:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  8 JUN 2017 03:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -983,74 +983,118 @@ LaTeX Warning: Command \O invalid in math mode on input line 121.
 LaTeX Warning: Command \O invalid in math mode on input line 166.
 
 [5]
-./a1.tex:214: Argument of \algocf@Ifmain has an extra }.
-<inserted text> 
-                \par 
-l.214      }
-            
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
 
-Runaway argument?
-./a1.tex:214: Paragraph ended before \algocf@Ifmain was complete.
-<to be read again> 
-                   \par 
-l.214      }
-            
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
-
-./a1.tex:239: LaTeX Error: There's no line here to end.
+./a1.tex:236: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.239      }
+l.236      }
             
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Overfull \hbox (0.79999pt too wide) detected at line 240
+Overfull \hbox (0.79999pt too wide) detected at line 237
 |[]|
  []
 
 
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 181--240
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 181--237
 $[]$ 
  []
 
-[6] [7]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 252.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 252.
+[6]
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ô in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+ [7]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 251.
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 251.
+ [8]
+Overfull \hbox (36.83066pt too wide) detected at line 282
+\OML/cmm/m/it/10.95 OPT\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 k; j[]; d\OT1/cmr/m/n/10.95 ) = []\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 OPT\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 k \OMS/cmsy/m/n/10.95 ^^@ \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; j[] \OT1/cmr/m/n/10.95 + \OML/cmm/m/it/10.95 v; d\OT1/cmr/m/n/10.95 ]\OML/cmm/m/it/10.95 ; G\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 k; j[]\OT1/cmr/m/n/10.95 ] + \OML/cmm/m/it/10.95 OPT\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 k \OMS/cmsy/m/n/10.95 ^^@ \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; j[] \OT1/cmr/m/n/10.95 + \OML/cmm/m/it/10.95 w; d \OMS/cmsy/m/n/10.95 ^^@ \OML/cmm/m/it/10.95 H\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 k; j[]\OT1/cmr/m/n/10.95 ]]\OMS/cmsy/m/n/10.95 g
+ []
+
+
+Overfull \hbox (47.11261pt too wide) detected at line 294
+\OML/cmm/m/it/10.95 M\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 i; j; d\OT1/cmr/m/n/10.95 ] = []
+ []
+
+./a1.tex:300: Undefined control sequence.
+l.300      \Function
+                    {\dg$(d, H, G)$}{\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (0.79999pt too wide) detected at line 321
+|[]|
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 297--321
+$[]$ 
+ []
+
+[9]
+./a1.tex:327: Undefined control sequence.
+l.327       \Function
+                     {\dg$(d, H, G)$}{\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (0.79999pt too wide) detected at line 348
+|[]|
+ []
+
+
+Overfull \hbox (117.14168pt too wide) in paragraph at lines 323--348
+[]\OT1/cmr/bx/n/10.95 Actual So-lu-tion  []$[]$ 
+ []
+
+[10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 355.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 355.
  (./a1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 252.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 252.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 355.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 355.
 Package rerunfilecheck Info: File `a1.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 35437 strings out of 493089
- 829511 string characters out of 6134842
+ 35503 strings out of 493089
+ 830322 string characters out of 6134842
  1035702 words of memory out of 5000000
- 38271 multiletter control sequences out of 15000+600000
+ 38290 multiletter control sequences out of 15000+600000
  11362 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,21n,77p,1024b,762s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mtt10.pfb>
-Output written on a1.pdf (7 pages, 172205 bytes).
+ 64i,22n,77p,1024b,762s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on a1.pdf (10 pages, 198073 bytes).
 PDF statistics:
- 187 PDF objects out of 1000 (max. 8388607)
- 163 compressed objects within 2 object streams
- 83 named destinations out of 1000 (max. 500000)
+ 254 PDF objects out of 1000 (max. 8388607)
+ 225 compressed objects within 3 object streams
+ 127 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

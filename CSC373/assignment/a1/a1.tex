@@ -208,9 +208,6 @@ Here is another variant on the problem of Interval Scheduling. Suppose we now ha
           \Return{$(2, \one, \two)$}
         }
       }
-
-
-      \If{ and }
      }
 
 
@@ -241,12 +238,118 @@ Here is another variant on the problem of Interval Scheduling. Suppose we now ha
 
    Now we analyze running time. There are $O(n)$ iterations, and in each iteration, at most one $append$ operation and $tail$ operation, each $O(1)$, is required for Linked List operation. There is also some $O(1)$ array lookup in $s$ and $f$. Hence the algorithm has a worst case running time of $O(n)$
 
-   
+
 
 \end{enumerate}
 
 
+\subsection*{Problem 5}
+During the renovations at Union Station, the work crews excavating under Front Street found veins of pure gold ore running through the rock! They cannot dig up the entire area just to extract all the gold: in addition to the disruption, it would be too expensive. Instead, they have a special drill that they can use to carve a single path into the rock and extract all the gold found on that path. Each crew member gets to use the drill once and keep the gold extracted during their use. You have the good luck of having an uncle who is part of this crew. What’s more, your uncle knows that you are studying computer science and has asked for your help, in exchange for a share of his gold! \\
+The drill works as follows: starting from any point on the surface, the drill processes a block of rock $10cm \times 10cm \times 10cm$, then moves on to another block $10cm$ below the surface and connected with the starting block either directly or by a face, edge, or corner, and so on, moving down by $10cm$ at each “step”. The drill has two limitations: it has a maximum depth it can reach and an initial hardness that gets used up as it works, depending on the hardness of the rock being processed; once the drill is all used up, it is done even if it has not reached its maximum depth. \\
+The good news is that you have lots of information to help you choose a path for drilling: a detailed geological survey showing the hardness and estimated amount of gold for each $10cm \times 10cm \times 10cm$ block of rock in the area. To simplify the notation, in this homework, you will solve a two-dimensional version of the problem defined as follows.
+\begin{itemize}
+  \item \textbf{Input} A positive integer $d$ (the initial drill hardness) and two $[m \times n]$ matrices $H$, $G$ containing non-negative integers. For all $i \in \{1, \cdots,m\}$, $j\in \{1,\cdots,n\}$, $H[i,j]$ is the hardness and $G[i,j]$ is the gold content of the block of rock at location $i,j$ (with $i = 1$ corresponding to the surface and $i = m$ corresponding to the maximum depth of the drill). There is one constraint on the values of each matrix: $H[i,j] = 0 \implies G[i,j] = 0$ (blocks with hardness 0 represent blocks that have been drilled already and contain no more gold).
+  \item \textbf{Output} A drilling path $j_1,j_2,\cdots,j_l$ for some $l \leq m$ such that:
+  \begin{enumerate}
+    \item $1\leq j_k \leq n$ for $k=1,2, \cdots, l$  (horizontal coordinate is valid)
+    \item $j_{k-1} - 1\leq j_k \leq j_{k-1} + 1$ for $k = 2,\cdots, l$ (each block is underneath the one just above, either directly or diagonally, always going down)
+    \item $H[1,j_1]+H[2,j_2]+\cdots+H[l,j_l] \leq d$ (the total hardness of all the blocks on the path is no more than the initial drill hardness)
+    \item $G[1,j_1]+G[2,j_2]+\cdots+G[l,j_l]$ is maximum (the path collects the maximum amount of gold possible)
+  \end{enumerate}
+\end{itemize}
 
+
+
+\begin{solution}
+  \begin{enumerate}
+    \item \textbf{optimal substructure} Let $O_n = \{ j_1,\cdots, j_l\}$ be the optimal solution to the problem given. Let $OPT(n, d)$ be the maximum amount of gold to the optimal solution under the hardness limit $d$, i.e.
+    \[
+      OPT(n, d) := \sum_{k=1}^{l} G[k, O_n[k]] \quad \text{such that}\quad \sum_{k=1}^{l} H[k, O_n[k]] \leq d
+    \]
+    For every path $j$ possible, either $j\in O_n$ or $j\not\in O_n$
+    \begin{enumerate}
+      \item If $j_k \not\in O_n$, then we consider a smaller subproblem with the same hardness limit $d$. Since the drill moves one unit down and $v = \{ -1, 0, 1\}$ unit sideways, the possible path is therefore $[k-1, j_k + v]$. The optimal value is therefore given by the maximum optimal value of the subproblems
+      \[
+        OPT(k, j_k, d) = \underset{v\in\{-1,0,1\}}{Max}\{ OPT[k-1, j_k + v, d]\}
+      \]
+      \item If $j_k \in O_n$, then we consider a smaller subproblem with a reduced hardness limit $d - H[k, j_k]$ since we have added $j_k$ to the optimal solution. The optimal value for $j_k$ is therefore given by the maximum optimal value of the subproblems with reduced hardness limit in addition to the amount of gold contributed by drilling $j_k$
+      \[
+        OPT(k, j_k, d) = \underset{w\in\{-1,0,1\}}{Max}\{ G[k, j_k] + OPT[k-1, j_k + w, d-H[k, j_k]]\}
+      \]
+      \item Therefore,
+      \[
+        OPT(k, j_k, d) = \underset{v, w\in\{-1,0,1\}}{Max}\{ OPT[k-1, j_k + v, d], G[k, j_k] + OPT[k-1, j_k + w, d-H[k, j_k]]\}
+      \]
+    \end{enumerate}
+
+  \item \textbf{Define array to store computed values} Now we consider storing previously computed values in an array $M[0\cdots m, 0\cdots n, d]$, where $M[i, j, d]$ holds the optimal value for all path $\{ j_1, \cdots, j_k\}$, where $k = i$ and $j_k = j$. in other words, the largest amount of gold under hardness restriction at $[i, j]$ via any reachable path from surface.
+  \item \textbf{Redefine recurrence relation in terms of array} Now we can re-define $M[i, j, d]$ recursively as follows
+  \[
+    M[i, j, d] =
+    \begin{cases}
+      0 & \text{if } i = 0\\
+      \underset{v\in\{-1,0,1\}}{Max}\{ M[i-1, j + v, d]\} & \text{if } H[i, j] > d \\
+      \underset{v, w\in\{-1,0,1\}}{Max}\{ M[i-1, j + v, d], G[i, j] + M[i-1, j + w, d-H[i, j]]\} & \text{if } H[i, j] \leq d
+    \end{cases}
+  \]
+  \item \textbf{Bottom-Up Approach}
+
+  \begin{algorithm}[H]
+     \SetKwFunction{dg}{Drill-Gold}
+
+     \Function{\dg$(d, H, G)$}{\\
+        $M \leftarrow [0\cdots m, 0\cdots n, d]$ \\
+        \For{$j = 0$ \KwTo $n$}{
+          \For{$w = 0$ \KwTo $d$}{
+            $M[0, j, w] \leftarrow 0$
+          }
+        }
+
+        \For{$i = 1$ \KwTo $m$}{
+          \For{$j = 1$ \KwTo $n$}{
+            \For{$w = 1$ \KwTo $d$}{
+              \If{$w < H[i, j]$}{
+                $M[i, j, w] =   \underset{a\in\{-1,0,1\}}{Max}\{ M[i-1, j + a, d]\}$
+              }\Else{
+                $M[i, j, w] = \underset{a,b\in\{-1,0,1\}}{Max}\{ M[i-1, j + a, d], G[i, j] + M[i-1, j + b, d-H[i, j]]\}$
+              }
+            }
+          }
+        }
+        \Return{$M$}
+      }
+   \end{algorithm}
+   The worst case running time is $\Theta(mnd)$. The three nested loops run for $n, m, d$ iterations, with each iteration takes a constant time for random-access lookup in array $M, H$ and possibly $G$. This is possible because at any iteration, $M[i-1, j, d]$ for all $j=1\cdots n$, $w=1\cdots d$ is already computed in the previous iteration of the outer most loop.
+   \item \textbf{Actual Solution}
+   \begin{algorithm}[H]
+      \SetKwFunction{dg}{Drill-Gold}
+
+      \Function{\dg$(d, H, G)$}{\\
+         $M \leftarrow [0\cdots m, 0\cdots n, d]$ \\
+         \For{$j = 0$ \KwTo $n$}{
+           \For{$w = 0$ \KwTo $d$}{
+             $M[0, j, w] \leftarrow 0$
+           }
+         }
+
+         \For{$i = 1$ \KwTo $m$}{
+           \For{$j = 1$ \KwTo $n$}{
+             \For{$w = 1$ \KwTo $d$}{
+               \If{$w < H[i, j]$}{
+                 $M[i, j, w] =   \underset{a\in\{-1,0,1\}}{Max}\{ M[i-1, j + a, d]\}$
+               }\Else{
+                 $M[i, j, w] = \underset{a,b\in\{-1,0,1\}}{Max}\{ M[i-1, j + a, d], G[i, j] + M[i-1, j + b, d-H[i, j]]\}$
+               }
+             }
+           }
+         }
+         \Return{$M$}
+       }
+    \end{algorithm}
+
+
+  \end{enumerate}
+\end{solution}
 
 
 \end{document}

@@ -2,8 +2,117 @@
 \input{/Users/markwang/.preamble}
 \begin{document}
 
+\subsection*{Problem 1}
 
+Consider the problem of multiplying two $n$-bit integers $x$, $y$, and suppose that $n$ is a multiple of 3 (if not, we add one or two zeroes on the left to make this true). This time, suppose that we split each integer into three equal parts instead of two.
 
+\begin{enumerate}
+  \item State the exact relationship between $x$ and each of its three parts $X_2$, $X_1$, $X_0$ (i.e., give an equation that involves $x$ and $X_2$, $X_1$, $X_0$)
+    \[
+      x = 2^{\rfrac{2n}{3}}X_{2} + 2^{\rfrac{n}{3}}X_{1} + X_{0}
+    \]
+  \item Write a divide-and-conquer algorithm to multiply two integers $x$, $y$ based on this three-way split. Justify that your algorithm produces the correct answer, i.e., show that the output of your algorithm is equal to $x\cdot y$. For full marks, your algorithm must run in time $O(n^2)$, i.e., strictly less than $O(n^2)$. Justify that this is the case by computing the running time of your algorithm (you may use the Master Theorem as long as you state clearly how it applies to your algorithm)
+  \begin{solution}
+    The algorithm is as follows
+    \begin{enumerate}
+      \item Compute $\rfrac{n}{3}$-bit long $X_2, X_1, X_0$ by shifting $x$ appropriate number of bits such that the previous formula holds. Similarly, compute $Y_2, Y_1, Y_0$
+      \item Compute the following expression by recursively calling the multiplication algorithm on $\rfrac{n}{3}$-bit integers
+      \begin{enumerate}
+        \item $p_0\leftarrow X_0 Y_0$
+        \item $p_1\leftarrow X_1 Y_1$
+        \item $p_2\leftarrow X_2 Y_2$
+        \item $p_3\leftarrow (X_0 + X_1)(Y_0 + Y_1)$
+        \item $p_4\leftarrow (X_0 + X_2)(Y_0 + Y_2)$
+        \item $p_5\leftarrow(X_1 + X_2)(Y_1 + Y_2)$
+      \end{enumerate}
+      \item Compute 5 parts of the resultant product with addition of the previously computed $p$s'
+      \begin{enumerate}
+        \item $Z_4 \leftarrow p_2$
+        \item $Z_3 \leftarrow p_5 - p_1 - p_2$
+        \item $Z_2 \leftarrow p_4 - p_0 - p_2 + p_1$
+        \item $Z_1 \leftarrow p_3 - p_0 - p_1$
+        \item $Z_0 \leftarrow p_0$
+      \end{enumerate}
+      \item Compute and return the resultant product by shifting appropriate number of bits on each $Z$ specified as coefficient and add them together, i.e.
+      \[
+        x\cdot y = 2^{\rfrac{4n}{3}}Z_4 + 2^{n}Z_3 + 2^{\rfrac{2n}{3}}Z_2 + 2^{\rfrac{n}{3}}Z_1 + Z_0
+      \]
+    \end{enumerate}
+
+    Now we prove that the algorithm is correct, given
+    \[
+      x = 2^{\rfrac{2n}{3}}X_{2} + 2^{\rfrac{n}{3}}X_{1} + X_{0}
+    \]
+    \[
+      y= 2^{\rfrac{2n}{3}}Y_{2} + 2^{\rfrac{n}{3}}Y_{1} + Y_{0}
+    \]
+    the product can be written as
+    \[
+      x\cdot y = 2^{\rfrac{4n}{3}}X_2 Y_2 + 2^{n}(X_2 Y_1 + X_1 Y_2) + 2^{\rfrac{2n}{3}}(X_2 Y_0 + X_1 Y_1 + X_0 Y_2) + 2^{\rfrac{n}{3}}(X_1 Y_0 + X_0 Y_1) + X_0 Y_0
+    \]
+    Let $Q$ be the expression containing $X$ and $Y$ such that
+    \begin{enumerate}
+      \item $Q_4 = X_2 Y_2$
+      \item $Q_3 = X_2 Y_1 + X_1 Y_2$
+      \item $Q_2 = X_2 Y_0 + X_1 Y_1 + X_0 Y_2$
+      \item $Q_1 = X_1 Y_0 + X_0 Y_1$
+      \item $Q_0 = X_0 Y_0$
+    \end{enumerate}
+    For the algorithm to be correct, we prove that for all $0\leq i \leq 4$, $Q_i = Z_i$,
+    \begin{enumerate}
+      \item
+      \[
+        Q_4 = X_2 Y_2 = p_0 = Z_4
+      \]
+      \item
+      \[
+        Q_3 = X_2 Y_1 + X_1 Y_2 = (X_1 + X_2)(Y_1 + Y_2) - X_1 Y_1 - X_2 Y_2 = p_5 - p_1 - p_2 = Z_3
+      \]
+      \item
+      \[
+        Q_2 =  X_2 Y_0 + X_1 Y_1 + X_0 Y_2 = (X_0 + X_2)(Y_0 + Y_2) - X_0 Y_0 - X_2 Y_2 + X_1 Y_1 = p_4 - p_0 - p_2 + p_1 = Z_2
+      \]
+      \item
+      \[
+        Q_1 = X_1 Y_0 + X_0 Y_1 = (X_0 + X_1)(Y_0 + Y_1) - X_0 Y_0 - X_1 - Y_1 = p_3 - p_0 - p_1 = Z_1
+      \]
+      \item
+      \[
+        Q_0 = X_0 Y_0 = p_0 = Z_0
+      \]
+    \end{enumerate}
+    Therefore, the algorithm is correct.
+
+    Now we show that the worst-case running time of the algorithm is $\Theta(n^{\log_3 6})$. Let $T(n)$ be worst case running time given $x,y$ are $n$-bit integers.
+    \begin{enumerate}
+      \item Since shifting operation is $O(1)$, computation of $X$ and $Y$ is $O(n)$
+      \item Note there are constant number (6 to be specific) of addition and multiplication operations in this section. Addition is an $O(\frac{n}{3})$ operation on $\rfrac{n}{3}$-bit integers. Multiplication operation has a worst case running time of $T(\frac{n}{3})$ for $\rfrac{n}{3}$-bit integers. Therefore, the worst case running time of this step is $6T(\frac{n}{3}) + O(\frac{n}{3})$
+      \item Again, we do constant number of addition and deletion operations, each taking $O(\frac{n}{3})$. Therefore this step has worst case running time $O(\frac{n}{3})$
+      \item We first shift $Z$ calculated previously $O(n)$ number of times, each has a worst case running time of $O(1)$. Then we add the shifted $n$-bit $Z$s a constant number (4 to be specific) times, each an $O(n)$ operation. Hence this step has a worst case running time of $O(n)$
+    \end{enumerate}
+    To conclude, we arrived at a recurrence relation
+    \[
+      T(n) = 6T(\frac{n}{3}) + O(n)
+    \]
+    Let $a = 6$, $b=3$, $c=1$. Since $\log_3 6 > 1$, by master theorem we have
+    \[
+      T(n) = \Theta(n^{\log_3 6})
+    \]
+
+  \end{solution}
+  \item Is your algorithm faster or slower than the divide-and-conquer algorithm shown in class with a running time of $\Theta(n^{\lg 3})$?
+
+  This three-way-split algorithm for multiplying integers is slower than the two-way-split method taught in class, as
+  \[
+    \lg_2 3 < \log_3 6
+  \]
+  and so,
+  \[
+    \Theta(n^{\lg 3}) < \Theta(n^{\log_3 6})
+  \]
+  hence slower.
+
+\end{enumerate}
 
 \subsection*{Problem 2}
 Consider a variant on the problem of Interval Scheduling where instead of wanting to schedule as many jobs as we can on one processor, we now want to schedule ALL of the jobs on as few processors as possible.\\
@@ -165,7 +274,7 @@ Here is another variant on the problem of Interval Scheduling. Suppose we now ha
     \begin{proof}
       Given arbitrary index $t$, we separate the problem into a greedy choice and a single subproblem, i.e. $\{ j_e \}$ and $J_t$. Let $(A_1, A_2)$ be the optimal solution for $J_t$. We make the greedy choice of adding $j_e$ to $A_i$ or skipping $j_e$ (i.e. $j_e = \O$) to maximize time as a resource for subsequent jobs, and to minimize waste time as a resource if there is a choice to select one assuming both processors are available at the time. Assume such greedy choice is optimal, we are left with processing a smaller subproblem $J_{after} = J_t \setminus \{ j_e \}$. We claim that if $(A_1, A_2)$ is optimal, then solution to subproblem $J_{after}$, $(C_1, C_2)$ must also be optimal. Consider an alternative solution $(C_1', C_2')$ that is even more optimal, i.e. $|C_1'| + |C_2'| \geq |C_1| + |C_2|$. We can construct a new solution by replacing $(C_1, C_2)$ with $(C_1, C_2)$ and get an overall more optimal solution $(A_1' = \{ j_e \} \cup C_1', A_2' = \{ j_e \}\cup C_2')$ such that
       \[
-        |A_1'| + |A_2'| < |A_1| + |A_2|
+        |A_1'| + |A_2'| > |A_1| + |A_2|
       \]
       Contradicts assumption that $(A_1, A_2)$ is optimal. Hence solution to subproblem $J_{after}$ must be optimal
     \end{proof}
@@ -243,6 +352,161 @@ Here is another variant on the problem of Interval Scheduling. Suppose we now ha
 \end{enumerate}
 
 
+
+
+\subsection*{Problem 4}
+Consider the problem of making change, given a finite number of coins with various values. Formally:
+\begin{enumerate}
+  \item \textbf{Input} A list of positive integer coin values $c_1, c_2, \cdots, c_m$ (with repeated values allowed) and a positive integer amount $A$.
+  \item \textbf{Output}  A selection of coins $\{i_1,i_2,\cdots,i_k\}\subseteq \{1,2,\cdots,m\}$ such that $c_{i_1} +c_{i_2} +\cdots+c_{i_k} = A$ and $k$ is as small as possible. If it is impossible to make change for amount $A$ exactly, then the output should be the empty set $\O$.
+\end{enumerate}
+
+
+\begin{enumerate}
+  \item Describe a natural greedy strategy you could use to try and solve this problem, and show that your strategy does not work (The point of this question is not to try and come up with a really clever greedy strategy — rather, we simply want you to show why the “obvious” strategy fails to work.)
+
+  \begin{solution}
+    Let $C = \{ c_1, \cdots, c_m \}$ be the given list of coin values. At each step, pick $c_{j} \in C$ such that
+    \[
+      c_{j} = \sup\{ c\in C: c\leq A \}
+    \]
+    and continue to solve a smaller subproblem, on a smaller list $C' = C \setminus \{ c_{j} \}$ and with a smaller amount $A' = A - c_{j}$. The greedy algorithm is incorrect because it does not exhibit optimal substructure. Subsequent solution to the subproblems is dependent upon the greedy choice, specifically, to satisfy the constraint that all values add up to $A$. As an example, Given $G = \{ 2, 2, 3 \}$ and $A = 4$. $\{ 1, 2\}$ is the optimal solution since $2+2=4$. However, with the greedy approach described above, $\O$ is outputed because $3$ is picked first and no $1 = 4-3$ coin value is in $C$.
+  \end{solution}
+
+  \item Give a detailed dynamic programming algorithm to solve this problem. Follow the steps outlined in class, and include a brief (but convincing) argument that your algorithm is correct.
+
+
+  \begin{enumerate}
+    \item \textbf{Optimal Substructure} Let $C_j: \{ c_{i}\in C: i \leq j \}$. Let $O_j =\{ i_1, i_2, \cdots, i_k\}$ be an optimal solution to the subproblem given $C_j$ ($j\leq m$) and $a
+    \leq A$. Let $k(j, a)$ be optimal value corresponding to $O_j$, i.e. the smallest number of coin values such that
+    \[
+      c_{i_1} + \cdots + c_{i_k} = a \quad \text{ where } \quad 1\leq k \leq j
+    \]
+    We are given the choice of including $c_i$ into the optimal solution or not,
+    \begin{enumerate}
+      \item If $c_i \not\in O_j$, then we consider a smaller subproblem with a reduced set of coin values
+      \[
+        k(j, a) = k(j-1, a)
+      \]
+      \item If $c_i \in O_j$, then we consider a smaller subproblem with a reduced set of coin values as well as reduced total coin amount $A - c_i$
+      \[
+        k(j, a) = 1 + k(j-1, a-c_j)
+      \]
+      \item Overall, therefore
+      \[
+        k(j, a) = Min\{ k(j-1, a),1 + k(j-1, a-c_j)\}
+      \]
+    \end{enumerate}
+
+    \item \textbf{Define array to store computed value} Now we consider storing previously computed value in $M[0\cdots m, 0\cdots A]$, such that $M[j, a]$ holds the optimal value $k(j, a)$ specified above.
+
+    \item \textbf{Redefine recurrence relation in terms of array} Now we define $M[j, a]$ recursively,
+    \[
+      M[j, a] =
+      \begin{cases}
+        0 & \text{If } j = 0 \\
+        M[j-1, a] & \text{If } c_j > a\\
+        Min\{ M[j-1, a],1 + M[j-1, a-c_j]\} & \text{If } c_j \leq a\\
+      \end{cases}
+    \]
+    \item \textbf{Bottom-Up Approach}
+    $ $\\
+    \begin{algorithm}[H]
+       \SetKwFunction{cv}{Find-Smallest-Coin-Number}
+
+       \Function{\cv$(C, A)$}{\\
+          \KwIn{$C$ is a list of coin values provided}
+          $M \leftarrow [0\cdots m, 0\cdots A]$ \\
+
+          \For{$j = 0$ \KwTo $m$}{
+            \For{$a = 0$ \KwTo $A$}{
+              $M[j, a] = 0$\\
+            }
+          }
+
+          \For{$j = 1$ \KwTo $m$}{
+            \For{$a = 1$ \KwTo $A$}{
+              \If{$C[j] > a$}{
+                $M[j, a] = M[j-1, a]$\\
+              }
+              \Else{
+                $M[j, a] = Min\{ M[j-1, a],1 + M[j-1, a-C[j]]\} $\\
+              }
+            }
+          }
+        }
+     \end{algorithm}
+     \item \textbf{Actual Solution}
+     Let $L$ be a linked list holding the output list. We define $S[1\cdots m, 1\cdots A]$ be an array such that $S[j, a]$ holds a boolean value $true$ if $c_j$ is in the optimal solution and $false$ otherwise. And to find the selection of coins, we iterate over $S$ starting from $S[m, A]$, and selectively append $j$ to linked list $L$, depending on value of $S[j, a]$
+
+     \begin{algorithm}[H]
+        \SetKwFunction{cv}{Find-Smallest-Coin-Number}
+        \SetKwFunction{ll}{Linked-List}
+
+
+        \Function{\cv$(C, A)$}{\\
+           \KwIn{$C$ is a list of coin values provided}
+           $M\leftarrow [0\cdots m, 0\cdots A]$ \\
+           $S \leftarrow [1\cdots m, 1\cdots A]$ \\
+           $L \leftarrow \ll$\\
+
+           \For{$j = 0$ \KwTo $m$}{
+             \For{$a = 0$ \KwTo $A$}{
+               $M[j, a] = 0$\\
+             }
+           }
+
+
+           \For{$j = 1$ \KwTo $m$}{
+             \For{$a = 1$ \KwTo $A$}{
+               $S[j, a] = false$\\
+               \If{$C[j] > a$}{
+                 $M[j, a] = M[j-1, a]$\\
+               }
+               \Else{
+                 $M[j, a] = Min\{ M[j-1, a],1 + M[j-1, a-C[j]]\} $\\
+                 \If{$M[j-1, a] > 1 + M[j-1, a-C[j]]$}{
+                    $S[j, a] = true$
+                 }
+               }
+             }
+           }
+
+           \If{$M[m, A]$ is 0}{
+            \Return{$\O$}
+           }
+
+           $amount \leftarrow A$\\
+           \For{$j = m$ \KwTo $1$}{
+              \If{$S[j, amount]$ is $true$}{
+                $L.prepend(j)$\\
+                $amount = amount - C[j]$\\
+              }
+           }
+           \Return{$L$}\\
+         }
+      \end{algorithm}
+  \item \textbf{Proof of correctness for algorithm}
+  \begin{proposition*}
+    The dynamic programming algorithm specified above yields the optimal solution specified by the problem.
+  \end{proposition*}
+  \begin{proof}
+    At each step $i$, the algorithm considers $C_i$, i.e. the set of coin values with index smaller or equal to $i$. For all $1\leq a \leq A$, assume $O_{i, a}$ are optimal solutions to $C_i$. The algorithm decides to keep coin $c_j$ based on two conditions. First, if the $i+1$th coin value is less than the amount specified, this is to make sure that inclusion of $i+1$ does not exceed the constraining amount $a$ instantly. And second, if the inclusion of $i+1$th coin together with the optimal solution to $C_1$ with amount reduced by exactly the coin value of $i+1$th coin, i.e. $C[j+1]$, yields a smaller list. Otherwise, the algorithm decides to skip the $i+1$-th coin value and continue until the entire coin value list is exhausted. To summarize, at each step, we are only adding $c_j$ if we arrive at a strictly smaller solution set such that the summation of coin values in the set equates to the constraining amount $A$. And since we start with specifying the size $m$ of the list and constraint $A$, the algorithm yields optimal result.
+  \end{proof}
+
+  \end{enumerate}
+  \item What is the worst-case running time of your algorithm? Justify briefly.
+
+  \begin{enumerate}
+    \item At line 4, initialization of $M$ requires a constant $O(A)$
+    \item The nested for loop at line 8,9 iterates $O(Am)$ times, with each doing a constant $O(1)$ operation, specifically array assignment and look up. Note this is possible because we are only accessing value at index that is previously populated, i.e. $M[j-1,]$. Hence has a worst-time running time of $O(Am)$
+    \item The next for loop at line 17, iterates $O(A)$ times, doing array access, and possiblly one linked-list prepend operation, which are constant $O(1)$ operations. Hence has a worst-time running time of $O(A)$
+    \item In summary, the algorithm has worst-case running time of $O(Am)$
+  \end{enumerate}
+
+\end{enumerate}
+
+
 \subsection*{Problem 5}
 During the renovations at Union Station, the work crews excavating under Front Street found veins of pure gold ore running through the rock! They cannot dig up the entire area just to extract all the gold: in addition to the disruption, it would be too expensive. Instead, they have a special drill that they can use to carve a single path into the rock and extract all the gold found on that path. Each crew member gets to use the drill once and keep the gold extracted during their use. You have the good luck of having an uncle who is part of this crew. What’s more, your uncle knows that you are studying computer science and has asked for your help, in exchange for a share of his gold! \\
 The drill works as follows: starting from any point on the surface, the drill processes a block of rock $10cm \times 10cm \times 10cm$, then moves on to another block $10cm$ below the surface and connected with the starting block either directly or by a face, edge, or corner, and so on, moving down by $10cm$ at each “step”. The drill has two limitations: it has a maximum depth it can reach and an initial hardness that gets used up as it works, depending on the hardness of the rock being processed; once the drill is all used up, it is done even if it has not reached its maximum depth. \\
@@ -282,13 +546,13 @@ The good news is that you have lots of information to help you choose a path for
       \]
     \end{enumerate}
 
-  \item \textbf{Define array to store computed values} Now we consider storing previously computed values in an array $M[0\cdots m, 0\cdots n, d]$, where $M[i, j, d]$ holds the optimal value for all path $\{ j_1, \cdots, j_k\}$, where $k = i$ and $j_k = j$. in other words, the largest amount of gold under hardness restriction at $[i, j]$ via any reachable path from surface.
-  \item \textbf{Redefine recurrence relation in terms of array} Now we can re-define $M[i, j, d]$ recursively as follows
+  \item \textbf{Define array to store computed values} Now we consider storing previously computed values in an array $M[0\cdots m, 0\cdots n + 1, d]$, where $M[i, j, d]$ ($i\in 1\cdots m$, $j\in 1\cdots n$, $w\in 1\cdots d$) holds the optimal value for all path $\{ j_1, \cdots, j_k\}$, where $k = i$, $j_k = j$, and any hardness up to $d$. in other words, the largest amount of gold under hardness restriction at $[i, j]$ via any reachable path from surface with given $d$, and 0 otherwise. Note that $M[i, 0, d]$ and $M[i, n+1, d]$ are outside of the matrix $[m\times n]$ and are initialized to zero such that computing $M$ for for blocks at the left and right boundary will not experience out of bound error.
+  \item \textbf{Redefine recurrence relation in terms of array} Now we can re-define $M[i, j, d]$
   \[
     M[i, j, d] =
     \begin{cases}
       0 & \text{if } i = 0\\
-      \underset{v\in\{-1,0,1\}}{Max}\{ M[i-1, j + v, d]\} & \text{if } H[i, j] > d \\
+      0 & \text{if } H[i, j] > d \\
       \underset{v, w\in\{-1,0,1\}}{Max}\{ M[i-1, j + v, d], G[i, j] + M[i-1, j + w, d-H[i, j]]\} & \text{if } H[i, j] \leq d
     \end{cases}
   \]
@@ -298,19 +562,19 @@ The good news is that you have lots of information to help you choose a path for
      \SetKwFunction{dg}{Drill-Gold}
 
      \Function{\dg$(d, H, G)$}{\\
-        $M \leftarrow [0\cdots m, 0\cdots n, d]$ \\
-        \For{$j = 0$ \KwTo $n$}{
-          \For{$w = 0$ \KwTo $d$}{
-            $M[0, j, w] \leftarrow 0$
+        $M \leftarrow [0\cdots m, 0\cdots n + 1, 0\cdots d]$ \\
+        \For{$i = 1$ \KwTo $m$}{
+          \For{$j = 0$ \KwTo $n + 1$}{
+            \For{$w = 0$ \KwTo $d$}{
+              $M[i, j, w] \leftarrow 0$
+            }
           }
         }
 
         \For{$i = 1$ \KwTo $m$}{
           \For{$j = 1$ \KwTo $n$}{
             \For{$w = 1$ \KwTo $d$}{
-              \If{$w < H[i, j]$}{
-                $M[i, j, w] =   \underset{a\in\{-1,0,1\}}{Max}\{ M[i-1, j + a, d]\}$
-              }\Else{
+              \If{$w \geq H[i, j]$}{
                 $M[i, j, w] = \underset{a,b\in\{-1,0,1\}}{Max}\{ M[i-1, j + a, d], G[i, j] + M[i-1, j + b, d-H[i, j]]\}$
               }
             }
@@ -320,30 +584,80 @@ The good news is that you have lots of information to help you choose a path for
       }
    \end{algorithm}
    The worst case running time is $\Theta(mnd)$. The three nested loops run for $n, m, d$ iterations, with each iteration takes a constant time for random-access lookup in array $M, H$ and possibly $G$. This is possible because at any iteration, $M[i-1, j, d]$ for all $j=1\cdots n$, $w=1\cdots d$ is already computed in the previous iteration of the outer most loop.
-   \item \textbf{Actual Solution}
+   \item \textbf{Actual Solution}: Now we compute the actual solution to the problem, by keeping track of the path leading to current location. We define array $T[0\cdots m, 0\cdots n, 0\cdots d]]$ and let $T[i, j, d]$ be the corresponding horizontal translation (amongst $\{ -1, 0, 1 \}$) from the previous level yielding the largest $M[i, j, d]$, should $[i, j]$ be included in the solution. Once we processed the matrix and computed the corresponding $M$ and $T$ tables, we then find the optimal path. We first identify the block $block = [i, j]$ in the matrix such that $M[i, j, d]$ is maximized. We start from $block$ and move one level up each time, deciding the horizontal translation by referencing $T[i, j, d]$, and update $block$ to reference the previous block on the path, until we reached surface.
+
+
    \begin{algorithm}[H]
       \SetKwFunction{dg}{Drill-Gold}
+      \SetKwFunction{nf}{Not-Found}
+      \SetKwFunction{ll}{Linked-List}
+
+
 
       \Function{\dg$(d, H, G)$}{\\
-         $M \leftarrow [0\cdots m, 0\cdots n, d]$ \\
-         \For{$j = 0$ \KwTo $n$}{
-           \For{$w = 0$ \KwTo $d$}{
-             $M[0, j, w] \leftarrow 0$
+         $M \leftarrow [0\cdots m, 0\cdots n + 1, 0\cdots d]$ \\
+         $T \leftarrow [0\cdots m, 0\cdots n, 0\cdots d]$ \\
+         \For{$i = 0$ \KwTo $m$}{
+           \For{$j = 0$ \KwTo $n + 1$}{
+             \For{$w = 0$ \KwTo $d$}{
+               $M[i, j, w] \leftarrow 0$  \\
+               $T[i, j, w] \leftarrow 0$   \\
+             }
            }
          }
 
          \For{$i = 1$ \KwTo $m$}{
            \For{$j = 1$ \KwTo $n$}{
              \For{$w = 1$ \KwTo $d$}{
-               \If{$w < H[i, j]$}{
-                 $M[i, j, w] =   \underset{a\in\{-1,0,1\}}{Max}\{ M[i-1, j + a, d]\}$
-               }\Else{
-                 $M[i, j, w] = \underset{a,b\in\{-1,0,1\}}{Max}\{ M[i-1, j + a, d], G[i, j] + M[i-1, j + b, d-H[i, j]]\}$
+
+               \If{$w \geq H[i, j]$}{
+
+                  $A = \underset{a\in\{-1,0,1\}}{Max}\{ M[i-1, j + a, d]]\}$ \\
+                  $B_{-1} = G[i, j] + M[i-1, j - 1, d-H[i, j]]$ \\
+                  $B_{0} = G[i, j] + M[i-1, j, d-H[i, j]]$ \\
+                  $B_{1} = G[i, j] + M[i-1, j + 1, d-H[i, j]]$ \\
+
+                  $M[i, j, w] = Max\{ A, B_{-1}, B_0, B_1\}$ \\
+
+                  \If{$M[i, j, w] \neq A$}{
+                    \If{$B_{-1} \geq B_0$ and $B_{-1} \geq B_1$}{
+                      $T[i, j, w] = -1$\\
+                    }
+                    \If{$B_{0} \geq B_{-1}$ and $B_{0} \geq B_1$}{
+                      $T[i, j, w] = 0$\\
+                    }
+                    \If{$B_{1} \geq B_{-1}$ and $B_{1} \geq B_0$}{
+                      $T[i, j, w] = 1$\\
+                    }
+                  }
+
+
                }
              }
            }
          }
-         \Return{$M$}
+
+         $block \leftarrow \nf$\\
+         $gold \leftarrow 0$\\
+         $P \leftarrow \ll$\\
+
+         \For{$i = 1$ \KwTo $m$}{
+           \For{$j = 1$ \KwTo $n$}{
+              \If{$M[i, j, d] > gold$}{
+                $gold \leftarrow M[i, j, d]$\\
+                $block.i\leftarrow i$\\
+                $block.j\leftarrow j$\\
+              }
+           }
+         }
+
+         \While{$block$ not \nf and $block.i \neq 0$}{
+            $P.prepend(block.j)$ \\
+            $block.j = block.j + T[i, j, d]$\\
+            $block.i = block.i - 1$\\
+         }
+
+         \Return{$P$}
        }
     \end{algorithm}
 

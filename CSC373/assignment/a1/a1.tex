@@ -136,7 +136,7 @@ A schedule specifies for each job $i$ a positive integer $P(i)$ (the “processo
 
   \item Prove that the above algorithm is guaranteed to compute a schedule that uses the minimum number of processors.\\
 
-  We will prove that the greedy choice is always in some optimal solution to the problem. Then we prove that the problem exhibits optimal substructure. Here we define a \textit{compatible} processor number $k$ for job $j$ be an integer such that all jobs previously assigned $k$ are compatible with $j$. Let $J$ be the input jobs given. Let $J_t := \{ j_i \in J: s_i \geq s_t\}$ be subset of $J$ such that all jobs in $J_t$ starts after $j_t$ starts. Let $Max(P)$ be the maximum of processor numbers in $P$
+  We will prove that the greedy choice is always in some optimal solution to the problem. Then we prove that the problem exhibits optimal substructure. Here we define a \textit{compatible} processor number $k$ for job $j$ be an integer such that all jobs previously assigned $k$ are compatible with $j$. Let $J$ be the input jobs given. Let $J_t := \{ j_i \in J: s_i > s_t\}$ be subset of $J$ such that all jobs in $J_t$ starts after $j_t$ starts. Let $Max(P)$ be the maximum of processor numbers in $P$
 
 
   \begin{proposition*}
@@ -217,9 +217,9 @@ Here is another variant on the problem of Interval Scheduling. Suppose we now ha
   \]
   Let subproblem $J_t$ be a set of jobs such that
   \[
-    \forall j \in J_t: f_t \leq s_j
+    \forall j \in J: j \geq t
   \]
-  in otherwords, $J_t$ is the set of jobs that starts after job $t$ ends. \\
+  in otherwords, $J_t$ is the set of jobs after $t$-th job. \\
   We define \textit{waste time} $W_i$ for a job $j$, having start time $s$, with respect to a compatible set of jobs $J_s$ as
   \[
     W_i = s - \underset{j\in J_s}{Max}\{ f_j \}
@@ -247,8 +247,9 @@ Here is another variant on the problem of Interval Scheduling. Suppose we now ha
   \end{proposition*}
 
   \begin{proof}
-    Let $(O_1, O_2)$ be some optimal solution to the original problem $J$. Let $(A_1 \subseteq O_1, A_2\subseteq O_2)$ be the optimal solution to the subproblem $J_t$ with respect to $(O_1, O_2)$. and let $(B_1 \subseteq O_1, B_2\subseteq O_2)$ be the optimal solution to subproblem $J\setminus J_t$. Let $j_e\in J_t$ be job with earliest finish time. By definition of $J_t$, $j_e$ is compatible with at least one of $B_i$.
+    Let $(O_1, O_2)$ be some optimal solution to the original problem $J$. Let $(A_1 \subseteq O_1, A_2\subseteq O_2)$ be the optimal solution to the subproblem $J_t$ with respect to $(O_1, O_2)$. and let $(B_1 \subseteq O_1, B_2\subseteq O_2)$ be the optimal solution to subproblem $J\setminus J_t$. Let $j_e\in J_t$ be job with earliest finish time, which is just $t+1$ since sorted by finish time.
     \begin{enumerate}
+      \item Supoose $j_e$ is not compatible both $B_1$ and $B_2$, then $j_e$ is not assigned to either $B_1$ or $B_2$. This is trivially optimal since the optimal solution cannot contain an overlapping job
       \item Suppose $j_e$ is compatible with exactly one of $B_i$, without loss of generality, suppose $B_1$ is the compatible set and $B_2$ is the in-compatible set. Let $j_a \in A_1$ be the first finishing job in $A_1$. Then we have,
       \begin{enumerate}
         \item If $j_e = j_a$, then the proposition holds
@@ -306,9 +307,9 @@ Here is another variant on the problem of Interval Scheduling. Suppose we now ha
       $\one = s[j] - f[A1.tail]$ \\
       $\two = s[j] - f[A2.tail]$ \\
 
-      \If{$\one > 0$ and $\two > 0$}{
+      \If{$\one \geq 0$ and $\two \geq 0$}{
         \Return{$(\both, \one, \two)$}
-      }\ElseIf{$\one \leq 0$ and $\two\leq 0$}{
+      }\ElseIf{$\one < 0$ and $\two < 0$}{
         \Return{$(\none, \one, \two)$}
       }\Else{
         \If{$\one \geq 0$}{
@@ -546,7 +547,7 @@ The good news is that you have lots of information to help you choose a path for
       \]
     \end{enumerate}
 
-  \item \textbf{Define array to store computed values} Now we consider storing previously computed values in an array $M[0\cdots m, 0\cdots n + 1, d]$, where $M[i, j, d]$ ($i\in 1\cdots m$, $j\in 1\cdots n$, $w\in 1\cdots d$) holds the optimal value for all path $\{ j_1, \cdots, j_k\}$, where $k = i$, $j_k = j$, and any hardness up to $d$. in other words, the largest amount of gold under hardness restriction at $[i, j]$ via any reachable path from surface with given $d$, and 0 otherwise. Note that $M[i, 0, d]$ and $M[i, n+1, d]$ are outside of the matrix $[m\times n]$ and are initialized to zero such that computing $M$ for for blocks at the left and right boundary will not experience out of bound error.
+  \item \textbf{Define array to store computed values} Define array $M[0\cdots m, 0\cdots n + 1, d]$, where $M[i, j, d]$ ($i\in 1\cdots m$, $j\in 1\cdots n$, $w\in 1\cdots d$) holds the optimal value for all path $\{ j_1, \cdots, j_k\}$, where $k = i$, $j_k = j$, and any hardness up to $d$. in other words, the largest amount of gold under hardness restriction at $[i, j]$ via any reachable path from surface with given $d$, and 0 otherwise. Note that $M[i, 0, d]$ and $M[i, n+1, d]$ are outside of the matrix $[m\times n]$ and are initialized to zero such that computing $M$ for for blocks at the left and right boundary will not experience out of bound error.
   \item \textbf{Redefine recurrence relation in terms of array} Now we can re-define $M[i, j, d]$
   \[
     M[i, j, d] =
@@ -583,8 +584,8 @@ The good news is that you have lots of information to help you choose a path for
         \Return{$M$}
       }
    \end{algorithm}
-   The worst case running time is $\Theta(mnd)$. The three nested loops run for $n, m, d$ iterations, with each iteration takes a constant time for random-access lookup in array $M, H$ and possibly $G$. This is possible because at any iteration, $M[i-1, j, d]$ for all $j=1\cdots n$, $w=1\cdots d$ is already computed in the previous iteration of the outer most loop.
-   \item \textbf{Actual Solution}: Now we compute the actual solution to the problem, by keeping track of the path leading to current location. We define array $T[0\cdots m, 0\cdots n, 0\cdots d]]$ and let $T[i, j, d]$ be the corresponding horizontal translation (amongst $\{ -1, 0, 1 \}$) from the previous level yielding the largest $M[i, j, d]$, should $[i, j]$ be included in the solution. Once we processed the matrix and computed the corresponding $M$ and $T$ tables, we then find the optimal path. We first identify the block $block = [i, j]$ in the matrix such that $M[i, j, d]$ is maximized. We start from $block$ and move one level up each time, deciding the horizontal translation by referencing $T[i, j, d]$, and update $block$ to reference the previous block on the path, until we reached surface.
+   The worst case running time is $\Theta(mnd)$. The three nested loops run for $n, m, d$ iterations, taking a constant time for random-access lookup in array $M, H$ and possibly $G$ in each iteration. This is possible because at any iteration, $M[i-1, j, d]$ for all $j=1\cdots n$, $w=1\cdots d$ is already computed in the previous iteration of the outer most loop.
+   \item \textbf{Actual Solution}:We define array $T[0\cdots m, 0\cdots n, 0\cdots d]]$ and let $T[i, j, d]$ be the corresponding horizontal translation (amongst $\{ -1, 0, 1 \}$) from the previous level yielding the largest $M[i, j, d]$, should $[i, j]$ be included in the solution. Once we processed the matrix and computed the corresponding $M$ and $T$ tables, we then find the optimal path. We first identify the block $block = [i, j]$ in the matrix such that $M[i, j, d]$ is maximized. We start from $block$ and move one level up each time, deciding the horizontal translation by referencing $T[i, j, d]$, and update $block$ to reference the previous block on the path, until we reached surface.
 
 
    \begin{algorithm}[H]

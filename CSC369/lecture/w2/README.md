@@ -28,8 +28,8 @@
     + simplied shell 
         + ![](2017-05-28-17-03-43.png)
     + _zombie_ 
-            + if process exists and its parent has not yet waited for it, 
-            + when parent finally waits for it, the process terminates
+        + if process exists and its parent has not yet waited for it,
+        + when parent finally waits for it, the process terminates
     + `sigaction`
     + `alarm`
         + process often needs to be interrupted after a specific time interval to do something,
@@ -70,7 +70,7 @@
             + shared resources given 
             + registers setup and ready to run 
         + `exec`
-            + finds executable, copies arg and env stirngs to kernel
+            + finds executable, copies arg and env strings to kernel
             + releases old addresss space and its page table 
             + New address space created and filled in, new page table set up to indicate no pages are in memory 
             + process starts running 
@@ -96,7 +96,7 @@
             + makes each aspect and others to be process specific or thread specific 
             + makes thread in current or new process depeneding on `sharing_flags`
                 + if new thread in current process,
-                    +  shares address space with existing threads, every subsequent write to any byte in address spsace by any thread is immediately visible to all other threads. 
+                    +  shares address space with existing threads, every subsequent write to any byte in address space by any thread is immediately visible to all other threads. 
                 + if address space not shared, then create new thread gets an exact copy of address space, but subsequent write by new thread are not visible to old ones. ( same as `fork` )
             + in both case, 
                 + thread begin executing `function`, called with `args`
@@ -225,7 +225,7 @@
                 + if `lock == 0` (no process in critical region atm), then process sets it to 1 and enters critical section 
                 + if `lock == 1`, then process waits until it beomes 0
         + discussion 
-            + cannot avoid race condition, suppose one process reads `lock` and see its 0, enters critical section and sets `lock` to 1, another process is scheduled, runs, sets `lock` to 1, the processes will be in critical section at the same time
+            + cannot avoid race condition, suppose one process reads `lock` and see its 0, stores it in a local variable, context switch another process reads `lock` and see its 0, enters critical section and sets `lock` to 1, the first process is scheduled, checks local variable storing `lock` is 0, enters critical section and sets `lock` to 1. Both processes will be in critical section at the same time
     + _strict alteration_ (_spin lock_)
         + description 
             + ![](2017-06-02-17-38-49.png)
@@ -272,12 +272,12 @@
                     int other;                  /* number of other processes */
                     other = 1 - process;        /* the opposite process */
                     interested[process] = TRUE; /* show you are interested */
-                    turn = other;             /* set flag */
-                    while(interested[other] == TRUE && turn == other){};          /* null statement */ 
+                    turn = process;             /* set flag */
+                    while(interested[other] == TRUE && turn == process){};          /* null statement */ 
 
                     /* here only if either 
                         -- interested[other] == FALSE (`other` left critical region)
-                        -- turn != other (`other` is trying to enter, but is waiting at while)
+                        -- turn != process (`other` is trying to enter, but is waiting at while)
                     */
                 }
 
@@ -286,6 +286,8 @@
                     interested[process] = FALSE     /* indicate departure from critical region */
                 }
                 ```
+        + wiki implementation 
+            + ![](2017-06-18-15-34-36.png)
         + simulation 
             + process `0` and `1`
             + _scenario 1_
@@ -300,14 +302,14 @@
             + _mutual exclusion_: 
                 + If `0` in critical region, then `interested[0]` is `TRUE`. In addition, either
                     + `interested[1] = FALSE` (`1` left critical region), or
-                    + `turn = 0` (`1` is just now trying to enter but is waiting)
+                    + `turn = 1` (`1` is just now trying to enter but is waiting)
                 + so if both `0` and `1` in critical region, must satisfy both `interested[0] = TRUE`, `interested[0] = TRUE`, `turn = 0` and `turn = 1`. The latter condition on `turn` is not possible
-            + _progress_: if `0` in critical region, then `turn = 0` and `interested[0] = TRUE`, when `0` finishes `intersted[1] = FALSE` and `1` waiting will now be able to enter the critical region 
+            + _progress_: if `0` in critical region, then `turn = 0` and `interested[0] = TRUE`, when `0` finishes `intersted[0] = FALSE` and `1` waiting will now be able to enter the critical region 
             + _bounded waiting_: a process in Peterson's algo never wait more than one round for entrance to critical region
                 + if `0` is waiting, `1` can only enter its critical section once, since 
                 + when `1` exits, `interested[1] = FALSE`, ( as in _progress_ ) 
                     + if `0` is scheduled, this condition breaks busy waiting and will allow `0` to enter
-                    + if `1` calls `enter_region` again, it will have to wait 
+                    + if `1` calls `enter_region` again, it will have to wait, 
     + _The TSL Instruction_ 
         + description 
             + hardware solution 
@@ -317,9 +319,13 @@
             + __[Atomic --__ reads content of memory word `lock` into register `RX` and then stores a nonzero value at mem addr `lock` __--Atomic]__
             + `lock`
                 + `= 0` any process may set it to `1` 
+                    + resource available
                     + start read/write shared resources
                     + resets to `0` on exit
                 + `= 1` 
+                    + resource taken already, 
+                    + lock already set, program goes back to beginning and test again 
+                    + sooner or later it will become zero (i.e. process in critical section finishes)
         + implementation 
             + ![](2017-06-02-19-20-50.png)  
                 + copies old value of `lock` to `register` 
@@ -381,7 +387,7 @@
                 + calls `wakeup`, but consumer is not logically asleep, so wakeup signal is lost. 
             + _consumer_ runs, it will test value of `count` previously read, find it to be `0`, an go to sleep. 
             + sooner or later, _producer_ fill up buffer and also go to sleep 
-            + both sleep forever
+            + both sleep forever, since _producer_ never get the chance to wake up _consumer_ again
         + discussion 
             + problem is that a `wakeup` sent to a process no (yet) sleeping is lost. 
             + a quick fix involves adding a _wakeup waiting bit_ to the picture, 
@@ -390,7 +396,7 @@
     + _semaphores_  
         + description 
             + _semaphore_ 
-                + a recorde (integer) of how many units of a particular resource are available, coupled with operations to adjust that record safely (i.e. to avoid race conditions) as units are required or become free, and, if necessary, wait until a unit of the resource becomes available
+                + a record (integer) of how many units of a particular resource are available, coupled with operations to adjust that record safely (i.e. to avoid race conditions) as units are required or become free, and, if necessary, wait until a unit of the resource becomes available
             + _binary semaphores_ 
                 + initialized to `1` to ensure only one of them can enter its critical region 
             + _atomic action_ 
@@ -454,13 +460,134 @@
             + _fast user space mutex (futex)_
                 + avoids dropping into kernel unless it really has to 
     + _Mutexes in `Pthreads`_
-        + 
+        + `mutex`
+            + tries `mutex_lock`, if `mutex` unclocked, then thread enters critical region immediately and set `mutex` to be locked 
+            + otherwise, calling thread is _blocked_ (not busy waiting) until `mutex` is unlocked
+            + `pthread_mutex_init`
+            + `pthread_mutex_destroy`
+            + `pthread_mutex_lock`
+                + tries to acquire lock and blocks if is already locked 
+            + `pthread_mutex_trylock`
+                + tries to lock a mutex and failing with an error code instead of blocking if it is already blocked 
+        + `condition variables` 
+            + allows blocking access to critical region due to some condition not being met
+            + memoryless  (unlike semaphores)
+                + if signal is sent to a conditional variable on which no thread is waiting, the signal is lost
+            + producer-consumer problem 
+                + producer has to block if buffer is full until one becomes available
+                + requires a way to bock and be rewaken later 
+            + `pthread_cond_wait`
+                + blocks calling thread until some other thread signals it 
+                + automaticaly unlocks the `mutex` it is holding so it can continue
+            + `pthread_cond_signal`
+            + `pthread_cond_broadcast`
+                + signals to multiple potentially blocking thread and wake them up
+        + pattern 
+            + use `mutex` with `conditional variable` 
+                + one thread lock a `mutex`, then wait on `conditional varaible` when it cannot get what it needs. 
+                + Eventually another thread will signal it and it can continue
+        + producer-consumer revisit 
+            +    ```c
+                #include<stdio.h>
+                #include<pthread.h>
 
-                        
+                #define MAX 10000000
+                pthread_mutex_t the_mutex;      
+                pthread_cond_t condc, condp;        /* used for signaling */
+                int buffer = 0;                     /* buffer = 0 -> empty, 
+                                                                non-zero -> filled */
 
+                void *producer(void *ptr){
+                    for(int i = 1; i <= MAX; i++){
+                        pthread_mutex_lock(&the_mutex);     /* exclusive access to buffer */
+                        while(buffer != 0) pthread_cond_wait(&condp, &the_mutex);
+                        buffer = i;                         /* put item in buffer */
+                        pthread_cond_signal(&condc);        /* wake up consumer */
+                        pthread_mutex_unlock(&the_mutex);   /* release access to buffer */
+                    }
+                    pthread_exit(0);
+                }
 
+                void *consumer(void *ptr){
+                    for(int i = 1; i <= MAX; i++){
+                        pthread_mutex_lock(&the_mutex);     
+                        while(buffer ==0) pthread_cond_wait(&condc, &the_mutex)
+                        buffer = 0;
+                        pthread_cond_signal(&condp);        /* wake up producer */
+                        pthread_mutex_unlock(&the_mutex)    
+                    }
+                    pthread_exit(0);
+                }
 
+                int main(int argc, char **argv){
+                    pthread_t pro, con;
+                    pthread_mutex_init(&the_mutex, 0);
+                    pthread_cond_init(&condc, 0);
+                    pthread_cond_init(&condc, 0);
 
+                    /* create new threads, execute  
+                        start routine, consumer() and producer() 
+                        respectively
+                    */
+                    pthread_create(&con, 0, consumer, 0);   
+                    pthread_create(&pro, 0, producer, 0);
+
+                    /* suspends calling thread and waits for threads to exit 
+                        void **value_ptr points to value passed to pthread_exit()
+                    */
+                    pthread_join(pro, 0);
+                    pthread_join(con, 0);
+                    pthread_cond_destroy(&condc);
+                    pthread_cond_destroy(&condp);
+                    pthread_mutex_destroy(&the_mutex);
+                }
+                ```
+    + _Monitors_ 
+        + _deadlock_: 
+            + a state in which each member of a group of actions, is waiting for some other member to release a lock. 
+            + occurs when a process or thread enters a waiting state because a requested system resource is held by another waiting process, which in turn is waiting for another resource held by another waiting process. If a process is _unable to change its state indefinitely_ because the resources requested by it are being used by another waiting process, then the system is said to be in a deadlock
+        + _definition_ 
+            + A higher-level synchronization primitive 
+            + conceptually, a monitor is a _synchronization construct_ that allows threads to have both mutual exclusion and the ability to wait (block) for a certain condition to become true. (i.e. `mutex` and `conditional variable`)
+            + alternatively, a thread-safe class/module uses wrapped mutual exclusion in order to safely allow access to a method or variable by more than one thread.
+                +  At each point in time, at most one thread may be executing any of its methods.
+        + _property_ 
+            + _mutual exclusion_: only one process can be active in a monitor at any instant
+            + Process can call procedures in monitor but may not access internal data structure directly 
+         + _conditional variable_ and `wait`, `signal`
+            + `wait` blocks calling process based on some condition 
+            + `signal` wakes up its blocked partners on the condition variable the blocked partner is waiting on
+            + _rules_ for determining what happens after `signal` 
+                + _Hoare_: let newly awakened process run, suspending the process calling `signal`
+                + _Brinch Hansen_: require a process doing `signal` must exit the monitor immediately, i.e. `signal` may appear as last statement in a monitor procedure! 
+                    + easier to implement 
+                + _third version_: allow signaler continue to run, and allow the waiting proecss to start running only after the signaler has exited the monitor
+            + _convention_ 
+                + `wait` must come before `signal`, 
+                    + since conditional variable does not keep track of signal, 
+        + Producer-Consumer revisit 
+            + `wait`/`signal` vs `sleep`/`wakeup`
+                + `sleep`/`wakeup`: race condition happens since one process is trying to go to sleep, the other one was trying to wake it up. Context switch happens in the middle of the procedures
+                + `wait`/`signal`: race condition avoided since both are monitor procedures, with automatic mutual exclusion. 
+                    + say a producer inside a monitor procedure discovers bufer full, it will be able to complete the `wait` without having to worry about the possibility that the scheduler may switch to consumer just before `wait` completes
+            + java implementation 
+        + discussion 
+            + semaphores are too low level but easy to implement
+            + monitors are not usable except in few programming language with compiler supporting it
+    + _message passing_ 
+        + does not require shared memory...
+        + `send(dest, &msg)`
+        + `receive(src, &msg)`
+        + design issues 
+            + message lost by network
+                + receiver will send back _acknowledgement_ when message is received 
+                + sender, if not received _acknowledgemnet_ in a set time interval, re-transmits the message 
+            + what if _acknowledgement_ to sender is lost, duplicated message is sent
+                + put consecutive sequence number in each original sequence 
+                + receiver gets a message bearing same sequence number as the previous message gets ignored 
+            + _authentication_
+        + producer-consumer problem revisit 
+            + 
 
 # tutorial 
 

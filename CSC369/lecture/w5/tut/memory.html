@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+ 
+  <head>
+    <meta charset="utf-8">
+   <link rel="stylesheet" href="../../styles.css" type="text/css">
+       <title>
+            CSCC69H: Memory Management Tutorials
+       </title>
+   </head>
+
+
+ <body>
+ <!--#include file="../../navigation.txt"-->
+
+   <div class="content">
+      
+<div class="row">
+  <div class="col-xs-12">
+      
+
+<h2>Introduction</h2>
+
+<p>The purpose of this exercise is to give you some exposure to memory access patterns, and some practice examing how a program uses memory.</p>
+
+<p>Exercise files:</p>
+
+<ul>
+    <li><a href="./Makefile">Makefile</a></li>
+    <li><a href="./heaploop.c">heaploop.c</a></li>
+    <li><a href="./matmul.c">matmul.c</a></li>
+    <li><a href="./runit">runit</a></li>
+    <li><a href="./refstring">refstring.py</a></li>
+    
+</ul>
+
+<p>You are given two simple programs: <a href="./heaploop.c">heaploop.c</a> and <a href="./matmul.c">matmul.c</a>. The only purpose of these programs is so that we have something to trace.  The provided Makefile will compile these two programs and <tt>make traces</tt>  will 
+call the shell script <tt>runit</tt> that will run each program using valgrind to produce a memory reference trace.  The output of valgrind is filtered using a python program <tt>refstring.py</tt> to remove the valgrind comments, and the memory references that load the program and clean up after it has finished executing.  This allows us to focus on the memory references that are part of the algorithm. </p>
+
+<p>Your task is to read the programs to get a picture of how they are using memory, run the programs to produce the traces, and write a short program in the language of your choice to analyze the trace output.</p>
+
+<p>The resulting trace files have the following format:</p>
+<pre>
+    0x7ff0008e8,S
+    0x400590,I
+    0x601020,L
+    0x400596,I
+    0x7ff0008e0,S
+    0x4fdf720,M
+</pre>
+<p>Each comma-separated line begin with a memory address in hexadecimal, and the character in the second field determines the type of access: I - instruction, S - store,  L - load, M - modify.  S, L, and M accesses are all data accesses.</p>
+
+<p>Your analysis program will translate each memory reference into a page number assuming pages are 4096 bytes. It will output a table of each unique instruction pages with a count of the number of accesses for each page, and a table of unique data pages with a count of the number of accesses for each page.</p>
+
+<p>For example, the above snippet might produce the following:</p>
+<pre>
+    Instructions
+    0x400,2
+    
+    Data:
+    0x7ff000,2
+    0x601,1
+    0x4fdf,1
+</pre>
+  </div>
+</div>
+
+
+      <hr>
+   </div>
+
+    
+</html>
+

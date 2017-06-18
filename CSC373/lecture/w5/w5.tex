@@ -1,0 +1,232 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\section*{Graph Theory}
+
+
+\begin{defn*}
+  $ $\\
+  \begin{enumerate}
+    \item A \textbf{Graph} $G=(V, E)$, where $V$ is a set of vertices, and $E\subseteq  V\times V$ is a set of edges. Let $|V| = n$, then $0\leq |E| \leq n^2$
+    \item A \textbf{Directed Graph} is a graph where each edge $(u, v)$ has a direction going form $u$ to $v$.
+    \item An \textbf{Undirected Graph} is a graph where edges has no direction. If $(u,v)$ is an edge, then so is $(v,u)$
+    \item A \textbf{Weighted Graph} is a graph with weight function $W: E \to \R$
+    \item A graph is \textbf{Connected} when there is a path between every pair of vertices. $n-1 \leq |E| \leq n^2$ and $|V| = n > 2$. If $|E|$ is close to $n^2$, then $G$ is called a \textbf{dense} graph If $E$ is much less than $n^2$, then $G$ is called a \textbf{sparse} graph
+    \item A \textbf{Connected Undirected Graph} is a graph where for every pair of vertices $u, v \in E$, there is a path $p=\langle v_0, \cdots v_k \rangle$ ($(v_i, v_{i+1})\in E$) with $v_0 = u$ and $v_k = v$
+    \item A \textbf{Weakly Connected Directed Graph} same definition as above
+    \item A \textbf{Strongly Connected Directed Graph} is a graph such that for every pair $u,v \in E$, there is a path $p: u\to v$, and a path $p': v\to u$
+  \end{enumerate}
+\end{defn*}
+
+\subsection*{Graph Representation}
+
+\begin{enumerate}
+  \item \textbf{Adjacency List}
+  \begin{enumerate}
+    \item \textbf{size} $O(|V| + 2|E|) = O(|V| + |E|)$ for undirected graphs (each edge counted twice) or $O(|V| + |E|)$ for directed graphs
+    \item \textbf{search} $O(E)$
+  \end{enumerate}
+  \item \textbf{Adjacency Matrix}
+  \begin{enumerate}
+    \item \textbf{size} $O(|V|^2)$
+    \item \textbf{search} $O(1)$
+  \end{enumerate}
+\end{enumerate}
+
+
+
+\begin{defn*}
+  \textbf{Breadth-First Search (BFS)}
+  \begin{enumerate}
+    \item
+    \begin{algorithm}[H]
+       \SetKwFunction{bfs}{Breadth-First-Search}
+       \SetKwFunction{enqueue}{Enqueue}
+       \SetKwFunction{dequeue}{Dequeue}
+
+
+       \Fn{\bfs$(G, s)$}{
+          \For{$u\in V\setminus \{ s\}$}{
+            $discovered[u] \leftarrow False$\\
+            $dist[u] \leftarrow \infty$\\
+            $parent[u] \leftarrow NIL$\\
+          }
+
+          $discovered[s] \leftarrow True$\\
+          $dist[s] \leftarrow 0$\\
+          $parent[s] \leftarrow NIL$\\
+
+          $Q \leftarrow \O$ be a queue \\
+          $\enqueue(Q, s)$ \\
+          \While{$Q$ is not empty}{
+            $u \leftarrow \dequeue(Q)$\\
+            \For{$v\in Adj[u]$}{
+              \If{$discovered[v]$ is $False$}{
+                $discovered[v] \leftarrow True$\\
+                $dist[v] \leftarrow dist[u] + 1$\\
+                $parent[v] \leftarrow u$\\
+                $\enqueue(Q, v)$ \\
+              }
+            }
+          }
+       }
+     \end{algorithm}
+     \item \textbf{BFS-Tree} is tree generated with BFS on a tree, which is also the shortest path tree for that graph
+     \item \textbf{Complexity analysis} Space complexity is $\Theta(|V|)$, which is just space requried for $Q$. Time complexity is $\Theta(|V| + |E|)$. Queue operation runs at most twice on each $v\in V$. since $discovered[v]$ is set to true as soon as $v$ is dequeued and $discovered[v]$ is never set back to false again, so each $v$ can be in the queue only once. So queue operations takes $O(|V|)$ in total. For each $v\in V$, we traversed $Adj[v]$, which takes $O(|E|)$ in total for traversing the adjacency list.
+     \item \textbf{Proof of correctness}
+     \begin{enumerate}
+       \item claim 1: If $(u,v)\in E$ then $\delta(s, v) \leq \delta(s, u) + 1$
+       \begin{proof}
+         Let $p: s\to u$ be shortest path from $s$ to $u$.
+         \begin{enumerate}
+           \item If $p$ along with $(u,v)$ is shortest path from $s$ to $v$, then
+           \[
+            \delta(s, v) = \delta(s, u) = 1
+           \]
+           \item else, there exists some $p': s\to v$ such that
+           \[
+            \delta(s, v) < \delta(s, u) = 1
+           \]
+         \end{enumerate}
+       \end{proof}
+       \item claim 2: Upon termination of BFS, $\delta(s, u) \leq dist[u]$ for all $u\in V$.
+       \begin{proof}
+         By induction on the number $k$ vertices discovered by the algorithm. If $k=1$, $\delta(s,s) = 0 = dist[s]$, holds. If $k > 1$, then assume results holds for $\leq k-1$ Prove it holds for $k$th vertex. Say $v$ is discovered from $u$, then by induction hypothesis $dist[u] = \delta(s,u)$, we have
+         \[
+          dist[v] = dist[u] + 1 = \delta(s, u) + 1
+         \]
+         By claim 1
+         \[
+          dist[v] \geq \delta(s, v)
+         \]
+       \end{proof}
+       \item claim 3: In any step, if the queue $Q$ consists of $v_1, \cdots, v_k$ then
+       \[
+        dist[v_1] \leq dist[v_2] \leq \cdots \leq dist[v_k] \leq dist[v_1] + 1
+       \]
+       \begin{proof}
+         By induction on state of queue. If $Q = \{ s\}$, $dist[s] \leq dist[s] + 1$, claim holds. Now assume claim true upto current configuration of $Q$, two cases. An element is dequeued, the claim holds trivially. Then vertex $v_{k+1}$ is enqueued to back of $Q$. By algorithm $dist[v_{k+1}] = dist[v_1] + 1$, the claim holds.
+       \end{proof}
+       \item the algorithm is correct. Define $\delta(s, v)$ is the shortest distance of $u$ from $s$ in $G$. We claim that $dist[v] = \delta(s,v)$ for all $v\in V$.
+       \begin{proof}
+         $ $\\
+         \begin{enumerate}
+           \item $\delta(s, v) = \infty$ then $dist[v] = \infty$ by claim 2, claim true.
+           \item $\delta(s, v) \neq \infty$, do induction on $\delta(s, v)$ If $\delta(s, v) = 0$, then $s = v$, so $dist[s] = 0 = dist[v]$. Now we assume result holds for $\delta(s, v) \leq k -1$, then consider a vertex $w$ with $\delta(s, w) = k$ By claim 3, $\delta(s, w) > k$, the algorithm discovers $w$ after discovering every $v\in V$ such that $\delta(s, v) = k -1$. Now consider parent vertex $u$ such that $(w, u)\in E$, hence by the algorithm $dist[u] = k - 1$. By induciton hypothesis, we have
+           \[
+            dist[w] = dist[u] + 1 = \delta(s, u) + 1 = k - 1 + 1 = k
+           \]
+         \end{enumerate}
+       \end{proof}
+     \end{enumerate}
+  \end{enumerate}
+\end{defn*}
+
+
+
+
+
+\begin{defn*}
+\textbf{Breadth-First Search (BFS)}
+  \begin{enumerate}
+    \item
+    \begin{algorithm}[H]
+       \SetKwFunction{dfs}{Depth-First-Search}
+       \SetKwFunction{put}{Put}
+       \SetKwFunction{pop}{Pop}
+
+
+       \Fn{\dfs$(G, s)$}{
+          \For{$u\in V\setminus \{ s\}$}{
+            $discovered[u] \leftarrow False$\\
+            $parent[u] \leftarrow NIL$\\
+          }
+
+          $discovered[s] \leftarrow True$\\
+          $parent[s] \leftarrow NIL$\\
+
+          $S \leftarrow \O$ be a stack \\
+          $\put(S, s)$ \\
+          \While{$S$ is not empty}{
+            $u \leftarrow \pop(S)$\\
+            \For{$v\in Adj[u]$}{
+              \If{$discovered[v]$ is $False$}{
+                $discovered[v] \leftarrow True$\\
+                $parent[v] \leftarrow u$\\
+                $\put(S, v)$ \\
+              }
+            }
+          }
+       }
+     \end{algorithm}
+   \end{enumerate}
+\end{defn*}
+
+
+
+\subsection*{Shortest Path Algorithm}
+Given a weighted directed graph with weight function $W: E\to \R$ A source node $s\in G$. Find the shortest path weights from $s$ to all reachable vertices. If
+\[
+  p = \langle v_0 \overset{w_0}{\to} v_1 \cdots \overset{w_{k-1}}{\to} v_k \rangle
+\]
+then $w(P) = \sum_{i}^{k-1} w_i$. So the shortest-path weihgt $\delta(s, v)$ is defined as
+\[
+  \delta(s, v) =
+  \begin{cases*}
+    min\{ w(P): s \overset{p}{\to} v \} & \text{if such path exists}\\
+    \infty & \text{otherwise}
+  \end{cases*}
+\]
+
+Possible variations
+\begin{enumerate}
+  \item single source shortest path
+  \item single destination shortest path ( Find solution to this problem if solution to first problem is known by reversing the edge directions, i.e. transpose of $G=(V,E)$ is $G^T = (V, E^T)$)
+  \item All pairs shortest path
+  \item Weights are not non-negative
+\end{enumerate}
+
+\begin{proposition*}
+  Optimal substructure of shortest path. In other words, if $p=  \langle v_0, \cdots, v_k \rangle$ is a shortest path from $v_0$ to $v_k$, then $ \langle v_i \cdots v_j \rangle$ is also a shortest path from $v_i$ to $v_j$ or $0\leq i \leq j \leq k$
+\end{proposition*}
+
+\begin{solution}
+  \textbf{Bellman-Ford algorithm}\\
+  \begin{algorithm}[H]
+     \SetKwFunction{bfa}{Bellman-Ford-algorithm}
+     \Fn{\bfa$(G, w, s)$}{
+        \For{$v\in V \setminus \{ s\}$}{
+          $dist[v] \leftarrow \infty$\\
+          $parent[v] \leftarrow NIL$\\
+        }
+
+        $dist[s] \leftarrow 0$ \\
+        $parent[s] \leftarrow NIL$ \\
+
+        \For{$i = 1$ \KwTo $|V|-1$}{
+          \For{$(u,v) \in E$}{
+            \If{$dist[u] > dist[u] + w(u,v)$}{
+              $dist[v] \leftarrow dist[u] + w(u, v)$\\
+              $parent[v] = w$\\
+            }
+          }
+        }
+        \For{$(u,v)\in E$}{
+          \If{$dist[v] > dist[u] + w(u,v)$}{
+            \Return{False}
+          }
+        }
+        \Return{True}
+     }
+   \end{algorithm}
+
+   Note the algorithm fails, i.e. return $false$, if there is a negative-weight cycle. A negative-weight cycle $C$ is a cycle such that $w(C) < 0$. Because each iteration over the cycle will decrement the weight by $w(C)$
+\end{solution}
+
+
+
+
+
+
+\end{document}

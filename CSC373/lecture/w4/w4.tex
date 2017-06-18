@@ -295,7 +295,7 @@ The goal is to find a subsequence that is common to both $X$ and $Y$ and that ha
     \SetKwFunction{lcs}{Longest-Common-Subsequence}
     \Fn{\lcs$(X, Y)$}{
       $M \leftarrow M[0\cdots m, 0\cdots n]$ \\
-      Initialize $M[i, 0]$ and $M[0, j]$ to be zero \\
+      Initialize $M[0, i]$ and $M[0, j]$ to be zero \\
 
       \For{$i=1$ \KwTo $m$}{
         \For{$j = 1$ \KwTo $n$}{

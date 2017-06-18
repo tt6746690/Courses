@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  9 JUN 2017 20:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  9 JUN 2017 21:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -992,35 +992,35 @@ LaTeX Warning: Command \O invalid in math mode on input line 230.
 
 [7]
 
-LaTeX Warning: Command \O invalid in math mode on input line 275.
+LaTeX Warning: Command \O invalid in math mode on input line 276.
 
 [8]
 
-./a1.tex:345: LaTeX Error: There's no line here to end.
+./a1.tex:346: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.345      }
+l.346      }
             
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Overfull \hbox (0.79999pt too wide) detected at line 346
+Overfull \hbox (0.79999pt too wide) detected at line 347
 |[]|
  []
 
 
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 290--346
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 291--347
 $[]$ 
  []
 
 [9]
 
-LaTeX Warning: Command \O invalid in math mode on input line 361.
+LaTeX Warning: Command \O invalid in math mode on input line 362.
 
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
@@ -1032,11 +1032,11 @@ Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ù in font cmr10!
 
-LaTeX Warning: Command \O invalid in math mode on input line 373.
+LaTeX Warning: Command \O invalid in math mode on input line 374.
 
 [10]
-./a1.tex:417: Undefined control sequence.
-l.417        \Function
+./a1.tex:418: Undefined control sequence.
+l.418        \Function
                       {\cv$(C, A)$}{\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1045,17 +1045,17 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (0.79999pt too wide) detected at line 438
+Overfull \hbox (0.79999pt too wide) detected at line 439
 |[]|
  []
 
 
-Overfull \hbox (51.46509pt too wide) in paragraph at lines 412--438
+Overfull \hbox (51.46509pt too wide) in paragraph at lines 413--439
 []$[]$ 
  []
 
-./a1.tex:447: Undefined control sequence.
-l.447         \Function
+./a1.tex:448: Undefined control sequence.
+l.448         \Function
                        {\cv$(C, A)$}{\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1064,15 +1064,15 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Command \O invalid in math mode on input line 477.
+LaTeX Warning: Command \O invalid in math mode on input line 478.
 
 
-Overfull \hbox (0.79999pt too wide) detected at line 488
+Overfull \hbox (0.79999pt too wide) detected at line 489
 |[]|
  []
 
 
-Overfull \hbox (51.46509pt too wide) in paragraph at lines 442--488
+Overfull \hbox (51.46509pt too wide) in paragraph at lines 443--489
 $[]$ 
  []
 
@@ -1086,24 +1086,24 @@ Missing character: There is no ú in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ù in font cmr10!
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 515.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 516.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 515.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 516.
  [13]
-Overfull \hbox (36.83066pt too wide) detected at line 546
+Overfull \hbox (36.83066pt too wide) detected at line 547
 \OML/cmm/m/it/10.95 OPT\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 k; j[]; d\OT1/cmr/m/n/10.95 ) = []\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 OPT\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 k \OMS/cmsy/m/n/10.95 ^^@ \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; j[] \OT1/cmr/m/n/10.95 + \OML/cmm/m/it/10.95 v; d\OT1/cmr/m/n/10.95 ]\OML/cmm/m/it/10.95 ; G\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 k; j[]\OT1/cmr/m/n/10.95 ] + \OML/cmm/m/it/10.95 OPT\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 k \OMS/cmsy/m/n/10.95 ^^@ \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; j[] \OT1/cmr/m/n/10.95 + \OML/cmm/m/it/10.95 w; d \OMS/cmsy/m/n/10.95 ^^@ \OML/cmm/m/it/10.95 H\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 k; j[]\OT1/cmr/m/n/10.95 ]]\OMS/cmsy/m/n/10.95 g
  []
 
 [14]
-Overfull \hbox (47.11261pt too wide) detected at line 558
+Overfull \hbox (47.11261pt too wide) detected at line 559
 \OML/cmm/m/it/10.95 M\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 i; j; d\OT1/cmr/m/n/10.95 ] = []
  []
 
-./a1.tex:564: Undefined control sequence.
-l.564      \Function
+./a1.tex:565: Undefined control sequence.
+l.565      \Function
                     {\dg$(d, H, G)$}{\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1112,18 +1112,17 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (0.79999pt too wide) detected at line 585
+Overfull \hbox (0.79999pt too wide) detected at line 586
 |[]|
  []
 
 
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 561--585
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 562--586
 $[]$ 
  []
 
-[15]
-./a1.tex:597: Undefined control sequence.
-l.597       \Function
+./a1.tex:598: Undefined control sequence.
+l.598       \Function
                      {\dg$(d, H, G)$}{\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1132,38 +1131,38 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (0.79999pt too wide) detected at line 662
+Overfull \hbox (0.79999pt too wide) detected at line 663
 |[]|
  []
 
 
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 590--662
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 591--663
 $[]$ 
  []
 
-[16] [17]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 669.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 669.
+[15] [16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 670.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 670.
  (./a1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 669.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 669.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 670.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 670.
 Package rerunfilecheck Info: File `a1.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
  35628 strings out of 493089
  831540 string characters out of 6134842
- 1038703 words of memory out of 5000000
+ 1043703 words of memory out of 5000000
  38295 multiletter control sequences out of 15000+600000
  11362 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  64i,27n,77p,1077b,892s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on a1.pdf (17 pages, 233574 bytes).
+Output written on a1.pdf (16 pages, 233449 bytes).
 PDF statistics:
- 426 PDF objects out of 1000 (max. 8388607)
- 388 compressed objects within 4 object streams
+ 423 PDF objects out of 1000 (max. 8388607)
+ 386 compressed objects within 4 object streams
  247 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

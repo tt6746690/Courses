@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# run valgrind on the prgram passed in as an argument and save the memory
+# reference trace to the file tmp.
+# Then run refstring.py on the output of valgrind to remove memory accesses
+# before and after the marker addresses.
+# We have to do this in two steps rather than using a pipe because 
+# refstring.py needs to read the marker file produced by the program.
+
+valgrind --tool=lackey --trace-mem=yes ./$* &> tmp
+python refstring.py  < tmp > tr-$1.ref
+rm tmp

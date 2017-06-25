@@ -1,0 +1,292 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\subsection*{Bellman-Ford algorithm for Single-Source Shortest Path}
+Given $G = (V, E)$ and source $s\in V$. Find shortest distance from $s$ to every reachable node $v\in V$. Compute $dist[v]$ for every $v\in V$. Also compute $parent[v]$ for all $v\in V$, where $parent[v]$ is the predecessor of $v$ on a shortest path from $s$ to $v$.
+
+\begin{algorithm}[H]
+  \SetKwFunction{bf}{Bellman-Ford}
+ \SetKwFunction{iss}{Initialize-Single-Source}
+ \SetKwFunction{lax}{Relax}
+ \SetKwFunction{true}{True}
+ \SetKwFunction{false}{False}
+
+
+ \Fn{\iss$(G, s)$}{
+    \For{$v\in V$}{
+      $dist[v] \leftarrow \infty$\\
+      $parent[v] \leftarrow NIL$\\
+    }
+    $dist[v] \leftarrow 0$
+ }
+
+ \Fn{\lax$(u,v,w)$}{
+   \If{$dist[v] > dist[u] + w(u,v)$}{
+     $dist[v] \leftarrow dist[u] + w(u,v)$\\
+     $parent[v] \leftarrow u$\\
+   }
+ }
+
+
+   \Fn{\bf$(G, s, w)$}{
+      \iss$(G,s)$\\
+      \For{$i = 1$ \KwTo $|V|-1$}{
+        \For{$(u,v)\in E$}{
+          \lax$(u, v, w)$\\
+        }
+      }
+      \For{$(u,v)\in E$}{
+        \If{$dist[v] > dist[u] + w(u,v)$}{
+          \Return{\false}
+        }
+      }
+      \Return{\true}
+   }
+\end{algorithm}
+
+
+
+\begin{proposition*}
+  Properties of shrotest paths of relaxation
+  \begin{enumerate}
+    \item \textbf{Triangular Inequality}
+    \[
+      \delta(s, v) \leq \delta(s, u) + w(u, v) \quad \quad \text{for all } (u,v) \in E
+    \]
+    \item \textbf{Upper bound property}
+    \[
+      dist[v] \geq \delta(s, v)\quad \quad \text{for all } v\in V
+    \]
+    Implies if $dist[v] =\delta(s,v)$ then $dist[v]$ stays the same forever
+    \item \textbf{No-path property}
+    If there is no path from $s$ to $v$ then $dist[v] = \delta(s,v) = \infty$
+    \item \textbf{Convergence property} If $s \overset{p}{\to} u \to v$ is a shortest path from $s$ to $v$ and $dist[v] = \delta(s,u)$, then if you relax the edge $(u,v)$, you obtain $dist[v] = \delta(s,v)$
+    \item \textbf{Path-Relaxation property} If $p = \langle v_0, v_1, \cdots, v_k \rangle$ is a shortest path from $v_0 = s$ to $v_k$, and we relax the edges $(v_0, v_1)$, $(v_1, v_2)$, $\cdots$, $(v_{k-1}, v_k)$ in that order, then
+    \[
+      dist[v_k] = \delta(s, v_k)
+    \]
+  \end{enumerate}
+\end{proposition*}
+
+\begin{enumerate}
+  \item \textbf{Complexity} $\Theta(|V||E|) = \Theta(|V|^3)$
+  \item \textbf{Discussion} works well on negative weights as well. Only restriction is there cannot be any negative cycle.
+\end{enumerate}
+
+
+
+
+\subsection*{Dijkstra's Algorithm for Shortest Path}
+Given $G = (V, E)$ and source $s\in V$ and weight $w: E \to \R^+$, nonnegative. Find shortest distance from $s$ to every reachable node $v\in V$. Compute $dist[v]$ for every $v\in V$. Also compute $parent[v]$ for all $v\in V$, where $parent[v]$ is the predecessor of $v$ on a shortest path from $s$ to $v$.
+Let $S\subseteq V$ be set of all vertices where shortest distance from $s$ has already been found. At any iteration, we have a set $S$ whose shortest distances from $s$ we know, and we have $V\setminus S$
+
+
+\begin{algorithm}[H]
+  \SetKwFunction{dijkstra}{Dijkstra-Shortest-Path}
+  \SetKwFunction{iss}{Initialize-Single-Source}
+  \SetKwFunction{extractmin}{Extract-Min}
+  \SetKwFunction{lax}{Relax}
+
+
+  \Fn{\iss$(G, s)$}{
+     \For{$v\in V$}{
+       $dist[v] \leftarrow \infty$\\
+       $parent[v] \leftarrow NIL$\\
+     }
+     $dist[v] \leftarrow 0$
+  }
+  \Fn{\lax$(u,v,w)$}{
+    \If{$dist[v] > dist[u] + w(u,v)$}{
+      $dist[v] \leftarrow dist[u] + w(u,v)$\\
+      $parent[v] \leftarrow u$\\
+    }
+  }
+
+  \Fn{\dijkstra$(G, s, w)$}{
+      \iss$(G, s)$\\
+      $S\leftarrow \O$\\
+      $Q \leftarrow V$\\
+      \While{$Q\neq \O$}{
+        $u \leftarrow \extractmin(Q)$\\
+        $S \leftarrow S \cup \{ u\}$\\
+        \For{$v\in Adj[u]$}{
+          $\lax(u, v, w)$\\
+        }
+      }
+  }
+\end{algorithm}
+
+\subsubsection*{Complexity}
+\begin{enumerate}
+  \item $|V|$ iterations for while loop, $\textsc{Extract-Min}$ takes $O(\lg |V|)$ each time
+  \item Inner for loop runs for $|E|$ times in total
+  \item In summary, if $Q$ implemented with, then
+  \begin{enumerate}
+    \item \textbf{array} $\Theta(|V|^2)$
+    \item \textbf{binary heap} $\Theta(|E|\lg |V| + |V|\lg |V|) = \Theta(|E|\lg |V|)$ because in relax step in worst case every vertices has $dist$ updated which takes $O(\lg |V|)$ each time for a total of $|E|$ vertices
+    \item \textbf{Fibonacci heap} $\Theta(|V| \lg |V| + |E|)$
+  \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{Proof of correctness}
+
+\begin{proposition*}
+  At the start of each iteration in the while loop, we have
+  \[
+    dist[v] = \delta(s, v) \quad \quad \text{ for all } v\in S
+  \]
+  \begin{proof}
+    Proof by contradiction. Assume there is a first vertex $u$ such that $u\in S$ and $dist[u] > \delta(s, u)$ Note $u\neq s$ (since it is $dist[s] = 0$ is shortest) and $\delta[u] \neq \infty$ (i.e. reachable from $s$) In particular there is a shortest path $s\overset{p}{\to} u$ in $S$. Consider $s\overset{p_1}{\to} x \to y\overset{p_2}{\to} u$. Note here $x\in S$, $y\in Q$, and all vertices in $p_1$ are in $S$. Since $x\in S$ and $u$ is the first vertex to defy the condition we have $dist[x] = \delta(s, x)$ When we added $x$ to $S$ we relaxed the edge $(x,y)$. By convergence property we have $dist[y] = \delta(s,y)$. Since $y$ occurs before $u$ in that path $\delta(s, y) \leq \delta(s,u)$. By upper-bound property, we have $\delta(s,u)\leq dist[u]$.
+    \[
+      dist[y] = \delta(s, y) \leq \delta(s,u) \leq dist[u]
+    \]
+    Since $y,u\in Q$ and we chose $u$ to add to $S$, so
+    \[
+      dist[y] \geq dist[u]
+    \]
+    Then in particular
+    \[
+      dist[y] = \delta(s,y) = \delta(s, u) = dist[u]
+    \]
+    The latte equality contradicts with assumption.
+  \end{proof}
+\end{proposition*}
+
+\subsection*{All-pairs Shortest Path}
+Given $G = (V, E)$ and weight $w$. Want to find $dist[i, j]$ which is the shortest distance between vertices $v_i, v_j \in V$.
+
+\begin{algorithm}[H]
+  \SetKwFunction{allpair}{All-Pairs}
+  \SetKwFunction{ss}{Single-Source}
+
+  \Fn{\allpair$(G, w)$}{
+    \For{$s\in V$}{
+      $\ss(G, w, s)$\\
+    }
+  }
+\end{algorithm}
+
+\subsubsection*{Complexity}
+\begin{enumerate}
+  \item Non-negative weights:  Use $Dijkstra$ for single source
+  \[
+    \Theta(|V|^2 \lg |V|+ |E||V|)\leq \Theta(|V|^3)
+  \]
+  \item Potentially negative weights: Use Bellman-Ford for single source
+  \[
+    \Theta(|V|^2 |E|)\leq \Theta(|V|^4)
+  \]
+\end{enumerate}
+
+
+\subsubsection*{Dynamic programming approach}
+
+\begin{enumerate}
+  \item \textbf{Optimal substructure}
+  Let $l_{ij}^m$ be shortest distance from $i$ to $j$ using at most $m$ edges
+  \[
+    l_{ij}^{(m)} = Min\{ l_{ij}^{(m)}, \underset{1\leq k\leq |V|}{Min}\{ l_{ik}^{(m+1)} + w_kj\} \}
+  \]
+  where
+  \[
+    l_{ij}^{(0)} =
+    \begin{cases*}
+      0 & i = j \\
+      \infty & otherwise
+    \end{cases*}
+  \]
+  \item \textbf{bottom up approach}
+
+
+  \begin{algorithm}[H]
+    \SetKwFunction{esp}{Extend-Shortest-Path}
+
+    \Fn{\esp$(L, w)$}{
+      $n \leftarrow $ number of rows of $L$\\
+      $L' = (l_{ij}') \leftarrow$ $n\times n$ matrix \\
+      \For{$i = 1$ \KwTo $|V|$}{
+        \For{$j = 1$ \KwTo $|V|$}{
+          $l_{ij}' \leftarrow \infty$\\
+          \For{$k = 1$ \KwTo $|V|$}{
+            $l_{ij}'\leftarrow \Min\{ l_{ij}', l_{jk} + w_{kj}\}$
+          }
+        }
+      }
+      \Return{$L'$}
+    }
+  \end{algorithm}
+
+  Complexity is $\Theta(|V|^3)$
+\end{enumerate}
+
+
+\subsubsection*{another approach}
+
+
+\begin{enumerate}
+  \item \textbf{Optimal substructre} Let $d_{ij}^{(k)}$ is length of a shortest path $i \overset{p}{\to} j$ where for all $v\in p$ we have $v \subseteq \{ 1,\cdots, k\}$
+  \[
+    d_{ij}^{(k)} =
+    \begin{cases}
+      w_{ij} & k = 0 \\
+      Min \{ d_{ij}^{(k-1)}, d_{ik}^{(k-1)} + d_{kj}^{(k-1)} \} & k \geq 1\\
+    \end{cases}
+  \]
+  So if $k$ is on the shortest path then $d_{ij}^{(k)} = d_{ij}^{(k-1)}$, otherwise it is summation of shortest distance with vertices up to but no including $k$
+  where
+  \[
+    d_{ij}^{(0)} =
+    \begin{cases}
+      w_{ij} & (i,j) \in E\\
+      \infty & otherwise\\
+    \end{cases}
+  \]
+  \item \textbf{Algorithm}
+
+
+  \begin{algorithm}[H]
+    \SetKwFunction{fw}{Floyd-Warshall}
+    \Fn{\fw$(W)$}{
+      $n \leftarrow $ number of rows of $W$\\
+      $D^{(0)} \leftarrow W$\\
+      \For{$k = 1$ \KwTo $|V|$}{
+        $D^{(k)} = (d_{ij}^{(k)})\leftarrow$  be $n\times n$ matrix \\
+        \For{$i = 1$ \KwTo $|V|$}{
+            \For{$i = 1$ \KwTo $|V|$}{
+              $d_{ij}^{(k)} \leftarrow Min\{ d_{ij}^{(k-1)}, d_{ik}^{(k-1)}  + d_{kj}^{(k-1)}\}$\\
+            }
+        }
+      }
+      \Return{$D$}
+    }
+  \end{algorithm}
+
+\end{enumerate}
+
+
+
+\subsubsection*{Transitive closure of $G$}
+
+Given $W = (w_{ij})_{n\times n}$ where $w_{ij}$ is weight of edge $(i, j)$. Transitive closure is a matrix consisting of 1 and 0, where 1 represent if there is path from $i$ to $j$, whereas 0 represent if there is $i$ is not reachable from $j$. One approach, compute $W^n$ with $\Theta(n^3 \lg n)$
+
+\begin{enumerate}
+  \item \textbf{optimal substructure} let
+  \[
+    t_{ij}^{(k)} =  t_{ij}^{(k-1)} \lor (t_{ik}^{(k-1)} \land t_{kj}^{(k-1)})
+  \]
+  where
+  \[
+    t_{ij}^{(0)}=
+    \begin{cases}
+      1 & i = j \text{ or } (i,j)\in E \\
+      0 & otherwise
+    \end{cases}
+  \]
+\end{enumerate}
+
+
+
+
+
+\end{document}

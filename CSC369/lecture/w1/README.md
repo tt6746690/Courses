@@ -43,18 +43,18 @@
         + _batch system_ 
             + ![](2017-05-27-17-49-36.png)
             + collect a tray of puch cards and read onto magnetic tape and printing output 
-    + _third gen_ _Integrated circuit_ 
-            + IBM360.
-                + _multiprogramming_ 
-                    + ![](2017-05-27-17-57-27.png)
-                    + commercial data processing majority of time is I/O wait time, CPU idles
+    + _third gen_ _Integrated circuit_  
+            + IBM360 
+                + _multiprogramming_  
+                + ![](2017-05-27-17-57-27.png)   
+                    + commercial data processing majority of time is I/O wait time, CPU idles  
                     + solution invovles partition memory into several pieces, with differnet job at each partition.
                     + so if one job is waiting for IO, another job keeps CPU busy
                 + _spooling_ (simultaneous peripheral operation on line)
                     + whenever a running jo finish, OS lead a new job from disk into non-empty paritition
                 + hope to create OS such that program runs in both computing/commercial tasks 
                     + as a result, made OS extraordinarily complex
-                + _timsharing_ 
+                + _timsharing_  
                     + batch job takes too long, missplaced comma would mean job fail 
                     + several user log onto computer for interactive services
             + _ken thompson_ and _UNIX_, `ed`, B language and golang

@@ -33,7 +33,7 @@
     + `sigaction`
     + `alarm`
         + process often needs to be interrupted after a specific time interval to do something,
-                + i.e. transmit potentially lost packet over a network 
+            + i.e. transmit potentially lost packet over a network 
         + specifies time interval, after which a `SIGALRM` is sent to the process
         + one outstanding (the last specified) is executed only 
     + `pause`
@@ -187,17 +187,29 @@
         + is a property of concurrency control, which is instituted for the purpose of preventing race conditions; 
         + it is the requirement that one thread of execution never enter its critical section at the same time that another concurrent thread of execution enters its own critical section.
     + _critical region_ 
+        + a segment of code that has access to shared resources shared amonst `n` threads of execution
+            + heap 
+            + static global variable
         + process can be doing internal computations and other things not leading to race condition, but sometimes it has to access shared memory/files which can lead to races. That part of program where shared memory is accessed in critial region
         + almost always a valid problem since parallel processes coorporate on shared data 
-    + _condition for securing exclusive access to shared resources?_ 
+    + _assumptions to critical region problem_
+        + Each thread must request permission to enter critical region 
+        + each critical region is followed by an exit 
+        + the rest of code is just reminder...
+    + _Goals for securing exclusive access to shared resources?_ 
         + __mutual exclusion__ no 2 processes may be simultaneously inside critical regions 
+        + __progress__  if no process is executing in its critical section and some processes wish to enter their critical sections, then it should be able to enter in definite time 
+            + implies that only those processes that are not executing in their remainder sections can participate in making the decision as to which process will enter its critical section next.
+            + A process cannot immediately re-enter the critical section if the other process has set its flag to say that it would like to enter its critical section.
+        + __bounded waiting__ (on starvation) the number of times a process is bypassed by another process after it has indicated its intent to enter the critical section is bounded by a function of the number of processes in the system
+            + ensures approximately uniform waiting time
+        + __Performance__: overhead of enter/exit region should be small compared to the work it is done
+    _ _assumptions for mutal exclusive access to shared resource_
         + no assumption may be made about speeds or number of CPUs
         + no process running outside its critical region may block any processes 
         + no process should have to wait forever to enter its critical region (_no deadlocks_)
             + waiting threads must be able to enter critical section eventually 
-        + __progress__  if no process is executing in its critical section and some processes wish to enter their critical sections, then only those processes that are not executing in their remainder sections can participate in making the decision as to which process will enter its critical section next.
-            + A process cannot immediately re-enter the critical section if the other process has set its flag to say that it would like to enter its critical section.
-        + __bounded waiting__ the number of times a process is bypassed by another process after it has indicated its desire to enter the critical section is bounded by a function of the number of processes in the system
+        + machine instructions are assumed atomic
     + ![](2017-05-31-12-25-51.png)
     + _process execution states_ 
         + _non-criticle section_ 
@@ -247,8 +259,9 @@
                 + hangs in `while` loop until `B` sets `turn` to `0`
         + discussion 
             + not a good idea to take turns if one is much slower than the other
-            + violates 3rd assumption on _no process running outside its critical region may block any processes_
+            + violates the _progress_ goal 
                 + here `A` is blocked by `B`, which is not in critical region
+                + requires strict alteration, if `A` want to run the second time it has to wait for `B` to run first, possibly indefinitely
             + this solution, although avoids race conditions, requires _strict alteration_ between 2 processes 
     + _Peterson's Solution_ 
         + description 
@@ -258,6 +271,9 @@
                 + wait if need be, until safe to enter 
             + before exiting critical region, each process calls `exit_region(pid)`
                 + indicate it is done, allows other process to enter, if it so desires
+        + note 
+            + mostly a hardware solution to ensure mutex
+            + alternatively, `test_and_set` to achieve atomic access
         + C implementation 
             +   ```c
                 #define FALSE 0 
@@ -272,8 +288,8 @@
                     int other;                  /* number of other processes */
                     other = 1 - process;        /* the opposite process */
                     interested[process] = TRUE; /* show you are interested */
-                    turn = process;             /* set flag */
-                    while(interested[other] == TRUE && turn == process){};          /* null statement */ 
+                    turn = other;             /* set flag */
+                    while(interested[other] == TRUE && turn == other){};          /* null statement */ 
 
                     /* here only if either 
                         -- interested[other] == FALSE (`other` left critical region)
@@ -288,6 +304,8 @@
                 ```
         + wiki implementation 
             + ![](2017-06-18-15-34-36.png)
+        + idea 
+            + `turn` holds a single value, hence only the last assignment will be the one determining who enters the critical region
         + simulation 
             + process `0` and `1`
             + _scenario 1_
@@ -326,6 +344,29 @@
                     + resource taken already, 
                     + lock already set, program goes back to beginning and test again 
                     + sooner or later it will become zero (i.e. process in critical section finishes)
+        + _implement `lock` with `test_and_set`_ 
+            ```c 
+            bool test_and_set(boolean *lock){
+                boolean old = *lock;
+                *lock = true;
+                return old;
+            }
+
+            boolean lock;
+
+            void acquire(boolean *lock){
+                while(test_and_set(lock));
+                // if true, other thread holds it, busy waiting 
+                // if false, acquire the lock, function returns, thread enter critical region
+            }
+            void release(boolean *lock){
+                *lock = false;
+            }
+            ```
+        + _idea_ 
+            + `lock` is always true on exit 
+            + if `1`: lock used already, so nothing changes 
+            + if `0`: the caller now acquires the lock by setting it to `1`
         + implementation 
             + ![](2017-06-02-19-20-50.png)  
                 + copies old value of `lock` to `register` 
@@ -401,11 +442,11 @@
                 + initialized to `1` to ensure only one of them can enter its critical region 
             + _atomic action_ 
                 + a group of related operations are either all performed without interruption or not performed at all.
-            +  __[Atomic]__ `down`
+            +  __[Atomic]__ `down` (wait)
                 + checks if value is greater than 0
                     + if so decrement value and continues
                     + otherwise process put to sleep (not completing `down` yet)
-            +  __[Atomic]__ __[Non-blocking]__ `up`
+            +  __[Atomic]__ __[Non-blocking]__ `up` (signal)
                 + increments value of semaphore addressed. 
                 + If one or more processes where sleeping on that semaphore, unable to complete an ealrier `down` operation, one of them is chosen (by system at random) and is allowed to complete its `down`
             + `up` and `down` implementation 
@@ -425,6 +466,47 @@
                 + if `down` before enter and `up` before exit, then _mutual exlusion_ guaranteed
         + simulation 
             + `full = 0`, `empty = N`, `mutex = 1`
+        + _reader/writer problem with semaphores_
+            + allows multiple reader to access shared resources concurrently, but writer and reader must be mutual exlucisve in accessing shared resources
+        ```c 
+        int readcount = 0;      // number of reader 
+        Semaphore mutex = 1;    // ensures mutex to readcount
+        Semaphore w_or_r = 1;   // exclusive writing/reading 
+
+        wait(semaphore *s){
+            while(s->count == 0);
+            s->count -= 1;
+        }
+
+        signal(semaphore *s){
+            s->count += 1;
+            // unblock a process that is waiting
+        }
+        
+        Writer {
+            wait(w_or_r);
+            write;
+            signal(w_or_r);
+        }    
+
+        Reader {
+            wait(mutex);
+            if(++readcount == 1){   // first reader 
+                wait(w_or_r);
+            }
+            signal(mutex);
+
+            // multiple reader can be in here
+            read;
+
+            wait(mutex);
+            if(--readcount == 0){   // last reader    
+                signal(w_or_r);
+            }
+            signal(mutex);
+        }
+
+        ```
     + _Mutexes_ 
         + description 
             + simplified semaphore where the ability to count is not needed 
@@ -487,61 +569,61 @@
                 + one thread lock a `mutex`, then wait on `conditional varaible` when it cannot get what it needs. 
                 + Eventually another thread will signal it and it can continue
         + producer-consumer revisit 
-            +    ```c
-                #include<stdio.h>
-                #include<pthread.h>
+            ```c
+            #include<stdio.h>
+            #include<pthread.h>
 
-                #define MAX 10000000
-                pthread_mutex_t the_mutex;      
-                pthread_cond_t condc, condp;        /* used for signaling */
-                int buffer = 0;                     /* buffer = 0 -> empty, 
-                                                                non-zero -> filled */
+            #define MAX 10000000
+            pthread_mutex_t the_mutex;      
+            pthread_cond_t condc, condp;        /* used for signaling */
+            int buffer = 0;                     /* buffer = 0 -> empty, 
+                                                            non-zero -> filled */
 
-                void *producer(void *ptr){
-                    for(int i = 1; i <= MAX; i++){
-                        pthread_mutex_lock(&the_mutex);     /* exclusive access to buffer */
-                        while(buffer != 0) pthread_cond_wait(&condp, &the_mutex);
-                        buffer = i;                         /* put item in buffer */
-                        pthread_cond_signal(&condc);        /* wake up consumer */
-                        pthread_mutex_unlock(&the_mutex);   /* release access to buffer */
-                    }
-                    pthread_exit(0);
+            void *producer(void *ptr){
+                for(int i = 1; i <= MAX; i++){
+                    pthread_mutex_lock(&the_mutex);     /* exclusive access to buffer */
+                    while(buffer != 0) pthread_cond_wait(&condp, &the_mutex);
+                    buffer = i;                         /* put item in buffer */
+                    pthread_cond_signal(&condc);        /* wake up consumer */
+                    pthread_mutex_unlock(&the_mutex);   /* release access to buffer */
                 }
+                pthread_exit(0);
+            }
 
-                void *consumer(void *ptr){
-                    for(int i = 1; i <= MAX; i++){
-                        pthread_mutex_lock(&the_mutex);     
-                        while(buffer ==0) pthread_cond_wait(&condc, &the_mutex)
-                        buffer = 0;
-                        pthread_cond_signal(&condp);        /* wake up producer */
-                        pthread_mutex_unlock(&the_mutex)    
-                    }
-                    pthread_exit(0);
+            void *consumer(void *ptr){
+                for(int i = 1; i <= MAX; i++){
+                    pthread_mutex_lock(&the_mutex);     
+                    while(buffer ==0) pthread_cond_wait(&condc, &the_mutex)
+                    buffer = 0;
+                    pthread_cond_signal(&condp);        /* wake up producer */
+                    pthread_mutex_unlock(&the_mutex)    
                 }
+                pthread_exit(0);
+            }
 
-                int main(int argc, char **argv){
-                    pthread_t pro, con;
-                    pthread_mutex_init(&the_mutex, 0);
-                    pthread_cond_init(&condc, 0);
-                    pthread_cond_init(&condc, 0);
+            int main(int argc, char **argv){
+                pthread_t pro, con;
+                pthread_mutex_init(&the_mutex, 0);
+                pthread_cond_init(&condc, 0);
+                pthread_cond_init(&condc, 0);
 
-                    /* create new threads, execute  
-                        start routine, consumer() and producer() 
-                        respectively
-                    */
-                    pthread_create(&con, 0, consumer, 0);   
-                    pthread_create(&pro, 0, producer, 0);
+                /* create new threads, execute  
+                    start routine, consumer() and producer() 
+                    respectively
+                */
+                pthread_create(&con, 0, consumer, 0);   
+                pthread_create(&pro, 0, producer, 0);
 
-                    /* suspends calling thread and waits for threads to exit 
-                        void **value_ptr points to value passed to pthread_exit()
-                    */
-                    pthread_join(pro, 0);
-                    pthread_join(con, 0);
-                    pthread_cond_destroy(&condc);
-                    pthread_cond_destroy(&condp);
-                    pthread_mutex_destroy(&the_mutex);
-                }
-                ```
+                /* suspends calling thread and waits for threads to exit 
+                    void **value_ptr points to value passed to pthread_exit()
+                */
+                pthread_join(pro, 0);
+                pthread_join(con, 0);
+                pthread_cond_destroy(&condc);
+                pthread_cond_destroy(&condp);
+                pthread_mutex_destroy(&the_mutex);
+            }
+            ```
     + _Monitors_ 
         + _deadlock_: 
             + a state in which each member of a group of actions, is waiting for some other member to release a lock. 

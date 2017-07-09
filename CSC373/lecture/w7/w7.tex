@@ -1,0 +1,221 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\subsection*{Flow Network}
+
+Given a flow network, find a maximum flow, ie. flow $f$ such that $|f|$ is maximum possible.
+
+\begin{defn*}
+  A \textbf{Flow Network} is a directed graph $G = (V, E)$ in which each edge $(u,v)\in E$ has a capacity $c(u,v) \geq 0$ and two special vertices, called \textbf{source} $s$ and \textbf{sink} $t$. Note every other vertex $v$ lie on a path from $s$ to $t$ and there is no $(u,v)\in E$ such that $(v,u) \in E$, (no anti-parallel edges)
+  \begin{enumerate}
+    \item Every node other than $s$ and $t$ has at least one incoming edge and outgoing edge, hence $|E| \geq |V| - 1$
+    \item Usually when $c(u,v) =0$, the edge is omitted since no flow is allowed
+  \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+  A \textbf{Flow} in $G$ is a real-valued function $f: V\times V \to \R$ satisfying
+  \begin{enumerate}
+    \item \textbf{Capacity constraint} For all $v\in V$,
+    \[
+      0 \leq f(u,v) \leq c(u,v)
+    \]
+    \item \textbf{Conservation constraint} At any vertex $v\in V \setminus \{s, t \}$,
+    \[
+      \sum_{(u,v)\in E}f(u,v) = \sum_{(v, u) \in E} f(v, u)
+    \]
+    In other words, sum of inward flows equates to outward flows, nothing stays at vertex $v$
+  \end{enumerate}
+  The \textbf{value of a flow} is defined to be
+  \[
+    |f| = \sum_{(s,  v) \in E} f(s, v) - \sum_{(v, s)\in E} f(v, s) = \sum_{(s,  v) \in E} f(s, v)
+  \]
+  since assuming no edges doing into $s$
+\end{defn*}
+
+\begin{defn*}
+  \textbf{Residual capacity nad residual network}\\
+  Let $f$ be flow of a flow network $G = (V,E)$ with source $s$ and sink $t$, we define \textbf{residual capacity} $c_f(u,v)$ as
+  \[
+    c_f(u,v) =
+    \begin{cases}
+      c(u,v) - f(u,v) & \text{if } (u, v)\in E\\
+      f(v, u) & \text{if } (v, u) \in E \text{(push back has limit of flow)}\\
+    \end{cases}
+  \]
+  The \textbf{residual network} of a flow network $G$ is a directed graph $G_f = (V, E_f)$ where
+  \[
+    E_f =\left\{ (u,v)\in V\times V | c_f(u,v) >0 \right\}
+  \]
+  where the edge capacity is defined by $c_f(u,v)$.
+  \begin{enumerate}
+    \item Since at most 2 edges can be drawn in $G_f$ given 1 edge in $G$.
+    \[
+      |E_f| = 2|E|  \quad \iff \quad O(E_f) = O(E)
+    \]
+  \end{enumerate}
+\end{defn*}
+
+\begin{solution}$ $\\
+  Let $P$ be a simple path from $s$ to $t$ in $G_f$ (no cycle) Define
+  \[
+    bottleneck(P, f) = min \left\{ c_f(u, v) \, | \, (u,v) \in P\right\}
+  \]
+  The following $\textsc{Augment}$ works on $G$ not on $G_f$ and $f$ is the flow with respect to $G$ \\
+  \begin{algorithm}[H]
+    \SetKwFunction{ff}{Ford-Folkerson}
+    \SetKwFunction{aug}{Augment}
+
+   \Fn{\aug$(f, P)$}{
+      $b \leftarrow bottleneck(P,f)$\\
+      \For{$e  = (u,v) \in P$}{
+        \If{$e$ is a forward edge (there is capacity left)}{
+          $f(u,v) \leftarrow f(u, v) + b$\\
+        }\Else{
+          $// (v, u)$  is a backward edge\\
+          $f(v,u) \leftarrow f(v,u) - b$\\
+        }
+      }
+    }
+
+   \Fn{\ff$(G, s, t)$}{
+      \For{$e = (u,v) \in E$}{
+        $f(u,v) \leftarrow 0$\\
+      }
+
+      \While{$\exists P =\{s, \cdots, t\} $ in $G_f$}{
+        $f' \leftarrow \aug(f, P)$\\
+        Update $f \leftarrow f'$\\
+        Update $G_f \leftarrow G_f'$\\
+      }
+      \Return{$f$}
+    }
+  \end{algorithm}
+
+  \begin{proposition*}
+    $ $\\
+    \begin{enumerate}
+      \item $\textsc{Augment}(f, P)$ is a new flow $f'$ in $G$
+      \begin{proof}
+        We have to check that $f'$ satisfies capacity and conservation constraint.
+        \begin{enumerate}
+          \item \textbf{capacity constraint} \\
+          By definition, $b = bottleneck(P,f)\leq c_f(u,v)$ for any $(u,v)\in P$.
+            \begin{enumerate}
+              \item If $(u,v)$ is a forward edge then
+                \[
+                  0 \leq f(u,v) \leq f'(u,v) = f(u,v) + b \leq f(u,v) + c_f(u,v) = f(u,v) + c(u,v) - f(u,v) = c(u,v)
+                \]
+              \item   If $(u,v)$ is a backward edge, then $c_f(u,v) = f(v, u)$ by definition, then
+                \[
+                  c(v, u) \geq f(v, u) \geq f'(v, u) = f(v, u) - b = f(v, u) - c_f(u,v) = f(v, u) - f(v, u) = 0
+                \]
+            \end{enumerate}
+            In both case, $ 0\leq f'(u,v) \leq c(u,v)$ hence satisfy capacity constraint.
+            \item \textbf{Conservation constraint} For any vertex $v$ on $P$, disucss the incident edges to $v$ depending on if they are forward/backward edges (3 cases)...
+        \end{enumerate}
+      \end{proof}
+      \item $| f' | \geq |f|$
+      \begin{proof}
+        $P$ is a path in $G_f$ from $s$ to $t$. The first edge $e$ in $P$ is an edge out of $s$. In $G$ there is no edge going into $s$. The new flow on $e$ is $f'(e) = f(e) + b > f(e)$, since all other edges going out of $s$ are unchanged, the total flow going out of $s$ is incremented by $b$ so
+        \[
+          |f'|  = |f| + b > |f|
+        \]
+      \end{proof}
+    \end{enumerate}
+
+  \end{proposition*}
+
+  \begin{proposition*}
+    The algorithm while loop will end
+    \begin{proof}
+      $ $\\
+      \begin{enumerate}
+        \item All capacities/flows are integers. Let $f^*$ be a maximum flow on $G$ satisfying
+        \[
+          |f^*| \leq \sum_{i=1}^n c_i \quad \quad |f^*| \in \I
+        \]
+        Since $f \in \I$ we have  $f' > |f| + 1$ implies $f' \geq |f| + 1$. Hence we can always hit $f^*$ by a finitely many iterations
+        \item If flows are fractions, then can multiple all capacity by a constant such that capacities and resulting flows are ints, use the previous argument, it will end in finitely many iterations
+        \item non-rationals? not so sure about..
+      \end{enumerate}
+    \end{proof}
+  \end{proposition*}
+
+  The complexity is $O(E|f^*|)$, $O(|E|)$ for running BFS to find path from $s$ to $t$ and $O(|f^*|)$ for an upper bound on number of iterations for while loop
+\end{solution}
+
+
+
+
+\begin{defn*}
+  $ $\\
+  \begin{enumerate}
+    \item A \textbf{cut} $C = (S, T)$ of a flow network $G = (V, E)$ is a partition of $V$ into $S$ and $T = V\setminus S$ such that $s\in S$ and $t\in T$
+    \item   A \textbf{net flow} $f(S,T)$ for a flow $f$ across the cut $(S,T)$ is defined as
+      \[
+        f(S,T)= \sum_{u\in S}\sum_{v\in T} f(u,v) -  \sum_{u\in S}\sum_{v\in T} f(v,u)
+      \]
+    \item The \textbf{capacity} of the cut $(S,T)$ is
+    \[
+      c(S,T) = \sum_{u\in S}\sum_{v\in T} c(u,v)
+    \]
+    \item The \textbf{Minimum cut} of a network is a cut where capacity is minimum across all possible cut
+  \end{enumerate}
+\end{defn*}
+
+
+
+
+
+\begin{lemma*}
+  Let $f$ be a flow in a flow network $G$ and let $C = (S,T)$ be any cut of $G$ then
+  \[
+    |f| = f(S,T)
+  \]
+\end{lemma*}
+
+\begin{corollary*}
+  The value of any flow in a flow network $G$ is bounded above by the capacity of any cut of $G$
+  \begin{proof}
+    By lemma, $|f| = f(S,T)$ then
+    \begin{align*}
+      |f| &= \sum_{u\in S}\sum_{v\in T} f(u,v) -  \sum_{u\in S}\sum_{v\in T} f(v,u)\\
+      &\leq \sum_{u\in S}\sum_{v\in T} f(u,v)\\
+      &\leq \sum_{u\in S}\sum_{v\in T} c(u,v)\\
+      &= c(S,T)\\
+    \end{align*}
+  \end{proof}
+\end{corollary*}
+
+
+\begin{theorem*}
+  \textbf{Max-flow Min-cut Theorem} \\
+  If the flow $f$ in a flow network $G=(V,E)$ with source $s$ and sink $t$ then the following conditions are equivalent
+  \begin{enumerate}
+    \item $f$ is a maximum flow in $G$
+    \item the residual network $G_f$ contains no augmented paths
+    \item $|f| = c(S,T)$ for some cut $(S,T)$ of $G$. In other words, max flow is equal to minimum cut capacity
+  \end{enumerate}
+  (Note 1 and 2 can be used to prove the algorithm...)
+
+
+  \begin{proof}
+    $ $\\
+    \begin{itemize}
+      \item $1 \to 2$ Let there be a path $P$ from $s$ to $t$ in $G_f$ Define $f' = \textsc{Augment}(f,P)$ where $|f'| > |f|$. contradiction
+      \item $2 \to 3$ Try to construct some cut... Let $S = \left\{ v\in V \,|\, \exists P = \{ s,\cdots, v\} \right\}$ and let $T = V\setminus S$. Clearly $s\in S$ and $t\in T$. Since there is no augmenting path, then $S\neq \O \neq T$, $S\cap T = \O$, $S\cup T = V$, hence $(S,T)$ is a cut of $G$. Let $u\in S$ and $v\in T$. If $(u,v)\in E$ we must have $f(u,v) = c(u,v)$, since otherwise there will be a forward edge $(u,v) \in E_f$ such that $v\in S$ (not cut anymore). If $(u,v)\in E$, we must have $f(v, u)  = 0$ otherwise $f(u,v) = f(v,u) = 0$ (for similar reason). By lemma $|f| = f(S,T)$, then
+      \[
+        f(S,T) = \sum_{u\in S}\sum_{v\in T} f(u,v) -  \sum_{u\in S}\sum_{v\in T} f(v,u) = \sum_{u\in S}\sum_{v\in T} c(u,v) = c(S,T)
+      \]
+      \item $3 \to 1$. By previous corollary, $|f| \leq c(S,T)$ for any cut. So, $|f| = c(S,T)$ implies $f$ is maximum
+    \end{itemize}
+  \end{proof}
+
+\end{theorem*}
+
+
+
+
+\end{document}

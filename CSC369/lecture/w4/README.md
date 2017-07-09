@@ -88,7 +88,7 @@
                 + example: if computer is controlling a device that produces data at regular rate, failure to run the data-collection process on time may result in data loss
             + _predictability_: avoids quality degradation in multimedia systems 
 + _Scheduling on Batch system_ 
-    + _First-Come, First-Serve_ 
+    + _First-Come, First-Serve (FCFS)_ 
         + processes are assigned CPU in order they request it 
             + a single queue of ready processes
             + nonpreemptive, i.e. long running tasks are not interrupted 
@@ -99,7 +99,7 @@
                 + average wait time is high
                 + inefficient with lots of I/O-bound processes and few blocking CPU-bound process 
                     + 1 CPU-bound process take say 1s to finish, everytime its run, it has to run the entire 1s. If there is preemption, I/O-bound process can be run many times within the 1s time interval, the average wait time decreases without slowing down the CPU-bound process very much
-    + _Shortest Job First_ 
+    + _Shortest Job First (SJF)_ 
         + picks shortest job first
             + assumes runtime known in advance, possible in batch-systems, where routine jobs running time information may be known in advance
             + nonpreemptive
@@ -109,6 +109,8 @@
             + average turnaround time 
                 + a. `8 + 12 + 16 + 20 / 4 = 14`
                 + b. `4 + 8 + 12 + 20 / 4 = 11` provably optimal
+        + discussion 
+            + long running process may starve to death againast a queue of small jobs
     + _Shortest Remaining Time Next_ 
         + picks process whose remaining run time is shortest. If a new job arrives, compare with current process' remaining time. The current process suspended and new job starts if new job needs less time
             + preemptive version of shortest job first 
@@ -134,7 +136,7 @@
             + If quantum is long, 
                 + response time suffers for short interactive requests, 
                     + e.x. 50 runnable jobs, first one runs for 100msec (now only 1% CPU wasted on context switch), the second have to wait for that long to start, the last one needs 5s to start
-            + if _quantum is set longer than mean CPU burst_, then preemption will not happen very often 
+            + if _quantum is set longer than mean CPU burst_ (or to be larger w.r.t. context switch time), then preemption will not happen very often 
                 + e.x. most process blocks before quantum runs out 
                 + improves performance 
                 + _compromise_: about `20-50 msec`
@@ -142,6 +144,9 @@
         + idea 
             + each process assigned priority, and 
             + the runnable process with highest priority is allowed to run
+        + problem   
+            + _starvation_: low priority task may never get to run 
+            + _priority inversion_: low priority task may prevent a high priority task from making progress by holding resource
         + details 
             + To prevent high-priority processes from running indefinitely, 
                 + scheduling may _decrease priority_ of currently running process at each clock tick (clock interrupt), so next highest process starts running sometime in the future, _or_
@@ -168,6 +173,9 @@
             + context switching is costly 
             + more efficient to give CPU-bound process a large quantum (reduce context switching)
             + but may result in poor response time if give all processes a large quantum 
+        + idea 
+            + multiple priority classes 
+            + each with potentially different scheduling policy
         + solution 
             + priority classes 
             + processes in highest class run for one quantum
@@ -184,6 +192,10 @@
                 + run less and less frequently, saving CPU for short, interactive processes
             + problem
                 + a process that is CPU-bound initially, became interacive later is punished in low priority classes (i.e. very long response time) 
+        + _goal_ 
+            + shortest (high priority) jobs gets executed first 
+        + _extension_ 
+            + use _feedback scheduling_ to move jobs cross priority classes 
     + _Shortest Process Next_   
         + idea 
             + make estimate based on past behavior and run process with shortest estimated running time 

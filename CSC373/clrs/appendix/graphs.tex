@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+\begin{defn*}
+    $ $\\
+    \begin{enumerate}
+        \item \textbf{directed graph} $G$ is a pair $(V, E)$, where $V$ is a finite set and $E$ is a binary relation on $V$. $V$ is a \textbf{vertex set} of $G$, and its elements are called \textbf{vertices}. The set $E$ is called the edge set of $G$ and its elements are called edges
+        \begin{enumerate}
+            \item If $(u,v)$ is an edge in an undirected graph, then $(u, v)$ is \textbf{incident on} vertices $u$ and $v$
+            \item If $(u,v)$ is an edge in $G = (V,E)$, then vertex $v$ is \textbf{adjacent} to vertex $u$
+            \item The \textbf{degree} of a vertex in an undirected graph is the number of edges incident on it; A vertex with degree 0 is \textbf{isolated}
+            \item In directed graph, a path $\langle v_0, \cdots, v_k \rangle$ forms a \textbf{cycle} if $v_0 = v_k$ and the path contains at least one edges; 
+            \begin{enumerate}
+                \item The \textbf{cycle is simple} if, in addition, $v_1, \cdots, v_k$ are distinct
+                \item A self-loop is a cycle of length 1, i.e. $(v, v)$
+                \item A directed graph with no self-loop is \textbf{simple}
+                \item A graph with no cycles is \textbf{acyclic}
+            \end{enumerate}
+            \item A directed graph is \textbf{strongly connected} if 
+            \begin{enumerate}
+                \item every two vertices are reachable from each other 
+                \item has exactly one strongly connected component
+            \end{enumerate}
+            \item the \textbf{strongly connected component} of a directed graph are equivalence classes of vertices under the 'are mutually reachable' relation
+            \item Given a directedf graph $G =  (V, E)$, the \textbf{undirected version} of $G$ is the undirected graph $G' = (V,E')$, where $(u,v) \in E'$ if and only if $u\neq v$ and $(u,v)\in E$ (that is, undirected version contains edges of $G$ with directions removed and self-loop eliminated)
+            \item the \textbf{neighbor} of a vertex $u$ is any vertex that is adjacent to $u$ in the undirected version of $G$ (that is, $v$ is a neighbor of $u$ if $u\neq v$ and either $(u,v)\in E$ or $(v,u)\in E$).
+        \end{enumerate}
+        \item \textbf{undirected graph} $G = (V, E)$, the set $E$ consists of \textit{unordered} pairs of vertices, rather than ordered pairs, i.e. exists set $\{ u, v\}$, where $u, v \in V$ and $u \neq v$. (by convention, we use $(u,v) = (v, u)$ to denote a set)
+        \begin{enumerate}
+            \item If $(u,v)$ is an edge in a directed graph, $(u,v)$ is \textbf{incident from} or \textbf{leaves} vertex $u$ and is \textbf{incident to} or \textbf{enters} vertex $v$
+            \item In the case of directed graph, if $v$ is \textbf{adjacent} to $u$, then $u \to v$
+            \item the \textbf{out-degree} of a vertex is the number of edges leaving it, and the \textbf{in-degree} of a vertex is the number of edges entering it. The \textbf{degree} of a vertex in a directed graph is its in-degree plus its out-degree
+            \item In undirected graph, a path $\langle v_0, \cdots, v_k \rangle$ forms a \textbf{cycle} if $k\geq 3$ and $v_0 = v_k$ 
+            \begin{enumerate}
+                \item The \textbf{cycle is simple} if $v_1, \cdots, v_k$ are distinct 
+                \item A graph with no cycles is \textbf{acyclic}
+            \end{enumerate}
+            \item An undirected graph is \textbf{connected} if 
+            \begin{enumerate}
+                \item every vertex is reachable from all other vertices 
+                \item has exactly one connected component 
+            \end{enumerate}
+            \item Given undirected $G = (V,E)$, the \textbf{directed version of} $G$ is the directed graph $G' = (V, E')$, where $(u,v) \in E'$ if and only if $(u,v)\in E$. (replacing each undirected edge $(u,v)$ by two directed edges $(u,v)$ nad $(v,u)$)
+            \item $u$ and $v$ are \textbf{neighbors} if they are adjacent
+        \end{enumerate}
+        \item The \textbf{connected component} of a graph are equivalence classes of vertices under the 'is reachable from' relation
+        \begin{enumerate}
+            \item The \textbf{edges of a connected component} are those that are incident on only the vertices of the component, i.e. $(u,v)$ is an edge of a connected component if both $u$ and $v$ are vertice of the component 
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+A \textbf{path} of \textbf{length} $k$ from a vertex $u$ to a vertex $u'$ in a graph $G = (V, E)$ is a sequence $\langle v_0, v_1, \cdots, v_k \rangle$ of vertices such that $u = v_0$ and $u' = v_k$, and $(v_{i-1}, v_i) \in E$ for $i = 1, 2\cdots k$
+\begin{enumerate}
+    \item the \textbf{length} of the path is the number of edges in the path 
+    \item If there is a path from $u$ to $u'$, we say that $u'$ is \textbf{reachable} from $u$ via $p$, which we sometimes write as $u \overset{p}{\leadsto} u'$ if $G$ is directed 
+    \item A path is \textbf{simple} if all vertices in the path are distinct 
+    \item A \textbf{subpath} of path $p=\langle v_0, v_1, \cdots, v_k \rangle$ is a contiguous subsequence of its vertices . That is, for any $0 \leq i \leq j\leq k$, subsequence of vertices $\langle v_i, \cdots, v_j \rangle$ is a subpath of $p$
+\end{enumerate}
+\end{defn*}
+
+
+
+\begin{defn*}
+    \begin{enumerate}
+        \item Two graphs $G = (V, E)$ and $G' = (V', E')$ are \textbf{isomorphic} if there exists a bijection $f: V \to V'$ such that $(u,v) \in E$ if and only if $(f(u), f(v))\in E'$. In other words, we can relable the vertices of $G$ and be the vertices of $G'$, maintaining the corresponding edges in $G$ and $G'$
+        \item A graph $G' = (V', E')$ is a \textbf{subgraph} of $G = (V, E)$ if $V' \subseteq V$ and $E' \subseteq E$. Given a set $V' \subseteq V$, the subgraph of $G$ \textbf{induced} by $V'$ is the graph $G'= (V', E')$ where 
+        \[
+            E' = \{ (u,v) \in E: u,v, \subseteq V'\}
+        \]
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Types of graphs}
+    \begin{enumerate}
+        \item A \textbf{Complete graph} is an undirected graph in which every pair of vertices is adjacent 
+        \item A \textbf{Bipartite graph} is an undirected graph $G = (V,E)$ in which $V$ can be partitioned into two sets $V_1$ and $V_2$ such that $(u,v)\in E$ implies either $u \in V_1$ and $v\in V_2$ or $u\in V_2$ and $v\in V_1$
+        \item A \textbf{Weighted graph} is a graph for which each edge has an associated \textbf{weight}, given by a weight function $w: E\to \R$.
+        \item A \textbf{forest} is an acyclic, undirected graph 
+        \item A \textbf{tree} is a connected, acyclic, undirected graph 
+        \item A \textbf{directed acyclic graph (DAG)} is as its name suggests
+    \end{enumerate}
+\end{defn*}
+
+
+
+
+\end{document}

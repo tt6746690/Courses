@@ -1,0 +1,288 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+\section*{Linear Programming}
+
+
+\begin{defn*}
+    \textbf{Linear Programming Problem (LPP)}
+    \begin{enumerate}
+        \item \textbf{Linear Function} Given a set of real numbers $a_1,\cdots a_n$ and a set of variables $x_1,\cdots, x_n$, we define a linear function $f$ on these variables as 
+        \[
+            f(x_1,\cdots, x_n) = a_1 x_1 + a_2 x_2 + \cdots + a_n x_n
+        \]
+        \item \textbf{Linear equality \& inequality} If $b$ is a real number, then 
+        \[
+            f(x_1, \cdots, x_n) = b
+        \] 
+        is called a linear equality and 
+        \[
+            f(x_1, \cdots, x_n) \geq b \quad \quad f(x_1, \cdots, x_n) \leq b
+        \]
+        are called linear inequalities 
+        \item \textbf{Linear Constraint} Combined they are called linear constraint 
+        \item \textbf{Linear Programming Problem (LPP)} is a problem of minimizing or maximizing a linear function subject to a finite set of linear constraint
+        \item \textbf{Feasible Solution \& Feasible Region} Any value $(\overline{x}_1,\cdots, \overline{x}_n)$ of variables that satisfies the constriant is called a feasible solution. The set of all feasible solutions is called feasible region of the LPP
+        \item \textbf{Infeasible \& Feasible LPP} A LLP that has no feasible solution is called infeasible, otherwise it is called feasible
+        \item \textbf{Unbounded LPP} A LPP has feasible solution but no finite optimal objective value, we say the LPP is unbounded
+        \item \textbf{Objective Function \& Object Value} the function used to maximize or minimize is called the objective function, and its value $(\overline{x}_1,\cdots, \overline{x}_n)$ is the objective value of that point
+        \item \textbf{Optimal Point} A point in the feasible region that has the maximum or miminium objective value is an optimal point
+    \end{enumerate}
+\end{defn*}
+
+\begin{example}
+    Maximize $(x_1, x_2) \xrightarrow{f} 2x_1 + 3x_2$ subject to 
+    \begin{align*}
+        3x_1 - 2x_2 &\leq 6\\
+        x_1 + x_2 &\leq 5\\
+        x_1, x_2 &\geq 0\\
+    \end{align*}
+    \begin{solution}
+        Can plot a 2-D plot representing a feasible region, calculate the function at endpoints and find the maximizing value. But why at endpoints... We calculate the gradient 
+        \[
+           \partial f(x_1, x_2) = [ 2, 3 ] \neq 0
+        \]
+        hence no critical points in interior of the feasible region. Must be at boundary
+    \end{solution}
+\end{example}
+
+
+
+\begin{defn*}
+    \textbf{Representation of LP problem}
+    \begin{enumerate}
+        \item \textbf{Standard Form} 
+        \begin{enumerate}
+            \item Maximize $a_1 x_2 + a_2 x_2 + \cdots + c_n x_n$ subject to 
+        \begin{align*}
+            & a_{11}x_1 + a_{12}x_n + \cdots + a_{1n} x_n\leq b_1 \\
+            & \cdots                                              \\  
+            & a_{m1}x_1 + a_{m_2}x_n + \cdots + a_{mn} x_n \leq b_m \\
+        \end{align*}
+            \item Maximize $\sum_{j=1}^n c_j x_j$ subject to $\sum_{j=1}^n a_{ij} x_j \leq b_i$ for $i = 1,\cdots, m$ where $x_i \geq 0$ for all $i = 1,\cdots, m$
+            \item Maximize $c^T x$ subject to $Ax \leq b$ and $x\geq 0$ where 
+            \[
+                c = (c_j)_{n\times 1}   \quad b = (b_i)_{m\times 1} \quad n = (x_j)_{n\times 1} \quad A = (a_{ij})_{m\times n}
+            \]
+        \end{enumerate}
+        \item \textbf{Transformation to Standard form} 
+            \begin{enumerate}
+                \item To minimize $c^Tx$, we maximize $-c^Tx$
+                \item 
+                \[
+                    \sum_{j=1}^n a_{ij}x_j = b_i \text{ for some } i \quad \iff \quad \sum a_{ij} x_j \leq b_i \text{ and } \sum a_{ij} x_j \geq b_i
+                \]
+                \item 
+                \[
+                    \sum_{j=1}^n a_{ij} x_j \geq b_i \quad \iff \quad -\sum_{j=1}^n a_{ij} x_j \leq -b_i 
+                \]
+                \item $x_i$ is unbounded for some $c$
+                \[
+                    x_i = x_i' - x_i '' \quad \quad x_i', x_i'' \geq 0'
+                \]
+            \end{enumerate}
+        \item \textbf{Slack Form} $\sum_{j=1}^n a_{ij} x_j \leq b_i$ Define 
+        \[
+            s = b_i - \sum_{j=1}^n a_{ij} x_j
+        \]
+        A slack form is defined by $(N,B,A,b,c,v)$ where $N$ is the set of nonbasic variables, $B$ is the set of basic variables, $A,b,c$ are coefficients and $v$ is the optimal constant
+        \item \textbf{Transformation from Standard Form} 
+        \[
+            x_{n+i} = b_i - \sum_{j=1}^n a_{ij} x_j \quad i = 1,\cdots, n \quad x_{n + i} \geq 0
+        \]
+        Remove \textsc{Maximizing} and \textsc{subject to} and introduce a new variable $z$ as follows 
+        \[
+            z = \sum_{j=1}^nc_j x_j + v 
+        \]
+        where $v$ is some optimal constraint coefficient
+    \end{enumerate}
+\end{defn*}
+
+
+
+\begin{example}
+    maximize $3x_1 + 4 x_2$ subject to 
+    \begin{align*}  
+        & 2x_1 - 3x_2\leq 5 \\
+        & x_1 + x_2 \leq 6 \\
+        & x_1, x_2 \geq 0
+    \end{align*}
+    Slack form 
+    \begin{align*}
+        & z = 3x_1 + 4x_2 \\
+        & x_3 = 5 - 2x_1 - 3x_2\\
+        & x_4 = 6 - x_1 - x_2 \\
+        & x_1, x_2, x_3, x_4 \geq 0
+    \end{align*}
+    The variables on the left are \textbf{basic variables} $B$ and the variables on the right are called \textbf{nonbasic variables} $N$
+\end{example}
+
+
+\begin{example}
+    Given 
+    \begin{align*}
+        & z = 5 - \frac{x_1}{7} - \frac{x_3}{8} + \frac{x_4}{10}\\
+        & x_2 = 7 + \frac{x_1}{8} + \frac{x_3}{7} - 2x_4 \\
+        & x_5 = 10 - \frac{x_1}{9} - \frac{2x_3}{3} + 3x_4 \\
+        & x_1, x_2, x_3, x_4, x_5 \geq 0\\
+    \end{align*}
+    where $N = \{ x_1, x_3, x_4 \}$ $B = \{ x_2, x_5\}$,
+    \begin{align*}
+        & A = \begin{bmatrix}
+            -\frac{1}{8} & -\frac{1}{7} & 2 \\
+            \frac{1}{9} &  \frac{2}{3} & -3 \\
+        \end{bmatrix} \\
+        & b = \begin{bmatrix}
+            7 \\
+            10 \\
+        \end{bmatrix} \\
+        & c = \begin{bmatrix}
+            -\frac{1}{7}\\
+            -\frac{1}{8} \\
+            \frac{1}{10}\\
+        \end{bmatrix} \\
+    \end{align*}
+\end{example}
+
+
+\begin{defn*}
+    \textbf{Simplex Algorithm} 
+    maximize $5 x_1 - 3x_2$ subject to 
+    \begin{align*}  
+        & x_1 - x_2 \leq 1 \\
+        & 2x_1+ x_2 \leq 2 \\
+        & x_1, x_2 \geq 0
+    \end{align*}
+
+    \begin{enumerate}
+        \item Convert the problem into a slack form 
+        \begin{align*}
+            & z = 5 x_1 - 3x_2 \\
+            & x_3 = 1 - x_1 + x_2 \
+            & x_4 = 2 - 2 x_1 - x_2 \\
+            & x_1,x_2,x_3,x_4 \geq 0\\
+        \end{align*}
+        Find \textbf{Basic solution} by setting all nonbasic variables to zero 
+        \[
+            x_1 = x_2 = 0 \quad x_3 = 1 \quad x_4 = 2
+        \]
+        Since feasible, it is a \textbf{Basic feasible solution}
+        \item Find a variable whose coefficient in the objective function is positive. This variable is called the \textbf{Leaving variable}. Finds a variable with a positive coefficient in the objective function. Restricts the increase of $x_i$ to 1. 
+        \item Find \textbf{Entering variable} Choose $x_3$ as the leaving variable $x_1 = 1 + x-2 - x_3$. Now update slack form
+        \begin{align*}
+            & z = 5 x_1 - 3x_2 = 5(1 + x_2 - x_3) - 3x_2 = 5 + 2x_2 -5x_3\\
+            & x_1 = 1 + x-2 - x_3 \\
+            & x_4 = 2 - 2 x_1 - x_2 = 2 - 2(1 + x_2 - x_3) - x_2 = -3x_2 - x_3 \\
+        \end{align*}
+        \item Find basic solution again $x_2 = x_3 = 0$, $x_1 = 1$, $x_4 = 0$. The objective value $z = 5 + 0 = 5$
+    \end{enumerate}
+\end{defn*}
+
+
+
+\begin{algorithm}[H]
+    \SetKwFunction{pivot}{Pivot}
+    \SetKwFunction{simplex}{Simplex}
+    \SetKwFunction{is}{Initialize-Simplex}
+
+    \Fn{\pivot$(N, B, A, b, c, v, l ,e)$}{
+        // Compute the coefficients of the equations for new basic variables \\
+        $\hat{A} \leftarrow n\times n$ matrix \\
+        $\hat{b}_e \leftarrow \frac{b_l}{a_{le}}$\\
+        \For{$j \in N \setminus \{ e\}$}{
+            $\hat{a}_{ej} \leftarrow \frac{a_{lj}}{a_{le}}$\\
+        }
+        $\hat{a}_{el} \leftarrow \frac{1}{a_{le}}$\\
+
+        // Compute the coefficients of the remaining constraints \\
+        \For{$i \in B\setminus \{l \}$}{
+            $\hat{b}_{i} = b_i - a_{ie} \hat{b}_e$\\
+            \For{$j\in N\setminus \{ e\}$}{
+                $\hat{a}_{ij} \leftarrow a_{ij} - a_{ie}\hat{a}_{ej}$\\
+            }
+            $\hat{a}_{il} \leftarrow -a_{ie} \hat{a}_{el}$\\
+        }
+
+        // Compute objective function \\
+        $\hat{v} \leftarrow v + c_e \hat{b}_e$ \\
+        \For{$j\in N\setminus \{ e\}$}{
+            $\hat{c}_j \leftarrow c_j - c_e \hat{a}_{ej}$\\
+        }
+        $\hat{c}_l \leftarrow -c_e \hat{e}_{el}$\\
+        
+        // Compute the new set of basic and nonbasic variables \\
+        $\hat{N} = N \setminus \{ e\}\cup \{ l\}$\\
+        $\hat{B} = B \setminus \{ l\}\cup \{ e\}$\\
+        
+        \Return{$(\hat{N}, \hat{B}, \hat{A}, \hat{b}, \hat{c}, \hat{v})$}
+    }
+
+
+    \Fn{\simplex$(A, b, c)$}{
+        $(N, B, A, b, c, v) \leftarrow \is(A,b,c)$\\
+        $\bigtriangleup  \leftarrow $ a new vector of length $m$ \\
+        \While{$j\in N$ where $c_j > 0$}{
+            Choose index $e\in N$ such that $c_e > 0$\\
+            \For{$i \in B$}{
+                    \If{$a_{ie} > 0$}{
+                        $\bigtriangleup_i \leftarrow \frac{b_i}{a_{ie}}$ \\
+                    }\Else{
+                        $\bigtriangleup_i = \infty$\\
+                    }
+            }
+            Choose index $l\in B$ that minimizes $\bigtriangleup_l$ \\
+            \If{$\bigtriangleup_l == \infty$}{
+                \Return{Unbounded}
+            }\Else{
+                // $l$ is leaving variable \\
+                $(N, B, A, b, c, v) = \pivot(N, B, A, b,c, v, l,e)$\\
+            }
+        }
+
+        \For{$i = 1 \to n$}{
+            \If{$i\in B$}{
+                $\bar{x}_i = b_i$\\
+            }\Else{
+                $\bar{x}_i = 0$\\
+            }
+        }
+        \Return{$(\bar{x}_1, \bar{x}_2, \cdots, \bar{x}_n)$}
+    }
+  \end{algorithm}
+
+\begin{theorem*}
+    \textbf{Proof of correctness}
+    \begin{proof}
+        Proof by induction. 
+        \begin{enumerate}
+            \item The slack form in every iteration is equivalent to the slack form retured by \textsc{Initialize-Simplex}
+            \item For each $i\in B$, we have $b_i \geq 0$
+            \item The basic solution as associated with the slack form is feasible
+        \end{enumerate}
+        \textbf{Termination}
+        \begin{enumerate}
+            \item let $(A,b,c)$ be a LPP given a set $B$ of basic variables, the associated slack form is unique.  
+            \begin{proof}
+                For contradiction, assume 2 slack forms $L$ and $L'$ with same set of basic variables. 
+                \begin{align*}
+                    L: & z = v + \sum_{j\in N} c_j x_j \\
+                       & x_i = b_i - \sum a_{ij} x_j \text{for $i\in B$}\\
+                \end{align*}
+
+                \begin{align*}
+                    L': & z = v' + \sum_{j\in N}c_j' x_j \\
+                    & x_i = b_i' - \sum a_{ij}' x_j \text{for $i\in B$}\\
+                \end{align*}
+
+                \begin{align*}
+                    L - L': & \sum_{j\in N} a_{ij} x_j = (b_i - b_i') + \sum_{j\in N} a_{ij}' x_j \\
+                \end{align*}
+            \end{proof}
+            \item The number of unique slack forms is equal to number of ways of choosing $B$ rom $\{ x_1, x_2, \cdots, x_{n+m}\}$ which is $\binom{n+m}{m}$
+            \item If \textsc{Simplex} fails to terminate in $\binom{n+m}{m}$ iterations, then it must cycle. There are techniques to avoid cycles which implies \textsc{Simplex} terminates in less than $\binom{n+m}{m}$ steps
+            \item Hence runtime is exponential. but in practice, it is a very fast algorithm
+        \end{enumerate}
+    \end{proof}
+\end{theorem*}
+
+\end{document}

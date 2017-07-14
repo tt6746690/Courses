@@ -1,7 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1498092948 "w6.tex" "w6.pdf" "w6" 1498092950
+["pdflatex"] 1498092948 "/Users/markwang/School/c_2016_2017/CSC373/lecture/w6/w6.tex" "w6.pdf" "w6" 1499730729
   "./w6.out" 1498092949 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/Users/markwang/.preamble.tex" 1496905996 3250 656c8b5e4a17b5cf70c6ebea9760b362 ""
+  "/Users/markwang/School/c_2016_2017/CSC373/lecture/w6/w6.tex" 1499730725 9344 9fbd198e127ed2bd83fd37bb3e3f9907 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -244,7 +245,7 @@
   "/usr/local/texlive/2015/texmf.cnf" 1432479636 577 0d611272082f3cdb8e80e09a3c69cf07 ""
   "w6.aux" 1498092950 662 b2b94621371df8d9296b8bf5bec1b851 ""
   "w6.out" 1498092949 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "w6.tex" 1498092948 9344 9fbd198e127ed2bd83fd37bb3e3f9907 ""
+  "w6.tex" 1499730725 9344 9fbd198e127ed2bd83fd37bb3e3f9907 ""
   (generated)
   "w6.pdf"
   "w6.out"

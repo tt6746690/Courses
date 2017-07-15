@@ -902,7 +902,7 @@ At each step, we determine an edge $(u,v)$ that we can add to $A$ without violat
 
 \begin{defn*} \textbf{Matching}
     \begin{enumerate}
-        \item \textbf{Matching} Given undirected graph $G = (V,E)$, a matching is a subset of edges $M\subseteq E$ such that for all vertices $v\in V$, at most one edge of $M$ is incident on $v$.
+        \item \textbf{Matching} Given undirected graph $G = (V,E)$, a matching is a subset of edges $M\subseteq E$ such that for all vertices $v\in V$, at most one edge of $M$ is incident on $v$. (each edge symbolizes a pair)
         \item \textbf{Matched and Unmatched} a vertex $v\in V$ is matched by the matching $M$ if some edge in $M$ is incident on $v$; otherwise $v$ is unmatched
         \item \textbf{Maximum Matching} A maximum matching is a matching of maximum cardinality, that is, a matching $M$ such that for any matching $M'$, we have $|M | \geq |M'|$
         \item \textbf{Bipartite graphs} graphs in which $V$ can be partitioned into 2 disjoint sets $V = L\cup R$, $L\cap R = \emptyset$ and all edges in $E$ go between $L$ and $R$. Assume every vertex in $V$ has at least one incident edge
@@ -916,18 +916,61 @@ At each step, we determine an edge $(u,v)$ that we can add to $A$ without violat
         \item \textbf{Corresponding Flow Network} $G' = (V', E')$ (directed) for a bipartite graph $G = (V,E)$ (undirected) with partition $V = L \cup R$ is defined as follows 
         \begin{enumerate}
             \item let source $s$ and sink $t$ be new vertices not in $V$
-            \item let $V' = V \cup \{ s, t\}$
+            \[
+                V' = V \cup \{ s, t\}
+            \]
             \item let directed edge of $G'$ be edges of $E$, directed from $L$ to $R$, along with $|V|$ new directed edges connecting $s$ to $L$ and $R$ to $t$
             \[
                 E' = \left\{ (s,u): u\in L \right\} \cup  \left\{ (u,v):(u,v)\in E \right\} \cup \left\{ (v,t): v\in R \right\} 
             \]
-            Note $|E'| = \Theta(E)$
+            Note $|E'| = \Theta(E)$, since $|E| \geq |V|/2$ (every vertex has an incident edge) implies 
+            \[
+                \Omega(E) = |E| \leq |E'| = |E| + |V| \leq 3|E| = O(E)
+            \]
             \item assign unit capacity to each edge in $E'$ 
         \end{enumerate}
-        
+        \item \textbf{Ingeter-valued flow} A flow $f$ on a flow network $G$ is integer valued if $f(u,v)$ is an integer for all $(u,v)\in V\times V$
+        \item A matching in $G$ corresponds to a flow in $G$'s corresponding flow network $G'$
+        \begin{lemma*}
+            Let $G = (V,E)$ be a bipartite graph with vertex partition $V = L \cup R$ and let $G' = (V', E')$ be corresponding flow network. If $M \subseteq E$ is a matching in $G$, then there is an integer-valued flow $f$ in $G'$ with value $|f| = |M|$. Conversely, if $f$ is an integer-valued flow in $G'$, then there is a matching $M$ in $G$ with cardinality $|M| = |f|$
+            \begin{proof} 2 steps
+                \begin{enumerate}
+                    \item Find matching $M$ in $G$ corresponds to flow $f$ in $G'$. Define $f$ as follows. If $(u,v)\in M$, then $f(s,u) = f(u,v) =  f(v,t) = 1$. For all other edges $(u,v)\in E'$, define $f(u,v) = 0$. Hence each $(u,v)\in M$ corresponds to one unit of flow in $G'$ traversing path 
+                    \[
+                        s \to u\to v\to t
+                    \]
+                    The cut $(L\cup \{ s\}, R \cup \{ t\})$ is equal to $|M|$ by the previous definition, and hence $|f| = |M|$ (net flow same for any cuts)
+                    \item Prove converse. Let $f$ be integer-valued flow in $G'$, prove there is a matching such that $|M| = |f|$. Let 
+                    \[
+                        M = \{(u,v): u\in L \text{, } v\in R \text{, } f(u,v)>0 \}
+                    \]
+                    Prove $M$ is a matching (i.e. all edge $v\in V$ has at most 1 edge $e\in M$ incident on $v$). For $u\in L$, has one entering edge $(s,u)$ of one unit of flow, by flow conservation, must have one unit of flow leaving it. Since $f$ integer-valued, one unit of flow enter on at most 1 edge and leave on at most 1 edge. Hence there cannot be 2 edges leaving $u\in L$ Hence, one unit of flow entering $u$ if and only if there is exactly one vertex $v\in R$ such that $f(u,v) = 1$. Similar argument to $R$. 
+                \end{enumerate}
+                Hence maximum matching $M$ in bipartite graph $G$ corresponds to a maximum flow in its corresponding flow network $G'$.
+            \end{proof}
+        \end{lemma*}
+        \item By previous lemma, we can compute maximum matching in $G$ by running max-flow algorithm on $G'$, the following theorem guarantees the output from \textsc{Ford-Fulkerson} will be a integer-valued flow 
+
+        \begin{theorem*}
+            If the capacity function $c$ takes on only integral values, then maximum flow $f$ produced by \textsc{Ford-Fulkerson} Method has the property that $|f|$ is an integer. Moreover, for all vertices $u$ and $v$, the value $f(u,v)$ is an integer 
+        \end{theorem*}
+
+        \begin{corollary*}
+            The cardinality of a maximum matching $M$ in a bipartite graph $G$ equals the value of a maximum flow $f$ in its corresponding flow network $G'$
+        \end{corollary*}
+        \item \textbf{Steps}
+        \begin{enumerate}
+            \item Create corresponding flow network $G'$ 
+            \item Run \textsc{Ford-Fulkerson} 
+            \item Obtain maximum matching $M$ from integer-valued maximum flow $f$ found
+        \end{enumerate}  
+        \item \textbf{Runtime} Note any matching in bipartite graph has cardinality of 
+        \[
+            |M| \leq Min(L, R) = O(V)
+        \]
+        the value of maximum flow in $G'$ is hence $O(V)$, therefore maximum matching in a bipartite graph takes $O(|f^*|E') = O(VE') = O(VE)$, since $|E'| = \Theta(E)$
     \end{enumerate}
 \end{defn*}
-
 
 \end{document}
 

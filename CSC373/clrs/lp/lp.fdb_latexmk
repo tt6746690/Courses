@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1500134884 "/Users/markwang/School/c_2016_2017/CSC373/clrs/lp/lp.tex" "lp.pdf" "lp" 1500163306
+["pdflatex"] 1500134884 "/Users/markwang/School/c_2016_2017/CSC373/clrs/lp/lp.tex" "lp.pdf" "lp" 1500175093
   "./lp.out" 1500134885 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/Users/markwang/.preamble.tex" 1496905996 3250 656c8b5e4a17b5cf70c6ebea9760b362 ""
   "/Users/markwang/School/c_2016_2017/CSC373/clrs/lp/lp.tex" 1500134938 12326 9f7f7a5b207e0ca0914767383e4b5bc0 ""
@@ -239,7 +239,7 @@
   "lp.out" 1500134885 0 d41d8cd98f00b204e9800998ecf8427e ""
   "lp.tex" 1500134938 12326 9f7f7a5b207e0ca0914767383e4b5bc0 ""
   (generated)
-  "lp.aux"
-  "lp.log"
   "lp.pdf"
+  "lp.aux"
   "lp.out"
+  "lp.log"

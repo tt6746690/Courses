@@ -328,24 +328,30 @@ An edge in a flow network is called critical if decreasing the capacity of this 
     \textbf{Algorithm}
     \begin{enumerate}
         \item Find a maximum flow $f$ for $G$, let $G_f$ be the residual flow network for $G$ given $f$
-        \item Return the set of edges $E' \subseteq E$ for which $f(u,v) = c(u,v)$, $(u,v) \in E'$
+        \item Find the transitive closure $T$ of $G_f$
+        \item Iterate over $E$ find a set of edges $E' \subseteq E$ such that $f(u,v) = c(u,v)$ and such that $u,v$ are not reachable from each other. We can achieve this by evaluating if $T_{uv}$ is 0
+        \item Return $E'$ 
     \end{enumerate}
     \textbf{Analysis}
     \begin{enumerate}
-        \item \textsc{Ford-Fulkerson} runs in $O(VE)$
-        \item The for loop iterates $|E|$ times, doing a constant $O(1)$ operation to update $E'$. Suppose $E"$ is implemented with an array, the operation to insert an element at the end takes $O(1)$ time. Therefore the loop has a worst time running time of $O(E)$
-        \item Altogether the algorithm has a worst case running time of $O(VE)$ 
+        \item \textsc{Ford-Fulkerson} has a worst case running time of $O(VE)$
+        \item \textsc{Transitive-Closure} using \textsc{Floyd-Warshall} has a worst case running time of $O(V^3)$ 
+        \item The for loop iterates $|E|$ times, doing a constant $O(1)$ operation. Therefore the loop has a worst time running time of $O(E)$
+        \item Altogether the algorithm has a worst case running time of $O(V^3)$ 
     \end{enumerate}
 
     \begin{algorithm}[H]
         \SetKwFunction{crt}{Find-Critical-Edge}
         \SetKwFunction{ff}{Ford-Fulkerson}
-        
+        \SetKwFunction{ts}{Transitive-Closure}
+
         \Fn{\crt$(G, s, t)$}{
-            $f \leftarrow \ff(G, s, t)$\\
+            $(f, G_f) \leftarrow \ff(G, s, t)$\\
+            $T \leftarrow \ts(G)$\\
+
             $E' \leftarrow \emptyset$\\
             \For{$(u,v)\in G.E$}{
-                \If{$f(u,v) = c(u,v)$}{
+                \If{$f(u,v) = c(u,v)$ and $T_{uv} = 0$}{
                     $E' \leftarrow E' \cup \{ (u,v)\}$
                 }
             }
@@ -353,28 +359,21 @@ An edge in a flow network is called critical if decreasing the capacity of this 
         }
     \end{algorithm}
 
-
-    \textbf{Proof of Correctness}
-
     \begin{lemma*}
-        Given a maximum flow $f$ for flow network $G$ and its residual flow network $G_f$. If any $(u,v)\in E$ such that $f(u,v) = c(u,v)$, then $(u,v)$ is in the cut-set of some cut $C = (S,T)$, where $s\in S$, $t\in T$, and such that $|f| = c(S,T)$.
+        Given a maximum flow $f$ for flow network $G$ and its residual flow network $G_f$. If any $(u,v)\in E$ such that $f(u,v) = c(u,v)$, and that $u$ and $v$ are not reachable from each other in $G_f$, then $(u,v)$ is a critical edge. 
         \begin{proof}
-            Prove by contradiction. Assume there is no such cut $C$ where $(u,v)$ crosses $|f| = c(S,T)$. Then it must be that for all cut $C' = (S', T')$ that $(u,v)$ crosses, $|f| < c(S,T)$ by the upper-bound property, therefore
-            \[
-                |f| = f(S', T') = \sum_{u\in S'} \sum_{v\in T'} f(u, v) - \sum_{u\in S'} \sum_{v\in T'} f(v, u)   < c(S,T) = \sum_{u\in S'} \sum_{v\in T'} c(u, v) 
-            \]
-            This implies that there is some other edge $(x,y)$ in the cut-set of $C'$ such that $f(x,y) < c(x,y)$. Since $C'$ is an arbitrary and the above claim holds for all cuts, we can construct an augmenting path $p = \langle v_0, \cdots, v_k \rangle$ in $G_f$ by picking appropriate cuts such that $f(v_{i-1}, v_i) > 0$ for all $i = 1,\cdots, k$. This contradicts with the assumption that the algorithm for finding max flow terminates, specifically when there is no augmenting paths left. Hence the claim holds.
+            Note flow $f(u,v)$ has to be equal to its capacity $c(u,v)$, since otherwise a decrease in capacity $\delta < c(u,v) - f(u,v)$ will not cause any change in flow. Now we prove $u$ and $v$ has to be unreachable from each other for $(u,v)$ to be a critical edge. Prove by contradiction, assume there is a critical edge $(u,v)$ such that $f(u,v) = c(u,v)$ and there exits a path $p$ from $u$ to $v$ in $G_f$. Consider the arbitrary $C = (U,V)$ with $u\in U$ and $v\in V$. Since there is a path from $u$ to $v$, at some point along the path, an edge $(x,y)$ crosses the cut $C$ where $x\in U$ and $y\in V$. Due to the existence of $(x,y)$ in $G_f$, $f(x,y) < c(x,y)$ in $G$, in other words, the edge $(x,y)$ is not saturated to fill its capacity. Therefore $C$ is not a minimum cut of $G$. Since the choice of $C$ is arbitrary and we will always find an edge $(x,y)$ that crosses the cut, no cut of $G$ for which $(u,v)$ crosses can be the minimum cut. However, by the Max-flow Min-cut theorem, $|f|$ is bounded by the minimum cut $C_{min}$. Therefore, we are able to decrease the capacity of $(u,v)$ without affecting the max flow $f$ as long as $c(C) \geq c(C_{min})$. Therefore $(u,v)$ is not a critical edge, which contradicts the assumption. This completes the proof
         \end{proof}
     \end{lemma*}
+   
 
-    \begin{proposition*}
-        Given a maximum flow $f$ for flow network $G$ and its residual flow network $G_f$. the set of edges $E' \subseteq E$ for which $f(u,v) = c(u,v)$, $(u,v) \in E'$ is the set of critical edges
-        \begin{proof}
-            Given assumption of the proposition and previous lemma, we have $(u,v)$ in some cut $C =(S,T)$ such that $|f| = c(S,T)$. Since algorithm for finding the max flow $f$ terminates, by the max-flow min-cut theorem, the cut $C$ has minimal capacity, which bounds the value of the flow $|f|$. Hence, a reduction in $c(u,v)$ causes reduction in $C(S,T)$, and ultimately the maximum value a flow can achieve. Therefore $(u,v)$ is a critical edge. Since $(u,v)$ is an arbitrary edge in $E'$, $E'$ is the set of critical edges. 
-        \end{proof}
-    \end{proposition*}
+   \begin{center}
+        Note the algorithm exactly satisfies the assumption of previous lemma, therefore the returned $E'$ is a set of critical edges. The algorithm is therefore correct
+   \end{center}
 
 \end{solution}
+
+
 
 
 \subsection*{Problem 4}

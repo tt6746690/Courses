@@ -1,0 +1,164 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\section*{Linear Programming}
+
+
+\begin{defn*}
+    \textbf{General Linear Programs} 
+    \begin{enumerate}
+        \item \textbf{Linear Function} Given $a_1,\cdots, a_n\in \R$, and variables $x_1,\cdots,x_n$, define a linear function $f$ of those variables by 
+        \[
+            f(x_1,\cdots, x_n) = \sum_{j=1}^n a_j x_j
+        \]
+        \item \textbf{Linear equality \& inequalities} If $b\in \R$ and $f$ is a linear function, then 
+        \[
+            f(x_1, \cdots, x_n)  =b
+        \]
+        is a linear equality and the inequaliie 
+        \[
+            f(x_1,\cdots, x_n) \leq b \quad \quad f(x_1,\cdots, x_n) \geq b 
+        \]
+        are linear inequalities
+        \item \textbf{Linear Constraints} are either linear equalities or linear inequalities 
+        \item \textbf{Linear programming problem} Either minimizing or maximizing a linear fucntion subject to a finite set of linear constraints. If want to minimize, then linear program is a \textbf{minimization linear problem}, otherwise its called a \textbf{maximization linear problem}
+        \item \textbf{Feasible solution} Any setting of variable $x_1,\cdots, x_n$ that satisifies all constraints a feasible solution to the linear program 
+        \item \textbf{Feasible Region} a convex set of feasible solutions for which we which to maximize the objective function
+        \item \textbf{Objective value} value of the objective function at a particular point in the feasible solution
+        \item \textbf{Graphical solution} If 2 variables, then we can use the let $z$ be the objective. Such curve have the property that the intersection between the curve and the feasible solution is the set of feasible solutions with objective value $z$. A optimal solution to linear program occurs at a vertex of a feasible region, since the curve that intersect the feasible region for which maximum $z$ is obtained is on the boundary of the feasible region. This holds for higher dimension curves as well
+        \item \textbf{Simplex} For $n$ variables, each constraint defines a half-space in $n$-dimensional space, the feasible region formed by the intersection of these half spaces is a simplex. The objective function is a hyperplane, and because of convexity, an optimal solution still occurs at a vertex of the simplex
+        \item \textbf{Simplex alogrithm} takes as input a linear program and returns an optimal solution. It starts as some vertex of the simplex and performs a sequence of iterations. In each iteration, it moves along an edge of the simplex from a current vertex to a neighboring vertex whose objective value is no smaller than that of the current vertex. The algorithm terminates when it reaches a local minimum, i.e. all neighboring vertices have a smaller objective value. 
+        \begin{lemma*}
+            \textbf{Duality} Since a feasible region is convex and objective function is linear, a local optimum from a simplex algorithm is a global optimum
+        \end{lemma*}
+        \begin{enumerate}
+            \item Write linear program in slack form
+            \item \textbf{Pivot} Make one variable basic and another nonbasic
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Standard form}
+    \begin{enumerate}
+        \item \textbf{Specification} Given $n$ real number $c_1,\cdots, c_n \in \R$ and $m$ real number $b_1,\cdots, b_m\in\R$ and $mn$ real number $a_{ij}$ for $i=1,\cdots,m$ and $j=1,\cdots, n$. We wish to find $n$ real numbers $x_1,\cdots, x_n$ such that 
+        \begin{align*}
+            \text{Maximize  } &\sum_{k=1}^n c_j x_j \\
+            \text{subject to  } &\sum_{j=1}^n a_{ij} x_j \leq b_i \text{ for } i= 1,\cdots, m \\
+            & x_j \geq 0 \text{ for } j = 1,\cdots, n\\
+        \end{align*}
+        Note standard form requires the $n$ nonnegative constraints on $x_1,\cdots,x_n$. Alternatively, let $A = (a_{ij})$ be $m\times n$ matrix, $b = (b_i)$ a $m$-vector, $c = (c_j)$ a $n$-vector, and $x = (x_j)$ an $n$-vector. Then 
+        \begin{align*}
+            \text{Maximize  } & c^Tx \\
+            \text{subject to  } & Ax \leq b \\
+            & x\geq 0\\
+        \end{align*}
+        Therefore a standard form can be expressed with $(A,b,c)$
+        \item \textbf{Re-definition}
+        \begin{enumerate}
+            \item \textbf{Feasible \& Infeasible solution} A setting of variable $\bar{x}$ satisfies all constraints a fesasible solution, whereas a setting of $\bar{x}$ that fails to satisfy at least one constraint if an infeasible solution . 
+            \item \textbf{Objective Value} A solution $\bar{x}$ has objective value $c^T \bar{x}$ 
+            \item \textbf{Optimal solution \& Optimal Objective Value} a feasible solution $\bar{x}$ whose objective value is maximum over all feasible solutions is an optimal solution, its objective value $c^T \bar{x}$ is the optimal objective vlaue 
+            \item \textbf{Feasible \& Unfeasible LP} If a linear program has no feasible solution, then it is infeasible, otherwise it is feasible 
+            \item \textbf{Unbounded LP} If a linear program has some feasible solution but does not have a finite optimal objective value, then LP is unbounded 
+        \end{enumerate}
+        \item \textbf{Converting linear program (4 types) to standard form}
+        \begin{enumerate}
+            \item \textbf{Equivalent LP} 
+            \begin{enumerate}
+                \item Two maximization linear programs $L$ and $L"$ are equivalent if for each feasible solution $\bar{x}$ to $L$ with objetive value $z$, there is a corresponding solution $\bar{x}'$ to $L'$ with objective value $z$, and vice versa
+                \item A minimization linear program $L$ and a maximization linear program $L'$ are equivalent if for each feasible solution $\bar{x}$ to $L$ with objective value $z$, there is a corresponding feasible solution $\bar{x}$ to $L'$ with objective value $-z$, and vice versa
+            \end{enumerate}
+            \item \textbf{Objective function is a minimization rather than a maximization} \\
+            \begin{center}
+                Negate coefficients ($c' = -c$) in the objective function.
+            \end{center}
+            2 LP's are equivalent since we have the same feasible solution (constraints unchanged) and for each feasible solution, the objective value in $L$ is the negative of the objective value in $L'$ hence 2 linear programs are equivalent
+            \item \textbf{There might be variables without nonnegativity constraints}
+            \begin{center}
+                Rerplace each occurrence of a variable variable $x_j$ without nonnegativity constraint by $x_j' - x_j''$, and add the nonnegativity constraint $x_j' > 0$ and $x_j'' > 0$
+            \end{center}
+            \item \textbf{There might be equality constraints}
+            \begin{center}
+                Replace equality constraints with a pair of inequality constraints 
+                \[
+                    f(x_1,\cdots, x_n) \leq b \quad \quad \quad f(x_1,\cdots, x_n) \geq b
+                \]
+            \end{center}
+            \item \textbf{There might be $\geq$ inequality constraints}
+            \begin{center}
+                Multiple the greater than or equal to $\geq$ constraints to less than or equal to $\leq$ constraints by multiplying these constraints by -1
+                \[
+                    \sum_{j=1}^n a_{ij}x_j \geq b_i \quad \iff \quad  -\sum_{j=1}^n a_{ij}x_j \geq -b_i  
+                \]
+            \end{center}
+        \end{enumerate}
+    \end{enumerate}
+    
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Slack form}
+    \begin{enumerate}
+        \item \textbf{Slack variable} Given inequality constraints $\sum_{j=1}^n a_{ij} x_j \leq b_i$, we have  
+        \begin{align*}
+            s &= b_i - \sum_{j=1}^n a_{ij} x_j \\
+            s &\geq 0 \\
+        \end{align*}
+        where $s$ is a slack variable because it measures the slack, or difference, between left-hand and right-hand sides of equation. We can use this methods to convert from standard form to slack form, where the only inequality constraints are the nonnegativity constraints 
+        \item \textbf{Conversion from standard to slack form} Use $x_{n+i}$ instead of $s$ to denote the slack variable associated with the $i$-th inequality. The $i$-th constriant is therefore 
+        \[
+            x_{n+i} = b_i - \sum_{j=1}^n a_{ij} x_j \quad \quad \quad \quad x_{n+i}\geq 0
+        \]
+        \item \textbf{Basic \& Nonbasic variables} Given a slack form with a set of equality constriants, one of variables on left-hand side of equality and all others on the right-hand side. The variables on the left-hand side of equalities are basic variables, and those on the right-hand side are nonbasic variables. Nonbasic variables are the only varaibles that constitutes the objective function
+        \item \textbf{Slack Form} Let $z$ be the value of the objective function and linear inequalities be converted to a set of slack variables. Omit the nonnegativity constraints since it is assumed that all variables are nonnegative. Let $N$ be the set of indices of nonbasic variables, let $B$ be set of indices of the basic variables, we always have $|N| = n$ and $|B| = m$, where $N\cup B = \{ 1,\cdots, n+m\}$. 
+        \begin{enumerate}
+            \item equations are indexed by entries of $B$
+            \item variables on RHS of equation are index by entries of $N$
+        \end{enumerate}
+        Let $A,b,c,$ be constants and coefficients. Let $v$ be the constant term in objective function. Therefore, we define a slack form by a tuple $(N, B, A, b, c, v)$ where 
+        \begin{align*}
+            z &= v+ \sum_{j\in N} c_j x_j \\
+            x_i &= b_i - \sum_{j\in N} a_{ij} x_j \quad\quad \text{for } i\in B
+        \end{align*}
+        Note indices into $A,b,c$ are no necessarily sets of contiguous integers, they depend on the index sets $B$ and $N$
+        
+    \end{enumerate}
+\end{defn*}
+
+\subsection*{Formulating problems as Linear Programs}
+
+
+\begin{defn*}
+    \textbf{Shortest path} Given a weighte, directed graph $G=  (V,E)$ with weights $w:E\to\R$ and source $s$ and destination $t$. Wish to ompute the value $d_t$, i.e. the weight of a shortest path from $s$ to $t$. We can formulate it as LP as follows 
+    \begin{align*}
+        \text{Maximize  } \quad & d_t \\
+        \text{Subject to  }\quad  & d_v \leq d_u + w(u,v) \quad \quad \text{for each } (u,v)\in E \\
+        & d_s = 0
+    \end{align*}
+    The bellman-form algorithm sets source vertex distance $d_s = 0$ and never changes it. When the algorithm terminates, it has computed, for each $v$, a value $d_v$ such that for each edge $(u,v)\in E$, we have $d_v \leq d_u + w(u,v)$ \\
+    Note we are \textbf{maximizing} $d_t$ for 2 reasons
+    \begin{enumerate}
+        \item setting $\bar{d}_v = 0$ for all $v\in V$ yields optimal solution without solving shortest-path problem 
+        \item Maximize because an optimnal solution to shortest path problem sets each $\bar{d}_v$ to be $\underset{u: (u,v)\in E}{Min}\{d_u + w(u,v) \}$ (considers all incident edges to $v$) such that $d_v$ is the maximum value that is less than or equal to values in the set $\{ \bar{d}_u + w(u,v)\}$. We maximize $d_v$ for all vertex $v$ on a shortest path from $s$ to $t$ subject to constraints, and maximizing $d_t$ achieves this...
+    \end{enumerate}
+\end{defn*}
+
+
+
+\begin{defn*}
+    \textbf{Maximum flow}
+    Given directed graph $G = (V,E)$ with nonnegative capacity $c:E\to\R^+$ and two vertices, a source $s$ and a sink $t$. A flow $f: V\times V\to \R$ satisfies capacity constraint and flow conservation. A maximum flow is a flow that satisfies these constraints and maximizes the flow value. Also we assume $c(u,v) = 0$ if $(u,v)\not\in E$ and no antiparallel edges
+    \begin{align*}
+        \text{Maximize  } \quad & \sum_{v\in V} f_{sv} - \sum_{v\in V} f_{vs} \text{ (Value of a flow)} \\
+        \text{Subject to  }\quad  & f_{uv} \leq c(u,v) \quad \quad \text{for each } u,v\in V \text{ (capacity constraint)} \\
+        & \sum_{v\in V} f_{vu} = \sum_{v\in V} f(u,v) \quad \text{for each } u\in V \setminus \{s,t \} \text{ (flow conservation)} \\
+        & f_{uv} \geq 0 \\
+    \end{align*}
+\end{defn*}
+
+
+
+\end{document}

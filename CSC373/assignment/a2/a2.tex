@@ -377,6 +377,144 @@ An edge in a flow network is called critical if decreasing the capacity of this 
 \end{solution}
 
 
+\subsection*{Problem 4}
+
+\begin{enumerate}
+    \item Suppose we want to compute the shortest path from node $s$ to node $t$ in a directed graph $G=(V,E)$ with edge lengths $l_e >0$ (assume integer valued lengths) for each $e\in E$. Show that this is equivalent to finding a pseudo-flow $f$ from $s$ to $t$ in $G$ such that $|f | = 1$ and $\sum_{e\in E} l_e f_e$ is minimized. There are no capacity constraints. Part of this problem requires you to define precisely what we mean by “pseudo-flow” in a general, directed graph. This is a natural extension of the notion of flow in a network.
+
+    \begin{solution}
+        Define a pseudo-flow as a function $f: V\times V \to \R$ such that $f_{uv}$ represents units of flow from vertex $u$ to $v$. $f$ still satisfies flow conservation but there is no capacity constraints on the amount of units of flow sent through the network. Given 
+        \[
+            |f| = \sum_{v\in V} f_{sv} = 1
+        \]
+        we require exactly one unit of flow from the source, and since the graph is connected and by flow conservation, this one unit of flow is tranferred conceptually from $s$ to $t$ over vertices in some arbitrary path $p = \langle v_0 = s,v_1, \cdots, v_k = t\rangle$ such that $f_{v_{i-1}v_i} = 1$ for all $i = 1,\cdots, k$. We claim that  
+        \begin{center}
+            there is not a flow $f_{uv} > 0$ such that $(u,v)$ is not in $p$. 
+        \end{center}
+        Prove by contradiction, if there is such a flow $f_{uv} = 1$ for $u\to v$ where $(u,v)$ is not in $p$, then to satisfy flow conservation, there must be some paths $p_1$ $p_2$ such that 
+        \[
+            p' = s \overset{p_1}{\leadsto} u \to v \overset{p_2}{\leadsto} t
+        \]
+        Since $(u,v)$ is not in $p$ by assumption, then $p' \neq p$, we then have 2 paths originated from $s$, with $|f| = 2$, then all $(u,v)$ with positive flow $f_{uv} > 0$ is in path $p$. Therefore,
+        \[
+            \sum_{e\in E}l_e f_e = \sum_{e \text{ in } p} l_e \times 1 + \sum_{e\text{ not in } p} l_e \times 0 = \sum_{e \text{ in } p} l_e = w(p)
+        \]
+        Minimizing $\sum_{e\in E}l_e f_e$ is equivalent to minimizing $w(p)$. Hence, the procedure of finding a pseudo-flow $f$ from $s$ to $t$ such that $|f| = 1$ and $\sum_{e\in E} l_e f_e$ is minimized is equivalent to finding a path $p$ with minimum weight $w(p)$, which is what shortest-path specifies 
+    \end{solution}
+    \item Write the shortest path problem as a linear or integer program where your objective function is minimized, based on your answer to the previous part. Give a detailed justification that your solution is correct.
+    \begin{solution}
+        \begin{align*}
+            \textbf{Minimize:}\quad & \sum_{e\in E}l_e f_e \\
+            \textbf{Subject to:}\quad & \sum_{v\in V} f_{uv} - \sum_{v\in V} f_{vu} = 
+                                      \begin{cases}
+                                          1 & \text{if } u = s\\
+                                          -1 & \text{if } u = t \\
+                                          0 & \text{otherwise}  \\
+                                      \end{cases}\\
+                                \quad & f_e \geq 0 \quad \text{for all } e\in E\\
+        \end{align*}
+        The linear program is basically a formal specification of the assumptions made for finding pseudo-flow $f$ from $s$ to $t$ in $G$. Since if $u=s$ we have 
+        \[
+            \sum_{v\in V} f_{sv} - \sum_{v\in V} f_{vs} = |f| = 1
+        \]
+        as well as flow conservation given by
+        \[
+            \sum_{v\in V} f_{uv} - \sum_{v\in V} f_{vu} = 0 \quad \iff \quad  \sum_{v\in V} f_{uv} = \sum_{v\in V} f_{vu}
+        \]
+        for all $u,v\in V\setminus \{ s,t\}$. Note a feasible solution is simply values $f_e$ for all $e\in E$, in other words, a function $f:V\times V\to\R$. Since flow conservation property is satisfied, this is saying that we are trying to find the pseudo-flow $f$ such that $|f| = 1$ and $\sum_{e\in E}l_e f_e$ is minimized. This is equivalent to finding the solution to shortest path problem as justified in the previous question. Now we prove linear program yields correct solution. Let $f$ be solution to the linear program. Let $p$ be the path such that for all edges $e$ in $p$, we have $f_e = 1$. Such path is always possible by the fact that we constrain source to admit 1 unit of flow and sink to accept 1 unit of flow. Now we prove that the path is the shortest. Prove by contradiction, assume there is some other path $p'$ with
+        \[
+            w(p') < w(p) = \sum_{e \text{ in } p} l_e = \sum_{e \text{ in } p} l_e \times 1 + \sum_{e\text{ not in } p} l_e \times 0 = \sum_{e\in E}l_e f_e
+        \] 
+        which contradicts the fact that $\sum_{e\in E}l_e f_e$ is minimal. Hence the solution to linear programming is correct. Note the transformation in the equation is possible as proved in the previous question
+    \end{solution}
+
+\end{enumerate}
+
+
+
+\subsection*{Problem 5}
+
+\begin{enumerate}
+    \item In the Traveling Salesman Problem (TSP), we are given a directed graph $G = (V,E)$ with an integer weight $w(e)$ for each edge $e \in E$, and we are asked to find a simple cycle (more strict than MST, since MST cannot have cycle) over all the vertices (a “circuit”) with minimum total weight. (Note that the weights $w(e)$ can be positive or negative.) Show how to represent an arbitrary instance of the TSP as an integer program. Justify that your representation is correct, and describe how to obtain a solution to the instance of the TSP from solutions to your integer program.
+
+    \begin{solution}
+        We formulate similarly to problem 4. Pick arbitrary $s\in V$, add another vertex $t$ and its incident edges to $G$ such that $t$ has the exact same incident edges (including their weights) of $s$. Let $G' = (E', V')$ be the resulting graph. Consider pseudo-flow $f:V\times V \to \R$ be units of flow from $s$ to $t$. the value of $f_e$ determines if an edge is used in the circuit.
+        \begin{align*}
+            \textbf{Miminize: }\quad & \sum_{e\in E'} w(e)f_e \\
+            \textbf{Subject to: } \quad & \sum_{v\in V'} f_{uv} - \sum_{v\in V'} f_{vu} = 
+                                                    \begin{cases}
+                                                        1 & \text{if } u = s\\
+                                                        -1 & \text{if } u = t\\
+                                                        0 & \text{otherwise }\\
+                                                    \end{cases}\\
+                                \quad & \sum_{v\in V'} f_{uv} = 2 \quad \text{for all } u\in V' \setminus \{ s,t\} \\
+                                \quad & f_e \geq 0 \quad \text{for all } e\in E\\
+        \end{align*}
+        The first constraint given states that the model follows flow conservation and that the demand is 1 unit of flow. The second constraint states that any vertex has 2 incident edges for which the flow go through, therefore any edge in $E' \setminus \{s,t \}$ has degree 2. Altogether the feasible region consists of a flow $f$ such that for all $(u,v)\in E'$ for which $f_{uv}\neq 0$ forms a simple path from $s$ to $t$. The path is simple and spanning precisely because every vertex except from start and end has degree 2. Since we are minimizing $\sum_{e\in E'} w(e)f_e$, the path will be least weight. Therefore, if LP has a solution, the resulting $f_e$ specifies the least weight flow from $s$ to $t$. Let $E_p \subseteq E'$ be a set of edges where $f_e = 1$ for all $e\in E_p$. Now to get the simple cycle, we first replace the instance of vertex $t$ with $s$ in edges in $E'$, then start from $s$, and add $u$ to the sequence of vertices if $(s,u) \in E_p$. 
+    \end{solution}
+
+    \item  Your company has recently discovered that several of its problems can be solved using linear programming. Your company doesn’t want to write their own solver program, since many efficient programs are available for sale. But your boss has been reading his spam again and went out and purchased the MELPSE system (Most Efficient Linear Program Solver Ever!) in a fit of misdirected leadership. As expected, the claim is slightly overstated, and the package comes with some serious limita- tions. From the advertisement:
+
+    \begin{center}
+        MELPSE is the fastest and most streamlined LP solver ever! Using the latest technology, it will find the best non-negative values for all your variables, get the biggest value for your objective function, and it will even make sure that $Ax\leq b$!
+    \end{center}
+
+    In fact, this is all that MELPSE can do: it only supports non-negative variables (it implicitly enforces a constraint $x_1\geq 0$ on all variables $x_i$ ), only allows maximizations of the linear objective function, and insists that all constraints are in the form  $\sum_{i=1}^n a_{j,i} x_i \leq bj$ (where $a_{j,i}$ and $b_j$ are real numbers, perhaps negative). \\
+    The linear programs you need to solve are usually minimization problems, where variables occasionally take negative values, and some constraints are expressed with equality or greater- than-or-equal. The boss has already spent your entire budget, so to save your team you will need to figure out how to use the MELPSE system to solve your problems.
+    \begin{enumerate}
+        \item One of your problems fits the restrictions of MELPSE except that you need to minimize your objective function. Describe precisely how to convert your program into one MELPSE can solve; that is, describe how to create an equivalent LP where the objective is being maximized. Briefly explain how to use a solution to your new program to find a solution to your original problem. 
+        \begin{solution}
+            Given a minimization linear program $L$, we can convert $L$ to an equivalent maximization linear program $L'$ by negating the coefficients in the objective function. $L$ and $L'$ are equivalent since they share the same feasible solution (since constraints unchanged) and for each feasible solution, the objective value in $L$ is the negative of the objective value in $L'$, therefore by definition of equivalence, $L$ and $L'$ are equivalent. The solution to the converted $L'$ is the solution to $L$ without any modification
+        \end{solution}
+        \item Another of your problems contains a constaint of the form $a_1 x_1 + a_2 x_2 + \cdots + a_x x_n \geq b$ Describe precisely how to convert this to a constraint of the form $a_1' x_1 + a_2' x_2 + \cdots + a_x' x_n \leq b'$ as required by MELPSE.
+        \begin{solution}
+            Let $a_i' = -a_i$ for all $i = 1, \cdots, n$ and let $b' = -b$
+        \end{solution}
+        \item This problem also has a constraint of the form
+        \[
+            a_1 x_1 + a_2 x_2 + \cdots + a_x x_n = b
+        \]
+        Describe precisely how to create an equivalent LP that can be solved by MELPSE (or in the form of part (b)).
+        \begin{solution}
+            Replace the given equality constraint with 
+            \[
+                a_1 x_1 + a_2 x_2 + \cdots + a_x x_n \leq b \quad \text{ and } \quad a_1 x_1 + a_2 x_2 + \cdots + a_x x_n \geq b
+            \]
+            The resulting LP are equivalent because the objective function is unchanged and the constraints are equivalent because of the fact that 
+            \[
+                a = b \iff a \geq b \land a \leq b
+            \]
+        \end{solution}
+        \item From the previous parts we know how to solve a minimization problem with $\geq$ or $=$
+        constraints. We can assume that all constraints are in the form $a_1x_1 + a_2x_2 + \cdots + a_nx_n \leq b$. But we have a problem where one of the variables, $x_1$, could be negative. Describe precisely how to construct an equivalent LP where we replace $x_1$ with two new variables which can only take non-negative values. Briefly explain how to use a solution to your new program to find a solution to your original problem.
+        \begin{solution}
+            Replace each occurrence of $x_1$ in original LP $L$ with $x_1' - x_1''$ in both the objective function and the constraints, add the constraints $x_1', x_1'' \geq 0$. let $L'$ be the resulting LP. A feasible solution $\hat{x}$ to $L'$ corresponds to a feasible solution $\bar{x}$ to $L$ where $\bar{x}_1 = \hat{x}_1' - \hat{x}_1''$. Conversely, a feasible solution $\bar{x}$ to $L$ corresponds to a feasible solution $\hat{x}$ given by 
+            \begin{enumerate}
+                \item $\hat{x}_1' = \bar{x}_1$ and $\hat{x}_1'' = 0$ if $\bar{x}_1 \geq 0$. 
+                \item $\hat{x}_1' = 0$ and $\hat{x}_1'' = \bar{x}_1$ if $\bar{x}_1 < 0$.
+            \end{enumerate}
+            Therefore, $L$ and $L'$ are equivalent. Note the above 2 points are always the case because $x_1'$ and $x_1''$ are always of different signs. And if both are in the objective function, the positively signed variable will be optimized in the objective function, to the point such that the other variable is 0.
+        \end{solution}
+        \item Write an efficient high-level algorithm that will convert a linear program that might be a maximization problem, might contain greater-than-or-equal or equality constraints, and may contain variables lacking a non-negativity constraint, into an equivalent linear program that can be solved by MELPSE. Give a good bound on the size (the size being the number of variables and number of constraints) of your new linear program and briefly justify it.
+        \begin{solution}
+            \textbf{Algorithm}
+            Let $L' = (A', b', c')$ be the result given $L = (A, b, c)$. Let there be $n$ variables in the solution and $m$ constraints
+            \begin{enumerate}
+                \item If the algorithm is as minimization linear program, let $c' = -c$
+                \item If there exists a constraint $\sum_{j=1}^n a_{ij} x_j = b_i$ for some $i = 1,\cdots, m$, replace the constriant with $\sum_{j=1}^n a_{ij} x_j \geq b_i$ and $\sum_{j=1}^n a_{ij} x_j \leq b_i$
+                \item If there exists a constraint  $\sum_{j=1}^n a_{ij} x_j \geq b_i$ for some $i = 1,\cdots, m$,  let $a_{ij}' = -a_{ij}$ for all $j = 1,\cdots, n$, and revert the sign from $\geq$ to $\leq$
+                \item if exists a negative variable $x_j < 0$ for some $j=  1,\cdots, n$, then replace $x_j$ with $x_j' - x_j''$ in LP and add constraints $x_j', x_j'' \geq 0$
+            \end{enumerate}
+            Now we discuss worst case size of the resulting $L'$. The worst case happens when we have an unconstrained $x_j$ for all $j = 1,\cdots, n$ variables and that every constaint is an equality constraint. 
+            \begin{enumerate}
+                \item For each $x_j$ lacking a nonnegative constraint, the conversion doubles the size of variables by removing one variable $x_j$ and adding 2 variables $x_j', x_j''$ into $L'$. Hence size of variable at most doubles. The conversion also introduces $2n$ nonnegative constraints for $x_j'$ and $x_j''$
+                \item For each equality constraint, the conversion replaces the constraint with 2 inequality constraints, therefore the size of constraint at most doubles
+            \end{enumerate}
+            Altogether, the size of $L'$ is bounded by $2n + 2n + 2m = 4n + 2m$
+        \end{solution}
+    \end{enumerate}
+
+\end{enumerate}
 
 
 

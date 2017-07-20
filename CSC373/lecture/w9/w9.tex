@@ -1,0 +1,231 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+
+\begin{document}
+
+\subsection*{Simplex}
+
+\begin{proposition*}    
+    \textbf{Simplex}
+    \begin{enumerate}
+        \item If Simplex returns a result, it is a feasible solution 
+        \item Simplex will terminate in at most $\binom{n+m}{m}$ steps (prevent cycling by choosing entering/leaving variable of least possible index)
+        \item Simplex algorithm yields an optimal solution (proves that on termination, the maximization and minimization problem is tight on a single solution set)
+    \end{enumerate}
+\end{proposition*}
+
+\begin{defn*}
+    \textbf{} Given a \textbf{primal} version of LPP, 
+    \begin{align*}
+        \textbf{Maximize} \quad & c^T x \\
+        \textbf{Subject to} \quad & Ax \leq b \\
+                                & x \geq 0 \\
+    \end{align*}
+    The corresponding \textbf{dual} version is given by 
+    \begin{align*}
+        \textbf{Minimize} \quad & b^T y \\
+        \textbf{Subject to} \quad & A^T y \geq c \\
+                                & y \geq 0 \\
+    \end{align*}
+\end{defn*}
+
+
+
+\begin{lemma*}
+    Let $\overline{x}$ be any feasible solution to the primal and $\overline{y}$ be any feasible solution to the dual LPP. Then 
+    \[
+        \sum_{j=1}^n c_j \overline{x}_j \leq \sum_{i=1}^m b_i \overline{y}_i \quad \iff \quad c^T \overline{x} \leq b^T \overline{y}
+    \]
+    \begin{proof}
+        \begin{align*}
+            \sum_{j=1}^n c_j \overline{x}_j &\leq \sum_{j=1}^n \left( \sum_{i=1}^m a_{ij} \overline{y}_i \right) \overline{x}_j \\
+            &= \sum_{i=1}^m \sum_{j=1}^n a_{ij} \overline{x}_j \overline{y}_i \\ 
+            &\leq \sum_{i=1}^m b_i \overline{y}_i
+        \end{align*}
+    \end{proof}
+\end{lemma*}
+
+\begin{corollary*}
+    Let $\overline{x}$ be a feasible solution to the primal and $\overline{y}$ be feasible solution to the dual such that 
+    \[
+        \sum_{j=1}^n c_j \overline{x}_j = \sum_{i=1}^m b_i \overline{y}_i
+    \]
+    Then $\overline{x}$ is an optimal solution to the primal LPP and $\overline{y}$ is an optimal solution to dual LPP
+\end{corollary*}
+
+\begin{theorem*}
+    \textbf{LPP Duality} Assume simplex returns values $\overline{x }= ( \overline{x}_1, \cdots, \overline{x}_n)$ for the LPP $(A,b,c)$. Let $N$ be the nonbasic and $B$ be basic variables for the final slack form $(N, B, A', b', c', v')$. Define $\overline{y} = (\overline{y}_1,\cdots, \overline{y}_m)$ as follows,
+     \[
+        \overline{y}_i = 
+        \begin{cases}
+            c_{n+i} & \text{if } n + i \in N \\
+            0 & \text{otherwise}            \\ 
+        \end{cases}
+     \]
+     Then $\overline{x}$ is an optimal solution to the primal and $\overline{y}$ is an optimal solution to the dual, and 
+     \[
+        \sum_{j=1}^n c_j \overline{x}_j = \sum_{i=1}^m b_i \overline{y}_i \quad \iff \quad c^T x = b^T y
+     \]
+\end{theorem*}
+
+
+\begin{algorithm}[H]
+    \SetKwFunction{init}{Initialize-Simplex}
+    \SetKwFunction{pivot}{Pivot}
+    \SetKwFunction{simplex}{Simplex}
+    \SetKwFunction{infeasible}{Infeasible}
+
+
+
+    \Fn{$\init(A,b,c)$}{
+        $k \leftarrow $ index of minimum $b_i$ \\
+        \If{$b_k \geq 0$}{
+            \Return{$(\{ 1,\cdots, n\}, \{ n+1, \cdots, n+m\}, A, b, c, 0)$}
+        }
+
+        $L_{aux} \leftarrow $ be $L$ by adding $x_0$ to LHS of each constant, \\
+        \quad \quad and setting the objective function to $-x_0$ \\ 
+
+        $(N,B,A,b,c,v) \leftarrow $ the resulting slack from $L_{aux}$ \\ 
+        $l \leftarrow n + k$ \\
+        $(N,B,A,b,c,v) = \pivot(N,B, A, b, c, l, 0)$ \quad \quad \text{//basic solution feasible} \\
+
+        $x \leftarrow \simplex(N,B,A,b,c,v)$ \\
+
+        \If{$\overline{x}_0 \neq 0$}{
+            \Return{\infeasible}
+        } \Else {
+            \If{$\overline{x}_0$ is basic variable}{
+                do another pivot to make it nonbasic \\ 
+            }\Else{
+                remove $\overline{x}_0$ from constraints \\ 
+                restore original objective function of $L$, but replace each basic variable  \\ 
+                \quad \quad in each objective function by RHS of its associated constraints \\ 
+            }
+        }
+        \Return{Modified slack form} \\
+    }
+\end{algorithm}
+
+\begin{defn*}
+    During initialization, 
+    \begin{enumerate}
+        \item if LPP is infeasible, stops right away
+        \item if LPP is feasible, but the basic solution is not feasible, transform LPP to another problem such that the basic solution is feasible, do simplex
+        \begin{enumerate}
+            \item Define $L_{aux}$ 
+            \begin{align*}
+                \textbf{Maximize} \quad & -x_0 \\
+                \textbf{Subject to} \quad & x_1 - x_2 - x_0 \leq -5 \\
+                                            & x_1 + x_2 - x_0  \leq 11\\
+                                            & x_1, x_1, x_2 \geq 0 \\ 
+            \end{align*}
+            $L$ is feasible if and only if the optimal objective value of $L_{aux}$ is 0
+        \end{enumerate}
+        \item Otherwise, do simplex
+    \end{enumerate}
+\end{defn*}
+
+
+\section*{NP-Completeness} 
+
+\begin{defn*}
+    \textbf{Polynomial-time Reducibility}
+    Let $X$ and $Y$ be two problems. We say $Y$ is polynomial-time reducible to $X$ if arbitrary instances of problem $Y$ can be solved using a polynomial number of standard computational steps, plus a polynomial number of calls to a blackbox that solves problem $X$. We specify this as 
+    \[
+        Y \leq_p X
+    \]
+    $X$ is at least as hard as $Y$
+    \begin{enumerate}
+        \item Suppose $Y \leq_p X$, If $X$ can be solved in polynomial time, then so can be $Y$
+        \item Suppose $Y \leq_p X$, If $Y$ cannot be solved in polynomial time, then $X$ cannot be solved in polynomial time either
+        \item If $X$, $Y$ and $Z$ are 3 problems, and $Z\leq_p Y$ and $Y\leq_p X$, then $Z\leq_p X$
+    \end{enumerate}
+    If want to show $X\in NP$, we reduce $Y\leq_p X$ such that $Y\in NP$ 
+\end{defn*}
+
+
+\begin{example} \textbf{Independent set of vertex cover}
+    \begin{enumerate}
+        \item \textbf{Independence Set} \quad Given a set $S\subseteq V$ of nodes in graph $G = (V,E)$ is called independent if no two vertices in $S$ is connected in $G$
+        \item \textbf{Independent Set problem} Find the independent set of maximum size
+        \item \textbf{An equivalent decision problem} Given a graph $G$ and a number $k$, ask if there exists an independent set of size $k$.
+        \item \textbf{Vertex cover} A set $S\subseteq V$ in $G = (V,E)$ is called a vertex cover if every $e\in E$ has at least one end in $S$ 
+        \item \textbf{Vertex cover problem} Given a graph $G$, find a vertex cover of minimum size.
+        \item \textbf{An equivalent decision problem} Given a graph $G$ and $k\in \R$, ask if there exists a vertex cover of size of at most $k$
+    \end{enumerate}
+    \begin{lemma*}
+        Let $G = (V,E)$ be a graph, then $S\subseteq V$ is an independent set if and only if $V\setminus S$ is a vertex cover
+        \begin{proof}
+            \begin{enumerate}
+                \item $=>$ \quad If $S$ is independent, want to show $V\setminus S$ is a vertex cover. Let $e = (u,v) \in E$. Assume $u,v\not\in V\setminus S$, then $u,v\in S$, then $S$ not independent
+            \end{enumerate}
+        \end{proof}
+    \end{lemma*}
+
+    \begin{corollary*}
+        Independent set problem $\leq_p$ vertex cover problem. Similarly for vertex cover problem $\leq_p$ independent set problem (equally hard)
+        \begin{proof}
+            If we have a black box to solve vertex cover, then we can decide whether $G$ has an independent set of size at least $k$ by asking the blackbox if $G$ has a vertex cover of size at most $n-k$
+        \end{proof}
+    \end{corollary*}
+
+\end{example}
+
+\begin{example}
+    \textbf{Set cover} Given a set $U$ of $n$ elements, a collection $S_1, S_2, \cdots, S_m \subseteq U$, and a number $k$, does there exists a collection of at most $k$ of these sets whose union is $U$
+    Relation between vertex cover and set cover. For $i\in V$, define 
+    \[
+        S_i = \{ \text{edges going out of $i$} \}
+    \]
+    so $\cup S_i = E$ so $U = E$. 
+
+
+    \begin{lemma*}
+        Vertex cover $\leq_p$ Set cover
+    \end{lemma*}
+\end{example}
+
+\begin{example}
+    \textbf{Set packing} Given a set $U$ of $n$ elements, a collection $S_1, \cdots, S_,$ of subsets of $U$ and a number $k$< does there exists a collection of at least $k$ of these sets with the property that no two of them intersect?
+
+
+    \begin{lemma*}
+        Independent set $\leq_p$ set packing
+    \end{lemma*}
+
+\end{example}
+
+
+\begin{defn*}
+    \textbf{Problem} 
+    \begin{enumerate}
+        \item Solving a problem, i.e. finding a solution 
+        \item Verification, i.e. checking if something is a solution
+    \end{enumerate}
+    \textbf{Formulation}
+    \begin{enumerate}
+        \item \textbf{Input} A binary string $s\in \{ 0, 1\}^*$, where 
+        \[
+            I = \{ 0, 1\}^* = \bigcup_{n\in N} \{ 0, 1\}^n
+        \]
+        \item \textbf{Decision problem} 
+        \[
+            X = \{ s\in I \,|\, X(s) = yes \}
+        \]
+        \item \textbf{Algo for decision problem} An algorithm $A$ for a decision problem is a function that takes a binary string input and outputs $yes$ or $no$. 
+        \item \textbf{Solution} We say $A$ solves problem $X$ if for all strings $s\in I$, we have 
+        \[
+            A(s) = yes \quad \quad \text{if and only} \quad \quad  \text{if } s\in X
+        \]
+        \item \textbf{Polynomial-time solution} We say $A$ is a polynomial-time algorithm if there is a polynomial function $P$ such that for every input $s\in I$, the algorithm termiantes in at most $O(P(|s|))$ steps. 
+        \[
+            \mathbb{P} = \{X \,|\, \text{if there exists a polynomial-time algorithm $A$ that solves $x$} \}
+        \]
+    \end{enumerate}
+\end{defn*}
+
+
+
+
+\end{document}

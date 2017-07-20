@@ -160,5 +160,147 @@
 \end{defn*}
 
 
+\begin{defn*}
+    \textbf{Min-Cost-Flow} Consider the that in addition to a capacity of each edge $(u,v)$ in a max flow problem, we are givne a real-valued cost $a(u,v)$. Assume $c(u,v) = 0$ if $(u,v)\not\in E$ and that there are no antiparallel edges. If we send $f_{uv}$ units of flow over edge $(u,v)$, we incur a cost of $a(u,v) f_{uv}$. Given a flow demand $d$. We wish to send $d$ units of flow from $s$ to $t$ while minimizing the total cost 
+    \[
+        \sum_{(u,v)\in E} a(u,v) f_{uv}
+    \]
+    incurred by he flow. The linear program is similar to max flow problem with the constraint that value of flow be exactly $d$ cost. 
+    \begin{align*}
+        \textbf{Minimize } \quad & \sum_{(u,v)\in E} a(u,v) f_{uv}\\
+        \textbf{Subject to } \quad & f_{uv} \leq c(u,v) \quad \text{for each } u,v\in V\\
+                                & \sum_{v\in V} f_{vu} - \sum_{v\in V} f_{uv} = 0 \quad \text{for each } u\in V \setminus \{s, t \}\\
+                                & |f| = \sum_{v\in V} f_{sv} - \sum_{v\in V} f_{vs} = d \\
+                                & f_{uv} \geq 0 \quad \text{for each } u,v\in V\\
+    \end{align*}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Multicommodity flow} Given a directed graph $G = (V,E)$ in which each edge $(u,v)\in E$ has nonnegative capacity $c(u,v) \geq 0$. Assume $c(u,v) = 0$ for $(u,v)]\neq E$ and graph has no antiparallel edges. In addition, given $k$ different commodities, $K_1, \cdots, K_k$ where we specify commodity $i$ by triple $K_i = (s_i, t_i, d_i)$. Here $s_i$ is source of $i$ and $t_i$ is sink of $i$ and $d_i$ is demand for $i$, which is the desired flow value for the commodity from $s_i$ to $t_i$. Define a flow for commodity $i$ by $f_i$ ($f_{iuv}$ is flow of commodity $i$ from $u$ to $v$) be real-valued function satisfying flow-conservation and capacity constraint. Define $f_{uv}$ be \textbf{aggregate flow}, to be the sum of the various commodity flows, i.e. 
+    \[
+        f_{uv} = \sum_{i=1}^k f_{iuv}
+    \]
+    where the aggregate flow $f_{uv}$ must be no more than capacity of edge $(u,v)$. Since we are tyring to determine if such flow exists,we write a linear program with a null objective function ... 
+    \begin{align*}
+        \textbf{Minimize} \quad & 0\\
+        \textbf{Subject to} \quad & \sum_{i=1}^k f_{iuv} \leq c(u,v) \quad \text{for each } u,v\in V\\
+                                & \sum_{v\in V} f_{iuv} - \sum_{v\in V} f_{ivu} = 0 \quad \text{for each } i = 1,\cdots, k \text{ and } u\in V - \{ s_i, t_i\}\\
+                                &  \sum_{v\in V} f_{is_iv} - \sum_{v\in V} f_{ivs_i} = d_i \quad \text{for each } i = 1, \cdots, k \\
+                                & f_{iuv}\geq 0 \quad \text{for each } u,v\in V \text{ and } i = 1,\cdots k\\
+    \end{align*}
+\end{defn*}
+
+
+
+
+
+\subsection*{Simplex algorithm} 
+
+
+\begin{defn*}
+    \textbf{Simplex algorithm}
+    \begin{enumerate}
+        \item \textbf{Steps}
+        \begin{enumerate}
+            \item In each iteration, find basic solution from slack form of linear program
+            \begin{enumerate}
+                \item set each nonbasic variable $N$ to 0,
+                \item compute the values of basic variables $B$ from the equality constraint
+                \item compute objective value using objective function 
+            \end{enumerate} 
+            \item Convert one slack form into an equivalent slack form 
+            \begin{enumerate}
+                \item Pick a nonbasic \textbf{entering variable} $x_e \in  N$ such that if we were to increase that variable's value from 0, then the objective function would increase, too (i.e. positive coefficient in objective function)
+                \item Raise the nonbasic variable $x_e$ as much as possible without violating any constraint (i.e. until some basic \textbf{leaving variable} $x_l$ becomes 0, slack becomes tight) 
+                \item rewrite the slack form, exchanging the roles of $x_e$ and $x_l$, substitute expression of the now-basic $x_e$ to other constraint/objective
+            \end{enumerate}
+            \item stops when there is no applicable entering variable left (i.e. coefficient of nonbasic variable in objective function have all negative coefficient)
+        \end{enumerate}
+        \item \text{Definition} 
+        \begin{enumerate}
+            \item \textbf{Tight} An equality constraint is tight for a particular setting of its nonbasic variables if they cause the constraint's basic variable to become 0. A setting of nonbasic variable that makes a basic variable become negative violates that constraint, therefore slack 
+            \begin{enumerate}
+                \item maintains explicitly how far each constraint is from being tight 
+                \item help to determine how much we can increase values of nonbasic variables without violating any constraints
+            \end{enumerate}
+            \item \textbf{Basic feasible solution} A basic solution that is also feasible. (As we run the simplex algorithm, the basic solution is almost always a basic feasible solution except for maybe the first several..)
+        \end{enumerate}
+        \item \textbf{Pivoting} Exchanging role of $x_l$ with $x_e$
+        \begin{enumerate}
+            \item takes a slack form given by tuple $(N,B, A, b,c ,v)$ as input, index $l$ of leaving variable $x_l$ and index $e$ of entering variable $x_e$
+            \item Returns a tuple $(\hat{N}, \hat{B}, \hat{A}, \hat{b}, \hat{c}, \hat{v})$ describing the new slack form 
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{lemma*}
+    Consider a call to $\textsc{Pivot}(N, B, A, b, c, v, l, e)$ in which $a_{le}\neq 0$. Let values returned be $(\hat{N}, \hat{B}, \hat{A}, \hat{b}, \hat{c}, \hat{v})$, and let $\overline{x}$ denote the basic solution after the call, then 
+    \begin{enumerate}
+        \item $\overline{x}_j = 0$ for each $j\in \hat{N}$
+        \item $\overline{x}_e = \frac{b_l}{a_{le}}$ ( since all other nonbasic variable set to 0)
+        \item $\overline{x} = b_i - a_{ie} \hat{b}_e$ for each $i\in \hat{B} \setminus \{ e\}$
+    \end{enumerate}
+\end{lemma*}
+
+
+\begin{defn*}
+    \textbf{Formal simplex algorithm}
+    \begin{enumerate}
+        \item $\textsc{Initialize-Simplex}(A,b,c)$ takes input of linear program in standard form, 
+        \begin{enumerate}
+            \item if problem infeasible, returns a message that program is infeasible 
+            \item otherwise, return a slack form for which the initial basic solution is feasible
+        \end{enumerate}
+        \item Pick the next positive-coefficient nonbasic variable $e$ in the objective function such that $c_e > 0$
+        \item Now populate $\triangle_i = \frac{b_i}{a_{ie}}$ for $i\in B$, i.e. the amount by which $e$ can increase by before the $i$-th basic variable becomes zero (i.e. satisfy nonnegativity constraint)
+        \begin{enumerate}
+            \item if $\triangle_i =  \infty$, then solution unbounded 
+            \item otherwise pick an index $l\in B$ such that $\triangle_i$ is minimized. and call $\textsc{Pivot}$ on $e$ and $l$ which returns the next slack form 
+        \end{enumerate}
+        Loop until no variable has positive coefficient in objective function
+        \item Based on the last slack form, compute and return the corresponding basic solution $\overline{x}$
+        \begin{enumerate}
+            \item if $i\in B$, then $\overline{x}_i = b_i$ 
+            \item otherwise, $\overline{x}_i = 0$
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{lemma*}
+    Given a linear program $(A,b,c)$, suppose call to \textsc{Initialize-Simplex} returns a slack form for which the basic solutin is feasible, then if \textsc{Simplex} returns a solution, that solution is a feasible solution to the linear program. If \textsc{Simplex} returns unbounded then the linear program is unbounded
+\end{lemma*}
+
+
+\begin{lemma*}
+    Let $(A,b,c)$ be a linear program in standard form. Given a set $B$ of basic variables, the associated slack form is uniquely determined. 
+\end{lemma*}
+
+\begin{lemma*}
+    If \textsc{Simplex} fials to terminate in at most $\binom{n+m}{m}$ iterations, the it cycles. 
+    \begin{proof}
+        By previous lemma, set $B$ uniquely determines. There are $n+m$ variables and $|B| = m$, and therefore, there are at most $\binom{n+m}{m}$ ways to choose $B$. Thus at most $\binom{n+m}{m}$ unique slack forms. Therefore if \textsc{Simplex} runs for more than $\binom{n+m}{m}$ iterations, it must cycle
+    \end{proof}
+    
+\end{lemma*}
+
+\begin{lemma*}
+    \textsc{Bland's rule} To prevent cycling, we pick $e$ and $l$ such that we break ties by always choosing the variable with smallest index, then \textsc{Simplex} must terminate
+\end{lemma*}
+
+\begin{lemma*}
+    Assume \textsc{Initialize-Simplex} returns a slack form for which the basic solutin is feasible, \textsc{Simplex} either reports a linear program is unbounded or it terminates with a feasible solution in at most $\binom{n+m}{m}$  iterations. 
+\end{lemma*}
+
+
+
+\subsection*{Duality}
+
+
+\begin{defn*}
+    
+\end{defn*}
+
 
 \end{document}

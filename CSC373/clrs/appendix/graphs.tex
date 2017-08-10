@@ -9,9 +9,9 @@
     \begin{enumerate}
         \item \textbf{directed graph} $G$ is a pair $(V, E)$, where $V$ is a finite set and $E$ is a binary relation on $V$. $V$ is a \textbf{vertex set} of $G$, and its elements are called \textbf{vertices}. The set $E$ is called the edge set of $G$ and its elements are called edges
         \begin{enumerate}
-            \item If $(u,v)$ is an edge in an undirected graph, then $(u, v)$ is \textbf{incident on} vertices $u$ and $v$
-            \item If $(u,v)$ is an edge in $G = (V,E)$, then vertex $v$ is \textbf{adjacent} to vertex $u$
-            \item The \textbf{degree} of a vertex in an undirected graph is the number of edges incident on it; A vertex with degree 0 is \textbf{isolated}
+            \item If $(u,v)$ is an edge in a directed graph, $(u,v)$ is \textbf{incident from} or \textbf{leaves} vertex $u$ and is \textbf{incident to} or \textbf{enters} vertex $v$
+            \item In the case of directed graph, if $v$ is \textbf{adjacent} to $u$, then $u \to v$
+            \item the \textbf{out-degree} of a vertex is the number of edges leaving it, and the \textbf{in-degree} of a vertex is the number of edges entering it. The \textbf{degree} of a vertex in a directed graph is its in-degree plus its out-degree
             \item In directed graph, a path $\langle v_0, \cdots, v_k \rangle$ forms a \textbf{cycle} if $v_0 = v_k$ and the path contains at least one edges; 
             \begin{enumerate}
                 \item The \textbf{cycle is simple} if, in addition, $v_1, \cdots, v_k$ are distinct
@@ -30,9 +30,9 @@
         \end{enumerate}
         \item \textbf{undirected graph} $G = (V, E)$, the set $E$ consists of \textit{unordered} pairs of vertices, rather than ordered pairs, i.e. exists set $\{ u, v\}$, where $u, v \in V$ and $u \neq v$. (by convention, we use $(u,v) = (v, u)$ to denote a set)
         \begin{enumerate}
-            \item If $(u,v)$ is an edge in a directed graph, $(u,v)$ is \textbf{incident from} or \textbf{leaves} vertex $u$ and is \textbf{incident to} or \textbf{enters} vertex $v$
-            \item In the case of directed graph, if $v$ is \textbf{adjacent} to $u$, then $u \to v$
-            \item the \textbf{out-degree} of a vertex is the number of edges leaving it, and the \textbf{in-degree} of a vertex is the number of edges entering it. The \textbf{degree} of a vertex in a directed graph is its in-degree plus its out-degree
+            \item If $(u,v)$ is an edge in an undirected graph, then $(u, v)$ is \textbf{incident on} vertices $u$ and $v$
+            \item If $(u,v)$ is an edge in $G = (V,E)$, then vertex $v$ is \textbf{adjacent} to vertex $u$
+            \item The \textbf{degree} of a vertex in an undirected graph is the number of edges incident on it; A vertex with degree 0 is \textbf{isolated}
             \item In undirected graph, a path $\langle v_0, \cdots, v_k \rangle$ forms a \textbf{cycle} if $k\geq 3$ and $v_0 = v_k$ 
             \begin{enumerate}
                 \item The \textbf{cycle is simple} if $v_1, \cdots, v_k$ are distinct 
@@ -66,6 +66,7 @@ A \textbf{path} of \textbf{length} $k$ from a vertex $u$ to a vertex $u'$ in a g
 
 
 \begin{defn*}
+    \textbf{Isomorphism and Subgraphs}
     \begin{enumerate}
         \item Two graphs $G = (V, E)$ and $G' = (V', E')$ are \textbf{isomorphic} if there exists a bijection $f: V \to V'$ such that $(u,v) \in E$ if and only if $(f(u), f(v))\in E'$. In other words, we can relable the vertices of $G$ and be the vertices of $G'$, maintaining the corresponding edges in $G$ and $G'$
         \item A graph $G' = (V', E')$ is a \textbf{subgraph} of $G = (V, E)$ if $V' \subseteq V$ and $E' \subseteq E$. Given a set $V' \subseteq V$, the subgraph of $G$ \textbf{induced} by $V'$ is the graph $G'= (V', E')$ where 

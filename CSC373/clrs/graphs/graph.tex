@@ -154,7 +154,29 @@
 
 
 \begin{theorem*}
-    In DFS of an undirected graph $G$, every edge of $G$ is either a tree edge of a back edge 
+    In DFS of an undirected graph $G$, every edge of $G$ is either a tree edge or a back edge 
+\end{theorem*}
+
+
+\subsection*{22.4 Topological Sort $\Theta(V+E)$}
+
+\begin{defn*}
+    \textbf{Topological sort} A topological sort of a dag $G = (V,E)$ is a linear ordering of all its vertices such that if $G$ contains an edge $(u,v)$, then $u$ appears before $v$ in the ordering. Can be viewed as ordering of vertices on a horizontal line so that all directed edges go from left to right
+    \begin{enumerate}
+        \item Call \textsc{DFS} to compute the finishing time $v.f$ for each vertex $v$ 
+        \item As each vertex is finished, insert it onto the front of a linked list 
+    \end{enumerate}
+\end{defn*}
+
+\begin{lemma*}
+    A directed graph $G$ is acyclic if and only if a depth-first search of $G$ yields no back edges
+\end{lemma*}
+
+\begin{theorem*}
+    \textsc{Topological Sort} produces a topological sort of the DAG provided as input 
+    \begin{proof}
+        Suppose DFS run on a given DAG $G = (V,E)$. It suffices to show that for all $e = (u,v)\in E$, then $v.f < u.f$. Consider $(u,v)$ being explored by DFS. $v$ cannot be gray, since otherwise $v$ is an ancestor of $u$ and $(u,v)$ would be a back edge, i.e. cycle (by previouis lemma), which contradicts assumption that $G$ is acyclic. Therefore $v$ must be either white or black. If $v$ is white, $v$ is a descendent of $u$, so $v.f < u.f$ by the parenthesis lemma. If $v$ is black, it has already finished, but we are still exploring from $u$, so $u$ has yet to finish, hence $v.f < u.f$. This completes the proof
+    \end{proof}
 \end{theorem*}
 
 
@@ -189,6 +211,7 @@ At each step, we determine an edge $(u,v)$ that we can add to $A$ without violat
 
 
 \begin{proposition*}
+    \textbf{MST}
     \begin{enumerate}
         \item \textbf{Possible Multiplicity} If there are $n$ vertices in the graph, then each spanning tree has $n − 1$ edges.
         \item \textbf{Cycle property} For any cycle $C$ in the graph, if the weight of an edge $e$ of $C$ is larger than the individual weights of all other edges of $C$, then this edge cannot belong to a MST.
@@ -221,7 +244,7 @@ At each step, we determine an edge $(u,v)$ that we can add to $A$ without violat
     \textbf{Kruskal's algorithm} Finds a safe edge to the growing forest by finding, of all edges that connect any two trees in the forest, an edge $(u,v)$ of least weight.
     \begin{enumerate}
         \item \textbf{Implementation} Needs a fast way to determine if an edge crosses connected components. Tracks trees in disjoint sets. Initializes vertices to disjoint sets with \textsc{Make-Set}. Sort edges by weight in nondecreasing order. Loop over all edges and include edge $(u,v)$ to $A\subseteq E$ if $u$ and $v$ are not in the same set (evaluate with \textsc{Find-Set}). Update disjoint sets with \textsc{UNION}
-        \item \textbf{Complexity} Assume disjoint-set-forest impl with union-by-rank and path-compression. Sorting takes $O(E\lg E)$. $O(E)$ \textsc{Find-Set} and \textsc{UNION} and $O(V)$ \textsc{Make-Set} takes a total of $O((V+E)\alpha(V))$. Sicne $G$ connected, $|E| \geq |V| - 1$, so disjoint-set operation takes $O(E\alpha(V)) = O(E\lg V) = O(E\lg E)$. In total, algorihtm takes $O(E\lg E)$. Note since $|E| < |V|^2$, $\lg |E| = O(\lg V)$, so running time is $O(E\lg V)$
+        \item \textbf{Complexity} Assume disjoint-set-forest impl with union-by-rank and path-compression. Sorting takes $O(E\lg E)$. $O(E)$ \textsc{Find-Set} and \textsc{UNION} and $O(V)$ \textsc{Make-Set} takes a total of $O((V+E)\alpha(V))$. Since $G$ connected, $|E| \geq |V| - 1$, so disjoint-set operation takes $O(E\alpha(V)) = O(E\lg V) = O(E\lg E)$. In total, algorihtm takes $O(E\lg E)$. Note since $|E| < |V|^2$, $\lg |E| = O(\lg V)$, so running time is $O(E\lg V)$
     \end{enumerate}
 \end{defn*}
 
@@ -231,7 +254,7 @@ At each step, we determine an edge $(u,v)$ that we can add to $A$ without violat
     \textbf{Prim's algorithm} Tree ($A$) starts from an arbitrary root vertex $r$ and grows until the tree spans all vertices of $V$. Each step adds to the tree $A$ a light edge that connects $A$ to an isolated vertex, one on which no edge of $A$ is incident. (so that the cut respects $A$)
     \begin{enumerate}
         \item \textbf{Implementation} Needs a fast way to select a new edge to add to tree. vertices not in the tree reside in a min-priority queue $Q$ based on $key$ attributes, where $v.key$ is the minimum weight of any edge connecting $v$ to a vertex in the tree $A$. ($v.key = \infty$ if no such edge exists) 
-        \item \textbf{Complexity} Assume $Q$ impl with binary min-heap. building heap requires $O(\lg V)$ time. $O(V)$ \textsc{Extract-Min} each taking $O(\lg V)$ amounts to $O(V\lg V)$. While loop iterates $O(E)$ times. The test for membership is $O(1)$ by keeping a bit in $G$ for each vertex and tells if its not in $Q$ and updating the bit once vertex is removed from $Q$. \textsc{Decrease-Key} taking $O(\lg V)$ each. Hence total time is $O(V\lg V + E\lg V) = O(E\lg V)$
+        \item \textbf{Complexity} Assume $Q$ impl with binary min-heap. building heap requires $O(\lg V)$ time. $O(V)$ \textsc{Extract-Min} each taking $O(\lg V)$ amounts to $O(V\lg V)$. While loop iterates $O(E)$ times. The test for membership is $O(1)$ by keeping a bit in $G$ for each vertex and tells if its not in $Q$ and updating the bit once vertex is removed from $Q$. \textsc{Decrease-Key} taking $O(\lg V)$ each. Hence total time is $O(V\lg V + E\lg V) = O(E\lg V)$. If use fibonacci heap, $O(E + V\lg V)$
     \end{enumerate}
 \end{defn*}
 
@@ -239,7 +262,7 @@ At each step, we determine an edge $(u,v)$ that we can add to $A$ without violat
 
 
 \begin{defn*}
-    \textbf{The Single-Paths Problem} Given a weighted, directedf graph $G = (V,E)$, with $w: E\to\R$.
+    \textbf{The Single-Paths Problem} Given a weighted, directed graph $G = (V,E)$, with $w: E\to\R$.
 
     \begin{enumerate}
         \item The \textbf{weight of path} $w(p)$ for $p = \langle v_0, \cdots, v_k \rangle$ is given by
@@ -466,7 +489,7 @@ At each step, we determine an edge $(u,v)$ that we can add to $A$ without violat
 \begin{defn*}
     \textbf{DAG Shortest-Path} 
     \begin{enumerate}
-        \item \textbf{Motivation} Increase runtime by relaxing edges according to a topological sort of its vertices (so that we can use path-relaxation property and only relax every edge once)
+        \item \textbf{Motivation} Increase runtime by relaxing edges according to a topological sort of its vertices (so that we can use path-relaxation property and only relax every edge once). The drawback is that the algorithm assumes a acyclic graph
         \item \textbf{Implementation}
         \begin{enumerate}
             \item Topologically sort the dag, i.e. if there is $p$ such that $u \xrightarrow{p} v$, then $u$ precedes $v$
@@ -492,7 +515,7 @@ At each step, we determine an edge $(u,v)$ that we can add to $A$ without violat
 \begin{defn*}
     \textbf{Dijkstra's algorithm}
     \begin{enumerate}
-        \item \textbf{Use case} Solves single-source shortest-paths problem on a weighted, directed graph $G = (V,E)$ for the case in which all edges weights are nonnegative, i.e. $w(u,v) \geq 0$ for all $(u,v)\in E$
+        \item \textbf{Use case} Solves single-source shortest-paths problem on a weighted, directed graph $G = (V,E)$ for the case in which all edges weights are \textbf{nonnegative}, i.e. $w(u,v) \geq 0$ for all $(u,v)\in E$
         \item \textbf{Implementation} 
         \begin{enumerate}
             \item Maintains set $S$ of vertices whose final shortest-path weights from $s$ have already been determined.
@@ -822,7 +845,7 @@ At each step, we determine an edge $(u,v)$ that we can add to $A$ without violat
     \end{enumerate}
 \end{defn*}
 
-\begin{lemma*}
+\begin{lemma*} \textbf{Conservation of net flow cross arbitrary cuts}
     Let $f$ be a flow in a flow network $G$ with source $s$ and sink $t$, and let $(S,T)$ be any cut of $G$. Then the net flow across $(S,T)$ is $f(S,T) = |f|$
 \end{lemma*}
 

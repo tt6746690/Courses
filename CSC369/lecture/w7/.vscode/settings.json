@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "*.txt": "cmake",
+    "ext2.h": "c",
+    "stdio.h": "c"
+  }
+}

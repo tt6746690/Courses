@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "*.txt": "cmake",
+    "stdlib.h": "c",
+    "mman.h": "c",
+    "ext2.h": "c",
+    "stdio.h": "c",
+    "time.h": "c",
+    "utilities.c": "cpp",
+    "utilities.h": "c",
+    "heaploop.c": "cpp"
+  }
+}

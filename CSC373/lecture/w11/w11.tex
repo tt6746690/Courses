@@ -1,0 +1,239 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+\subsection*{NPC}
+
+To show $X$ is NPC 
+
+\begin{enumerate}
+    \item $X\in NPC$, show that there is an efficient verifier for $X$
+    \item $X$ is NP-hard, show $Y \leq_q X$ for some NP-hard problm $Y$
+\end{enumerate}
+
+\begin{example}
+    \textbf{Subset-sum}($SS$) Given a finite set $S$ of positive integers and a positive integer $t$, ask if there is a subset $S' \subseteq S$ such that $\sum_{x\in S} x = t$. Prove that subset sum problem is NP-complete
+    \begin{proof}
+        2 steps
+        \begin{enumerate}
+            \item Prove \textsc{Subset-sum}$\in NPC$ Given a subset sum problem $X = (S,t)$. Let certificate $c$ be a subset $S'\subseteq S$. Let $B(X,c)$ be such that  
+            \[
+                B(X,c) = 
+                \begin{cases}
+                    yes & \text{if } \sum_{x\in c} x = t\\
+                    no & \text{otherwise}
+                \end{cases}
+            \]
+            Note $B$ can be implemented by summing up all $x\in c$ and return the sum, which will finish in polynomial time. Hence $B$ is an efficient verifier of $X$, hence  \textsc{Subset-sum}$\in NPC$
+            \item Prove \textsc{Subset-sum} is NP-hard by proving $3-SAT \leq_q SS$. Start with some input to 3-SAT, and modify the input with function $f$ and make it an input $f(x)$ to SS. Proving $3-SAT\leq_q SS$ is equivalent to prove that $3-SAT$ says yes on $x$ if and only if SS says yes on $f(x)$ and $f$ is a polynomial time operation. Let $\phi$ b input to 3-SAT
+            \[
+                \phi  = (a_1 \lor b_1 \lor c_1) \land \cdots \land (a_r \lor b_r \lor c_r)
+            \]
+            where $a_i, b_i, c_i \in \{ x_1, \cdots, x_s \}$. In summary, there are $r$ clauses and $s$ variables. Let integer $\hat{x}_j = 1$ followed by $s-j$ 0s followed by $r$ digits where $k$th next digit equals 1 if $x_j$ appears in clause $c_k$, 0 otherwise. and define $\neg \hat{x}_j$ be same as previous definition but when $\neg x_j$. For $j = 1\to r$ integer $C_j = 1$ followed by $r-j$ 0s and integer $D_j = 2$ follwed by $r-j$ 0s $t = s$ 1s followed by $r$ 4s\\
+            Example of $r = 3$ clauses and $s =4$ variables
+            \[  
+                \phi = (x_1 \lor \neg x_2 \lor \neg x_4) \land (x_2 \cup \neg x_3 \cup x_1) \land (\neg x_3 \lor x_4 \lor \neg x_2)
+            \]
+            Now we define $S$ 
+            \begin{align*}
+                 S &= \{\\
+                    &\hat{x}_1 = 1000110, \neg \hat{x}_1 = 1000000, \\
+                    &\hat{x}_2 = 100010, \neg\hat{x}_2 = 100101, \\ 
+                    &\hat{x}_3 = 10000, \neg \hat{x}_3 = 10011, \\
+                    &\hat{x}_4 = 1001, \neg\hat{x}_4 = 1100, \\ 
+                    &C_1 = 100, C_2 = 10, C_3 = 1 \\
+                    &D_1 = 200, D_2 = 20, D_3 = 2 \\
+                    &t = 1111444 \}\\ 
+            \end{align*}
+            Th operation takes polynomial time. now we show $\phi$ is satisfiable if and only if $S$ has a subset whose sum is $t$
+            \begin{enumerate}
+                \item $=>$ Assume $\phi$ satisfiable, implying each clause must have one true literal (variable). Let
+                \[
+                    S' = \{ \text{numbers that correspond to the literals as constructed} \}
+                \] 
+                By construction, choose $S'$ such that $\sum_{x\in S'} x = 1111d_1 d_2 d_3$ where $1 \leq d_i \leq 3$ (Since at least 1 true varaible, and and at most 3 variables in a clause) Now we can select $S''\subseteq \{ C_i, D_i\}$, such that $\sum_{x\in S' \cup S''} x = t$
+                \item $<=$ There is some subset $S' \subseteq S$ such that $\sum_{x\in S'} x=  t$ The truth assignment, $T(x_i)$ is true if $\hat{x}_i \in S'$ and $T(x_i)$ is false if $\neg \hat{x}_i \in S'$. The sum of all $C_i$s and $D_i$s is 333. So if $\sum_{x\in S'}x = t = 1111444$ which means we have some 1 in each of the 3 least significant bits. Then there is a truth literal in that clause, so every clause is true, and $\phi$ is true
+            \end{enumerate}
+        \end{enumerate}
+    \end{proof}
+\end{example}
+
+
+\begin{theorem*}
+    If $D$ is NPC, then $D\in P \iff P=NP$
+    \begin{proof}
+        prove if and only if
+        \begin{enumerate}
+            \item $=>$ $D\in P$ let $D' \in NP$ Show $D' \in P$ D is NPC, implies $D' \leq_q D$, implies $D' \in P$
+            \item $<=$ $D$ is NPC implies $D\in NP = P$ implies $D\in P$
+        \end{enumerate}
+    \end{proof}
+\end{theorem*}
+
+\subsection*{Categories of NPC problems}
+
+
+\begin{enumerate}
+    \item \textbf{Packing problem} 
+    \begin{enumerate}
+        \item independent set
+        \item set packing 
+    \end{enumerate}
+    \item \textbf{Covering problem}
+    \begin{enumerate}
+        \item vertex cover 
+        \item set cover
+    \end{enumerate}
+    \item \textbf{Partition problem}
+    \begin{enumerate}
+        \item 3-dimensinoal matching
+        \item graph coloring
+    \end{enumerate}
+    \item \textbf{Sequencing problem}
+    \begin{enumerate}
+        \item Hamiltonian cycle
+        \item Hamiltonian paht
+        \item traveling salesman
+    \end{enumerate}
+    \item \textbf{Numerical problems}
+    \begin{enumerate}
+        \item subset sum 
+    \end{enumerate}
+    \item \textbf{Constraint satisfaction problems}
+    \begin{enumerate}
+        \item 3-SAT
+        \item CNF-SAT 
+        \item SAT 
+        \item Circuit-SAT
+    \end{enumerate}
+\end{enumerate}
+
+
+\subsection*{Self-Reducible Problems}
+
+Search problem, find a solution \\ 
+optimization problem, find the best prossible solution 
+
+
+\begin{defn*}
+    \textbf{Search problem}
+    A search problem is self-reducible if any efficient solution to the corresponding decision problem can be used to solve the search problem efficiently.  Search problems are typically harder than the corresponding decision problem. 
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Independent-Set-Decision}$(G, k)$ 
+\end{defn*}
+
+\begin{example}
+    \textbf{Hamiltonian cycle} \\
+
+    \begin{enumerate}
+        \item problem is self-reducible Let $HCS$ be the search problem and $HCD$ be the decision problem. 
+        \item \textbf{Correctness} $HCD(G')$ remains true for every state. So at the end, $E$ contains every edge in hamiltonian cycle of $G$. Moreover, we remove every other edge so we are left with only a hamiltonian cycle at the end. 
+        \item \textbf{Complexity} Assume the time complexity of decision problem is $t(V, E)$. Then the complexity of the search problem is $O(t(V,E) + E(1 + t(V,E))) = O((E+1)t(V,E))$
+    \end{enumerate}
+
+    \begin{algorithm}[H]
+        \SetKwFunction{HCS}{Hamiltonian-cycle-search}
+        \SetKwFunction{HCD}{Haniltonian-cycle-decision}
+        \SetKwFunction{NIL}{NIL}
+
+        \Fn{$\HCS(G)$}{
+
+        \If{! $\HCD(G)$}
+            \Return{\NIL}\\
+        }
+        \For{$e\in G.E$}{
+            $E' \leftarrow E \setminus \{ e\}$ \\
+            $G' \leftarrow (V, E')$\\
+            \If{$\HCD(G')$}{
+                $E \leftarrow E'$ \\ 
+            }
+        }
+        \Return{$E$}\\
+    \end{algorithm}
+\end{example}
+
+
+\begin{example}
+    \textbf{Vertex-Cover}
+
+    \begin{enumerate}
+        \item \textbf{Complexity} $O((V+1)t(V,E) + V\times(V+E))$
+    \end{enumerate}
+
+    \begin{algorithm}[H]
+        \SetKwFunction{VCS}{Vertex-Cover-Search}
+        \SetKwFunction{VCD}{Vertex-Cover-Decision}
+
+        \Fn{$\VCS(G,k)$}{
+            \If{! $\VCD(G,k)$}{
+                \Return{\NIL}
+            }
+            $C \leftarrow \{ \}$ \\
+            \For{$v \in V$}{
+                \If{$k \leq 0$}{
+                    break \\ 
+                }
+                $V' \leftarrow V \setminus \{ v\}$ \\
+                $E' \leftarrow E \setminus \{ (v,w) | (v,w)\in E\}$ \\ 
+                $G' \leftarrow (V', G')$\\
+                \If{$\VCD(G', k-1)$}{
+                    $v\leftarrow v'$\\ 
+                    $E \leftarrow E'$\\
+                    $C \leftarrow C \cup \{ v\}$\\
+                    $k \leftarrow k-1$ \\ 
+                }
+            }
+        }
+    \end{algorithm}
+\end{example}
+
+
+
+
+\subsection*{Optimization Problem} 
+
+Independent set, given $G$ find an independent set of maximum size. use binary search to find left/right partition with independent-set-decision
+
+
+\subsection*{handling intractable problems}
+It is not possible to solve NP-hard problems exactly and in polynomial time (unless $P = NP$)
+
+\begin{defn*}
+    \textbf{Approaches}
+    \begin{enumerate}
+        \item \textbf{Sacrifice efficiency} NP-hard problems, generic problems that accounts for worst case problems. In reality, the inputs may be much better. For example find independent set on a tree
+        \item \textbf{Sacrifice exactness} For optimization problems, it is okay to find a good enough solution compared to the best possible solution. We can use approximation algorithms.
+    \end{enumerate}
+\end{defn*}
+
+\begin{example}
+    \textbf{Vertex-cover} 
+    \begin{enumerate}
+        \item Find a set of vertices of minimum possible sizse of every edge in $G$ passes through one of these vertices.
+        \item claim $|S| \leq 2 \times OPT$
+        \begin{proof}
+            Any vertex cover of $G$ must include at least one of the two vertices connecting an edge in $S$. Also, in $S$, all edges are disjoint, i.e. with no end points in common. so $OPT \geq |S| / 2$
+        \end{proof}
+        \item In general, how can we comput approximation ratio if we dont know what the optimal solution is? use a lower bound instead. For other value LB that is easy to compute, show that $LB \leq OPT$ and solution $A\leq ratio \times LB$
+    \end{enumerate}
+    \begin{algorithm}[H]
+        \Fn{}{
+            $S \leftarrow \{ \}$ \\
+            \For{$e = (u,v) \in E$}{
+                $S \leftarrow S \cup \{v,u \}$\\
+                $E'\leftarrow \{ (u,w) | (u,w)\in E \} \cup \{ (v,w) | (v,w)\in E\}$\\
+                $E \leftarrow E'$ \\
+            }
+            \Return{$S$}\\ 
+        }
+    \end{algorithm}
+\end{example}
+
+
+
+
+
+\end{document}

@@ -1,0 +1,274 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+\subsection*{Approximation Algorithm}
+
+\begin{example}
+    A polynomial time approximation algorithm for vertex cover with an approximation ratio of 2, i.e. 
+    \[
+        |\text{vertex cover returned by algo} | \leq 2 \times | \text{minimum vertex cover} | 
+    \]
+    \begin{solution}
+        Steps 
+        \begin{enumerate}
+            \item Find a solution that is less than or equal to $k \times OPT$. 
+            \item If we dont know OPT, we find a lower bound for OPT, i.e. $LB \leq OPT$. And then show that solution is less than or equal to $k\times LB \leq k \times OPT$
+        \end{enumerate}
+    \end{solution}
+\end{example}
+
+\begin{example}
+    Vertex cover given a graph $G$, find a vertex cover of minimum size
+    \begin{solution}
+        \textbf{LPP} Define a variable $x_i$ corresponding to each node $v_i \in V$. The LPP as follows
+        \begin{align*}
+            \textbf{Minimize: }\quad & x_1 + x_2 + \cdots + x_n \\ 
+            \textbf{Subject to: }\quad & x_i + x_j \geq 1 \quad \text{if } (v_i, v_j) \in E \\
+                                & x_i \in \{ 0, 1 \} \\
+        \end{align*}
+        Integer linear programming problem (ILP) is NP-hard. To find a solution we write the last constraint in an equivalent form
+        \begin{align*}
+            \textbf{Minimize: }\quad & \sum_{i = 1}^n x_i \\ 
+            \textbf{Subject to: }\quad & x_i + x_j \geq 1 \quad \text{if } (v_i, v_j) \in E \\
+                                & 0 \leq x_i \leq 1 \\
+                                & x_i \in \mathbb{Z} \\
+        \end{align*}
+       We can \text{relax} ILP to LPP by dropping the $x_i \in \mathbb{Z}$ constraint
+       \begin{align*}
+            \textbf{Minimize: }\quad & \sum_{i = 1}^n x_i \\ 
+            \textbf{Subject to: }\quad & x_i + x_j \geq 1 \quad \text{if } (v_i, v_j) \in E \\
+                                & 0 \leq x_i \leq 1 \\
+        \end{align*}
+        Now assume $(x_1^*, \cdots, x_n^*)$ is the optimal solution to LPP, how do we get the final solution? We can define the cover $C$ as follows
+        \begin{enumerate}
+            \item if $x_i^* \geq \frac{1}{2}$ put $v_i$ to the cover $C$ 
+            \item if $x_i^* < \frac{1}{2}$ dont put $v_i$ in cover $C$
+        \end{enumerate}
+        In other words, 
+        \[
+            x_i' = 
+            \begin{cases}
+                1 & \text{if } x_i^* \geq \frac{1}{2} \\
+                0 & \text{if } x_i^* < \frac{1}{2} \\ 
+            \end{cases}
+        \]
+        therefore
+        \[
+            |C| = \sum_{i=1}^n x_i' \geq \sum_{i=1}^n x_i^*
+        \]
+        Consider any edge $(v_i, v_j)\in E$ we have $x_i^* + x_j^* \geq 1$ implies that $x_i^* \geq \frac{1}{2}$ or $x_j^* \geq \frac{1}{2}$ implies that either $v_i\in C$ or $v_j\in C$. To find the \textbf{approximation ratio} we take some minimum vertex cover $C'$ and find a solution between $|C| \leq k |C'|$. $C'$ satisifies the ILP. Define 
+        \[
+            \hat{x}_i = 
+            \begin{cases}
+                0 & \text{if } x\not\in C' \\
+                1 & \text{if } x\in C' \\
+            \end{cases}
+        \]
+        Then 
+        \[
+            |C'| = \sum_{i = 1}^n \hat{x}_i \geq \sum_{i} x_i^*
+        \]
+        Observe that $x_i' \leq 2\times x_i^*$, hence
+        \[
+            \sum_{i=1}^n x_i' \leq 2\sum_{i=1}^n x_i^* 
+        \]
+        \[
+            |C'| \geq 2\times |C|
+        \]
+    \end{solution}
+\end{example}
+
+
+
+\begin{defn*}
+    \textbf{Approximation ratio} 
+    \begin{enumerate}
+        \item \textbf{vertex cover} 2
+        \item \textbf{Knapsack} make it as close to 1 as possible  (but complexity increases accordingly)
+        \item \textbf{traveling salesman} There is no constant ratio unless $P = NP$
+    \end{enumerate}
+    Motivation: intractable probems are NP-hard/NPC ($P\neq NP$)
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{Traveling salesman} (TS) cannot have a constant approximation ratio. 
+    \begin{proof}
+        Assume there is an approximation algorithm with a constant approximation ratio of $c$,i.e. 
+        \[
+            |\text{tour returned by algo}| \leq c\times OPT
+        \]
+        The we can show that this algo can be used to solve an NP hard problem, namely the \textbf{hamiltonian-cycle} problem. Reduce $HamCycle \leq_p TS$. Let $G = (V,E)$ be a graph, input to $TS$. Let $G' = (V, E')$ with weights $w'$ where 
+        \[
+            E' = \{ (u,v) | u,v\in V \}
+        \] 
+        \[
+            w'(e) = 
+            \begin{cases}
+                1 & \text{if } e\in E\\
+                cn + 1 & \text{if } e\not\in E\\
+            \end{cases}
+        \]
+        i.e. $G'$ is complete. Note this construction can be done in polynomial time. Assume, if $G$ has a hamiltonian cycle, then $G'$ has a tour of length $n$. Conversely, if $G$ does not have a hamiltonian cycle, then every tour (there will always be a tour in complete graph) in $G'$ must pass through at least one edge of length $cn+1$, and hence have a total weight greater than $cn$. Now run approximation algorithm on $G'$. If this algo returns a tour of weights of $\leq cn$ (i.e. all edges in the tour is in $G$) then there is a hamiltonian cycle in $G$. If the algo returns a tour of total weights of more than $cn$, then $G$ does not have a hamiltonian cycle
+    \end{proof}
+\end{theorem*}
+
+
+\begin{defn*}
+    For Traveling salesman problem with triangle inequality, then there is a 2-approximation algorithm
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Knapsack problem} Given a set of objects $\{1,\cdots, n \}$ with weight $w_i$ and value $v_i$ and a weight limit $W$. We want to find a subset of objects in $S \in \{1,\cdots, n\}$ such that (optimization problem)
+    \[
+        \sum_{i\in S} w_i \leq W \quad \text{ and } \quad \sum_{i\in S} v_i \text{ is maximized}
+    \]
+    Another variation (decision problem) introduces a value limit $V$, and we want to find $S$ such that 
+    \[
+        \sum_{i\in S} w_i \leq W \quad \text{ and } \quad \sum_{i\in S} v_i \geq V
+    \]
+\end{defn*}
+
+
+\begin{theorem*}
+    0-1 Knapsack is NP-hard
+    \begin{proof}
+        Reduce subset-sum (SS) to Knapsack (decision variation). Given a set $S = \{s_1,\cdots, s_n \}$ and a number $t$. Define 
+        \begin{enumerate}
+            \item $w_i = s_i$
+            \item $v_i = s_i$
+            \item $W = t$
+            \item $V = t$
+        \end{enumerate}
+        and let $S'$ be a solution to SS
+        \[
+            \sum_{i\in S'} w_i \leq W \iff \sum_{i\in S'} s_i \leq t
+        \]
+        \[
+            \sum_{i\in S'} v_i \geq V \iff \sum_{i\in S'} s_i \geq t
+        \]
+        so $SS \leq_p Knapsack$ and SS is NP-hard implies $knapsack$ is NP-hard
+    \end{proof}    
+\end{theorem*}
+
+
+\begin{defn*}
+    Note Knapsack problem is NP-hard, we had found a Dynamic programming solution (pseudo-polynomial). \begin{solution}
+        Define $P = max \{v_1,\cdots, v_n\}$ for each $i\in \{ 1,\cdots, n\}$ and each $v\in \{1,\cdots, nP \}$. Let $s_{i,v}$ be a subset of $\{ 1,\cdots, i\}$ that has a total value of exactly $v$ and has the minimum weight (keep value same and minimize the weight). Let $A[i, v] $ be total weight of $S_{i,v}$. We have base case, 
+        \[
+            A[1, v_1] = w_1 \quad \quad A[i,v] = \infty
+        \]
+        and recurrence 
+        \[
+            A[i+1,v] = 
+            \begin{cases}
+                 w_{i+1} + A[i, V - v_{i+1}] & \text{if } i+1 \in S_{i+1, v} \land v+{i+1} < v \\
+                 A[i,v] & \text{otherwise} \\ 
+            \end{cases}
+        \]
+        Hence 
+        \[
+            A[i+1, v] = Min\{A[i,v], w_{i+1} + A[i, v-v_{i+1}] \} 
+        \]
+        Complexity is $O(n \times nP) = O(n^2 P)$. , where $P$ depends on $v_1, \cdots, v_n$. So a pseudo-polynomial algo. 
+    \end{solution}
+\end{defn*}
+
+
+\begin{algorithm}[H]
+    \SetKwFunction{knap}{Knapsack-Approximation}
+
+    \Fn{\knap$(\{v_i \}, \{w_i \}, W, \epsilon)$}{
+        $P \leftarrow  Max\{ v_1 , \cdots , v_n \}$\\
+        $k \leftarrow \frac{\epsilon P}{n}$ \\
+        \For{$i = i$ \KwTo $n$}{
+            $v_i'\leftarrow \lfloor \frac{v_i}{k} \rfloor$
+        }
+        With the new $v_i'$ as the new values, use DP to find the most valuable set $S'$
+        \Return{$S'$}
+    }
+\end{algorithm}
+
+
+\begin{defn*}
+    \textbf{Complexity} the critical DP part is $O(n^2P')$ where 
+    \[
+        P' = Max \{v_1', \cdots, v_n' \} = Max \{ \lfloor \frac{v_i}{k} \rfloor, \cdots, \} = \frac{P}{k} = \frac{n}{\epsilon}
+    \]
+    so $O(nP') = O(n^2 \frac{n}{\epsilon}) = O(\frac{n^3}{\epsilon})$. the closer $\epsilon$ goes to zero, complexity go to $\infty$
+\end{defn*}
+
+
+
+\begin{lemma*}
+    The set $S'$ satisifies $OPT \geq v(S') \geq (1 - \epsilon) \times OPT$
+    \begin{proof}
+        Let $O$ be an optimal solution returning the maximum value possible. Note $v_i = kv_i' + \delta$, where $0\leq \delta < k$, then 
+        \[
+            k v_i' \leq v_i
+        \]
+        and the difference is at most $k$. on the new weights $v_i'$, DP returns the best solution, i.e. $v'(O) \leq v'(S')$. For each object in $O$, the difference in value is at most $k$, so
+        \[
+            v(O) - kv'(O) \leq nk
+        \]
+        Finally, 
+        \[
+            v(S') \geq kv'(O) \geq v(O) - nk = OPT - \epsilon P \geq OPT - \epsilon \tiems OPT = (1 - \epsilon)\times OPT
+        \]
+    \end{proof}
+\end{lemma*}
+
+
+\subsection*{Random algorithm}
+
+
+\begin{defn*}
+    \textbf{Monte Carlo simulation}\\ 
+    $\pi$ is ratio of circumference to diameter. We can find the an approximation to $\pi$ by running lots of random simulation. Generate random coordinate in unit square containing a unit circle. Let $N$ be number of coordinates inside the unit circle  then
+    \[
+        \frac{N}{total number of simulation}
+    \]
+    is close to $\pi$
+\end{defn*}
+
+
+\begin{example}
+    Find a maximum independent set in a tree. 
+\end{example}
+
+\begin{lemma*}
+    If a node $v$ is a leaf, then there exists a maximum cardinality independent set containing $v$, i.e. every leaf is in the set 
+    \begin{proof}
+        Exchange argument. Consider a max cardinality independent set $S$. 
+        \begin{enumerate}
+            \item If $v\in S$, then done 
+            \item If $v\not\in S$, consider edge $(u,v)\in E$ in tree
+            \begin{enumerate}
+                \item if $u\in S$, $S'  = S\setminus \{ u\} \cup \{ v\}$, still independent. $|S'| = |S|$
+                \item if $u\not\in S$, then $S' = S \cup \{ v \}$ is independent  $|S'| > |S|$.
+            \end{enumerate} 
+        \end{enumerate}
+        
+    \end{proof}
+\end{lemma*}
+
+\begin{algorithm}[H]
+    \SetKwFunction{in}{Independent-Set-In-A-Forest}
+
+    \Fn{$\in(F)$}{
+        $S \leftarrow \emptyset$ \\
+        \While{$F$ has at least one edge}{
+            $e \leftarrow (u,v)$ where $v$ is a leaf\\
+            $S \leftarrow S \cup \{ v \}$\\
+            $F = F\setminus \{ u,v\} $\\
+        }
+        \Return{$S \cup \{ \text{nodes remaining in F} \}$}\\
+    }
+    
+\end{algorithm}
+
+
+
+\end{document}

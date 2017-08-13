@@ -139,40 +139,160 @@ Consider the following \textsc{Partition} search problem.
     \begin{solution}
         Given a set of integers $S = \{ x_1, \cdots, x_n \}$ where each integer $x_i$ can be positive, negative, or zero. We want to find if there exists a partition $S_1,S_2$ with equal sums. 
         \[
-            \textsc{Part} = \left\{ \langle S_1, S_2 \rangle : \sum_{s\in S_1} s = \sum_{s\in S_2} s \quad \text{ and } \quad S_1\cup S_2 = S \text{ and } S_1 \cap C_2 = \emptyset \right\}
+            \textsc{Part} = \left\{ \langle S \rangle : \exists S_1,S_2 \subseteq S \text{ s.t. } S_1\cup S_2 = S \text{ and } S_1 \cap C_2 = \emptyset \text{ where } \sum_{x\in S_1} x = \sum_{x\in S_2} x   \right\}
         \]
         Let \textsc{PartDecide} be the algorithm that decides the decision problem \textsc{Part}, specifically 
         \[
-            \textsc{PartDecide}(S_1, S_2)=
+            \textsc{PartDecide}(S)=
             \begin{cases}
-                1 & \text{if } \langle S_1, S_2 \rangle \in \textsc{Part}\\
+                1 & \text{if } \langle S \rangle \in \textsc{Part}\\
                 0 & \text{otherwise}\\
             \end{cases}
         \] 
     \end{solution}
     \item Give a detailed argument to show that the \textsc{Partition} search problem is polynomial- time self-reducible. (Warning: Remember that the input to the decision problem does not contain any information about the partition — if it even exists.)
     \begin{solution}
-        Note given a set of size $n$, there are $\binom{n}{2}$ possible different ways to separate the set into 2 non-empty subsets. Now we provide an efficient algorithm utilizing \textsc{PartDecide}, assumed to be efficient, to solve for \textsc{Partition} \\ 
+        Now we provide an efficient algorithm utilizing \textsc{PartDecide}, assumed to be efficient, to solve for \textsc{Partition} \\ 
         \begin{algorithm}[H]
             \SetKwFunction{part}{PartDecide}
             \SetKwFunction{parti}{Partition}
             \SetKwFunction{nil}{nil}
             \SetKwFunction{no}{No}
             \Fn{$\parti(S)$}{
-                \For{$(S_1,S_2) \text{ be one of the $\binom{n}{2}$ different partition of $S$}$}{
-                    \If{$\part(S_1, S_2)$}{
-                        \Return{$(S_1,S_2)$}\\ 
+                \If{Not $\part(S)$}{
+                    \Return{\nil}
+                }
+                $S_1 \leftarrow \emptyset$\\ 
+                \While{$|S| > 2$}{
+                    $x_i, x_j \in S$ be arbitrary \\
+                    $S' \leftarrow S \setminus \{x_i, x_j\}$\\
+                    \If{$\part(S' \cup \{ x_i + x_j \})$}{
+                        $S \leftarrow S' \cup \{x_i + x_j \}$\\
+                        $S_1 \leftarrow S_1 \cup \{x_i + x_j$ \}
+                    }\Else{
+                        $S\leftarrow S' \cup \{|x_i - x_j|\}$\\ 
                     }
                 }
-                \Return{\nil}\\
+                \Return{$(S_1, S\setminus S_1)$}\\
             }
         \end{algorithm}
         \begin{enumerate}
-            \item \textbf{Proof of correctness} There are $\binom{n}{2}$ possible different partition of $S$ into $S_1$ and $S_2$ by Stirling number of second kind. In each iteration we test for if the currernt partition has equal sums by calling \textsc{PartDecide}. Note that the algorithm returns $(S_1, S_2)$ only if $\textsc{PartDecide}(S_1,S_2)$ evaluates to true and nil otherwise. Since $\textsc{PartDecide}$ returns 1 (true) if and only if the partitions $(S_1, S_2)$ have equal sum, therefore the algorithm returns the correct output in this case. If we exhaust the for loop, then we have looked over every possible unique partition of $S$ and have not found any that \textsc{PartDecide} evaluates to 1 (true), therefore the algorithm returning nil is correct.
-            \item \textbf{Runtime} The algorithm iterates over $\binom{n}{2}$ times, each iteration invovles calling \textsc{PartDecide}, which we assume to have a worst case runtime of $O(T)$, and a constant time operation to assign the appropriate element to partition $S_1$ and $S_2$. The worst case complexity of the algorithm is therefore $O(n^2 T)$
+            \item \textbf{Proof of correctness} Note that the for loop will terminate, as in each iteration the size of $S$ decrements by one, specifically, $x_i, x_j$ is removed from $S$ and we selectively adds either $x_i + x_j$ or $|x_i - x_j|$ in $S$. Since $S$ is sized, the for loop will terminate in $O(n)$ iterations. Now we claim that after the for loop has a loop variant 
+            \begin{center}
+                During $i$-th iteration, if $\textsc{PartDecide}(S_i) = 1$, then $\textsc{PartDecide}(S_{i+1}) = 1$
+            \end{center}
+            Proof by induction, the execution reaches line 4 if and only if $\textsc{PartDecide}(S)$ evalutes to 1. So when $i=0$, the claim holds. For induction step, assume $\textsc{PartDecide}(S_i) = 1$. 2 cases for $S_{i+1}$
+            \begin{enumerate}
+                \item If $\textsc{PartDecide}(S \setminus \{ x_i, x_j \} \cup \{ x_i + x_j \}) = 1$ then assigning $S_{i+1} \leftarrow S \setminus \{ x_i, x_j \} \cup \{ x_i + x_j \}$ would imply $\textsc{PartDecide}(S_{i+1})$ evaluates to 1. In other words, we can decide to put $x_i$ and $x_j$ into the same partition and the resulting set with this restriction (i.e. $x_i,x_j$ have to be in the same set) would still be able to yield an equal partition
+                \item Otherwise, we cannot put $x_i,x_j$ into the same partition. So we put $x_i$ and $x_j$ into different partitions. By induction hypothesis $\sum_{x\in S_1} x = \sum_{x\in S_2} x $, assume without loss of generality that $x_i \in S_{i1}$ and $x_j \in S_{i2}$ and $x_i > x_j$, then 
+                \[
+                     \sum_{x\in S_1 \setminus \{x_i \}} x  + x_i= \sum_{x\in S_2 \setminus \{x_j \}} x + x_j
+                \]
+                \[
+                     \sum_{x\in S_1 \setminus \{x_i \}} x = \sum_{x\in S_2 \setminus \{x_j \}} x + | x_j - x_i |
+                \]
+                So we have found an equal partition for $S_{i+1} = S \setminus \{x_i, x_j\}\cup \{ |x_i - x_j| \}$. Therefore the claim holds in this case as well. 
+            \end{enumerate}
+            So when the for loop terminates, which it will as proved earlier, we have $|S_{two}| = 2$ such that $\textsc{PartDecide}(S_{two}) = 1$. Since there are only 2 elements in $S_{two}$, they must be equal. So algorithm's return value is correct. 
+            \item \textbf{Runtime} The for loop iterates $O(n)$ times, each performing some constant set operations together with \textsc{PartDecide}. Assume \textsc{PartDecide} has a worst case runtime of $O(T)$, The worst case complexity of the algorithm is therefore $O(nT)$
         \end{enumerate}
-        Given that the algorithm is correct and the runtime, $O(n^2 T)$, is polynomial to the worst case runtime of \textsc{PartDecide}. If $T$ is polynomial, in other words, if there exists an efficient algorithm for solving \textsc{PartDecide}, then we can solve \textsc{Partition} in $(n^2 T)$, which is still in polynomial time. Therefore the search problem \textsc{Partition} is \textbf{self-reducible} 
+        Given that the algorithm is correct and the runtime, $O(nT)$, is polynomial to the worst case runtime of \textsc{PartDecide}. If $T$ is polynomial, in other words, if there exists an efficient algorithm for solving \textsc{PartDecide}, then we can solve \textsc{Partition} in $(nT)$, which is still in polynomial time. Therefore the search problem \textsc{Partition} is \textbf{self-reducible} 
     \end{solution}
+\end{enumerate}
+
+
+\subsection*{Problem 4}
+
+
+Your friends want to break into the lucrative coffee shop market by opening a new chain called The Coffee Pot. They have a map of the street corners in
+a neighbourhood of Toronto (shown on the right), and estimates $p_{i,j}$ of the profits they can make if they open a shop on corner $(i,j)$, for each corner.
+However, municipal regulations forbid them from opening shops on corners $(i-1,j), (i + 1,j), (i,j-1), and (i,j + 1)$ (for those corners that exist) if they
+open a shop on corner $(i,j)$. As you can guess, they would like to select street
+corners where to open shops in order to maximize their profits!
+
+\begin{enumerate}
+    \item Consider the greedy algorithm to try and select street corners \\
+    \begin{algorithm}[H]
+        $C \leftarrow \{ (i,j): 1 \leq i \leq m \text{ and } 1 \leq j \leq n\}$\\
+        $S\leftarrow \emptyset$ \\
+        \While{$C\neq \emptyset$}{
+            Pick $(i,j)\in C$ with maximum value of $p_{i,j}$ \\
+            $S \leftarrow S \cup \{(i,j)\}$\\
+            $C \leftarrow C \setminus \{ (i,j), (i-1,j), (i + 1,j), (i,j-1), (i,j + 1)\}$\\ 
+        } 
+        \Return{$S$}
+    \end{algorithm}
+    Give a precise counter-example to show that this greedy algorithm does not always find an optimal solution. State clearly the solution found by the greedy algorithm, and show that it is not optimal by giving another selection with a larger profit.
+    \begin{solution}
+        Define the profit of a set of corners as follows 
+        \[
+            P(C) = \sum_{(i,j)\in C} p_{i,j}
+        \]
+        Let $m = n = 2$, so we have 4 corners to choose from 
+        \[
+            \begin{matrix}
+                (2,1) &\cdots & (2,2) \\
+                \vdots & & \vdots \\ 
+                (1,1) &\cdots &(1,2)\\ 
+            \end{matrix}
+        \]
+        Now assign $p_{i,j}$ as follows 
+        \[
+            \begin{matrix}
+                4 &\cdots & 3 \\
+                \vdots & & \vdots \\ 
+                3 &\cdots & 1\\ 
+            \end{matrix}
+        \]
+        The greedy algorithm picks $(2,1)$ which has the largest initial profit $4$, after removing corners $(1,1)$ and $(2,2)$, the greedy algorithm picks the remaining $(1,2)$ and adds it to corners $C$. Therefore 
+        \[
+            P(C) = 4 + 1 = 5
+        \]
+        Apparently the selection $\{ (1,1), (2,2) \}$ is optimal and yields a total profit of $3 + 3 = 6$ 
+    \end{solution}
+    \item Prove that the greedy algorithm from part (a) has an approximation ratio of 4. (Hint: Let $S$ be the selection returned by the greedy algorithm and let $T$ be any other valid selection of street corners. Show that for all $(i,j) \in T$, either $(i,j) \in S$ or there is an adjacent $(i',j')\in S$ with $p_{i', j'} \geq p_{i,j}$. What does this means for all $(i,j) \in S$ and their adjacent corners?)
+    \begin{proof}
+        Let $S$ be selection returned by the greedy algorithm and let $T$ be any other valid selection of street corners (including the optimal selection $O$). Now we claim that for all $(i,j)\in T$, either $(i,j)\in S$ or there exists an adjacent corner $(i', j')\in S$ such that $p_{i', j'} \geq p_{i,j}$. Let $(i,j)\in T$ be arbitrary. If $(i,j)\in S$, then done, otherwise $(i,j)\not\in S$, this implies at some point the greedy algorithm removed $(i,j)$ from the set of available corners $C$. The algorithm only removes adjacent corners to the one picked (i.e. one with largest $p_{i,j} \in C$), which we denote as $(i_{picked}, j_{picked})$. Note $p_{i_{picked}, j_{picked}} \geq p_{i,j}$ since otherwise the algorithm would have picked $p_{i,j}$ instead. Since $(i_{picked}, j_{picked})$ and $(i,j)$ are adjacent corners, the claim thus holds. Now we claim that for each $(i,j)\in S$, $4p_{i,j}$ is an upper bound on the total profit of any possible valid selection $R$ of corners $T$ restricted to $\{ (i,j),(i-1,j),(i+1,j),(i,j-1),(i,j+1)\}$, we have either 
+        \begin{enumerate}
+            \item $(i, j)\in T$, and since $T$ is a valid selection of corners, no adjacent corners to $(i,j)$ is in $T$, and so $R = \{(i,j)\}$ with 
+            \[
+               4p_{i,j} \geq P(\{(i,j)\}) \geq P(R)
+            \]
+            \item Otherwise, $(i,j)\not\in T$, then any adjacent corners may be selected by $T$, therefore $R = \{(i-1,j),(i+1,j),(i,j-1),(i,j+1)\}$. Since by previous conclusion proved, we have $p_{i,j}$ be greater than any of its adjacent vertices and so 
+            \[
+                4p_{i,j} \geq P(\{(i-1,j),(i+1,j),(i,j-1),(i,j+1)\}) = P(R) 
+            \]
+        \end{enumerate}
+        Therefore the claim holds. Note the set $\{(i,j),(i-1,j),(i+1,j),(i,j-1),(i,j+1)\}$ is exactly the set of corners being removed from $C$ in each iteration of the loop. By loop exit condition, $C = \emptyset$. Therefore the cumulation of any valid selection $R_i$ in each iteration equates to the $T$, i.e. $\bigcup_i R_i = T$. We claim that once the loop terminates the total profit $4P(S)$ is an upper bound on profit of any other possible selection $P(T)$
+        \[
+            4P(S) = 4\sum_{(i,j)\in S} p_{i,j} \geq \sum_{i} R_i = P(T)
+        \]
+        Since $T$ is arbitrary, let $O$ be the optimal selection and we have 
+        \[
+            4P(S) \geq P(O) \to \frac{P(O)}{P(S)} \leq 4
+        \]
+        Hence the greedy algorithm has an approximation ratio of 4.
+    \end{proof}
+\end{enumerate}
+
+
+\subsection*{Problem 5}
+
+
+You are using a multi-processor system to process a set of jobs coming in to the system each day. For each job $i = 1,2,\cdots ,n,$ you know $v_i$, the time it takes one processor to complete the job. \\ 
+Each job can be assigned to one and only one of $m$ processors — no parallel processing here! The processors are labelled $\{A_1,A_2,...,A_m\}$. Your job as a computer scientist is to assign jobs to processors so that each processor processes a set of jobs with a reasonably large total running time. Thus given an assignment of each job to one processor, we can define the \textbf{spread} of this assignment to be the minimum over $j = 1,2,\cdots ,m$ of the total running time of the jobs on processor $A_j$.
+\[
+    s = \underset{j\in 1,2\cdots, m}{\textsc{Min}} \sum_{i\in A_j} i
+\]
+Example: Suppose there are 6 jobs with running times 3, 4, 12, 2, 4, 6, and there are m = 3 processors. Then, in this instance, one could achieve a spread of 9 by assigning jobs $\{1, 2, 4\}$ to the first processor ($A_1$), job 3 to the second processor ($A_2$), and jobs 5 and 6 to the third processor ($A_3$).
+The ultimate goal is find an assignment of jobs to processors that \textbf{maximizes} the spread. Unfortunately, this optimization problem is NP-Hard (you do not need to prove this). So instead, we will try to approximate it.
+
+\begin{enumerate}
+    \item Give a polynomial-time algorithm that approximates the maximum spread to within a factor of 2. That is, if the maximum spread is $s$, then your algorithm should produce a selection of processors for each job that has spread at least $\frac{s}{2}$. In your algorithm you may assume that no single job has a running time that is significantly above the average; specifically, if $V = \sum_{i=1}^n v_i$ denotes the total running time of all jobs, then you may assume that no single job has a running time exceeding $\frac{V}{2m}$
+    \begin{solution}
+        
+    \end{solution}
+
 \end{enumerate}
 
 

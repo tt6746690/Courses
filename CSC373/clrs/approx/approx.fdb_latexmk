@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1502642911 "/Users/markwang/School/c_2016_2017/CSC373/clrs/approx/approx.tex" "approx.pdf" "approx" 1502649225
+["pdflatex"] 1502642911 "/Users/markwang/School/c_2016_2017/CSC373/clrs/approx/approx.tex" "approx.pdf" "approx" 1502658134
   "./approx.out" 1502642912 0 d41d8cd98f00b204e9800998ecf8427e ""
   "./set_cover.png" 1502638164 43012 9641192ace7211f5a4b349e063da0ff7 ""
   "./tsp.png" 1502605194 161444 937f95af26144c28d86b9b9a9f08c2ec ""
@@ -251,7 +251,7 @@
   "tsp.png" 1502605194 161444 937f95af26144c28d86b9b9a9f08c2ec ""
   "vertex_cover.png" 1502603458 139481 b60057b7d79c5206261206a8a174980c ""
   (generated)
-  "approx.aux"
   "approx.pdf"
-  "approx.out"
   "approx.log"
+  "approx.aux"
+  "approx.out"

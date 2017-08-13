@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  13 AUG 2017 14:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  13 AUG 2017 17:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1261,20 +1261,30 @@ Overfull \hbox (27.37506pt too wide) in paragraph at lines 214--224
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ” in font cmr10!
- [8] [9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 302.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 302.
+ [8]
+Overfull \hbox (0.79999pt too wide) detected at line 325
+|[]|
+ []
+
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 298--325
+[]$[]$ 
+ []
+
+[9] [10] [11]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 371.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 371.
  (./a3.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 302.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 302.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 371.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 371.
 Package rerunfilecheck Info: File `a3.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 35437 strings out of 493089
- 829871 string characters out of 6134842
+ 35465 strings out of 493089
+ 830133 string characters out of 6134842
  1033703 words of memory out of 5000000
- 38276 multiletter control sequences out of 15000+600000
+ 38284 multiletter control sequences out of 15000+600000
  12609 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  64i,18n,77p,1150b,751s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1295,10 +1305,10 @@ ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive
 015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
 15/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/201
 5/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on a3.pdf (9 pages, 203178 bytes).
+Output written on a3.pdf (11 pages, 213871 bytes).
 PDF statistics:
- 195 PDF objects out of 1000 (max. 8388607)
- 165 compressed objects within 2 object streams
- 72 named destinations out of 1000 (max. 500000)
+ 226 PDF objects out of 1000 (max. 8388607)
+ 194 compressed objects within 2 object streams
+ 92 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

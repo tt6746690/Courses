@@ -256,7 +256,7 @@ corners where to open shops in order to maximize their profits!
         \begin{enumerate}
             \item $(i, j)\in T$, and since $T$ is a valid selection of corners, no adjacent corners to $(i,j)$ is in $T$, and so $R = \{(i,j)\}$ with 
             \[
-               4p_{i,j} \geq P(\{(i,j)\}) \geq P(R)
+               4p_{i,j} \geq P(\{(i,j)\}) = P(R)
             \]
             \item Otherwise, $(i,j)\not\in T$, then any adjacent corners may be selected by $T$, therefore $R = \{(i-1,j),(i+1,j),(i,j-1),(i,j+1)\}$. Since by previous conclusion proved, we have $p_{i,j}$ be greater than any of its adjacent vertices and so 
             \[
@@ -280,17 +280,86 @@ corners where to open shops in order to maximize their profits!
 
 
 You are using a multi-processor system to process a set of jobs coming in to the system each day. For each job $i = 1,2,\cdots ,n,$ you know $v_i$, the time it takes one processor to complete the job. \\ 
-Each job can be assigned to one and only one of $m$ processors — no parallel processing here! The processors are labelled $\{A_1,A_2,...,A_m\}$. Your job as a computer scientist is to assign jobs to processors so that each processor processes a set of jobs with a reasonably large total running time. Thus given an assignment of each job to one processor, we can define the \textbf{spread} of this assignment to be the minimum over $j = 1,2,\cdots ,m$ of the total running time of the jobs on processor $A_j$.
-\[
-    s = \underset{j\in 1,2\cdots, m}{\textsc{Min}} \sum_{i\in A_j} i
-\]
+Each job can be assigned to one and only one of $m$ processors — no parallel processing here! The processors are labelled $\{A_1,A_2,...,A_m\}$. Your job as a computer scientist is to assign jobs to processors so that each processor processes a set of jobs with a reasonably large total running time. Thus given an assignment of each job to one processor, we can define the \textbf{spread} of this assignment to be the minimum over $j = 1,2,\cdots ,m$ of the total running time of the jobs on processor $A_j$.\\
 Example: Suppose there are 6 jobs with running times 3, 4, 12, 2, 4, 6, and there are m = 3 processors. Then, in this instance, one could achieve a spread of 9 by assigning jobs $\{1, 2, 4\}$ to the first processor ($A_1$), job 3 to the second processor ($A_2$), and jobs 5 and 6 to the third processor ($A_3$).
 The ultimate goal is find an assignment of jobs to processors that \textbf{maximizes} the spread. Unfortunately, this optimization problem is NP-Hard (you do not need to prove this). So instead, we will try to approximate it.
 
 \begin{enumerate}
     \item Give a polynomial-time algorithm that approximates the maximum spread to within a factor of 2. That is, if the maximum spread is $s$, then your algorithm should produce a selection of processors for each job that has spread at least $\frac{s}{2}$. In your algorithm you may assume that no single job has a running time that is significantly above the average; specifically, if $V = \sum_{i=1}^n v_i$ denotes the total running time of all jobs, then you may assume that no single job has a running time exceeding $\frac{V}{2m}$
     \begin{solution}
+        Briefly, the algorithm works by greedily assign the next longest job to the processor with the least current spread. Let $A$ be a processor representing arbitrary set of jobs $i = 1, \cdots, n$. Define the total time $T$ of a set of jobs as 
+        \[
+            T(A) = \sum_{i\in A} v_i
+        \]
+         We define spread $s$ as follows
+        \[
+            s = \underset{j\in 1,2\cdots, m}{\textsc{Min}} \sum_{i\in A_j} v_i = 
+            \underset{j\in 1,2\cdots, m}{\textsc{Min}} T(A_j)
+        \]
+        et $S$ be the set of jobs $\{1,\cdots, n\}$. Let $v$ be the corresponding run time. Let $m$ be the number of processors. Let $s_j$ be the spread of $j$-th processor $A_j$. Let $Q$ be a minimum priority queue of processors $A_j$ with keys corresponding to summation of runtime of all jobs in $A_j$  \\
+        \begin{algorithm}[H]
+            \SetKwFunction{spread}{Approx-Max-Spread}
+            \SetKwFunction{max}{Max}
+            \SetKwFunction{pq}{MinPriorityQueue}
+            \SetKwFunction{insert}{Insert}
+            \SetKwFunction{extmin}{ExtractMin}
+
+            \Fn{$\spread(S, v, m)$}{
+                $Q \leftarrow \pq$ \\
+                \For{$j = 1$ \KwTo $m$}{
+                    $A_j \leftarrow \emptyset$\\
+                    $A_j.key \leftarrow 0$\\
+                    $\insert(Q, A_j)$\\ 
+                }
+                \While{$S \neq \emptyset$}{
+                    $i \leftarrow$ arbitrary job in $S$\\
+                    $S \leftarrow S \setminus \{ i\}$\\
+                    $A \leftarrow \extmin(Q)$\\
+                    $A \leftarrow A \cup \{i\}$\\ 
+                    $A.key \leftarrow \sum_{i\in A} v_i$ \\
+                    $\insert(Q, A)$\\
+                }
+
+                \Return{$A_j$ for $j=1,\cdots, m$}\\
+            }
+        \end{algorithm}
+        We claim that 
+        \begin{center}
+             assignments $A$s returned by the algorithm \textsc{Approx-Max-Spread} is a polynomial-time 2-approximation algorithm for finding maximum spread. 
+        \end{center}
+        \begin{proof}
+            3 parts
+            \begin{enumerate}
+                \item First we prove that $A_j$ for $j=1,\cdots, m$ are valid assignments. Note we initialize the empty set $A_j$ and then for each iteration choose to pick an arbitrary job $i$ in $S$ and assign the job $i$ to some $A$ in the queue. By loop exit condition, $S$ is an empty set, therefore we have assigned all jobs $i\in S$ to some processor $A$. Therefore, the returned sets of $A_j$ are valid assignments including every $i=1,\cdots, n$
+                \item Now we prove the algorithm runs in polynomial-time. Note all priority queue impmented with heap takes $O(\lg n)$ worst case running time. The 2 for loop iterates $m$ and $n$ times respectively, each doing some priority queue operation and constant time assignment operations. Therefore the total runtime $O((m+n)\lg n )$ is in polynomial-time
+                \item Now prove that the algorithm is a 2-approximation algorithm. Let the run time of all jobs be $V = \sum_{i=1}^n v_i$. The best assignment possible happens when every processor gets an equal share of runtime, which is a fixed $\frac{V}{m}$, in other words, 
+                \[
+                    \sum_{i\in A_j} v_i= \frac{V}{m} \quad \text{for all } j = 1,\cdots ,m
+                \]
+                Let $s^*$ be the spread of an optimal assignment. $s^*$ is therefore bounded above by the spread of the best possible assignment. 
+                \[
+                    s^* \leq \frac{V}{m}
+                \]
+                Now we claim that $s \geq \frac{V}{2m}$. Prove by contradiction, assume the final spread from the algorithm be $s_f < \frac{V}{2m}$. Let $A_f$ be the process with least total runtime when the algorithm terminates, i.e. 
+                \[
+                    T(A_f) = s_f \leq T(A_j) \text{ for all } j = 1,\cdots, m
+                \]
+                Since all jobs are assigned when program terminates, there must be at least one $A$ for which $T(A) > \frac{V}{m}$. Otherwise, the total runtime of assignment returned $\sum_{j=1}^m T(A_j) < V$. Let $A_j$ be the first processor with $T(A_j) > \frac{V}{m}$. At some point, the algorithm picks $A_j$ as the processor because it has determined that $A_j.key = T(A_j) = \sum_{i\in A_j}  v_i$ is the minimum of all processor and adds the next job $v_i$ to $A_j$ (where $A_j' = A_j \cup \{i\}$) such that $T(A_j') > \frac{V}{m}$. However note that no single job has a running time exceeding $\frac{V}{2m}$, specifically, $v_i \leq \frac{V}{2m}$. Then we have
+                \[
+                T(A_j') = T(A_j) + v_i \quad \to  \quad T(A_j) = T(A_j') - v_i \geq T(A_j') - \frac{V}{2m}
+                \]
+                $T(A_j') > \frac{V}{m}$ implies $T(A_j) > \frac{V}{2m}$. We have $A_f$ as a processor with $T(A_f) \leq \frac{V}{2m}$ when the program terminates. Since we have only increased keys to processors in the queue, $A_f$ will have a total runtime $T(A_f) \leq \frac{V}{2m}$ during the step where the program decides to pick $v_i$ and add to $A_j$. This is a contradiction because the algorithm guarantees to pick the processor with minimum total runtime but $T(A_f) \leq \frac{V}{2m} < T(A_j)$. Therefore, the claim that $s \geq \frac{V}{2m}$ holds. Hence,
+                \[
+                    s^* \leq \frac{V}{m} \leq 2s
+                \]
+                So then we proved that the algorithm described is a 2-approximation algorithm for finding maximum spread. 
+            \end{enumerate}
+
+
+            
+        \end{proof}
         
+
     \end{solution}
 
 \end{enumerate}

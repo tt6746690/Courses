@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  13 AUG 2017 17:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  13 AUG 2017 18:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1222,15 +1222,15 @@ The cer-tifi-cate is a cy-cle of ver-tices $\OMS/cmsy/m/n/10.95 h\OML/cmm/m/it/
 10.95 v[]; []  ; v[]\OMS/cmsy/m/n/10.95 i$\OT1/cmr/m/n/10.95 .
  []
 
-[2] [3]
+[2] [3] [4]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ú in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ù in font cmr10!
- [4]
-Overfull \hbox (3.77238pt too wide) detected at line 143
+
+Overfull \hbox (3.77238pt too wide) detected at line 151
 [] \OT1/cmr/m/n/10.95 = []
  []
 
@@ -1238,56 +1238,63 @@ Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no î in font cmr10!
 
-Overfull \hbox (0.79999pt too wide) detected at line 178
+Overfull \hbox (0.79999pt too wide) detected at line 187
 |[]|
  []
 
 
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 155--178
+Overfull \hbox (51.46509pt too wide) in paragraph at lines 165--187
 []$[]$ 
  []
 
 [5]
-Overfull \hbox (0.79999pt too wide) detected at line 224
+Overfull \hbox (19.60275pt too wide) in paragraph at lines 189--190
+[]\OT1/cmr/bx/n/10.95 Proof of cor-rect-ness \OT1/cmr/m/n/10.95 If $\OML/cmm/m/
+it/10.95 S$ \OT1/cmr/m/n/10.95 does not con-tain an equal par-ti-tion, then $[]
+(\OML/cmm/m/it/10.95 S\OT1/cmr/m/n/10.95 )$
+ []
+
+[6]
+Overfull \hbox (0.79999pt too wide) detected at line 222
 |[]|
  []
 
 
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 214--224
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 212--222
 []$[]$ 
  []
 
-[6] [7]
+[7] [8]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no î in font cmr10!
- [8]
-Overfull \hbox (0.79999pt too wide) detected at line 325
+
+Overfull \hbox (0.79999pt too wide) detected at line 323
 |[]|
  []
 
 
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 298--325
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 296--323
 []$[]$ 
  []
 
-[9] [10] [11]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 371.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 371.
+[9] [10] [11] [12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 369.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 369.
  (./a3.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 371.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 371.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 369.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 369.
 Package rerunfilecheck Info: File `a3.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 35465 strings out of 493089
- 830133 string characters out of 6134842
- 1033703 words of memory out of 5000000
- 38284 multiletter control sequences out of 15000+600000
+ 35467 strings out of 493089
+ 830127 string characters out of 6134842
+ 1034703 words of memory out of 5000000
+ 38285 multiletter control sequences out of 15000+600000
  12609 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,18n,77p,1150b,751s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 64i,18n,77p,1765b,797s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></
@@ -1305,10 +1312,10 @@ ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive
 015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
 15/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/201
 5/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on a3.pdf (11 pages, 213871 bytes).
+Output written on a3.pdf (12 pages, 214157 bytes).
 PDF statistics:
- 226 PDF objects out of 1000 (max. 8388607)
- 194 compressed objects within 2 object streams
- 92 named destinations out of 1000 (max. 500000)
+ 230 PDF objects out of 1000 (max. 8388607)
+ 197 compressed objects within 2 object streams
+ 93 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

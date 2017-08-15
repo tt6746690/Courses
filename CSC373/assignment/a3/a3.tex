@@ -110,6 +110,10 @@ For each decision problem $D$ below, state whether $D \in P$ or $D \in NP$, then
         \item \textbf{Question} Does $G$ contain some simple cycle on \textbf{at most} $k$ vertices?
     \end{itemize}
     \begin{solution}
+        \textsc{SmallCycle} can be represented as 
+        \[
+            \textsc{SmallCycle} = \{ \langle G, k \rangle: \text{$G$ contains a simple cycle of size  } \leq k \}
+        \]
         \begin{enumerate}
             \item Prove $\textsc{SmallCycle} \in NP$
             \begin{proof}
@@ -117,7 +121,11 @@ For each decision problem $D$ below, state whether $D \in P$ or $D \in NP$, then
             \end{proof}
             \item Prove for all $L\in NP$, $L\leq_p \textsc{SmallCycle}$  (i.e. NP-hard)
             \begin{proof}
-               ....
+               By lemma in clrs, we can find a NP-complete problem \textsc{Ham-Cycle} and a polynoial time reduction algorithm mapping $x\in \textsc{Ham-Cycle}$ to $f(x)\in \textsc{SmallCycle}$ to prove that \textsc{SmallCycle} is NP-complete. Given an instance of \textsc{Ham-Cycle} $\langle G \rangle$, the reduction algorithm computes $k = |G.V|$ and outputs an instance of $\langle G' = G, k \rangle$ to \textsc{SmallCycle}. The transformation function $f$ is polynomial, in fact constant as we are only computing the size of vertices in $G$. Now we prove that the transformation is a valid reduction 
+               \begin{enumerate}
+                    \item Suppose $C$ is a hamiltonian cycle in $G$. Then we have $k = |G.V| = |C|$. We claim that $C$ is a simple cycle of length $k$ in $G'$. Indeed, we have $|C| = k$ by construction. Therefore there is a simple cycle of size $k$ in $G'$, implying there is a simple cycle of size at most $k$ in $G'$ 
+                    \item Suppose there is a simple cycle of size at most $k$ in $G'$. Let $C$ be such simple cycle. Since $|G'.V| = k$, the simple cycle has exactly size $k$. We claim that $C$ is hamiltonian cycle in $G$. There are $k$ vertices in $G$ by construction, the fact that $C$ is a simple cycle of size $k$ implies that $C$ is a hamiltonian cycle, which is simply a simple cycle over every vertex ($k$ of them).
+                \end{enumerate}
             \end{proof}
         \end{enumerate}
     \end{solution}
@@ -152,51 +160,41 @@ Consider the following \textsc{Partition} search problem.
     \end{solution}
     \item Give a detailed argument to show that the \textsc{Partition} search problem is polynomial- time self-reducible. (Warning: Remember that the input to the decision problem does not contain any information about the partition — if it even exists.)
     \begin{solution}
-        Now we provide an efficient algorithm utilizing \textsc{PartDecide}, assumed to be efficient, to solve for \textsc{Partition} \\ 
-        \begin{algorithm}[H]
-            \SetKwFunction{part}{PartDecide}
-            \SetKwFunction{parti}{Partition}
-            \SetKwFunction{nil}{nil}
-            \SetKwFunction{no}{No}
-            \Fn{$\parti(S)$}{
-                \If{Not $\part(S)$}{
-                    \Return{\nil}
-                }
-                $S_1 \leftarrow \emptyset$\\ 
-                \While{$|S| > 2$}{
-                    $x_i, x_j \in S$ be arbitrary \\
-                    $S' \leftarrow S \setminus \{x_i, x_j\}$\\
-                    \If{$\part(S' \cup \{ x_i + x_j \})$}{
-                        $S \leftarrow S' \cup \{x_i + x_j \}$\\
-                        $S_1 \leftarrow S_1 \cup \{x_i + x_j$ \}
-                    }\Else{
-                        $S\leftarrow S' \cup \{|x_i - x_j|\}$\\ 
-                    }
-                }
-                \Return{$(S_1, S\setminus S_1)$}\\
-            }
-        \end{algorithm}
+        
         \begin{enumerate}
-            \item \textbf{Proof of correctness} Note that the for loop will terminate, as in each iteration the size of $S$ decrements by one, specifically, $x_i, x_j$ is removed from $S$ and we selectively adds either $x_i + x_j$ or $|x_i - x_j|$ in $S$. Since $S$ is sized, the for loop will terminate in $O(n)$ iterations. Now we claim that after the for loop has a loop variant 
+            \item We will provide an efficient algorithm utilizing \textsc{PartDecide}, assumed to be efficient, to solve for \textsc{Partition} \\ 
+            \begin{algorithm}[H]
+                \SetKwFunction{pd}{PartDecide}
+                \SetKwFunction{partition}{Partition}
+                \SetKwFunction{nil}{nil}
+                \SetKwFunction{summ}{Sum}
+
+                \Fn{$\partition(S)$}{
+                    \If{Not $\pd(S)$}{ 
+                        \Return{\nil} \\
+                    }
+                    $S_1 \leftarrow \emptyset$\\ 
+                    $S_2 \leftarrow S$ \\ 
+                    \While{$\summ(S_1) \neq \summ(S_2)$}{
+                        $x\leftarrow$ be next integer in $S_2$ \\ 
+                        \If{$\pd(\summ(S_1 \cup \{ x\}) \cup S_2 \setminus x)$}{
+                            $S_1 \leftarrow S_1 \cup \{ x\}$ \\ 
+                            $S_2 \leftarrow S_2 \setminus \{ x\}$ \\ 
+                        }
+                    }
+                    \Return{$(S_1, S_2)$}\\
+                }
+            \end{algorithm}
+
+            \item \textbf{Proof of correctness} If $S$ does not contain an equal partition, then $\textsc{PartDecide}(S)$ will return 0 (false), and program returns $nil$, which is correct. Let $(E_1, E_2)$ be equal partition of $S$, if exists. The algorithm works by maintaining a pair of set $(S_1, S_2)$ with loop variant
             \begin{center}
-                During $i$-th iteration, if $\textsc{PartDecide}(S_i) = 1$, then $\textsc{PartDecide}(S_{i+1}) = 1$
+                At each step in the for loop, $S_1$ is in some equal partition of $S$
             \end{center}
-            Proof by induction, the execution reaches line 4 if and only if $\textsc{PartDecide}(S)$ evalutes to 1. So when $i=0$, the claim holds. For induction step, assume $\textsc{PartDecide}(S_i) = 1$. 2 cases for $S_{i+1}$
-            \begin{enumerate}
-                \item If $\textsc{PartDecide}(S \setminus \{ x_i, x_j \} \cup \{ x_i + x_j \}) = 1$ then assigning $S_{i+1} \leftarrow S \setminus \{ x_i, x_j \} \cup \{ x_i + x_j \}$ would imply $\textsc{PartDecide}(S_{i+1})$ evaluates to 1. In other words, we can decide to put $x_i$ and $x_j$ into the same partition and the resulting set with this restriction (i.e. $x_i,x_j$ have to be in the same set) would still be able to yield an equal partition
-                \item Otherwise, we cannot put $x_i,x_j$ into the same partition. So we put $x_i$ and $x_j$ into different partitions. By induction hypothesis $\sum_{x\in S_1} x = \sum_{x\in S_2} x $, assume without loss of generality that $x_i \in S_{i1}$ and $x_j \in S_{i2}$ and $x_i > x_j$, then 
-                \[
-                     \sum_{x\in S_1 \setminus \{x_i \}} x  + x_i= \sum_{x\in S_2 \setminus \{x_j \}} x + x_j
-                \]
-                \[
-                     \sum_{x\in S_1 \setminus \{x_i \}} x = \sum_{x\in S_2 \setminus \{x_j \}} x + | x_j - x_i |
-                \]
-                So we have found an equal partition for $S_{i+1} = S \setminus \{x_i, x_j\}\cup \{ |x_i - x_j| \}$. Therefore the claim holds in this case as well. 
-            \end{enumerate}
-            So when the for loop terminates, which it will as proved earlier, we have $|S_{two}| = 2$ such that $\textsc{PartDecide}(S_{two}) = 1$. Since there are only 2 elements in $S_{two}$, they must be equal. So algorithm's return value is correct. 
-            \item \textbf{Runtime} The for loop iterates $O(n)$ times, each performing some constant set operations together with \textsc{PartDecide}. Assume \textsc{PartDecide} has a worst case runtime of $O(T)$, The worst case complexity of the algorithm is therefore $O(nT)$
+            Initially, $S_1$ is an emptyset, so trivially true. Inductive step, assume $S_{1}^i$ is in some equal partition $E_1$ of $S$. Note $S_{1}^{i+1} = S_{1}^i \cup \{x \}$ is the only possible way to change $S_1^i$, which is executed only if $\pd(\summ(S_1 \cup \{ x\}) \cup S_2 \setminus x)$. By induction hypothesis, $S_1^i$ is in some equal partition of $S$, therefore we can treat the all elements in $S_1^i$ as a single element $e$ with value the summation of all integers in $S_1^i$ and the $e \in E$ is still valid. The decision algorithm returns true if and only if $x + e$ is still in $E$, implying $x$ must be in $S_2$. The following assignment of $S_1^{i+1}$ simply incoporates $x$ to $S_1^i$ and by truthy evaluation of \textsc{PartDecide}, $S_1^{i+1}$ will still be in some equal partition of $S$. Otherwise, since $S_1^{i+1} = S_1^i$ and $S_1^i$ is in some equal partition of $S$, so claim also holds in this case. So the loop invariant holds. Additionally, we claim that the while loop will terminate at some point. Note execution reaches the while loop only if $\textsc{PartDecide}(S)$ returns 1 (true), so there will not be cases where we stuck in the loop because we cannot find a solution. Additionally, the while loop adds some $x$ to $S_1$ in at most $|S_2|$ iterations until $S_1$ becomes one of the equal partitions, the loop therefore will terminate. By loop termination condition and the loop invariant, the pair $(S_1, S_2)$ will be an equal partition, so the algorithm is correct.  
+            \item \textbf{Runtime} The for loop iterates $O(n^2)$ times, each performing some constant set operation with \textsc{PartDecide}. Assume \textsc{PartDecide} has a worst case runtime of $O(T)$, The worst case complexity of the algorithm is therefore $O(n^2T)$
+            \item \textbf{Proof of self-reducibility}  Given that the algorithm is correct and the runtime, $O(n^2T)$, is polynomial to the worst case runtime of \textsc{PartDecide}. If $T$ is polynomial, in other words, if there exists an efficient algorithm for solving \textsc{PartDecide}, then we can solve \textsc{Partition} in $O(n^2T)$, which is still in polynomial time. Therefore the search problem \textsc{Partition} is \textbf{self-reducible} 
         \end{enumerate}
-        Given that the algorithm is correct and the runtime, $O(nT)$, is polynomial to the worst case runtime of \textsc{PartDecide}. If $T$ is polynomial, in other words, if there exists an efficient algorithm for solving \textsc{PartDecide}, then we can solve \textsc{Partition} in $(nT)$, which is still in polynomial time. Therefore the search problem \textsc{Partition} is \textbf{self-reducible} 
+       
     \end{solution}
 \end{enumerate}
 

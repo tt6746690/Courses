@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1500583964 "/Users/markwang/School/c_2016_2017/CSC373/clrs/graphs/graph.tex" "graph.pdf" "graph" 1500583965
-  "./graph.out" 1500583965 0 d41d8cd98f00b204e9800998ecf8427e ""
+["pdflatex"] 1503072599 "/Users/markwang/School/c_2016_2017/CSC373/clrs/graphs/graph.tex" "graph.pdf" "graph" 1503072601
+  "./graph.out" 1503072600 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/Users/markwang/.preamble.tex" 1496905996 3250 656c8b5e4a17b5cf70c6ebea9760b362 ""
-  "/Users/markwang/School/c_2016_2017/CSC373/clrs/graphs/graph.tex" 1500583963 69738 03e36ccf80639638d88165873f203e14 ""
+  "/Users/markwang/School/c_2016_2017/CSC373/clrs/graphs/graph.tex" 1503072599 69739 1e4f91a67c8447105254fa56d96f4b1e ""
   "/usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -249,11 +249,11 @@
   "/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1432479641 1764542 91654ba72bdb667e84ea24f076ae16d8 ""
   "/usr/local/texlive/2015/texmf-var/web2c/pdftex/pdflatex.fmt" 1432479681 3849859 39a7d258195bde2394e244961601fbc5 ""
   "/usr/local/texlive/2015/texmf.cnf" 1432479636 577 0d611272082f3cdb8e80e09a3c69cf07 ""
-  "graph.aux" 1500583965 662 b2b94621371df8d9296b8bf5bec1b851 ""
-  "graph.out" 1500583965 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "graph.tex" 1500583963 69738 03e36ccf80639638d88165873f203e14 ""
+  "graph.aux" 1503072600 662 b2b94621371df8d9296b8bf5bec1b851 ""
+  "graph.out" 1503072600 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "graph.tex" 1503072599 69739 1e4f91a67c8447105254fa56d96f4b1e ""
   (generated)
   "graph.log"
-  "graph.aux"
   "graph.out"
+  "graph.aux"
   "graph.pdf"

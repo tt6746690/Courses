@@ -464,6 +464,8 @@
             + `mutex`: make sure producer/consumer do not access the buffer at same time
                 + _binary semaphore_ init to `1`
                 + if `down` before enter and `up` before exit, then _mutual exlusion_ guaranteed
+            + `down(empty)`
+                + means will block when buffer is empty, like conditional variables
         + simulation 
             + `full = 0`, `empty = N`, `mutex = 1`
         + _reader/writer problem with semaphores_

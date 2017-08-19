@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  20 JUL 2017 16:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  18 AUG 2017 12:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1174,12 +1174,12 @@ LaTeX Info: Redefining \nameref on input line 3.
 \@outlinefile=\write4
 \openout4 = `graph.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 20.
+LaTeX Font Info:    Try loading font information for U+msa on input line 21.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 20.
+LaTeX Font Info:    Try loading font information for U+msb on input line 21.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1191,13 +1191,13 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no ˆ in font cmr10!
 Missing character: There is no ’ in font cmr10!
  [5]
-Overfull \hbox (3.84164pt too wide) in paragraph at lines 247--248
+Overfull \hbox (3.84164pt too wide) in paragraph at lines 248--249
 []\OT1/cmr/bx/it/10.95 Complexity \OT1/cmr/m/it/10.95 As-sume disjoint-set-fore
 st impl with union-by-rank and path-compression.
  []
 
 [6] [7]
-Overfull \hbox (3.9177pt too wide) in paragraph at lines 328--329
+Overfull \hbox (3.9177pt too wide) in paragraph at lines 329--330
 []\OT1/cmr/bx/n/10.95 Definition. []\OT1/cmr/bx/it/10.95 Rep-re-sent-ing short-
 est path \OT1/cmr/m/it/10.95 In-ter-ested in pre-de-ces-sor sub-graph $\OML/cmm
 /m/it/10.95 G[] \OT1/cmr/m/n/10.95 = (\OML/cmm/m/it/10.95 V[]; E[]\OT1/cmr/m/n/
@@ -1205,7 +1205,7 @@ est path \OT1/cmr/m/it/10.95 In-ter-ested in pre-de-ces-sor sub-graph $\OML/cmm
  []
 
 [8]
-Overfull \hbox (45.15057pt too wide) in paragraph at lines 373--375
+Overfull \hbox (45.15057pt too wide) in paragraph at lines 374--376
 \OT1/cmr/m/it/10.95 there is no path from $\OML/cmm/m/it/10.95 s$ \OT1/cmr/m/it
 /10.95 to $\OML/cmm/m/it/10.95 v$\OT1/cmr/m/it/10.95 . Then af-ter graph is ini
 -tial-ized by $[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G; s\OT1/cmr/m/n/10.95
@@ -1215,10 +1215,10 @@ Overfull \hbox (45.15057pt too wide) in paragraph at lines 373--375
 [9]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
-(Font)              using `OT1/cmr/bx/n' instead on input line 384.
+(Font)              using `OT1/cmr/bx/n' instead on input line 385.
 
 [10] [11] [12]
-Overfull \hbox (2.39265pt too wide) in paragraph at lines 505--506
+Overfull \hbox (2.39265pt too wide) in paragraph at lines 506--507
 \OT1/cmr/m/it/10.95 graph $\OML/cmm/m/it/10.95 G \OT1/cmr/m/n/10.95 = (\OML/cmm
 /m/it/10.95 V; E\OT1/cmr/m/n/10.95 )$ \OT1/cmr/m/it/10.95 has source ver-tex $\
 OML/cmm/m/it/10.95 s$ \OT1/cmr/m/it/10.95 and no cy-cles, then at ter-mi-na-tio
@@ -1226,7 +1226,7 @@ n of \OT1/cmr/m/sc/10.95 DAG-Shortest-
  []
 
 [13] [14] [15]
-Overfull \hbox (25.32036pt too wide) detected at line 613
+Overfull \hbox (25.32036pt too wide) detected at line 614
 \OML/cmm/m/it/10.95 l[] \OT1/cmr/m/n/10.95 = []   \OML/cmm/m/it/10.95 l[] \OT1/
 cmr/m/n/10.95 = \OML/cmm/m/it/10.95 Min [] \OT1/cmr/m/n/10.95 = []\OMS/cmsy/m/n
 /10.95 f\OML/cmm/m/it/10.95 l[] \OT1/cmr/m/n/10.95 + \OML/cmm/m/it/10.95 w[]\OM
@@ -1234,28 +1234,28 @@ S/cmsy/m/n/10.95 g
  []
 
 
-Overfull \hbox (43.00568pt too wide) in paragraph at lines 619--621
+Overfull \hbox (43.00568pt too wide) in paragraph at lines 620--622
 []\OT1/cmr/bx/it/10.95 Bottom Up ap-proach \OT1/cmr/m/it/10.95 The al-go-rithm 
 com-putes a se-ries of ma-tri-ces $\OML/cmm/m/it/10.95 W \OT1/cmr/m/n/10.95 = \
 OML/cmm/m/it/10.95 L[]; L[]; []  ; L[]$
  []
 
 [16] [17] [18] [19] [20] [21]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 873.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 874.
 
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 873.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 874.
  [22] [23]
 [24] [25]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 998.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 998.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 999.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 999.
  (./graph.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 998.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 998.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 999.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 999.
 Package rerunfilecheck Info: File `graph.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1266,7 +1266,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  35599 strings out of 493089
  831141 string characters out of 6134842
- 1033599 words of memory out of 5000000
+ 1033703 words of memory out of 5000000
  38279 multiletter control sequences out of 15000+600000
  15346 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191

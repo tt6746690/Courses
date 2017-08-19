@@ -1,7 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1496852036 "w2.tex" "w2.pdf" "w2" 1496852038
+["pdflatex"] 1496852036 "/Users/markwang/School/c_2016_2017/CSC373/lecture/w2/w2.tex" "w2.pdf" "w2" 1503072599
   "./w2.out" 1496852037 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "/Users/markwang/.preamble.tex" 1496851205 3250 656c8b5e4a17b5cf70c6ebea9760b362 ""
+  "/Users/markwang/.preamble.tex" 1496905996 3250 656c8b5e4a17b5cf70c6ebea9760b362 ""
+  "/Users/markwang/School/c_2016_2017/CSC373/lecture/w2/w2.tex" 1496852036 14733 0015f9288d32aa3a4d3f44fcf23e265b ""
   "/usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -243,7 +244,7 @@
   "w2.out" 1496852037 0 d41d8cd98f00b204e9800998ecf8427e ""
   "w2.tex" 1496852036 14733 0015f9288d32aa3a4d3f44fcf23e265b ""
   (generated)
-  "w2.log"
   "w2.aux"
-  "w2.pdf"
+  "w2.log"
   "w2.out"
+  "w2.pdf"

@@ -25,7 +25,7 @@ Paging
 
 
 ```c
-// A
+// B
 for(int j = 0; j <= 63; j++){
     for(int i = 0; i <= 63; i++){
         X[i][j] = 0;
@@ -34,9 +34,9 @@ for(int j = 0; j <= 63; j++){
 ```
 
 ```c
-// B
-for(int j = 0; j <= 63; j++){
-    for(int i = 0; i <= 63; i++){
+// A
+for(int i = 0; i <= 63; i++){
+    for(int j = 0; j <= 63; j++){
         X[i][j] = 0;
     }
 }

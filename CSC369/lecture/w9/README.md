@@ -317,6 +317,7 @@
     + _idea 1_
         + each process is entitle to a single resource at a time
         + if a process needs a second resource, it has to release the first one
+        + not really feasible!
     + _idea 2_
         + provide a global numbering of all resources
         + process can request however they wanted
@@ -380,4 +381,36 @@
         + may get message > 2 times, assume the message is not lost but is simply delayed because of network
         + _protocol_ comes into play...
 + _livelock_
-    + 
+    + _vs. deadlock_
+        + process in livelock state changes, unlike deadlock
+        + but still no progress
+    + _idea_
+        + process release locks already held if it notices it cannot obtain the next lock it needs
+        + wait for a while, and try again
+        + this prevents deadlocks!
+    + _problem_
+        + if the other process does the same thing at same time, then we have 2 processes pass resource to the other, but still cant make progress
+    + _example_
+        + ![](2017-08-15-13-59-21.png)
+        + `A` runs acquire `1`
+        + `B` runs and acquire `2`
+        + next they try to acquire the other resource but fails, so gave up locks they are holding and try again
+    + _example_
+        + any limited resource (i.e. process-table, open file table, swap space)
+        + `fork` fails because table full, program wait for some time and try again
++ _starvation_ 
+    + _vs deadlock_ 
+        + process starved is not actually blocked...
+    + _idea_
+        + in system, requests for resources happen all the time
+        + policy set to determine who gets what
+        + but this may lead to some process never getting service even though its not locked
+    + _example_
+        + printer, smallest file gets to print first, always have lots of small files, so large file never gets printed
+    + _solution_ 
+        + FCFS (first come first solve)
+
+
+
+
+

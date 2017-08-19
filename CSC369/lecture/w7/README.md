@@ -496,3 +496,142 @@
 
 
                 
+
+### 10.6 The Linux File system 
+
+
++ _concepts_ 
+    + `ext` -> `ext2` file system
+        + long file names, better performance
+    + _file_ 
+        + sequence of 0 or more bytes containing information
+        + name <= 255 chars
+    + _directories_ 
+        + grouping of files
+        + stored as files, treated as files
+        + _root_
+            + `/`
+    + _absolute path_ 
+    + _working directory_
+        + relative path, 
+    + _link_
+        + a directory entry that points to an existing file
+            + ![](2017-08-15-21-24-23.png)
+    + _special files_ 
+        + character
+            + `/dev/tty` reads from keyboard
+            + `/dev/lp` writes to printer 
+        + block 
+            + `/dev/hd1` read/write raw disk partition without regard to file system, used for paging
+    + _mounting_ 
+        + disks can be mounted to another disk's file tree
+    + _locking_
+        + concurrent access to files
+        + process can lock as little as a single byte, and as much as an entire file in one indivisible operation
+        + useful in databases
+        + _types_ 
+            + _shared lock_
+            + _exclusive lock_
++ _file syscall_
+    + ![](2017-08-15-21-32-05.png)
+    + `fstat`
+        + ![](2017-08-15-21-33-10.png)
+    + ![](2017-08-15-21-33-46.png)
++ _impl of Linux fs_
+    + _Virtual file system (VFS)_
+        + ![](2017-08-15-21-37-04.png)
+        + _superblock_
+            + info about layout of fs
+        + _i-nodes_
+            + describe one file
++ `ext2` file system
+    + ![](2017-08-15-21-37-55.png)
+        + block 0 for boot 
+        + separated into groups of blocks
+    + _bitmaps_
+        + 1kb block limits block groups to 8192 blocks and 8192 inodes
+        + new files preallocated 8 to prevent fragmentation
+    + _inode_
+        + 128bytes long
+        + describe exactly one file
+    + _directory entries_ 
+        + ![](2017-08-15-21-42-17.png)
+        + end padded to reenforce rule that entry cannot span blocks
++ `open`
+    + locates root directory, inode 2
+    + traverse directory entries, by getting inodes of next directory
+    + inode of file found, `inode` 
+        + loaded into memory
+        + put in inode table
++ `read`
+    + ![](2017-08-15-22-17-40.png)
+    + use `fd` to find inode, 
+    + where to store _file location_? 
+        + _in file descriptor table_
+            + bad idea, since childs should share file position, storing it in file descriptor take 
+        + _in open-file-descriptor table_
+            + mapping between file descriptor table and inode table
+            + allow a parent and child to share a file position, but to provide unrelated processes their own value
+                + so different processes have their own open fd table
+    + _inode blocks pointer_ (assume 1kb block)
+        + 12 direct pointer             
+            + 12 KB
+        + 1 singly indirect 
+            + 256 + 12 = 268 KB
+        + 1 doubly indirect 
+            + 12 + 256 + 256 * 256
+        + 1 triply indirect
+            + 2^24 blocks (16GB)
++ `ext4` file system 
+    + a journaling file system, 
+        + support larger files, and larger file system size
+    + _idea_
+        + maintain a journal, which describe all fs operation in sequential order
+        + write are journaled, and changes will be committed at once, reduce random head movements
+    + _journal_
+        + file with a circular buffer
+    + _journaling block device_ 
+        + perform journal read/write
+    + _extents_
+        + contiguous blocks of storage, i.e. 128 MB of 4kb blocks
++ `/proc` file system 
+    + for every process in fs, a directory is created in `/proc`
+    + contains info about the process
++ _NFS network file system_
+        
+ 
+
+
+ ### 11.8 Windows NT file system 
+
+
+ + _FAT-16_
+    + old ms-dos file system 
+    + 16-bit disk addresses, 
+    + <16bg
++ _FAT-32_
+    + 32-bit disk addresses 
+    + 2TB partition max size
+    + no security 
++ _NTFS_
+    + 64-bit disk address
+    + 2^64 partition max size 
++ _NTFS basics_
+    + _filename_
+        + < 255 
+        + allows unicode
+    + _file_
+        + not just byte stream
+        + have 
+            + multi attributes represented by a stream of bytes
+            + i.e. name of file, 64-bit object ID, data stream
+        + _multiple stream_
+            + independent from rest
+            + platform dependent
++ _NTFS impl_
+    + _MFT (master file table)_
+        + a linear sequence of fixed size 1kb records
+        + each MFT describes 1 file/directory
+        + abstraction of file, can be placed anywhere in the volume
+    + ![](2017-08-15-22-38-48.png)
+        + MTF record contains a sequence of head,value pairs

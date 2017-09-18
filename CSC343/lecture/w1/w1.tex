@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+\begin{defn*}
+    \textbf{Data Model} Notion of describing data or information 
+    \begin{enumerate}
+        \item \textbf{Structure of data} 
+        \item \textbf{Operation on data} 
+        \item \textbf{Constriant on data}
+    \end{enumerate}
+    important data models 
+    \begin{enumerate}
+        \item \textbf{relational model} (SQL) large, efficient
+        \item \textbf{semistructured-data model} (XML) more flexible
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*} 
+    \textbf{Relational model in brief} 
+    \begin{enumerate}
+        \item \textbf{Structure of data} structure of relational model may resemble an array of structs in C. the table column headers are field names, and each of the row represent the values of one struct in the array
+        \item \textbf{Operation on data} relational algebra
+        \item \textbf{Constriant on data} 
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Basics of the Relational Model}
+    \begin{enumerate}
+        \item \textbf{Relation} A two-dimensional table is called a relation
+        \begin{enumerate}
+            \item \textbf{arity} of a relation is the number of attributes 
+            \item \textbf{cardinality} of a relation is the number of tuples
+        \end{enumerate}
+        \item \textbf{Attributes} columns of a relation are named by attributes
+        \item \textbf{Schemas} The name of a relation and the set of attributes for a relation is the schema for that relation 
+        \[
+            Movies(title, year, length, genre)
+        \]
+        By virtue of set, order of columns of relation are immaterial
+        \item \textbf{Database} one or more relations 
+        \item \textbf{Database Schema} the set of schemas for relations of a database 
+        \item \textbf{Tuples} The row of a relation (other than the header row containing the attribute names) are called tuples. 
+        \[
+            (Inception, 2008, 231, thriller)
+        \]
+        \item \textbf{Component} A tuple has one component for each attribute of the relation (ordered by order of attributes). Components are atomic (elementary types only) 
+        \item \textbf{Domains} (data type) the elementary-type associated with each attribute of a relation is a domain 
+        \[
+            Movies(title:string, year:integer, length:integer, genre:string)
+        \]
+        \item \textbf{Relation instance} A set of tuples for a given relation is an instance of that relation
+        \item \textbf{Current instance} the set of tuples for a given relation now
+        \end{enumerate}
+\end{defn*}
+
+
+\begin{note}
+    In relational database theory, a \textbf{relation}, is a set of tuples $(d_1, d_2, \cdots, d_n)$, where each element $d_j$ is a member of $D_j$, a data domain. There is no ordering to the elements of the tuples of a relation. Instead, each element is termed an \textbf{attribute value}. An \textbf{attribute} is a name paired with a domain (data type). An \textbf{attribute value} is an attribute name paired with an element of that attribute's domain, and a \textbf{tuple} is a set of attribute values in which no two distinct elements have the same name. Thus, in some accounts, a tuple is described as a function, mapping names to values.
+\end{note}
+
+\begin{defn*}
+    \textbf{Keys of Relations} 
+    \begin{enumerate}
+        \item \textbf{Key constraint} A set of attributes forms a key for a relation if no two tuples in a relation instance have the same values in all the attributes of the key
+        \[
+            Moves(\underline{title}, \underline{year}, length, genre)
+        \]
+    \end{enumerate}
+\end{defn*}
+
+
+
+
+
+
+
+\begin{defn*}
+    \textbf{Keys}
+    \begin{enumerate}
+        \item \textbf{Superkey} a set of one or more attributes whose combined values are unique (implies no two tuples have same values on all of these attribues)
+        \begin{enumerate}
+            \item Does every relation have a superkey? Yes, the entire set of attributes form the superkey 
+            \item superkey is not minimal. 
+        \end{enumerate}
+        \item \textbf{Key} is a minimal superkey.
+        \begin{enumerate}
+            \item usually underline the key in schemas
+            \item superkey is the superset (not necessarily proper) of keys
+            \item often invent attributes to ensure all tuples will be unique (SIN, ISBN)
+            \item defines a kind of integrity constraint
+        \end{enumerate}
+        \item \textbf{Foreign Key} an attributes that refers to an attribute that is a key in another table 
+        \begin{enumerate}
+            \item a foreign key may need to have several attributes
+            \item \textbf{declare foreign key} 
+            \[
+                R[A]
+            \] 
+            where $R$ is a relation and $A$ is a list of attributes in $R$. $R[A]$ is a set of all tuples from $R$ but with only attributes in list $A$
+            \item \textbf{declare foreign key constraint} 
+            \[
+                R_1[X] \subseteq R_2[Y]
+            \]
+            where $X$ and $Y$ are lists of attributes of same arity and $Y$ must be a key in $R_2$
+            \item \textbf{Referential integrity constriants} constraint of the form $R_1[X] \subseteq R_2[Y]$. Note foreign key constraint are a kind of referential integrity constriant or \textbf{inclusion dependency} Not all integrity constraints are foreign key constraints ($A_2$ not a key in $R_2$)
+        \end{enumerate}
+        \item \textbf{Primary key(SQL)} SQL specific
+    \end{enumerate}
+\end{defn*}
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,24 @@
+---
+title: W2 codes 
+---
+
+temp vs mortality rate
+
+```{R}
+myFit <- lm(M~T)
+plot(T, M, xlab="temp", ylab="mortality index")
+abline(myFit)
+```
+
+
+CFC problem
+
+
+```{R}
+x=  c(1900, 1989, 20178, 2070)
+yBefore = -19100 + 9.71*x;
+yAfter = 3930 - 1.83x
+plot(x, yBefore, type="1", col="red", xlab = "year", ylab="[CFC], ppt")
+lines(x, yAfter, type="1", col="green")
+lines(x[2:3], yBefore[2:3], type="p")
+```

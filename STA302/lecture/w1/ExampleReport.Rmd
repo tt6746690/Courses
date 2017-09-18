@@ -1,0 +1,63 @@
+---
+title: 'Example Report in RMarkDown'
+date: 'STA302/1001 Autumn 2017'
+output: 
+  pdf_document
+---
+
+<!-- You need to know R but not RMarkDown. Load this file in RStudio (and click 'Knit') only if you are interested. -->
+
+\newcommand{\var}{\text{var}} <!-- You can define new commands just like in Latex -->
+
+
+**First Heading: Simple example of a sentence**
+
+The sum of 4 and 5 is calculated by an R command in this document to be `r 4+5`.
+
+\vspace{1cm}  <!-- Again, just like Latex -->
+
+**Second example**
+
+Here is some more R code embedded in the document!
+
+```{r}
+x <- c(2.1,-1,0,4) # c = combine
+y <- rt(4,6) # Four observations from a t_6 distribution
+stdDev <- sd(x)
+mean(y)
+```
+
+So, using more R commands, the average of the $t$-distributed sample turns out to be $\sim$ `r round(mean(y),2)`, and we have $\var(x) \approx `r round(stdDev^2,3)`$.
+
+Data can be stored in a "data frame", which is sort of like a matrix with rows and/or columns labelled:
+
+```{r}
+z <- data.frame(x,y)
+print(z)
+```
+
+
+\newpage  
+
+**Third example: Visualization**
+
+```{r}
+plot(x,y,ylab="t6")
+```
+
+\vspace{1cm}  
+
+**Fourth example: Using packages**
+
+```{r,include=FALSE}
+install.packages("dplyr", repos='http://cran.rstudio.com') # Comment this out once installed
+```
+
+```{r,eval=FALSE}
+install.packages("dplyr", repos='http://cran.rstudio.com')
+```
+
+```{r,warning=FALSE,message=F}
+library(dplyr) # load up the package that was just installed
+filter(z,x>0) # a concise command, courtesy of dplyr
+```

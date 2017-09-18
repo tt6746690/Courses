@@ -1,0 +1,68 @@
+```
+title: "week 1"
+output: pdf_document
+```
+rmarkdown::render("w1_codes.Rmd", "pdf_document")
+
+```{r}
+set.seed(10)
+# generate 5 observations from a N(60, 10^2)
+dat <- round(rnorm(5, mean=60, sd=10), 1)
+# summary info : quantiles and mean/median
+summary(dat)
+# histogram 
+hist(dat)
+```
+
+```{r}
+x <- rchisq(100, 10)    # 100 samples of chi-squared 10
+h <- hist(x, freq=FALSE)  # create histogram
+
+# superimpose chisq density over histogram
+xfit <- seq(min(x), max(x), length=40)
+yfit <- dchisq(xfit, 10)    # chisq density
+lines(xfit, yfit)
+```
+
+
+```{r}
+x <- seq(-4, 4, by=0.1)
+# pdf
+plot(x, dnorm(x), type="l", main="Std Normal Distribution", ylab=expression(paste(phi(x))))
+# cdf
+plot(x, pnorm(x), type="l", main="Std Normal CDF", xlab="x", ylab=expression(paste(Phi(x))))
+```
+
+
+```{r}
+# X ~ N(5,3)        
+# evaluate P(X<6)
+pnorm(6, mean=5, sd=sqrt(3))
+# evaluate P(4<X<6)
+pnorm(6, mean=5, sd=sqrt(3)) - pnorm(4, mean=5, sd=sqrt(3))
+```
+
+
+
+`rbinom(n, 60, 0.5)` 
+    - draw `n` times from a `p=0.5` binomial distribution with 60 trials
+
+```{r}
+# flipping a coin 60 times 
+set.seed(3)
+totalHeads <- rbinom(100, 60, 0.5) 
+aveHeads <- totalHeads / 60;
+hist(aveHeads)
+```
+
+
+
+
+
+
+
+
+
+
+
+

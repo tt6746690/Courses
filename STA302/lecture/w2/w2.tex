@@ -1,0 +1,85 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+\begin{defn*}
+    \begin{enumerate}
+        \item \textbf{Simple Linear Regression} A regression that is simple (1D) and linear in parameters (constant coefficients)
+        \item Practically, in data set $(x_i, y_i)$, we seek a fitted value for each $x_i$ 
+        \[
+            \hat{y_i} = b_0 + b_1x_i
+        \]
+        and then setting $\hat{\beta}_0 = b_0$ and $\hat{\beta}_1 = b_1$. 
+        \end{enumerate}
+        \item \textbf{residuals} 
+        \[
+            \hat{e}_i = y_i - \hat{y}_i
+        \]
+        \item Generally, we want to minimize, for some function $g$, the sum
+        \[
+            \sum_{i=1}^n g(y_i - \hat{y}_i)
+        \]
+        Consider 
+        \[
+            \sum_{i=1}^n (y_i - \hat{y}_i)^q
+        \]
+        \begin{enumerate}
+            \item $q = 0$ \textbf{0-1 loss}
+            \item $q = 1$ \textbf{absolute loss} 
+            \item $q = 2$ \textbf{quadratic loss} 
+            \item $q = \infty$ susceptible to outliers
+        \end{enumerate}
+        \item \textbf{Quadratic loss} is the preferred loss function because 
+        \begin{enumerate}
+            \item \textbf{Mean squared error (MSE)} is the most common way to measure error in statistics
+            \item \textbf{Gauss-Markov} theorem says that LSE when $q=2$ has minimal variance
+        \end{enumerate}
+        Hence we pick $b_0$ $b_1$ that minimize sum of squares of residuals (RSS)
+\end{defn*}
+
+
+
+\begin{defn*}
+    Finding RSS 
+    \begin{align*}
+        RSS &= \sum_{i} \hat{e_i}^2 \\
+            &=\sum_{i} (y_i - \hat{y}_i)^2 \\
+            &= \sum_{i} (y_i b_0 - b_1 x_i)^2
+    \end{align*}
+    To find $b_0$ and $b_1$ we take partial derivatives 
+    \[
+        \frac{\partial RSS}{\partial \beta_0} = -2\sum_{i=1}^n (y_i - b_0 - b_1 x_i) = 0
+    \]
+    \[
+        \frac{\partial RSS}{\partial \beta_1} = -2\sum_{i=1}^n (y_i - b_0 - b_1 x_i)x_i = 0
+    \]
+    Set derivatives to zero yields \textbf{normal equations}
+    \[
+        \sum_{i=1}^n y_i = nb_0 + b_1 \sum_i x_i
+    \]
+    \[
+        \sum_{i} x_i y_i = b_0 \sum_{i} x_i + b_1 \sum_i x_i^2
+    \]
+    Let $\overline{x} = \frac{1}{n} \sum_{i} x_i$  and $\overline{y} = \frac{1}{n} \sum_{i} y_i$, rearrange normal equation 
+    \[
+        b_0 = \overline{y} - b_1 \overline{x}
+    \]
+    \[
+        b_1 = \frac{\sum_i x_i y_i - n \overline{x}\overline{y}}{\sum_i x_i^2 - n \overline{x}^2} = \frac{\sum_i (x_i - \overline{x})(y_i - \overline{y})}{\sum_i (x_i - \overline{x})^2}
+    \]
+\end{defn*}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

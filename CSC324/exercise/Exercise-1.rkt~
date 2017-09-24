@@ -1,0 +1,281 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "2017-fall-reader.rkt" "csc104")((modname Exercise-1) (compthink-settings #hash((prefix-types? . #f))))
+#| ★ CSC324 2017 Fall Exercise 1 ★
+
+ This exercise has you write four functions and turn one partial design
+  check-expect into a full design check-expect. This involves:
+
+   • test driven development
+   • mapping, applying, and filtering
+   • locally defined functions
+   • recursion on lists
+
+ Use only the functions we have covered in the lectures and lab, and the ones
+  introduced explicitly below.
+
+ The handout will look long, but most of it is carefully chosen test cases, and
+  a partial design walking you through the fourth function's algorithm and
+  implementation.
+
+ The first three function bodies combined are about ten lines in total, depending
+  on where you like to line break.
+
+ The fourth function's algorithm is described in words below, with three sentences.
+  There is a quite direct translation of it to code, which ends up containing fewer
+  words than the description itself.
+
+ If any of the following takes you more than fifteen minutes, and you've reviewed
+  the relevant material, have stepped enough to locate the first problem if it's
+  a problem with your implementation, and you're not sure that your process will
+  solve it soon, please ask for help:
+
+  • understanding and implementing one of the first three functions
+
+  • understanding and implementing one of the first two cases for the fourth function
+  • understanding the test cases and partial design for the third case
+  • turning the partial design for the third case into a full design for that case
+  • incorporating the full design for the third case into your implementation
+
+ Hopefully that makes this exercise take not much more than two hours of work
+  [not counting learning material from lectures and labs to be ready to use it].
+
+ You may add more check-expects if you like.
+
+ Before submitting, you *must* click the "Reindent All" and then "Finer Format"
+  buttons, in particular fixing any issues the "Finer Format" button mentions
+  if it pops up a dialog box.
+
+ Please comment out any 'step' or 'steps' expressions before submission, and don't
+  remove any of the existing check-expects [and uncomment them before submission
+  if during development you happen top comment any of them out]. |#
+
+
+#| ★ include-in-all ★
+
+ Here is a solution to 'include-in-all' from the first lab. |#
+
+(check-expect (include-in-all "hello" (list (list "world" "!")
+                                            (list "there" "friend")))
+              (list (list "hello" "world" "!")
+                    (list "hello" "there" "friend")))
+
+(define (include-in-all element list-of-lists)
+  (local [(define (include-element one-list)
+            (append (list element) one-list))]
+    (map include-element list-of-lists)))
+
+#| ★ 'equal?' and 'not' ★
+ Look up the documentation for 'equal?' and 'not', and study the following examples. |#
+(check-expect (= 324 (+ 300 4 20)) #true)
+(check-expect (equal? 324 (+ 300 4 20)) #true)
+(check-expect (equal? (list 3 2 4) (list 3 2 4)) #true)
+(check-expect (equal? (list 2 3 4) (list 3 2 4)) #false)
+(check-expect (not #true) #false)
+(check-expect (not #false) #true)
+
+
+#| ★ without ★
+
+ Implement 'without' that takes an element and a list, producing a version of the list
+  with the element removed anywhere it occurs.
+
+ Use a similar approach to 'include-in-all' and the database or web lecture:
+   make a local function, and then map, apply, and/or filter with it. |#
+
+(check-expect (without 2 (list 3 2 4)) (list 3 4))
+(check-expect (without 3 (list 3 2 4)) (list 2 4))
+(check-expect (without 1 (list 3 2 4)) (list 3 2 4))
+(check-expect (without 1 (list 3 1 4 1 5 9 2 6)) (list 3 4 5 9 2 6))
+
+(define (without element a-list)
+  a-list)
+
+
+#| ★ not-in? ★
+
+ Implement 'not-in?' that takes an element and a list, determining whether the element
+  is in the list.
+
+ Hint: use 'without' and compare its result to the argument(s) in some way. |#
+
+(check-expect (not-in? 2 (list 3 2 4)) #false)
+(check-expect (not-in? 3 (list 3 2 4)) #false)
+(check-expect (not-in? 1 (list 3 2 4)) #true)
+(check-expect (not-in? 1 (list 3 1 4 1 5 9 2 6)) #false)
+
+(define (not-in? element a-list)
+  #false)
+
+
+#| ★ adjacent ★
+
+ Implement 'adjacent' that takes a list of two integers representing co-ordinates,
+  producing a list of co-ordinates of the spots above, below, left, and right of it.
+
+ It is okay if your code is a bit repetitive. |#
+
+; Test case.
+(check-expect (adjacent (list 0 0)) (list (list  0 -1)
+                                          (list  0  1)
+                                          (list -1  0)
+                                          (list  1  0)))
+; Partial design.
+(check-expect (adjacent (list 0 0)) (local [(define x 0)
+                                            (define y 0)]
+                                      (list (list  x -1)
+                                            (list  x  1)
+                                            (list -1  y)
+                                            (list  1  y))))
+
+(define (adjacent spot) 
+  (list spot))
+
+
+#| ★ paths ★
+
+ Implement 'paths', that takes a 'to' spot, a list of spots to go 'through', and
+  a 'from' spot, producing a list of all lists of spots representing a simple path
+  through 'through', from 'from', to 'to'.
+
+ The check-expects below guide you through implementing this algorithm:
+
+   • when from is not in through, there are no paths
+   • otherwise, if from is to, there is exactly one path, containing from/to
+   • otherwise, collect paths from adjacent spots, without using the current spot,
+      and include the current spot in each of them
+
+ There is also a 'step' expression after the 'paths' stub definition, with each
+  test case commented out except the first: use it to help you debug, and more
+  generally to make sure you understand what you are implementing or implemented. |#
+
+; Full design when from is not in through: no paths.
+(check-expect (paths (list 1 1)
+                     (list (list 1 0)
+                           (list 0 1)
+                           (list 1 1))
+                     (list 0 -1))
+              (list))
+
+(check-expect (paths (list 1 1)
+                     (list (list 1 0)
+                           (list 0 1))
+                     (list 1 1))
+              (list))
+
+; Full design otherwise, when from is to: one path, containing the one spot from/to.
+(check-expect (paths (list 1 1)
+                     (list (list 1 1))
+                     (list 1 1))
+              (list (list (list 1 1))))
+
+; Test case.
+(check-expect (paths (list 1 1)
+                     (list (list 0 1)
+                           (list 1 1))
+                     (list 0 1))
+              (list (list (list 0 1)
+                          (list 1 1))))
+
+
+(define square-of-spots (list (list 0 0) (list 1 0)
+                              (list 0 1) (list 1 1)))
+
+; Test case.
+(check-expect (paths (list 1 1)
+                     square-of-spots
+                     (list 0 0))
+              (list (list (list 0 0)
+                          (list 0 1)
+                          (list 1 1))
+                    (list (list 0 0)
+                          (list 1 0)
+                          (list 1 1))))
+
+; Partial design otherwise.
+
+; 1. Review the design process for 'flatten' from lecture.
+ 
+; 2. In the following expression, identify which hard-coded values are:
+;      • the arguments
+;      • modifications of the arguments
+
+; 3. Copy this check-expect and make explicit:
+;      • the modifications of the arguments
+
+; 4. Use the functions you defined earlier, where appropriate.
+ 
+; 5. Use map, apply, and/or filter, where appropriate.
+
+; 6. Continue until each hard-coded value in your expression is literally one of
+;     the arguments, then copy the expression into the 'paths' definition and
+;     replace arguments with parameter names.
+
+(check-expect (paths (list 1 1)
+                     square-of-spots
+                     (list 0 0))
+ 
+              (local [(define (a-p new-from)
+                        (paths (list 1 1)
+                               (list (list 1 0)
+                                     (list 0 1)
+                                     (list 1 1))
+                               new-from))]   
+                (include-in-all (list 0 0)
+                                (append (a-p (list  0 -1))
+                                        (a-p (list  0  1))
+                                        (a-p (list -1  0))
+                                        (a-p (list  1  0))))))
+
+(define (paths to through from)
+  (list))
+
+
+#| ★ All the 'paths' test cases, ready to step ★ |#
+(step parallel
+      ; Hopefully their test cases were enough that we're confident that any problems aren't
+      ;  inside these:
+      [hide include-in-all without not-in? adjacent
+            ; You might want to hide 'a-p' at times as well, much like we hid the recursions
+            ;  to understand the sierpinski triangle and flatten algorithms in lecture.
+            #;a-p]
+      (paths (list 1 1)
+             (list (list 1 0)
+                   (list 0 1)
+                   (list 1 1))
+             (list 0 -1))
+      #;(paths (list 1 1)
+               (list (list 1 0)
+                     (list 0 1))
+               (list 1 1))
+      #;(paths (list 1 1)
+               (list (list 1 1))
+               (list 1 1))
+      #;(paths (list 1 1)
+               (list (list 0 1)
+                     (list 1 1))
+               (list 0 1))
+      #;(paths (list 1 1)
+               square-of-spots
+               (list 0 0)))
+
+#| ★ A final test of 'paths' ★ |#
+(define figure-eight (list (list 0 0) (list 1 0) (list 2 0)
+                           (list 0 1)            (list 2 1)
+                           (list 0 2) (list 1 2) (list 2 2)
+                           (list 0 3)            (list 2 3)
+                           (list 0 4) (list 1 4) (list 2 4)))
+
+(check-expect (paths (list 2 4) figure-eight (list 0 0))
+              (list (list (list 0 0) (list 0 1) (list 0 2) (list 0 3) (list 0 4)
+                          (list 1 4) (list 2 4))
+                    (list (list 0 0) (list 0 1) (list 0 2)
+                          (list 1 2) (list 2 2)
+                          (list 2 3) (list 2 4))
+                    (list (list 0 0) (list 1 0) (list 2 0)
+                          (list 2 1) (list 2 2) (list 2 3) (list 2 4))
+                    (list (list 0 0) (list 1 0) (list 2 0)
+                          (list 2 1) (list 2 2)
+                          (list 1 2) (list 0 2)
+                          (list 0 3) (list 0 4)
+                          (list 1 4) (list 2 4))))

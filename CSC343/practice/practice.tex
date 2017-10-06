@@ -1,0 +1,66 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\begin{defn*}
+    \textbf{Relational algebra exercises}
+    \begin{enumerate}
+        \item 11 sIDs and surnames of all pairs of students who've taken a course (offering) together 
+        \[
+            Pairs(sID1, sID2) := \Pi_{T1.sID, T2.sID} (\sigma_{T1.oID<T2.oID \, \land \, T1.sID!=T2.sID} (\rho_{T1} (Took) \times \rho_{T2} (Took)))
+        \]
+        Note $T1.oID < T2.oID$ instead of $T1.oID = T2.oID$ to remove pseudo-duplicates, i.e. same $sID$ but different combination
+        \[
+            \sigma_{Student.sID=Pairs.sID1} (Student \times Pairs)
+        \]
+        \item 12 sID of students with the highest grade in csc343, in term 2009
+        \[
+            Takers(sID, grade) := \Pi_{sID, grade} \sigma_{term=2009 \, \land \, dept=csc \, \land \, cNum=343} (Offering \bowtie Took)
+        \]
+        \[
+            NotMax(sID) := \Pi_{T1.sID} \sigma_{T1.grade > T2.grade} (\rho_{T1} Takers \times \rho_{T2} Takers)
+        \]
+        Note, however, selecting by $T1.grade < T2.grade$ does not imply we get maximum, instead we get the set of $sID$s that have some (>=1) grade higher than itself
+        \[
+            Max(sID) := \Pi_{sID} Takers - NotMax
+        \]
+        Idea is there are things that cant be done directly, like finding the maximum. So have to find the result indirectly. Also cartesian product of the same table (after renaming) conceptually achieves pairwise comparison.
+        \item 14 sID of students who have a grade of 100 at least twice
+        \[
+            AtLeastTwice := \Pi_{T1.sID} ( \sigma_{T1.sID=T2.sID \,\land\, T2.oID!=T2.oID \,\land\, T1.grade=T2.grade=100} ( \rho_{T1}(Took) \times \rho_{T2}(Took)))
+        \]
+        \item 15 sID of students who have a grade of 100 exactly twice. 
+        \[
+            AtLeastThrice(sID) := \Pi_{sID} (\sigma_{C_1} (\rho_{T1}(Took) \times \rho_{T2}(Took) \times \rho_{T3} (Took)))
+        \]
+        where 
+        \[
+            C_1 = T1.sID = T2.sID = T3.sID \,\land\, T1.oID < T2.oID < T3.oID \,\land\, T1.grade=T2.grade=T3.grade=100
+        \]
+        \[
+            ExactlyTwice(sID) := AtLeastTwice - AtLeastThrice
+        \]
+        \item 15 sID of students who have a grade of 100 at most twice. 
+        \[
+            AtMostTwice(sID ) := \Pi_{sID} (Took) - AtLeastThrice
+        \]
+        \item 16 Department and cNum of all courses that have been taught in every term when csc488 is taught
+        \[
+            Requirement(dept, cNum, term) := (\Pi_{dept, cNum} CourseTerm) \times 488Terms
+        \]
+        \[
+            Missing(dept, cNum, term) := Requirement - CourseTerm
+        \]
+        \[
+            Answer(dept, cNum) := (\Pi_{dept, cNum} CourseTerm) - (\Pi_{dept, cNum} Missing)
+        \]
+        \textbf{Division}  $R / S$. The result consists of the restrictions of tuples in $R$ to the attribute names unique to $R$
+    \end{enumerate}
+\end{defn*}
+
+
+
+
+
+
+\end{document}

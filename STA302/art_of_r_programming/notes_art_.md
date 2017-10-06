@@ -391,10 +391,299 @@
         + when subsetting, use `drop=F` to suppress implicit conversion from matrix to vector
         + or use `as.matrix()`
 + _adding/deleting elements of vectors and matrices_ 
-    + 
+    ```r
+    > x <- c(12,5,13,16,8)
+    > x <- c(x,20) # append 20
+    >x
+    [1]12 51316 820
+    > x <- c(x[1:3],20,x[4:6]) # insert 20
+    >x
+    [1]12 5132016 820 #deleteelements2through4 > x <- x[-2:-4]
+    >x
+    [1]1216 820
+    ```
+    + _usually with indexing operator_
+    ```r
+    > one
+    [1] 1 1 1 1 
+    >z
+    [,1] [,2] [,3]
+    [1,] 1 1 1
+    [2,] 2 1 0
+    [3,] 3 0 1
+    [4,] 4 0 0
+    > cbind(one,z)
+    [1,]1 1 1 1
+    [2,]1 2 1 0
+    [3,]1 3 0 1
+    [4,]1 4 0 0
+    ```
+    + _`cbind` and `rbind`_
+        + addes rows or columns to matrix 
+        + or used to create matrices from vectors
++ `apply` 
+    + used to apply a function to all rows or columns of a matrix 
+    + `apply(z, dim, func)`
+        + apply `func` to matrix `z` on its `dim`-th dimension 
+            + `dim` is 1 stands for row, 2 for column
+    ```r
+    f <- function(x) x/c(2,8) 
+    > y <- apply(z,1,f)
+    > y
+    [,1]  [,2] [,3]
+    [1,]  0.5 1.000 1.50
+    [2,]  0.5 0.625 0.75
+    ```
++ `sapply()`
+    + ...
+
++ _List_ 
+    + like C struct
++ _creation_ 
+    ```r
+    j <- list()
+    j <- list(name="joe", salary=55000)
+    > j
+    $name
+    [1] "Joe"
+    $salary
+    [1] 55000
+    ```
+    ```r
+    > jalt <- list("Joe", 55000, T)
+    > jalt
+    [[1]]
+    [1] "Joe"
+    [[2]]
+    [1] 55000
+    [[3]]
+    [1] TRUE
+    ```
++ _list tags_ 
+    + names for list members are called _tags_
+    + value associated with a tag is called its _value_
+    ```r
+    > names(j)
+    [1] "name"   "salary" "union"
+    ```
+    + `names(list)`
+        + returns tags
+    ```r 
+    > ulj <- unlist(j)
+    > ulj
+    name  salary   union
+    "Joe" "55000"  "TRUE"
+    > class(ulj)
+    [1] "character"
+    > x 
+    $abc 
+    [1] 2
+    $de 
+    [1] 5
+    > ulx <- unlist(x)
+    > ulx
+    abc  de
+    25
+    > class(ulx) 
+    [1] "numeric"
+    ```
+    + `unlist()`
+        + returns values as a vector
+        + return `mode` (type) depends on the least common denominator
+        + _rule_ 
+            + list elements are coerced to a common mode during unlisting 
+            + vectors will be coerced to the highest type of the component in 
+            + `NULL < raw < logical < integer < real < complex < character < list < expression`
++ _access list element_ 
+    ```r
+    >j
+    $name
+    [1] "Joe"
+    $salary
+    [1] 55000
+    $union
+    [1] TRUE
+
+    > j[[1]]
+    [1] "Joe"
+    > j[2:3]
+    $salary
+    [1] 55000
+    $union
+    [1] TRUE
+    ```
+    + `$` used to desginate named elements of list 
+    + `[[]]` 
+        + references a single elemnt 
+        + returns _value_ (vector..)
+    + `[]` references a set of elements 
+        + returns a sublist
++ _adding/deleting list elments_ 
+    ```r
+    list$new_tag <- new_value   # adds
+    list$existing_tag] <- NULL  # delete
+    ```
++ _indexing_ 
+    ```r
+    z[2:3]
+    $c 
+    [1] 1
+
+    [[2]]
+    [1] 1 2
+    ```
+    + with `[]` for ranges or slices 
+    ```r
+    function f() {return(list(mat=m, vec=v))}
+    l <- f()
+    m <- l$mat
+    v <- l$vec
+    ```
+    + pack return value into lists
++ `lapply`
+    + apply a function to all elements of a list
+    ```r
+    lapply(list(1:3, 25:27), median)
+    [[1]]
+    [1] 2
+
+    [[2]]
+    [1] 26
+    ```
++ `length()` size of list 
++ _nested list_ 
+    ```r
+    > b <- list(u = 5, v = 12) > c <- list(w = 13)
+    > a <- list(b,c)
+    >a
+    [[1]]
+    [[1]]$u
+    [1] 5
+    [[1]]$v
+    [1] 12
+    [[2]]
+    [[2]]$w
+    [1] 13
+    > length(a)
+    [1] 2
+    ```
+
+### Chapter 6 data frame
+
++ _data frame_ 
+    + like a matrix, except each column may have a different mode 
+    + _is_ a list of equal-length vectors, each column is one element of the list   
+    + _consequence_ 
+        + use `$` to access column vectors
++ _matrix-like operation_ 
+    + `rowMeans()` and `colMeans()`
+    + `rbind()` and `cbind()`
+        + `cbind` can be used to add new columns
+            + `cbind(df, df$foo - df$bar)`
++ _indexing/filter `apply`_
+    + `apply` works by coercing dataframe to matrices
++ _creating data frame_ 
+    ```r
+    > z <- data.frame(cbind(c(1,2),c(3,4))) 
+    >z
+      X1 X2 
+    1 1 3 
+    2 2 4
+    ```
++ _converting list to data frame_ 
+    ```r
+    # converts a list lst to a data frame, which is the return value
+    wrtlst <- function(lst) {
+    frm <- data.frame()
+    rw <- 1
+    for (key in names(lst)) {
+        frm[rw,1] <- key
+        frm[rw,2] <- lst[key]
+        rw <- rw+1
+    }
+    return(frm)
+    }
+    ```
++ _factor_
+    ```r
+    > d <- data.frame(cbind(c(0,5,12,13),c("xyz","ab","yabc",NA))) 
+    >d
+    X1   X2
+    1  0  xyz
+    2  5   ab
+    3 12 yabc
+    4 13 <NA>
+    > d[1,1] <- 3
+    Warning message:
+    In ‘[<-.factor‘(‘*tmp*‘, iseq, value = 3) :
+    invalid factor level, NAs generated 
+    >d
+        X1   X2
+    1 <NA>  xyz
+    2    5   ab
+    3 12 yabc
+    4 13 <NA>
+    ```
+    + _problem_ 
+        + `dataf.frame()` treat first column as a vector of `factor`, 
+        + assigning `numeric` to `factor` gives warning
+    + _solution_ 
+        + set `stringAsFactors` to false
+        + `d <- data.frame(cbind(c(0,5,12,13),c("xyz","ab","yabc",NA)),stringsAsFactors=F)`
 
 
+### Chapter 8 R programming structure
 
-    
++ _properties_ 
+    + block structured
++ _loops_
+    + `for (n in x) {}`
+        + `x` is a vector and `n` is value of elements in `x`
+        + does not directly support iteration over nonevector sets
+            + use `lapply` instead
+    + `while`
++ _if-else_
+    ```r
+    > if (r == 4) { + x<-1
+    + y<-2
+    + } else {
+    + x<-3 + y<-4 +}
+    ```
++ _arithmetic and boolean operator_
+    + ![](2017-09-23-21-20-57.png)
++ _type conversion_ 
+    ```r    
+    > x <- c(1,2,4)
+    > class(x)
+    [1] "numeric"
+    > str(x)
+    num [1:3] 1 2 4
+    ```
+    + `str` converts object to string form
+    ```r
+    > x <- c(1,2,4)
+    > y <- as.character(x)
+    > y
+    [1] "1" "2" "4"
+    > as.numeric(y) [1] 1 2 4
+    > q <- as.list(x) 
+    > q
+    [[1]]
+    [1] 1
+    [[2]] [1] 2
+    [[3]] [1] 4
+    > r <- as.numeric(q) 
+    > r
+    [1] 1 2 4
+    ```
+    + explicit conversion with `as()`
 
-    
+
+### Chapter 13 Graphics 
+
+
++ `plot()`
+    + a generic function.
+    ```c
+    > plot(c(1,2,3), c(1,2,4))
+    ```

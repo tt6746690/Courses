@@ -14,6 +14,8 @@ summary(dat)
 hist(dat)
 ```
 
+
+
 ```{r}
 x <- rchisq(100, 10)    # 100 samples of chi-squared 10
 h <- hist(x, freq=FALSE)  # create histogram

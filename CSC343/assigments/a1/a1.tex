@@ -1,0 +1,693 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage[normalem]{ulem}
+\usepackage{amstext}
+\usepackage{amsmath}
+\newcommand{\var}[1]{\mathit{#1}}
+\setlength{\parskip}{6pt}
+
+\begin{document}
+
+\noindent
+University of Toronto\\
+{\sc csc}343, Fall 2017\\[10pt]
+{\LARGE\bf Assignment 1: Peiqi Wang (1001132561) here} \\[10pt]
+
+
+%----------------------------------------------------------------------------------------------------------------------
+\section*{Part 1: Queries}
+
+\begin{enumerate}
+
+\item   % ----------
+Find all the users who have never liked or viewed a post or story 
+of a user that they do {\it not} follow. 
+Report their user id and ``about" information. 
+Put the information into a relation with attributes ``username'' and ``description''. \\
+
+{\large %This increase in font size makes the subscripts much more readable.
+
+-- $A$ liked $B$'s post \\ 
+$\var{AlikedB}(A,B) := $
+\[
+    \rho_{\var{AlikesB}(A,B)}
+    \Pi_{liker, uid} 
+    (\var{Likes} \bowtie \var{Post})
+\]
+
+-- $A$ saw $B$'s story \\ 
+$\var{AsawB}(A,B) := $
+\[
+    \rho_{\var{AsawB}(A,B)}
+    \Pi_{viewerid, uid} 
+    (\var{Saw} \bowtie \var{Story})
+\]
+
+-- $A$ did not follow $B$ \\ 
+$\var{ANotFollowB}(A,B) :=$
+\begin{align*}
+    &\left(\rho_{\var{UserCombination}(follower,followed)} \Pi_{U1.uid, U2.uid}( \rho_{U1}\var{User}\times\rho_{U2} \var{User})\right)  \\ 
+    &- \Pi_{follower, followed} \var{Follows}\\ 
+\end{align*}
+
+-- User who have liked a post or saw a story of a user they do not follow \\ 
+$\var{TheCuriousOnes}(uid) :=$
+\[
+    \Pi_{U.uid}
+    \left( 
+        \sigma_{\substack{
+            U.uid=NF.A \,\land\, U.uid=L.A \,\land\, U.uid=S.A \\
+            \land\, (L.B=NF.B \,\lor\, S.B=NF.B)
+        }} (\rho_{U}\var{User} \times \rho_{NF} \var{ANotFollowB} \times \rho_{L} \var{ALikesB} \times \rho_{S} \var{ASawB})
+    \right)
+\]
+
+-- user who have not liked a post or saw a story of user they do not follow\\ 
+$\var{TheUncuriousOnes}(uid) :=$
+\[
+    (\Pi_{uid}\var{User}) - \var{TheCuriousOnes}
+\]
+
+$\var{Solution}(username, description) :=$
+\[
+    \rho_{Solution(username, description)}  \Pi_{uid, about} 
+    (\var{TheUncuriousOnes} \bowtie \var{User})
+\]
+
+} % End of font size increase.
+
+
+\item   % ----------
+Find every hashtag that has been mentioned in at least three post captions
+on every day of 2017.
+You may assume that there is at least one post on each day of a year. 
+
+{\large 
+
+
+
+-- Tags in 2017 \\
+$\var{Post2017}(pid, uid, when, location, caption) :=$
+\[
+    \sigma_{when.year=2017} Post
+\]
+
+-- Combine tag and time info in same place \\ 
+$\var{PostAndTag}(pid, tag, when) :=$
+\[
+    \Pi_{pid, tag, when} (\var{Post2017} \bowtie \var{Hashtag})
+\]
+
+-- Hashtags mentioned in at least 3 post captions \\ 
+$\var{PossiblyPopularTags}(tag, when) :=$
+\[
+    \Pi_{tag, when}
+    \sigma_{
+        \substack{T1.when=T2.when=T3.when \\ 
+        \land\, T1.tag=T2.tag=T3.tag  \\
+        \land\, T1.pid < T2.pid < T3.pid }}
+    (\rho_{T1} \var{PostAndTag} \times \rho_{T2} \var{PostAndTag} \times \rho_{T2} \var{PostAndTag})
+\]
+
+-- Expected tag-when pair \\
+$\var{PopularTags}(tag, when) :=$
+\[
+    \Pi_{tag} \var{Hashtag} \times \Pi_{when} \var{Post}
+\]
+
+-- Tags that fails to be popular for $>=1$ days  \\ 
+$\var{NotConsistentlyPopularTags}(tag, when) :=$
+\[
+    PopularTags - PossiblyPopularTags
+\]
+
+-- Tags that is popular for all days in a year \\
+$\var{Solution}(tag) :=$
+\[
+    \Pi_{tag} \var{Hashtag} - \Pi_{tag} \var{NotConsistentlyPopularTags}
+\]
+
+
+}
+
+
+\item   % ----------	
+Let's say that a pair of users are ``reciprocal followers" if they follow each other. 
+For each pair of reciprocal followers, 
+find all of their ``uncommon followers": 
+users who follow one of them but not the other. 
+Report one row for each of the pair's uncommon follower.
+In it, include
+the identifiers of the reciprocal followers,
+and the identifier, name and email of the uncommon follower. 
+
+{\large
+
+
+-- Create a table containing all reciprocal followers without duplication \\
+$\var{ReciprocalFollowers}(follower,followed) :=$
+\[
+	\Pi_{F1.follower, F2.follower} 
+	\left(
+		\sigma_{
+			\substack{
+				F1.follower = F2.followed\\
+				F2.follwer = F1.followed\\
+				F1.follower < F1.followed
+			} 
+		}
+		(\rho_{F1} \var{Follows} \times \rho_{F2} \var{Follows})
+	\right)
+\]
+
+
+-- Create a table containing all followers who follows at least one of the reciprocal followers A and B \\
+$\var{AllReciprocalFollowers}(follower,followed) :=$
+\[
+	\Pi_{Follows.follower,Follows.followed}
+	\left(
+		\sigma_{
+			\substack{
+				Follows.followed = ReciprocalFollowers.follower \lor \\
+				Follows.followed = ReciprocalFollowers.followed \\
+			}
+		}
+		(\var{Follows} \times \var{ReciprocalFollowers})
+	\right) 
+\]
+
+
+-- Create a table containing all followers who follows both reciprocal followers \\
+$\var{CommonFollowers}(follower):=$
+\[
+	\Pi_{f_3.follower}
+	\left(
+		\sigma_{
+			\substack{
+				f_3.followed = ReciprocalFollowers.follower \land \\
+				f_4.followed = ReciprocalFollowers.followed \land \\
+				f_3.follower = f_4.follower
+			}
+		}
+		(\rho_{f_3} \var{Follows} \times \rho_{f_4} \var{Follows} \times \var{ReciprocalFollowers})
+	\right) 
+\]
+
+
+--Create a table to store the identifier for all uncommon followers \\
+$\var{UncommonFollowersIndentifier}(follower) := $
+\[
+	\Pi_{follower} \var{AllReciprocalFollowers} - \var{CommonFollowers}
+\]
+
+--Final result \\
+$\var{UncommonFollower}(reciprocalfollower, uncommon follower, name, email):=$
+\begin{align*}
+	&\Pi_{f_5.followed,f_5.follower,name,email}\\
+		&\sigma_{
+			\substack{
+				f_5.follower = UncommonFollowersIndentifier.follower \land \\
+				(f_5.followed = ReciprocalFollowers.follower \lor \\
+				f_5.followed = ReciprocalFollowers.followed) \land \\
+				f_5.follower = User.uid
+			}
+		}\\
+		&(\rho_{f_5} \var{Follows} \times \var{ReciprocalFollowers} \times \var{UncommonFollowersIndentifier} \times \var{user})\\
+\end{align*}
+
+}
+
+\item   % ---------- 
+Find the user who has liked the most posts. 
+Report the user's id, name and email, and the id of the posts they have liked. 
+If there is a tie, report them all.
+
+cannot be expressed
+
+\item   % ----------
+Let's say a pair of users are ``backscratchers" 
+if they follow each other and like all of each others' posts. 
+Report the user id of all users who follow some pair of backscratcher users.
+
+{\large 
+
+-- $A$ and $B$ follows each other, appear twice in table  \\ 
+$\var{FollowEachOther}(A,B) :=$
+\[
+    \sigma_{
+        \substack{
+            F1.follower=F2.followed\\
+            F1.followed=F2.follower
+        }
+    } \left( \rho_{F1} \var{Follows} \times \rho_{F2} \var{Follows} \right)
+\]
+
+
+-- Relation containing $B$'s posts for which the $A$ liked  \\ 
+$\var{ALikedBPost}(A,B,pid) :=$
+\[
+    \rho_{ALikedBPost(A,B,pid)}
+    \left(
+        \Pi_{F1.A, F1.B, L.pid}
+        \sigma_{
+            \substack{  
+                F.A=L.liker\\
+                F.B=P.uid \\
+                L.pid=P.pid
+            }
+        }
+        (\rho_{F} \var{FollowEachOther} \times \rho_{L} \var{Likes}\times \rho_{P} \var{Post})
+    \right)
+\]
+
+-- Expected relation where $A$ liked every post made by $B$ \\ 
+$\var{ALikedBEveryPost}(A,B,pid) :=$ 
+\[
+    \rho_{ALikedBEveryPost(A,B,pid)}
+    \Pi_{F.A, F.B, P.pid} (\rho_{F} \var{FollowEachOther} \bowtie_{F.B=P.uid} \rho_{P} \var{Post})
+\]
+
+
+-- Relation where $A$ did not liked every post made by $B$ \\ 
+$\var{DidNotLikedEveryPost}(A,B, pid) :=$
+\[
+    \var{ALikedBEveryPost} - \var{ALikedBPost}
+\]
+
+-- Observed relation where $A$ liked every post made by $B$\\
+$\var{AIsBackScratcherOfB}(A,B) :=$
+\[
+    \Pi_{A,B} \var{ALikedBPost} - \Pi_{A,B} \var{DidNotLikedEveryPost}
+\]
+
+-- Observed relation where $A$ liked every post made by $B$. and vice versa\\
+$\var{ABAreBackScratchers}(A,B) :=$
+\[
+    \rho_{\var{ABAreBackScratchers}(A,B)} \Pi_{T1.A, T1.B}
+\]
+\[
+    \rho_{T1} \var{AIsBackScratcherOfB} \bowtie_{T1.A=T2.B \,\land\, T1.B=T2.A} \rho_{T2} \var{AIsBackScratcherOfB}
+\]
+
+
+-- Solution \\
+$\var{Solution}(uid) :=$
+\[
+    \rho_{\var{Solution}(uid)}
+    \Pi_{F.follower}
+    \rho_{F} \var{Follow} \bowtie_{F.followed=T.A} \rho_{T} \var{ABAreBackScratchers}
+\]
+
+
+}
+\item   % ----------
+The ``most recent activity" of a user is his or her latest story or post. 
+The ``most recently active user" is the user whose most recent activity
+occurred most recently.
+
+Report the name of every user, 
+and for the \textbf{most recently active user they follow},
+report their name and email, and the date of their most-recent activity.
+If there is a tie for the most recently active user that a user follows,
+report a row for each of them.
+
+
+{\large  
+
+
+-- User's not most recent posts \\
+$\var{NotMostRecentPost}(uid, when) :=$
+\begin{align*}
+    \rho_{\var{NotMostRecentPost}(uid, when)}
+    &\Pi_{P1.uid, P1.when}\\
+    &\sigma_{P1.when < P2.when}
+    \left( 
+        \rho_{P1} \var{Post} \times \rho_{P2} \var{Post}
+    \right)
+\end{align*}
+
+-- User's most recent posts \\ 
+$\var{MostRecentPost}(uid, when) :=$
+\[
+    \Pi_{uid, when} \var{Post} - \var{NotMostRecentPost}
+\]
+
+
+-- User's not most recent stories \\ 
+$\var{NotMostRecentStory}(uid, when) :=$
+\begin{align*}
+    \rho_{\var{NotMostRecentStory}(uid, when)}
+    &\Pi_{S1.uid, S1.when}\\
+    &\sigma_{S1.when < S2.when}
+    \left( 
+        \rho_{S1} \var{Story} \times \rho_{S2} \var{Story}
+    \right)
+\end{align*}
+
+-- User's most recent stories \\ 
+$\var{MostRecentStory}(uid, when) :=$
+\[
+    \Pi_{uid, when} \var{Story} - \var{NotMostRecentStory}
+\]
+
+
+-- User's most recent post and most recent story in one table  \\ 
+$\var{MostRecentCombined}(uid, when) :=$
+\[
+    \var{MostRecentStory} \bigcup \var{MostRecentPost}  
+\]
+
+-- User's most recent activity, one for each user, unless there is a tie \\ 
+$\var{MostRecentActivity}(uid, when) :=$
+\begin{align*}
+    \var{MostRecentCombined} \,\,- &\\ 
+    &\rho_{\var{NotMostRecentActivity}(uid, when)} \Pi_{C1.uid, C1.when} \\
+    &\sigma_{C1.when < C2.when} 
+        (\rho_{C1}\var{MostRecentCombined} \times \rho_{C2}\var{MostRecentCombined})
+\end{align*}
+
+
+-- Relation containing users, and all users they follow with their respective most recent activity time\\
+$\var{FollowActivity}(A, B, when) :=$
+\begin{align*}
+    \rho_{\var{FollowActivity}(A, B, when)}
+    &\Pi_{F.follower, F.followed, M.when}\\ 
+    &(\rho_{F} \var{Follows} \bowtie_{F.followed=M.uid} \rho_{M} \var{MostRecentActivity})
+\end{align*}
+
+-- Relation containing users, and only the most recently active users they follow\\
+$\var{MostRecentlyActiveFollow}(A, B, when) :=$
+\begin{align*}
+    \var{FollowActivity}& \,\, -\\ 
+    &\rho_{\var{NotRecentlyActiveFollow}(A,B,when)} \Pi_{F1.A, F1.B, F1.when} \\
+    &\sigma_{F1.when < F2.when}
+    (\rho_{F1} \var{FollowActivity} \bowtie_{F1.A=F2.A} \rho_{F2} \var{FollowActivity})
+\end{align*}
+
+-- Add name and email to previous relation \\
+$\var{Solution}(name, followername, followeremail, followerwhen) :=$
+\begin{align*}
+    &\rho_{\var{Solution}(name, followername, followeremail, followerwhen)}\\ 
+    &\quad \Pi_{U1.name, U2.name, U2.email, M.when} \\ 
+    &\quad \quad (\rho_{M} \var{MostRecentlyActiveFollow} 
+        \bowtie_{M.A=U1.uid} \rho_{U1} \var{User} 
+        \bowtie_{M.B=U2.uid} \rho_{U2} \var{User})
+\end{align*}
+
+
+}
+
+\item   % ----------
+Find the users who have always liked posts
+in the same order as the order in which they were posted,
+that is,
+users for whom the following is true:
+if they liked $n$ different posts (posts of any users)
+and
+$$[post\_date\_1] < [post\_date\_2] < ... < [post\_date\_n]$$
+where $post\_date\_i$ is the date on which a post $i$ was posted, 
+then it holds that
+$$[like\_date\_1] < [like\_date\_2] < ... < [like\_date\_n]$$ 
+where $like\_date\_i$ is the date on which the post $i$ was liked 
+by the user.  
+Report the user's name and email.
+
+{\large 
+
+
+-- Relation that augment $\var{Likes}$ to include when post is posted  \\
+$\var{LikeWhen}(uid, pid, postwhen, likewhen) :=$
+\[
+    \rho_{\var{LikeWhen}(uid, pid, postwhen, likewhen)}
+    \Pi_{L.uid, L.pid, P.when, L.when}
+    (\rho_{P} \var{Post} \bowtie \rho_{L} \var{Likes}) 
+\]
+
+
+-- Relation where user does not follow the ordering specified above \\
+$\var{NotOrderedUser}(uid) :=$
+\begin{align*}
+    &\rho_{\var{NotOrderedUser}(uid)}
+    \Pi_{L1.uid} \\
+    &\sigma_{
+        \substack{
+            (L1.postwhen < L2.postwhen \,\land\, L1.likewhen > L2.likewhen)   \\
+            \,\lor (L1.postwhen > L2.postwhen \,\land\, L1.likewhen < L1.likewhen)
+        }
+    }
+    (\rho_{L1} \var{LikeWhen} \bowtie_{L1.uid=L2.uid} \rho_{L2} \var{LikeWhen})
+\end{align*}
+}
+
+-- Relation where user does follow the ordering specified above \\
+$\var{OrderedUser}(uid) :=$
+\[
+    (\rho_{all(uid)} \Pi_{liker} \var{Likes}) - \var{NotOrderedUser}
+\]
+
+
+-- Solution \\
+$\var{Solution}(name, email) := $
+\[
+    \sigma_{name, email} (\var{OrderedUser} \bowtie \var{User})
+\]
+
+\item   % ----------
+Report the name and email of the user
+who has gained the greatest number of new followers in 2017. 
+If there is a tie, report them all.
+
+cannot be expressed
+
+\item   % ----------
+For each user who has ever viewed any story, 
+    report their id and the id of the first and of the last story they have seen.
+If there is a tie for the first story seen, report both;
+if there is a tie for the last story seen, report both.
+This means that a user could have up to 4 rows in the resulting relation.
+
+
+\large{
+    
+    -- Create a table to record viewers and stories they viewed that weren't the last stories they viewed \\
+    $\var{NotLast}(viewerid,sid):=$
+    \[
+        \Pi_{s_1.viewerid,s_1.sid} 
+        \sigma_{
+            \substack{
+                s_1.viewerid = s_2.viewerid \\
+                s_1.sid \ne s_2.sid \\
+                s_1.when < s_2.when \\
+            }
+        }\\
+        (\rho_{s_1} \var{Saw} \times \rho_{s_2} \var{Saw}) 
+    \]
+    
+    -- Create a table to record viewers and stories they viewed that were the last stories they viewed \\
+    $\var{Last}(viewerid,sid):=$
+    \[
+        \Pi_{viewerid,sid} \var{Saw} - NotLast
+    \]
+    
+    -- Create a table to record viewers and stories they viewed that weren't the first stories they viewed \\
+    $\var{NotFirst}(viewerid,sid):=$
+    \[
+        \Pi_{s_1.viewerid,s_1.sid} 
+        \sigma_{
+            \substack{
+                s_1.viewerid = s_2.viewerid \\
+                s_1.sid \ne s_2.sid \\
+                s_1.when > s_2.when \\
+            }
+        } 
+        (\rho_{s_1} \var{Saw} \times \rho_{s_2} \var{Saw}) 
+    \]
+    
+    -- Create a table to record viewers and stories they viewed that were the first stories they viewed \\
+    $\var{First}(viewerid,sid):=$
+    \[
+        \Pi_{viewerid,sid} \var{Saw} - NotFirst
+    \]
+    
+    -- Create a table to record each viewer's first and last viewed stories \\
+    $\var{FirstAndLast}(viewerid,firstsid,lastsid) :=$
+    \[
+        \rho_{\var{FirstAndLast}(viewerid,firstsid,lastsid)}
+        \Pi_{First.viewerid, First.sid, Second.sid}
+    \]
+    \[
+        \sigma_{
+                First.viewerid = Last.viewerid
+        }
+        (\var{First} \times \var{Last})
+    \] 
+    
+    
+    }
+
+
+
+
+
+\item   % ----------\
+A comment is said to have either positive or negative sentiment
+based on the presence of words such as ``like,'' ``love,'' ``dislike,'' and ``hate.'' 
+A ``sentiment shift" in the comments on a post occurs at moment $m$ iff
+all comments on that post before $m$ have positive sentiment, 
+while all comments on that post after $m$ have negative sentiment ---
+or the other way around, with comments shifting from negative to positive sentiment.
+
+Find posts that have at least three comments and for which there has been a sentiment shift over time. 
+For each post, report the user who owns it and,
+for each comment on the post,
+the commenter's id, 
+the date of their comment and its sentiment.
+
+You may assume there is a function, called {\it sentiment}
+that can be applied to a comment's text and 
+returns the sentiment of the comment as a string with the value ``positive" or ``negative".
+For example,
+you may refer to $sentiment(text)$ in the condition of a select operator.
+
+
+
+{\large 
+
+
+-- Posts with at least 3 different comment. Comments for a single post are uniquely identified by commenter and when. So a post has at least three unique comments if pairwise inequality operation of 3 cross product of the $\var{Comment}$ yields true conjunctively\\ 
+$\var{HotPostPid}(pid) :=$ 
+\begin{align*}
+    & \rho_{\var{HotPost}(pid)} \Pi_{C1.pid} \\ 
+    &
+    \left(
+        \sigma_{
+            \substack{
+                (C1.pid=C2.pid=C3.pid) \\ 
+                \land (C1.commenter!=C2.commenter \,\lor\, C1.when!=C1.when)\\
+                \land (C1.commenter!=C3.commenter \,\lor\, C1.when!=C3.when)\\
+                \land (C2.commenter!=C3.commenter \,\lor\, C2.when!=C3.when)
+            }
+        }
+        (\rho_{C1} \var{Comment} \times \rho_{C2} \var{Comment} \times \rho_{C3} \var{Comment})
+    \right)
+\end{align*}
+
+-- Filters $\var{Comment}$ such that only comments belonging to a post with at least 3 comments exist \\
+$\var{HotPostComments}(pid, commenter, when, text) :=$
+\[
+    \var{HotPostPid} \bowtie \var{Comment}
+\]
+
+-- Posts with at least 3 different comments and for which there is not a sentiment change over time. A three tuple of $\var{HotPostComments}$ does not have a sentiment change iff there is a sequence of ``positive''-``negative''-``positive'' or ``negative''-``positive''-``negative'' of comments when ordered by time \\
+$\var{NotSentimentHotPost}(pid) :=$
+\begin{align*}
+    &\rho_{\var{NotSentimentHotPost}(pid)} 
+    \Pi_{C1.pid} \\ 
+    &\sigma_{
+        \substack{
+            (C1.pid=C2.pid=C3.pid) \\
+            (C1.when < C2.when < C3.when) \\
+            (sentiment(C1.text)=``positive'' \,\land\, sentiment(C2.text)=``negative'' \,\land\, sentiment(C3.text)=``positive'') \\
+            (sentiment(C1.text)=``negative'' \,\land\, sentiment(C2.text)=``positive'' \,\land\, sentiment(C3.text)=``negative'') \\ 
+        }
+    }\\ 
+    &(\rho_{C1} \var{HotPostComments} \times \rho_{C2} \var{HotPostComments} \times \rho_{C3} \var{HotPostComments})
+\end{align*}
+
+
+-- Posts with at least 3 different comments and there is a sentiment shift \\
+$\var{SentimentHotPost}(pid) :=$
+\[
+    \var{HotPostPid} - \var{NotSentimentHotPost}
+\]
+
+
+-- Adds owner info to above relation \\
+$\var{Solution}(ownerid, commenter, commentwhen, commentsentiment) :=$
+\begin{align*}
+    &\rho_{\var{Solution}(ownerid, commenter, commentwhen, commentsentiment)}\\ 
+    &\Pi_{P.uid, C.uid, C.when, sentiment(C.text)}
+    (\rho_{T} \var{SentimentHotPost} \bowtie \rho_{P} \var{Post} \bowtie \rho_{C} \var{Comment})\\
+\end{align*}
+
+
+
+}
+
+\end{enumerate}
+
+
+
+%----------------------------------------------------------------------------------------------------------------------
+\section*{Part 2: Additional Integrity Constraints}
+
+
+Express the following integrity constraints
+with the notation $R = \emptyset$, where $R$ is an expression of relational algebra. 
+You are welcome to define intermediate results with assignment
+and then use them in an integrity constraint.
+
+\begin{enumerate}
+
+\item   % ----------
+A comment on a post must occur after the date-time of the post itself.
+(Remember that you can compare two date-time attributes with simple $<$,
+$>=$ etc.)
+
+{\large  
+
+\[
+    \left( 
+        \sigma_{P.when > C.when}
+        (\rho_{C}\var{Comment} \bowtie \rho_{P} \var{Post})    
+    \right)
+    =\emptyset
+\]
+
+}
+
+\item %---------
+Each user can have at most one current story.
+
+
+{\large 
+
+\[
+    \left(
+    \sigma_{
+        \substack{
+            S1.current=``yes''\,\land\, S2.current=``yes'' \\ 
+            S1.sid < S2.sid
+        }
+    }
+    (\rho_{S1}\var{Story} \bowtie_{S1.uid=S2.uid} \rho_{S1} \var{Story})
+    \right) = \emptyset
+\]
+}
+
+\item %----------
+Every post must include at least one picture or one video and so must every story.
+
+{\large 
+
+\[
+    \left(
+        \rho_{\var{PostWithNoIncludes}(id)}
+        (\Pi_{pid} \var{Post} - \Pi_{pid} \var{PIncludes})
+    \right)
+\]
+\[
+    \quad \quad \quad \bigcup
+    \left(
+        \rho_{\var{StoryWithNoIncludes}(id)}
+        (\Pi_{sid} \var{Story} - \Pi_{sid} \var{SIncludes})
+    \right)
+    = \emptyset
+\]
+}
+
+\end{enumerate}
+
+\end{document}
+
+    

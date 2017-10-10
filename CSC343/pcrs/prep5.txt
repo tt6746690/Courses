@@ -1,0 +1,29 @@
+dbsrv1% echo "SET search_path TO World;
+SELECT * FROM countrylanguage WHERE countrycode = 'CAN';" > sample_query.sql
+dbsrv1% cat sample_query.sql
+SET search_path TO World;
+SELECT * FROM countrylanguage WHERE countrycode = 'CAN';
+dbsrv1% psql csc343h-wangpeiq
+psql (9.5.9, server 9.5.8)
+Type "help" for help.
+
+csc343h-wangpeiq=> \i sample_query.sql
+SET
+ countrycode | countrylanguage  | isofficial | percentage
+-------------+------------------+------------+------------
+ CAN         | English          | t          |       60.4
+ CAN         | French           | t          |       23.4
+ CAN         | Chinese          | f          |        2.5
+ CAN         | Italian          | f          |        1.7
+ CAN         | German           | f          |        1.6
+ CAN         | Polish           | f          |        0.7
+ CAN         | Spanish          | f          |        0.7
+ CAN         | Portuguese       | f          |        0.7
+ CAN         | Punjabi          | f          |        0.7
+ CAN         | Ukrainian        | f          |        0.6
+ CAN         | Dutch            | f          |        0.5
+ CAN         | Eskimo Languages | f          |        0.1
+(12 rows)
+
+csc343h-wangpeiq=> \q
+dbsrv1%

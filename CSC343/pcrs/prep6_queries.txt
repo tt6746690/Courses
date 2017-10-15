@@ -1,0 +1,31 @@
+set search_path to world_empty;
+\i world_empty.sql
+
+-- Insert three new countries on the database, each on the continent 'Pangaea'
+insert into country values
+    ('BOR', 'Borduria', 'Pangaea', 1000),
+    ('CAG', 'Cagliostro', 'Pangaea', 250),
+    ('MAR', 'Qumar', 'Pangaea', 3380);
+
+
+-- Insert the following information into the database: the languages
+-- 'English', 'Italian', and 'Klingon' are spoken in Borduria, but the
+-- percentage of the population who speaks each one is not known nor
+-- is it known which one is the official language.
+insert into countrylanguage(countrycode, countrylanguage) values
+    ('BOR', 'English'),
+    ('BOR', 'Italian'),
+    ('BOR', 'Klingon');
+
+
+-- Delete from the country table every country with a population less than 300.
+delete from country
+where population < 300;
+
+-- Change the continent of Borduria to 'Luna'.
+update country
+set continent='Luna'
+where name='Borduria';
+
+select * from country;
+select * from countrylanguage;

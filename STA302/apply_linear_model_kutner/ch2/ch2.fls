@@ -380,6 +380,17 @@ INPUT ./mean_response_var_plot.png
 INPUT prediction_interval_conf_lim.png
 INPUT ./prediction_interval_conf_lim.png
 INPUT ./prediction_interval_conf_lim.png
+INPUT anova_simple_reg.png
+INPUT ./anova_simple_reg.png
+INPUT ./anova_simple_reg.png
+INPUT anova_partitioning.png
+INPUT ./anova_partitioning.png
+INPUT ./anova_partitioning.png
+INPUT anova_table.png
+INPUT ./anova_table.png
+INPUT ./anova_table.png
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmbxti10.tfm
+INPUT /usr/local/texlive/2015/texmf-dist/fonts/tfm/public/cm/cmbxti10.tfm
 INPUT ch2.aux
 INPUT ./ch2.out
 INPUT ./ch2.out

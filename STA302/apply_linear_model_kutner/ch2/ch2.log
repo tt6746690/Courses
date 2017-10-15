@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  5 OCT 2017 00:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  14 OCT 2017 16:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1187,44 +1187,43 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 9.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 58--60
+Underfull \hbox (badness 10000) in paragraph at lines 67--69
 
  []
 
 [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 154--155
+[2] [3]
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--166
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
 
  []
 
-[3] [4] <mean_response_var_plot.png, id=46, 752.8125pt x 497.86pt>
+[4] <mean_response_var_plot.png, id=46, 752.8125pt x 497.86pt>
 File: mean_response_var_plot.png Graphic file (type png)
 
 <use mean_response_var_plot.png>
-Package pdftex.def Info: mean_response_var_plot.png used on input line 219.
+Package pdftex.def Info: mean_response_var_plot.png used on input line 243.
 (pdftex.def)             Requested size: 216.81pt x 143.38052pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 237--238
+ [5 <./mean_response_var_plot.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
-[5 <./mean_response_var_plot.png>]
-<prediction_interval_conf_lim.png, id=56, 874.26625pt x 541.02126pt>
+[6] <prediction_interval_conf_lim.png, id=60, 874.26625pt x 541.02126pt>
 File: prediction_interval_conf_lim.png Graphic file (type png)
 
 <use prediction_interval_conf_lim.png>
-Package pdftex.def Info: prediction_interval_conf_lim.png used on input line 29
-1.
+Package pdftex.def Info: prediction_interval_conf_lim.png used on input line 33
+3.
 (pdftex.def)             Requested size: 216.81pt x 134.16527pt.
- [6]
-Overfull \hbox (21.72841pt too wide) detected at line 309
+ [7]
+Overfull \hbox (21.72841pt too wide) detected at line 351
 \OML/cmm/m/it/10.95 Var\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 y[] \OMS/cmsy/m/
 n/10.95 ^^@ []\OT1/cmr/m/n/10.95 ) = \OML/cmm/m/it/10.95 Var\OT1/cmr/m/n/10.95 
 ([] + []\OML/cmm/m/it/10.95 x[]\OT1/cmr/m/n/10.95 ) + \OML/cmm/m/it/10.95 Var\O
@@ -1232,23 +1231,52 @@ T1/cmr/m/n/10.95 ([]) = \OML/cmm/m/it/10.95 ^^[[] \OT1/cmr/m/n/10.95 + \OML/cmm
 /m/it/10.95 ^^[[] [] \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 ^^[[] []
  []
 
-[7 <./prediction_interval_conf_lim.png>] [8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 344.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 344.
+[8 <./prediction_interval_conf_lim.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 393--394
+
+ []
+
+<anova_simple_reg.png, id=78, 556.0775pt x 228.855pt>
+File: anova_simple_reg.png Graphic file (type png)
+
+<use anova_simple_reg.png>
+Package pdftex.def Info: anova_simple_reg.png used on input line 395.
+(pdftex.def)             Requested size: 433.62pt x 178.46077pt.
+ [9 <./anova_simple_reg.png>]
+<anova_partitioning.png, id=90, 207.77625pt x 108.405pt>
+File: anova_partitioning.png Graphic file (type png)
+
+<use anova_partitioning.png>
+Package pdftex.def Info: anova_partitioning.png used on input line 420.
+(pdftex.def)             Requested size: 216.81pt x 113.12228pt.
+ [10 <./anova_partitioning.png>]
+<anova_table.png, id=97, 538.01pt x 162.6075pt>
+File: anova_table.png Graphic file (type png)
+ <use anova_table.png>
+Package pdftex.def Info: anova_table.png used on input line 472.
+(pdftex.def)             Requested size: 433.62pt x 131.05879pt.
+ [11 <./anova_table.png>] [12]
+Underfull \hbox (badness 10000) in paragraph at lines 565--567
+
+ []
+
+[13]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 598.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 598.
  (./ch2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 344.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 344.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 598.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 598.
 Package rerunfilecheck Info: File `ch2.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 35373 strings out of 493089
- 829400 string characters out of 6134842
- 1033701 words of memory out of 5000000
- 38256 multiletter control sequences out of 15000+600000
- 13104 words of font info for 49 fonts, out of 8000000 for 9000
+ 35407 strings out of 493089
+ 829899 string characters out of 6134842
+ 1034703 words of memory out of 5000000
+ 38270 multiletter control sequences out of 15000+600000
+ 13822 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,8n,77p,961b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 64i,10n,77p,961b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
@@ -1263,10 +1291,10 @@ cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
 live/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ch2.pdf (8 pages, 298034 bytes).
+Output written on ch2.pdf (13 pages, 485830 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 104 compressed objects within 2 object streams
- 30 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 178 PDF objects out of 1000 (max. 8388607)
+ 137 compressed objects within 2 object streams
+ 47 named destinations out of 1000 (max. 500000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 

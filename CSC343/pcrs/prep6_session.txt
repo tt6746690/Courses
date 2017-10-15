@@ -1,0 +1,36 @@
+dbsrv1% psql csc343h-wangpeiq
+psql (9.5.9, server 9.5.8)
+Type "help" for help.
+
+csc343h-wangpeiq=> \i
+prep6_queries.txt       .prep6_queries.txt.swp  world_empty.sql
+csc343h-wangpeiq=> \i
+prep6_queries.txt       .prep6_queries.txt.swp  world_empty.sql
+csc343h-wangpeiq=> \i prep6_queries.txt
+SET
+psql:world_empty.sql:1: NOTICE:  drop cascades to 2 other objects
+DETAIL:  drop cascades to table world.country
+drop cascades to table world.countrylanguage
+DROP SCHEMA
+CREATE SCHEMA
+SET
+CREATE TABLE
+CREATE TABLE
+INSERT 0 3
+INSERT 0 3
+DELETE 1
+UPDATE 1
+ code |   name   | continent | population
+------+----------+-----------+------------
+ MAR  | Qumar    | Pangaea   |       3380
+ BOR  | Borduria | Luna      |       1000
+(2 rows)
+
+ countrycode | countrylanguage | isofficial | percentage
+-------------+-----------------+------------+------------
+ BOR         | English         |            |
+ BOR         | Italian         |            |
+ BOR         | Klingon         |            |
+(3 rows)
+
+csc343h-wangpeiq=> \q

@@ -37,6 +37,18 @@ plot(x, pnorm(x), type="l", main="Std Normal CDF", xlab="x", ylab=expression(pas
 
 
 ```{r}
+x <- seq(-4, 4, by=0.1)
+plot(x, dnorm(x), type="l", main="std normal distribution", ylab=expression(paste(phi(x))))
+```
+
+
+```{r}
+plot(x<-seq(-2, 2, by=0.1), pnorm(x), type="l", main="std normal CDF", ylab=expression(paste(Phi(x))))
+```
+
+
+
+```{r}
 # X ~ N(5,3)        
 # evaluate P(X<6)
 pnorm(6, mean=5, sd=sqrt(3))

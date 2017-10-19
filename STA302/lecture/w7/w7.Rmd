@@ -1,0 +1,35 @@
+
+
+
+
+```{r}
+foo<- read.csv("AdRevenue.csv")
+x<-foo$Circulation
+y<-foo$AdRevenue 
+
+plot(x,y)
+myFit <- lm(y~x)
+par(mfrow=c(2,2))
+plot(myFit)
+plot(x,y)
+
+# log transformation
+x <- log(x); y<- log(y)
+myFit <- lm(y ~ x)
+par(mfrow=c(2,2))
+plot(myFit)
+
+# see x normally distributed
+hist(x)
+hist(x,20)
+
+# next up, find regression, confidence and prediction band 
+
+
+
+# inverse transform 
+x <- exp(x); y <- exp(y)
+
+
+
+```

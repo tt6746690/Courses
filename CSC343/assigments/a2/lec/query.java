@@ -1,0 +1,1 @@
+/* Get ready to execute queries. */import java.sql.*;/* A static method of the Class class. It loads the  specified driver */ Class.forName(“org.postgresql.jdbc.Driver”);Connection conn = DriverManager.getConnection(  jdbc:postgresql://localhost:5432/csc343h-dianeh,  dianeh, “”);/* Continued ... */

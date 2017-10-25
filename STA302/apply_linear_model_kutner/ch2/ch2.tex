@@ -336,19 +336,22 @@
 		\item variation in possible location of distribution of $Y$ (i.e. sampling distributino of $\hat{y}^*$)
 		\item variation within the probability distribution of $Y$ (namely $\sigma^2$, same as that of error terms')
 	\end{enumerate}
+	\[
+		y^*_{new} - \hat{y}^* = \beta_0 + \beta_1 x^* + e^* - \hat{y}^* = \E(y_{new}|X=x^*) - \hat{y}^* + e^*
+	\]
 	We can prove that
 	\[
 		\E(y^*_{new} - \hat{y}^*) 
 		= \E(y_{new} - \hat{y}|X = x^*)
-		= \E(\hat{\beta}_0 + \hat{\beta}_1 x^*) - \E(\hat{y}^*) 
+		= \beta_0 + \beta_1 x^* + \E(e^*) - \E(\hat{y}^*)
 		= 0
 	\]
-	\[
+	\begin{align*}
 		Var(y^*_{new} - \hat{y}^*) 
-		= Var(\hat{\beta}_0 + \hat{\beta}_1 x^*) + Var(\hat{y}^*)
-		= \sigma^2 + \sigma^2 \left[ \frac{1}{n} + \frac{(x^* - \overline{x})^2}{S_{XX}} \right]
+		&= Var(\hat{\beta}_0 + \hat{\beta}_1 x^*) + Var(\hat{y}^*) - Cov(y^*_{new}, \hat{y}^*)\\ 
+		&= \sigma^2 + \sigma^2 \left[ \frac{1}{n} + \frac{(x^* - \overline{x})^2}{S_{XX}} \right]
 		= \sigma^2 \left[ 1+ \frac{1}{n} +\frac{(x^* - \overline{x})^2}{S_{XX}} \right]
-	\]
+	\end{align*}
 	Note $Cov(y^*_{new}, \hat{y}^*) = 0$ by independence
 	\[
 		y^*_{new} - \hat{y}^* \, \sim \, \norm(0, \sigma^2 \left[ 1+ \frac{1}{n} +\frac{(x^* - \overline{x})^2}{S_{XX}} \right])
@@ -533,6 +536,13 @@
 	\[
 		\textbf{Reject if } F^* > F_{1-\alpha; 1, n-2} 
 	\]
+	\begin{proof}
+		\[
+			F^* = \frac{MSR}{MSE} = \frac{MSR \,/\, \sigma^2}{MSE \,/\, \sigma^2} 
+			= \frac{\chi^2_1}{\chi^2_{n-2}}
+			\sim F_{1, n-2}
+		\]
+	\end{proof}
 \end{defn*}
 
 \begin{defn*}
@@ -585,13 +595,28 @@
 	\textbf{Coefficient of Correlation}\\ 
 	A measure of linear association between $Y$ and $X$ when both $Y$ and $X$ are random is coefficient of correlation. 
 	\[
-		r = \pm \sqrt{R^2}
+		r = \pm \sqrt{R^2} = \frac{S_{XY}}{\sqrt{S_{XX}S_{YY}}}
 	\]
+	\begin{proof}
+		\begin{align*}
+			\sqrt{R^2} 
+			= \sqrt{\frac{SSReg}{SST}} 
+			= \sqrt{\frac{\hat{\beta}_1^2 S_{XX}}{S_{YY}}}
+			= \sqrt{(\frac{S_{XY}}{S_{XX}})^2 \frac{ S_{XX}}{S_{YY}}}
+			= \frac{S_{XY}}{\sqrt{S_{XX}S_{YY}}}
+		\end{align*}
+	\end{proof}
 \end{defn*}
 
 
 \subsection*{Dummy variable regression}
 
+
+\begin{defn*}
+	\begin{enumerate}
+		\item \textbf{Dummy variable} is one that takes the value 0 or 1 to indicate the absence or presence of some categorical effect that may expect to shift the outcome
+	\end{enumerate}
+\end{defn*}
 
 
 

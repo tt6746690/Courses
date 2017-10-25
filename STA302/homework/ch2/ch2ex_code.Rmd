@@ -1,0 +1,87 @@
+
+
+```{r}
+# 1
+data <- read.csv("playbill.csv")
+
+# fit SLR whewre Y is gross box office for current week 
+#                X is gross box office for lastprevious weeks
+
+fit <- lm(CurrentWeek~LastWeek, data)
+summary(fit)
+qt(c(0.025, 0.975), length(data$CurrentWeek)-2)
+
+```
+
+
+
+
+
+```{r}
+# 2
+data <- read.table("indicators.txt", header=TRUE)
+data 
+
+fit <- lm(PriceChange~LoanPaymentsOverdue, data)
+s <- summary(fit)
+s
+
+# 95% CI
+n <- length(data$LoanPaymentsOverdue)
+b1 <- coef(summary(fit))["LoanPaymentsOverdue", "Estimate"]
+seb1 <- coef(summary(fit))["LoanPaymentsOverdue", "Std. Error"]
+a <- qt(.975, n-2)*seb1
+CI <- c(b1-a, b1+a)
+
+CI 
+# or with r func 
+confint(fit, 'LoanPaymentsOverdue', level=0.95)
+# -4.1634543 -0.3335853, significant, since not encompass 0
+
+
+# x = 4 
+yhat <- s$coefficients[1,1] + s$coefficients[2,1]*4
+yhat # -4.48
+
+# 95% CI
+```
+
+
+
+
+```{r}
+data <- read.table("invoices.txt", header=TRUE)
+data 
+
+
+fit <- lm(Time~Invoices, data)
+s <- summary(fit)
+s
+# 95% CI for beta_0
+n <- length(data$Time)
+b0 <- s$coefficients[1,1]
+seb0 <- s$coefficients[1,2]
+beta0CI <- b0 + c(-1,1)*qt(0.975, n-2)*seb0
+beta0CI 
+# [1] 0.3912496 0.8921701
+
+
+# test against H0: beta_1 = 0.01
+b1 <- s$coefficients[2,1]
+seb1 <- s$coefficients[2,2]
+t <- (b1 - 0.01)/seb1
+t
+# [1] 1.578251  
+
+pval <- 2*pt(-abs(t),df=n-2)
+pval
+# [1] 0.1257402
+# not significant, no evidence that slope is different from 0.01
+
+
+# find point estimate and 95% CI for x=130
+yhat <- b0 + b1*130
+mse <- 1 # dunno but can calculate...
+yhatCI <- yhat + c(-1,1)*qt(0.975, n-2)*sqrt(1 + 1/n)*mse
+yhatCI
+```

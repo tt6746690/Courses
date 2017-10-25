@@ -1,0 +1,16 @@
+
+
+
+```{r}
+data <- read.table("airfares.txt", header=TRUE)
+
+fit <- lm(Fare~Distance, data)
+s <- summary(fit); s
+
+
+plot(data$Distance, data$Fare)
+par(mfrow=c(2,2)); plot(fit)
+
+
+
+```

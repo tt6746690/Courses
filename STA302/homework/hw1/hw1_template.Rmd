@@ -1,0 +1,53 @@
+---
+title: STA302 HW1, question 8 - Answer template
+author: |
+  | Name: Your name
+date: 'Autumn 2017. Remember (a) is done for you already'
+output: pdf_document
+header-includes: \usepackage{color,amsmath}
+fontsize: 10pt
+---
+
+## \textcolor{blue}{(a): Show that $\sum_i^n (X_i-\bar X)=0$}
+\textbf{Answer:} 
+$$ 
+%% Comment -- Learn how to type a maths proof
+% left aligned
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{aligned}
+\sum_{i=1}^n  (X_i - \bar X) 
+&= \sum_{i=1}^n X_i - \sum_{i=1}^n \bar X \\
+&= \sum_{i=1}^n X_i - n \bar X \\
+&= \sum_{i=1}^n X_i - \sum_{i=1}^n X_i \\
+&= 0
+\end{aligned}
+$$
+
+
+## \textcolor{blue}{(b): Show that $\sum_i^n (X_i-\bar X)^2=\sum_{i=1}^n X_i^2 - n\bar X^2$}
+\textbf{Answer:} 
+$$ 
+\begin{aligned}
+\sum_i^n (X_i-\bar X)^2
+&= ... \\
+&= ... \\
+&=... \\
+&= ...
+\end{aligned}
+$$
+
+
+
+## \textcolor{blue}{(c): Show that $\sum_i^n (X_i-\bar X)(Y_i-\bar Y)=\sum_{i=1}^n X_iY_i - n\bar X\bar Y$}
+\textbf{Answer:} 
+$$ 
+\begin{aligned}
+\sum_i^n (X_i-\bar X)(Y_i-\bar Y)
+&= ... \\
+&= ... \\
+&=... \\
+&= ...
+\end{aligned}
+$$
+
+

@@ -1,0 +1,48 @@
+
+
+
+```{r}
+# Test: if mean of 2 samples same/different
+# demonstration of equivalence between 
+# 2 sample 2 test and dummy variable regression
+
+# generate dataset 
+set.seed(3)
+# random data points from N(1,1) and N(2,1)
+y1 <- rnorm(12, 1, 1); y2 <- rnorm(10,2,1)
+n1 <- length(y1); n2 <- length(y2)
+y <- c(y1, y2)                  # all response variables
+x <- c(rep(0, n1), rep(1, n2))  # indicator variables
+# print(t(matrix(sort(round(y1, 2)), ncol=2))) # show y1
+# print(round(sort(y2),2)) # show y2
+
+
+# method 1: 2 sample t test with equal variance 
+# 1(a): by hand
+# calculate pooled variance
+s <- sqrt(((n1-1)*var(y1)+(n2-1)*var(y2))/(n1+n2-2))
+tstar <- (mean(y1)-mean(y2))/(s*sqrt(1/n1 + 1/n2)); round(tstar, 2)
+pval <- 2*pt(tstar, n1+n2-2); round(pval, 5)
+
+# 1(b): r function 
+t.test(y1,y2,equal=TRUE) # note t and p-value correspond
+
+# method 2: dummy variable regression 
+# 2(a): by hand
+n <- length(x)
+mx <- mean(x); my <- mean(y)
+Sxx <- sum((x-mx)^2); Sxy <- sum((x-mx)*(y-my))
+b1 <- Sxy/Sxx; b0 <- mean(y) - b1*mean(x)
+yhat <- b0 + b1*x
+RSS <- sum((y-yhat)^2); S <- sqrt(RSS/(n-2))
+seB0 <- S*sqrt(1/n + mx^2/Sxx)
+seB1 <- S/sqrt(Sxx)
+t0 <- b0/seB0   # test statistics
+t1 <- b1/seB1
+pval0 <- 2*pt(-abs(t0), n-2)   # pvalue 
+pval1 <- 2*pt(-abs(t1), n-2)
+print(c(b0, b1, pval0, pval1)) # Estimate, Pr(>|t|) field match with below
+
+# 2(b): by r function 
+myFit <- lm(y~x); summary(myFit) # also F test too
+```

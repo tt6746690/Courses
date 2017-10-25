@@ -7,7 +7,7 @@
 ; Consider two definitions
 (define two 2)
 (define double (λ (x) (* two x)))
-;  and a computation involving them:
+;  and a computation involving them: a function of value of names
 (double two)
 
 ; That computation is "parameterized" by the meaning of the names, in other words it's a function of
@@ -21,34 +21,35 @@
 ; Let's make an expression form for that.
 (define-syntax Let
   (syntax-rules ()
-    [(Let [id e]
-          e′)
+    [(Let [id e]    ; id is name, whose value is e
+          e′)       ; e' is the computation
      ((λ (id) e′)
       e)]))
 
 ; Now we can write
-(Let [two 2]
-     (Let [double (λ (x) (* two x))]
-          (double two)))
+(Let [two 2]                           ; definition
+     (Let [double (λ (x) (* two x))]   ; definition 
+          (double two)))               ; computation involving value of names
 ;  to mean
 ((λ (two)
    ((λ (double)
-      (double two))
-    (λ (x) (* two x))))
- 2)
+      (double two))       ; computation
+    (λ (x) (* two x))))   ; value of name double
+ 2)                       ; value of name two
 
 
 ; Let's try that with a recursive definition.
+; factorial
 #;(define ! (λ (n) (cond [(zero? n) 1]
                          [else (* n (! (sub1 n)))])))
 #;(! 5)
 
-
+ 
 #;(Let [! (λ (n) (cond [(zero? n) 1]
                        [else (* n (! (sub1 n)))]))]
        (! 5))
 ; That gets rewritten to:
-#;((λ (!) (! 5))
+#;((λ (!) (! 5))     ; idea is value of name ! is argument to function 
    (λ (n) (cond [(zero? n) 1]
                 [else (* n (! (sub1 n)))])))
 ; Now we have a problem: ‘!’ doesn't have a meaning in

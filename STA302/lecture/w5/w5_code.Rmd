@@ -1,0 +1,66 @@
+
+ch3 1 3.a  4.a
+
+```{r}
+set.seed(1000)
+x = 1:100; y = 1+0.75*x + rnorm(100,0.1) # generate x and y
+plot(x,y)
+
+par(mfrow=c(2,2))    # set plot PARameters
+plot(lm(y~x))        
+# plots residual/standardized residual, normal Q-Q and residual vs leverage plot
+
+# dfbeta_0
+influence.measures(lm(y~x))$infmat[1:7,]
+```
+
+
+
+
+
+
+```{r}
+# normal quantile-quantile plots 
+# qqnorm(tomato.data$pounds)
+# qqline(tomato.data$pounds)
+```
+
+
+```{r}
+x <- seq(-4,4,by=0.1)
+plot(x, pnorm(x), type="l")   # cdf of normal distribution
+
+# plot of expected quantile  vs sample quantile
+# p = (i-0.5)/N vs x_i
+N <- 1000; x <- rnorm(N)  # x is experimental quantile
+p <- ((1:N) - 0.5)/N      # p is theoretical quantile
+plot(sort(x), p)
+
+# emulating qqnorm 
+set.seed(2503)
+N <- 1000
+x <- rnorm(N)
+p <- ((1:N)-0.5)/N 
+plot(qnorm(p), sort(x))   # empirical vs theoretical quantiles
+                          # qnorm is inverse of cdf of standard normal
+
+# or equivalently with qqnorm 
+qqnorm(x); qqline(x)
+
+# uniform distribution
+# light tailed, because uniform distribution has no tail
+# X is said to be light tailed if it takes its extreme values less frequently than any other random variable. Light tail basically imply a small variance. 
+x <- runif(1000)
+hist(x, main="sample from uniform")
+qqnorm(x, main="sample from uniform"); qqline(x)
+
+# systematic deviation 
+# mix of gaussian
+x1 <- rnorm(100, mean=0, sd=1)
+x2 <- rnorm(100, mean=0, sd=5)
+x3 <- rnorm(100, mean=0, sd=8)
+x <- c(x1, x2, x3)
+hist(x, main="sample from 3 normal distribution")
+qqnorm(x); qqline(x)
+
+```

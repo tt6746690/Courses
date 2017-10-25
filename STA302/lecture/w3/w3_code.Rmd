@@ -1,0 +1,72 @@
+
+
+
+
+```{r}
+# data 
+x <- c(2,4,6); y <- c(1,3,6); n <- length(x)
+
+# compute statistics
+mx <- mean(x); my <- mean(y)
+Sxx <- sum((x-mx)^2); Sxy <- sum((x-mx)*(y-my))
+b1 <- Sxy/Sxx; b0 <- my-b1*mx
+yhat <- b0 + b1*x
+RSS <- sum((y-yhat)^2)  # RSS
+S <- sqrt(RSS/(n-2))    # MSE
+
+# points at which to draw dots
+xstar <- seq(min(x)-1, max(x)+1, .1)  
+ystar <- b0+b1*xstar
+
+# confidence interval for points
+a <- qt(.975, n-2)*S*sqrt(1/n + (xstar-mx)^2/Sxx)      
+ystarLow <- ystar - a; ystarHigh <- ystar + a;
+
+# plotting ... 
+plot(x, y, xlim=c(min(xstar), max(xstar)),
+      ylim=c(min(ystarLow), max(ystarHigh)))
+lines(xstar, ystar, type="l", col="black")
+lines(xstar, ystarLow, type="l", col="black")
+lines(xstar, ystarHigh, type="l", col="black")
+
+
+# are regression coefficients different from zero
+# here under null, assume regression coeffient is zero
+
+# estimated std.err. 
+seB0 <- S*sqrt(1/n + mx^2/Sxx)     
+seB1 <- S/sqrt(Sxx)
+
+# compute t statistics 
+t0 <- b0/seB0
+t1 <- b1/seB1
+
+# p value for intercept and slope
+pval0 <- 2*pt(-abs(t0), n-2)
+pval1 <- 2*pt(-abs(t1), n-2)
+
+# equivalent to lm
+print(c(b0, b1, pval0, pval1))
+myFit <- lm(y~x)
+summary(myFit)
+# result does not give enough evidence for rejecting null,
+# i.e. regression coefficient is different from 0
+
+# find confidence interval 
+d0 <- qt(0.975, n-2)*seB0
+d1 <- qt(0.975, n-2)*seB1
+b0Low <- b0-d0; b0High <- b0+d0
+b1Low <- b1-d1; b1High <- b1+d1
+print(round(c(b0Low, b0, b0High, b1Low, b1, b1High), 2))
+# -9.59 -1.67  6.26 -0.58  1.25  3.08
+# Note 95% CI for both coefficient encompass 0, so cant reject null
+
+# prediction interval 
+f <- qt(0.975, n-2)*S*sqrt(1+1/n+(xstar-mx)^2/Sxx)
+ystarPredLow <- ystarMean - f; ystarPredHigh <- ystarMean + f
+plot(x, y, xlim=c(min(xstar), max(xstar)),
+     ylim=c(min(ystarPredLow), max(ystarPredHigh)))
+lines(xstar, ystarMean, type="l", col="black")
+lines(xstar, ystarPredLow, type="l", col="black")
+lines(xstar, ystarPredHigh, type="l", col="black")
+```

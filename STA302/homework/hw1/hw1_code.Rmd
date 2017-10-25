@@ -1,0 +1,6 @@
+
+
+```{r}
+q2data = read.table("oldfaithful.txt", header=TRUE)
+str(q2data)
+```

@@ -1,0 +1,148 @@
+#lang racket #| CSC 324 2017 Fall Exercise 4 : Adding a contract system to function definitions. |#
+
+#| ★ Implement a contract constructor ‘List’.
+
+ Recall our implementations of function ‘¬’, which produces a unary predicate from a unary predicate.
+
+ The function ‘List’ takes a unary predicate ‘p?’, and produces a unary predicate that determines
+  whether a value is:
+   • a list, and
+   • all the elements satisfy the predicate ‘p?’ |#
+
+(provide List)
+
+(module+ test
+  
+  ; To support proper Test-Driven Development, ‘test’ sub-module code is gathered and run at the end,
+  ;  like the behaviour of ‘check-expect’ that allows expressions to use functions defined later.
+
+  (require rackunit) ; A unit testing library.
+  
+  (check-equal? (procedure? (List integer?)) #true)
+
+  (check-equal? ((List integer?) 123) #false)
+  (check-equal? ((List integer?) 123) (list? 123))
+  (check-equal? ((List integer?) 123) (local [(define (p′? v) (list? v))]
+                                        (p′? 123)))
+
+  (check-equal? ((List integer?) '(1 23)) #true)
+  (check-equal? ((List integer?) '(1 23)) (equal? '(1 23) (filter integer? '(1 23))))
+  (check-equal? ((List integer?) '(1 23)) (local [(define (p′? v) (equal? v (filter integer? v)))]
+                                            (p′? '(1 23))))
+
+  (check-equal? ((List integer?) '(1 2.3)) #false)
+  (check-equal? ((List integer?) '(1 2.3)) (equal? '(1 2.3) (filter integer? '(1 2.3)))))
+
+; List : [any → boolean] → [any → boolean]
+(define (List p?)
+  ; ★ Fix this:
+  p?)
+
+
+#| ★ Implement ‘def’, for function definitions containing argument and result contract annotations.
+
+ See http://www.teach.cs.toronto.edu/~csc148h/fall/lectures/python-recap/common/type_annotations.html
+
+ Your implementation will check the pre-conditions and post-condition at run-time.
+  We'll return to the idea of checking types at compile-time later in the course. |#
+
+(provide def)
+
+#| First, an error raising library, with a unit tester to check for expected raised errors. |#
+
+(module+ test
+  (check-error (argument-error 'even? 'integer? 1.5)
+               "even?: pre-condition (integer? 1.5) violated")
+  (check-error (result-error 'f '(¬ list?) (list 'a (+ 1 2) (list 40 50) "a" #false))
+               "f: post-condition ((¬ list?) '(a 3 (40 50) \"a\" #f)) violated"))
+
+(define (error-reporter pre/post)
+  (λ (function-name contract-expression value)
+    (error function-name (format "~a (~a ~v) violated" pre/post contract-expression value))))
+
+(define argument-error (error-reporter  "pre-condition"))
+(define   result-error (error-reporter "post-condition"))
+
+(require rackunit)
+
+(define-syntax check-error
+  (syntax-rules ()
+    [(check-error expression message)
+     (local [(define exception (with-handlers ([exn:fail? identity]) expression))
+             (define exception? (exn:fail? exception))]
+       (check-true exception? (string-append "expected an error from: "
+                                             (substring (format "~v" 'expression) 1)))
+       (when exception? (check-equal? (exn-message exception) message
+                                      (format "expected the error message: ~a" message))))]))
+
+#| Tests for ‘def’. |#
+(module+ test
+
+  #| def can_divide(num: int, divisor: int) -> bool:
+       """Return whether num is evenly divisible by divisor."""
+       return a % b == 0 |#
+
+  (def (can-divide? (number : integer?) (divisor : integer?)) → boolean?
+    (zero? (modulo number divisor)))
+
+  #;; That is shorthand for:
+  (define (can-divide? number divisor)
+    (unless (integer?  number)
+      (argument-error 'can-divide? 'integer? number))
+    (unless (integer? divisor)
+      (argument-error 'can-divide? 'integer? divisor))
+    (define result (local []
+                     (zero? (modulo number divisor))))
+    (unless (boolean? result)
+      (result-error 'can-divide? 'boolean? result))
+    result)
+
+  ; And that has the behaviour:
+  (check-error  (can-divide? 1.23 4) "can-divide?: pre-condition (integer? 1.23) violated")
+  (check-error  (can-divide? 123 .4) "can-divide?: pre-condition (integer? 0.4) violated")
+  (check-equal? (can-divide? 324 108) #true)
+
+  #| def split_numbers(numbers: List[int]) -> Tuple[List[int], List[int]]:
+       """Return a tuple of lists, where the first list contains the numbers
+          that are >= 0, and the second list contains the numbers that are < 0.
+       """
+       pos = []
+       neg = []
+       for n in numbers:
+         if n >= 0:
+           pos.append(n)
+         else:
+           neg.append(n)
+       return pos, neg |#
+  
+  (def (split-numbers (numbers : (List number?))) → (List (List number?))
+    (list (filter (negate negative?) numbers)
+          (filter         negative?  numbers)))
+
+  #;; That is shorthand for:
+  (define (split-numbers numbers)
+    (unless ((List number?) numbers)
+      (argument-error 'split-numbers '(List number?) numbers))
+    (define result (local []
+                     (list (filter (negate negative?) numbers)
+                           (filter         negative?  numbers))))
+    (unless ((List (List number?)) result)
+      (result-error 'split-numbers '(List (List number?)) result))
+    result)
+
+  ; An example violation of the post-condition.
+  (def (f (x : symbol?)) → string?
+    x)
+  ;
+  (check-error (f 'a) "f: post-condition (string? 'a) violated"))
+
+
+(define-syntax def
+  (syntax-rules (: →)
+    [(def (f-id (a-id : pre?) ...) → post?
+       expr
+       ...)
+     (define (f-id a-id ...)
+       ; ★ Fix this:
+       (list (list 'a-id a-id)
+             ...))]))

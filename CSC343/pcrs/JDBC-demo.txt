@@ -1,0 +1,31 @@
+dbsrv1% psql csc343h-wangpeiq
+psql (9.5.9, server 9.5.8)
+Type "help" for help.
+
+csc343h-wangpeiq=> \i jelly-beans.sql
+psql:jelly-beans.sql:1: NOTICE:  drop cascades to table guesses.guesses
+DROP SCHEMA
+CREATE SCHEMA
+SET
+CREATE TABLE
+INSERT 0 11
+csc343h-wangpeiq=> \q
+dbsrv1% javac JDBC.java
+dbsrv1% java -cp /local/packages/jdbc-postgresql/postgresql-42.0.0.jar: JDBC
+Error: Could not find or load main class JDBC
+dbsrv1% ls
+JDBC.java  JDBCJellyBean.class  jelly-beans.sql
+dbsrv1% java -cp /local/packages/jdbc-postgresql/postgresql-42.0.0.jar: JDBCJellyBean
+Age at least?
+6
+average guess amoung people at least 6 is 628
+value= Jiaqi
+value= Michael
+value= Mackenzie
+value= Avery
+value= Sam
+value= Cole
+value= Micah
+value= Madeleine
+value= Jamieson
+dbsrv1%

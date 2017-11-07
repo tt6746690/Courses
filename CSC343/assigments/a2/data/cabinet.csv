@@ -1,0 +1,337 @@
+id,country_id,start_date,name,wikipedia,description,comment,previous_cabinet_id,previous_parliament_election_id
+7,44,1974-10-10,Wilson IV,http://en.wikipedia.org/wiki/Labour_Government_1974-1979,"PM Wilson announced his resignation on 16 March 1976 due to health reasons, taking effect on 5 April.","",419,40
+8,5,1964-11-09,Sato I,"",,"",649,640
+17,43,1974-03-01,Messmer III,http://fr.wikipedia.org/wiki/Gouvernement_Pierre_Messmer_(3),"","",607,357
+19,44,2001-06-07,Blair II,http://en.wikipedia.org/wiki/Blair_Ministry,"","",838,208
+21,43,1976-08-17,Barre I,http://fr.wikipedia.org/wiki/Gouvernement_Raymond_Barre_(1),PM Barre formally resigned on 30 March 1978. ,"",159,357
+25,29,1972-11-27,Trudeau P III,"",Minority cabinet was supported by the New Democratic Party (NDP).,"",696,552
+31,54,1963-10-16,Erhard I,http://de.wikipedia.org/wiki/Kabinett_Erhard_I,,"",62,381
+32,43,1952-01-20,Faure I,http://fr.wikipedia.org/wiki/Gouvernement_Edgar_Faure_%281%29,"","Party ""Payson"" could not be identified. ",826,293
+46,43,2005-05-31,Villepin,http://fr.wikipedia.org/wiki/Gouvernement_Dominique_de_Villepin,"","",802,403
+48,5,1960-12-08,Ikeda II,"",,"",241,345
+52,43,1946-12-16,Blum,http://fr.wikipedia.org/wiki/Gouvernement_L%C3%A9on_Blum_(3),"","",150,75
+55,29,2000-11-27,Chretien III,"",,"",182,455
+59,5,1974-12-09,Miki,"",,"",502,333
+62,54,1961-11-14,Adenauer VII,http://de.wikipedia.org/wiki/Kabinett_Adenauer_IV,Adenauer lost support of his party and was forced to resign on 11 November 1963.,"",906,381
+63,44,1963-10-18,Douglas-Home,http://en.wikipedia.org/wiki/Conservative_Government_1957-1964,"","",237,161
+70,29,1980-03-03,Trudeau V,"",,"",751,139
+72,43,1978-03-31,Barre II,http://fr.wikipedia.org/wiki/Gouvernement_Raymond_Barre_(2),"","",21,496
+85,54,2005-11-22,Merkel I,http://en.wikipedia.org/wiki/Merkel_Cabinet_I,,"",529,118
+88,44,1950-02-28,Attlee II,http://en.wikipedia.org/wiki/Labour_Government_1945-1951,"","",99,625
+99,44,1945-07-26,Attlee I,http://en.wikipedia.org/wiki/Labour_Government_1945-1951,"","",1286,609
+103,29,2003-12-12,Martin I,http://en.wikipedia.org/wiki/Twenty-Seventh_Canadian_Ministry,,"",55,455
+104,43,1951-03-10,Queuille III,http://fr.wikipedia.org/wiki/Gouvernement_Henri_Queuille_(3),"","",367,75
+106,5,1989-08-10,Kaifu I,"",,"",743,506
+107,54,1998-10-27,Schroeder I,http://de.wikipedia.org/wiki/Kabinett_Schr%C3%B6der_I,"","",778,679
+111,43,1969-06-22,Chaban-Delmas,http://fr.wikipedia.org/wiki/Gouvernement_Jacques_Chaban-Delmas,"","",131,386
+116,43,1981-06-23,Mauroy II,http://fr.wikipedia.org/wiki/Gouvernement_Pierre_Mauroy_%282%29,"","cabinet ended by formal resignation; junior minister of MRG in cabinet but no minister
+Party ""Movement of democrates"" could not be identified. ",1148,20
+119,44,2007-06-27,Brown,http://en.wikipedia.org/wiki/Brown_Ministry,Cabinet ended with election on 6 May 2010 and PM Brown resigned on 11 May following electoral defeat.,"",516,233
+131,43,1968-07-12,Murville,http://fr.wikipedia.org/wiki/Gouvernement_Maurice_Couve_de_Murville,"","",662,386
+134,5,2007-09-26,Fukuda Y,"",,"",390,554
+146,5,1986-07-22,Nakasone III,"",,"",568,506
+147,54,1949-09-20,Adenauer I,http://de.wikipedia.org/wiki/Kabinett_Adenauer_I,,"",,581
+150,43,1946-06-24,Bidault I,http://fr.wikipedia.org/wiki/Gouvernement_Georges_Bidault_(1),"","",648,348
+159,43,1974-05-28,Chirac I,http://fr.wikipedia.org/wiki/Gouvernement_Jacques_Chirac_%281%29,"","",17,357
+163,5,2000-07-04,Mori II,"",,"",211,237
+170,54,1966-12-01,Kiesinger,http://de.wikipedia.org/wiki/Kabinett_Kiesinger,,"",326,250
+180,5,1980-07-17,Suzuki,"",,"",727,113
+182,29,1997-06-11,Chretien II,"",,"",785,650
+184,44,1955-05-26,Eden II,http://en.wikipedia.org/wiki/Conservative_Government_1955%E2%80%931957,,"",729,678
+192,54,1953-10-20,Adenauer II,http://de.wikipedia.org/wiki/Kabinett_Adenauer_II,Cabinet ended on 15 July 1955 when German Bloc (GB/BHE) ministers joined Christian Democrats (CDU) party group.,"",147,103
+197,43,1958-06-02,de Gaulle III,http://fr.wikipedia.org/wiki/Gouvernement_Charles_de_Gaulle_(3),"",One minister appointed by African Democratic Rally (RDA).,594,312
+199,43,1992-04-02,Beregovoy I,http://fr.wikipedia.org/wiki/Gouvernement_Pierre_B%C3%A9r%C3%A9govoy,"","",229,643
+209,43,1957-06-13,Bourges-Maunoury,http://fr.wikipedia.org/wiki/Gouvernement_Maurice_Bourg%C3%A8s-Maunoury,"",One minister appointed by African Democratic Rally (RDA).,591,312
+211,5,2000-04-05,Mori I,"",,"",665,628
+213,5,1990-02-28,Kaifu II,"",,"",106,25
+216,44,1970-06-19,Heath,http://en.wikipedia.org/wiki/Conservative_Government_1970-1974,PM Heath called an early election on 7 February 1974 following miners industrial unrest.,"",733,311
+227,5,1978-12-07,Ohira I,http://en.wikipedia.org/wiki/Masayoshi_Ohira,,"",337,53
+229,43,1991-05-16,Cresson,http://fr.wikipedia.org/wiki/Gouvernement_%C3%89dith_Cresson,"","",712,643
+237,44,1959-10-14,Macmillan II,http://en.wikipedia.org/wiki/Conservative_Government_1957-1964,"","",404,161
+241,5,1960-07-19,Ikeda I,"",,"",780,645
+242,5,1982-11-27,Nakasone I,"",,"",180,113
+244,43,1995-05-17,Juppe I,http://fr.wikipedia.org/wiki/Gouvernement_Alain_Jupp%C3%A9_%281%29,Cabinet resigned on 7 November 1995 without naming a reason. ,"",318,664
+249,29,1957-06-21,Diefenbaker I,"",,Diefenbaker dissolved parliament on 2 February 1958 to gain new mandate,327,562
+252,54,1974-05-16,Schmidt I,http://de.wikipedia.org/wiki/Kabinett_Schmidt_I,,"",871,95
+253,5,1991-11-05,Miyazawa,"","Miyazawa lost a confidence vote (yes: 220, no: 255) on 18 June 1993 and dissolved parliament.
+Cabinet resigned on 5 August 1993.","",213,25
+263,43,1948-07-27,Marie,http://fr.wikipedia.org/wiki/Gouvernement_Andr%C3%A9_Marie,"","",753,75
+273,44,1979-05-04,Thatcher I,http://en.wikipedia.org/wiki/Conservative_Government_1979-1983,"","",590,243
+283,5,1987-11-06,Takeshita,"",,"",146,506
+286,54,1987-03-11,Kohl III,http://de.wikipedia.org/wiki/Kabinett_Kohl_III,,"",346,588
+290,43,1986-03-20,Chirac II,http://fr.wikipedia.org/wiki/Gouvernement_Jacques_Chirac_%282%29,PM Chirac resigned on 10 May 1988 after losing the presidential election.,"",843,623
+297,44,1987-06-11,Thatcher III,http://en.wikipedia.org/wiki/Conservative_Government_1987-1990,"","",646,490
+306,43,2007-06-18,Fillon II,http://fr.wikipedia.org/wiki/Gouvernement_Fran%C3%A7ois_Fillon_(2),PM Fillion was re-appointed by President Sarkozy on 18 June 2007 and the cabinet was appointment a day later.,"",807,171
+308,29,2004-07-20,Martin II,http://en.wikipedia.org/wiki/Twenty-Seventh_Canadian_Ministry,Minority cabinet was supported by the New Democratic Party (NDP).,"",103,240
+318,43,1993-03-29,Balladur,http://fr.wikipedia.org/wiki/Gouvernement_%C3%89douard_Balladur,PM Balladur resigned on 10 May 1995 after his defeat in the presidential election. ,"",199,664
+326,54,1965-10-26,Erhard II,http://de.wikipedia.org/wiki/Kabinett_Erhard_II,CDU executive committee nominated new candidates to succeed chancellor Erhard on 8 November 1966 and he lost an informal confidence vote ('Vertrauensfrage-Ersuchen') on the same day.,"",31,250
+327,29,1953-08-10,St-Laurent III,http://en.wikipedia.org/wiki/Louis_St._Laurent#Prime_Minister_of_Canada,,"",750,292
+329,43,1944-11-10,de Gaulle I,http://fr.wikipedia.org/wiki/Gouvernement_Charles_de_Gaulle_(1),"","",1416,983
+330,43,1947-01-22,Ramadier I,http://fr.wikipedia.org/wiki/Gouvernement_Paul_Ramadier_(1),"","",52,75
+337,5,1976-12-24,Fukuda T,"",,"",59,53
+343,54,1980-11-05,Schmidt III,http://de.wikipedia.org/wiki/Kabinett_Schmidt_III,"FDP ministers resigned on 17 September 1982 and the FDP parliamentary group agreed on 29 September to elect Kohl as Chancellor. Schmidt lost a constructive vote of no-confidence (yes: 256, no: 235, abstain: 4) on 1 October and Kohl was elected by the vote. Earlier this year, Schmidt got support in a confidence vote (yes: 269, no: 224) on 2 February.","",459,547
+346,54,1983-03-30,Kohl II,http://de.wikipedia.org/wiki/Kabinett_Kohl_II,,"",642,484
+349,43,1966-01-09,Pompidou III,http://fr.wikipedia.org/wiki/Gouvernement_Georges_Pompidou_%283%29,Cabinet was re-appointed on 9 January 1966. Cabinet ended with election on 5 March 1967. ,"Party ""Gauche Democr."" could not be identified. ",698,407
+355,43,1948-09-10,Queuille I,http://fr.wikipedia.org/wiki/Gouvernement_Henri_Queuille_(1),"","",363,75
+358,54,1969-10-22,Brandt I,http://de.wikipedia.org/wiki/Kabinett_Brandt_I,"Brandt I cabinet lost its legislative majority after several FDP MPs crossed the floor. Opposition leader Barzel (CDU) initiated a constructive vote of no-confidence (yes: 247, no: 10, abstain: 3, total: 260) on 27 April 1972 to be elected as chancellor but gained no majority support. Brandt called for a vote of confidence (yes: 233, no: 248, abstain: 1) on 20 September 1972 to allow for a dissolution of parliament and new elections.","",170,447
+363,43,1948-08-31,Schuman II,http://fr.wikipedia.org/wiki/Gouvernement_Robert_Schuman_(2),"","",263,75
+367,43,1950-07-12,Pleven I,http://fr.wikipedia.org/wiki/Gouvernement_Ren%C3%A9_Pleven_(1),"","",1142,75
+371,5,1996-11-07,Hashimoto II,"","PM Hashimoto was elected on 7 November 1996 (yes: 262).
+Cabinet announced resignation on 13 July 1998, effective 30 July, following defeat in upper house elections.","",800,628
+374,5,2009-09-16,Hatoyama Y,http://en.wikipedia.org/wiki/Yukio_Hatoyama,"Conflict over a US military base on Okinawa led to the fall of the cabinet and PM Hatoyama resigned on 2 June 2010. Previously, the SDP quit the coalition on 30 May 2010.","",494,327
+376,54,1955-07-15,Adenauer III,http://de.wikipedia.org/wiki/Kabinett_Adenauer_II,Cabinet ended on 23 February 1956 after ministers of the Free Democratic Party (FDP) withdrew from the party group.,"",192,103
+390,5,2007-08-27,Abe II,"",,"",679,554
+397,43,1955-02-23,Faure II,http://fr.wikipedia.org/wiki/Gouvernement_Edgar_Faure_%282%29,"","Party ""Payson"" could not be identified. ",414,293
+400,43,1953-06-28,Laniel,http://fr.wikipedia.org/wiki/Gouvernement_Joseph_Laniel_%281%29,"","Party ""Payson"" could not be identified. ",557,293
+404,44,1957-01-10,Macmillan I,http://en.wikipedia.org/wiki/Conservative_Government_1957-1964,"","",184,678
+411,43,1945-11-21,de Gaulle II,http://fr.wikipedia.org/wiki/Gouvernement_Charles_de_Gaulle_(2),"","",329,471
+414,43,1954-06-19,Mendes-France,http://fr.wikipedia.org/wiki/Gouvernement_Pierre_Mend%C3%A8s_France,"","",400,293
+415,29,1965-12-18,Pearson II,"",Minority cabinet was supported by the New Democratic Party (NDP).,"",857,282
+417,5,1993-08-06,Hosokawa,"","PM Hosokawa was elected (yes: 262, total: 503 [lower house]; yes: 132, total: 240 [upper house]) and the cabinet was appointed three days later.","",253,57
+419,44,1974-03-04,Wilson III,http://en.wikipedia.org/wiki/Labour_Government_1974-1979,"Minority cabinet with support of the Ulster Unionists.
+PM Wilson called an early election on 18 September 1974 to win a legislative majority.","",216,568
+422,43,1995-11-07,Juppe II,http://fr.wikipedia.org/wiki/Gouvernement_Alain_Jupp%C3%A9_%282%29,PM Juppe resigned on 2 June 1997 following the parliamentary election. ,"",244,664
+428,43,1983-03-22,Mauroy III,http://fr.wikipedia.org/wiki/Gouvernement_Pierre_Mauroy_%283%29,"","",116,20
+430,43,1972-07-06,Messmer I,http://fr.wikipedia.org/wiki/Gouvernement_Pierre_Messmer_%281%29,"","",111,386
+432,5,1994-04-25,Hata,"",Sakigake stayed in coalition without a ministerial position.,"",417,57
+458,43,1957-11-05,Gaillard,http://fr.wikipedia.org/wiki/Gouvernement_F%C3%A9lix_Gaillard,"",One minister appointed by African Democratic Rally (RDA).,209,312
+459,54,1976-12-15,Schmidt II,http://de.wikipedia.org/wiki/Kabinett_Schmidt_II,,"",252,163
+472,54,2009-10-28,Merkel II,http://en.wikipedia.org/wiki/Merkel_Cabinet_II,"PM Merkel  won an investiture vote (yes: 323, no: 258, abstain: 4) on 28 October 2009.
+Cabinet lost its upper house majority on 14 July 2010 when a new cabinet took office in the state of North Rhine-Westphalia.
+Cabinet ended with election on 22 September 2013.","",85,93
+481,43,1997-06-02,Jospin,http://fr.wikipedia.org/wiki/Gouvernement_Lionel_Jospin,PM Jospin was appointed on 2 June and the cabinet on 4 June. ,"",422,479
+493,5,2010-06-04,Kan,"","PM Kan won an investiture vote (yes: 313, total: 477 [lower house]; yes: 123, total: 237 [upper house]) on 4 June 2010 and the cabinet was appointed four days later.
+Cabinet lost its upper house majority in an election on 11 July 2010.
+Cabinet resigned on 30 August following criticism after a tsunami in March and the crisis at a nuclear power plant.","",374,327
+494,5,2008-09-24,Aso,"",,"",134,554
+498,29,1984-09-17,Mulroney I,"",,"",670,159
+502,5,1972-12-22,Tanaka II,"",,"",656,333
+515,44,1990-11-28,Major I,http://en.wikipedia.org/wiki/Major_Ministry,"","",297,490
+516,44,2005-05-06,Blair III,http://en.wikipedia.org/wiki/Blair_Ministry,"","",19,233
+526,43,1962-04-15,Pompidou I,http://fr.wikipedia.org/wiki/Gouvernement_Georges_Pompidou_%281%29,"PM Pompidou lost a confidence vote (yes: 200, no: 280) on 4 October 1962 over plans to introduce direct presidential elections and cabinet resigned on 6 October.","",692,375
+760,44,1964-10-16,Wilson I,http://en.wikipedia.org/wiki/Labour_Government_1964-1970,"","",63,223
+529,54,2002-10-22,Schroeder II,http://en.wikipedia.org/wiki/Schr%C3%B6der_Cabinet_II,"PM Schröder announced on 22 May 2005 that he intended to call for early election. He initiated and lost a vote of confidence (yes: 151, no: 296, abstain: 148) on 1 July 2005 and most coalition MPs abstained from voting.","",107,385
+534,29,1948-11-15,St-Laurent I,http://en.wikipedia.org/wiki/Louis_St._Laurent#Prime_Minister_of_Canada,,"",608,189
+557,43,1953-01-07,Mayer,http://fr.wikipedia.org/wiki/Gouvernement_Ren%C3%A9_Mayer,"","Party ""Payson"" could not be identified. ",658,293
+565,29,1968-04-20,Trudeau P I,"","","",415,282
+568,5,1983-12-27,Nakasone II,"",,"",242,138
+590,44,1976-04-05,Callaghan,http://en.wikipedia.org/wiki/Labour_Government_1974-1979,"Cabinet lost majority support by April 1976. Minority cabinet was supported by Liberals (L) from March 1977 until August 1978.
+Callaghan lost a vote of confidence (yes: 310, no: 311) on 28 March 1979 and called early elections following industrial unrest ('Winter of Discontent').","",7,40
+591,43,1956-01-31,Mollet,http://fr.wikipedia.org/wiki/Gouvernement_Guy_Mollet,"",One minister appointed by African Democratic Rally (RDA).,397,312
+594,43,1958-05-12,Pflimlin,http://fr.wikipedia.org/wiki/Gouvernement_Pierre_Pflimlin,"","One minister appointed by African Democratic Rally (RDA).
+Party ""Gauche Democr."" could not be identified. ",458,312
+607,43,1973-04-05,Messmer II,http://fr.wikipedia.org/wiki/Gouvernement_Pierre_Messmer_%282%29,"",cabinet ended by formal resignation,430,357
+608,29,1945-06-11,King V,http://en.wikipedia.org/wiki/William_Lyon_Mackenzie_King,"","",1164,189
+610,29,2006-02-06,Harper I,http://en.wikipedia.org/wiki/28th_Canadian_Ministry,"","",308,137
+612,29,2008-10-30,Harper II,http://en.wikipedia.org/wiki/28th_Canadian_Ministry,"PM Harper won election on 14 October 2008 and presented his cabinet on 30 October.
+Cabinet lost a confidence vote (yes: 145, no: 156) on 25 March 2011 over budget plans. The following day, he asked to dissolve the parliament.","",610,601
+619,29,1962-06-18,Diefenbaker III,"",,"",697,76
+633,54,1956-02-24,Adenauer IV,http://de.wikipedia.org/wiki/Kabinett_Adenauer_II,"Cabinet continued on 24 February 1956 when Christian Democrats (CDU) announced to continue the previous coalition with ministers that resigned from the Free Democratic (FDP) party group.
+Cabinet changed when German Party (DP) and Free People's Party (FVP) party groups formed a cooperation agreement on 27 September 1956 and formally merged on 14 March 1957.",DP and FVP merger not coded as a new cabinet since no coalition bargaining took place.,376,103
+636,43,1949-10-28,Bidault II,http://fr.wikipedia.org/wiki/Gouvernement_Georges_Bidault_(2),"","",355,75
+642,54,1982-10-01,Kohl I,http://de.wikipedia.org/wiki/Kabinett_Kohl_I,"Kohl initiated a vote of confidence (yes: 8, no: 218, abstain: 248) on 17 December 1982 and most coalition MPs abstained from voting, to dissolve parliament and call a snap election.","",343,547
+646,44,1983-06-09,Thatcher II,http://en.wikipedia.org/wiki/Conservative_Government_1983-1987,"","",273,290
+648,43,1946-01-26,Gouin,http://fr.wikipedia.org/wiki/Gouvernement_F%C3%A9lix_Gouin,"","",411,471
+649,5,1963-12-09,Ikeda III,"",,"",48,640
+656,5,1972-07-07,Tanaka I,"",,"",789,603
+658,43,1952-03-08,Pinay,http://fr.wikipedia.org/wiki/Gouvernement_Antoine_Pinay,"Antoine Pinay surprisingly won parliamentary support (yes: 324, no: 206) as PM on 6 March 1952. Cabinet was appointed two days later and won a confidence vote (yes: 290, no:101) on 11 March.","Appointment date based on Assemblée Nationale source.
+Party ""Payson"" could not be identified. ",32,293
+662,43,1967-04-08,Pompidou IV,http://fr.wikipedia.org/wiki/Gouvernement_Georges_Pompidou_%284%29,"","",349,291
+665,5,1999-10-05,Obuchi III,http://en.wikipedia.org/wiki/Keiz%C5%8D_Obuchi,"Komeito entered cabinet on 5 October 1999.
+PM Obuchi suffered a stroke on 1 April 2000 was replaced by by Yoshirō Mori on 5 April.","",916,628
+670,29,1984-06-30,Turner,"",,"",70,139
+678,44,1992-04-09,Major II,http://en.wikipedia.org/wiki/Major_Ministry,"",Vote of confidence on 24 July 1993 to pass approval of the Treaty on European Union.,515,514
+679,5,2006-09-26,Abe I,"","","",850,554
+691,44,1951-10-26,Churchill III,http://en.wikipedia.org/wiki/Conservative_Government_1951-1957,"Conservatives and National Liberals formed an electoral alliance, the Woolton-Teviot agreement of May 1947, merging at the constituency level. The Conservatives had no majority of seats in parliament and there were no cabinet members from the National Liberals although Churchill had offered a cabinet position to Clement Davies who turned the offer down. ""The National Liberals met regularly as a group each Wednesday throughout the 1951-5 parliament, though they never voted as a group against the government"" (Dutton 1989, 366-7).","",88,102
+692,43,1959-01-08,Debré,http://fr.wikipedia.org/wiki/Gouvernement_Michel_Debr%C3%A9,"",One minister appointed by African Democratic Rally (RDA).,197,375
+696,29,1968-07-06,Trudeau P II,"","","",565,91
+697,29,1958-03-31,Diefenbaker II,"",,"",249,286
+698,43,1962-12-06,Pompidou II,http://fr.wikipedia.org/wiki/Gouvernement_Georges_Pompidou_%282%29,Cabinet resigned on 8 January 1966 after the re-election of President de Gaulle.,"",526,407
+704,29,1993-06-25,Campbell,"",,"",739,96
+711,43,2002-05-07,Raffarin I,http://fr.wikipedia.org/wiki/Gouvernement_Jean-Pierre_Raffarin_(1),,"",481,479
+712,43,1988-06-23,Rocard II,http://fr.wikipedia.org/wiki/Gouvernement_Michel_Rocard_%282%29,"","",1150,643
+727,5,1979-11-09,Ohira II,http://en.wikipedia.org/wiki/Masayoshi_Ohira,"Ohira lost a confidence vote on 16 May 1980 (yes: 187, no: 243) after some MPs from the Liberal Democrats abstained from the vote and parliament was dissolved. Ohira died on 12 June and Masayoshi Ito became acting prime minster until the elections in July.","",227,433
+729,44,1955-04-06,Eden I,http://en.wikipedia.org/wiki/Conservative_Government_1955%E2%80%931957,"","",691,102
+733,44,1966-04-05,Wilson II,http://en.wikipedia.org/wiki/Labour_Government_1964-1970,"","",760,583
+739,29,1988-12-07,Mulroney II,"",,"",498,96
+743,5,1989-06-03,Uno,"",,"",283,506
+750,29,1949-06-27,St-Laurent II,http://en.wikipedia.org/wiki/Louis_St._Laurent#Prime_Minister_of_Canada,,"",534,112
+751,29,1979-06-04,Clark,"","Minority cabinet without support parties.
+Cabinet lost a confidence vote (yes: 133, no: 139) on 13 December 1979 over its energy and budget policy.","""(...) immediately following the election of the Conservative minority government of 1979-80, PM Joe Clark announced he would govern as if he had a majority."" (The Canadian Encyclopedia)",783,683
+753,43,1947-11-24,Schuman I,http://fr.wikipedia.org/wiki/Gouvernement_Robert_Schuman_(1),"","",330,75
+758,43,1950-02-02,Bidault III,http://fr.wikipedia.org/wiki/Gouvernement_Henri_Queuille_(2),"","",636,75
+770,5,2003-11-19,Koizumi II,http://en.wikipedia.org/wiki/Junichiro_Koizumi,"PM Koizumi was elected (yes: 281 [lower house]; yes: 136, total: 240 [upper house]) on 19 August 2003 and the cabinet was appointed the same day.","",840,511
+778,54,1994-11-17,Kohl V,http://de.wikipedia.org/wiki/Kabinett_Kohl_V,,"",862,595
+780,5,1958-06-12,Kishi II,http://en.wikipedia.org/wiki/Nobusuke_Kishi,"PM Kishi was elected on 12 June 1958 and the cabinet was appointed the same day.
+On 16 June 1960, Kishi announced his intention to resign after a controversial security treaty (US/Japan) came into force and cabinet resigned on 16 July","",887,645
+783,29,1974-08-08,Trudeau P IV,"","","",25,276
+785,29,1993-11-04,Chretien I,"",,"",704,546
+787,5,1967-02-17,Sato II,"",,"",8,367
+789,5,1970-01-14,Sato III,"",,"",787,603
+793,54,1957-10-24,Adenauer V,http://de.wikipedia.org/wiki/Kabinett_Adenauer_III,Cabinet ended on 1 July 1960 when German Party (DP) parliamentary group split.,"",633,331
+800,5,1996-01-11,Hashimoto I,"",,"",868,57
+802,43,2004-03-30,Raffarin III,http://fr.wikipedia.org/wiki/Gouvernement_Jean-Pierre_Raffarin_(3),Raffarin resigned on 31 May 2005 following the rejection of the referendum on the European Union constitution.,"",820,403
+807,43,2007-05-18,Fillon I,http://fr.wikipedia.org/wiki/Gouvernement_Fran%C3%A7ois_Fillon_(1),Cabinet formally resigned on 18 June 2007 following parliamentary elections and PM Fillon was re-appointed the same day.,"",46,403
+820,43,2002-06-17,Raffarin II,http://fr.wikipedia.org/wiki/Gouvernement_Jean-Pierre_Raffarin_(2),,"",711,403
+826,43,1951-08-11,Pleven II,http://fr.wikipedia.org/wiki/Gouvernement_Ren%C3%A9_Pleven_(2),"","Party ""Payson"" could not be identified. ",104,293
+838,44,1997-05-02,Blair I,http://en.wikipedia.org/wiki/Blair_Ministry,"","",678,315
+840,5,2001-04-26,Koizumi I,http://en.wikipedia.org/wiki/Junichiro_Koizumi,"","",163,237
+843,43,1984-07-17,Fabius,http://fr.wikipedia.org/wiki/Gouvernement_Laurent_Fabius,"","",428,20
+850,5,2005-10-31,Koizumi III,http://en.wikipedia.org/wiki/Junichiro_Koizumi,"","",770,554
+857,29,1963-04-22,Pearson I,"",Minority cabinet was supported by the New Democratic Party (NDP).,"",619,424
+862,54,1991-01-18,Kohl IV,http://de.wikipedia.org/wiki/Kabinett_Kohl_IV,,"",286,445
+868,5,1994-06-30,Murayama,"",,"",432,57
+871,54,1972-12-15,Brandt II,http://de.wikipedia.org/wiki/Kabinett_Brandt_II,Brandt resigned on 6 May 1974 following a spy scandal about a staff member.,"",358,95
+874,44,2010-05-11,Cameron I,http://en.wikipedia.org/wiki/Cameron_ministry,"PM Cameron took office on 11 May 2010 after forming a coalition with the Liberal Democrats (LD).
+Cabinet ended with election on 7 May 2015.","",119,582
+883,43,2010-11-14,Fillon III,http://fr.wikipedia.org/wiki/Gouvernement_Fran%C3%A7ois_Fillon_%283%29,"A reshuffled cabinet under Fillon was appointed on 14 November 2010.
+The government lost its Senate majority in elections on 25 September 2011. 
+Cabinet resigned on 10 May 2012 after presidential elections.","",306,171
+887,5,1957-02-25,Kishi I,http://en.wikipedia.org/wiki/Nobusuke_Kishi,"PM Kishi was elected on 25 February 1957 (yes: 276 [lower house]; yes: 147 [upper house]). 
+Kishi dissolved parliament on 25 April 1958.","",901,692
+891,5,1946-05-22,Yoshida I,http://ja.wikipedia.org/wiki/%E7%AC%AC1%E6%AC%A1%E5%90%89%E7%94%B0%E5%86%85%E9%96%A3,"PM Yoshida and his cabinet were appointed on 22 May 1946.
+Cabinet ended with elections on 25 April 1947 and resigned on 19 May.","",,697
+892,5,1947-05-23,Katayama,http://ja.wikipedia.org/wiki/%E7%89%87%E5%B1%B1%E5%86%85%E9%96%A3,"PM Katayama was elected on 23 May 1947 (yes: 420  [lower house]; yes: 205 [upper house]) and the cabinet came into office on 1 June.
+Cabinet resigned on 10 February 1948.","",891,696
+893,5,1948-02-21,Ashida,http://en.wikipedia.org/wiki/Hitoshi_Ashida,"PM Ashida was elected on 21 February 1948 (yes: 216 [lower house]; yes: 102 [upper house]) and the cabinet came into office on 9 March.
+Cabinet resigned on 7 October 1948 following corruption charges.","",892,696
+894,5,1948-10-15,Yoshida II,http://ja.wikipedia.org/wiki/%E7%AC%AC2%E6%AC%A1%E5%90%89%E7%94%B0%E5%86%85%E9%96%A3,"PM Yoshida was elected on 15 October 1948 (yes: 185) and his cabinet came into office on 19 October.
+Cabinet resigned on 7 December 1948 to avoid a no confidence vote by the opposition.","",893,696
+895,5,1949-02-11,Yoshida III,http://ja.wikipedia.org/wiki/%E7%AC%AC3%E6%AC%A1%E5%90%89%E7%94%B0%E5%86%85%E9%96%A3,"PM Yoshida was elected on 11 February 1949 (yes: 350, cast: 451 [lower house]; yes: 167, cast: 218  [upper house]) and his cabinet came into office on 16 February.
+Yoshida dissolved parliament and announced general elections on 28 August 1952.","",894,695
+896,5,1952-10-24,Yoshida IV,http://ja.wikipedia.org/wiki/%E7%AC%AC4%E6%AC%A1%E5%90%89%E7%94%B0%E5%86%85%E9%96%A3,"PM Yoshida was elected on 24 October 1952 (yes: 247 [lower house]; yes: 126 [upper house]) and his cabinet came into office on 29 October.
+PM Yoshida lost a confidence vote (yes: 218, no: 229) on 14 March 1953 and dissolved parliament.","",895,694
+897,5,1953-05-19,Yoshida V,http://ja.wikipedia.org/wiki/%E7%AC%AC5%E6%AC%A1%E5%90%89%E7%94%B0%E5%86%85%E9%96%A3,"PM Yoshida was elected on 19 May 1953 (yes: 204 [lower house]; yes: 141 [upper house]) and his cabinet came into office on 22 May.
+Cabinet resigned on 7 December 1954 following a potential vote of no confidence by the opposition and a faction of the Liberal party.","",896,693
+898,5,1954-12-09,Hatoyama I I,http://ja.wikipedia.org/wiki/%E7%AC%AC1%E6%AC%A1%E9%B3%A9%E5%B1%B1%E4%B8%80%E9%83%8E%E5%86%85%E9%96%A3,"PM Hatoyama was elected on 9 December 1954 (yes: 257 [lower house]; yes: 116 [upper house]) following the resignation of PM Yoshida. He promised to dissolve parliament and to hold an election by spring. 
+Cabinet ends with the dissolution of parliament on 24 January 1955.","",897,693
+899,5,1955-03-18,Hatoyama I II,http://ja.wikipedia.org/wiki/%E7%AC%AC2%E6%AC%A1%E9%B3%A9%E5%B1%B1%E4%B8%80%E9%83%8E%E5%86%85%E9%96%A3,"PM Hatoyama was elected on 18 March 1955  (yes: 254 [lower house]) and cabinet came into office on 26 March.
+Cabinets resigned on 21 November 1955 and later reformed following the merger of Liberal and Democratic parties.","",898,692
+900,5,1955-11-22,Hatoyama I III,http://ja.wikipedia.org/wiki/%E7%AC%AC3%E6%AC%A1%E9%B3%A9%E5%B1%B1%E4%B8%80%E9%83%8E%E5%86%85%E9%96%A3,"PM Hatoyama was elected on 22 November 1955 (yes: 288 [lower house], yes: 149 [upper house]) and the cabinet appointed the same day.
+Cabinet resigned on 20 December 1956 because of Hatoyama's failing health.","",899,692
+901,5,1956-12-20,Ishibashi,http://ja.wikipedia.org/wiki/%E7%9F%B3%E6%A9%8B%E5%86%85%E9%96%A3,"PM Ishibashi was elected on 20 December 1956 (yes: 291 [lower house]) and cabinet came into office four days later.
+Ishibashi resigned on 23 February 1957 because of failing health.","",900,692
+906,54,1960-07-01,Adenauer VI,http://de.wikipedia.org/wiki/Kabinett_Adenauer_III,"","",793,331
+915,5,1998-07-30,Obuchi I,"","PM Obuchi was elected on 30 July 1998 (yes: 268).
+Cabinet ends on 14 January 1999 through reshuffle and new cabinet party.","",371,628
+916,5,1999-01-14,Obuchi II,"","Liberal Party entered cabinet on 14 January 1999.
+Cabinet ends on 5 October 1999 through reshuffle and new cabinet party.","",915,628
+919,29,2011-05-02,Harper III,"",Harper won in a snap election on 2 May 2011 and presented his cabinet on 18 May. Cabinet ended with election on 19 October 2015.,"",612,703
+969,5,2011-08-30,Noda,http://en.wikipedia.org/wiki/Yoshihiko_Noda,"PM Noda won investiture votes (yes: 308, [lower house]; yes: 110, total: 241 [upper house]) on 30 August 2011 following the resignation of PM Kan. His cabinet came into office on 2 September.
+Cabinet lost majority control and was forced to dissolve parliament in fall 2012. It ended with an early election on 16 December 2012.","",493,327
+1037,43,2012-05-15,Ayrault I,http://en.wikipedia.org/wiki/Ayrault_Cabinet,"PM Ayrault was appointed on 15 May 2012 and the cabinet was appointed the following day.
+Cabinet ended with election on 10 June 2012 and resigned on 18 June.","",883,171
+1038,43,2012-06-18,Ayrault II,http://en.wikipedia.org/wiki/Ayrault_Cabinet,"PM Ayrault was re-appointed on 18 June 2012 and the cabinet was appointed three days later.
+PM Ayrault resigned on 31 March 2014 after losses in local elections.","",1037,782
+1044,5,2012-12-26,Abe III,http://en.wikipedia.org/wiki/Shinz%C5%8D_Abe,"PM Abe won an investiture vote (yes: 328, total: 478 [lower house]; yes: 107, total: 234 [upper house]) on 26 December 2012 and the cabinet was appointed the same day.
+PM Abe was seeking a new mandate in fall 2012 and dissolved parliament. Cabinet ended with an early election on 14 December 2014. ","",969,788
+1103,43,2014-03-31,Valls I,http://en.wikipedia.org/wiki/Valls_Cabinet,"PM Valls was appointed on 31 March 2014 and the cabinet was appointed two days later. The cabinet won a confidence vote on 8 April (yes: 306, no: 239).
+Cabinet resigned on 25 August over internal conflict.","",1038,782
+1071,54,2013-12-17,Merkel III,http://en.wikipedia.org/wiki/Third_Merkel_cabinet,"PM Merkel won an investiture vote (yes: 462, no: 150, abstain: 9) on 17 December 2013.","",472,800
+1141,43,2014-08-26,Valls II,http://fr.wikipedia.org/wiki/Gouvernement_Manuel_Valls_(2),"Cabinet was re-appointed on 26 August 2014 and won a confidence vote (yes: 269, no: 244, abstain: 53) on 16 September.
+Cabinet ended on 11 February 2016 with a change in party composition. ","",1103,782
+1142,43,1950-07-02,Queuille II,http://fr.wikipedia.org/wiki/Gouvernement_Henri_Queuille_%282%29,"","",758,75
+1148,43,1981-05-22,Mauroy I,http://fr.wikipedia.org/wiki/Gouvernement_Pierre_Mauroy_%281%29,"","Party ""Movement of democrates"" could not be identified. ",72,496
+1150,43,1988-05-10,Rocard I,http://fr.wikipedia.org/wiki/Gouvernement_Michel_Rocard_%281%29,"","",290,623
+1156,5,2014-12-24,Abe IV,http://en.wikipedia.org/wiki/Shinz%C5%8D_Abe,"PM Abe won an investiture vote (yes: 328, total: 470 [lower house]; yes: 135, total: 240 [upper house]) on 24 December 2014 and the cabinet was appointed the same day. ","",1044,850
+1162,44,2015-05-08,Cameron II,http://en.wikipedia.org/wiki/Second_Cameron_ministry,"Cabinet continued after the election on 7 May 2015. 
+PM Cameron resigned on 13 July 2016 after the Brexit referendum. ","",874,856
+1164,29,1940-03-26,King IV,https://en.wikipedia.org/wiki/William_Lyon_Mackenzie_King#Prime_Minister:_fourth_Parliament,"","",1165,854
+1165,29,1935-10-23,King III,https://en.wikipedia.org/wiki/List_of_Prime_Ministers_of_Canada,"","",1166,857
+1166,29,1930-08-07,Bennett ,https://en.wikipedia.org/wiki/List_of_Prime_Ministers_of_Canada,"","",1167,858
+1167,29,1926-09-25,King II,https://en.wikipedia.org/wiki/William_Lyon_Mackenzie_King,"","",1168,859
+1168,29,1921-12-29,King I,https://en.wikipedia.org/wiki/William_Lyon_Mackenzie_King,"","",1169,861
+1169,29,1920-07-10,Meighen,https://en.wikipedia.org/wiki/Arthur_Meighen,"","",1469,862
+1170,29,1917-10-12,Borden II,https://en.wikipedia.org/wiki/Robert_Borden,"","",1171,863
+1171,29,1911-10-10,Borden I,https://en.wikipedia.org/wiki/Robert_Borden,"","",1468,863
+1176,29,2015-11-04,Trudeau J,https://en.wikipedia.org/wiki/29th_Canadian_Ministry,Cabinet was appointed on 4 November 2015. ,"",919,994
+1286,44,1937-05-28,Chamberlain,https://en.wikipedia.org/wiki/Fourth_National_ministry,"","",1288,911
+1287,44,1935-06-07,Baldwin III,https://en.wikipedia.org/wiki/Third_National_ministry,"","",1289,910
+1288,44,1935-11-14,Baldwin IV,https://en.wikipedia.org/wiki/Third_National_ministry,"","",1287,911
+1289,44,1931-11-05,MacDonald III,https://en.wikipedia.org/wiki/Second_National_ministry,"","",1290,910
+1290,44,1929-06-05,MacDonald II ,https://en.wikipedia.org/wiki/Second_MacDonald_ministry,"","",1291,909
+1291,44,1924-11-06,Baldwin II ,https://en.wikipedia.org/wiki/Second_Baldwin_ministry,"","",1292,908
+1292,44,1924-01-23,MacDonald I ,https://en.wikipedia.org/wiki/First_MacDonald_ministry,"","",1293,907
+1293,44,1923-05-25,Baldwin I ,https://en.wikipedia.org/wiki/Conservative_Government_1922–24,Cabinet ended in 1924 following a no confidence vote raised by the opposition. ,"",1294,906
+1294,44,1922-10-24,Bonar Law,https://en.wikipedia.org/wiki/Conservative_Government_1922–24,"","",1295,905
+1295,44,1919-01-10,Lloyd George I,https://en.wikipedia.org/wiki/Lloyd_George_ministry,"","",,905
+1302,43,1939-09-13,Daladier V,https://fr.wikipedia.org/wiki/Gouvernement_Édouard_Daladier_(5),"","",1303,983
+1303,43,1939-05-11,Daladier IV,https://fr.wikipedia.org/wiki/Gouvernement_Édouard_Daladier_(4),"","",1304,983
+1304,43,1938-04-12,Daladier III,https://fr.wikipedia.org/wiki/Gouvernement_Édouard_Daladier_(3),"","",1305,983
+1305,43,1938-03-13,Blum II,https://fr.wikipedia.org/wiki/Gouvernement_Léon_Blum_(2),"","",1306,983
+1306,43,1937-06-29,Chautemps III,https://fr.wikipedia.org/wiki/Gouvernement_Camille_Chautemps_(3),"","",1307,983
+1307,43,1936-06-04,Blum I,https://fr.wikipedia.org/wiki/Gouvernement_Léon_Blum_(1),"","",1327,983
+1327,43,1936-01-24,Sarraut II,https://fr.wikipedia.org/wiki/Gouvernement_Albert_Sarraut_(2),"","",1328,984
+1328,43,1935-06-07,Laval III,https://fr.wikipedia.org/wiki/Gouvernement_Pierre_Laval_(4),"","",1329,984
+1329,43,1935-06-01,Bouisson,https://fr.wikipedia.org/wiki/Gouvernement_Fernand_Bouisson,"","",1330,984
+1330,43,1934-11-08,Flandin,https://fr.wikipedia.org/wiki/Gouvernement_Pierre-Étienne_Flandin_(1),"","",1331,984
+1331,43,1934-02-09,Doumergue II,https://fr.wikipedia.org/wiki/Gouvernement_Gaston_Doumergue_(2),"","",1332,984
+1332,43,1934-01-30,Daladier II ,https://fr.wikipedia.org/wiki/Gouvernement_Édouard_Daladier_(2),"","",1333,984
+1333,43,1933-11-26,Chautemps II ,https://fr.wikipedia.org/wiki/Gouvernement_Camille_Chautemps_(2),"","",1334,984
+1334,43,1933-10-26,Sarraut I ,https://fr.wikipedia.org/wiki/Gouvernement_Albert_Sarraut_(1),"","",1335,984
+1335,43,1933-01-31,Daladier I ,https://fr.wikipedia.org/wiki/Gouvernement_Édouard_Daladier_(1),"Cabinet lost a confidence vote (yes: 241, no: 329) over finance policy. ","",1336,984
+1336,43,1932-12-18,Paul-Boncour,https://fr.wikipedia.org/wiki/Gouvernement_Joseph_Paul-Boncour,"","",1337,984
+1337,43,1932-06-03,Herriot III,https://fr.wikipedia.org/wiki/Gouvernement_Édouard_Herriot_(3),"Cabinet lost a confidence vote (yes: 187, no: 402). ","",1338,984
+1338,43,1932-02-20,Tardieu III ,https://fr.wikipedia.org/wiki/Gouvernement_André_Tardieu_(3),"","",1414,985
+1340,43,1931-01-27,Laval I ,https://fr.wikipedia.org/wiki/Gouvernement_Pierre_Laval_(1),"","",1341,985
+1341,43,1930-12-13,Steeg,https://fr.wikipedia.org/wiki/Gouvernement_Théodore_Steeg,"Cabinet lost a confidence vote (yes: 283, no: 293). ","",1342,985
+1342,43,1930-03-02,Tardieu II ,https://fr.wikipedia.org/wiki/Gouvernement_André_Tardieu_(2),Cabinet lost a confidence vote. ,"",1343,985
+1343,43,1930-02-21,Chautemps I,https://fr.wikipedia.org/wiki/Gouvernement_Camille_Chautemps_(1),"Cabinet lost an investiture vote (yes: 277, no: 292). ","",1344,985
+1344,43,1929-11-03,Tardieu I ,https://fr.wikipedia.org/wiki/Gouvernement_André_Tardieu_(1),"Cabinet lost a confidence vote (yes: 281, no: 286). ","",1345,985
+1345,43,1929-07-29,Briand IX,https://fr.wikipedia.org/wiki/Gouvernement_Aristide_Briand_(11),"Cabinet lost a confidence vote (yes: 277, no: 287). ","",1346,985
+1346,43,1928-11-11,Poincare V,https://fr.wikipedia.org/wiki/Gouvernement_Raymond_Poincaré_(5),"","",1410,985
+1347,43,1926-07-23,Poincare III,https://fr.wikipedia.org/wiki/Gouvernement_Raymond_Poincaré_(4),"","",1348,991
+1348,43,1926-07-19,Herriot II ,https://fr.wikipedia.org/wiki/Gouvernement_Édouard_Herriot_(2),"Cabinet lost an investiture vote (yes: 237, no: 290). ","",1350,991
+1350,43,1925-11-28,Briand VIII,https://fr.wikipedia.org/wiki/Gouvernement_Aristide_Briand_(8),"","",1351,991
+1351,43,1925-04-17,Painleve,https://fr.wikipedia.org/wiki/Gouvernement_Paul_Painlevé_(2),"","",1352,991
+1352,43,1924-06-14,Herriot I,https://fr.wikipedia.org/wiki/Gouvernement_Édouard_Herriot_(1),"","",1353,991
+1353,43,1924-06-08,Francois-Marsal,https://fr.wikipedia.org/wiki/Gouvernement_Frédéric_François-Marsal,"","",1354,991
+1354,43,1922-01-15,Poincare II,https://fr.wikipedia.org/wiki/Gouvernement_Raymond_Poincaré_(2),"Cabinet lost a confidence vote (yes: 264, no: 271). ","",1355,990
+1355,43,1921-01-16,Briand VII,https://fr.wikipedia.org/wiki/Gouvernement_Aristide_Briand_(7),"","",1356,990
+1356,43,1920-09-24,Leygues,https://fr.wikipedia.org/wiki/Gouvernement_Georges_Leygues,"","",1357,990
+1357,43,1920-02-18,Millerand II,https://fr.wikipedia.org/wiki/Gouvernement_Alexandre_Millerand_(2),"","",1358,990
+1358,43,1920-01-20,Millerand I,https://fr.wikipedia.org/wiki/Gouvernement_Alexandre_Millerand_(1),"","",1413,990
+1359,43,1917-11-16,Clemenceau II,https://fr.wikipedia.org/wiki/Gouvernement_Georges_Clemenceau_(2),"","",1405,989
+1387,43,1902-06-07,Combes,https://fr.wikipedia.org/wiki/Gouvernement_%C3%89mile_Combes,"","",,987
+1388,43,1905-01-24,Rouvier ,https://fr.wikipedia.org/wiki/Gouvernement_Maurice_Rouvier_%282%29,"","",1387,987
+1390,43,1906-10-25,Clemenceau I,https://fr.wikipedia.org/wiki/Gouvernement_Georges_Clemenceau_%281%29,Cabinet lost a confidence vote. ,"",1411,986
+1391,43,1909-07-24,Briand I,https://fr.wikipedia.org/wiki/Gouvernement_Aristide_Briand_%281%29,"","",1390,986
+1392,43,1910-11-03,Briand III,https://fr.wikipedia.org/wiki/Gouvernement_Aristide_Briand_%282%29,"","",1412,988
+1393,43,1911-03-02,Monis,https://fr.wikipedia.org/wiki/Gouvernement_Ernest_Monis,"","",1392,988
+1394,43,1911-06-27,Caillaux,https://fr.wikipedia.org/wiki/Gouvernement_Joseph_Caillaux,"","",1393,988
+1395,43,1912-01-14,Poincare I,https://fr.wikipedia.org/wiki/Gouvernement_Raymond_Poincar%C3%A9_%281%29,"","",1394,988
+1396,43,1913-01-21,Briand IV,https://fr.wikipedia.org/wiki/Gouvernement_Aristide_Briand_%283%29,"Cabinet lost a conficence vote (yes: 128, no: 161).","",1395,988
+1397,43,1913-03-22,Barthou,https://fr.wikipedia.org/wiki/Gouvernement_Louis_Barthou,"Cabinet lost a confidence vote (yes: 265, no: 290). ","",1396,988
+1398,43,1913-12-22,Doumergue I,https://fr.wikipedia.org/wiki/Gouvernement_Gaston_Doumergue_%281%29,"","",1397,988
+1399,43,1914-06-09,Ribot I,https://fr.wikipedia.org/wiki/Gouvernement_Alexandre_Ribot_%284%29,"Cabinet lost a confidence vote (yes: 306, no: 262). ","",1398,989
+1400,43,1914-06-13,Viviani I,https://fr.wikipedia.org/wiki/Gouvernement_Ren%C3%A9_Viviani_%281%29,"","",1399,989
+1401,43,1914-08-26,Viviani II,https://fr.wikipedia.org/wiki/Gouvernement_Ren%C3%A9_Viviani_%282%29,"","",1400,989
+1402,43,1915-10-29,Briand V,https://fr.wikipedia.org/wiki/Gouvernement_Aristide_Briand_%285%29,"","",1401,989
+1403,43,1916-12-12,Briand VI,https://fr.wikipedia.org/wiki/Gouvernement_Aristide_Briand_%286%29,"","",1402,989
+1404,43,1917-03-20,Ribot II,https://fr.wikipedia.org/wiki/Gouvernement_Alexandre_Ribot_%285%29,"","",1403,989
+1405,43,1917-09-12,Painleve ?,https://fr.wikipedia.org/wiki/Gouvernement_Paul_Painlev%C3%A9_%281%29,"","",1404,989
+1406,43,2016-02-11,Valls III,https://en.wikipedia.org/wiki/Second_Valls_Government,"Cabinet continued on 11 February 2016 after a change in party composition. 
+Cabinet ended with the resignation of PM Valls on 6 December.","",1141,782
+1409,43,1906-03-14,Sarrien I,https://fr.wikipedia.org/wiki/Gouvernement_Ferdinand_Sarrien,"","",1388,987
+1410,43,1928-04-29,Poincare IV,https://fr.wikipedia.org/wiki/Gouvernement_Raymond_Poincar%C3%A9_%284%29,"","",1347,985
+1411,43,1906-05-20,Sarrien II,https://fr.wikipedia.org/wiki/Gouvernement_Ferdinand_Sarrien,"","",1409,986
+1412,43,1910-05-08,Briand II,https://fr.wikipedia.org/wiki/Gouvernement_Aristide_Briand_%281%29,"","",1391,988
+1413,43,1919-10-16,Clemenceau III,https://fr.wikipedia.org/wiki/Gouvernement_Georges_Clemenceau_%282%29,"","",1359,990
+1414,43,1932-01-14,Laval II,https://fr.wikipedia.org/wiki/Gouvernement_Pierre_Laval_%283%29,"Cabinet lost a confidence vote (yes: 134, no: 157). ","",1340,985
+1415,43,1940-03-22,Reynaud ,https://fr.wikipedia.org/wiki/Gouvernement_Paul_Reynaud,"","",1302,983
+1416,43,1940-06-16,Petain,https://fr.wikipedia.org/wiki/Gouvernement_Philippe_P%C3%A9tain,"","",1415,983
+1466,29,1900-11-07,Laurier I,https://en.wikipedia.org/wiki/List_of_Prime_Ministers_of_Canada,"","",,883
+1467,29,1904-11-03,Laurier II,https://en.wikipedia.org/wiki/List_of_Prime_Ministers_of_Canada,"","",1466,884
+1468,29,1908-10-26,Laurier III,https://en.wikipedia.org/wiki/List_of_Prime_Ministers_of_Canada,"","",1467,885
+1469,29,1917-12-17,Borden III,https://en.wikipedia.org/wiki/Robert_Borden,"","",1170,862
+1489,44,2016-07-13,May I,https://en.wikipedia.org/wiki/First_May_ministry,"Cabinet of PM May took office on 13 July 2016 after the resignation of PM Cameron over the Brexit referendum.
+PM May called a snap election to strengthen her mandate for Brexit. Cabinet ended with a snap election on 8 May 2017.","",1162,856
+1498,43,2016-12-06,Cazeneuve,https://en.wikipedia.org/wiki/Cazeneuve_government,"PM Cazeneuve was appointed on 6 December 2016 after former PM Valls resigned.
+Caretaker cabinet in office until the presidential election.
+Cabinet resigned on 10 May 2017 after presidential elections.","",1406,782
+1507,44,2017-06-11,May II,https://en.wikipedia.org/wiki/Second_May_ministry,"Cabinet of PM May took office on 11 June 2017.
+Minority cabinet was supported by Democratic Unionist Party (DUP).
+","",1489,1013
+1508,43,2017-06-14,Philippe I,https://en.wikipedia.org/wiki/First_Philippe_government,"PM Philippe was appointed on 15 March 2017 after the presidential election.
+Cabinet ended with election on 10 June 2017 and resigned on 19 June.","",1498,782
+1509,43,2017-06-21,Philippe II,https://en.wikipedia.org/wiki/Second_Philippe_government,PM Philippe was re-appointed on 21 June 2017 after a parliamentary election.,"",1508,1014

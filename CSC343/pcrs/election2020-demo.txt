@@ -1,0 +1,62 @@
+dbsrv1% psql csc343h-wangpeiq
+psql (9.5.9, server 9.5.8)
+Type "help" for help.
+
+csc343h-wangpeiq=> \i a2_ddl.sql
+psql:a2_ddl.sql:6: NOTICE:  drop cascades to 10 other objects
+DETAIL:  drop cascades to table parlgov.country
+drop cascades to table parlgov.party
+drop cascades to table parlgov.cabinet
+drop cascades to table parlgov.cabinet_party
+drop cascades to type parlgov.election_type
+drop cascades to table parlgov.election
+drop cascades to table parlgov.election_result
+drop cascades to table parlgov.party_position
+drop cascades to table parlgov.party_family
+drop cascades to table parlgov.politician_president
+DROP SCHEMA
+CREATE SCHEMA
+SET
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TYPE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+psql:a2_ddl.sql:202: country.csv: No such file or directory
+psql:a2_ddl.sql:203: party.csv: No such file or directory
+psql:a2_ddl.sql:204: cabinet.csv: No such file or directory
+psql:a2_ddl.sql:205: election.csv: No such file or directory
+psql:a2_ddl.sql:206: cabinet_party.csv: No such file or directory
+psql:a2_ddl.sql:207: election_result.csv: No such file or directory
+psql:a2_ddl.sql:208: party_position.csv: No such file or directory
+psql:a2_ddl.sql:209: party_family.csv: No such file or directory
+psql:a2_ddl.sql:210: politician_president.csv: No such file or directory
+ALTER TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+csc343h-wangpeiq=> \i election2020.sql
+INSERT 0 1
+INSERT 0 5
+INSERT 0 1
+INSERT 0 5
+csc343h-wangpeiq=> SELECT * FROM election_result;
+ id | election_id | party_id | alliance_id | seats | votes | description
+----+-------------+----------+-------------+-------+-------+-------------
+  1 |           1 |        1 |             |       |       |
+  2 |           1 |        2 |           1 |       |       |
+  3 |           1 |        3 |           1 |       |       |
+  4 |           1 |        4 |             |       |       |
+  5 |           1 |        5 |           4 |       |       |
+(5 rows)
+
+csc343h-wangpeiq=> \q
+
+
+

@@ -1,0 +1,1 @@
+("6.10" ("285d22d88acaabb2eec1d1c086e021a2a5c50012" . "760378663100c0436837e47a6cd8f67f068e99c9") (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt") (collects #"racket" #"syntax.rkt") (collects #"slideshow" #"code.rkt") (collects #"slideshow" #"main.rkt"))

@@ -130,8 +130,53 @@
 
 
 \subsection*{
-    \href[page=161]{../apply_linear_model_kutner.pdf}{3.4} 
+    \href[page=161]{../apply_linear_model_kutner.pdf}{3.8} 
     Overview of Remedial Measures}
+
+
+
+
+\subsection*{
+    \href[page=153]{../apply_linear_model_kutner.pdf}{3.9} 
+    Transformations}
+
+\begin{defn*}
+    \textbf{Transformation} \\
+    Used to stablize nonconstant error variance, which usually helps with fixing nonnormality of error terms \\
+    \begin{enumerate}
+        \item 
+        \includegraphics[width=\textwidth]{transformation_on_X.png}
+        \textbf{Transformations for Nonlinear Relation Only} Used for linearizing a nonlinear regression relation when distribution of error term is reasonably close to a normal distribution and error terms have approximately constant variance. In this case, transformation on $X$ should be attempted (transformation on $Y$ may change shape of distribution of error term from normal and/or differing error term variances). Usually, we transform $X' = f(X)$ and refit the regression model, followed by checking if constant error variance, and error normality is maintained before and after the transformation
+        \item 
+        \includegraphics[width=\textwidth]{transformation_on_Y.png}
+        \textbf{Transformation for Nonnormality and unequal error variances} Transformation on $Y$ affects shapes and spreads of distributions of $Y$, which in turn affects error variance/normality. Additionally, it may help linearize curvlinear regression regression. Frequently, there is \textbf{increasing skewness and increasing variability} of distribution of error terms as the mean response $\E(Y)$ increases
+        \item \textbf{Box-Cox transformation} \\
+        Infers te appropriate transformations of $Y$ for correcting skewness of distribution of error terms, unequal error variances, and nonlinearity of the regression. It identifies transformation from the family of power transformations on $Y$ 
+        \[
+            Y' = Y^{\lambda}
+        \]
+        such that we have regression model 
+        \[
+            Y^{\lambda} = \hat{\beta}_0 + \hat{\beta}_1 X_i + \epsilon_i
+        \]
+        with an additional parameter to estimate $\hat{\lambda}$ with MLE
+    \end{enumerate}
+\end{defn*}
+
+\subsection*{
+    \href[page=823]{../apply_linear_model_kutner.pdf}{18.5} 
+    Transformation of Response Variables}
+
+
+% \begin{defn*}
+%     \textbf{Guides to finding a transformation} \\
+%     Transformation on $Y$ that stablizes error variances 
+%     \begin{enumerate}
+%         \item \textbf{Variance Proportional to $\mu_i$} 
+%     \end{enumerate}
+% \end{defn*}
+
+
 
 \subsection*{
     \href[page=434]{../apply_linear_model_kutner.pdf}{10.4} 
@@ -421,5 +466,18 @@
         \item \textbf{error independence} with a residual sequence plot (plot against time/space), check for temporal or spatial dependence
     \end{enumerate}
 \end{defn*}
+
+
+
+\subsection*{ 
+    \href[page=89]{../../modern_regression_with_r.pdf}{3.3}
+    Using Transformation to Stabilize Variance}
+
+\begin{defn*}
+    \textb{Delta Method} \\
+    Taylor series 
+\end{defn*}
+
+
 
 \end{document}

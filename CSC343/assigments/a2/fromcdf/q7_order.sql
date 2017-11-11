@@ -1,0 +1,1 @@
+select * from q7 order by countryID DESC, alliedPartyID1 DESC, alliedPartyID2 DESC;

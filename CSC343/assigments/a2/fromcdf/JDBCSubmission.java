@@ -24,6 +24,7 @@ public abstract class JDBCSubmission {
             return this.elections.equals(other.elections) &&
                    this.cabinets.equals(other.cabinets);
         }
+
         @Override
         public String toString() {
             return "e: " + this.elections.toString() + " c: " + this.cabinets.toString();

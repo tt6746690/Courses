@@ -1,0 +1,166 @@
+id,country_id,e_date,wikipedia,seats_total,electorate,votes_cast,votes_valid,description,previous_parliament_election_id,previous_ep_election_id,e_type
+18,54,2004-06-13,"http://en.wikipedia.org/wiki/European_Parliament_election,_2004_(Germany)",99,61682394,26523104,25783678,,385,417,European Parliament
+37,44,1979-06-10,"http://en.wikipedia.org/wiki/European_Parliament_election,_1979_(United_Kingdom)",81,41155166,13446091,13397858,"",243,,European Parliament
+160,43,2004-06-13,"http://en.wikipedia.org/wiki/European_Parliament_election,_2004_(France)",78,41509136,17763671,17168682,"",403,273,European Parliament
+196,44,2004-06-10,"http://en.wikipedia.org/wiki/European_Parliament_election,_2004_(United_Kingdom)",78,44157267,1700780,16869020,"",208,686,European Parliament
+219,43,2009-06-07,"http://en.wikipedia.org/wiki/European_Parliament_election,_2009_(France)",72,44282823,17992161,17218614,"",171,160,European Parliament
+222,44,1984-06-17,"http://en.wikipedia.org/wiki/European_Parliament_election,_1984_(United_Kingdom)",81,42493122,13998190,13961422,"",290,37,European Parliament
+231,54,2009-06-07,"http://en.wikipedia.org/wiki/European_Parliament_election,_2009_(Germany)",99,62222873,26923614,26333444,"",118,18,European Parliament
+273,43,1999-06-13,"http://en.wikipedia.org/wiki/European_Parliament_election,_1999_(France)",87,40132517,18766155,17647172,"",479,680,European Parliament
+296,54,1989-06-18,"http://en.wikipedia.org/wiki/European_Parliament_election,_1989_(West_Germany)",81,45773179,28508598,28206690,,588,610,European Parliament
+351,44,1994-06-09,"http://en.wikipedia.org/wiki/European_Parliament_election,_1994_(United_Kingdom)",87,43441774,15852589,15811039,"",514,682,European Parliament
+360,43,1989-06-18,"http://en.wikipedia.org/wiki/European_Parliament_election,_1989_(France)",81,38297496,18690692,18151416,"",643,415,European Parliament
+361,54,1979-06-10,"http://en.wikipedia.org/wiki/European_Parliament_election,_1979_(West_Germany)",81,42751940,28098872,27847109,,163,,European Parliament
+410,44,2009-06-04,"http://en.wikipedia.org/wiki/European_Parliament_election,_2009_(United_Kingdom)",72,45312626,15235619,15136932,"",233,196,European Parliament
+415,43,1984-06-17,"http://en.wikipedia.org/wiki/European_Parliament_election,_1984_%28France%29",81,36880688,20911350,20180934,"",20,677,European Parliament
+417,54,1999-06-13,"http://en.wikipedia.org/wiki/European_Parliament_election,_1999_(Germany)",99,60786904,27468932,27059273,,679,540,European Parliament
+540,54,1994-06-12,"http://en.wikipedia.org/wiki/European_Parliament_election,_1994_(Germany)",99,60473927,36295529,35411414,,445,296,European Parliament
+610,54,1984-06-17,"http://en.wikipedia.org/wiki/European_Parliament_election,_1984_(West_Germany)",81,44465989,25238754,24851371,,484,361,European Parliament
+677,43,1979-06-10,"http://en.wikipedia.org/wiki/European_Parliament_election,_1979_%28France%29",81,35180531,21356960,20242347,"",496,,European Parliament
+680,43,1994-06-12,"http://en.wikipedia.org/wiki/European_Parliament_election,_1994_(France)",87,39019797,20584980,19487470,"",664,360,European Parliament
+682,44,1989-06-15,"http://en.wikipedia.org/wiki/European_Parliament_election,_1989_(United_Kingdom)",81,43180720,15896078,15870465,"",490,222,European Parliament
+686,44,1999-06-10,"http://en.wikipedia.org/wiki/European_Parliament_election,_1999_(United_Kingdom)",87,44458638,10681062,10656080,"",315,351,European Parliament
+824,43,2014-05-24,"http://en.wikipedia.org/wiki/European_Parliament_election,_2014_(France)",74,46544712,19747893,18955761,"",782,219,European Parliament
+825,54,2014-05-25,"http://en.wikipedia.org/wiki/European_Parliament_election,_2014_(Germany)",96,61998824,29843798,29355092,"",800,231,European Parliament
+845,44,2014-05-22,"http://en.wikipedia.org/wiki/European_Parliament_election,_2014_%28United_Kingdom%29",73,46481532,16545761,16454949,"",582,410,European Parliament
+20,43,1981-06-21,"http://en.wikipedia.org/wiki/French_legislative_election,_1981",474,35536041,25182031,24822945,"",496,677,Parliamentary election
+25,5,1990-02-18,"http://en.wikipedia.org/wiki/Japanese_general_election,_1990",512,90322908,66215906,65704311,Parliament was dissolved on 18 June 1993 following the fall of the Miyazawa cabinet.,506,,Parliamentary election
+40,44,1974-10-10,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1974",635,40072970,29226810,29189104,,568,,Parliamentary election
+53,5,1976-12-05,"http://en.wikipedia.org/wiki/Japanese_general_election,_1976",511,77926588,57231992,56612765,,333,,Parliamentary election
+57,5,1993-07-18,"http://en.wikipedia.org/wiki/Japanese_general_election,_1993",511,94866020,63547819,62804145,,25,,Parliamentary election
+75,43,1946-11-10,"http://en.wikipedia.org/wiki/French_legislative_election,_November_1946",544,25052523,19565743,19203071,"New election on 10 November 1946 for second constituent assembly.
+Seats total excludes 75 seats from overseas territories.
+",348,,Parliamentary election
+76,29,1962-06-18,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1962",265,9700325,7772656,7699901,"",286,,Parliamentary election
+91,29,1968-06-25,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1968",264,10860888,8217916,8125996,"",282,,Parliamentary election
+93,54,2009-09-27,"http://en.wikipedia.org/wiki/German_federal_election,_2009",622,62168489,44005575,43371190,"",118,231,Parliamentary election
+95,54,1972-11-19,"http://en.wikipedia.org/wiki/West_German_federal_election,_1972",496,41446302,37761589,37459750,"",447,,Parliamentary election
+96,29,1988-11-21,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1988",295,17639001,13281191,13281191,"",159,,Parliamentary election
+102,44,1951-10-25,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1951",625,34919331,,28596594,"",625,,Parliamentary election
+103,54,1953-09-06,"http://en.wikipedia.org/wiki/West_German_federal_election,_1953",487,33120940,28479550,27551272,Election on 6 September 1953 with modified electoral rules.,581,,Parliamentary election
+112,29,1949-06-27,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1949",262,7893629,5903572,5848971,"",189,,Parliamentary election
+113,5,1980-06-22,"http://en.wikipedia.org/wiki/Japanese_House_of_Councillors_election,_1980",511,80925034,60338440,59028837,,433,,Parliamentary election
+118,54,2005-09-18,"http://en.wikipedia.org/wiki/German_federal_election,_2005",614,61870711,48044134,47287988,Early election on 18 September 2005 after PM Schröder lost a vote of confidence.,385,18,Parliamentary election
+137,29,2006-01-23,"http://en.wikipedia.org/wiki/Canadian_federal_election,_2006",308,23054615,14908703,14817159,Parliament was dissolved on 7 September 2008 following a request by PM Harper.,240,,Parliamentary election
+138,5,1983-12-18,"http://en.wikipedia.org/wiki/Japanese_House_of_Councillors_election,_1983",511,84252608,57238897,56779701,,113,,Parliamentary election
+139,29,1980-02-18,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1980",282,15890416,11015514,10947914,"",683,,Parliamentary election
+159,29,1984-09-04,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1984",282,16774941,12638424,12548721,"",139,,Parliamentary election
+161,44,1959-10-08,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1959",630,35397304,,27862652,"",678,,Parliamentary election
+163,54,1976-10-03,"http://en.wikipedia.org/wiki/West_German_federal_election,_1976",496,42058015,38165753,37822500,"",95,,Parliamentary election
+171,43,2007-06-17,"http://en.wikipedia.org/wiki/French_legislative_election,_2007",577,43895833,26521822,26026465,"",403,160,Parliamentary election
+189,29,1945-06-11,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1945",245,6952445,5305193,5246130,"",854,,Parliamentary election
+208,44,2001-06-07,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_2001",659,44403238,26467388,26367383,"",315,686,Parliamentary election
+223,44,1964-10-15,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1964",630,35894054,27698221,27657148,"",161,,Parliamentary election
+233,44,2005-05-05,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_2005",646,44245939,27336093,27148510,,208,196,Parliamentary election
+237,5,2000-06-25,"http://en.wikipedia.org/wiki/Japanese_general_election,_2000",480,100492328,62757828,59844601,,628,,Parliamentary election
+240,29,2004-06-28,"http://en.wikipedia.org/wiki/Canadian_federal_election,_2004",308,22466621,13683570,13564702,Parliament was dissolved on 29 November 2005 after Martin government lost a vote of confidence.,455,,Parliamentary election
+243,44,1979-05-03,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1979",635,41095490,31233208,31221362,"",40,,Parliamentary election
+250,54,1965-09-19,"http://en.wikipedia.org/wiki/West_German_federal_election,_1965",496,38510395,33416207,32620442,"",381,,Parliamentary election
+276,29,1974-07-08,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1974",264,13620353,9671002,9505908,"",552,,Parliamentary election
+282,29,1965-11-08,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1965",265,10274904,7796728,7713316,"",424,,Parliamentary election
+286,29,1958-03-31,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1958",265,9131200,7357139,7287297,"",562,,Parliamentary election
+290,44,1983-06-09,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1983",650,42192999,30722241,30671137,,243,37,Parliamentary election
+291,43,1967-03-12,"http://en.wikipedia.org/wiki/French_legislative_election,_1967",470,28242549,22910839,22389474,"",407,,Parliamentary election
+292,29,1953-08-10,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1953",265,8401691,5701963,5641272,"",112,,Parliamentary election
+293,43,1951-06-17,"http://en.wikipedia.org/wiki/French_legislative_election,_1951",544,24530523,19670655,19129004,"Election on 17 June 1951 under a new PR system with alliance bonus.
+Seats total excludes 83 seats from overseas territories.",75,,Parliamentary election
+311,44,1970-06-18,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1970",630,39342013,28386145,28344798,,583,,Parliamentary election
+312,43,1956-01-02,"http://en.wikipedia.org/wiki/French_legislative_election,_1956",544,26772255,22138046,21490886,Parliament was dissolved on 9 October 1962 after the fall of the Pompidou I cabinet.,293,,Parliamentary election
+315,44,1997-05-01,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1997",659,43818324,31349744,31286284,"",514,351,Parliamentary election
+327,5,2009-08-30,"http://en.wikipedia.org/wiki/Japanese_general_election,_2009",480,103949442,71999121,70370255,Parliament was dissolved on 16 November 2012.,554,,Parliamentary election
+331,54,1957-09-15,"http://en.wikipedia.org/wiki/West_German_federal_election,_1957",497,35400923,31072894,29905428,"",103,,Parliamentary election
+333,5,1972-12-10,"http://en.wikipedia.org/wiki/Japanese_general_election,_1972",491,73769637,52934894,52425079,,603,,Parliamentary election
+345,5,1960-11-20,"http://en.wikipedia.org/wiki/Japanese_general_election,_1960",467,54312993,39920119,39509126,"",645,,Parliamentary election
+348,43,1946-06-02,"http://en.wikipedia.org/wiki/French_legislative_election,_June_1946",522,24696949,20215200,19880741,"New election on 2 June 1946 for constituent assembly.
+Seats total excludes Algeria and the overseas territories.",471,,Parliamentary election
+357,43,1973-03-11,"http://en.wikipedia.org/wiki/French_legislative_election,_1973",473,29883738,24299210,23752321,"",386,,Parliamentary election
+367,5,1967-01-29,"http://en.wikipedia.org/wiki/Japanese_general_election,_1967",486,62992796,46599456,45996574,"",640,,Parliamentary election
+375,43,1958-11-30,"http://en.wikipedia.org/wiki/French_legislative_election,_1958",465,27244992,21026543,20492368,Early election on 23 and 30 November 1958 under new SMD majority-plurality electoral system.,312,,Parliamentary election
+381,54,1961-09-17,"http://en.wikipedia.org/wiki/West_German_federal_election,_1961",499,37440715,32849624,31550901,"",331,,Parliamentary election
+385,54,2002-09-22,"http://en.wikipedia.org/wiki/German_federal_election,_2002",603,61432868,48582761,47996480,"",679,417,Parliamentary election
+386,43,1968-06-30,"http://en.wikipedia.org/wiki/French_legislative_election,_1968",470,28178087,22500524,22117138,"",291,,Parliamentary election
+403,43,2002-06-16,"http://en.wikipedia.org/wiki/French_legislative_election,_2002",577,40968484,26389875,25246045,"",479,273,Parliamentary election
+407,43,1962-11-25,"http://en.wikipedia.org/wiki/French_legislative_election,_1962",465,27540358,18918154,18333788,Early election 18 and 25 November 1962.,375,,Parliamentary election
+424,29,1963-04-08,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1963",265,9910757,7958636,7894076,"",76,,Parliamentary election
+433,5,1979-10-07,"http://en.wikipedia.org/wiki/Japanese_general_election,_1979",511,80169924,54518515,54010121,Parliament was dissolved on 19 May 1980 after the government lost a confidence vote.,53,,Parliamentary election
+445,54,1990-12-02,"http://en.wikipedia.org/wiki/German_federal_election,_1990",662,60436560,46995915,46455772,Election on 2 December 1990 for the entire country after German reunification.,588,296,Parliamentary election
+447,54,1969-09-28,"http://en.wikipedia.org/wiki/West_German_federal_election,_1969",496,38677235,33523064,32966024,"Brandt lost his parliamentary majority but the opposition could not replace him in a constructive vote of no confidence. As a consequence, there was a cabinet without a majority but no new chancellor could be elected. Parliament was dissolved by President Heinemann on 22 September 1972 and snap elections were called (Schindler 1999, 1241).",250,,Parliamentary election
+455,29,2000-11-27,"http://en.wikipedia.org/wiki/Canadian_federal_election,_2000",301,21243473,12997185,12997185,"",650,,Parliamentary election
+471,43,1945-10-21,"http://en.wikipedia.org/wiki/French_legislative_election,_1945",522,24622862,19657603,19189799,Election on 21 October 1945 under PR system.,983,,Parliamentary election
+479,43,1997-06-01,"http://en.wikipedia.org/wiki/French_legislative_election,_1997",577,39217241,26635942,25334486,"Early election on 25 May 1997.
+",664,680,Parliamentary election
+484,54,1983-03-06,"http://en.wikipedia.org/wiki/West_German_federal_election,_1983",498,44088935,39279529,38940687,"",547,361,Parliamentary election
+490,44,1987-06-11,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1987",650,43180573,32566523,32529578,,290,222,Parliamentary election
+496,43,1978-03-19,"http://en.wikipedia.org/wiki/French_legislative_election,_1978",474,34424388,28656845,28098115,Parliament was dissolved after Mitterrand won the presidential election. ,357,,Parliamentary election
+506,5,1986-07-06,"http://en.wikipedia.org/wiki/Japanese_House_of_Councillors_election,_1986",512,86426845,61707654,60448610,,138,,Parliamentary election
+511,5,2003-11-09,"http://en.wikipedia.org/wiki/Japanese_general_election,_2003",480,102232944,61196418,59102827,"",237,,Parliamentary election
+514,44,1992-04-09,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1992",651,43275316,33653800,33614074,,490,682,Parliamentary election
+546,29,1993-10-25,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1993",295,19906796,13863135,13667671,"",96,,Parliamentary election
+547,54,1980-10-05,"http://en.wikipedia.org/wiki/West_German_federal_election,_1980",497,43231741,38292176,37938981,"Parliament was dissolved on 6 January 1983 by President Carstens (Schindler 1999, 1246) after Kohl initiated a confidence vote to dissolve parliament.",163,361,Parliamentary election
+552,29,1972-10-30,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1972",264,13000778,9974661,9916061,"",91,,Parliamentary election
+554,5,2005-09-11,"http://en.wikipedia.org/wiki/Japanese_general_election,_2005",480,103067966,69532186,67811069,,511,,Parliamentary election
+562,29,1957-06-10,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1957",265,8902125,6680690,6605980,"",292,,Parliamentary election
+568,44,1974-02-28,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1974",635,39753863,31382414,31340162,,311,,Parliamentary election
+581,54,1949-08-14,"http://en.wikipedia.org/wiki/West_German_federal_election,_1949",402,31207620,24495614,23732398,First post-war election on 14 August 1949.,,,Parliamentary election
+582,44,2010-05-06,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_2010",650,45597461,29991471,29687604,"",233,410,Parliamentary election
+583,44,1966-03-31,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1966",630,35957245,27314646,27264747,,223,,Parliamentary election
+588,54,1987-01-25,"http://en.wikipedia.org/wiki/West_German_federal_election,_1987",497,45327982,38225294,37867319,"Election on 25 January 1987.
+Regular dissolution of parliament in the fall of 1990.",484,610,Parliamentary election
+595,54,1994-10-16,"http://en.wikipedia.org/wiki/European_Parliament_election,_1994_(Germany)",672,60452009,47737999,47105174,"",445,540,Parliamentary election
+910,44,1931-10-27,"https://en.wikipedia.org/wiki/United_Kingdom_general_election,_1931",615,29952361,,21656373,"",909,,Parliamentary election
+601,29,2008-10-14,"http://en.wikipedia.org/wiki/Canadian_federal_election,_2008",308,23677639,13929093,13834294,Parliament was dissolved on 26 March 2011 (afp).,137,,Parliamentary election
+603,5,1969-12-27,"http://en.wikipedia.org/wiki/Japanese_general_election,_1969",486,69260424,47442400,46989893,,367,,Parliamentary election
+609,44,1945-07-05,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1945",640,33240391,,25095195,"",911,,Parliamentary election
+623,43,1986-03-16,"http://en.wikipedia.org/wiki/French_legislative_election,_1986",556,36614738,28736080,27490874,"Election on 16 March 1986 under new PR system.
+Parliament was dissolved on 14 May 1986 after reelection of President Mitterrand.",20,415,Parliamentary election
+625,44,1950-02-23,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1950",625,34412255,,28771124,"",609,,Parliamentary election
+628,5,1996-10-20,"http://en.wikipedia.org/wiki/Japanese_general_election,_1996",500,97909655,57766696,,,57,,Parliamentary election
+640,5,1963-11-21,"http://en.wikipedia.org/wiki/Japanese_general_election,_1963",467,58281678,41458946,41016541,"",345,,Parliamentary election
+643,43,1988-06-12,"http://en.wikipedia.org/wiki/French_legislative_election,_1988",555,37090454,24526787,23994849,Early election on 5 and 12 June 1988 under new (previously used) SMD majority-plurality electoral system.,623,415,Parliamentary election
+645,5,1958-05-22,"http://en.wikipedia.org/wiki/Japanese_general_election,_1958",467,52013529,40042489,39751665,"",692,,Parliamentary election
+650,29,1997-06-02,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1997",301,19663478,13174698,12985874,"",546,,Parliamentary election
+664,43,1993-03-28,"http://en.wikipedia.org/wiki/French_legislative_election,_1993",577,38968660,26725840,25442403,Parliament was dissolved on 21 April 1997.,643,360,Parliamentary election
+678,44,1955-05-26,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_1955",630,34852179,,26759729,"",102,,Parliamentary election
+679,54,1998-09-27,"http://en.wikipedia.org/wiki/German_federal_election,_1998",669,60762751,49947087,49308512,"",595,540,Parliamentary election
+683,29,1979-05-22,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1979",282,15233653,11541000,11455702,Parliament was dissolved on 14 December 1979 after the fall of the Clark cabinet.,276,,Parliamentary election
+692,5,1955-02-27,"http://en.wikipedia.org/wiki/Japanese_general_election,_1955",467,49235375,37334338,37014837,Parliament was dissolved on 25 April 1958.,693,,Parliamentary election
+693,5,1953-04-19,"http://en.wikipedia.org/wiki/Japanese_general_election,_1953",466,47090167,34946130,34602445,Parliament was dissolved on 24 January 1955.,694,,Parliamentary election
+694,5,1952-10-01,"http://en.wikipedia.org/wiki/Japanese_general_election,_1952",466,46772584,35749709,35336705,Parliament was dissolved on 14 March 1953.,695,,Parliamentary election
+695,5,1949-01-23,"http://en.wikipedia.org/wiki/Japanese_general_election,_1949",466,42105300,31174957,30592519,Parliament was dissolved on 28 August 1952.,696,,Parliamentary election
+696,5,1947-04-25,"http://en.wikipedia.org/wiki/Japanese_general_election,_1947",466,40907493,27796840,27361607,"",697,,Parliamentary election
+697,5,1946-04-10,"http://en.wikipedia.org/wiki/Japanese_general_election,_1946",464,36878417,26582175,26100175,"",,,Parliamentary election
+703,29,2011-05-02,"http://en.wikipedia.org/wiki/Canadian_federal_election,_2011",308,24257592,14823408,14723980,"",601,,Parliamentary election
+782,43,2012-06-17,"http://en.wikipedia.org/wiki/French_legislative_election,_2012",577,46082104,26369126,25952859,"",171,219,Parliamentary election
+788,5,2012-12-16,"http://en.wikipedia.org/wiki/Japanese_general_election,_2012",480,103959866,61662947,60179888,Early election on 16 December 2012.,327,,Parliamentary election
+800,54,2013-09-22,http://de.wikipedia.org/wiki/Bundestagswahl_2013,631,61946900,44309925,43726856,Election on 22 September 2013 and constituent session on 22 October.,93,231,Parliamentary election
+850,5,2014-12-14,"http://en.wikipedia.org/wiki/Japanese_general_election,_2014",475,103962785,54735787,53334447,"",788,,Parliamentary election
+854,29,1940-03-26,"http://en.wikipedia.org/wiki/Canadian_federal_election,_1940",245,6588888,4672531,4620260,"",857,,Parliamentary election
+856,44,2015-05-07,"http://en.wikipedia.org/wiki/United_Kingdom_general_election,_2015",650,46424006,,30691680,"",582,845,Parliamentary election
+857,29,1935-10-14,"https://en.wikipedia.org/wiki/Canadian_federal_election,_1935",245,5918207,4452675,4406854,"",858,,Parliamentary election
+858,29,1930-07-28,"https://en.wikipedia.org/wiki/Canadian_federal_election,_1930",245,5153971,3922481,3898527,"",859,,Parliamentary election
+859,29,1926-09-14,"https://en.wikipedia.org/wiki/Canadian_federal_election,_1926",245,4665381,3273062,3256508,"",860,,Parliamentary election
+860,29,1925-10-29,"https://en.wikipedia.org/wiki/Canadian_federal_election,_1925",245,4608636,3168412,3152525,"",861,,Parliamentary election
+861,29,1921-12-06,"https://en.wikipedia.org/wiki/Canadian_federal_election,_1921",235,4435310,3139306,3123903,"",862,,Parliamentary election
+862,29,1917-12-17,"https://en.wikipedia.org/wiki/Canadian_federal_election,_1917",235,2093799,1892741,1885329,"",863,,Parliamentary election
+863,29,1911-09-21,"https://en.wikipedia.org/wiki/Canadian_federal_election,_1911",221,1820742,1314953,1307528,"",885,,Parliamentary election
+883,29,1900-11-07,"https://en.wikipedia.org/wiki/Canadian_federal_election,_1900",213,1167402,,950763,"",,,Parliamentary election
+884,29,1904-11-03,"https://en.wikipedia.org/wiki/Canadian_federal_election,_1904",214,1385490,,1030788,"",883,,Parliamentary election
+885,29,1908-10-26,"https://en.wikipedia.org/wiki/Canadian_federal_election,_1908",221,1463591,,1174709,"",884,,Parliamentary election
+905,44,1918-12-14,"https://en.wikipedia.org/wiki/United_Kingdom_general_election,_1918",707,21392322,,10786818,"",,,Parliamentary election
+906,44,1922-11-15,"https://en.wikipedia.org/wiki/United_Kingdom_general_election,_1922",615,20874456,,14392330,"",905,,Parliamentary election
+907,44,1923-12-06,"https://en.wikipedia.org/wiki/United_Kingdom_general_election,_1923",615,21283061,,14547695,"",906,,Parliamentary election
+908,44,1924-10-29,"https://en.wikipedia.org/wiki/United_Kingdom_general_election,_1924",615,21730988,,16640279,"",907,,Parliamentary election
+909,44,1929-05-30,"https://en.wikipedia.org/wiki/United_Kingdom_general_election,_1929",615,28854748,,22648375,"",908,,Parliamentary election
+911,44,1935-11-14,"https://en.wikipedia.org/wiki/United_Kingdom_general_election,_1935",615,31374449,,21997054,"",910,,Parliamentary election
+983,43,1936-05-03,"https://en.wikipedia.org/wiki/French_legislative_election,_1936",608,11768491,9937958,9847266,"",984,,Parliamentary election
+984,43,1932-05-08,"https://en.wikipedia.org/wiki/French_legislative_election,_1932",605,11561751,9652194,9576422,"",985,,Parliamentary election
+985,43,1928-04-29,"https://en.wikipedia.org/wiki/French_legislative_election,_1928",602,11395760,9548081,9469861,"",991,,Parliamentary election
+986,43,1906-05-20,"https://en.wikipedia.org/wiki/French_legislative_election,_1906",575,11340527,9050858,8814000,"",987,,Parliamentary election
+987,43,1902-05-11,"https://en.wikipedia.org/wiki/French_legislative_election,_1902",575,11109851,8795000,8412000,"",,,Parliamentary election
+988,43,1910-05-08,"https://en.wikipedia.org/wiki/French_legislative_election,_1910",580,11426736,8844978,8445773,"",986,,Parliamentary election
+989,43,1914-05-10,"https://en.wikipedia.org/wiki/French_legislative_election,_1914",586,11185078,8636567,8431056,"",988,,Parliamentary election
+990,43,1919-10-16,"https://en.wikipedia.org/wiki/French_legislative_election,_1919",616,11445702,8130803,8028903,"",989,,Parliamentary election
+991,43,1924-05-25,"https://en.wikipedia.org/wiki/French_legislative_election,_1924",574,11070360,9191809,9026837,"",990,,Parliamentary election
+994,29,2015-10-19,"https://en.wikipedia.org/wiki/Canadian_federal_election,_2015",338,25638379,17559353,,"",703,,Parliamentary election
+1013,44,2017-06-08,"https://en.wikipedia.org/wiki/United_Kingdom_general_election,_2017",650,46843896,,32203481,"",856,845,Parliamentary election
+1014,43,2017-06-18,"https://en.wikipedia.org/wiki/French_legislative_election,_2017",577,47570988,23167508,22654164,"",782,824,Parliamentary election

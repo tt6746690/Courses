@@ -1,0 +1,216 @@
+id,country_id,name_short,name,description
+4,5,PNP,People's New Party,""
+41,54,FW,Free Voters,New party formed on 24 January 2009. 
+59,43,IR|DL,Independent Republicans | Liberal Democracy,""
+86,5,SDF,Socialist Democratic Federation,""
+137,54,DZ,Centre Party,""
+138,43,RPR,Rally for the Republic,""
+163,5,DRP,Democratic Reform Party,New party formed in 1989. 
+170,5,NLC,New Liberal Club,
+177,43,gauche,other left,""
+187,54,DRP,German Reich Party,""
+213,43,MR,Reformers Movement,""
+238,54,GVP,All-German People's Party,"Party was formed on 29 November 1952. Among the founding members were Gustav Heinemann, a former CDU minister of the interior, and Helene Wessel, leader of the Zentrum.The party was dissolved at a party congress on 18/19 May 1957 and joining the SPD was recommended (Stöss 1968, 1478ff)."
+247,5,NPD,New Party Daichi,""
+255,54,B90/Gr,Alliance 90 / Greens -- Citizens' Movement,""
+259,43,CPNT,"Hunting, Fishing, Nature, Tradition",
+270,43,FN,National Front,New party formed on 5 October 1972.
+285,43,droite,other right,""
+292,54,Grau,The Grays -- Gray Panthers,New party formed on 12 July 1989. 
+296,29,CCF|NDP,Co-operative Commonwealth Federation | New Democratic Party,""
+301,54,Tier,Animal Protection Party,New party formed on 13 Februar 1993.
+311,44,Plaid,Plaid Cymru,New party formed on 5 August 1925.
+319,44,DUP,Democratic Unionist Party,
+332,44,N,Nationalist Party,""
+349,44,U,Unity,""
+358,54,FVP,Free People's Party,Free People's Party (FVP) parliamentary group formed on  23 February 1956 as a split-off from the Free Democratic (FDP) and included four cabinet members.
+368,29,LP,Liberal Party of Canada,
+401,43,PR,Radical Party,""
+439,5,DPJ,Democratic Party of Japan,""
+442,43,LCR,Revolutionary Communist League,New party formed in 1974. 
+448,29,BQ,Quebec Bloc,""
+453,44,etc,others,
+462,5,LP,Liberal Party,""
+467,44,GP,Green Party,New party formed in 1973. 
+509,43,UDF|MD,Union for French Democracy | Democratic Movement,""
+516,43,PSU,Unified Socialist Party,""
+524,54,Rep,The Republicans,""
+543,54,FDP,Free Democratic Party,
+547,5,JRP,Japan Renewal Party,""
+556,29,CP|LPP,Communist (Labour-Progressive) Party,Party formed on 29 May 1921.
+558,54,SPD,Social Democratic Party of Germany,""
+610,54,none,no party affiliation,
+633,54,DFU,German Peace Union,
+639,44,Nat,Nationals,
+646,44,VUPP,Vanguard Unionist Progressive Party,""
+649,54,KPD,Communist Party of Germany,Party was banned on 17 August 1956 and formed the German Communist Party (DKP) on 25 September 1968.
+650,43,GE,Ecology Generation,New party formed in 1990. 
+658,43,UMP|LR,Union for a Popular Movement | The Republicans,""
+659,44,Lib,Liberals,
+670,43,PFN,Party of New Forces,""
+677,29,SCR,Social Credit Rally,Party formed on 1 September 1963.
+686,43,PCF,French Communist Party,""
+689,44,SF,Sinn Fein,""
+695,5,IC,Independent's Club,""
+772,54,B90/Gru,Alliance 90 / Greens,"Formed on 12/13 January 1980 at a party congress in Karlsruhe (Stöss 1986, 1581).Merged with Alliance 90 / Greens -- Citizens' Movement (B90/Gr) from East Germany on 14 May 1993."
+773,44,Con,Conservatives,""
+791,54,Li/PDS,The Left / PDS,""
+794,29,PCP,Progressive Conservative Party of Canada,""
+796,54, WASG,Labour and Social Justice -- The Electoral Alternative,"Labour and Social Justice – The Electoral Alternative (WASG) was formed on 22 January 2005 by former Social Democrats (SPD) and union members. WASG candidates won seats on PDS lists in the 2005 election and formed a joint parliamentary group."
+808,54,CDU,Christian Democratic Union,
+824,43,todo,to be coded,
+837,5,K,Komeito Party,"New party formed in 1964. Party was officially dissolved on 5 November 1994 but reformed on 7 November 1998."
+865,54,Pi,German Pirate Party,New party formed 10 September 2006.
+873,43,V,Greens,New party formed on 20 January 1984.
+885,43,CDP,Centre Democracy and Progress,""
+890,43,RGR,Rally of Republican Lefts,""
+897,29,RPC,Reform Party of Canada,New party formed on 31 October 1987.
+898,43,UDCA,Union for the Defence of Traders and Artisans -- Poujadists,New party formed in 1950s.
+905,5,none,no party affiliation,
+912,54,DP,German Party,""
+940,5,JSP,Japan Socialist Party,""
+947,43,none,no party affiliation,
+1017,44,NLP,National Liberal Party,
+1023,44,SDLP,Social Democratic and Labour Party,Party formed on 20 August 1970.
+1053,5,DSP,Democratic Socialist Party,""
+1055,5,etc,others,
+1057,44,R,Respect -- The Unity Coalition,
+1058,43,NC,New Centre,""
+1086,43,MRP,Popular Republican Movement,
+1092,44,RepLP,Republican Labour Party,
+1094,43,G,Gaullists,New party formed on 14 April 1947. 
+1101,43,MF,Movement for France,New party formed on 20 November 1994. 
+1124,5,YP,Your Party,""
+1126,44,NF,National Front,Party formed in 1967.
+1131,54,BP,Bavarian Party,""
+1136,5,NFP,New Frontier Party,New Frontier Party (NFP) split into six parties following its dissolution on 27 December 1997 (AFP).
+1146,5,NPS,New Party Sakigake,""
+1165,5,LL,Liberal League,New party formed in 1994.
+1175,5,NPN,New Party Nippon,""
+1176,43,LO,Workers' Struggle,Party formed in 1956. 
+1180,54,CSU,Christian Social Union,""
+1189,29,none,no party affiliation,
+1193,5,LDP,Liberal Democratic Party,""
+1205,44,ILP,Independent Labour Party,
+1210,44,UUP,Ulster Unionist Party,
+1235,54,Fam,Family Party of Germany,New party formed on 17 October 1981. 
+1250,44,BNP,British National Party,
+1255,29,CPC,Conservative Party of Canada,""
+1259,29,GPC,Green Party of Canada,
+1263,43,MNR,National Republican Movement,New party formed on 2 October 1999.
+1272,44,UKIP,United Kingdom Independence Party,New party formed on 3 September 1993.
+1276,44,CPGB,Communist Party of Great Britain,
+1284,44,SNP,Scottish National Party,Party formed in 1934. 
+1297,43,PRL,Conservatives,""
+1307,29,BPC,Bloc Populaire Canadien,New party formed on 8 September 1942.
+1327,5,JNP,Japan New Party,""
+1328,43,etc,others,
+1363,44,UUUC,United Ulster Unionist Coalition,
+1382,5,NCP,New Conservative Party,Formed by members of the Liberal Party (LP) on 3 April 2000 and joined the Liberal Democratic Party (LDP) on 17 November 2003.
+1392,29,SSC,Social Credit Party of Canada,Party formed in 1935. 
+1414,43,CNIP,National Centre of Independents and Peasants [Conservatives],""
+1420,54,WAV,Economic Reconstruction League,""
+1491,43,CD,Democratic Centre,
+1492,43,PRG,Radical Party of the Left,
+1496,44,CNL,Conservatives and National Liberals,""
+1506,54,DVU,German People's Union,Party was formed on 16 January 1971 as a registered association and formally founded as a party on 5 March 1987.
+1507,54,GB/BHE,All-German Bloc / League of Expellees and Deprived of Rights,New party formed on 8 January 1950.
+1537,54,NPD,National Democratic Party,""
+1539,43,PS,Socialist Party,
+1540,5,JCP,Japan Communist Party,""
+1547,44,SDP,Social Democratic Party,
+1556,44,Lab,Labour,
+1566,44,UPUP,Ulster Popular Unionist Party,
+1599,44,none,no party affiliation,
+1701,54,GDP,All-German Party,Merger of GB/BHE and DP that formed on 15/16 April 1961 but dissolved quickly after an unsuccessful 1961 election campaign.
+1718,54,Fr,Peace alliance,""
+1720,54,BFB,Confederation of free citizens -- Offensive for Germany,Party formed on 21 January 1994. 
+1722,5,JDP,Japan Democratic Party,""
+1723,5,LWSP,Left Wing Socialist Party,""
+1724,5,RWSP,Right Wing Socialist Party,""
+1726,5,JLP,Japan Liberal Party,""
+1727,54,CDU+CSU,Christian Democratic Union / Christian Social Union,Electoral alliance and joint parliamentary group ('Fraktionsgemeinschaft'). The parties run independently in elections but do not compete at the state level. The CSU runs only in Bavaria and the CDU in all other German states.
+1733,5,NCoP,National Cooperative Party,""
+1734,5,DP,Democratic Party,""
+1736,5,LFP,Labour Farmer Party,""
+1737,5,SRP,Social Reform Party,""
+1738,5,CoP,Cooperative Party,""
+1755,5,LP(H),Liberal Party (Hatoyama),Liberal Party (Nihon Jiyūtō) was formed on 15 March 1953 by Ichirō Hatoyama.
+1812,5,vac,vacancy,""
+2011,29,L-P,Liberal-Progressive,New party formed in 1925.
+2034,54,no-seat,no seat,Largest party that won no seats in an election and less than one percent vote share.
+2061,44,EuCon,Pro-Euro Conservative Party,"The party was registered on 10 March 1999 by two MEPs (Brendan Donnelly and John Stevens) that were formerly members of the Conservatives."
+2062,44,ED,English Democrats,New party formed on 18 September 2002. 
+2063,44,CP,The Christian Party -- Christian Peoples Alliance in England,Party formed in 1999. 
+2064,44,SLP,Socialist Labour Party,""
+2067,29,no-seat,no seat,Largest party that won no seats in an election and less than one percent vote share.
+2068,5,PR,Peace and Reform,"Peace and Reform (HK) parliamentary group was announced on 5 January 1998. It was formed by New Peace Party (Shinto Heiwa) and Reform Club (Kaikaku), two splinter parties from the New Frontier Party (NFP) breakup."
+2069,5,PLFP,People's Life First Party,"Several MPs followed Ichiro Ozawa and left the Democratic Party of Japan (DPJ) on 2 July 2012 to form Putting People's Lives First (PPLF) on 12 July. Party split on 27 December 2012 into People's Life Party (Seikatsu no Tō · 生活の党) and Tomorrow Party of Japan (Nippon Mirai no Tō · 日本未来の党)."
+2077,43,MIM,Martinican Independence Movement,New party formed on 1 July 1987.
+2078,43,AC,Centrist Alliance,""
+2079,43,ex-dro,other far-right,""
+2080,43,no-seat,no seat,Largest party that won no seats in an election and less than one percent vote share.
+2083,43,ex-gau,other far-left,""
+2085,29,LL,Liberal-Labour,New party formed in 1898.
+2103,44,RP,Referendum Party,"New party announced on 27 November 1994 by Sir James Goldsmith, a Euro-sceptic Anglo-French millionaire."
+2562,44,no-seat,no seat,""
+2136,5,JReP,Japan Restoration Party,""
+2141,5,no-seat,no seat,Largest party that won no seats in an election and less than one percent vote share.
+2142,29,NPC,National Party of Canada,New party formed in 1992.
+2143,43,MDC,Citizens' Movement,""
+2147,44,NO2EU,NO2EU -- Yes to Democracy,""
+2148,29,PR,Rhinoceros Party,New party formed in 1963. 
+2162,29,UE,Union of Electors,New party formed in 1939. 
+2249,43,eco,other ecologists,""
+2250,43,CeD,Centre Right,""
+2251,43,CeG,Centre Left,""
+2252,43,RPF,Rally for France,""
+2253,54,AfD,Alternative for Germany,New party formed on 6 February 2013.
+2260,43,MP,Party of Presidential Majority,""
+2264,43,RPR+UDF,RPR/UDF connected list,""
+2265,43,CDS,Centre of Social Democrats,""
+2269,43,UFD,Union of Democratic Forces,New party formed in 1958.
+2271,43,RCV,Radical-Socialist Party -- Citizens' Movement -- Greens,Party formed in 1997. 
+2272,43,GDR,Democratic and Republican Left,Parliamentary group formed in 2007. 
+2273,43,UDI,Union of Democrats and Independents,Party formed on 18 September 2012.
+2276,43,RDA,African Democratic Rally,Party formed in 1946. 
+2277,43,IOM,Overseas Independents,Parliamentary group formed in 1946. 
+2279,43,TPA,Three Parties Alliance -- Third Force,"Originally the Third Force was a coalition of the Communist Party (PCF), the Popular Republican Movement (MRP) and the Socialist Party (SFIO). In 1947 the Communist Party (PCF) left the coalition and the National Centre of Independents (CNIP), the Rally of Republican Lefts (RGR), the Radical Socialist Party (PRR/RS) and the Democratic and Socialist Union of the Resistance (UDSR) joined it instead. The coalition was renamed Third Force."
+2280,43,UDSR,Democratic and Socialist Union of the Resistance,New party formed in 1945. 
+2284,43,U5R,Union for the fifth republic,""
+2289,54,one-seat,one seat,Parties that won one seat in a single election and less than one percent vote share.
+2296,44,one-seat,one seat,Parties that won one seat in a single election and less than one percent vote share.
+2297,5,one-seat,one seat,Parties that won one seat in a single election and less than one percent vote share.
+2358,43,ARS,Republican and Social Action,Rally of the French People (RPF) MPs supported PM Pinay in a confidence vote on 6 March 1952 and formed a parliamentary group.
+2387,44,IE,An Independence from Europe,""
+2399,43,DLR|DLF,Arise the Republic | France Arise,""
+2400,43,AO,Alliance of the Overseas,New party formed in 2004.
+2404,5,PFG,Party for Future Generations,""
+2427,29,L,Labour Party,New party formed in 1917. 
+2479,44,NLO,National Labour Organisation,""
+2500,44,CoCon,Coalition Conservative,""
+2501,44,CoLib,Coalition Liberal,Party formed on 20 November 1918.
+2503,44,NDP,National Democratic and Labour Party ,New party formed in 1918.
+2504,44,NP,National Party,""
+2508,44,CoLab,Coalition Labour,Party formed in 1918.
+2514,44,C,Constitutionalist,"Constitutionalist was no party, but a label used by politicians without party affiliation. "
+2517,44,IL,Independent Liberal,Former MPs from the Liberal Party (L) running individually.  
+2518,44,Na,National,""
+2565,29,RP,Reconstruction Party of Canada,"Reconstruction Party of Canada (RP) was founded by Henry Herbert Stevens, a former member of the Conservative Party of Canada (CPC). Reconstruction Party of Canada (RP) was dissolved when Henry Herbert Stevens rejoined the Conservative Party of Canada (CPC)."
+2566,29,PPC,Progressive Party of Canada,New party formed in 1914.
+2577,29,etc,others,""
+2581,43,UR,Republican Union,""
+2583,43,PDP,Popular Democratic Party,New party formed in 1924.
+2584,43,PUP, Proletarian Unity Party,""
+2585,43,RI,Independent Radicals,New party formed in 1928.
+2586,43,RP,Progressive Republicans,""
+2587,43,RepG,Left Republican ,New party formed on 21 October 1901.
+2589,43,C,Conservatives,""
+2590,43,SI,Independent Socialists,New party formed in 1880. 
+2592,43,Rep,Republicans,""
+2593,43,ALP,Liberal People's Action,New party formed in 1901.
+2594,43,RS,Republican Socialist Party,New party formed on 10 July 1911.
+2617,43,PSF,French Socialist Party,""
+2618,43,PSdF,Socialist Party of France -- Jean Jaures Union,""
+2643,43,REM,The Republic Onwards!,""
+2644,43,FI,Unbowed France,""

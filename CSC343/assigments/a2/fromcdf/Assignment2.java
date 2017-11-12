@@ -109,8 +109,7 @@ public class Assignment2 extends JDBCSubmission {
                 Integer otherPresidentID = rs2.getInt("id");
                 String otherPresidentDescription = rs2.getString("description");
                 String otherPresidentComment = rs2.getString("comment");
-                if(similarity(presidentDescription, otherPresidentDescription) > threshold 
-                    && similarity(presidentComment, otherPresidentDescription) > threshold){
+                if(similarity(presidentDescription + " " + presidentComment, otherPresidentDescription + " " + otherPresidentComment) > threshold){
                     similarPresidents.add(otherPresidentID);
                 }
             }

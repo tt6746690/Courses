@@ -18,7 +18,7 @@ DROP VIEW IF EXISTS Cabinets CASCADE;
 CREATE VIEW Cabinets AS
 select country_id, cabinet_id, party_id 
 from cabinet, cabinet_party 
-where cabinet_id = cabinet.id and start_date >= '1986-01-01';
+where cabinet_id = cabinet.id and start_date >= '1987-01-01';
 
 -- Prepare a check list that records all combinations of cabinets 
 -- and parties in some country
@@ -38,7 +38,7 @@ CREATE VIEW CommittedParties AS
 
 -- Final answer
 CREATE VIEW FinalAnswer AS
-select
+select distinct
     country.name as countryName, 
     party.name as partyName, 
     pf.family as partyFamily, 

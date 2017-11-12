@@ -1,0 +1,36 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\title{CSC458 Problem Set 2}
+\begin{document}
+
+\maketitle
+
+
+ch4: 8, 9, 25, 26
+
+
+\section*{chapter 4}
+
+\textbf{8} The telephone system uses geographical addressing. Why do you think this wasn’t adopted as a matter of course by the Internet?
+
+\begin{solution}
+    The telephone system started with stationary endpoints. Geographical location is somewhat representative of the address of endpoints, so it made sense for geographical addressing. However geographical addressing is inefficient as message routing adheres to strict geographical hierarchies. Endpoints that happened to be close to each other physically might have to go through the entire geographical hierarchy for a connection when a local network suffices to make the proper connection. Additionally, routing messages to a single region geographically is inefficient as there might be alternative best routes with less traffic.
+\end{solution}
+
+\textbf{9}  Suppose a small ISP X pays a larger ISP A to connect him to the rest of the Internet and also pays another ISP B to provide a fall-back connection to the Internet in the event that he loses connectivity via ISP A. If ISP X learns of a path to some prefix via ISP A, should he advertise that path to ISP B? Why or why not?
+
+
+\begin{solution}
+    No. Because advertising the reachability of hosts from provider ISP A to another provider ISP B implies that the customer ISP X is able to carry transit traffic. This is not a reasonable policy as such transit does not benefit ISP X but incurs cost for allowing such transit.
+\end{solution}
+
+\textbf{25} DHCP allows a computer to acquire a new IP address whenever it moves to a new subnet. Why is this not always enough to address the communications needs of mobile hosts?
+
+\begin{solution}
+    The problem lies in that the remote hosts are not aware of IP address changes of mobile hosts and will continue to send packets to the previous IP if no other mechanism other than DHCP exists. Conceptually, IP addresses serves 2 tasks, as identifier of an endpoint and as a way to locate the endpoint. DHCP handles locating end endpoint, but there needs to be some other rules in place for specifying identifier of mobile devices
+\end{solution}
+
+
+
+
+\end{document}

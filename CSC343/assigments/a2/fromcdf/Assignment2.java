@@ -113,14 +113,12 @@ public class Assignment2 extends JDBCSubmission {
                     similarPresidents.add(otherPresidentID);
                 }
             }
-
             return similarPresidents;
 
         } catch(SQLException e) {
             System.err.println("SQL Exception. <Message>: " + e.getMessage());
             return null;
         }
-
     }
 
     public static void main(String[] args) {

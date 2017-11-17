@@ -1,0 +1,90 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\begin{enumerate}
+    \item Suppose we have a relation on attributes A, B, C, D, E, and F , and these functional dependencies hold: $S=\{B\to DE, BF \to C, CF \to B, DF \to AE\}$.
+    \begin{solution}
+        \begin{enumerate}
+            \item 
+            \[
+                B^+ = BDE
+            \]
+            \item 
+            \[
+                CF^+ = ABCDEF
+            \]
+            \item 
+            \[
+                DF^+ = ADEF
+            \]
+            \item 
+            \[
+                BC^+ = BCDE
+            \]
+            \item 
+            \[
+                ABC^+ = ABCDE
+            \]
+        \end{enumerate}
+    \end{solution}
+    \item Again,suppose we have a relation on attributes A, B, C, D, E, and F,and these functional dependencies hold : $S = \{ B\to DE, BF \to C, CF\to B, DF\to AE \}.$
+    \begin{solution}
+        \begin{enumerate}
+            \item Does it follow from $S$ that $B\to A$ ? \\
+            No, because $A$ not in $B^+$ from Q1
+            \item Does it follow from $S$ that $CF\to E$ ? \\ 
+            Yes, because $E$ in $CF^+$ from Q1
+            \item Does it follow from $S$ that $DF\to B$ ? \\
+            No, because $B$ not in $DF^+$ from Q1
+            \item Does it follow from $S$ that $BD\to C$ ? \\
+            \[
+                BD^+ = BDE
+            \]
+            So No, $C$ not in $BD^+$
+            \item Does it follow from $S$ that $BFC\to A$ ? \\
+            \[
+                BFC^+ = ABCDEF
+            \]
+            Yes, since $A$ in $BFC^+$
+        \end{enumerate}
+    \end{solution}
+    \item Suppose we have a relation with attributes ABCDE and these functional dependencies $S = \{ A \to D, B\to A, C\to A, D\to CE \}$ Project functional dependencies onto $ABD$
+    \begin{solution}
+        \[
+            A^+ = ACDE \text{  so  } A \to D
+        \]
+        \[
+            B^+ = ABCDE \text{  so  } B \to AD
+        \]
+        \[
+            D^+ = ACDE \text{  so  } D \to A
+        \]
+        Dont have to consider superset of $B$, since it functionally determines all of $ABD$. 
+        \[
+            AD^+ = ACDE 
+        \]
+        which does not yield new FDs so the projection of $S$ onto $ABD$ is 
+        \[
+            \{  A \to D, B \to AD, D\to A \}
+        \]
+    \end{solution}
+    \item Consider relation $R(A,B,C,D,E,F)$ with functional dependencies 
+    \[
+        S = \{ CD \to A, B \to EF, A\to BC, F\to D \}
+    \]
+    Create an instance of $R$ that satisfies its FDs and has redundant data. Identify redundancy by circling a single value in the table that could be erased and yet we would know what its value must be. (what does it have to do with FDs)? 
+    \begin{solution}
+        \begin{center}
+        \begin{tabular}{ || c | c | c | c | c | c|| }    A & B & C & D & E & F \\ 
+            \hline
+            3 & 1 & 4 & {\color{red} 1} & 5 & 6 \\ 
+            3 & 1 & 4 & 1 & 5 & 6 \\ 
+            \hline
+        \end{tabular}
+        \end{center}
+        Note the cell is colored instead of circled due to technical difficulty with latex. We can deduce the minimal basis for the set of FDs. 
+    \end{solution}
+\end{enumerate}
+
+\end{document}

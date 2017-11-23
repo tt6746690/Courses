@@ -474,8 +474,96 @@
     Using Transformation to Stabilize Variance}
 
 \begin{defn*}
+    \textbf{Variance stabilizing transformation} \\
+    A variance-stabilizing transformation is a data transformation chosen to allow the application of simple regression-based or analysis of variance techniques. Idea is to find a simple function $f$ to apply to values $x$ in a data set to create new values $y = f(x)$ such that the variability of values $y$ is not related to their mean values. For example, values $x$ follows poissone distributions, whose mean and variance are identical, i.e. $\lambda$. However, the transformation
+    \[
+        y = \sqrt{x}
+    \]
+    will yield nearly constant variance. In general, if for mean $\mu$
+    \[
+        Var(X) = g(\mu)
+    \]
+    a suitable basis for a variance stabilizing transformation would be 
+    \[
+        y = \int^x \frac{1}{\sqrt{g(v)}} dv
+    \]
+\end{defn*}
+
+\begin{defn*}
     \textbf{Delta Method} \\
     
+    Consider random variable $X$, with 
+    \[
+        \E(X) = \mu \quad\quad Var(X) = h(\mu)   
+    \]
+    implying there is relationship between variance and mean, which implies heteroscedasticity in a linear model. The goal is to find a function $g$ such that $Y=g(X)$ has a variance independent (at least approximately) of its expectation. By first order Taylor expansion
+    \[
+        Y = g(X) \approx g(\mu) + g'(\mu) (X - \mu)
+    \]
+    So we have 
+    \[
+        \E(Y) = g(\mu) \quad \quad Var(Y) = h(\mu) (g'(\mu))^2
+    \]
+    Now we impose restriction that variance in $Y$ be independent of expection $\mu$, 
+    \[
+        Var(Y) = h(\mu) (g'(\mu))^2 = C \quad \quad C\in \R 
+    \]
+    \[
+        g(\mu)' \propto \frac{1}{\sqrt{h(\mu)}} 
+    \]
+    \[
+        g(\mu) \propto \int \frac{1}{\sqrt{h(\mu)}} d\mu
+    \]
+    Note for following example, we have $Z = f(Y)$ instead of $Y = g(X)$.\\
+    \begin{enumerate}
+        \item Assume $Y_i = Pois(\mu_i)$ (different Poisson distribution for data points). Then $\E(Y_i) = Var(Y_i) = \mu_i$, we have $h(\mu) = \mu$, so 
+        \[
+            g(\mu)' \propto \frac{1}{\sqrt{\mu}} \quad\to\quad g(\mu) \propto \sqrt{\mu}
+        \]
+        Although $Var(Y)$ linearly proportional to $\E(Y)$, but applying transformation $Z = \sqrt{Y}$ has a variance approximately constant.
+        \item Assume $Y_i = Exp(\lambda_i)$. Then $\E(Y_i) = \frac{1}{\lambda} = \mu$ and $Var(Y_i) = \frac{1}{\lambda^2} = \mu^2$, we have $h(\mu) = \mu^2$,  so
+        \[
+            g(\mu)' \propto \frac{1}{\mu} \quad \to\quad g(\mu) \propto \log(\mu)
+        \]
+        so $Z = \log(Y)$ is a variance stabilizing transformation
+        \item What is function $h$ mapping from $\E(Y)$ to $Var(Y)$ if reciprocal transformation is appropriate 
+        \[
+            \frac{1}{\mu} \propto \int \frac{1}{\sqrt{h(\mu)}} d\mu 
+        \]
+        \[
+            \int h(\mu)^{-\frac{1}{2}} d\mu \propto \mu^{-1}
+        \]
+        \[
+             h(\mu)^{\frac{1}{2}} \propto \mu^{-1}
+        \]
+        \[
+            h(\mu) \propto \mu^{-2}
+        \]
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Using logarithms to Estimate Percentage Effects} \\
+    \begin{enumerate}
+        \item Consider model 
+        \[
+            \log(Y) = \beta_0 + \beta_1 \log(X) + e
+        \]
+        \item If only transform $Y$
+        \[
+            \log(Y)  = \beta_0 + \beta_1 X \quad \to\quad Y = e^{\beta_0} e^{\beta_1 X}e^e
+        \]
+        An increase in 1 unit of $X$ is associated with a multiplicative increase by a factor of $e^{\beta_1}$
+        \item If only transform $X$, 
+        \[
+            Y = \beta_0 + \beta_1 \log(X) + e 
+        \]
+        \[
+            \triangle \E(Y) = \beta_0 + \beta_1 \log(kx) - \beta_0 + \beta_1 \log(x) = \beta_1 \log(k)
+        \]
+        So for each $k$-fold increase in $x$, the estimated change in mean of $Y$ is $\beta_1 \log(x)$
+    \end{enumerate}
 \end{defn*}
 
 

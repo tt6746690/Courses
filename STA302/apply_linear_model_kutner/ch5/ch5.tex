@@ -1,0 +1,500 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+
+
+
+\section*{Matrix Approach to Simple Linear Regression Analysis}
+
+
+\subsection*{
+    \href[page=210]{../apply_linear_model_kutner.pdf}{5.1-5.4} Matrices}
+
+\begin{defn*}
+    Matrix 
+    \begin{enumerate}
+        \item \textbf{Matrix} $A = [a_{ij}]$
+        \item \textbf{Vector}, matrix containing only 1 column is called a \textbf{column vector}, or simply a \textbf{vector}
+        \item \textbf{Matrix transpose} $A' = [a_{ij}]' = [a_{ji}]$
+        \item \textbf{Matrix equivalence} 2 matricies are equivalent if they have same dimension and if all corresponding elements are equal
+        \item \textbf{Matricies in Regression} vector $\matr{Y}_{n\times 1}$ and vector $\matr{X}_{n\times 2}$ (also referred to as the design matrix)
+        \[
+            \matr{Y}_{n\times 1} = 
+            \begin{bmatrix}
+                Y_1 \\ Y_2 \\ \vdots \\ Y_n
+            \end{bmatrix}
+            \quad 
+            \matr{X}_{n\times 2} = 
+            \begin{bmatrix}
+                1 & X_1 \\ 
+                1 & X_2 \\ 
+                \vdots & \vdots \\  
+                1 & X_n \\ 
+            \end{bmatrix}
+        \]
+        \item \textbf{Matrix addition and subtraction} Requires having same dimension 
+        \[
+            \matr{A}_{r\times c} + \matr{B}_{r\times c} = [a_{ij} + b_{ij}] \quad \quad 
+            \matr{A}_{r\times c} - \matr{B}_{r\times c} = [a_{ij} - b_{ij}]
+        \]
+        Also 
+        \[
+            \matr{A} + \matr{B} = \matr{B} + \matr{A}
+        \]
+        \item \textbf{Regression model as Matrices} 
+        \[
+            Y_i = \E(Y_i) + \epsilon_i \quad i = 1, \cdots, n 
+        \]
+        can be written as 
+        \[
+            \matr{Y}_{n\times 1} = \E(\matr{Y})_{n\times 1} + \matr{\epsilon}_{n\times 1}
+        \]
+        be interpreted as observation vector $\matr{Y}$ equals the sum of 2 vectors, a vector containing  the expected value and another containing the error terms
+        \item \textbf{Scalar Multiplication}
+        \[
+            k\matr{A} = \matr{A}k = [ka_{ij}] \quad \quad \text{ for some scalar } k
+        \] 
+        \item \textbf{Matrix Multiplication}
+        Only defined if number of columns in $\matr{A}$ equals number of rows in $\matr{B}$
+        \[
+            \matr{A_{r\times c}B_{c \times s}} = \left[ \sum_{k=1}^c a_{ik} b_{kj} \right]_{r\times s} \quad \quad 
+            i = 1, \cdots, r \quad j = 1, \cdots, s
+        \]
+        with 
+        \[
+            \matr{AB \neq BA}
+        \]
+        in regression analysis we often find 
+        \[
+            \begin{bmatrix}
+                1  & X_1 \\
+                \vdots & \vdots \\
+                1 & X_n \\ 
+            \end{bmatrix}
+            \times 
+            \begin{bmatrix}
+                \beta_0 \\
+                \beta_1 \\ 
+            \end{bmatrix}
+            = 
+            \begin{bmatrix}
+                \beta_0 + \beta_1 X_1 \\
+                \vdots \\
+                \beta_0 + \beta_1 X_n \\ 
+            \end{bmatrix}
+        \]
+        \begin{align*}
+            \matr{Y'Y} &= 
+                \begin{bmatrix}
+                    Y_1 & Y_2 & \cdots & Y_n \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                    Y_1 \\
+                    Y_2 \\
+                    \vdots \\
+                    Y_n
+                \end{bmatrix}
+                = \left[ \sum Y_i^2 \right] 
+                = \sum Y_i^2 \\ 
+            \matr{X'X} &= 
+                \begin{bmatrix}
+                    1 & 1 & \cdots & 1 \\
+                    X_1 & X_2 & \cdots & X_n \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                    1 & X_1 \\
+                    1 & X_2 \\
+                    \vdots & \vdots \\
+                    1 & X_n \\ 
+                \end{bmatrix}
+                = 
+                \begin{bmatrix}
+                    n & \sum X_i \\
+                    \sum X_i & \sum X_i^2 \\ 
+                \end{bmatrix} \\ 
+            \matr{X'Y} &= 
+                \begin{bmatrix}
+                    1 & 1 & \cdots & 1 \\
+                    X_1 & X_2 & \cdots & X_n \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                    Y_1 \\
+                    Y_2 \\
+                    \vdots \\
+                    Y_n
+                \end{bmatrix}
+                = 
+                \begin{bmatrix}
+                    \sum Y_i \\
+                    \sum X_i Y_i \\ 
+                \end{bmatrix}
+        \end{align*}
+        \item \textbf{Types of matricies} 
+        \begin{enumerate}
+            \item \textbf{Symmetric matrices} If $\matr{A = A'}$, then $\matr{A}$ is symmetric. A symmetric matrix is necessarily square. (Note $\matr{XX'}$ is symmetric)
+            \item \textbf{Diagonal matrix} is a square matrix whose off-diagonal elements are all zeros. 
+            \item \textbf{Identity matrix} or unit matrix is denoted by $\matr{I}$, a diagonal matrix whose elements on the main diagonals are all 1s with property 
+            \[
+                \matr{AI = IA = A}
+            \]
+            \item \textbf{Scalar matrix} is a diagonal matrix whose main-diagonal elements are the same. So it can be expressed as $k\matr{I}$ where $k$ is a scalar
+            \item \textbf{Vector and Matrix with all elements unity} A column vector with elements 1 is denoted by $\matr{1}$. A square matrix with all elements 1 is denoted by $\matr{J}$
+            \[
+                \matr{1}_{r\times 1} =
+                \begin{bmatrix}
+                    1 \\ 1 \\ \vdots \\ 1
+                \end{bmatrix}
+                \quad \quad 
+                \matr{J}_{r\times r} = 
+                \begin{bmatrix}
+                    1 & \cdots & 1 \\
+                    \vdots & & \vdots \\
+                    1 & \cdots & 1 \\ 
+                \end{bmatrix}
+            \]
+            with properties 
+            \[
+                \matr{1' 1}_{1\times 1} = n \quad \quad 
+                \matr{1 1'}_{n\times n} = \matr{J}_{n\times n}
+            \]
+            \item \textbf{Zero vector} is a vector containing only zeros 
+            \[
+                \matr{0}_{r\times 1} = 
+                \begin{bmatrix}
+                    0 \\ 0 \\ \vdots \\ 0
+                \end{bmatrix}
+            \]
+        \end{enumerate}
+        \item \textbf{Linear Dependence} \\ 
+        Define a set of $c$ columns $\matr{C_1, \cdots, C_n}$ in an $r\times c$ matrix is linearly dependent if one vector can be expressed as linear combination of others. If no vector in the set can be so expressed, we define the set of vectors to be linearly independent. Equivalently, 
+        \begin{center}
+            When $c$ scaslars $k_1, \cdots, k_c$, not all zero, can be found such that 
+            \[
+                k_1 \matr{C_1} + k_2 \matr{C_2} + \cdots + k_c \matr{C_c} = \matr{0}
+            \]
+            where $\matr{0}$ denotes zero column vector, the $c$ column vectors are \textbf{linearly dependent}. If the only set of scalars for which the equality holds is $k_1 = 0, \cdots, k_c = 0$, the set of $c$ column vectors is \textbf{linearly independent}
+        \end{center}
+        \item \textbf{Rank of Matrix} is defined to be maximum number of linearly independent columns in the matrix. Rank of a matrix is unique and can be equivalently defined as the maximum number of linearly independent rows. It follows that 
+        \begin{enumerate}
+            \item rank of $r\times c$ matrix cannot exceed $\min\{r, c\}$. 
+            \item when a matrix is product of 2 matrices, its rank cannot exceed the smaller of the two ranks for the matrices beging multiplied.
+            \[
+                \matr{C=AB} \to rank\matr{C} \leq \min\{ rank\matr{A}, rank\matr{B}\}
+            \]
+        \end{enumerate}
+        \item \textbf{Inverse of a Matrix} THe inverse of a matrix is denoted by $\matr{A^{-1}}$ such that 
+        \[
+            \matr{A^{-1}A = AA^{-1} = I}
+        \]
+        where $\matr{I}$ is the identity matrix. 
+        \begin{enumerate}
+            \item Inverse of matrix is only defined for square matrices.
+            \item If a square matrix does have an inverse, it is unique. Even so many square matrices do not have inverses.
+            \item An inverse of $r\times r$ matrix exists if the rank of the matrix is $r$. Such a matrix is \textbf{nonsingular} or \textbf{full rank}. An $r\times r$ matrix with rank less than $r$ does not have an inverse. Note \textbf{singular} matricies has determinant of zero, and thus no inverses.
+            \item The inverse of an $r\times r$ matrix of full rank also has rank $r$
+        \end{enumerate}
+        To find the inverse of matrices 
+        \[
+            A_{2\times 2} = 
+            \begin{bmatrix}
+                a & b \\
+                c & d \\
+            \end{bmatrix}
+            \quad \quad 
+            A_{2\times 2}^{-1} = 
+            \begin{bmatrix}
+                \frac{d}{D} & \frac{-b}{D} \\
+                \frac{-c}{D} & \frac{a}{D} \\ 
+            \end{bmatrix}
+            \quad 
+            \text{where}
+            \quad 
+            D = ad - bc
+        \]        
+        here $D$ is the determinant \\
+        In regression analysis, we have
+        \[
+            \matr{X' X}_{2\times 2} = 
+            \begin{bmatrix}
+                n & \sum X_i \\
+                \sum X_i & \sum X_i^2 \\ 
+            \end{bmatrix}
+        \]
+        with determinant
+        \[
+            D = n\sum X_i^2 - (\sum X_i)^2 = n \left[ \sum X_i^2 - \frac{(\sum X_i)^2}{n} \right] = n \sum (X_i - \overline{X})^2
+        \]
+        so we can find the inverse 
+        \[
+            (\matr{X' X})^{-1} = 
+            \begin{bmatrix}
+                \frac{\sum X_i^2}{n \sum (X_i - \overline{X})^2} & \frac{-\sum X_i}{n \sum(X_i - \overline{X})^2} \\
+                \frac{-\sum X_i}{n \sum(X_i - \overline{X})^2} & \frac{n}{n \sum (X_i - \overline{X})^2} \\ 
+            \end{bmatrix}
+            = 
+            \begin{bmatrix}
+                \frac{1}{n} + \frac{\overline{X}^2}{S_{XX}} & \frac{-\overline{X}}{S_{XX}} \\
+                \frac{-\overline{X}}{S_{XX}} & \frac{1}{S_{XX}} \\ 
+            \end{bmatrix}
+        \]
+        Note
+        \[  
+            \frac{\sum X_i^2}{n \sum (X_i - \overline{X})^2} =
+            \frac{\sum X_i^2 - n\overline{X}^2 + n\overline{X}^2}{n\sum (X_i - \overline{X})^2} = 
+            \frac{1}{n} + \frac{\overline{X}^2}{S_{XX}}
+        \]
+        \item \textbf{Properties of Matrices}
+        \begin{align*}
+            &\matr{A + B = B + A} \\
+            &\matr{(A+B)+C = A + (B+C)} \\
+            &\matr{(AB)C = A(BC)} \\
+            &\matr{C(A+B) = CA + CB} \\
+            &k\matr{(A+B)} = k\matr{A} + k\matr{B} \\
+            &\matr{(A')' = A} \\
+            &\matr{(A+B)' = A' + B'} \\
+            &\matr{(AB)' = B'A'} \\
+            &\matr{(ABC)' = C'B'A'} \\
+            &\matr{(AB)^{-1} = B^{-1}A^{-1}} \\
+            &\matr{(ABC)^{-1} = C^{-1}B^{-1}A^{-1}} \\
+            &\matr{(A^{-1})^{-1} = A} \\
+            &\matr{(A')^{-1} = (A^{-1})'} \\ 
+        \end{align*}
+        \item \textbf{Random vectors and matrices} contains element that are random variables. Expected value of a random vector is a vector whose elements are the expected values of the random variables that are the elements of the random vectors 
+        \[
+            \underset{n\times p}{\E(\matr{Y})} = [ \E(Y_{ij}) ] \quad \quad i = 1,\cdots, n \quad j = 1, \cdots, p
+        \]
+        \item \textbf{Variance-Covariance Matrix of random vector} \\
+        variances $\sigma^2\{ Y_i \}$ and covariances between any two of the random variables $\sigma\{ Y_i, Y_j\}$ are assembled in the variance-covariance matrix of vector $\underset{n\times 1}{\matr{Y}}$, denoted by $\matr{\sigma^2\{Y\}}$
+        \[
+            \underset{n\times n}{\matr{\sigma^2\{ Y \}}} =
+            \E\left\{ \matr{[Y - \E(Y)][Y - \E(Y)]'} \right\} = 
+            \begin{bmatrix}
+                \sigma^2\{Y_1 \} & \sigma\{ Y_1, Y_2 \} & \cdots & \sigma\{ Y_1, Y_n \} \\
+                \sigma\{Y_2, Y_1\} & \sigma^2\{ Y_2 \} & \cdots & \sigma\{ Y_2, Y_n \} \\
+                \vdots & \vdots & & \vdots \\
+                \sigma\{ Y_n, Y_1 \} & \sigma\{ Y_n, Y_2 \} & \cdots & \sigma^2\{ Y_n \} \\ 
+            \end{bmatrix}
+        \]
+        Note $\matr{\sigma^2\{Y\}}$ is a symmetric matrix by $\sigma\{ Y_i, Y_j \} = \sigma\{ Y_j, Y_i\}$ for all $i\neq j$\\
+        In regression analysis, if error terms have constant variance $\sigma^2\{ \epsilon_i \} = \sigma^2$ and are uncorrelated $\sigma\{ \epsilon_i, \epsilon_j \} = 0$ for $i\neq j$, then we have 
+        \[
+            \underset{n \times n}{\matr{\sigma^2\{ \epsilon \}}} = 
+            \sigma^2 \matr{I} = 
+            \begin{bmatrix}
+                \sigma^2 & 0 & \cdots & 0 \\
+                0 & \sigma^2 & \cdots & 0 \\
+                \vdots & \vdots & & \vdots \\
+                0 & 0 & \cdots & \sigma^2 \\ 
+            \end{bmatrix}
+        \]
+        \item \textbf{Expectation and variance-covariance matrix of constant Matrix transformation} \\
+        For a random vector $\matr{W}$ obtained by premultiplying the random vector $\matr{Y}$ by a constant matrix $\matr{A}$ 
+        \[
+            \matr{W = AY}
+        \]
+        we have 
+        \begin{align*}
+            \E\{ \matr{A} \} &= \matr{A} \\
+            \E\{ \matr{W} \} &= \E\{ \matr{AY} \} = \matr{A} \E\{ \matr{Y} \} \\
+            \sigma^2\{ \matr{W} \} &= \matr{ \sigma^2\{ AY \} }= \matr{A \sigma^2\{ Y\} A'} \\
+        \end{align*}
+    \end{enumerate}
+\end{defn*}
+
+
+
+\subsection*{
+    \href[page=231]{../apply_linear_model_kutner.pdf}{5.9} SLR model in Matrix Terms}
+
+\begin{defn*}
+    \textbf{Simple Linear Regression in Matrix Terms} \\
+    \[
+        Y_i = \beta_0 + \beta_1 X_i + \epsilon_i \quad \quad i = 1, \cdots, n
+    \]
+    can be written as 
+    \[
+        \underset{n\times 1}{\matr{Y}} = \underset{n\times 2}{\matr{X}} \underset{2\times 1}{\boldsymbol{\beta}} + \underset{n\times 1}{\boldsymbol{\epsilon}}
+        \text{   where   } \E\{\matr{Y} \} = \matr{X}\boldsymbol{\beta}
+    \]
+    where
+    \[
+        \underset{n\times 1}{\matr{Y}} = 
+        \begin{bmatrix}
+            Y_1 \\ Y_2 \\ \vdots \\ Y_n \\ 
+        \end{bmatrix}
+        \quad 
+        \underset{n\times 2}{\matr{X}} = 
+        \begin{bmatrix}
+            1 & X_1 \\
+            1 & X_2 \\
+            \vdots & \vdots \\
+            1 & X_n \\ 
+        \end{bmatrix}
+        \quad 
+        \underset{2\times 1}{\boldsymbol{\beta}} = 
+        \begin{bmatrix}
+            \beta_0 \\ \beta_1 \\ 
+        \end{bmatrix}
+        \quad 
+        \underset{n\times 1}{\boldsymbol{\epsilon}} = 
+        \begin{bmatrix}
+            \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n
+        \end{bmatrix}
+    \]
+    Regression model assumes $\E\{ \epsilon_i \} = 0$, and $\sigma^2\{\epsilon_i \} = \sigma^2$ and that $\epsilon_i$ are indepedent normal random variables. Equivalently,
+    \[
+        \E\{ \boldsymbol{\epsilon} \} = \underset{n\times 1}{\matr{0}}
+        \quad \quad \quad 
+        \matr{\sigma^2\{ \boldsymbol{\epsilon}\}} = \underset{n\times n}{\sigma^2 \matr{I}}
+    \]
+    In summary, normal error regression model in matrix term is 
+    \[
+        \matr{Y = X\boldsymbol{\beta} + \boldsymbol{\epsilon}}
+    \]
+    \[
+        \boldsymbol{\epsilon} \text{ is a vector of independent normal random variables with } 
+        \E\{ \boldsymbol{\epsilon} \} = \matr{0} \quad \text{ and } \quad 
+        \matr{\sigma^2\{ \boldsymbol{\epsilon}\}} = \sigma^2 \matr{I}
+    \]
+    The Gauss Markov theorem can be summarized as follows
+    \[
+        \boldsymbol{\epsilon} \sim \norm\left( \matr{0}, \sigma^2 \matr{I} \right)
+    \]
+\end{defn*}
+
+
+\subsection*{
+    \href[page=231]{../apply_linear_model_kutner.pdf}{5.10-11} Least Square Estimation, residual, and fitted value} 
+
+
+\begin{enumerate}
+    \item \textbf{Normal Equation} 
+    \begin{align*}
+        n\hat{\beta}_0 + \hat{\beta}_1 \sum X_i &= \sum Y_i \\
+        \hat{\beta}_0 \sum X_i + \hat{\beta}_1 \sum X_i^2 &= \sum X_i Y_i \\ 
+    \end{align*}
+    can be written as 
+    \[
+        \underset{2\times 2}{\matr{X' X}} \,\underset{2\times 1}{\boldsymbol{\hat{\beta}}} = 
+        \underset{2\times 1}{\matr{X' Y}}
+    \]
+    \begin{proof}
+        \[
+            \matr{X' X}\boldsymbol{\hat{\beta}} = 
+            \begin{bmatrix}
+                n & \sum X_i \\
+                \sum X_i & \sum X_i^2 \\ 
+            \end{bmatrix} 
+            \begin{bmatrix}
+                \hat{\beta}_0 \\ \hat{\beta}_1 \\ 
+            \end{bmatrix}
+            = 
+            \begin{bmatrix}
+                \sum Y_i \\ \sum X_i Y_i \\ 
+            \end{bmatrix}
+            = \matr{X' Y}
+        \]
+    \end{proof}
+    \item \textbf{Estimated Regression Coefficients} \\
+    To derive normal equation, we minimize 
+    \[
+        Q = \sum [Y_i - (\beta_0 + \beta_1 X_i)]^2 
+    \]
+    which has matrix form of 
+    \begin{align*}
+        Q &= \matr{(Y-X\boldsymbol{\beta})'(Y-X\boldsymbol{\beta})}\\
+        &= \matr{Y'Y - \boldsymbol{\beta}' X'Y - Y'X\boldsymbol{\beta} + \boldsymbol{\beta}'X'X\boldsymbol{\beta}}\\
+        &= \matr{Y'Y - 2\boldsymbol{\beta}' X' Y + \boldsymbol{\beta}' X' X \boldsymbol{\beta}}
+    \end{align*}
+    Last step since $\matr{Y'X\boldsymbol{\beta}}$ is a $1\times 1$ matrix so equal to its transpose. To minimize $\boldsymbol{\hat{\beta}}$ we take derivative 
+    \[
+        \frac{\partial}{\partial \boldsymbol{\beta}} (Q) = 
+        \begin{bmatrix}
+            \frac{\partial Q}{\partial \beta_0} \\
+            \frac{\partial Q}{\partial \beta_1} \\ 
+        \end{bmatrix}
+    \]
+    It follows that 
+    \[
+        \frac{\partial}{\partial \boldsymbol{\beta}} = 
+        \matr{ -2X'Y + 2X'X\boldsymbol{\beta}}
+    \]
+    yields normal equation.\\
+    To obtain estimated regression coefficients from normal equation, we premultiply both sides by the inverse of $\matr{X' X}$ 
+    \begin{align*}
+        \matr{(X'X)^{-1} X'X \boldsymbol{\hat{\beta}}} &= \matr{(X'X)^{-1}X'Y} \\
+        \boldsymbol{\hat{\beta}} &= \matr{(X'X)^{-1}X'Y} \\
+    \end{align*}
+    \item \textbf{Fitted value} \\
+    \[
+        \matr{\hat{Y} = X \boldsymbol{\hat{\beta}}} 
+        \quad \quad \text{where} \quad \quad 
+        \matr{\hat{Y}} = 
+        \begin{bmatrix}
+            \hat{Y}_1 \\ \hat{Y}_2 \\ \vdots \\ \hat{Y}_n \\ 
+        \end{bmatrix}
+    \]
+    We can express matrix result for $\matr{\hat{Y}}$ by using expression for estimated regression coefficient 
+    \[
+        \matr{\hat{Y} = X(X'X)^{-1}X'Y}
+    \]
+    Or equivalently,
+    \[
+        \matr{\hat{Y} = HY} 
+        \quad \quad \text{where}\quad \quad 
+        \underset{n\times n}{\matr{H}} = \matr{X(X'X)^{-1}X'}
+    \]
+    Fitted value $\hat{Y}_i$ can be expressed as a linear combinations of response variable observations $Y_i$, with the coefficients being elements of the \textbf{Hat Matrix} $\matr{\hat{Y}}$. Hat Matrix has properties 
+    \begin{enumerate}
+        \item $\matr{H}$ is symmetric 
+        \item $\matr{H}$ is idempotent, i.e. 
+        \[
+            \matr{HH = H}
+        \]
+    \end{enumerate}
+    \item \textbf{Residuals} 
+    \[
+        \boldsymbol{e} = \matr{Y - \hat{Y}} = \matr{Y - X\boldsymbol{\beta}}
+    \]
+    Note $e_i$, like the fitted value $\hat{Y}_i$ can be expressed as linear combinations of response variable observations $Y_i$, using the hat matrix 
+    \[
+        \matr{e} = \matr{Y - \hat{Y}} = \matr{Y - HY} = \matr{(I-H)Y}
+    \]
+    Note $\matr{I-H}$ is also symmetric and idempotent. The variance-covariance matrix of vector of residuals can be represented as
+    \[
+        \sigma^2\{ \matr{e} \} = \sigma^2 (\matr{I-H})
+    \]
+    which can be estimated by 
+    \[
+        \matr{s^2\{ \matr{e} \}} = MSE(\matr{I-H})
+    \]
+    \begin{proof}
+        \begin{align*}
+            \sigma^2\{ \matr{e} \} 
+            &= \sigma^2\{ \matr{(I-H)Y} \} \\ 
+            &= \matr{(I-H)} \sigma^2\{ Y \} \matr{(I-H)'} \\ 
+            &= \matr{(I-H)} \sigma^2\{ \boldsymbol{\epsilon} \} \matr{(I-H)'} \\ 
+            &= \matr{(I-H)} \sigma^2 \matr{I} \matr{(I-H)'} \\ 
+            &= \sigma^2 \matr{(I-H)(I-H)} \\ 
+            &= \sigma^2 \matr{(I-H)} \\ 
+        \end{align*}
+        By symmetric and idempotent property of $\matr{I-H}$
+    \end{proof}
+\end{enumerate}
+
+
+
+\subsection*{
+    \href[page=238]{../apply_linear_model_kutner.pdf}{5.12} Analysis of Variance Results}
+    
+    
+\begin{enumerate}
+    \item \textbf{Sum of Squares} 
+\end{enumerate}
+
+
+
+\end{document}

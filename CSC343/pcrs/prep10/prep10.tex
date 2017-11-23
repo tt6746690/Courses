@@ -1,0 +1,84 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+
+$ $\\
+\textbf{1} Consider relation $R(A, B, C, D, E, F )$ with functional dependencies $S$. $S=\{ CD\to A, B\to EF, A\to BC, F \to D\}$
+
+\begin{solution}
+    \begin{enumerate}
+        \item Which functional dependencies indicate a violation of BCNF ? \\
+        Use closure test to check for functional dependencies whose LHS is not a superkey
+        \[
+            CD^+ = ABCDEF
+        \]
+        \[
+            B^+ = BDEF
+        \]
+        \[
+            A^+ = ABCDEF 
+        \]
+        \[
+            F^+ = DF
+        \]
+        So $B\to EF$ and $F\to D$ violates BCNF
+        \item Create an instance of R that satisfies its FDs and has redundant data. Identify the redundancy, and explain what it has to do with the FDs.\\
+        \begin{center}
+            \begin{tabular}{ || c | c | c | c | c | c|| }    
+                A & B & C & D & E & F \\ 
+                \hline
+                1 & 1 & 1 & 1 & 1 & 1 \\
+                2 & 1 & 2 & 1 & 1 & 1 \\ 
+                \hline
+            \end{tabular}
+        \end{center}
+        Here we created an instance that satisfies the FDs. For $B \to EF$, if 2 tuple has same value for $B$, then they also have same value for $DEF$, this is possible because $B^+$ does not cover all attribute in the relation and so duplicates is allowed. Here we have introduced redundancy. THe same retionale holds for $F \to D$.
+        \item Suppose we use the functional dependency $B \to EF$ in the first step of the BCNF decomposition algorithm to decompose R. What two new relations will replace R?\\
+        $R_1(B,D,E,F)$ and $R_2(A,B,C)$
+        \item Project FDs to these 2 relations \\
+        For relation $R_1(B,D,E,F)$, we have
+        \[
+            B^+ = BDEF \quad\quad B \to DEF  \quad \text{ and } \quad F^+ = FD \quad\quad F \to D
+        \]
+        yielding valid functional dependencies, with other FDs yielding nothing during projection. So projected FDs in the set $\{ B\to DEF , F\to D \}$
+        For relation $R_2(A,B,C)$ we have
+        \[
+            A^+ = ABC \quad \quad A \to BC \quad \text{ and } \quad BC^+ = ABCDEF \quad \quad BC \to A
+        \]
+        yielding valid functional dependencies during projection. So projected FDs in the set $\{ A\to BC, BC \to A \}$
+        \item Is the new schema, with these two relations, in BCNF, or would we have to recurse and continue decomposing? \\
+        For relation $R_1(B,D,E,F)$, there is a need for further decomposition as $F\to D$ violates BCNF, whereas for relation $R_2(A,B,C)$, there is no need to decompose further as every projected FD represents superkeys.
+    \end{enumerate}
+\end{solution}
+
+
+$ $\\
+\textbf{2} Suppose we are employing the 3NF synthesis algorithm on a relation $R(A, B, C, D, E)$, and we already have the following minimal basis:
+\[
+    S = \{A\to DE, C\to A. E\to A \}
+\]
+\begin{enumerate}
+    \item List all the keys for relation R ? \\ 
+    $BC$
+    \item How do you know that nothing else is a key ?\\
+    We have 
+    \[
+        C^+ = ACDE 
+    \]
+    addition of $B$ to LHS and RHS of above FD yields $BC$ as a minimal superkey, i.e. key. Since $B$ needs to be part of the key (since not functionally determined by any other attribute), addition of $B$ to any other attribute does not yield a key. Therefore $BC$ is the minimal superkey, hence nothing else is a key.
+    \item Show the final schema produced by the 3NF algorithm. Explain your answer in terms of the steps of the algorithm. Do not project the functional dependencies onto the relations, just show the relations.\\
+    We verified that $S$ is a minimal basis. We define a relation $X\cup Y$ for each $X\to Y \in S$, yielding 
+    \[
+        R_1(A,D,E), R_2(A,C), R_3(A,E)
+    \]
+    Note attributes $AE$ occurs within $R_1$, so no need to keep $R_3$. Since no relation is a superkey for $R$, we add a relation whose schema is some key, i.e. $R_4(B,C)$. So the final schema is given by 
+    \[
+        R_1(A,D,E), R_2(A,C), R_4(B,C)
+    \]
+\end{enumerate}
+
+
+\end{document}

@@ -118,7 +118,7 @@
 (define (m)
   (prompt (displayln '(m a))
           (let-continuation k
-                            (abort (λ () (prompt (k)))))
+                            (abort (λ () (prompt (k)))))  ; returning a continuation instead of storing in a global state
           (displayln '(m b))
           (let-continuation k
                             (abort (λ () (prompt (k)))))

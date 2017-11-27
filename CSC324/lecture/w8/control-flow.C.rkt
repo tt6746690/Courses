@@ -1,4 +1,4 @@
-#lang racket #| Capturing Control Flow |#
+ #lang racket #| Capturing Control Flow |#
 
 (require (only-in racket/control prompt abort call/comp))
 
@@ -47,7 +47,7 @@
 ; (set! K k)
 ; 4321
 
-(K 50000)
+(K 50000)   ; note (+ 1 20) is computed in the continuation
 ; 50021
 
 (local []
@@ -64,3 +64,4 @@
 (K)
 ; 'c
 ; why not print d?
+; because k is a slice of function of the remaining exprs inside a prompt

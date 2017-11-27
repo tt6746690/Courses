@@ -55,9 +55,9 @@
                       body
                       ...)
   (define (f-id p-id ...)
-    (define (f-id p-id ...) body...))
-  (prompt (f-id p-id ...)
-          #false))
+    (define (f-id p-id ...) body ...)
+    (prompt (f-id p-id ...)
+            #false)))
 ;
 ; ‘flatten’ as a visitor, without the gathering
 ; ‘for-each’ is like ‘map’, but doesn't accumulate the results: it's used only for the side-effects.
@@ -96,7 +96,8 @@
 ; See the example usage for ‘to-list’ that follows it.
 ;
 (define (to-list yielded)
-  '())
+  (cond [(equal? yielded #f) '()]
+        [else (list* (value yielded) (to-list (resume yielded)))]))
 ;
 (check-equal? (to-list (atoms '(a ((b) c) (d (e)))))
               '(a b c d e))

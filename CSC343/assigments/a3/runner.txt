@@ -1,0 +1,13 @@
+\echo -- Loading schema and data:
+\i schema.sql
+\i data.sql
+\echo -- Query 1:
+\i q1.sql
+\echo -- Query 2:
+\i q2.sql
+\echo -- Query 3:
+\i q3.sql
+\echo -- Query 4:
+\i q4.sql
+\echo -- Query 5:
+\i q5.sql

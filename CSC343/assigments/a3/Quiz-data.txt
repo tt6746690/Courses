@@ -1,0 +1,97 @@
+== Question Bank ==
+
+The questions below are modified from a large set of practice questions
+for the Canadian Citizenship Test, provided by the Toronto Public Library:
+http://www.torontopubliclibrary.ca/new-to-canada/citizenship.jsp
+
+ID "782", Multiple-choice:
+What do you promise when you take the oath of citizenship?
+   * To pledge your loyalty to the Sovereign, Queen Elizabeth II
+   To pledge your allegiance to the flag and fulfill the duties of a Canadian
+   To pledge your allegiance to the flag and fulfill the duties of a Canadian
+      Hint: Think regally.
+   To pledge your loyalty to Canada from sea to sea
+
+ID "566", True-False:
+The Prime Minister, Justin Trudeau, is Canada's Head of State.
+   False
+
+ID "601", Numeric:
+During the "Quiet Revolution," Quebec experienced rapid change. In what
+decade did this occur? (Enter the year that began the decade, e.g., 1840.)
+   Answer: 1960
+   Hint for answers 1800-1900: The Quiet Revolution happened during the 20th 
+   Century.
+   Hint for answers 2000-2010: The Quiet Revolution happened some time ago.
+   Hint for answers 2020-3000: The Quiet Revolution has already happened!
+
+ID "625", Multiple-choice:
+What is the Underground Railroad?
+   The first railway to cross Canada
+      Hint: The Underground Railroad was generally south to north, 
+      not east-west.
+   The CPR's secret railway line
+      Hint: The Underground Railroad was secret, but it had nothing to do 
+      with trains.
+   The TTC subway system
+      Hint: The TTC is relatively recent; the Underground Railroad was 
+      in operation over 100 years ago.
+   * A network used by slaves who escaped the United States into Canada
+
+ID "790", Multiple-choice:
+During the War of 1812 the Americans burned down the Parliament Buildings in
+York (now Toronto). What did the British and Canadians do in return?
+   They attacked American merchant ships
+   They expanded their defence system, including Fort York
+   * They burned down the White House in Washington D.C.
+   They captured Niagara Falls
+
+
+== Quiz ==
+
+ID: Pr1-220310
+Title: Citizenship Test Practise Questions
+Hints: True
+Class: grade 8, room 120, Mr Higgins
+Due: 1:30 pm, Oct 1, 2017
+
+601, weight 2
+566, weight 1
+790, weight 3
+625, weight 2
+
+
+== Student responses from grade 8, room 120, Mr Higgins" ==
+
+Student ID 0998801234 (Lena Headey)
+   1950
+   False
+   They expanded their defence system, including Fort York
+   A network used by slaves who escaped the United States into Canada
+
+Student ID 0010784522 (Peter Dinklage)
+   1960
+   False
+   They burned down the White House in Washington D.C.
+   A network used by slaves who escaped the United States into Canada
+
+Student ID 0997733991 (Emilia Clarke)
+   1960
+   True
+   They burned down the White House in Washington D.C.
+   The CPR's secret railway line
+
+Student ID 5555555555 (Kit Harrington)
+   no response given
+   False
+   They captured Niagara Falls
+   no response given
+
+Student ID 1111111111 (Sophie Turner)
+   did not answer any questions
+
+
+== Students who are in class: grade 5, room 366, Miss Nyers" ==
+   
+Student ID 2222222222 (Maisie Williams)
+

@@ -39,6 +39,16 @@
 (displayln "After block . . .")
 
 #; ((first alternates))
+#|
+Putting aside: 7
+Using: 6
+70
+Putting aside: '(-< (* 4 10) (* 5 100))
+Using: '(-< (* 2 10) (* 3 100))
+Putting aside: '(* 3 100)
+Using: '(* 2 10)
+21
+|#
 
 
 (define (next)
@@ -58,6 +68,11 @@
                  (-< 30 40))))
 #;
 (list (-< 1 2) (-< 3 4))
+; Putting aside: 2
+; Using: 1
+; Putting aside: 40
+; Using: 30
+; '(31)
 
 #; 
 (define (an-atom v)
@@ -87,14 +102,16 @@
   (cond [(empty? l) l]
         [else (-< (a-subsequence (rest l))
                   (list* (first l) (a-subsequence (rest l))))]))
+        ; either the first element in list is in the subsequence or not
 
 ; use backtracking to consturct list of subsequences of a list
 #;
 (prompt (define results '())
         (prompt (define s (a-subsequence '(3 2 4)))   ; added prompt here to prevent going back to outer prompt
                 (set! results (list* s results))
-                (fail))
+                (fail)) ; how does (fail) here works, calling next?
         results)
+; '((3 2 4) (3 2) (3 4) (3) (2 4) (2) (4) ())
 
 (define-syntax-rule (list-all e)
   (local [(define results '())]
@@ -107,26 +124,65 @@
 
 #; 
 (list-all (an-atom '(a (b c (d) (e)) g)))
+; '(g e d c b a)
 
 #;
 (list-all (a-subsequence '(a b c)))
+; '((a b c) (a b) (a c) (a) (b c) (b) (c) ())
 
 #;
 (list-all ((-< sqr - sqrt)
-           (-< 1 2 3 (fail) 4 5)))
-           ; not a list, conceptually just try each of the control flow ... 
+           (-< 1 2 3 (fail) 4 5)))    ; so (fail) does nothing here...
+           ; not a list, conceptually just try each of the control flow ...
 
-#; ;args evaluated, second arg aborts arg evaluation control flows 
-(list 1 (fail) 2)
+#|
+'(2.23606797749979
+  2
+  1.7320508075688772
+  1.4142135623730951
+  1
+  -5
+  -4
+  -3
+  -2
+  -1
+  25
+  16
+  9
+  4
+  1) |#
+
+; fail aborts arg evaluation control flow 
+#; ;args evaluated, second arg aborts arg evaluation control flows!!!
+(list 1 (fail) 2) ; prints nothing
 
 #; ; saying we pick one of the expression and evaluate
 (-< 1 (fail) 2)
+; Putting aside: '(-< (fail) 2)
+; Using: 1
+; 1
+
+
+#|
+> (list-all (-< 1 (fail) 2))
+Putting aside: '(-< (fail) 2)
+Using: 1
+Retrying with: '(-< (fail) 2)
+Putting aside: 2
+Using: '(fail)
+Retrying with: 2
+Retrying with: '(-< (fail) 2)
+Putting aside: 2
+Using: '(fail)
+Retrying with: 2
+'(2 1)
+|#
 
 #;
 (local []
-  (println (-< 1 2))
+  (println (-< 1 2))  ; printed
   (fail)
-  (println (-< 3 4)))
+  (println (-< 3 4))) ; not reached
 
 
 

@@ -33,23 +33,28 @@
 
 #| An element of a-list. |#
 (define (an-element a-list)
-  (fail))
+  (cond [(empty? a-list) (fail)]
+        [(equal? (rest a-list) '()) (-< (first a-list))]
+        [else (-< (first a-list) (an-element (rest a-list)))]))
 
 #| A two-element list with its first element coming from list A, and second element from list B. |#
 (define (pair-of A B)
-  (fail))
+  (list (an-element A) (an-element B)))
 
 #| The list a-list with e inserted somewhere. |#
 (define (with e a-list)
-  (fail))
+  (cond [(empty? a-list) (list e)]  ; (list e) in place for (rest a-list) where a-list is empty
+        [else (-< (list* e a-list)  ; idea is either e inserted as first element in a-list or not
+                  (list* (first a-list) (with e (rest a-list))))]))
 
 #| A list of the elements of a-list, in some order.
    Hint: use ‘with’. |#
 (define (shuffled a-list)
-  (fail))
+  (-< (with (first a-list) (rest a-list))  ; idea is inserting first element to the rest
+      (with (first a-list) (reverse (rest a-list)))))
 
 #| Like match, but fail if no match. |#
-(define-syntax-rule (match/fail expr
+(define-syntax-rule (match/fail expr()
                                 clause
                                 ...)
   (match expr

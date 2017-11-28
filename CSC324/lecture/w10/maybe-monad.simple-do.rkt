@@ -39,9 +39,25 @@
 (check-equal? (eval′ '((1 ÷ (0 ÷ 2)) ÷ (2 ÷ 3))) #false)
 
 ; We can make a simple Do notation for that, to write code in the “maybe monad”:
-#;(define (eval e)
-    (cond [(number? e) e]
-          [else (Do (r0 ← (eval (first e)))
-                    (r1 ← (eval (third e)))
-                    (_  ← (not (zero? r1))) ; This acts as an assertion.
-                    (/ r0 r1))]))
+(define-syntax Do
+  (syntax-rules (←)
+    [(Do (id ← e)
+         clause ...
+         r)
+     (local [(define id e)]
+       (cond [(equal? id #false) #false]   ; propagate #false up ...
+             [else (Do clause
+                       ...
+                       r)]))]
+    [(Do r)
+     r]))
+
+(define (eval e)
+  (cond [(number? e) e]
+        [else (Do (r0 ← (eval (first e)))
+                  (r1 ← (eval (third e)))
+                  (_  ← (not (zero? r1))) ; This acts as an assertion.
+                  (/ r0 r1))]))
+
+(check-equal? (eval '((1 ÷ (5 ÷ 2)) ÷ (2 ÷ 3))) 3/5)
+(check-equal? (eval '((1 ÷ (0 ÷ 2)) ÷ (2 ÷ 3))) #false)

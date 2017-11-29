@@ -77,14 +77,43 @@
   
   ; Patterns can also use ‘...’:
   (check-equal? (match '(a b c) [`(,first′ ,rest′ ...) (list first′ rest′)])
-                (list 'a '(b c))))
+                (list 'a '(b c)))
+
+  ; tests
+  (stage (an-element′ '(a b c d)))
+  (check-equal? (next) 'a)
+  (check-equal? (next) 'b)
+  (check-equal? (nexts) '(c d))
+
+  (stage (with′ 'd '(a b c)))
+  (check-equal? (nexts) '((d a b c) (a d b c) (a b d c) (a b c d)))
+
+  ; prime factor
+  (stage (prime-factor 14))
+  (check-equal? (next) 2)
+  (check-equal? (nexts) '(3 5 7 11 13))
+  )
+
 
 (define (an-element′ a-list)
-  (fail))
-(define (with′ e a-list)
-  (fail))
+  (match a-list
+    ['() (fail)]
+    [`(,x) (-< x)]
+    [`(,x ,rest ...) (-< x (an-element′ rest))]))
 
+
+(define (with′ e a-list)
+  (match a-list
+    ['() '(e)]
+    [`(,x ,rest ...) (-< `(,e . ,a-list)
+                         `(,x . ,(with e rest)))]))
+
+
+(require math/number-theory) ; the cheat....
 #| A prime factor of positive natural number n, at least as large as d, including repetitions.
    Pre-condition: all prime factors of n are at least as large as d. |#
 (define (prime-factor n [d 2]) ; [d 2] here means: ‘d’ is an optional argument, defaulting to 2.
-  (fail))
+  (an-element′ (filter prime? (range d n))))
+
+
+

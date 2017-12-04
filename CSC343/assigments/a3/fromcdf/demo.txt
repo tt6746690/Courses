@@ -1,0 +1,114 @@
+dbsrv1% psql csc343h-wangpeiq
+psql (9.5.10)
+Type "help" for help.
+
+csc343h-wangpeiq=> \i runner.txt
+
+DROP SCHEMA
+CREATE SCHEMA
+SET
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TYPE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 6
+INSERT 0 2
+INSERT 0 6
+INSERT 0 5
+INSERT 0 11
+INSERT 0 3
+INSERT 0 1
+INSERT 0 1
+INSERT 0 3
+INSERT 0 1
+INSERT 0 4
+INSERT 0 7
+INSERT 0 4
+INSERT 0 3
+CREATE VIEW
+ student_number |    full_name    
+----------------+-----------------
+      998801234 | Lena Headey
+       10784522 | Peter Dinklage
+      997733991 | Emilia Clarke
+     5555555555 | Kit Harrington
+     1111111111 | Sophie Turner
+     2222222222 | Maisie Williams
+(6 rows)
+
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+ question_id |                                question_text                                 | num_hints 
+-------------+------------------------------------------------------------------------------+-----------
+         782 | What do you promise when you take the oath of citizenship?                   |         1
+         625 | What is the Underground Railroad?                                            |         3
+         566 | The Prime Minister, Justin Trudeau, is Canada's Head of State.               |          
+         601 | During the "Quiet Revolution," Quebec experienced rapid change. In what     +|         3
+             | decade did this occur? (Enter the year that began the decade, e.g., 1840.)   | 
+         790 | During the War of 1812 the Americans burned down the Parliament Buildings in+|         0
+             | York (now Toronto). What did the British and Canadians do in return?         | 
+(5 rows)
+
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+ student_id | last_name  | total_grade 
+------------+------------+-------------
+  998801234 | Headey     |           3
+   10784522 | Dinklage   |           8
+  997733991 | Clarke     |           5
+ 5555555555 | Harrington |           1
+ 1111111111 | Turner     |           0
+(5 rows)
+
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+ student_id | question_id |                                question_text                                 
+------------+-------------+------------------------------------------------------------------------------
+ 1111111111 |         566 | The Prime Minister, Justin Trudeau, is Canada's Head of State.
+ 1111111111 |         601 | During the "Quiet Revolution," Quebec experienced rapid change. In what     +
+            |             | decade did this occur? (Enter the year that began the decade, e.g., 1840.)
+ 5555555555 |         601 | During the "Quiet Revolution," Quebec experienced rapid change. In what     +
+            |             | decade did this occur? (Enter the year that began the decade, e.g., 1840.)
+ 1111111111 |         625 | What is the Underground Railroad?
+ 5555555555 |         625 | What is the Underground Railroad?
+ 1111111111 |         790 | During the War of 1812 the Americans burned down the Parliament Buildings in+
+            |             | York (now Toronto). What did the British and Canadians do in return?
+(6 rows)
+
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+ qid | num_did_not_answer | num_answer_correct | num_answer_incorrect 
+-----+--------------------+--------------------+----------------------
+ 625 |                  2 |                  2 |                    1
+ 601 |                  2 |                  2 |                    1
+ 790 |                  1 |                  2 |                    2
+ 566 |                  1 |                  3 |                    1
+(4 rows)
+

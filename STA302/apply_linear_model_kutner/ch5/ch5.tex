@@ -185,7 +185,7 @@
                 \matr{C=AB} \to rank\matr{C} \leq \min\{ rank\matr{A}, rank\matr{B}\}
             \]
         \end{enumerate}
-        \item \textbf{Inverse of a Matrix} THe inverse of a matrix is denoted by $\matr{A^{-1}}$ such that 
+        \item \textbf{Inverse of a Matrix} The inverse of a matrix is denoted by $\matr{A^{-1}}$ such that 
         \[
             \matr{A^{-1}A = AA^{-1} = I}
         \]
@@ -270,7 +270,7 @@
         variances $\sigma^2\{ Y_i \}$ and covariances between any two of the random variables $\sigma\{ Y_i, Y_j\}$ are assembled in the variance-covariance matrix of vector $\underset{n\times 1}{\matr{Y}}$, denoted by $\matr{\sigma^2\{Y\}}$
         \[
             \underset{n\times n}{\matr{\sigma^2\{ Y \}}} =
-            \E\left\{ \matr{[Y - \E(Y)][Y - \E(Y)]'} \right\} = 
+            \E \left\{ \underset{n\times 1}{\matr{[Y - \E(Y)]}} \underset{1\times n}{\matr{[Y - \E(Y)]}}'  \right\} =
             \begin{bmatrix}
                 \sigma^2\{Y_1 \} & \sigma\{ Y_1, Y_2 \} & \cdots & \sigma\{ Y_1, Y_n \} \\
                 \sigma\{Y_2, Y_1\} & \sigma^2\{ Y_2 \} & \cdots & \sigma\{ Y_2, Y_n \} \\
@@ -299,8 +299,16 @@
         \begin{align*}
             \E\{ \matr{A} \} &= \matr{A} \\
             \E\{ \matr{W} \} &= \E\{ \matr{AY} \} = \matr{A} \E\{ \matr{Y} \} \\
-            \sigma^2\{ \matr{W} \} &= \matr{ \sigma^2\{ AY \} }= \matr{A \sigma^2\{ Y\} A'} \\
+            \sigma^2\{ \matr{W} \} &= \matr{ \sigma^2\{ AY \} }= \matr{A} \sigma^2\{ \matr{Y}\} \matr{A'} \\
         \end{align*}
+        \begin{proof}
+            \begin{align*}
+                \sigma^2\{ \matr{W} \} 
+                &= \E\{ \matr{[AY - \E(AY)][AY - \E(AY)]'} \} \\
+                &= \E\{ \matr{A[Y-\E(Y)][Y-E(Y)]'A'} \}\\
+                &= \matr{A} \sigma^2\{ \matr{Y} \} \matr{A'}
+            \end{align*}
+        \end{proof}
     \end{enumerate}
 \end{defn*}
 
@@ -428,6 +436,7 @@
         \matr{(X'X)^{-1} X'X \boldsymbol{\hat{\beta}}} &= \matr{(X'X)^{-1}X'Y} \\
         \boldsymbol{\hat{\beta}} &= \matr{(X'X)^{-1}X'Y} \\
     \end{align*}
+    Note that this works only if $\matr{X'X}$ is invertible, i.e. full rank of 2 or $det(\matr{X'X}) \neq 0$
     \item \textbf{Fitted value} \\
     \[
         \matr{\hat{Y} = X \boldsymbol{\hat{\beta}}} 
@@ -449,31 +458,62 @@
     \]
     Fitted value $\hat{Y}_i$ can be expressed as a linear combinations of response variable observations $Y_i$, with the coefficients being elements of the \textbf{Hat Matrix} $\matr{\hat{Y}}$. Hat Matrix has properties 
     \begin{enumerate}
-        \item $\matr{H}$ is symmetric 
-        \item $\matr{H}$ is idempotent, i.e. 
-        \[
-            \matr{HH = H}
-        \]
+        \item $\matr{H}$ is symmetric $\matr{H'} = H$
+        \item $\matr{H}$ is idempotent $\matr{HH = H}$
     \end{enumerate}
+    \begin{proof}
+        \begin{align*}
+            \matr{H'}
+            &= (\matr{X(X'X)^{-1}X'})' \\ 
+            &= \matr{X ((X'X)^{-1})'X' } \\
+            &= \matr{X (X'X)^{-1}X'} \\
+            &= \matr{H} \\ 
+            \matr{HH} 
+            &= \matr{X(X'X)^{-1}X' X(X'X)^{-1}X'}\\
+            &= \matr{X(X'X)^{-1}X'} \tag{$\matr{X'X(X'X)^{-1}=I}$} \\ 
+            &= \matr{X(X'X)^{-1}X'} \\
+            &= \matr{H} \\ 
+        \end{align*}
+    \end{proof}
     \item \textbf{Residuals} 
     \[
-        \boldsymbol{e} = \matr{Y - \hat{Y}} = \matr{Y - X\boldsymbol{\beta}}
+        \matr{\hat{e}} = \matr{Y - \hat{Y}} = \matr{Y - X\boldsymbol{\beta}}
     \]
     Note $e_i$, like the fitted value $\hat{Y}_i$ can be expressed as linear combinations of response variable observations $Y_i$, using the hat matrix 
     \[
-        \matr{e} = \matr{Y - \hat{Y}} = \matr{Y - HY} = \matr{(I-H)Y}
+        \matr{\hat{e}} = \matr{Y - \hat{Y}} = \matr{Y - HY} = \matr{(I-H)Y}
     \]
-    Note $\matr{I-H}$ is also symmetric and idempotent. The variance-covariance matrix of vector of residuals can be represented as
+    The expected value of residual is given by  
     \[
-        \sigma^2\{ \matr{e} \} = \sigma^2 (\matr{I-H})
+        \E\{\matr{\hat{e}}\} 
+        = \underset{n\times 1}{\matr{0}}
+    \]
+    The variance-covariance matrix of vector of residuals can be represented as
+    \[
+        \sigma^2\{ \matr{\hat{e}} \} 
+        = \sigma^2 (\matr{I-H})
     \]
     which can be estimated by 
     \[
-        \matr{s^2\{ \matr{e} \}} = MSE(\matr{I-H})
+        \matr{s^2\{ \matr{\hat{e}} \}} 
+        = MSE(\matr{I-H})
+    \]
+    We can determine rank of variance of estimated residual with 
+    \[
+        rank(\matr{I-H}) = rank(\matr{I}) - rank(\matr{H}) = n - 2
     \]
     \begin{proof}
         \begin{align*}
-            \sigma^2\{ \matr{e} \} 
+            \E\{\matr{\hat{e}}\}
+            &= \E\{ \matr{(I-H)Y} \} \\
+            &= \matr{(I-H)} \E\{ \matr{Y} \} \\
+            &= \matr{(I-H)X\beta} \\ 
+            &= \matr{X\beta - X(X'X)^{-1}X' X\beta} \\
+            &= \matr{X\beta - X\beta} \\
+            &= \matr{0} 
+        \end{align*}
+        \begin{align*}
+            \sigma^2\{ \matr{\hat{e}} \} 
             &= \sigma^2\{ \matr{(I-H)Y} \} \\ 
             &= \matr{(I-H)} \sigma^2\{ Y \} \matr{(I-H)'} \\ 
             &= \matr{(I-H)} \sigma^2\{ \boldsymbol{\epsilon} \} \matr{(I-H)'} \\ 
@@ -482,6 +522,20 @@
             &= \sigma^2 \matr{(I-H)} \\ 
         \end{align*}
         By symmetric and idempotent property of $\matr{I-H}$
+        \begin{align*}
+            \matr{(1-H)(1-H)}
+            &= \matr{I^2 - H - H + H^2}
+            = \matr{I - H - H + H}
+            = \matr{I - H}\\
+            \matr{(I-H)'}
+            &= \matr{I' - H'}
+            = \matr{I - H}\\
+        \end{align*}
+        Since $\matr{I-H}$, $\matr{I}$, $\matr{H}$ are indempotent matrices, we have 
+        \[
+            rank(\matr{I}) = rank(\matr{I-H}) + rank(\matr{H})
+        \]
+        the result follows
     \end{proof}
 \end{enumerate}
 
@@ -493,7 +547,147 @@
     
 \begin{enumerate}
     \item \textbf{Sum of Squares} 
+    \begin{align*}
+        SST &= \matr{Y'Y} - (\frac{1}{n})\matr{Y'JY} \\
+        RSS &= \matr{\hat{e}'\hat{e}} = \matr{ Y'Y - \boldsymbol{\hat{\beta}}' X'Y }  \\
+        SSReg &= \matr{ \boldsymbol{\hat{\beta}}' X'Y - (\frac{1}{n})Y'JY }
+    \end{align*}
+    \begin{proof}
+        \begin{align*}
+            SST 
+            &= \sum (Y_i - \overline{Y})^2 \\
+            &= \sum Y_i^2 - \frac{(\sum Y_i)^2}{n}\\ 
+            &= \matr{Y'Y} - (\frac{1}{n})\matr{Y'JY}\tag{$\frac{(\sum Y_i)^2}{n} = (\frac{1}{n})\matr{Y'JY}$} \\ 
+            RSS 
+            &= \matr{\hat{e}'\hat{e}}  \\
+            &= \matr{(Y - X\boldsymbol{\hat{\beta}})'(Y - X\boldsymbol{\hat{\beta}})} \\
+            &= \matr{Y'Y - 2\boldsymbol{\hat{\beta}}'X'Y + \boldsymbol{\hat{\beta}}'X'X\boldsymbol{\hat{\beta}}} \\
+            &= \matr{Y'Y - 2\boldsymbol{\hat{\beta}}'X'Y + \boldsymbol{\hat{\beta}}'X'X (X'X)^{-1}X'Y} \tag{ $\boldsymbol{\hat{\beta}} = (X'X)^{-1}X'Y$ } \\
+            &= \matr{Y'Y - 2\boldsymbol{\hat{\beta}}'X'Y + \boldsymbol{\hat{\beta}}'X'Y} \\
+            &= \matr{ Y'Y - \boldsymbol{\hat{\beta}}' X'Y }
+        \end{align*}
+    \end{proof}
+    \item \textbf{Sum of Squares in Quadratic Form}\\
+    A \textbf{quadratic form} is defined as
+    \[
+        \matr{Y'AY} = \sum_i \sum_j a_{ij}Y_iY_j
+        \quad \quad \text{where $a_{ij} = a_{ji}$}
+    \] 
+    To convert sum of squares to quadratic form, we take notice that 
+    \[
+        \matr{\boldsymbol{\hat{\beta}}'X'}
+        = \matr{(X\boldsymbol{\hat{\beta}})'}
+        = (\matr{\hat{Y}})'
+        = (\matr{HY})'
+        = \matr{Y'H'}
+        = \matr{Y'H}
+        \tag{indempotency of $\matr{H}$}
+    \]
+    Now we substitute occurrences of $\matr{\boldsymbol{\hat{\beta}}'X'}$ with $\matr{Y'H}$ to arrive at 
+    \begin{align*}
+        SST &= \matr{Y'}\left[ \matr{I} - (\frac{1}{n})\matr{J} \right]\matr{Y}\\
+        RSS &= \matr{Y'(1-H)Y}\\ 
+        SSReg &= \matr{Y'}\left[ \matr{H} - (\frac{1}{n})\matr{J} \right]\matr{Y}\\
+    \end{align*}
+    Note $\matr{I} - (\frac{1}{n})\matr{J}$, $\matr{1-H}$, $\matr{H} - (\frac{1}{n})\matr{J}$ are all indempotent since they are arithmetic composition of indempotent matrices. We can therefore compute rank, which is equivalent to degrees of freedom in this case 
+    \[
+        rank(SST) 
+        = rank( \matr{I} - (\frac{1}{n})\matr{J}) 
+        = rank(\matr{I}) - rank(\frac{1}{n}\matr{J})= n - 1
+    \]
+    \[
+        rank(RSS)
+        = rank(\matr{I-H})
+        = rank(\matr{I}) - rank(\matr{H})
+        = n - 2
+    \]
+    \[
+        rank(SSReg)
+        = rank(\matr{H} - (\frac{1}{n})\matr{J})
+        = rank(\matr{H}) - rank((\frac{1}{n})\matr{J})
+        = 2 - 1
+        = 1
+    \]
+    Also note we used RSS in estimating $\sigma^2$
+    \[
+        S^2 = \frac{RSS}{n-2}
+    \]
+    We can prove its an unbiased estimator with matricies
+    \begin{align*}
+        \E\{RSS\}
+        &= \E\{ \matr{\hat{e}' \hat{e}} \} \\
+        &= \E\{ \matr{Y'(I-H)Y} \} \\
+        &= \E\{ trace(\matr{Y'(I-H)Y}) \} 
+            \tag{$\matr{Y'(I-H)Y}$ is scalar} \\
+        &= \E\{ trace(\matr{I-H}YY') \}
+            \tag{$trace(AB) = trace(BA)$} \\
+        &= trace\left( \matr{(I-H)\E(YY')} \right) \\
+        &= trace\left( \matr{(I-H)(\sigma^2I + X\beta \beta' X')} \right) \\
+        &= trace\left( \matr{I-H} \right) \sigma^2 \\
+        &= rank(\matr{I-H})\sigma^2     
+            \tag{$trace(A)=rank(A)$ if $A$ indempotent} \\
+        &= (n-2)\sigma^2
+    \end{align*}
 \end{enumerate}
+
+
+
+
+\subsection*{
+    \href[page=240]{../apply_linear_model_kutner.pdf}{5.13} Inferences on Regression Analysis}
+
+
+\begin{enumerate}
+    \item \textbf{Regression Coefficients} \\
+    To find the mean
+    \[
+        \E( \boldsymbol{\hat{\beta}} )
+         = \E( \matr{(X'X)^{-1} X'Y} )
+         = \matr{(X'X)^{-1} X'} \E( \matr{Y} )
+         = \matr{(X'X)^{-1} X' X\boldsymbol{\hat{\beta}}} 
+         = \boldsymbol{\hat{\beta}}
+    \]
+    To find the variance
+    \[
+        \boldsymbol{\sigma^2}\{\boldsymbol{\hat{\beta}\}}
+        = \sigma^2 (\matr{X'X})^{-1}
+    \]
+    which expands to 
+    \[
+        \boldsymbol{\sigma^2}\{\boldsymbol{\hat{\beta}\}}
+        = 
+        \begin{bmatrix}
+            \sigma^2\{ \hat{\beta}_0 \} & \sigma^2\{ \hat{\beta}_0, \hat{\beta}_1 \} \\
+            \sigma^2\{ \hat{\beta}_1, \hat{\beta}_0 \} & \sigma^2\{ \hat{\beta}_1 \} \\ 
+        \end{bmatrix}
+        = 
+        \begin{bmatrix}
+            \sigma^2 \left[ \frac{1}{n} + \frac{\overline{X}^2}{S_{XX}} \right]  & \frac{-\sigma^2 \overline{X}}{S_{XX}} \\
+            \frac{-\sigma^2 \overline{X}}{S_{XX}} & \frac{\sigma^2}{S_{XX}} \\ 
+        \end{bmatrix}
+    \]
+    When MSE substituted for $\sigma^2$, we obtain the estimated variance-covariance matrix of $\boldsymbol{\hat{\beta}}$, 
+    \[
+        \boldsymbol{s^2}\{\boldsymbol{\hat{\beta}\}}
+        = MSE (\matr{X'X})^{-1}
+    \]
+    \begin{proof}
+        \begin{align*}
+            \matr{\sigma^2\{ \boldsymbol{\hat{\beta}} \}} 
+            &= \matr{\sigma^2\{ (X'X)^{-1}X'Y \}}  \\
+            &=  \matr{\sigma^2\{ AY \}}  \tag{$A = (X'X)^{-1}X'$} \\
+            &= \matr{A\sigma^2\{ Y \}A'} 
+                \tag{$\sigma^2\{\matr{Y}\} = \sigma^2\matr{I}$}\\
+            &= \matr{(X'X)^{-1}X' \sigma^2 I X(X'X)^{-1}} 
+                \tag{$A'= X(X'X)^{-1}$ symmetric}\\
+            &= \sigma^2 \matr{(X'X)^{-1} X'X (X'X)^{-1}} \\
+            &= \sigma^2 \matr{(X'X)^{-1}} \\ 
+        \end{align*}
+    \end{proof}
+    \item \textbf{Mean Response} 
+\end{enumerate}
+
+
 
 
 

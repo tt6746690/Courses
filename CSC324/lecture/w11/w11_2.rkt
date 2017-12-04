@@ -70,6 +70,7 @@
 ; - : (-> Any Any (U (List String Boolean) False))
 ; ad hoc types... static typing getting huge in typescript
 ; classical static typing, return type in if branches have to be same
+; return type is union type
 
 
 string?
@@ -123,6 +124,7 @@ string?
 ; - : Maybe-Real
 ; (Failure)
 
+; Propagates Failure ....
 
 #; (Boxof (U Real String))
 #; (Boxof Real)

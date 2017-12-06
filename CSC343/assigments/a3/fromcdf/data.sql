@@ -2,12 +2,12 @@
 -- Populate tables
 insert into Student(id, first_name, last_name)
 values 
-( 998801234, 'Lena', 'Headey'),
-(  10784522, 'Peter', 'Dinklage'),
-( 997733991, 'Emilia', 'Clarke'),
-(5555555555, 'Kit', 'Harrington'),
-(1111111111, 'Sophie', 'Turner'),
-(2222222222, 'Maisie', 'Williams');
+('0998801234', 'Lena', 'Headey'),
+('0010784522', 'Peter', 'Dinklage'),
+('0997733991', 'Emilia', 'Clarke'),
+('5555555555', 'Kit', 'Harrington'),
+('1111111111', 'Sophie', 'Turner'),
+('2222222222', 'Maisie', 'Williams');
 
 
 insert into Class(id, room, grade, teacher)
@@ -17,12 +17,12 @@ values
 
 insert into StudentInClass(student_id, class_id)
 values
-( 998801234, 0),
-(  10784522, 0),
-( 997733991, 0),
-(5555555555, 0),
-(1111111111, 0),
-(2222222222, 1);
+('0998801234', 0),
+('0010784522', 0),
+('0997733991', 0),
+('5555555555', 0),
+('1111111111', 0),
+('2222222222', 1);
 
 
 
@@ -92,31 +92,31 @@ values
 
 insert into MultipleChoiceResponse(qqid, student_id, answer)
 values 
-(2,   998801234, 'They expanded their defence system, including Fort York'),
-(2,    10784522, 'They burned down the White House in Washington D.C.'),
-(2,   997733991, 'They burned down the White House in Washington D.C.'),
-(2,  5555555555, 'They captured Niagara Falls'),
--- (2,  1111111111, null),
-(3,   998801234, 'A network used by slaves who escaped the United States into Canada'),
-(3,    10784522, 'A network used by slaves who escaped the United States into Canada'),
-(3,   997733991, 'The CPR''s secret railway line');
--- (3,  5555555555, null),
--- (3,  1111111111, null),
+(2,  '0998801234', 'They expanded their defence system, including Fort York'),
+(2,  '0010784522', 'They burned down the White House in Washington D.C.'),
+(2,  '0997733991', 'They burned down the White House in Washington D.C.'),
+(2,  '5555555555', 'They captured Niagara Falls'),
+-- (2,  '1111111111', null),
+(3,  '0998801234', 'A network used by slaves who escaped the United States into Canada'),
+(3,  '0010784522', 'A network used by slaves who escaped the United States into Canada'),
+(3,  '0997733991', 'The CPR''s secret railway line');
+-- (3,  '5555555555', null),
+-- (3,  '1111111111', null),
 
 
 insert into TrueFalseResponse(qqid, student_id, answer)
 values 
-(1,   998801234, False),
-(1,    10784522, False),
-(1,   997733991, True),
-(1,  5555555555, False);
--- (1,  997733991,  null),
+(1,  '0998801234', False),
+(1,  '0010784522', False),
+(1,  '0997733991', True),
+(1,  '5555555555', False);
+-- (1, '0997733991',  null),
 
 
 insert into NumericResponse(qqid, student_id, answer)
 values 
-(0,   998801234, 1950),
-(0,    10784522, 1960),
-(0,   997733991, 1960);
--- (0,  5555555555, null),
--- (0,  997733991, null),
+(0,  '0998801234', 1950),
+(0,  '0010784522', 1960),
+(0,  '0997733991', 1960);
+-- (0,  '5555555555', null),
+-- (0, '0997733991', null),

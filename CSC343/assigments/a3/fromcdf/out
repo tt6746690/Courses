@@ -1,8 +1,3 @@
-dbsrv1% psql csc343h-wangpeiq
-psql (9.5.10)
-Type "help" for help.
-
-csc343h-wangpeiq=> \i runner.txt
 DROP SCHEMA
 CREATE SCHEMA
 SET

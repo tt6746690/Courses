@@ -1,5 +1,13 @@
 \documentclass[11pt]{article}
 \input{/Users/markwang/.preamble}
+
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\bbetahat}{\boldsymbol{\hat{\beta}}}
+\newcommand{\e}[1]{\mathbb{E} \{#1\}}
+\newcommand{\bvar}[1]{\boldsymbol{\sigma^2}\{#1\}}
+\newcommand{\bevar}[1]{\matr{s}^2\{#1\}}
+
+
 \begin{document}
 
 
@@ -53,7 +61,7 @@
     \]
     The general linear model usage cases
     \begin{enumerate}
-        \item \textbf{$p-1$ Predictor Variables} as seen with first-order model with $p-1$ predictor variables, which has no interactione ffects
+        \item \textbf{$p-1$ Predictor Variables} as seen with first-order model with $p-1$ predictor variables, which has no interaction effects
         \item \textbf{Qualitative Predictor Variables} Indicator variables as $X_i$s. As an example of 1 quantitative predictor $X_{i1}$ and 1 indicator predictor variable $X_{i2}$
         \[
             \E\{Y\} = \beta_0 + \beta_1 X_1 + \beta_2 X_2 
@@ -65,31 +73,31 @@
             \E\{Y\} = (\beta_0 + \beta_2) + \beta_1 X_1
         \]
         which represents parallel straight lines with different intercepts. Generally we represents qualitative variable with $c$ classes by means of $c-1$ indicator variables 
+        \item \textbf{Polynomial Regression} is a special case of generalized linear model contaiing higher-order terms of predictor variable, making the response function curlinear. For example 
+        \[
+            Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \epsilon_i
+        \]
+        where $X_{i1} = X_i$ and $X_{i2} = X_i^2$
+        \item \textbf{Transformed Variables}
+        \item \textbf{Interaction Effects} When effects of predictor variables on response variable are not additive, the effect of one predictor variable depends on levels of other predictor variables. A \textbf{nonadditive regressfion model with 2 predictors $X_1$ and $X_2$} is given by 
+        \[
+            Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i1}X_{i2} + \epsilon_i
+        \]
+        which is a special case of generalized linear model whereby $X_{i3} = X_{i1}X_{i2}$
+        \item \textbf{Combination of above cases} For example, model that is curlinear with interaction terms.
+        \item \textbf{Meaning of linear in General Linear Regression Model} Note GLM does is not restricted to linear response surfaces. \textbf{Linear Model} refers to the fact that model is linear in the parameters; it does not refer to the shape of the response surface. 
+        \[
+            Y_i  =\beta_0 exp(\beta_1 X_i) + \epsilon
+        \]
+        is a nonlinear regression model 
     \end{enumerate}
-    \item \textbf{Polynomial Regression} is a special case of generalized linear model contaiing higher-order terms of predictor variable, making the response function curlinear. For example 
-    \[
-        Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \epsilon_i
-    \]
-    where $X_{i1} = X_i$ and $X_{i2} = X_i^2$
-    \item \textbf{Transformed Variables}
-    \item \textbf{Interaction Effects} When effects of predictor variables on response variable are not additive, the effect of one predictor variable depends on levels of other predictor variables. A \textbf{nonadditive regressfion model with 2 predictors $X_1$ and $X_2$} is given by 
-    \[
-        Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \beta_3 X_{i1}X_{i2} + \epsilon_i
-    \]
-    which is a special case of generalized linear model whereby $X_{i3} = X_{i1}X_{i2}$
-    \item \textbf{Combination of above cases} For example, model that is curlinear with interaction terms.
-    \item \textbf{Meaning of linear in General Linear Regression Model} Note GLM does is not restricted to linear response surfaces. \textbf{Linear Model} refers to the fact that model is linear in the parameters; it does not refer to the shape of the response surface. 
-    \[
-        Y_i  =\beta_0 exp(\beta_1 X_i) + \epsilon
-    \]
-    is a nonlinear regression model 
 \end{enumerate}
 
 
 
 
 \subsection*{
-    \href[page=256]{../apply_linear_model_kutner.pdf}{6.2-6.3} General Linear Regression Model in Matrix Terms} 
+    \href[page=256]{../apply_linear_model_kutner.pdf}{6.2-6.6} General Linear Regression Model in Matrix Terms} 
 
 
 \begin{enumerate}
@@ -155,8 +163,9 @@
     \begin{align*}
         \matr{\hat{Y}} &= \matr{X\boldsymbol{\hat{\beta}}} \\ 
         \matr{\hat{e}} &= \matr{(I-H)Y} \tag{where $\matr{H} = X(X'X)^{-1}X'$}  \\
-        \sigma^2\{\matr{\hat{e}}\} &= \sigma^2\matr{(I-H)} \\ 
-        s^2\{\matr{\hat{e}}\} &= MSE(\matr{I-H}) \\ 
+        \e{\matr{\hat{e}}} &= 0 \\ 
+        \bvar{\matr{\hat{e}}} &= \sigma^2\matr{(I-H)} \\ 
+        \bevar{\matr{\hat{e}}} &= MSE(\matr{I-H}) \\ 
     \end{align*}
     \item \textbf{Sum of Squares and Mean Squares} \\
     Same as before 
@@ -174,6 +183,7 @@
     So the mean square is given by
     \begin{align*}
         MSE = \frac{RSS}{n-p}
+        \quad \quad 
         MSReg = \frac{SSReg}{p-1}
     \end{align*}
     \includegraphics[width=\textwidth]{anova_table_for_GLR.png}
@@ -188,6 +198,55 @@
     \[
         F&* = \frac{MSReg}{MSE}
     \]
+    with 
+    \[
+        \begin{cases}
+            \text{if } F^* \leq F_{1-\alpha, p-1, n-p} & \text{conclude } \mathsc{H}_0 \\
+            \text{if } F^* > F_{1-\alpha, p-1, n-p} & \text{conclude } \mathsc{H}_{\alpha} \\
+        \end{cases}
+    \]
+    When $p - 1 = 1$, test reduces to F test in SLR for if $\beta_1 = 0$
+    \item \textbf{Coefficients of Multiple Determination} \\
+    \[
+        R^2 = \frac{SSReg}{SST} = 1 - \frac{RSS}{SST}
+    \]
+    which measures the proportionate reduction of total variation in $Y$ associated with the use of the set of $X$ variables. 
+    \begin{enumerate}
+        \item $R^2$ assumes value of 0 when $\hat{\beta}_k = 0$ for $k=1,\cdots, p-1$ and value 1 when all $Y$ observation fall directly on the fitted regression line 
+        \item Adding more $X$ variables can only increase $R^2$ and never reduce it, because RSS can never become larger with more $X$ variables and SST is always the same for the given set of responses.
+        \item \textbf{Adjusted coefficient of multiple determination} $R^2_{a}$ adjusts $R^2$ by dividing each sum of squares by its degree of freedom 
+        \[
+            R^2_{a} = 1 - \left( \frac{n-1}{n-p} \right)  \frac{RSS}{SST}
+        \]
+        $R^2_{a}$ may become smaller when another $X$ variable is introduced to the model. Since any decrease in $RSS$ maybe more than offset by the loss of a degree of freedom in the denominator $n-p$
+        \item A large value of $R^2$ does not imply the fitted model is a useful one. For example, despite high $R^2$, fittedf model may not be useful if most predictions require extrapolation outside region of observations. Or if MSE may still be too large for inferences to be useful when high precision needed
+    \end{enumerate}
+    \item \textbf{Coefficient of Multiple Correlation} \\
+    \[
+        R = \sqrt{R^2}    
+    \]
+    \item \textbf{Inferences about Regression Parameters} \\
+    Least squared and MLE estimators in $\hat{\beta}$ are unbiased
+    \[
+        \e{\bbetahat}  = \bbeta
+    \]
+    \[
+        \bvar{\bbetahat} = \sigma^2 \underset{p\times p}{\matr{(X'X)}}^{-1}
+    \]
+    \[
+        \bevar{\bbetahat} = MSE \underset{p\times p}{(\matr{X'X})}^{-1}
+    \]
+\end{enumerate}
+
+
+
+
+\subsection*{
+    \href[page=256]{../apply_linear_model_kutner.pdf}{6.2-6.6} Diagnostics and Remedial Measures}
+    
+
+\begin{enumerate}
+    \item \textbf{Scatter Plot Matrix} 
 \end{enumerate}
 
 

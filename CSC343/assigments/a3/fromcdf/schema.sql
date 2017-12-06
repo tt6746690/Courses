@@ -19,12 +19,14 @@ set search_path to quizschema;
 
 -- A student can be in classes and take quizzes
 create table Student (
-    id           bigint      not null, 
+    id           varchar(10) not null, 
     first_name   varchar(45) not null, 
     last_name    varchar(45) not null, 
     primary key (id),
-    constraint ck_student_id_10_digits  -- student id is a 10-digit number
-        check (id between 0 and 9999999999)
+    constraint ck_student_id_digits  -- student id is a 10-digit number
+        check (id ~ '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+    constraint ck_student_id_digits_len_10  -- student id is a 10-digit number
+        check (length(id)=10)
 );
 
 
@@ -46,7 +48,7 @@ create table Class (
 -- Relationship set describing that a student is in a particular class
 --  Student --(0, N)-- StudentInClass --(1, N)-- Class
 create table StudentInClass (
-    student_id   bigint      not null,  -- cannot be unique, since a student can be in multiple classes 
+    student_id   varchar(10) not null,  -- cannot be unique, since a student can be in multiple classes 
     class_id     int         not null,  -- cannot be unique, since a student can have multiple students
     primary key (student_id, class_id),
     constraint ck_student_id_in_Student
@@ -181,7 +183,7 @@ create table QuizQuestion (
 -- Response to Multiple choice questions 
 create table MultipleChoiceResponse (
     qqid        int             not null, 
-    student_id  bigint          not null, 
+    student_id  varchar(10)     not null, 
     answer      varchar(100)    not null, 
     primary key (qqid, student_id),
     constraint ck_qid_in_QuizQuestion 
@@ -194,7 +196,7 @@ create table MultipleChoiceResponse (
 -- Response to True False questions 
 create table TrueFalseResponse (
     qqid        int         not null, 
-    student_id  bigint      not null, 
+    student_id  varchar(10) not null, 
     answer      boolean     not null, 
     primary key (qqid, student_id),
     constraint ck_qid_in_QuizQuestion 
@@ -208,7 +210,7 @@ create table TrueFalseResponse (
 -- Response to numeric questions 
 create table NumericResponse (
     qqid        int         not null, 
-    student_id  bigint      not null, 
+    student_id  varchar(10) not null, 
     answer      int         not null, 
     primary key (qqid, student_id),
     constraint ck_qid_in_QuizQuestion 

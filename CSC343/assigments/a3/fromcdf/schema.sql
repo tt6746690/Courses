@@ -6,12 +6,20 @@
 --      So cannot construct foreign key to satisfy this constraint
 --  * quiz has at least 1 question
 --      For same reason as above
+--  * any multiple choice question should have at least 2 options
+--      The logic behind this is: for any MC question, there must be an option which is not the answer.
+--      However, to enforce that, we should use trigger since "answer" and "text" (option) are in 
+--      different tables. In addition, the logic statement "there should be" invovles subquery "any" in 
+--      constraint, which is not allowed in this assignment according to piazza.
 -- 2. What constraints that could have been enforced were not enforced? Why not?
 --  * correct answers do not have hints, 
 --      question and hints are in different tables, a check constraint would involve subqueries, 
---      which is not allowed according to a piazza post
+--      which is not allowed according to a piazza post. Also, since hints can be null, for 
+--      correct answers, we can easily set their hints to be null to satisfy above constraints.  
+--      There is no need to create another tables.
 --  * only a student in the class that was assigned a quiz can answer a question
---      Cross table constraint requiring a trigger, but is not allowed according to a piazza list
+--      Cross table constraint requiring a trigger, but is not allowed according to a piazza list.
+--      Also, we need to use subqueries in this case, which is not allowed as well.
 
 drop schema if exists quizschema cascade;
 create schema quizschema;
@@ -52,9 +60,9 @@ create table StudentInClass (
     class_id     int         not null,  -- cannot be unique, since a student can have multiple students
     primary key (student_id, class_id),
     constraint ck_student_id_in_Student
-        foreign key (student_id) references Student(id),
+        foreign key (student_id) references Student(id) on update cascade on delete cascade,
     constraint ck_class_id_in_Class
-        foreign key (class_id) references Class(id)
+        foreign key (class_id) references Class(id) on update cascade on delete cascade
 );
 
 -- constraint that to satisfy cardinality min=1 for Class 
@@ -93,7 +101,7 @@ create table MultipleChoiceOption (
     hint    varchar(100),   -- can be null, ensures option--(1,1)--hint
     primary key (qid, text),
     constraint ck_qid_in_Question
-        foreign key (qid) references Question(id)
+        foreign key (qid) references Question(id) on update cascade on delete cascade
 );
 
 
@@ -105,9 +113,9 @@ create table MultipleChoiceQuestion (
     answer  varchar(100)    not null,
     primary key (qid),
     constraint ck_qid_in_Question
-        foreign key (qid) references Question(id),
+        foreign key (qid) references Question(id) on update cascade on delete cascade,
     constraint ck_answer_is_one_of_options 
-        foreign key (qid, answer) references MultipleChoiceOption(qid, text)
+        foreign key (qid, answer) references MultipleChoiceOption(qid, text) on update cascade on delete cascade
     -- constraint ck_correct_answer_do_not_have_hints not checked
 );
 
@@ -119,7 +127,7 @@ create table TrueFalseQuestion (
     answer  boolean     not null,   -- 1 true, 0 false
     primary key (qid),
     constraint ck_qid_in_Question 
-        foreign key (qid) references Question(id)
+        foreign key (qid) references Question(id) on update cascade on delete cascade
 );
 
 
@@ -132,7 +140,7 @@ create table NumericQuestionHint (
     text            varchar(100)    not null, 
     primary key (qid, lower_bound, upper_bound),
     constraint ck_qid_in_Question
-        foreign key (qid) references Question(id)
+        foreign key (qid) references Question(id) on update cascade on delete cascade
 );
 
 
@@ -144,7 +152,7 @@ create table NumericQuestion (
     answer      int     not null, 
     primary key (qid),
     constraint ck_qid_in_Question
-        foreign key (qid) references Question(id)
+        foreign key (qid) references Question(id) on update cascade on delete cascade
     -- constraint ck_correct_answer_do_not_have_hints not implemented
 );
 
@@ -161,7 +169,7 @@ create table Quiz (
     hint_flag   boolean     not null, 
     primary key (id),
     constraint ck_class_id_in_Class 
-        foreign key (class_id) references Class(id)
+        foreign key (class_id) references Class(id) on update cascade on delete cascade
 );
 
 -- QuizQuestion
@@ -174,9 +182,9 @@ create table QuizQuestion (
     primary key (id),
     unique (quiz_id, qid),
     constraint ck_quiz_id_in_Quiz 
-        foreign key (quiz_id) references Quiz(id),
+        foreign key (quiz_id) references Quiz(id) on update cascade on delete cascade,
     constraint ck_qud_in_Question 
-        foreign key (qid) references Question(id)
+        foreign key (qid) references Question(id) on update cascade on delete cascade
 );
 
 
@@ -187,9 +195,9 @@ create table MultipleChoiceResponse (
     answer      varchar(100)    not null, 
     primary key (qqid, student_id),
     constraint ck_qid_in_QuizQuestion 
-        foreign key (qqid) references QuizQuestion(id),
+        foreign key (qqid) references QuizQuestion(id) on update cascade on delete cascade,
     constraint ck_student_id_in_Student
-        foreign key (student_id) references Student(id)
+        foreign key (student_id) references Student(id) on update cascade on delete cascade
 );
 
 
@@ -200,9 +208,9 @@ create table TrueFalseResponse (
     answer      boolean     not null, 
     primary key (qqid, student_id),
     constraint ck_qid_in_QuizQuestion 
-        foreign key (qqid) references QuizQuestion(id),
+        foreign key (qqid) references QuizQuestion(id) on update cascade on delete cascade,
     constraint ck_student_id_in_Student
-        foreign key (student_id) references Student(id)
+        foreign key (student_id) references Student(id) on update cascade on delete cascade
 );
 
 
@@ -214,7 +222,7 @@ create table NumericResponse (
     answer      int         not null, 
     primary key (qqid, student_id),
     constraint ck_qid_in_QuizQuestion 
-        foreign key (qqid) references QuizQuestion(id),
+        foreign key (qqid) references QuizQuestion(id) on update cascade on delete cascade,
     constraint ck_student_id_in_Student
-        foreign key (student_id) references Student(id)
+        foreign key (student_id) references Student(id) on update cascade on delete cascade
 );

@@ -242,11 +242,51 @@
 
 
 \subsection*{
-    \href[page=256]{../apply_linear_model_kutner.pdf}{6.2-6.6} Diagnostics and Remedial Measures}
+    \href[page=266]{../apply_linear_model_kutner.pdf}{6.8} Diagnostics and Remedial Measures}
     
 
 \begin{enumerate}
-    \item \textbf{Scatter Plot Matrix} 
+    \item \textbf{Scatter Plot Matrix} \\
+    $Y$ variable is found in its row, and $X$ variable is name found in the column \\ 
+    \includegraphics[width=\textwidth]{scatter_plot_matrix.png} \\
+    First column we can compare plots of different predictor variables $X_i$ with $Y$. 
+    \item \textbf{Correlation Matrix} \\
+    contains coefficients of simple correlation $r_{Y,1}$, $r_{Y,2}$, $\cdots$, $r_{Y,p-1}$ between $Y$ and each of the predictor variables, and coefficients of simple correlation among predictor variables $r_{1,2}$ between $X_1$ and $X_2$
+    \[
+        \begin{bmatrix}
+            1 & r_{Y,1} & r_{Y,2} & \cdots & r_{Y,p-1} \\ 
+            r_{Y,1} & 1 & r_{1,2} & \cdots & r_{1,p-1} \\ 
+            \vdots & \vdots & \vdots & & \vdots \\
+            r_{Y,p-1} & r_{1,p-2} & r_{2,p-1} & \cdots & 1 \\ 
+        \end{bmatrix}    
+    \]
+    which is symmetric with main diagonals containing 1s. Usually the first column/row is the response variable $Y$
+    \item \textbf{Residual Plots} \\
+    \begin{enumerate}
+        \item Good for investigating constancy of variance of error terms, as well as for providing information about outliers.
+        \item Residuals should be plotted against easch of the predictor variables, which provide informationa bout adequacy of the regression function w.r.t. that predictor variable.
+        \item Should try plotting against important predictor variables omitted from the model.
+    \end{enumerate}
+    \item \textbf{Remedial Measures} \\
+    Add a variable to account a curvature effect $X^2$ or interaction between $X_1$ and $X_2$ as $X_1 X_2$. Box-Cox transformation used to determine an appropriate power transformation on $Y$ for MLR. 
+     
+\end{enumerate}
+
+\newpage
+
+\section*{
+    \href[page=136]{../../modern_regression_r.pdf}{Chapter 5} Multiple Linear Regression}
+
+\begin{enumerate}
+    \item \textbf{Estimation and Inference in MLR} 
+    \[
+        \E\{ Y|X_1=x_1, X_2=x_2,\cdots,X_p=x_p \} = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p 
+    \]
+    so 
+    \[
+        Y_i = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p + e_i
+    \]
+    where $\E\{e_i | X\} = 0$, in which case response variable $Y$ is predicted from $p$ predictor varaibles $X_1,X_2,\cdots, X_p$
 \end{enumerate}
 
 

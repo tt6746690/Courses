@@ -6,7 +6,7 @@ select q.id as question_id, q.text as question_text, count(o.hint) as num_hints
 from Question q join MultipleChoiceQuestion mcq on q.id=mcq.qid
                 join MultipleChoiceOption o on mcq.qid=o.qid
 where q.type='multiple_choice'
-group by q.id;
+group by q.id, q.text;
 
 
 create view TFQuestionHints as 
@@ -20,7 +20,7 @@ select q.id as question_id, q.text as question_text, count(*) as num_hints
 from Question q join NumericQuestion nq on q.id=nq.qid
                 join NumericQuestionHint nqh on q.id=nqh.qid
 where q.type='numeric' 
-group by q.id;
+group by q.id, q.text;
 
 
 create view q2_solution as 

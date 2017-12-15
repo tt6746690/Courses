@@ -1,0 +1,49 @@
+
+
+```{r}
+library(Sleuth3) 
+# print(case0901)  # Meadowfoam dataset 
+```
+
+```{r}
+i <- factor(case0901$Intensity, levels=c(900, 150, 300, 450, 600, 750))
+myFit <- lm(Flowers ~ i + as.factor(Time), data=case0901)
+summary(myFit)
+```
+
+```{r}
+# Partial F-test, where the reduced model has intensities predictor removed
+fullmod <- lm(Flowers ~ i + as.factor(Time), data=case0901)
+reducedmod1 <- lm(Flowers ~ as.factor(Time), data=case0901) # no intensity
+reducedmod2 <- lm(Flowers ~ i, data=case0901) # no time 
+anova(fullmod)      # RSS=767  df=17
+anova(reducedmod1)  # RSS=3451 df=22
+anova(reducedmod2)  # RSS=1654 df=18
+# no intensity: F_partial = ((3451 - 767) / (22 - 17)) / (767 / 17) = 11.9
+# no time: F_partial = ((1654 - 767) / (18 - 17)) / (767/ 17) = 19.6
+# Idea is that both time and intensity are useful predictor variables
+```
+
+```{r}
+# ANOCOVA, model: y = beta0 + beta1*x + beta2*d + beta3*dx + e
+myFit2 <- lm(Flowers ~ Intensity * as.factor(Time), data=case0901)
+summary(myFit2)  
+# interaction term not significant, so we remove interaction term
+myFit3 <- lm(Flowers ~ Intensity + as.factor(Time), data=case0901)
+summary(myFit3)
+```
+```{r}
+# added variable plots
+a2 = read.table("DataA2.txt", sep=" ", header=T)
+logFev <- log(a2$fev); logAge <- log(a2$age); logHt <- log(a2$ht)
+par(mfrow=c(1,2))
+xAxis <- lm(logAge ~ logHt); yAxis <- lm(logFev ~ logHt)
+plot(xAxis$residuals, yAxis$residuals, xlab="Age residuals", ylab="FEV residuals")
+
+xAxis <- lm(logHt ~ logAge); yAxis <- lm(logFev ~ logAge)
+plot(xAxis$residuals, yAxis$residuals, xlab="Height residuals", ylab="FEV residuals")
+
+# linear relation ship for second added-variable plot, 
+# indicates a stronger regression relation between residuals, height is a stronger predictor
+```
+

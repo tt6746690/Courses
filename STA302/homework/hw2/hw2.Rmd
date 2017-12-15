@@ -1,0 +1,73 @@
+---
+title: "hw2 mysolution"
+---
+
+```{r}
+a2 = read.table("DataA2.txt", sep=" ", header=T) # load the data
+# fev forced expiratory volumn, measure of lung capacity, response variable
+# age, height, continuous predictors
+# sex, smoking status, categorical predictors (0 or 1)
+
+# consider models that use age and fev
+fev <- a2$fev; age <- a2$age
+
+#  Q1.a plot FEV vs age and the scale-location plot 
+# a scale-location plot is sqrt of standardized residual vs fitted value
+# see if residual spread along predictors, checks equal variance assumption
+mod1 = lm(fev ~ age)
+par(mfrow=c(1,2))
+plot(age, fev, type="p", col="blue", pch=21, main="FEV vs age")
+plot(mod1, which=3)  # which selects from among 4 lm plots
+
+# Comment: The scatter plot indicates a linear association between FEV and age.
+# The scale-location plot indicates that the variance in the response variable 
+# increases with age
+```
+
+```{r}
+# Q1.b plot sqrt, log, inverse transformation of data (both predictor and response)\
+mod2 = lm(sqrt(fev)~sqrt(age))
+mod3 = lm(log(fev)~log(age))
+a=1/fev; b=1/age; mod4 = lm(a~b)
+par(mfcol=c(2,3))
+plot(sqrt(age),sqrt(fev),type="p",col="blue",pch=21, main="SQRT")
+plot(mod2,which=3)
+plot(log(age),log(fev),type=
+       "p",col="blue",pch=21, main="LOG")
+plot(mod3,which=3)
+plot(1/age,1/fev,type="p",col="blue",pch=21, main="RECIPROCAL")
+plot(mod4,which=3)
+# Comment: log looks best as scale-location mostly evenly spread
+```
+
+```{r}
+# Q2.a The estimated regression line is hat{log(fev)} = 0.8462 log(age) - 0.9877
+mod3 = lm(log(fev)~log(age))
+mod3$coefficients
+
+# Q2.b Has transformation improved adherence to constant variance assumption? is the model acceptable? Explain
+# The residuals vs fitted line is greatly improved (From scale-location), 
+# but the variance still isn't constant: intermediate fitted values 
+# (around y-hat = 0.8) have relatively lowvariance. 
+# Separately, the QQ plot of the residuals (not shown) looks good.
+
+
+# Q2.c Assume model acceptable, how do you interpret the slope?
+# The slope indicates that for a k-fold increase in age, FEV increases by a 
+# factor of k^0.8462. So if age doubles, FEV increases by 80%.
+# https://www.cscu.cornell.edu/news/statnews/stnews83.pdf
+# rule of thumb
+# response log transformed: 100*beta_1 percent change for a 1 unit increase in x 
+# predictor log transformed: beta_1/100 change for 1 percent increase in x
+# both log transformed: beta_1 percent change for 1 percent increase in x
+#    more precisely, k-fold increase in X -> k^beta_1 fold increase in Y
+
+
+
+# Q2.d For age=c(8,17,21), find 95% CIs for mean response on untransformed scale
+# Find 95% prediction intervals. 
+CI<-predict.lm(mod3,newdata=data.frame(age=c(8,17,21)), interval=c("confidence"))
+PI<-predict.lm(mod3,newdata=data.frame(age=c(8,17,21)), interval=c("prediction"))
+print(exp(CI)); print(exp(PI))
+```
+

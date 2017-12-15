@@ -1,0 +1,27 @@
+drop schema if exists circular cascade;
+create schema circular;
+set search_path to circular;
+
+CREATE TABLE T1(
+  a integer,
+  b integer primary key
+); 
+
+CREATE TABLE T2(
+  a integer primary key,
+  b integer
+); 
+
+ALTER TABLE T1 ADD 
+  foreign key (a) references T2;
+
+ALTER TABLE T2 ADD 
+  foreign key (b) references T1;
+
+-- Can't put a value in for a because it doesn't have anything to
+-- refer to yet in T2.  And if we insert first into T2, we have the
+-- analogous problem.  Solution: insert with value null at first,
+-- then update it to the intended value.
+INSERT INTO T1 VALUES (null, 5);
+INSERT INTO T2 VALUES (21, 5);
+UPDATE T1 set a = 21 where a is null;

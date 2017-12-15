@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE People SYSTEM "http://www.cs.utoronto.ca/~dianeh/xyyz/people.dtd">
+<People>
+   <!-- comment -->
+   <Person>Tommy Douglas</Person>
+   <Person>Terry Fox</Person>
+   <Person>Louise Arbour</Person>
+   <Person>Chris Hadfield</Person>
+</People>

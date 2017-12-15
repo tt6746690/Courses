@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE DATA SYSTEM "blah.dtd">
+<DATA>
+   <ANIMALS>
+      <COW name = "Snowball" home = "Red Barn Acres"/>
+      <HEN name = "Henrietta" birthdate = "120724" home = "Red Barn Acres"/>
+   </ANIMALS>
+   <FARMS>
+      <FARM owner = "Old MacDonald" name = "Red Barn Acres">
+         A picturesque hobby farm on 150 acres
+      </FARM>
+      <FARM owner = "Wiloughby Clive" name = "Weatherby Farm">
+      </FARM>
+      <FARM owner = "Egg Masters Inc" name = "Farm 23">
+         A factory farm on a quarter section of land
+      </FARM>
+      <FARM owner = "Wiloughby Clive" name = "Weatherby Farm">
+      </FARM>
+   </FARMS>
+</DATA>

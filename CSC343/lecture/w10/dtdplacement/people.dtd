@@ -1,0 +1,2 @@
+<!ELEMENT People (Person*)>
+<!ELEMENT Person (#PCDATA)>

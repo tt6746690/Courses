@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE People [
+   <!ELEMENT People (Person*)>
+   <!ELEMENT Person (#PCDATA)>
+]>
+<People>
+   <Person>Tommy Douglas</Person>
+   <Person>Terry Fox</Person>
+   <Person>Louise Arbour</Person>
+   <Person>Chris Hadfield</Person>
+</People>

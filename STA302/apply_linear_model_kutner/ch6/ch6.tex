@@ -272,10 +272,74 @@
      
 \end{enumerate}
 
+
+
+\subsection*{
+    \href[page=418]{../apply_linear_model_kutner.pdf}{10.1} Added-Variable Plots}
+
+\begin{enumerate}
+    \item \textbf{Motivation} Normal residual plot may not properly show nature of marginal effect of a predictor variable, given other predictor variables in the model. The added variable plot provides graphical information about the marginal importance of a predictor variable $X_k$, given the other predictor variables already in the model. 
+    \item \textbf{Idea} Both response variable $Y$ and predictor variable $X_k$ under consideration are regressed against other predictor variables in the regression model and the residuals are obtained for each. 
+\end{enumerate}
+    
+
+
+
+
+\subsection*{
+    \href[page=312]{../apply_linear_model_kutner.pdf}{22} Multicollinearity and Its Effects}
+
+
+\begin{enumerate}
+    \item \textbf{Motivation} In nonexperimental situaitons, Predictor variables tend to be correlated among themselves and with other variables that are related to the response variable but are not included in the model
+    \item \textbf{Multicollinearity} occurs when predictor variables are correlated among themselves. 
+    \item \textbf{Uncorrelated Predictor Variables} predictor variable $X_1$ and $X_2$ are uncorrelated if coefficient of simple determination between the two are small, i.e. $r^2_{12} \sim 0$. When predictors are uncorrelated, their regression coefficients stay approximately the same regardless of any other uncorrelated predictors are in the model or not. Also, the marginal contribution of one predictor variable in reducing the error sum of squares when the other predictor variables are in the model is exactly the same as when this predictor variable is in the model alone. 
+    \item \textbf{Problem with perfectly correlated predictor variables} If $X_1$ and $X_2$ are perfectly related, many different response function will lead to perfectly fitted values for the observation, and to the fitted values for any other $(X_1, X_2)$ combinations following the relation between $X_1$ and $X_2$. The response functions are not the same and will lead to different fitted values for $(X_1, X_2)$ combinations that do not follow the relation between $X_1$ and $X_2$
+    \begin{enumerate}
+        \item perfect correlation does not inhibit our ability to finda  good fit to data, or inferences about the mean respoinses or predictions of new observations 
+        \item However, since many different response functions provide the same good fit, we cannot interpret any one set of regression coefficients as reflecting the effects of different predictor varaibles. This results in estimated regression coefficients having large sampling variability. We get different estimates of regression coefficients from one sample to the next. 
+        \item We can no longer interpret a regression coefficients as measuring the change in the expected value of the response variable when the given predictor variable is increased by one unit while all other predictors are held constant. 
+    \end{enumerate}
+    \item \textbf{Effects of Multicollinearity} GIven scatter plot matrix and the correlation matrix of the predictor variables. 
+    \includegraphics[width=\textwidth]{multicollinearity.png}
+    Note $X_1$ and $X_2$ are highly correlated $r_{12} = 0.924$, $X_3$ is not highly correlated with $X_1$ and $X_2$ ($r_{13} = 0.458$, $r_{23} = 0.085$) but $X_3$ is highly correlated with $X_1$ and $X_2$ together by looking at coefficients of multiple determination. Note $\hat{\beta}_2$ changes sign when $X_3$ is added to the model that includes $X_1$ and $X_2$. 
+    \begin{enumerate}
+        \item \textbf{regression coefficients} Idea is when predictors are correlated, the regression coefficients of any one variable depends on which other predictors are included in the model and which one are left out. A regression coefficients does not reflect any inherent effect of the particular predictor variable on the response variable but only a marginal or partial effect.
+        \item \textbf{sum of squares} marginal contribution of any one predictor varialbe in reducing error sum of squares varies, depending on which other variables are in th emodel. 
+    \end{enumerate}
+\end{enumerate}
+
+
+
+\subsection*{
+    \href[page=340]{../apply_linear_model_kutner.pdf}{22} Interaction Regression Models}
+
+
+
+
+
+
+\subsection*{
+    \href[page=951]{../apply_linear_model_kutner.pdf}{22} Analysis of Covariance}
+
+
+\begin{enumerate}
+    \item \textbf{ANCOVA} A special type of regression model, used for observational/designed studies. Idea is to augment ANOVA model. It is intended reduce variance of error terms in the model 
+    \item \textbf{How ANCOVA reduce error variability} ANCOVA utilizes relationship between response variable and one or more quantitative variable for which the observations are available in order to reduce error term variability and make the study a more powerful one for comparing treatment effects. 
+    \item \textbf{Concomitant (covariates) variable} Quantitative variable in covariance analysis is called concomitant variable. Concomitant variable usually has relationship with response variable. For example, age, status, aptitude in studying human subjects, etc. A concomitant variable should be observed before the study, or not be influenced by treatment in any way, if observed during the study, i.e. age. 
+    \item When qualitative concomitant variable added, analysis of variance model where somer factors are of primary interest and others represent concomitant varaibles are included for purpose of error variance reduction 
+\end{enumerate}
+
+
 \newpage
 
 \section*{
     \href[page=136]{../../modern_regression_r.pdf}{Chapter 5} Multiple Linear Regression}
+
+
+
+\section*{
+    \href[page=136]{../../modern_regression_r.pdf}{Chapter 5.2} Estimation and Inference in MLR}
 
 \begin{enumerate}
     \item \textbf{Estimation and Inference in MLR} 
@@ -287,8 +351,218 @@
         Y_i = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p + e_i
     \]
     where $\E\{e_i | X\} = 0$, in which case response variable $Y$ is predicted from $p$ predictor varaibles $X_1,X_2,\cdots, X_p$
+    \item \textbf{Least Squared matrix formation} 
+    Regression model
+    \[
+        \matr{ Y = X\bbeta + e}    
+    \]
+    with $var(e) =\sigma^2\matr{I}$
+    \[
+        RSS(\beta) = \matr{(Y - X\bbeta)'(Y - X\bbeta)}
+    \]
+    Least square estimate given by
+    \[
+        \bbetahat = \matr{(X'X)^{-1}X'Y}    
+    \]
+    FItted value given by
+    \[
+        \matr{ \hat{Y} = X\bbetahat }
+    \]
+    \item \textbf{Least Squared Estimates properties}
+    \[
+        \matr{ \e{\bbetahat | X} = \bbeta } \quad \quad \quad \quad 
+        Var(\bbetahat | X) = \sigma^2 \matr{(X'X)^{-1}}
+    \]
+    \item \textbf{Residual Sum of Squares}
+    \[
+        RSS =  \matr{(Y - X\bbeta)'(Y - X\bbeta)} = \matr{\hat{e}' \hat{e}} = \sum_i \matr{\hat{e}_i}^2 
+    \]
+    Error variance estimated by 
+    \[
+        s^2 = \frac{RSS}{n-p-1} = \frac{1}{n-p-1} \sum_i \matr{\hat{e}_i^2}    
+    \]
+    is an unbiased estimator of $\sigma^2$
+    \item \textbf{Confidence interval and tests of significance} Assume normally distributed error with constant variance, it can be shown that for $i = 0, 1, \codts, p$, 
+    \[
+        T_i = \frac{ \hat{\beta}_i - \beta_i }{ se(\hat{\beta}) }  \sim t_{n-p-1}
+    \]
+    degree of freedom is difference between sample size and number of parameters estimated, i.e. $p+1$ for parameters $\beta_0, \beta_1, \cdots, \beta_p$
+    \item \textbf{Adjusted $R^2$}
+    \[
+        R^2_{adj} = 1 - \frac{RSS / (n-p-1)}{SST / (n-1)}    
+    \]
+    \item \textbf{ANOVA to test linear association} 
+    \[
+        \begin{cases}
+            \mathcal{H}_0 : \beta_1 = \cdots = \beta_p = 0 \\
+            \mathcal{H}_{\alpha} : \text{ at least some of } \beta_i \neq 0 \\ 
+        \end{cases}    
+    \]
+    \[
+        F = \frac{SSreg / p}{ RSS / (n-p-1)}    
+    \]
+    $F$ has F distribution with $p$ and $n-p-1$ degrees of freedom when $H_0$ is true. F-test used to test for existence of a linear association between $Y$ and \textbf{ANY} of the $p$ x variable. If F-test is indeed significant then a natural question is to ask which of the $p$ x-variables is there evidence of a linear association with $Y$. We perform $p$ separate t-test $\mathcal{H}_0 : \beta_1 = 0$. However, there are problems interpreting results when predictors are highly correlated
+    \item \textbf{Partial F-test} \\
+    Test if a subset of predictors have regression coefficients equal to 0. 
+    \[
+        \begin{cases}
+            \mathcal{H}_0 : \beta_1 = \cdots = \beta_k = 0 \text{ where } k < p & 
+            \text{ reduced model }  Y = \beta_0 + \beta_{k+1}x_{k+1} + \cdots + \beta_p x_p + e \\
+            \mathcal{H}_{\alpha} : \mathcal{H}_{0} \text{ not true } & 
+            \text{ full model } Y = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p + e \\ 
+        \end{cases}    
+    \]
+    \[
+        F = \frac{ (RSS_{reduced} - RSS_{full} ) / (df_{reduced} - df_{full}) }{ RSS_{full} / df_{full} }
+        = \frac{ (RSS_{reduced} - RSS_{full} ) / k }{ RSS_{full} / (n-p-1) }
+    \]
+    Note, the reduced model includes all variable currently of interest except whose statistical significance we wish to test. Intuitively, we look at the average difference in RSS between 2 models and compare this to average predictor error in the best model we have (the full model). If error are roughly the same for two models, then the added regressors in the full model are not contributing a lot. But if average decrease in prediction error duer to added regressor is quite large, then the regressors are contributing a good deal of explanatory power and thus should be retained.
 \end{enumerate}
 
+
+
+\section*{
+    \href[page=136]{../../modern_regression_r.pdf}{Chapter 5.3} Analysis of Covariance}
+
+
+\begin{enumerate}
+    \item \textbf{Analysis of Covariance} Naievely, ANOVA model has predictor variables that is quantitative (x) and qualitative (d). 
+    \item \textbf{Coincident regression lines} The dummy variable $x$ has no effect on $Y$ 
+    \[
+        Y = \beta_0 + \beta_1 x + e
+    \]
+    \item \textbf{Parallel regression lines} Dummy varaible produces an additive change in $Y$
+    \[
+        Y = \beta_0 + \beta_1 x + \beta_2 d + e = 
+        \begin{cases}
+            \beta_0 + \beta_1 x + e & d = 0 \\
+            \beta_0 + \beta_2 + \beta_1 x + e & d = 1\\ 
+        \end{cases}    
+    \]
+    \item \textbf{Regression line with equal intercepts but different slopes} Dummy variabler only changes the size of the effect of $x$ on $Y$, that is, 
+    \[
+        Y = \beta_0 + \beta_1 x + \beta_3 d \times x + e = 
+        \begin{cases}
+            \beta_0 + \beta_1 x + e & d = 0 \\
+            \beta_0 + (\beta_1 + \beta_3) x + e & d = 1 \\ 
+        \end{cases}    
+    \]
+    \item \textbf{Unrelated regression lines} Dummy variable produces an additive change in $Y$ and also changes the size of effect of $x$ on $Y$ 
+    \[
+        Y = \beta_0 + \btea_1 x + \beta_2 d + \beta_3 d \times x + e = 
+        \begin{cases}
+            \beta_0 + \beta_1 x + e & d = 0 \\ 
+            \beta_0 + \beta_2 + (\beta_1 + \beta_3)x + e & d = 1 \\ 
+        \end{cases}  
+    \]
+\end{enumerate}
+
+
+
+
+
+\section*{
+    \href[page=161]{../../modern_regression_r.pdf}{Chapter 6} Diagnostics and Transformation for MLR} 
+
+
+\section*{
+    \href[page=161]{../../modern_regression_r.pdf}{Chapter 6.1} Regression Diagnostics for Multiple Regression}
+    
+    
+\begin{enumerate}
+    \item Determine if proposed regression model is valid by looking at \textbf{standardized residuals} plot 
+    \item Determine if any data points are \textbf{leverage point} (with large effect on model) 
+    \item Determine if any data points are \textbf{outliers}
+    \item Assess effect of each predictor variable on the response variable, having adjusted for the effect of other predictors using \textbf{added variable plots}
+    \item Assess extent of \textbf{collinearity} among predictor variables using \textbf{variance inflation factors}
+    \item Examine if assumption of constant error variance is valid, 
+    \item For time series data, examine if data are correlated over time
+\end{enumerate}
+
+
+\begin{enumerate}
+    \item \textbf{Leverage Points} 
+    \[
+        \matr{Y = X \bbetahat = X(X'X)^{-1}X'Y = HY} 
+        \quad \quad 
+        \matr{H = X(X'X)^{-1}X'}    
+    \]
+    To classify $i$-th point as poitn of high leverage, in MLR model with $p$ predictors if 
+    \[
+        h_{ii} > 2 \times avg(h_{ii}) = 2 \times \frac{(p+1)}{n}
+    \]
+    \item \textbf{Standardized residuals} 
+    \[
+        \matr{\hat{e} = Y - \hat{Y} = (I - H)Y}    
+    \]
+    \[
+        \e{\matr{\hat{e} | X}} = 0
+    \]
+    \[
+        Var\{ \matr{\hat{e} | X} \} = \sigma^2(\matr{I-H})
+    \]
+    The $i$-th residual has variance given by 
+    \[
+        Var(\hat{e}_i) = \sigma^2\left[ 1 - h_{ii} \right]    
+    \]
+    The $i$-th standardized residual is given by 
+    \[
+        r_i = \frac{\hat{e}_i}{s \sqrt{1 - h_{ii}}} 
+        \quad \quad \quad 
+        s = \sqrt{\frac{\sum_j \hat{e}_j^2 }{n - (p+1)}} \text{ estimates } \sigma
+    \]
+    \item \textbf{Outlier} Points are outliers if the point falls outside interval from -2 to 2 for small datasets. 
+    \item \textbf{Validity of Model} A MLR model is a valid model for the data if the conditional mean of $Y$ given $X$ is a linear function of $X$ and the conditional variance of $Y$ given $X$ is constant 
+    \[
+        \e{Y | X = x} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p 
+        \quad \quad 
+        Var\{ Y| X=x \} = \sigma^2
+    \]
+    When a valid model has been fit, a plot of standardized residuals, $r_i$ against any predictor or any linear combination of predictors (i.e. response variable) will have properties
+    \begin{enumerate}
+        \item random scatter of points around horizontal axis, since mean function of $e_i$ is zero when a corrected model has been fit 
+        \item Constant variability as we look along the horizontal axis 
+    \end{enumerate}
+    So any pattern in a plot of standardized residual is indicative that an invalid model has been fit to the data. 
+    \item \textbf{Added variable plot} used to visually assess the effect of each predictor, having adjusted for the effects of the other predictors. It is simply a plot showing residual of response except $X_i$ against all predictors except $X_i$ vs. residual of $X_i$ on all other  predictors. This is mainly to overcome the shortcoming of plotting scatter plots of response variable against each of the predictor variable, which does not take into account the effect of the other predictor variable in the model where predictor variables are correlated (other variables are not held constant).  
+    \begin{enumerate}
+        \item Compute residuals of regressing response against predictor variables omitting $X_i$
+        \item Compute residuals of regressing $X_i$ against the remaining independent variables 
+        \item Plot residuals from 1 agaisnt residuals from 2
+    \end{enumerate}
+    It is used to identify outliers and heteroschedasticity. The slope in the plot is the partial regression coefficients. A linear pattern indicates that $X_i$ is useful in the model over and above other predictor variables, i.e. plot shows strengths of linear relationship $Y$ and $X_i$ over and above other variables. It is also useful for detecting nonlinear relationships, nonconstant variance, and influential points
+    \item \textbf{Partial correlation} measures degree of association between 2 random variablers, with effect of the set of controlling random variables removed. Formally, partial correlation between $X$ and $Y$ given a set of $n$ controlling variables $\matr{Z} = \{ Z_1, \cdots, Z_n \}$ is the correlation between residfual $e_{X}$ and $e_{Y}$ resulting from the linear regressfion of $X$ with $\matr{Z}$ and of $Y$ with $\matr{Z}$
+\end{enumerate}
+
+
+
+
+\section*{
+    \href[page=161]{../../modern_regression_r.pdf}{Chapter 6.4} Multicollinearity} 
+
+
+\begin{enumerate}
+    \item \textbf{Scenario} highly correlated data yields highly statistically significant F-test but very few of the regression coefficients may be statistically significant
+    \item \textbf{Variance Inflation Factors} quantifies severity of multicollinearity. It provides an index that measures how much the variance (the square of the estimate's standard deviation) of an estimated regression coefficient is increased because of collinearity. It can be shown that 
+    \[
+        Var\{ \hat{\beta}_j \} = \frac{1}{1 - R_{j}^2} \times \frac{\sigma^2}{(n-1)s_{s_j}^2} 
+        \quad \quad j = 1, \cdots, p
+    \]
+    variance inflation factor is given by 
+    \[
+        VIF = \frac{1}{1 - R_{j}^2}
+    \]
+    where $R_{j}^2$ denote value of coefficients of multiple correlation obtained from regression of $x_j$ on the other $x$s', i.e. amoutn of variability explained by this regression. 
+    \item \textbf{Ridged Regression} 
+    \[
+        \bbetahat = \matr{(X'X + \lambda I)^{-1} X'Y}
+    \]
+    \item \textbf{Principle Component analysis} 
+    \[
+        \bbetahat = \matr{(Z'Z)^{-1} Z'Y}
+    \]
+    where $\matr{Z}$ is a lower dimension version of $X$
+\end{enumerate}
 
 
 \end{document}

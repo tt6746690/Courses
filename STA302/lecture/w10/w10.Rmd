@@ -1,0 +1,39 @@
+
+
+
+```{r}
+a2 = read.table("DataA2.txt", sep=" ", header=T)
+logFev <- log(a2$fev); logAge <- log(a2$age); logHt <- log(a2$ht)
+par(mfrow = c(1,2))
+plot(logAge, logFev, type="p", col="blue", pch=21, main="FEV vs age (log)")
+plot(logHt, logFev, type="p", col="blue", pch=21, main="FEV vs ht (log)")
+mod1 = lm(logFev~logAge+logHt)
+```
+
+```{r}
+# MLR ANOVA, adjusted R^2 
+set.seed(1)
+N <- 10; u <- sample(length(logFev), N)
+logFevA <- logFev[u]; logAgeA<-logAge[u]
+rA <- rnorm(N) # a new potential predictor, random noise 
+
+mod2 = lm(logFevA~logAgeA)
+mod3 = lm(logFevA~logAgeA+rA)
+summary(mod2)  # SLR ANOVA
+summary(mod3)  # MLR ANOVA
+# Note, adjusted R^2 went down, it is a better measure
+# if a model is fitting, i.e. fev can be well predicted by l.c. of age
+```
+
+```{r}
+# MLR ANOVA w/r interaction 
+mod4 = lm(logFev ~ logAge + logHt)  # additive model
+mod5 = lm(logFev ~ logAge * logHt)  # model with interaction
+# equivalent to lm(logFev ~ logAge + logHt + logAge:logHt)
+summary(mod4)
+summary(mod5)
+# Note
+# age x ht is statistically significant from summary, given other terms are in the model
+# MSE is smaller; larger R^2_{adj}
+```
+

@@ -115,13 +115,13 @@
 
 ; then,
 ; Takes 2 stack-affecting operation, then yielding a stack-affecting operation
-(: >>> : (∀ (α β)
-            (Stack → (Stack-Result α))
-            (Stack → (Stack-Result β))
-            → (Stack → (Stack-Result β))))
-(define (((>>> op-1) op-2) a-stack)
-  (match (op-1 a-stack) [(Stack-Result _ new-stack) (op-2 new-stack)]))
-
-(((>>> pop) pop) '(3 2 4))
+; (: >>> : (∀ (α β)
+;             (Stack → (Stack-Result α))
+;             (Stack → (Stack-Result β))
+;             → (Stack → (Stack-Result β))))
+; (define (((>>> op-1) op-2) a-stack)
+;   (match (op-1 a-stack) [(Stack-Result _ new-stack) (op-2 new-stack)]))
+; 
+; (((>>> pop) pop) '(3 2 4))
 
 

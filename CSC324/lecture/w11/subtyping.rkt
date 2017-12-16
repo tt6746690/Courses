@@ -68,10 +68,10 @@
 
 #| Function values. |#
 
-(: fuu : (U Real String) → (U Real String))
-(: fru :    Real         → (U Real String))
-(: fur : (U Real String) →    Real)
-(: frr :    Real         →    Real)
+(: fuu : (U Real String) → (U Real String)); 2
+(: fru :    Real         → (U Real String)); 4
+(: fur : (U Real String) →    Real)        ; 1 
+(: frr :    Real         →    Real)        ; 3
 
 (define (fuu a) 0)
 (define (fru a) 0)
@@ -86,7 +86,7 @@
 ; and guarantees the most:
 (add1 (fur 324))
 
-; Unsafe:
+; Unsafe: since might return String 
 #;(add1 (fuu 324))
 #;(add1 (fru 324))
 ; Those are okay at run time based on the current implementations of fuu and fru.
@@ -94,7 +94,7 @@
 ;  so that their definitions still type check, but those expressions would error
 ;  at run time if allowed.
 
-; Unsafe:
+; Unsafe: since not accepting String
 #;(fru "bee")
 #;(frr "bee")
 ; Those are okay at run time based on the current implementations of fru and frr.
@@ -255,15 +255,16 @@
 (set-box! bu "cat")
 #;(set-box! br "cat")
 #;(add1 (unbox bu)) ; Not safe in general, based only on declared type.
+                    ; an argument that follows contravariance doenst always work
 
 (: f : (Boxof (U Real String)) → Void)
 (define (f b) (set-box! b "string"))
-#;(f br) ; problem!
+#;(f br) ; problem! an argument that doesnt follow contravariacne doesnt work either
 (: g : (Boxof Real) → Void)
 (define (g b)
   (add1 (unbox b))
   (void))
-#;(g bu) ; problem!
+#;(g bu) ; problem! 
 
 ; If you have a box that can only hold a kitten, and you give it to someone who expects a box that
 ;  can hold a tiger, they'll be upset when they try to put the tiger in the inadequate box.

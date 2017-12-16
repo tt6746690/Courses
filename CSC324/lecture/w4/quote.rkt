@@ -22,7 +22,8 @@
 (list 3 3 1)
 
 ; Excercise. Predict and try:
-#;((+ 1 2) (+ one 2) one)
+#;((+ 1 2) (+ one 2) one) ; error not a procedure
+; (list ((+ 1 2) (+ one 2) one)) instead
 
 (quote
  ((+ 1 2)
@@ -34,8 +35,9 @@
  (quote (+ 1 2))
  (quote (+ one 2))
  (quote one))
-; (list '(+ 1 2) '(+ one 2) 'one) WRONG!
+; (list '(+ 1 2) '(+ one 2) 'one) WRONG! 
 ;'((+ 1 2) (+ one 2) one) GOOD!
+; ok they are same...
 
 (list
  (list (quote +)

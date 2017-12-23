@@ -58,6 +58,7 @@
 (define r-or-s-3 (if (zero? (random 2)) r s))
 
 ; Unsafe, based on the declarations.
+; r holds real only, cannot hold possibly string form r-or-s
 #;(set! r r-or-s-1)
 #;(set! r r-or-s-2)
 #;(set! r r-or-s-3)
@@ -251,15 +252,15 @@
 #;(set! bu br)
 
 (add1 (unbox br))
-#;(add1 (unbox bu)) ; Safe, for now.
+#;(add1 (unbox bu)) ; Safe, for now. since bu holds a real for now
 (set-box! bu "cat")
 #;(set-box! br "cat")
 #;(add1 (unbox bu)) ; Not safe in general, based only on declared type.
-                    ; an argument that follows contravariance doenst always work
+                    ; since unboxing might return string which is invalid arg type to add1
 
 (: f : (Boxof (U Real String)) → Void)
 (define (f b) (set-box! b "string"))
-#;(f br) ; problem! an argument that doesnt follow contravariacne doesnt work either
+#;(f br) ; problem!   might have invalid operation in body for string type, if given real arg
 (: g : (Boxof Real) → Void)
 (define (g b)
   (add1 (unbox b))
@@ -290,3 +291,4 @@
 (or (empty? lr) (add1 (first lr)))
 #;(or (empty? lr) (add1 (first lu))) ; Safe here, but what are we worried lu could have been?
 #;(set! lr lu) ; And then this could lead to unsafety.
+; list of real cannot hold list of strings

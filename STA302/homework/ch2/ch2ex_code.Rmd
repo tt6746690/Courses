@@ -43,7 +43,7 @@ confint(fit, 'LoanPaymentsOverdue', level=0.95)
 yhat <- s$coefficients[1,1] + s$coefficients[2,1]*4
 yhat # -4.48
 
-# 95% CI
+# 95% CI ...
 ```
 
 
@@ -81,7 +81,8 @@ pval
 
 # find point estimate and 95% CI for x=130
 yhat <- b0 + b1*130
-mse <- 1 # dunno but can calculate...
-yhatCI <- yhat + c(-1,1)*qt(0.975, n-2)*sqrt(1 + 1/n)*mse
+yhat
+residual.standard.error <- 0.3298
+yhatCI <- yhat + c(-1,1)*qt(0.975, n-2)*sqrt(1 + 1/n + (yhat-130)^2/(29*5598) )*residual.standard.error
 yhatCI
 ```

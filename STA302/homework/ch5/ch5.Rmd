@@ -1,0 +1,17 @@
+
+
+```{r}
+data <- read.table("overdue.txt", header=TRUE)
+bill <- data$BILL; late <- data$LATE
+residential <- c(rep(1, each=48), rep(0, each=48))
+# LATE: number of days overdue 
+# BILL: amount of overdue
+# find a model to predict LATE from BILL
+plot(bill, late)
+
+fit1 <- lm(late ~ bill*residential)
+summary(fit1) # late = -0.19 bill + -99.5 I_residential + 0.35 bill I_residential
+par(mfrow=c(2,2))
+plot(fit1)
+```
+

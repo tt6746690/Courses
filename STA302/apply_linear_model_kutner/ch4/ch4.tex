@@ -1,0 +1,39 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\section*{
+    \href[page=127]{../../modern_regression_r.pdf}{Chapter 4} Straight-Line Regression Based on Weighted Least Squares}
+    
+    
+\begin{enumerate}
+    \item \textbf{Strait linear regression model}
+    \[
+        Y_i = \beta_0 + \beta_1 x_i + e_i    
+    \]
+    where $var\{e_i\} = \frac{\sigma^2}{w_i}$. When $w_i$ is large then variance close to 0, the estimates of regression parameter should be such that the fitted line at $x_i$ be very close to $y_i$. Conversely, if $w_i$ is very small, then variance of $e_i$ is large, in which case estimates of regression parameters should take little account of $(x_i, y_i)$. We want to minimize weighted version of residual sum of squares 
+    \[
+        WRSS = \sum_i w_i (y_i - \hat{y}_{w_i})^2 
+        = \sum_i w_i (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i )^2     
+    \]
+    the larger $w_i$ for i-th sample $(x_i, y_i)$, the more its taken into account. Minimizing WRSS yields \textbf{weighted least squares estimators}
+    \[
+        \hat{\beta}_{1W} = \frac{\sum_i w_i (x_i - \overline{x}_W)(y_i - \overline{y}_W)}{\sum_i w_i (x_i - \overline{x}_W)^2}    
+        \quad \quad \quad \quad 
+        \hat{\beta}_{0W} = \overline{y}_W - \hat{\beta}_{1W} \overline{x}_W
+    \]
+    \[
+        \overline{x}_W = \frac{\sum_i w_i x_i}{\sum_i w_i}
+        \quad 
+        \overline{y}_W = \frac{\sum_i w_i y_i}{\sum_i w_i}     
+    \]
+\end{enumerate}
+
+
+
+
+
+
+
+
+\end{document}

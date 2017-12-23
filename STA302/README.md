@@ -1,8 +1,3 @@
 
-`d`: density (pdf)
-`p`: distribution function
-`q`: quantile
-`r`: random
 
-
-![](2017-10-22-00-47-27.png)
+![](2017-12-23-02-45-34.png)

@@ -11,6 +11,18 @@ s <- summary(fit); s
 plot(data$Distance, data$Fare)
 par(mfrow=c(2,2)); plot(fit)
 
+# residual vs fitted plot, 
+#    indicates curlinear or another predictor missing from the model 
+#    presence of unusual point 13
+# qqplot 
+#    heavy tailed
+# residuals vs leverage plot
+#    2 influential point 
 
+# what to do
+# remove point 13, since its unusual from residual vs fitted plot 
+# should still keep point 17 even though it is influential, since it 
+# reflects systematic pattern in the residual vs fitted plot 
+# rest of data modeled with curvilinear relationship such as quadratic
 
 ```

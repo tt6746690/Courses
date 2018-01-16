@@ -1,0 +1,527 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+\newcommand{\linksection}[3][../../linear_algebra_friedberg_insel_spence_4ed.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+
+\newcommand{\vecspace}{\mathcal{V}}
+\newcommand{\field}{\mathcal{F}}
+\newcommand{\trace}[1]{tr(#1)}
+\renewcommand{\span}[1]{span(#1)}
+\renewcommand{\dim}[1]{dim(#1)}
+
+
+
+\linksection{13}{Chapter 1 Vector Spaces}
+\linksection{13}{1.1 Introduction}
+
+
+\begin{defn*}
+    \textbf{Parallelogram Law for Vector Addition} The sum of two vectors $x$ and $y$ that act at the same point $P$ is the vector beginning at $P$ that is represented by the diagonal of parallelogram having $x$ and $y$ as adjacent sides.
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Vector addition and scalar multiplication} Algebraically, in the plane containing $x$ and $y$, introduce a coo˜rdinate system ith $P$ at origin, with $(a_1, a_2)$ as endpoints of $x$ and $(b_1, b_2)$ as endpoints of $y$. The endpoint of $x+y$ is $(a_1+b_1, a_2+b_2)$. For scalar multiplication, coordinates of endpoint of $tx$, $t \in \R$ and $t\neq 0$, is given by $(ta_1, ta_2)$. \\
+    Two nonzero vectors $x$ and $y$ are called \textbf{parallel} if $y=tx$ for some nonzero real number $t$. 
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Equations of lines and planes in Space} \\
+    Let $O$ denote origin of a coordinate system in space, 
+    \begin{enumerate}
+        \item Let $u$ and $v$ denote the vectors that begin at $O$ and end at $A$ and $B$ respectively. If $w$ denotes vector beginning at $A$ and ending at $B$, then $w = v-u$. So an quation of the line through $A$ and $B$ is 
+        \[
+            x = u + tw= = u+t(v-u)    
+        \]
+        , where $t\in\R$ and $x$ denotes an arbitrary point on the line. 
+        \item Let $A$, $B$, and $C$ denote any three noncolinear points in space. These points determine a unique plane. Let $u$ and $v$ denote vectros beginning at $A$ and ending at $B$ and $C$. Any point in the plane containing $A$, $B$, and $C$ is the endpoint $S$ of a vector $x$ beginning at $A$ and having the form $su + tv$ for some real numbers $s$ and $t$. It follows an equation of the plane containing $A$, $B$, and $C$ is 
+        \[
+            x = A + su + tv    
+        \]
+        where $s,t\in \R$ and $x$ denotes an arbitrary point in the plane. 
+    \end{enumerate}
+\end{defn*}
+
+
+\linksection{13}{1.2 Vector Spaces} 
+
+\begin{defn*}
+    \textbf{Vector Space} A vector space (or linear space) $V$ over a field $F$ consists of a set on which two operations (called \textbf{addition} and \textbf{scalar multiplication}, respectively) are defined such that $V$ is \textbf{closed under addition and scalar multiplication}, i.e. for each pair of elements $x,y\in V$ there is a unique element in $x+y$ in $V$, and for each element $a\in F$ and each element $x\in V$ there is a unique element $ax$ in $V$, such that the following conditions hold. 
+    \begin{enumerate}
+        \item \textbf{Commutativity of Addition} For all $x,y\in V$, $x+y = y+x$ 
+        \item \textbf{Associativity of Addition} For all $x,y,z\in V$, $(x+y)+z = x+(y+z)$
+        \item \textbf{Additive Identity} There exists an \textbf{unique} element in $V$ denoted by 0, the \textbf{zero vector}, such that $x+0 = x$ for each $x$ in $V$.
+        \item \textbf{Additive Inverse} For each element $x$ in $V$ there exists an \textbf{unique} element $y$ in $V$, the \textbf{additive inverse} of $x$, such that $x+y=0$ 
+        \item \textbf{Multiplicaive Identity} For each element $x$ in $V$, $1x = x$
+        \item For each pair of elements $a,b$ in $F$, and each element $x$ in $V$, $(ab)x = a(bx)$ 
+        \item For each element $a$ in $F$, and each pair of elements $x,y$ in $V$, $a(x+y) = ax+ay$ 
+        \item For each pair of elements $a,b$ in $F$ and each element $x$ in $V$, $(a+b)x = ax+bx$
+    \end{enumerate}
+    The elements of field $F$ are called \textbf{scalars} and elements of the vector space $V$ are called \textbf{vectors}. \textbf{n-tuple} An object of form $(a_1, a_2, \cdots, a_n)$, where entries $a_1, a_2, \cdots, a_n$ are elements of a field $F$, is called an n-tuple with entries from $F$. The elements $a_i$ are called \textbf{entries} or \textbf{components} of the n-tuple. Two n-tuples $(a_1, a_2, \cdots, a_n)$, $(b_1, b_2, \cdots, b_n)$ with entries from a field $F$ are \textbf{equal} if $a_i = b_i$ for $i=1,2,\cdots, n$
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{n-tuples Vector Space} The set of all n-tuples with entries from a field $F$ is denoted by $F^n$. $F^n$ is the vector space of $F$ with the operations of coordinatewise addition and scalar multiplication, that is, for $u = (a_1, \cdots, a_n), v=(b_1,\cdots, b_n)\in F^n$, and $c\in F$, then 
+    \[
+        u+v = (a_1 + b_1, \cdots, a_n+b_n) 
+        \quad \quad \quad 
+        cu = (ca_1, ca_2, \cdots, ca_n)
+    \]
+    As an example, $\R^3$ is a vector space over $\R$
+    \item Vectors in $F^n$ can be written as \textbf{column vectors}. 
+    \[
+        \begin{pmatrix}
+            a_1 \\ a_2 \\ \vdots \\ a_n
+        \end{pmatrix}    
+    \]
+    rather than \textbf{row vectors} $(a_1, a_2, \cdots, a_n)$
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Matrix Vector Space} An $m\times n$ matrix with entries from a field $F$ is a rectangular array of the form 
+    \[
+        \begin{pmatrix}
+            a_{11} & a_{12} & \cdots & a_{1n} \\ 
+            a_{21} & a_{22} & \cdots & a_{2n} \\ 
+            \vdots & \vdots &  & \vdots \\ 
+            a_{m1} & a_{m2} & \cdots & a_{mn} \\ 
+        \end{pmatrix}    
+    \]
+    where each entry $a_{ij}$ is an element of $F$. 
+    \begin{enumerate}
+        \item We call entries $a_{ij}$ wheree $i=j$ the \textbf{diagonal entries}  of the matrix.
+        \item The entries $a_{i1}, a_{i2}, \cdots, a_{in}$ compose \textbf{ith row} of the matrix; entries $a_{1j}, a_{2j}, \cdots, a_{mj}$ compose the $jth column$ of the matrix. 
+        \item Rows of matrix are vectors in $F^n$ and columns are vectors in $F^m$
+        \item \textbf{Zero matrix} The $m\times n$ matrix in which each entry equals zero is called the zero matrix and is denoted by $O$
+        \item \textbf{Square Matrix} A matrix is a square matrix if $m=n$
+        \item \textbf{Matrix Equality} Two matrices, $A$ and $B$, are equal if $A_{ij} = B_{ij}$ for all $i,j$
+        \item \textbf{Transpose} The transpose $A^T$ of an $m\times n$ matrix $A$ is the $n\times m$ matrix obtained from $A$ by interchanging the rows with columns, that is, $(A^t)_{ij} = A_{ji}$
+        \item \textbf{Symmetric Matrix} A symmetric matrix is a matrix $A$ such that $A^T = A$. Symmetric matrices are square matrices. 
+        \item \textbf{Diagonal Matrix} An $n\times n$ matrix $M$ is called a diagonal matrix if $M_{ij}=0$ whenever $i\neq j$. The zero matrix is a diagonal matrix
+        \item \textbf{Trace} The trace of an $n\times n$ matrix, denoted $\trace{M}$, is the sum of the diagonal enltries of $M$, that is 
+        \[
+            \trace{M} = M_{11} + M_{22} + \cdots + M_{nn}    
+        \]
+    \end{enumerate}
+    The set of all $m\times n$ matrices with entries from a field $F$ is a vector space, denoted by $M_{m\times n}(F)$, with the following operations of \textbf{matrix addition} and \textbf{salar multiplication}: For $A,B\in M_{m\times n}(F)$ and $c\in F$
+    \[
+        (A+B)_{ij}=A_{ij}+B_{ij}
+        \quad \quad
+        (cA)_{ij} = cA_{ij}    
+    \]
+    for all $1\leq i \leq m$ and $1\leq j \leq n$ 
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Function Vector Space} Let $S$ be nonempty set and $F$ be any field, and let $\mathcal{F}(S,F)$ denote the set of all functions from $S$ to $F$. Two functions $f,g\in \mathcal{F}(S,F)$ are equal if $f(s)=g(s)$ for each $s\in S$. The set $\mathcal{F}(S,F)$ is a vector space with the operations of addition and scalar multiplication defined for $f,g\in \mathcal{F}(S,F)$ and $c\in F$ by 
+    \[
+        (f+g)(s) = f(s)+g(s)
+        \quad \quad 
+        (cf)(s) = c(f(s))    
+    \]
+    for each $s\in S$.
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Polynomial Vector Space}
+    \begin{enumerate}
+        \item \textbf{Polynomial} A polynomial with coefficients from field $F$ has an expressinon of the form 
+        \[
+            f(x)=  a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0    
+        \]
+        where $n$ is a nonnegative integer and $a_k$ are coefficients of $x^k$
+        \item \textbf{Zero Polynoimal} If $f(x)=0$ or if $a_n = \cdots = a_1$, then $f(x)$ is called the zero polynomial, with degree defined to be $-1$
+        \item \textbf{Degree} the degree of a polynomial is defined to be the largest exponent of $x$ that appears in 
+        \[
+            f(x) = a_n x^n + \cdots + a_1 x  +a_0    
+        \]
+        wiht a nonzero coefficients. 
+        \item \textbf{Equality} Two polynomials are equal if their degrees are equal and corresponding coefficients are equal. 
+        \item Polynomial can be viewed as a function from $F$ to $F$. 
+    \end{enumerate}
+    Let 
+    \[
+        f(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0
+        \quad \quad 
+        g(x) = b_m x^m + b_{m-1}x^{m-1} + \cdots + b_1 x + b_0    
+    \]
+    be polynomials with coefficients from a field $F$. Suppose $m\leq n$, and define $b_{m+1} = b_{m+2} = \cdots = b_n = 0$. Then $g(x)$ can be written as 
+    \[
+        g(x) = b_n x^n + b_{n-1}x^{n-1} + \cdots + b_1 x + b_0    
+    \]
+    we define addition and scalar multiplication operations 
+    \[
+        f(x) + g(x) = (a_n + b_n)x^n + \cdots + (a_1 + b_1)x + (a_0 + b_0)
+        \quad \quad 
+        cf(x) = ca_n x^n + ca_{n-1} x^{n-1} + \cdots + ca_1 x + ca_0
+    \]
+    for any $c\in F$. The set of all polynomials with coefficients from $F$ is a vector space, denoted by $P(F)$ 
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Sequence Vector Space} Let $F$ be any field, a sequence in $F$ is a function $\sigma$ from the positive integers into $F$. $\sigma(n)= a_n$ for $n=1,2 \cdots,n$ is denoted by $\{ a_n \}$. Let $V$ consists of all sequences $\{a_n\}$ in $F$ that have only a finite number of nonzero term $a_n$. If $\{a_n\}$ and $\{b_n\}$ are in $V$ and $t\in F$, define 
+    \[
+        \{a_n\} + \{b_n\} = \{a_n+b_n\}
+        \quad \quad 
+        t\{a_n\} = \{ta_n\}
+    \]
+    With these operations $V$ is a vector space. 
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{Cancellation Law for Vector Addition} If $x,y,z$ are vectors in a vector space $V$ such that $x+z = y+z$, then $x=y$
+\end{theorem*}
+
+\begin{corollary*}
+    The additive identity/inverse described in condition 3/4 in definition for vector space are unique.
+\end{corollary*}
+
+\begin{theorem*}
+    In any vector space $V$, the following are true 
+    \begin{enumerate}
+        \item $0x = 0$ for each $x\in V$ 
+        \item $(-a) = -(ax) = a(-x)$ for each $a\in F$ and each $x\in V$
+        \item $a0 = 0$ for each $a\in F$
+    \end{enumerate}
+    Proof follows from cancellation law!
+\end{theorem*}
+
+
+\begin{defn*}
+    \textbf{Isomorphic Vector Space} Two vector $V$,$W$ over a field $F$ are isomorphic, i.e. $V \cong W$, if there exists an identification of $V$ and $W$ as sets which also identifies the additions, scalar multiplications, and additive neutral elements. More precisely, there exists an invertible function (bijection) $\phi:V\to W$ such that $\phi(u+v)=\phi(u)+\phi(v)$ and $\phi(tu)=t\phi(u)$, $\phi(0_V) = 0_W$
+\end{defn*}
+
+
+
+\linksection{28}{1.3 Subspaces} 
+
+\begin{defn*}
+    \textbf{Subspace} A subset $W$ of a vector space $V$ over a field $F$ is called a \textbf{subspace} of $V$ if $W$ is a vector space of $F$ with the operations of addition and scalar multiplication defined on $V$. 
+    \begin{enumerate}
+        \item For any vector space $V$, $V$ and $\{0\}$, the zero subspace, are vector spaces.
+        \item  Specifically, properties 1, 2, 5-8 of vector space holds for all vectors in the vector space, so these properties automatically hold for the vectors in any subset. So a subset $W$ of a vector space $V$ is a subspace of $V$ if and only if the following properties hold
+        \begin{enumerate}
+            \item \textbf{Closed under addition} if $x,y\in W$ then $x+y\in W$
+            \item \textbf{Closed under scalar multiplication} if $c\in F$ and $x\in W$ then $cx\in W$ 
+            \item \textbf{Additive Identity} $W$ has a zero vector
+            \item \textbf{Additive Inverse} Each vector in $W$ has an additive inverse in $W$
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{Proving a subset is a subspace} \\ 
+    Let $V$ be a vector space and $W\subseteq V$. Then $W$ is a subspace of $V$ if and only if the following three condition hold for the operation defined in $V$
+    \begin{enumerate}
+        \item $0\in W$ (contains the zero vector)
+        \item $x+y\in W$ whenever $x\in W$ and $y\in W$ (closed under addition)
+        \item $cx\in W$ whenever $c\in F$ and $x\in W$ (closed under multiplication)
+    \end{enumerate}
+    Basically shows that zero vector of $W$ must be the same as the zero vector of $V$ and that condition of having additive inverse is a redundant condition covered by closure under scalar multiplication
+    \begin{proof}
+        If $W$ is a subspace of $V$, then $W$ is a vector space with operation of addition and scalar multiplication defined in $V$, so condition 2,3 holds and there exists $0' \in W$ such that $0' + x = x$ for all $x\in W$. But also $x+0=0$ for some $0\in V$. By cancellation theorem, $0'=0$, so condition 1 holds. \\
+        Conversely, if condition 1,2,3 holds. Then $W$ is a subspace of $V$ if the additive inverse of each vector of $W$ lies in $W$. If $x\in W$, then $(-1)x \in W$ by condition 3, implies $-x \in W$. By definition of subspace, $W$ is a subspace of $V$. 
+    \end{proof}
+\end{theorem*}
+
+\begin{defn*}
+    \textbf{Symmetric matrix is a subspace of $M_{n\times n}(F)$} \\ 
+    The set $W$ of all symmetric matrices in $M_{n\times n}(F)$ is a subspace of $M_{n\times n}(F)$
+    \begin{proof}
+        Just verify the 3 conditions are satisfied. 
+        \begin{enumerate}
+            \item Zero matrix is a symmetric matrix and so $0\in W$
+            \item If $A,B\in W$, then $A^t = A$ and $B^t = B$. $(A+B)^T = A^T+B^T = A+B$ so $A+B$ is a symmetric matrix and so $A+B\in W$ 
+            \item If $A\in W$ then $A^t = A$. For any $a\in F$, we have $(aA)^t = aA^t = aA$ and so $aA \in W$ 
+        \end{enumerate}
+    \end{proof}
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Polynomial Subspace Example} \\
+    Let $n$ be nonnegative number, let $P_n(F)$ be all polynomials in $P(F)$ having degree less than or equal to $n$. $P_n(F)$ is a subspace of $P(F)$ 
+    \begin{proof}
+        Since zero polynomial -1, it is in $P_n(F)$. Moreover, sum of 2 polynomial with degrees less than or equal to $n$ is another polynomial of degree less than or equal to $n$, and product of a scalar and a polynomial of degree less than or equal to $n$ is a polynomial of degree less than or equal to $n$. So $P_n(F)$ is closed under addition and scalar multiplication 
+    \end{proof} 
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Function Subspace Example} \\
+    Let $C(R)$ denote set of all continuous real-valuedf functions defined on $\R$. $C(\R)$ is a subspace of $\mathcal{F}(R,R)$. 
+    \begin{proof}
+        Note $C(\R)\subseteq \mathcal{F}(\R,\R)$. Note zero of $\mathcal{F}(\R,\R)$ is a constant fucntion defined by $f(t)=0$ for all $t\in\R$. Since constant functions are continuous, we have $f\in C(\R)$. Moreover, sum of two continuous function is continuous and the product of a real number and a continuous function is continuous. Result follows.
+    \end{proof}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Matrix Subspace Example} \\
+    The set of all $n\times n$ diagonal matrix is a subspace of $M_{n\times n}(F)$ 
+    \begin{proof}
+        The zero matrix is a diagonal matrix because all of its entries are 0. Moreover, if $A$ and $B$ are diagonal $n\times n$ matrices, then whenever $i\neq j$, 
+        \[
+            (A+B)_{ij} = A_ij + B_ij = 0 + 0 = 0 
+            \quad  \quad 
+            (cA)_{ij} = cA_{ij} = c0 = 0    
+        \]
+        for any scalar $c$. So $A+B$ and $cA$ are diagonal matrices. Therefore the set of diagonal matrice is a subspace of $M_{n\times n}(F)$ 
+    \end{proof}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Matrix Subspace Counter-Example} \\ 
+    The set of matrices $M_{m\times n}(\R)$ having nonnegative entries is not a subspace of $M_{m\times n}(\R)$ because it is not closed under scalar multiplication (by negative scalars). 
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{Constuction of Subspace from Subspaces} \\
+    Any intersection of subspaces of a vector space $V$ is a subspace of $V$. 
+    \begin{proof}
+        Let $\mathcal{C}$ be a collection of subspaces $V$ and let $W$ denote the intersection of subspaces in $\mathcal{C}$. Since every subspace contains the zero vector, $0\in W$. Now let $a\in F$ and $x,y \in W$, then $x,y$ in every subspace of $\mathcal{C}$. Since every subspace in $\mathcal{C}$ is closed under addition and scalar multiplication, $x+y$ and $cx$ is in every subspace in $\mathcal{C}$, so they are in the intersection of these sets. Therefore $W$ is a subspace of $V$. 
+    \end{proof}
+    \begin{rem}
+        Note however that union of subspaces of $V$ is not necessarily a subspace of $V$. Although union of subspaces must contain the zero vector and be closed under scalar multiplication, it does not necessarily be closed under addition. It can be proven, though, that the union of two subspaces of $V$ is a subspace of $V$ if and only if one of the subspaces contains the other. 
+    \end{rem}
+\end{theorem*}
+
+
+
+\linksection{36}{1.4 Linear Combinations and System of Linear Equations}
+
+
+\begin{defn*}
+    \textbf{Linear Combination} \\
+    Let $V$ be a vector space and $S$ a nonempty subset of $V$. A vector $v\in V$ is called a linear combination of vectors of $S$ if there exists a finite number of vectors $u_1,u_2,\cdots,u_n$ in $S$ and scalars $a_1,a_2,\cdots, a_n$ in $F$ such that
+    \[
+        v = a_1 u_1 + a_2 u_2 + \cdots + a_n u_n    
+    \]
+    In this case we say $v$ is a linear combination of $u_1,u_2,\cdots, u_n$ and call $a_1, a_2, \cdots, a_n$ the coefficients of the linear combination. Note in any vector space, $0v = 0$ for each $v\in V$, so the zero vector is a linear combination of any nonempty subset of $V$. 
+\end{defn*}
+
+\begin{example}
+    \textbf{Linear Combination for Vectors} The goal is to determine if a vector can be expressed as a linear combination of other vetors
+    \begin{enumerate}
+        \item Interchanging order of any two equations in the system 
+        \item Multiplying any equation in the ssytem by a nonzero constant.
+        \item Adding a constant multiple of any equation to another equation in the system 
+    \end{enumerate}
+    These operations do not change the set of solutions to the original system. Transform the system into some form and then solve by back substitution. If a system contains an equation of the form $0=c$ where $c\neq 0$, then the original system has no solutions. 
+\end{example}
+
+
+\begin{example}
+    \textbf{Linear Combination for Polynomials} The problem again can be reduced to solving a system of linear equations. 
+\end{example}
+
+\begin{defn*}
+    \textbf{Span} \\
+    Let $S$ be a nonempty subset of a vector space $V$. The span of $S$, denoted by $\span{S}$, is the set consisting of all linear combinations of the vectors in $S$. 
+    \begin{enumerate}
+        \item Note, $\span{\emptyset} = \{ 0 \}$
+        \item In $\R^3$, The set $\{(1,0,0), (0,1,,0)\}$ consists of all vectors in $\R^3$ that have the form $a(1,0,0)+b(0,1,0) = (a,b,0)$ for some $a,b\in\R$. So the span of the set contains all points in the xy-plane and the span is a subspace of $\R^3$ 
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{theorem*}
+    The span of any subset $S$ of a vector space $V$ is a subspace of $V$. Moreover, any subspace of $V$ that contains $S$ must also contain the span of $S$. 
+    \begin{proof}
+        If $S=\emptyset$, then $\span{S} = \{ 0\}$ which is a subspace of $V$. If $S\neq \emptyset$, $S$ contains a vector $z$, so $0z = 0$ is in $\span{S}$. Let $x,y\in \span{S}$, Then exists $u_1,\cdots, u_m$, $v_1,\cdots, v_n$ in $S$ and corresponding scalars such that 
+        \[
+            x = a_1 u_1 + \cdots + a_m u_m 
+            \quad \quad \quad 
+            y = b_1 v_1 + \cdots + b_n v_n
+        \]
+        Then 
+        \[
+            x+y=a_1 u_1 + \cdots a_m u_m + b_1 v_1 + \cdots + b_n v_n 
+            \quad \quad \quad 
+            cx = (ca_1)u_1 + (ca_2)u_2 + \cdots + (ca_m)u_m    
+        \]
+        are combinations of vectors in $S$. So $x+y, cx \in \span{S}$. So $\span{S}$ is a subspace of $V$. \\
+        Now let $W$ be any subspace of $V$ that contains $S$. If $w\in \span{S}$, then $w = c_1 w_1 + \cdots c_k w_k$ for some vectors $w_1,\cdots, w_k \in S$ and some scalars $c_1, \cdots, c_k$. Since $S\subseteq W$, we have $w_1,\cdots, w_k \in W$. Therefore $w=c_1 w_1 + \cdots + c_k w_k \in W$ by using the properties that vector spaces are closed under addition / scalar multiplication repeatedly. Since arbitrary $w\in \span{S}$ and $w\in W$, so it follows that $\span{S}\subseteq W$ 
+    \end{proof}
+\end{theorem*}
+
+\begin{defn*}
+    A subset $S$ of a vector space $V$ \textbf{generates} (or \textbf{spans}) $V$ if $\span{S}=V$. In this case, we also say that the vectors of $S$ generates (or spans) $V$.
+    \begin{enumerate}
+        \item The set of vectors $\{ (1,1,0), (1,0,1), (0,1,1)\}$ generates $\R^3$
+        \item The set of polynomials $\{x^2+3x-2, 2x^2+5x-3,-x^2-4x+4 \}$ generate $P_2(\R)$ since each of the three given polynomials belongs to $P_2(\R)$ and each polynoimal in $P_2(\R)$ is a linear combination of polynomials in the set. 
+        \item Equation of pane through 3 noncolinear points, one of them is the origin, is of the form $x=su+tv$, where $u,v\in\R^3$ and $s,t\in\R$. So $x\in \R^3$ is a linear combination of $u,v$ if and only if $x$ lies in the plane containing $u$ and $v$. 
+    \end{enumerate}
+    There may be many different subsets that generate a subspace $W$, it is natural to seek a subset of $W$ that generates $W$ and is as small as possible. 
+\end{defn*}
+
+
+
+
+
+
+\linksection{36}{1.5 Linear Dependence and Linear Independence}
+
+
+\begin{rem}
+    Let $W$ be a subspace of a vecetor space $V$. $W$ is an infinite set. It is desirable to find a small subset $S$ that generates $W$ because we can then describe each vector in $W$ as a linear combintion of the finite number of vectors in $S$. Instead of solving many different system of equations to see if we can write any vectors $v\in S$ a linear combination of other vectors, we can more efficiently verify redundancy of $S$ by asking whether the zero vector can be expressed as a linear combination of the vectors in $S$ with coefficients that are not all zero, i.e. linearly dependent. 
+\end{rem}
+
+\begin{defn*}
+    \textbf{Linear Dependence} A subset $S$ of a vector space $V$ is called linearly dependent if there exists a finite number of distinct vectors $u_1, u_2, \cdots, u_n$ in $S$ and scalars $a_1, a_2, \cdots, a_n$, not all zero, such that 
+    \[
+        a_1 u_1 + a_2 u_2 + \cdots + a_n u_n = 0     
+    \]
+    In this case, the vectors of $S$ are linearly dependent. 
+    \begin{enumerate}
+        \item \textbf{Trivial Representation} For any $u_1, u_2 ,\cdots, u_n$, we have $a_1 u_1 + a_2 u_2 + \cdots + a_n u_n = 0$ if $a_1 = a_2 = \cdots = a_n = 0$ a trivial representation of 0. A set is linear dependent, there must exist a nontrivial representation of 0 as a linear combination of the vectors in the set.
+        \item Any subset of vector space containg the zero vector is linearly dependent, since $0 = 1\cdot 0$ is a non-trivial representation o f 0 as a linear combination of vectors in the set. 
+        \item Determining if a set of vectors are dependent is equivalent to finding a nonzero solution to the system of linear equations
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Linearly Independent} A subset $S$ of a vector space that is not linearly dependent is called linearly independent. 
+    \begin{enumerate}
+        \item The empty set is linearly independent, since linearly dependent sets must be nonempty
+        \item A set consisting of a single nonzero vector is linearly independent. 
+        \item A set is linearly indepenent if and only if the only representations of 0 as a linear combinations of tis vectors are trivial representations
+    \end{enumerate}
+\end{defn*}
+
+
+
+\begin{defn*}
+    \textbf{Determine if a set is linearly independent} \\ 
+    We can determine if a set is linearly independent by solving a system of equations, with right hand side 0, and verify that the only solution the the systems are zeros, i.e. trivial representations. 
+\end{defn*}
+
+
+\begin{theorem*}
+    Let $V$ be a vector space, and let $S_1 \subseteq S_2 \subseteq V$. If $S_1$ is linearly dependent, then $S_2$ is linearly dependent.
+    \begin{proof}
+        Assume $S_1$ is linearly dependent and $S_2$ is linearly independent. So exists nontrivial representation of zero over $S_1$, i.e. exists $v_1, \cdots, v_n \in S_2$ such that $a_1v_1 + \cdots + a_nv_n = 0$ and $a_1,\cdots, a_n$ not all zero. Note $v_1, \cdots, v_n \in S_2$, and so the expression is an nontrivial representation of zero over $S_2$. Contradiction, and so $S_2$ must be linearly dependent. 
+    \end{proof}
+    Intuitively, the set should is definitely redundant when we already know that a subset is redundant (linearly dependent)
+\end{theorem*}
+
+
+\begin{corollary*}
+    Let $V$ be a vector space, and let $S_1 \subseteq S_2 \subseteq V$. If $S_2$ is linearly independent, then $S_1$ is linearly independent. \\
+    Intuitively, if the set is not redundant, then a smaller subset should remain not redundant.
+\end{corollary*}
+
+
+\begin{theorem*}
+    Let $S$ be a linearly independent subset of a vector space $V$, and let $v$ be a vector in $V$ that is not in $S$. Then $S\cup \{ v\}$ is linearly dependent if and only if $v\in \span{S}$ 
+    \begin{rem}
+        Alternatively, if no proper subset of $S$ generates span of $S$, then $S$ must be linearly independent. 
+    \end{rem}
+\end{theorem*}
+
+
+
+
+
+
+\linksection{54}{1.6 Bases and Dimension}
+
+\begin{defn*}
+    \textbf{Basis} A basis $\beta$ for a vector space $V$ is a linearly independent subset of $V$ that generates $V$, i.e. $\span{\beta} = V$. If $\beta$ is a basis for $B$, we also say that the vectors of $\beta$ form a basis for $V$. 
+    \begin{enumerate}
+        \item \textbf{Emptyset is the basis for zero vector space} Note $\span{\emptyset}=\{0\}$ and $\emptyset$ is linearly independent, so $\emptyset$ is a basis for the zero vector space. 
+        \item \textbf{Standard Basis for $F^n$} $e_1 = (1,0,\cdots, 0), \cdots, e_n= (0,0,\cdots, 0,1)$. $\{e_1, \cdots, e_n\}$ is the standard basis for $F^n$
+        \item \textbf{Standard Basis for $P_n(F)$} The set $\{1,x,\cdots, x^n\}$ is standard basis for $P_n(F)$
+    \end{enumerate}
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{1.8 The unique property of basis} \\  
+    Let $V$ be a vector space and $\beta = \{u_1, \cdots, u_n \}$ be a subset of $V$. Then $\beta$ is a basis for $V$ if and only if $v\in V$ can be uniquely expressed as a linear combination of vectors of $\beta$, that is, can be expressed in the form 
+    \[
+        v = a_1 u_1 + a_2 u_2 + \cdots + a_n u_n    
+    \]
+    for unique scalars $a_1, a_2, \cdots, a_n$ \\
+    Intuitively, a basis has the property that every vector in $V$ can be expressed in one and only one way as a linear combination of the vectors in the set. 
+\end{theorem*}
+
+
+\begin{theorem*}
+    \textbf{1.9 A finite spanning set for $V$ can be reduced to a basis for $V$} If a vector space $V$ is generated by a finite set $S$, then some subset $S$ is a basis for $V$ Hence $V$ has a finite basis. 
+    \begin{proof}
+        If $S=\emptyset$ or $S = \{ 0\}$, then $V = \{0\}$ and so $\emptyset \subseteq S$and it forms the basis for $V$. Otherwise $S$ contains a nonzero vector $u_1$, $\{u_1\}$ is a linearly independent set. Continue, if possible, to pick $u_2,\cdots, u_k$ in $S$ such that $\beta=\{u_1, \cdots, u_k\}$ is linearly independent subset of $S$, but adjoining $\beta$ any vector in $S$ not in $\beta$ produces a linearly dependent set. We claim that $\beta$ is a basis for $V$. Note $\beta$ is linearly independent by construction, so suffices to show that $\beta$ spans $V$. Note $\span{S} = V$. Since any subspace that contains $S$ must also contain the span of $S$, which in this case is $V$. So we need to show $S\subseteq \span{\beta}$. Let $v\in S$, if $v\in \beta$, then clearly $v\in \span{\beta}$. Otherwise, if $v\neq \beta$, then preceding construction shows that $\beta \cup \{v\}$ is linearly dependent. So $v\in \span{\beta}$ by previous theorem. Thus $S\subseteq \span{\beta}$ 
+    \end{proof}
+    We can select a linearly independent subset of a spanning set to find a basis, as seen in the proof
+\end{theorem*}
+
+
+\begin{theorem*}
+    \textbf{1.10 Replacement Theorem} Let $V$ be a vector space that is generated by a set $G$ containingg exactly $n$ vectors, and let $L$ be a linearly independent subset of $V$ containing exactly $m$ vectors. Then $m\leq n$  and there exists a subset $H$ of $G$ containing exactly $n-m$ vectors such that $L\cup H$ generates $V$. 
+    \begin{rem}
+        With terminology of dimension, first part can be reinstated as no linearly independent subset of a finite-dimensional vector space $V$ can cointain more than $\dim{V}$ vectors
+    \end{rem}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{1.10 Replacement Theorem Different formulation} Let $V$ be a vector space and $S$ be a subset generating $V$, i.e. $\span{S}=V$. Suppose $v_1, \cdots, v_m \in V$ are linearly independent vectors. Then there exists distinct vectors $u_1,\cdots, u_m\in S$ such that the subset $(S\setminus \{u_1,\cdots, u_m\}) \cup (v_1,\cdots, v_m)$ spans $V$. 
+\end{theorem*}
+    
+\begin{corollary*}
+    \textbf{Size of basis is an intrinsic property of a vector space} \\ 
+    Let $V$ be a vector space having a finite basis. Then every basis for $V$ contains the same number of vectors. 
+\end{corollary*}
+
+\begin{corollary*}
+    Let $V$ be a vector space with dimension $n$
+    \begin{enumerate}
+        \item Any finite generating set for $V$ contains at least $n$ vectors, and a generating set for $V$ that contains exactly $n$ vectors is a basis for $V$. 
+        \item Any linearly independent subset of $V$ that contains exactly $n$ vectors is a basis for $V$
+        \item Every linearly independent subset of $V$ can be extended to a basis for $V$
+    \end{enumerate}
+\end{corollary*}
+
+\begin{defn*}
+    \textbf{Dimension} A vector space is called \textbf{finite-dimensional} if it has a basis consisting of a finite number of vectors. The unique number of vectors in each basis for $V$ is called the \textbf{dimension} of $V$ and is denoted by $\dim{V}$. A vector space that is not finite-dimensional is called \textbf{Infinite-dimensional}
+    \begin{enumerate}
+        \item vector space $\{0\}$ has dimension zero, since size of emptyset is 0
+        \item vector space $F^n$ has dimension $n$
+        \item vector space $M_{m\times n}(F)$ has dimension $mn$ 
+        \item vector space $P_n(F)$ has dimension $n+1$, since basis $\{1, x, x^2, \cdots, x^n\}$
+        \item vector space $P(F)$ is infinitely-dimensional, since its basis $\{1, x, x^2, \cdots \}$
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Overview of dimension and its consequences} \\
+    A basis for a vector space $V$ is a linearly independent subset of $V$ that generates $V$. If $V$ has a finite basis, then every basis for $V$ cvontains the same number of vectors. This is called the dimension of $V$, and $V$ is said to be finite-dimensional. If the dimension of $V$ is $n$, every basis for $V$ contains exactly $n$ vectors. Moreover, every linearly independent subset of $V$ contains no more than $n$ vectors and can be extended to a basis for $V$ by including appropriately chosen vectors. Also, each generating set for $V$ contains at least $n$ vectors and can be reduced to a basis for $V$ by excluding appropriately chosen vectors. 
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{1.11 Dimension of Subspace} Let $W$ be a subspace of a finite-dimensional vector space $V$. Then $W$ is finite-dimensional and $\dim{W}\leq \dim{V}$. Moreover, if $\dim{W}=\dim{V}$, then $V=W$
+    \begin{enumerate}
+        \item Sum of dimension of subspace given by 
+        \[
+            \dim{W_1+W_2} = \dim{W_1}+\dim{W_2}-\dim{W_1\cap W_2}
+        \]
+        \item The set of diagonal $n\times n$ matricies is a subspace $W$ of $M_{n\times n}(F)$. A basis for $W$ is $\{E^{11}, E^{22}, \cdots, E^{nn}\}$ where $E^{ij}$ is matrix in which the only nonzero entry is a 1 in $i$th row and $j$th column. So $\dim{W}=n$
+    \end{enumerate}
+\end{theorem*}
+
+
+\begin{corollary*}
+    If $W$ is a subspace of a finite-dimensional vector space $V$, then any basis for $W$ can be extended to a basis for $V$. (since we can extended any l.i. set to a basis)
+\end{corollary*}
+
+
+
+\end{document}

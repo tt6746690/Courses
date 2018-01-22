@@ -110,7 +110,7 @@
 
 \begin{theorem*}
     \textbf{2.5 One-to-One and Onto Equivalence}\\
-     Let $V$ and $W$ be vector spaces of equal (finite) dimension, and let $T:V\to W$ be linear. THen the following are equivalent
+     Let $V$ and $W$ be vector spaces of equal (finite) dimension, and let $T:V\to W$ be linear. Then the following are equivalent
     \begin{enumerate}
         \item $T$ is one-to-one 
         \item $T$ is onto
@@ -123,6 +123,13 @@
 \begin{theorem*}
     \textbf{2.6 Uniqueness Linear Transformation} \\
     Let $V$ and $W$ be vector spaces over $F$, and suppose that $\{v_1,v_2,\cdots, v_n\}$ is a basis for $V$. For $w_1, w_2, \cdots, w_n\in W$, there exists exactly one linear transformation $T:V\to W$ such that $T(v_i) = w_i$ for $i=1,2,\cdots, n$
+    \begin{rem}
+        Given $x\in V$, we write $x$ as a linear combination of the basis, i.e. $x = \textstyle\sum_{i=1}^n a_i v_i$ where $a_i \in F$s are unique scalars. Then we can specify such transformation as 
+        \[
+            T: V\to W \quad \quad T(x) = T(\sum_i a_i v_i) = \sum_i a_i w_i 
+        \]
+        We can prove that $T$ is linear, unique, and follows $T(v_i) = w_i$
+    \end{rem}
 \end{theorem*}
 
 \begin{corollary*}
@@ -131,7 +138,7 @@
 \end{corollary*}
 
 
-\linksection{91}{2.2 The Matrix Representatino of Linear Transformation}
+\linksection{91}{2.2 The Matrix Representation of Linear Transformation}
 
 \begin{defn*}
     \textbf{Ordered Basis} Let $V$ be a finite-dimensional vector space. An ordered basis for $V$ is a basis for $V$ endowed with a specific order; that is an ordered basis for $V$ is a finite sequence of linearly independent vectors in $V$ that generates $V$. 
@@ -154,8 +161,9 @@
             a_1 \\ a_2 \\  \vdots \\ a_n \\
         \end{pmatrix}
     \]
-    Note $\cvec{u_i}{\beta} = e_i$ and that a linear tranformation maps $x\to \cvec{x}{\beta}$ with $V\to F^n$
     \begin{enumerate}
+        \item $\cvec{u_i}{\beta} = e_i$
+        \item $x\to \cvec{x}{\beta}$ is a transformation that maps from $V$ to $F^n$
         \item Let $V=P_2(\R)$, let $\beta = \{1,x,x^2\}$ be standard ordered basis for $V$. If $f(x) = 4+6x-7x^2$, then 
         \[
             \cvec{f}{\beta} = 
@@ -177,7 +185,7 @@
     The $m\times n$ matrix $A$ defined by $A_{ij}=a_{ij}$ the matrix representation of $T$ in the ordered basis $\beta$ and $\gamma$ and write $\matr{T}{\beta}{\gamma}$. If $V=W$ and $\beta=\gamma$, then write $A = \cvec{T}{\beta}$
     \begin{enumerate}
         \item $j$th column of $A$ is simply $\cvec{T(v_j)}{\gamma}$
-        \item Observe if $U:V\to W$ is a linear transformation such that $\matr{U}{\beta}{\gamma}=  \matr{T}{\beta}{\gamma}$, then $U=T$ by previous corollary 
+        \item \textbf{Equal Linear Transformation has Equivalent Matrices} Observe if $U:V\to W$ is a linear transformation such that $\matr{U}{\beta}{\gamma}=  \matr{T}{\beta}{\gamma}$, then $U=T$ by previous corollary 
         \item Let $T:\R^2\to \R^3$ with $T(a_1,a_2) = (a_1+3a_2, 0, 2a_1-4a_2)$. Let $\beta$ and $\gamma$ be standard ordered bases for $\R^2$ and $\R^3$. Now 
         \[
             T(1,0)=(1,0,2)=1e_1 + 0e_2 + 2e_3 \quad \quad 
@@ -201,11 +209,11 @@
 \end{defn*}
 
 \begin{theorem*}
-    \textbf{2.7 Sums and Scalar Multiples of Linear Transformation are also Linear} 
+    \textbf{2.7} \\
     Let $V$ and $W$ be vector spaces over a field $F$, and let $T,U:V\to W$ be linear. 
     \begin{enumerate}
-        \item For all $a\in F$, $aT+U$ is linear (Prove $(aT+U)(cx+y) = c(aT+U)(x)+(aT+U)(y)$)
-        \item Using the operations of addition and scalar multiplication in the preceding definition, the collection of all linear transformations from $V$ to $W$ is a vector space over $F$. (With $T_0$ the zero transformation as the zero vector)
+        \item \textbf{Sums/Scalar Multiples of Linear Transformation are Linear} For all $a\in F$, $aT+U$ is linear (Prove $(aT+U)(cx+y) = c(aT+U)(x)+(aT+U)(y)$)
+        \item \textbf{The Collection of Linear Transformation from $V$ to $W$ is a vector space} Using the operations of addition and scalar multiplication in the preceding definition, the collection of all linear transformations from $V$ to $W$ is a vector space over $F$. (With $T_0$ the zero transformation as the zero vector)
     \end{enumerate}
 \end{theorem*}
 
@@ -219,19 +227,21 @@
         \item $\matr{T+U}{\beta}{\gamma} = \matr{T}{\beta}{\gamma} + \matr{U}{\beta}{\gamma}$
         \item $\matr{aT}{\beta}{\gamma} = a\matr{T}{\beta}{\gamma}$ 
     \end{enumerate}
+    Intuitively, the matrices are defined such that sum and scalar multiples of matrices are associated with the corresponding sum and scalar multiples of the transformation
 \end{theorem*}
 
 
 
-\linksection{98}{2.3 Compositino of Linear Transformations and Matrix Multiplication}
+\linksection{98}{2.3 Composition of Linear Transformations and Matrix Multiplication}
 
 \begin{theorem*}
-    \textbf{2.9 Sum and Scalar Multiple of Linear Transformation is Linear} \\
+    \textbf{2.9 Composition of Linear Transformation is Linear} \\
     Let $V$, $W$, and $Z$ be vector spaces over the same field $F$, and let $T:V\to W$ and $U:W\to Z$ be linear. Then $UT:V\to Z$ is linear. (Prove $UT(ax+y)=a(UT)(x) + UT(y)$)
 \end{theorem*}
 
 \begin{theorem*}
-    \textbf{2.10 Properties of Sum and Scalar Multiple of Linear Transformations} Let $T,U_1,U_2 \in \ltspace{V}$. Then 
+    \textbf{2.10 Properties of Composition of Linear Transformations} \\
+    Let $T,U_1,U_2 \in \ltspace{V}$. Then 
     \begin{enumerate}
         \item $T(U_1 + U_2) = TU_1 + TU_2$ and $(U_1 + U_2)T = U_1T + U_2T$
         \item $T(U_1 U_2) = (TU_1)U_2 $
@@ -271,15 +281,29 @@
 \end{defn*}
 
 \begin{theorem*}
-    \textbf{2.11 Composition of Linear Transformation} Let $V$, $W$, and $Z$ be finite-dimensional vector spaces with ordered bases $\alpha$, $\beta$, $\gamma$, respectively. Let $T:V\to W$ and $U:W\to Z$ be linear transformations. Then 
+    \textbf{2.11 Composition of Linear Transformation} \\
+    Let $V$, $W$, and $Z$ be finite-dimensional vector spaces with ordered bases $\alpha$, $\beta$, $\gamma$, respectively. Let $T:V\to W$ and $U:W\to Z$ be linear transformations. Then 
     \[
         \matr{UT}{\alpha}{\gamma} = \matr{U}{\beta}{\gamma} \matr{T}{\alpha}{\beta}
     \]
-    Proof direct as a result of definition of matrix product
+    \begin{proof}
+        Proof directly result from definition of matrix product. Given $T,U, \alpha,\beta,\gamma$ defined above, we have 
+        \[
+            (UT)(v_j) = \sum_{i=1}^p C_{ij} z_i \quad \quad \quad \quad 
+            C_{ij} = \sum_{k=1}^m A_{ik} B_{kj}
+        \]
+        \[
+            (\matr{UT}{\alpha}{\gamma})_{ij} = C_{ij} = 
+            \sum_{k=1}^m A_{ik} B_{kj} = (AB)_{ij} = (\matr{U}{\beta}{\gamma}\matr{T}{\alpha}{\beta})_{ij}
+            \quad \rightarrow \quad 
+            \matr{UT}{\alpha}{\gamma} = \matr{U}{\beta}{\gamma} \matr{T}{\alpha}{\beta}
+        \]
+    \end{proof}
 \end{theorem*}
 
 
 \begin{corollary*}
+    \textbf{Special Case When $U,T$ are Linear Operators} \\
     Let $V$ be finite-dimensional vector space with ordered basis $\beta$. Let $T,U\in \ltspace{V}$. Then $\cvec{UT}{\beta} = \cvec{U}{\beta} \cvec{T}{\beta}$
 \end{corollary*}
 
@@ -288,11 +312,12 @@
 \end{defn*}
 
 \begin{theorem*}
-    \textbf{2.12 Properties of Composition of Linear Transformation} Let $A$ be $n\times n$ matrix, $B$ and $C$ be $n\times p$ matrices, $D$ and $E$ be $q\times m$ matrices. Then 
+    \textbf{2.12 Properties of Composition of Matrices (Analogous to 2.10 acd)} \\
+    Let $A$ be $n\times n$ matrix, $B$ and $C$ be $n\times p$ matrices, $D$ and $E$ be $q\times m$ matrices. Then 
     \begin{enumerate}
         \item $A(B+C)=AB+AC$ and $(D+E)A = DA+EA$
         \item $a(AB) = (aA)B = A(aB)$ for $a\in F$
-        \item $I_m A = A = AI_n$ 
+        \item $I_m A = A = AI_n$ (identity matrix as multiplicative identity in $M_{n\times n}(F)$)
         \item If $V$ is an $n$-dimensional vector space with ordered basis $\beta$, then $\cvec{I_V}{\beta} = I_n$ (identity transformation)
     \end{enumerate}
     Proved using definition of matrix product 
@@ -308,10 +333,11 @@
 \begin{corollary*}
     Let $A$ be an $m\times n$ matrix, $B_1,B_2,\cdots, B_k$ be $n\times p$ matrices, $C_1,C_2,\cdots, C_k$ be $q\times m$ matrices, and $a_1,a_2,\cdots, a_k$ be scalars. Then 
     \[
-        A\left( \sum_i^k a_i B_i \right) = \sum_i^k = a_i AB_i 
+        A\left( \sum_i^k a_i B_i \right) \sum_i^k = a_i AB_i 
         \quad \quad \text{ and } \quad \quad 
         \left( \sum_i^k a_i C_i \right) A = \sum_i^k a_i C_i A
     \]
+    Proof by a.b. of previous theorem
 \end{corollary*}
 
 
@@ -320,7 +346,8 @@
 \end{defn*}
 
 \begin{theorem*}
-    \textbf{2.13 Regarding columns in matrix multiplication} Let $A$ be an $m\times n$ matrix and $B$ be an $n\times p$ matrix. For each $j$ ($1\leq j \leq p$) let $u_j$ and $v_j$ denote the $j$th columns of $AB$ and $B$, respectively. Then
+    \textbf{2.13 Regarding columns in matrix multiplication} \\
+    Let $A$ be an $m\times n$ matrix and $B$ be an $n\times p$ matrix. For each $j$ ($1\leq j \leq p$) let $u_j$ and $v_j$ denote the $j$th columns of $AB$ and $B$, respectively. Then
     \begin{enumerate}
         \item $u_j = Av_j$ 
         \item $v_j = Be_j$, where $e_j$ is the $j$th standard vector of $F^p$
@@ -356,7 +383,8 @@
 \end{corollary*}
 
 \begin{theorem*}
-    \textbf{2.14 Transformation as Matrix Left Multiplication} Let $V$ and $W$ be finite-dimensional vector spaces having ordered bases $\beta$ and $\gamma$, respectively, and let $T:V\to W$ be linear. Then, for each $u\in V$, we have 
+    \textbf{2.14 Evaluate Transformation For a Vector} \\
+    Let $V$ and $W$ be finite-dimensional vector spaces having ordered bases $\beta$ and $\gamma$, respectively, and let $T:V\to W$ be linear. Then, for each $u\in V$, we have 
     \[
         \cvec{T(u)}{\gamma} = \matr{T}{\beta}{\gamma} \cvec{u}{\beta}
     \]
@@ -408,12 +436,13 @@
 \end{defn*}
 
 \begin{theorem*}
-    \textbf{Properties of Left-multiplication Transformation} Lett $A$ be $m\times n$ matrix with entries from $F$. Then the left-multiplication transformation $L_A: F^n \to F^m$ is linear. Furthermore, if $B$ is any other $m\times n$ matrix (with entries from $F$) and $\beta$ and $\gamma$ are the standard ordered bases for $F^n$ and $F^m$, respectively, then we have the following properties 
+    \textbf{2.15 Properties of Left-multiplication Transformation} \\
+    Let $A$ be $m\times n$ matrix with entries from $F$. Then the left-multiplication transformation $L_A: F^n \to F^m$ is \textbf{linear}. Furthermore, if $B$ is any other $m\times n$ matrix (with entries from $F$) and $\beta$ and $\gamma$ are the standard ordered bases for $F^n$ and $F^m$, respectively, then we have the following properties 
     \begin{enumerate}
         \item $\matr{L_A}{\beta}{\gamma} = A$ 
         \item $L_A = L_B$ if and only if $A=B$
         \item $L_{A+B} = L_A + L_B$ and $L_{aA} = aL_A$ for all $a\in F$
-        \item If $T:F^n \to F^m$ is linear, then there exists a unique $m\times n$ matrix $C$ such that $T = L_C$. In fact, $C = \cvec{T}{\beta}{\gamma}$
+        \item If $T:F^n \to F^m$ is linear, then there exists a unique $m\times n$ matrix $C$ such that $T = L_C$. In fact, $C = \matr{T}{\beta}{\gamma}$
         \item If $E$ is an $n\times p$ matrix, then $L_{AE} = L_A L_E$
         \item If $m=n$, then $L_{I_n} = I_{F^n}$
     \end{enumerate}
@@ -421,7 +450,8 @@
 
 
 \begin{theorem*}
-    \textbf{Matrix Multiplication is Associative} Let $A$, $B$, and $C$ be matrices such that $A(BC)$ is defined. Then $(AB)C$ is also defined and $A(BC)=(AB)C$; that is, the matrix multiplication is associative. 
+    \textbf{2.16 Matrix Multiplication is Associative} \\
+    Let $A$, $B$, and $C$ be matrices such that $A(BC)$ is defined. Then $(AB)C$ is also defined and $A(BC)=(AB)C$; that is, the matrix multiplication is associative. 
     \begin{proof}
         \[
             L_{A(BC)} = L_A L_{BC} = L_A(L_B L_C) = (L_A L_B) L_C = L_{AB}L_C = L_{(AB)C} 
@@ -443,14 +473,14 @@
     \begin{enumerate}
         \item $(TU)^{-1} = U^{-1} T^{-1}$ 
         \item $(T^{-1})^{-1} = T$, in particular $T^{-1}$ is invertible 
-        \item Let $T:V\to W$ be a linear transformation, where $V$ and $W$ are finite-dimensional spaces of equal dimension. Then $T$ is invertible if and only if $\rank{T} = \dim{V}$, i.e. $T$ is one-to-one and onto
+        \item Let $T:V\to W$ be a linear transformation, where $V$ and $W$ are finite-dimensional spaces of equal dimension. Then $T$ is invertible if and only if $\rank{T} = \dim{V}$, i.e. $T$ is one-to-one ($\dim{N(T)}=0$) and onto ($R(T)=W$)
     \end{enumerate}
 \end{defn*}
 
 
 \begin{theorem*}
-    \textbf{2.17 Inverse of Transformation is Linear} Let $V$ and $W$ be vector spaces, and let $T:V\to W$ be linear and invertible. Then $T^{-1} : W\to V$ is linear. \\ 
-    Then it follows from theorem 2.5 that if $T$ is a linear transformation between vector spaces of equal (finite) dimension, then the conditions of being invertible, one-to-one, and onto are all equivalent. 
+    \textbf{2.17 Inverse of Transformation is Linear}\\
+    Let $V$ and $W$ be vector spaces, and let $T:V\to W$ be linear and invertible. Then $T^{-1} : W\to V$ is linear. \\ 
     \begin{proof}
         Let $y_1,y_2\in W$ and $c\in F$. Since $T$ is onto and one-to-one, there exists unique vectors $x_1$ and $x_2$ such that $T(x_1) = y_1$ and $T(x_2) = y_2$. So $x_1 = T^{-1}(y_1)$ and $x_2 = T^{-1}(y_2)$
         \[
@@ -460,11 +490,22 @@
     \end{proof}
 \end{theorem*}
 
+\begin{proposition*}
+    \textbf{Equivalence of One-to-One, Onto, Invertible in Special Case} \\
+    If $\dim{V} = \dim{W}$ and let $T:V\to W$, then the following are equivalent by theorem 2.5 
+    \begin{enumerate}
+        \item $T$ is invertible 
+        \item $T$ is one-to-one 
+        \item $T$ is onto
+    \end{enumerate}
+\end{proposition*}
+
 \begin{defn*}
     \textbf{Matrix Invertibility} Let $A$ be $n\times n$ matrix. Then $A$ is invertible if there exists an $n\times n$ matrix $B$ such that $AB = BA = I$. Such matrix $B$ is unique, called inverse of $A$ and denoted by $A^{-1}$
 \end{defn*}
 
 \begin{lemma*}
+    \textbf{Domain/Codomain of Invertible Transformation have Equal Dimension} 
     Let $T$ be an invertible linear transformation from $V$ to $W$., Then $V$ is finite-dimensional if and only if $W$ is finite-dimensional. In this case, $\dim{V} = \dim{W}$
 \end{lemma*}
 
@@ -486,7 +527,8 @@
 
 
 \begin{theorem*}
-    \textbf{2.19 Isomorphic vector space have equal dimensions} Let $V$ and $W$ be finite-dimensional vector spaces (over the same field). Then $V$ is isomorphic to $W$ if and only if $\dim{V} = \dim{W}$ 
+    \textbf{2.19 Isomorphic vector space have equal dimensions} \\
+    Let $V$ and $W$ be finite-dimensional vector spaces (over the same field). Then $V$ is isomorphic to $W$ if and only if $\dim{V} = \dim{W}$. (Proof directly from lemma preceding theorem 2.18)
 \end{theorem*}
 
 \begin{corollary*}
@@ -505,11 +547,13 @@
 \end{corollary*}
 
 \begin{defn*}
-    \textbf{Standard Representation of Vector Space} Let $\beta$ be an ordered basis for an $n$-dimensional vector space $V$ over the field $F$. The standard representation of $V$ with respect to $\beta$ is the function $\phi_{\beta}:V\to F^n$ defined by $\phi_{\beta}(x) = \cvec{x}{\beta}$ for each $x\in V$ 
+    \textbf{Standard Representation of Vector Space is a Mapping $x\rightarrow \cvec{x}{\beta}$} \\
+    Let $\beta$ be an ordered basis for an $n$-dimensional vector space $V$ over the field $F$. The standard representation of $V$ with respect to $\beta$ is the function $\phi_{\beta}:V\to F^n$ defined by $\phi_{\beta}(x) = \cvec{x}{\beta}$ for each $x\in V$ 
 \end{defn*}
 
 \begin{theorem*}
-    \textbf{2.21} For any finite-dimensional vector space $V$ with ordered basis $\beta$, $\phi_{\beta}$ is an isomorphism
+    \textbf{2.21 Standard Representation is an Isomorphism}\\
+    For any finite-dimensional vector space $V$ with ordered basis $\beta$, $\phi_{\beta}$ is an isomorphism
 \end{theorem*}
 
 
@@ -532,16 +576,17 @@
 
 
 \begin{theorem*}
-    \textbf{Coordinate Vector Change of Basis} Let $\beta$ and $\beta'$ be two ordered basis for a finite-dimensional vector space $V$, and let $Q = \matr{I_V}{\beta'}{\beta}$. Then 
+    \textbf{Coordinate Vector Change of Basis} \\
+    Let $\beta$ and $\beta'$ be two ordered basis for a finite-dimensional vector space $V$, and let $Q = \matr{I_V}{\beta'}{\beta}$. Then 
     \begin{enumerate}
         \item $Q$ is invertible 
         \item For any $v\in V$, $\cvec{v}{\beta} = Q\cvec{v}{\beta'}$
     \end{enumerate}
     where $Q$ is called a \textbf{change of coordinate matrix}.We say that $Q$ changes $\beta'$-coordinates into $\beta$-coordinates. Observe that if $\beta = \{x_1, x_2, \cdots, x_n\}$ and $\beta' = \{x_1', x_2', \cdots, x_n'\}$, then 
     \[
-        x_j' = \sum_i^n Q_{ij} x_i    
+        I_V(x_j') = x_j' = \sum_i^n Q_{ij} x_i
     \]
-    for $j = 1,2,\cdots, n$ that is $j$th column of $Q$ is $\cvec{x_j'}{\beta}$
+    for $j = 1,2,\cdots, n$ that is $j$th column of $Q$ is $\cvec{x_j'}{\beta}$ (by definition of coordinate vector)
     \begin{proof}
         For any $v\in V$
         \[
@@ -556,7 +601,8 @@
 \end{defn*}
 
 \begin{theorem*}
-    \textbf{2.23 Linear Operator Change of Basis} Let $T$ be a linear operator on a finite-dimensional vector space $V$, and let $\beta$ and $\beta'$ be ordered bases for $V$. Suppose that $Q$ is the change of the coordinate matrix that changes $\beta'$-coordinates into $\beta$-coordinates. Then 
+    \textbf{2.23 Linear Operator Change of Basis} \\
+    Let $T$ be a linear operator on a finite-dimensional vector space $V$, and let $\beta$ and $\beta'$ be ordered bases for $V$. Suppose that $Q$ is the change of the coordinate matrix that changes $\beta'$-coordinates into $\beta$-coordinates. Then 
     \[
         \cvec{T}{\beta'} = Q^{-1}\cvec{T}{\beta}Q    
     \]
@@ -580,6 +626,9 @@
 
 \begin{defn*}
     \textbf{Similar Matrices} Let $A$ and $B$ be matrices in $M_{n\times n}(F)$. We say that $B$ is similar to $A$ if there exists an invertible matrix $Q$ such that $B = Q^{-1}AQ$
+    \begin{enumerate}
+        \item If $T$ is a linear operator on a finite dimensional vector space $V$, andf if $\beta$ and $\beta'$ are any ordered bases for $VB$, then $\cvec{T}{\beta'}$ is similar to $\cvec{T}{\beta}$
+    \end{enumerate}
 \end{defn*}
 
 

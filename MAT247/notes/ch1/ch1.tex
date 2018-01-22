@@ -334,7 +334,7 @@
 
 
 \begin{theorem*}
-    The span of any subset $S$ of a vector space $V$ is a subspace of $V$. Moreover, any subspace of $V$ that contains $S$ must also contain the span of $S$. 
+    \textbf{1.5 Span are subspaces} The span of any subset $S$ of a vector space $V$ is a subspace of $V$. Moreover, any subspace of $V$ that contains $S$ must also contain the span of $S$. 
     \begin{proof}
         If $S=\emptyset$, then $\span{S} = \{ 0\}$ which is a subspace of $V$. If $S\neq \emptyset$, $S$ contains a vector $z$, so $0z = 0$ is in $\span{S}$. Let $x,y\in \span{S}$, Then exists $u_1,\cdots, u_m$, $v_1,\cdots, v_n$ in $S$ and corresponding scalars such that 
         \[
@@ -376,7 +376,7 @@
 \end{rem}
 
 \begin{defn*}
-    \textbf{Linear Dependence} A subset $S$ of a vector space $V$ is called linearly dependent if there exists a finite number of distinct vectors $u_1, u_2, \cdots, u_n$ in $S$ and scalars $a_1, a_2, \cdots, a_n$, not all zero, such that 
+    \textbf{Linear Dependence} A subset $S$ of a vector space $V$ is called linearly dependent if there exists a finite number of distinct vectors $u_1, u_2, \cdots, u_n$ in $S$ and scalars $a_1, a_2, \cdots, a_n$, \textbf{not all zero}, such that 
     \[
         a_1 u_1 + a_2 u_2 + \cdots + a_n u_n = 0     
     \]
@@ -394,7 +394,7 @@
     \begin{enumerate}
         \item The empty set is linearly independent, since linearly dependent sets must be nonempty
         \item A set consisting of a single nonzero vector is linearly independent. 
-        \item A set is linearly indepenent if and only if the only representations of 0 as a linear combinations of tis vectors are trivial representations
+        \item A set is linearly indepenent if and only if the only representations of 0 as a linear combinations of its vectors are trivial representations
     \end{enumerate}
 \end{defn*}
 
@@ -407,7 +407,7 @@
 
 
 \begin{theorem*}
-    Let $V$ be a vector space, and let $S_1 \subseteq S_2 \subseteq V$. If $S_1$ is linearly dependent, then $S_2$ is linearly dependent.
+    \textbf{1.6 Superset of a l.d. set is l.d.} Let $V$ be a vector space, and let $S_1 \subseteq S_2 \subseteq V$. If $S_1$ is linearly dependent, then $S_2$ is linearly dependent.
     \begin{proof}
         Assume $S_1$ is linearly dependent and $S_2$ is linearly independent. So exists nontrivial representation of zero over $S_1$, i.e. exists $v_1, \cdots, v_n \in S_2$ such that $a_1v_1 + \cdots + a_nv_n = 0$ and $a_1,\cdots, a_n$ not all zero. Note $v_1, \cdots, v_n \in S_2$, and so the expression is an nontrivial representation of zero over $S_2$. Contradiction, and so $S_2$ must be linearly dependent. 
     \end{proof}
@@ -416,15 +416,16 @@
 
 
 \begin{corollary*}
-    Let $V$ be a vector space, and let $S_1 \subseteq S_2 \subseteq V$. If $S_2$ is linearly independent, then $S_1$ is linearly independent. \\
+    \textbf{Subset of a l.i. set is l.i.} Let $V$ be a vector space, and let $S_1 \subseteq S_2 \subseteq V$. If $S_2$ is linearly independent, then $S_1$ is linearly independent. \\
     Intuitively, if the set is not redundant, then a smaller subset should remain not redundant.
 \end{corollary*}
 
 
 \begin{theorem*}
+    \textbf{1.7 If $S$ is a generating set for subspace $W$, and no proper subset of $S$ is a generating set, then $S$ must be linearly independent} \\
     Let $S$ be a linearly independent subset of a vector space $V$, and let $v$ be a vector in $V$ that is not in $S$. Then $S\cup \{ v\}$ is linearly dependent if and only if $v\in \span{S}$ 
     \begin{rem}
-        Alternatively, if no proper subset of $S$ generates span of $S$, then $S$ must be linearly independent. 
+        Alternatively, if $S$ is a linearly dependent subset then some $v\in S$ can be written as linear combination of other vectors in $S$, the subset obtained by removing $v$ from $S$ has the same span as $S$. It follows that if no proper subset of $S$ generates span of $S$, then $S$ must be linearly independent. 
     \end{rem}
 \end{theorem*}
 
@@ -440,26 +441,28 @@
     \begin{enumerate}
         \item \textbf{Emptyset is the basis for zero vector space} Note $\span{\emptyset}=\{0\}$ and $\emptyset$ is linearly independent, so $\emptyset$ is a basis for the zero vector space. 
         \item \textbf{Standard Basis for $F^n$} $e_1 = (1,0,\cdots, 0), \cdots, e_n= (0,0,\cdots, 0,1)$. $\{e_1, \cdots, e_n\}$ is the standard basis for $F^n$
+        \item \textbf{Basis for $M_{m\times n}(F)$} Let $E^{ij}$ be matrices whose only nonzero entry is a 1 in $i$-th row and $j$-th columns. Then $\{E^{ij}: 1\leq i \leq m, 1\leq j \leq n\}$ is a basis for $M_{m\times n}(F)$
         \item \textbf{Standard Basis for $P_n(F)$} The set $\{1,x,\cdots, x^n\}$ is standard basis for $P_n(F)$
     \end{enumerate}
 \end{defn*}
 
 \begin{theorem*}
-    \textbf{1.8 The unique property of basis} \\  
+    \textbf{1.8 The uniqueness property of basis} \\  
     Let $V$ be a vector space and $\beta = \{u_1, \cdots, u_n \}$ be a subset of $V$. Then $\beta$ is a basis for $V$ if and only if $v\in V$ can be uniquely expressed as a linear combination of vectors of $\beta$, that is, can be expressed in the form 
     \[
         v = a_1 u_1 + a_2 u_2 + \cdots + a_n u_n    
     \]
     for unique scalars $a_1, a_2, \cdots, a_n$ \\
     Intuitively, a basis has the property that every vector in $V$ can be expressed in one and only one way as a linear combination of the vectors in the set. 
-\end{theorem*}
+\end{theorem*} 
 
 
 \begin{theorem*}
-    \textbf{1.9 A finite spanning set for $V$ can be reduced to a basis for $V$} If a vector space $V$ is generated by a finite set $S$, then some subset $S$ is a basis for $V$ Hence $V$ has a finite basis. 
+    \textbf{1.9 A finite generating set for $V$ can be reduced to a finite basis for $V$} If a vector space $V$ is generated by a finite set $S$, then some subset $S$ is a basis for $V$ Hence $V$ has a finite basis. 
     \begin{proof}
         If $S=\emptyset$ or $S = \{ 0\}$, then $V = \{0\}$ and so $\emptyset \subseteq S$and it forms the basis for $V$. Otherwise $S$ contains a nonzero vector $u_1$, $\{u_1\}$ is a linearly independent set. Continue, if possible, to pick $u_2,\cdots, u_k$ in $S$ such that $\beta=\{u_1, \cdots, u_k\}$ is linearly independent subset of $S$, but adjoining $\beta$ any vector in $S$ not in $\beta$ produces a linearly dependent set. We claim that $\beta$ is a basis for $V$. Note $\beta$ is linearly independent by construction, so suffices to show that $\beta$ spans $V$. Note $\span{S} = V$. Since any subspace that contains $S$ must also contain the span of $S$, which in this case is $V$. So we need to show $S\subseteq \span{\beta}$. Let $v\in S$, if $v\in \beta$, then clearly $v\in \span{\beta}$. Otherwise, if $v\neq \beta$, then preceding construction shows that $\beta \cup \{v\}$ is linearly dependent. So $v\in \span{\beta}$ by previous theorem. Thus $S\subseteq \span{\beta}$ 
     \end{proof}
+    $ $\\
     We can select a linearly independent subset of a spanning set to find a basis, as seen in the proof
 \end{theorem*}
 
@@ -472,12 +475,19 @@
 \end{theorem*}
 
 \begin{theorem*}
-    \textbf{1.10 Replacement Theorem Different formulation} Let $V$ be a vector space and $S$ be a subset generating $V$, i.e. $\span{S}=V$. Suppose $v_1, \cdots, v_m \in V$ are linearly independent vectors. Then there exists distinct vectors $u_1,\cdots, u_m\in S$ such that the subset $(S\setminus \{u_1,\cdots, u_m\}) \cup (v_1,\cdots, v_m)$ spans $V$. 
+    \textbf{1.10 Replacement Theorem Different formulation} Let $V$ be a vector space and $S$ be a subset generating $V$, i.e. $\span{S}=V$. Suppose $v_1, \cdots, v_m \in V$ are linearly independent vectors. Then 
+    \begin{enumerate}
+        \item $m\leq n$ 
+        \item there exists distinct vectors $u_1,\cdots, u_m\in S$ such that the subset $(S\setminus \{u_1,\cdots, u_m\}) \cup (v_1,\cdots, v_m)$ spans $V$. 
+    \end{enumerate}
 \end{theorem*}
     
 \begin{corollary*}
     \textbf{Size of basis is an intrinsic property of a vector space} \\ 
     Let $V$ be a vector space having a finite basis. Then every basis for $V$ contains the same number of vectors. 
+    \begin{proof}
+        Let $\beta$ be a finite basis for $V$ containing $n$ vectors and let $\gamma$ be any other basis for $V$ (finite or otherwise). If $\gamma$ contains more than $n$ vectors, then we select a subset $S\subseteq \gamma$ containing exactly $n+1$ vectors. Since $S$ is linearly independent and $\beta$ generates $V$, replacement algorithm implies that $n+1 \leq n$, a constradiction. Hence $\gamma$ is finite and the number of vectors $m$ in $\gamma$ satisfies $m\leq n$. Reversing roles of $\beta$ and $\gamma$ we obtain $n\leq m$, so $m=n$
+    \end{proof}
 \end{corollary*}
 
 \begin{corollary*}
@@ -492,7 +502,7 @@
 \begin{defn*}
     \textbf{Dimension} A vector space is called \textbf{finite-dimensional} if it has a basis consisting of a finite number of vectors. The unique number of vectors in each basis for $V$ is called the \textbf{dimension} of $V$ and is denoted by $\dim{V}$. A vector space that is not finite-dimensional is called \textbf{Infinite-dimensional}
     \begin{enumerate}
-        \item vector space $\{0\}$ has dimension zero, since size of emptyset is 0
+        \item vector space $\{0\}$ has dimension zero, since size of $\emptyset$ is 0
         \item vector space $F^n$ has dimension $n$
         \item vector space $M_{m\times n}(F)$ has dimension $mn$ 
         \item vector space $P_n(F)$ has dimension $n+1$, since basis $\{1, x, x^2, \cdots, x^n\}$
@@ -502,7 +512,11 @@
 
 \begin{defn*}
     \textbf{Overview of dimension and its consequences} \\
-    A basis for a vector space $V$ is a linearly independent subset of $V$ that generates $V$. If $V$ has a finite basis, then every basis for $V$ cvontains the same number of vectors. This is called the dimension of $V$, and $V$ is said to be finite-dimensional. If the dimension of $V$ is $n$, every basis for $V$ contains exactly $n$ vectors. Moreover, every linearly independent subset of $V$ contains no more than $n$ vectors and can be extended to a basis for $V$ by including appropriately chosen vectors. Also, each generating set for $V$ contains at least $n$ vectors and can be reduced to a basis for $V$ by excluding appropriately chosen vectors. 
+    A basis for a vector space $V$ is a linearly independent subset of $V$ that generates $V$. If $V$ has a finite basis, then every basis for $V$ cvontains the same number of vectors. This is called the dimension of $V$, and $V$ is said to be finite-dimensional. If the dimension of $V$ is $n$, every basis for $V$ contains exactly $n$ vectors. Moreover, 
+    \begin{enumerate}
+        \item (previous corollary) Every linearly independent subset of $V$ contains no more than $n$ vectors and can be extended to a basis for $V$ by including appropriately chosen vectors.
+        \item (theorem 1.9) Also, each generating set for $V$ contains at least $n$ vectors and can be reduced to a basis for $V$ by excluding appropriately chosen vectors. 
+    \end{enumerate}
 \end{defn*}
 
 

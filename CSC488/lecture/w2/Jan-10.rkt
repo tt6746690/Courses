@@ -3,7 +3,7 @@
 
 #| A slight variant of the Memory Model tracing library from CSC324 2017 Fall: |#
 (require "mm.jan-10.rkt")
-#;(wait! #false) ; Uncomment to make it not wait for enter/return between steps.
+(wait! #false) ; Uncomment to make it not wait for enter/return between steps.
 (scale! 12) ; Font size.
 (interleave! #false) ; Diagram it in a form closer to how we'll compile it.
 

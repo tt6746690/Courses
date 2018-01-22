@@ -3,7 +3,7 @@
 
 #| A slight variant of the Memory Model tracing library from CSC324 2017 Fall: |#
 (require "mm.jan-09.rkt")
-#;(wait! #false) ; Uncomment to make it not wait for enter/return between steps.
+(wait! #false) ; Uncomment to make it not wait for enter/return between steps.
 (scale! 12) ; Font size.
 (interleave! #false) ; Diagram it in a form closer to how we'll compile it.
 
@@ -55,6 +55,25 @@
 
 #| Our evaluation model, that easily maps to a machine computation.
 
+ Closure:
+     Consists of:
+       a record storing a function
+       an environment
+     Implementation:
+       Data structure containing a pointer to function, and representation of env
+       Referencing env binds non-local names to corresponding variables in the lexical env
+       at the time closure is created, additionally extending their lifetime to at least as
+       long as the lifetime of the closure itself
+     Memory:
+       Closure requires free variables it references survive the enclosing function's execution
+       So those variables must be allocated so that they persis until no longer needed, via heap allocation
+       In C++11, closure function yield undefined behavior for accessing freed automatic variables
+       It is difficult to implement fnctions as first class objects in stack-based programming language like C/C++
+ Environment:
+     a mapping associating each free variable of function, used locally but defined in enclosing
+     scope, with value or reference to which the name was bound when the closure was created
+ 
+
  What we keep track of:
 
    Growing tree of environments.
@@ -85,7 +104,7 @@
    (e1 e2)
      Evaluate e1.
      Push the current result [the value of e1] onto the stack of results.
-     Evaluate e2.
+     Evaluate e2. (note current result now is value of e2)
      Pop to get the closure to call, let's refer to it as λf.
      Add a new environment E<n> to the tree of environments, under λf's environment, with the id
       from λf's λ expression and the current result [which is the value of e2].
@@ -118,7 +137,7 @@
 ; Set of closures is {λ0 = [(λ (x) x) •], λ1 = [(λ (y) y) •]}.
 ; Current result is λ1.
 ; Pop to get the closure to call, it's λ0.
-; Add a new environment E1 to the tree of environments, under λ0's environment •, with x and λ1.
+; Add a new environment E1 to the tree of environments, under λ0's environment •, with x and λ1. (i.e. x is bound to λ1)
 ; Push the current environment • onto the call stack.
 ; Set the current environment to the new environment E1.
 ; Evaluate x.
@@ -136,7 +155,7 @@
 
 #| Another example. |#
 
-#;(local [(define-syntax-rule (#%app e1 e2) (app e1 e2))]
+(local [(define-syntax-rule (#%app e1 e2) (app e1 e2))]
     (((λ (x) (λ (y) (x y))) (λ (z) z))
      (λ (a) a)))
 

@@ -1,0 +1,83 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+\newcommand{\vecspace}{\mathcal{V}}
+\newcommand{\field}{\mathcal{F}}
+\newcommand{\trace}[1]{tr(#1)}
+\renewcommand{\span}[1]{span(#1)}
+\renewcommand{\dim}[1]{dim(#1)}
+\newcommand{\nullity}[1]{nullity(#1)}
+\newcommand{\rank}[1]{rank(#1)}
+\newcommand{\cvec}[2]{\left[ #1 \right]_{#2}}
+\renewcommand{\matr}[3]{\left[ #1 \right]_{#2}^{#3}}
+\newcommand{\ltspace}[1]{\mathcal{L}(#1)}
+\renewcommand{\det}[1]{det(#1)}
+
+
+
+
+
+\begin{enumerate}
+    \item \textbf{279 \#15} Let $\underset{n\times m}{A}$ be such that 
+    \[
+        x'(t) = Ax(t)
+        \quad \quad \quad \quad 
+        x(t) =  
+        \begin{pmatrix}
+            x_1(t) \\
+            \vdots \\
+            x_n(t) \\
+        \end{pmatrix}
+        \quad 
+        x'(t) =  
+        \begin{pmatrix}
+            x_1'(t) \\
+            \vdots \\
+            x_n'(t) \\
+        \end{pmatrix}
+    \]
+    Suppose $A$ is diagonalizable with distinct eigenvalues of $A$, $\lambda_1,\cdots, \lambda_k$. Prove $x:\R\to \R^n$ is a solution to the system if and oly if $x$ is of the form 
+    \[
+        x(t) = e^{\lambda_1 t}z_i + \cdots + e^{\lambda_k t} z_k
+        \quad \quad \quad \quad 
+        \forall i \quad z_i \in E_{\lambda_i}    
+    \]
+    Use the result to prove that the set of solutions to the system is an $n$-dimensional real vector space.
+    \begin{proof}
+        Since $A$ is diagonalizable, let $v_i$ for $i=1,\cdots,n$ be the corresponding eigenvector to $\lambda_1,\cdots,\lambda_k$. Let $Q$ whose $i$th column is $v_i$, we have 
+        \[
+            Q^{-1}AQ = D = 
+            \begin{pmatrix}
+                \lambda_1 & & \\
+                & \ddots & \\
+                & & \lambda_k \\
+            \end{pmatrix}    
+        \]
+        Then $A = QDQ^{-1}$, so  
+        \[
+            x' = QDQ^{-1}x 
+            \quad \quad \rightarrow 
+            \quad \quad 
+            Q^{-1}x = DQ^{-1}x
+        \]
+        Let $y:\R\to \R^n$ be defined by $y(t) = Q^{-1}y(t)$, so then $y' = Qx'$. Substitute to $Q^{-1}x = DQ^{-1}x$, we have 
+        \[
+            y' = Dy = 
+            \begin{pmatrix}
+                \lambda_1 y_1(t) \\
+                \vdots \\
+                \lambda_n y_n(t) \\
+            \end{pmatrix}
+            \quad \quad \rightarrow \quad \quad 
+            y_i(t) = c_i e^{\lambda_i t}
+            \quad \text{for some } c_i\in \R 
+        \]
+        \[
+            x(t) = Qy(t) = c_i e^{\lambda_i }    
+        \]
+    \end{proof}
+\end{enumerate}
+
+\end{document}

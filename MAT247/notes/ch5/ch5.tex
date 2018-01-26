@@ -53,7 +53,7 @@
 \end{defn*}
 
 \begin{theorem*}
-    \textbf{5.1 Diagonalizable and Eigenvalue/Eigenvector}\\
+    \textbf{5.1 Sufficient Condition for Diagonalizability}\\
      A linear operator $T$ on a finite-dimensional vector space $V$ is diagonalizable if and only if there exists an ordered basis $\beta$ for $V$ consisting of eigenvectors of $T$ (i.e. $v\in V$ is eigenvector if exists $\lambda$ such that $T(v) = \lambda v$). Furthermore, if $T$ is diagonalizable, $\beta = \{v_1,v_2,\cdots, v_n\}$ is an ordered basis of eigenvectors of $T$, and $D = \cvec{T}{\beta}$, then $D$ is diagonal matrix and $D_{jj}$ is the eigenvalue corresponding to $v_j$ for $1\leq j \leq n$
      \begin{rem}
          To diagonalize a matrix or linear operator is to find a basis of eigenvectors and the corresponding eigenvalues
@@ -64,13 +64,16 @@
 \begin{theorem*}
     \textbf{5.2 Computing Eigenvalues} \\ 
     Let $A\in M_{n\times n}(F)$. Then a scalar $\lambda$ is an eigenvalue of $A$ if and only if $\det{A-\lambda I_n} =0$
+    \begin{proof}
+        A scalar is an eigenvalue if and only if exists a nonzero vector $v\in F^n$ such that $Av = \lambda v$, that is, $(A - \lambda I_n)(v) = 0$, which is true if and only if $A-\lambda$ is not invertible (invertible and one-to-one, or $N(A-\lambda)=\{0\}$ equivalent). This is equivalent to $\det{A - \lambda I_n} = 0$
+    \end{proof}
 \end{theorem*}
 
 
 \begin{defn*}
     \textbf{Characteristic Polynomial of a Matrix} Let $A\in M_{n\times n}(F)$. The polynoimal $f(t) = \det{A - tI_n}$ is called the characteristic polynomial of $A$
     \begin{enumerate}
-        \item THe eigenvalues of a matrix are the zeros of its characteristic polynomial 
+        \item The eigenvalues of a matrix are the zeros of its characteristic polynomial 
         \item To determine the eigenvalues of a matrix or linear operator, we normally compute its characteristic polynomial.
     \end{enumerate}
 \end{defn*}
@@ -80,8 +83,19 @@
     \textbf{Characteristic Polynomial of a Linear Operator} Let $T$ be a linear operator on an n-dimensional vector space $V$ with ordered basis $\beta$. We define the characteristic polynomial $f(t)$ of $T$ to be the characteristic polynomial of $A = \cvec{T}{\beta}$. That is,
     \[  
         f(t) = \det{A - tI_n}    
+        \quad \quad \quad \quad 
+        P_{T}(t) = \det{\cvec{T}{\beta} - tI_n} = P_{\cvec{T}{\beta}}(t)
     \]
     We denote characteristic polynomial of an operator $T$ by $\det{T - tI}$. Note the definition is independent of the choice of ordered basis $\beta$, the resulting characteristic polynomial is the same regardless the choice of basis.
+    \begin{proof}
+        Let $\beta$ and $\beta'$ be basis of $V$, let $Q$ be change of basis matrix from $\beta'$ to $\beta$, then we have $\cvec{T}{\beta'} = Q^{-1}\cvec{T}{\beta}Q$, so then characeristic polynomial of linear operator invariant of choice of basis
+        \[
+            \det{\cvec{T}{\beta'} - tI_V} 
+            = \det{Q^{-1}(\cvec{T}{\beta} - tI_V)Q} 
+            = \det{Q^{-1}} \det{\cvec{T}{\beta} - tI_V} \det{Q}
+            = \det{\cvec{T}{\beta} - tI_V}
+        \]
+    \end{proof}
 \end{defn*}
 
 \begin{theorem*}
@@ -100,7 +114,12 @@
 
 
 \begin{proposition*}
-    \textbf{Equivalent problem of finding eigenvectors}  Let $T:V\to V$ be a linear operator and $\beta$ be an ordered basis for $V$. Let $A = \cvec{T}{\beta}$. For all $v\in V$ an eigenvector of $T$ corresponding to an eigenvalue $\lambda$ if and only if $\phi_{\beta}(v)$ is an eigenvector of $A$ corresponding to $\lambda$. We have reduced the problem of finding the eigenvectors of a linear operator on a finite-dimensional vector space to the problem of finding the eigenvectors of a matrix. 
+    \textbf{Equivalent Eigenvector for Matrix and Linear Operators}\\
+    Let $T:V\to V$ be a linear operator and $\beta$ be an ordered basis for $V$. Let $A = \cvec{T}{\beta}$ and note $\phi_{\beta}(v) = \cvec{v}{\beta}$, the cooredinate vector of $v$ relative to $\beta$. We could show that for all $v\in V$ an eigenvector of $T$ corresponding to an eigenvalue $\lambda$ if and only if $\phi_{\beta}(v)$ is an eigenvector of $A$ corresponding to $\lambda$. Now suppose $v$ is an eigenvector of $T$ corresponding to $\lambda$, then $T(v) = \lambda v$, then 
+    \[
+        A\phi_{\beta}(v) = L_A\phi_{\beta}(v) = \phi_{\beta}T(v) = \phi_{\beta}(\lambda v) = \lambda \phi_{\beta}(v)    
+    \]
+    Note $\phi_{\beta}(v)\neq 0$, since $\phi_{\beta}$ is an isomorphism, we have proved that $\phi_{\beta}(v)$ is an eigenvector of $A$. Conversely, if $\phi_{\beta}(v)$ is an eigenvector of $A$ corresponding to $\lambda$. Equivalently, a vector $y\in F^n$ is an eigenvector of $A = \cvec{T}{\beta}$ corresponding to $\lambda$ if and only if $\phi_{\beta}^{-1}(y)$ is an eigenvector of $T$ corresponding to $\lambda$. We have reduced the problem of finding the eigenvectors of a linear operator on a finite-dimensional vector space to the problem of finding the eigenvectors of a matrix. 
 \end{proposition*}
 
 \begin{defn*}
@@ -111,7 +130,132 @@
     $T$ acts on the vector in $W$ by multiplying each such vector by $\lambda$
 \end{defn*}
 
+\linksection{273}{5.2 Diagonalizability}
 
 
+\begin{theorem*}
+    \textbf{5.5 Set of Eigenvectors is Linearly Independent} \\
+    Let $T$ be a linear operator on a vector space $V$, and let $\lambda_1, \lambda_2, \cdots, \lambda_k$ be \textbf{distinct} eigenvalues of $T$. If $v_1, v_2, \cdots,  v_k$ are eigenvectors of $T$ such that $\lambda_i$ corresponding to $v_i$ where $1\leq i \leq k$ (choose one eigenvector corresponding to each eigenvalue.), then $\{v_1,v_2,\cdots, v_k\}$ is linearly independent. 
+\end{theorem*}
+
+\begin{corollary*}
+    Let $T$ be a linear operator on an $n$-dimensional vector space $V$. If $T$ has $n$ distinct eigenvalues, then $T$ is diagonalizable. 
+    \begin{proof}
+        Suppose $T$ has $n$ distinct eigenvalues $\lambda_1, \cdots, \lambda_n$. For each $i$ choose eigenvector $v_i$ corresponding to $\lambda_i$. By previous theorem, $\{v_1, \cdots, v_n\}$ is linearly independent, and since $\dim{V} = n$. the set is a basis for $V$. Thus, by theorem 5.1, $T$ is diagonalizable
+    \end{proof}
+    \begin{enumerate}
+        \item Converse not true, if $T$ is diagonalizable, then it need not have $n$ distinct eigenvalues. For example, $I_V$ is diagonalizable even thouigh it has only 1 eigenvalue, $\lambda=1$
+    \end{enumerate}
+\end{corollary*}
+
+
+
+\begin{defn*}
+    \textbf{Splits Over} A polynomial $f(t) \in P(F)$ splits over $F$ if there are scalars $c,a_1,\cdots, a_n$ (not necessarily distinct) in $F$ such that 
+    \[
+        f(t) = c(t-a_1)(t-a_2)\cdots (t-a_n)    
+    \]
+    As an example $t^2=(t+1)(t-1)$ splits over $\R$, but $(t^2+1)(t-2)$ does not split over $\R$ but splits over $\mathbb{C}$ since it factors into $(t+i)(t-i)(t-2)$. 
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{5.6 Diagonalizability implies $f(t)$ Splits Completely}  \\
+    The characteristic polynomial of any diagonalizable linear operator splits. The converse is not true, i.e. that the characteristic polynomial of $T$ may split but need not be diagonalizable. 
+    \begin{proof}
+        Let $T$ be linear operator on $n$-dimensional vector space $V$, and let $\beta$ be an ordered basis for $V$ such that $\cvec{T}{\beta} = D$ is a diagonal matrix. Suppose 
+        \[
+            D = 
+            \begin{pmatrix}
+                \lambda_1 & 0 & \cdots & 0 \\
+                0 & \lambda_2 & \cdots & 0 \\
+                \vdots & \vdots & & \vdots \\ 
+                0 & 0 & \cdots & \lambda_n \\
+            \end{pmatrix}    
+        \]
+        and let $f(t)$ be characteristic polynomial of $T$, then 
+        \[
+            f(t) = \det{D-tI} = 
+            \begin{pmatrix}
+                \lambda_1 -t& 0 & \cdots & 0 \\
+                0 & \lambda_2-t & \cdots & 0 \\
+                \vdots & \vdots & & \vdots \\ 
+                0 & 0 & \cdots & \lambda_n-t \\
+            \end{pmatrix}        
+            = (-1)^n (t-\lambda_1)(t-\lambda_2)\cdots (t-\lambda_n)     
+        \]
+    \end{proof}
+\end{theorem*}
+
+\begin{defn*}
+    \textbf{Multiplicity} Let $\lambda$ be an eigenvalue of a linear operator or matrix with characteristic polynomial $f(t)$. Then (algebraic) multiplicity of $\lambda$ is the largest positive integer $k$ for which $(t-\lambda)^k$ is a factor of $f(t)$
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Eigenspace} Let $T$ be a linear operator on a vector space $V$, and let $\lambda$ be an eigenvalue of $T$. Define $E_{\lambda} = \{x\in V: T(x) = \lambda x \} = N(T-\lambda I_V)$. The set $E_{\lambda}$is called the eigenspace of $T$ corresponding to the eigenvalue $\lambda$. Analogously, we define the eigenspace of a square matrix $A$ to be the eigenspace of $L_A$
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{5.7 Dimension of Eigenspace is Bounded by Multiplicity} \\
+    Let $T$ be a linear operator on a finite-dimensional vector space $V$, and let $\lambda$ be an eigenvalue of $T$ having multiplicity $m$. Then $1\leq \dim{E_{\lambda}} \leq m$
+\end{theorem*}
+
+\begin{lemma*}
+    Let $T$ be a linear operator, and let $\lambda_1, \lambda_2, \cdots, \lambda_k$ be distinct eigenvalues of $T$. For each $i=1,2,\cdots, k$, let $v_i \in E_{\lambda_i}$, the eigenspace corresponding to $\lambda_i$. If 
+    \[
+        v_1 + v_2 + \cdots + v_k = 0    
+    \]
+    then $v_i = 0$ for all $i$. 
+\end{lemma*}
+
+\begin{theorem*}
+    \textbf{5.8 Union of l.i. Subsets of Eigenspaces are l.i.} \\
+    Let $T$ be a linear operator on a vector space $V$, and elt $\lambda_1,\lambda_2,\cdots, \lambda_k$ be distinct eigenvalues of $T$. for each $i=1,2,\cdots, k$, let $S_i$ be a finite linearly independent subset of eigenspace $E_{\lambda_i}$. Then $S=S_1 \cup S_2 \cup \cdots \cup S_k$ is a linearly independent subset of $V$.
+\end{theorem*}
+
+
+\begin{theorem*}
+    \textbf{5.9 Construct Bases of Eigenvectors in Eigenspace to Form a Basis for the Entire Space}  \\
+    Let $T$ be a linear operator on a finite-dimensional vector space $V$ such that the characteristic polynomial of $T$ splits. Let $\lambda_1,\lambda_2,\cdots, \lambda_k$ be distinct eigenvalues of $T$. Then 
+    \begin{enumerate}
+        \item $T$ is diagonalizable if and only if the multiplicit of $\lambda_i$ is equal to $\dim{E_{\lambda_i}}$ for all $i$
+        \item If $T$ is diagonalizable and $\beta_i$ is an ordered basis for $E_{\lambda_i}$ for each $i$, then $\beta = \beta_1 \cup \beta_2 \cup \cdots \cup \beta_k$ is an ordered basis for $V$ consisting of eigenvectors of $T$. 
+    \end{enumerate}
+\end{theorem*}
+
+\begin{defn*}
+    \textbf{Test for Diagonalization} Let $T$ be a linear operator on $n$-dimensional vector space $V$. Then $T$ is diagonalizable if and only if both of conditions hold 
+    \begin{enumerate}
+        \item characteristic polynomial of $T$ splits 
+        \item For each eigenvalue $\lambda$ of $T$, the multiplicity of $\lambda$ equals $n-rank(T-\lambda I) = \dim{E_{\lambda}}$
+    \end{enumerate}
+    Same condition can be used to test a square matrix $A$ is diagonalizable because diagonalizability of $A$ is equivalent to diagonalizability of $L_A$. To test $T$ for diagonalizability, usually pick a basis $\alpha$ and let $B=\cvec{T}{\alpha}$. If characteristic polynomial of $B$ splits, then use condition 2 to check if the mulitiplicity of each repeated eigenvalue of $B$ equals $n-\rank{B-\lambda I}$ (dont need to check for eigenvalues with multiplicity 1 by theorem 5.7). If so, then $B$, and hence $T$, is diagonalizable. If $T$ is diagonalizable, we can find a basis $\beta$ for $V$ consisting of eigenvectors of $T$ by taking the union of basis for each eigenspace of $B$. Furthermore, if $A$ is $n\times n$ diagonalizable matrixd, we can find an invertible $n\times n$ matrix $Q$, and a diagonal matrix $n\times n$ matrix $D$ such that $Q^{-1}AQ=D$ with $Q$ having its columns the vectors in the basis of eigenvectors of $A$, and $D$ having its $j$th column entry the eigenvalue of $A$ corresponding to $j$th column of $Q$.
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Application: System of Differential Equations}
+     
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Matrix Exponential} For $A\in M_{n\times n}(C)$, define $e^A = \lim{m\to \infty} B_m$, where 
+    \[
+        B_m = I + A + \frac{A^2}{2!} + \cdots + \frac{A^m}{m!}    
+    \]
+    So $e^A$ is the sum of infinite series 
+    \[
+        I+A+ \frac{A^2}{2!} + \cdots   
+    \]
+    Note 
+    \[
+        e = \sum_{n=0}^{\infty} \frac{1}{n!}    
+        \quad \quad \quad \quad 
+        e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!}
+    \]
+\end{defn*}
+\linksection{327}{5.4}
 
 \end{document}

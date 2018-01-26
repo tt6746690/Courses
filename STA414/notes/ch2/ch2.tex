@@ -134,7 +134,7 @@
     \[
         p(\matr{x}|\bmu) \geq 0
         \quad \quad \quad \quad 
-        \sum_{\matr{x}} p(\matr{x}|\bmu) = \sum_{k=1}^K \mu_k = 1
+        \sum_{\matr{x}} p(\matr{x}|\bmu) = \sum_{k=1}^K \mu_k^1 = 1
     \]
     \[
         \E{x|\mu} = \sum_{\matr{x}} p(\matr{x}|\bmu)\matr{x} = \sum_{k=1}^K \mu_k \matr{e}_k = (\mu_1, \cdots, \mu_M)^T = \bmu
@@ -161,7 +161,7 @@
 
 
 \begin{defn*}
-    \textbf{Multinomial Distribution} The joint distribution of $m_1,\cdots, m_K$ conditioned on parameter $\bmu$ and on total number of $N$ observations is is known as multinomial distribution 
+    \textbf{Multinomial Distribution} For n independent trials each of which leads to a success for exactly one of k categories, with each category having a given fixed success probability, the multinomial distribution gives the probability of any particular combination of numbers of successes for the various categories. The joint distribution of $m_1,\cdots, m_K$ conditioned on parameter $\bmu$ and on total number of $N$ observations is is known as multinomial distribution 
     \[
         Mult(m_1,m_2,\cdots, m_K | \matr{\mu}, N) = 
         \binom{N}{m_1 m_2 \cdots m_k} \prod_{k=1}^K \mu_k^{m_k}

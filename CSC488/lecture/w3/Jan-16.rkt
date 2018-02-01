@@ -4,8 +4,8 @@
 ;   Syntax → parse tree → enriched LC → LC → x86.
 
 ; A little library to draw nested lists as trees.
-(require (rename-in "tree.rkt" (s-expression→tree-picture tree)))
-(current-font-size 20)
+(require "tree.rkt")
+(current-font-size 12)
 
 #| We'll view nested lists as ordered trees.
 
@@ -152,7 +152,7 @@
      ;  continuing to expand.
      (expand (expand-let v))]
 
-    ; Notice: includes knowledge that the first child of λ is not an expression.
+    ; Notice: includes knowledge that the first child of λ is not an expression (the args ...).
     [`(,e1 ,e2) `(,(expand e1) ,(expand e2))]
     [`(λ (,id) ,body) `(λ (,id) ,(expand body))]
     

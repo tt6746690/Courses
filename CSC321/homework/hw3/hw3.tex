@@ -22,28 +22,28 @@
     \[
         w_{11} x_1 + w_{12} x_2 + w_{13} x_3 + w_{14} x_4 + b_1> 0
     \]
-    weights $(-1, 1, 0, 0)$ and bias of $0$ satisfies the constraint. Similarly, we can hard code weights and biases for $h_2$ and $h_3$. 
+    weights $(1, -1, 0, 0)$ and bias of $-0.1$ satisfies the constraint. Similarly, we can hard code weights and biases for $h_2$ and $h_3$. 
     \[
         \mathbf{W}^{(-1)} = 
         \begin{pmatrix}
-            -1 & 1 & 0 & 0 \\
-            0 & -1 & 1 & 0 \\
-            0 & 0 & -1 & 1 \\ 
-        \end{pmatrix}
+            1 & -1 & 0 & 0 \\
+            0 & 1 & -1 & 0 \\
+            0 & 0 & 1 & -1 \\ 
+        \end{pmatrix} 
         \quad \quad \quad 
         \mathbf{b}^{(1)} = 
         \begin{pmatrix}
-            0 \\ 0 \\ 0 \\
+            0\\ 0 \\ 0 \\
         \end{pmatrix}
     \]
     Now we set weights and bias for computing $y$ such that $y$ activates if and only if all $h_1,h_2,h_3$ activates 
     \[
         \mathbf{w}^{(2)} = 
         \begin{pmatrix}
-            1 & 1 & 1 \\ 
+            -10 & -10 & -10 \\ 
         \end{pmatrix}
         \quad \quad \quad 
-        b^{(2)} = -2.5
+        b^{(2)} = 0.5
     \]
 
 \end{solution}
@@ -77,7 +77,7 @@ for given vector $\matr{r}$ and $\matr{s}$
             h_j   &= \sigma(z_j) \\
             z_j   &= \sum_{i=1}^N w_{ji}^{(1)} x_i + b_j^{(1)} \\
         \end{align*}
-        Then we derive the scalar form for the reverse pass, 
+        for $i=1,2,\dots, N$ and $j=1,2,\cdots, K$. Then we derive the scalar form for the reverse pass, 
         \begin{align*}
             \bar{\calE} &= 1 \\
             \bar{\calR} &= \bar{\calE} \lebpar{\calE}{\calR} = 1 \\ 
@@ -104,7 +104,7 @@ for given vector $\matr{r}$ and $\matr{s}$
 \begin{solution}
     \begin{align*}
         \lebpar{\calL}{w_1} \quad \quad \text{YES} \\ 
-        \lebpar{\calL}{w_2} \quad \quad \text{NO} \\ 
+        \lebpar{\calL}{w_2} \quad \quad \text{YES} \\ 
         \lebpar{\calL}{w_3} \quad \quad \text{NO} \\ 
     \end{align*}
     If $h_1$ is 0, then $y$ do not depend on $w_1h_1 = 0$ and so the a measure in change of $\calL$ with respect to $w_1$ while holding other variables constant is zero, i.e. $\lebpar{\calL}{w_1} = 0$. A infinitesimal change in $w_2$ yields negative value as input to $h_1$, by similar argument shown previously, we have $\lebpar{\calL}{w_2} = 0$. However, a small change in $w_3$ might result in changes in $y$ if both $h_2, h_3$ activates, and so $\lebpar{\calL}{w_3}$ might not be zero.

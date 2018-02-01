@@ -1,0 +1,141 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+\newcommand{\linksection}[3][../../linear_algebra_friedberg_insel_spence_4ed.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+\newcommand{\linksolution}[3][../../solution_compiled.pdf]{
+    \noindent\href[page=#2]{#1}{#3} \\
+}
+
+\newcommand{\vecspace}{\mathcal{V}}
+\newcommand{\field}{\mathcal{F}}
+\newcommand{\trace}[1]{tr(#1)}
+\renewcommand{\span}[1]{span(#1)}
+\renewcommand{\dim}[1]{dim(#1)}
+\newcommand{\nullity}[1]{nullity(#1)}
+\newcommand{\rank}[1]{rank(#1)}
+\newcommand{\cvec}[2]{\left[ #1 \right]_{#2}}
+\renewcommand{\matr}[3]{\left[ #1 \right]_{#2}^{#3}}
+\newcommand{\ltspace}[1]{\mathcal{L}(#1)}
+\renewcommand{\det}[1]{det(#1)}
+\newcommand{\tinvariant}[2]{\langle#2\rangle_{#1}}
+\newcommand{\innerp}[2]{\langle#1,#2\rangle}
+\renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+
+\linksection{341}{Chapter 6 Inner Product Spaces}
+
+
+\begin{defn*}
+    \textbf{Inner Product} Let $V$ be a vector space over $F$. An inner product on $V$ is a function that assigns, to every ordered pair of vectors $x$ and $y$ in $V$, a scalar in $F$, denoted $\innerp{x}{y}$, such that for all $x,y,z\in VE$ and all $c\in F$, 
+    \begin{enumerate}
+        \item $\innerp{x+z}{y} = \innerp{x}{y} + \innerp{z}{y}$ 
+        \item $\innerp{cx}{y} = c\innerp{x}{y}$
+        \item $\overline{\innerp{x}{y}} = \innerp{y}{x}$ 
+        \item $\innerp{x}{x} > 0$ if $x\neq 0$
+    \end{enumerate}
+    First two condition requires inner product be linear in the first component. Also 
+    \[
+        \innerp{\sum_i a_i v_i}{y} = \sum_i a_i \innerp{v_i}{y}    
+    \]
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Conjugate Transpose or Adjoint of a Matrix} Let $A\in M_{m\times n}(F)$, the conjugate transpose or adjoint of $A$ is an $n\times m$ matrix $A^*$ such that $(A^*)_{ij} = \overline{A_{ji}}$ for all $i,j$. For $F=\R$, $A^* = A^T$
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Inner Product Definition Example}
+    \begin{enumerate}
+        \item \textbf{Standard Inner Product on $F^n$} For $x = (a_1,a_2,\cdots,a_n)$ and $y=(b_1,b_2,\cdots, b_n)$ in $F^n$, the standard inner product on $F^n$ is given by 
+        \[
+            \innerp{x}{y} = \sum_{i=1}^n a_i \overline{b}_i    
+        \]
+        \item \textbf{Inner Product for Real-valued Continuous Functions on $[0,1]$} Let $V=C([0,1])$, $f,g\in V$, define 
+        \[
+            \innerp{f}{g} = \int_0^1 f(t) g(t) dt    
+        \]
+        \item \textbf{Frobenius Inner Product for Matrices} Let $V=M_{n\times n}(F)$, $A,B\in V$, then 
+        \[
+            \innerp{A}{B} = \tr{B^*A} = \sum_{i=1}^n (B^*A)_{ii}
+        \]
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Inner Product Space} A vector space over $F$ endowed with a specific inner product is called an inner product space. If $F=C$, $V$ is a complex inner product space; if $F=\R$, then $V$ is a real inner product space
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{6.1 Properties From Inner Product Conditions} Let $V$ be an inner product space. Then for $x,y,z\in V$ and $c\in F$, the following statements are true 
+    \begin{enumerate}
+        \item $\innerp{x}{y+z} = \innerp{x}{y} + \innerp{x}{z}$
+        \item $\innerp{x}{cy} = \overline{c} \innerp{x}{y}$
+        \item $\innerp{x}{0} = \innerp{0}{x} = 0$
+        \item $\innerp{x}{x} = 0$ if and only if $x=0$ 
+        \item If $\innerp{x}{y} = \innerp{x}{z}$ for all $x\in V$, then $y=z$
+    \end{enumerate}
+    The inner product is conjugate linear in the second argument 
+\end{theorem*}
+
+\begin{defn*}
+    \textbf{Norm/Length} Let $V$ be an inner product space. For $x\in V$, define norm or length of $x$ by 
+    \[
+        \norm{x} = \sqrt{\innerp{x}{x}}    
+    \]
+\end{defn*}
+
+\begin{defn*}
+    \textbf{6.2 Properties of Norm} Let $V$ be an inner product space over $F$. Then for all $x,y\in V$ and $c\in F$, the following statements are true 
+    \begin{enumerate}
+        \item $\norm{cx} = |c| \cdot \norm{x}$ 
+        \item $\norm{x} = 0$ if and only if $x=0$. In any case, $\norm{x} \geq 0$ 
+        \item \textbf{Cauchy-Schwarz Inequality} $|\innerp{x}{y}| \leq \norm{x} \cdot \norm{y}$
+        \item \textbf{Triangular Inequality} $\norm{x+y} \leq \norm{x} + \norm{y}$
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Angle} For $F=\R$, $x,y \neq 0$, and $\theta$ be angle between $x$ and $y$
+    \[
+        \cos{\theta} = \frac{\innerp{x}{y}}{\norm{x}\norm{y}}
+        \quad \quad \quad \quad 
+        \theta = \cos^{-1}\left( \frac{\innerp{x}{y}}{\norm{x}\norm{y}} \right)
+    \]
+    Note
+    \[
+        \left|\frac{\innerp{x}{y}}{\norm{x}\norm{y}}\right| \leq 1
+    \]
+    So valid input to arccos function
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Orthogonal Vectors} Let $V$ be an inner product space. Vectors $x$ and $y$ in $V$ are orthogonal (perpendicular) if $\innerp{x}{y} = 0$.
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Orthogonal Sets and Orthonormal Sets} A subset $S$ of $V$ is orthogonal if any two distinct vectors in $S$ are orthogonal. A vector $x$ in $V$ is a unit vctor if $\norm{x} = 1$. A subset $S$ of $V$ is orthonormal if $S$ is orthogonal and consists entirely of unit vectors. 
+    \begin{enumerate}
+        \item $S = \{v_1,v_2,\cdots\}$, then $S$ is orthonormal if and only if $\innerp{v_i}{v_j} = \delta_{ij}$
+        \item We can \textbf{normalize} an orthogonal set $S$, by multiplying $1/\norm{x}$ for each $x\in S$
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Orthonormal Set Property} Let $V$ be inner product space and $S = \{s_1,s_2,\cdots\}\subseteq V$ be an orthonormal set. Let $v\in \span{S}$, then $v = a_1s_1 + \cdots + a_k s_k$. Then 
+    \[
+        \innerp{v}{s_j} = a_j    
+    \]
+    by
+    \[
+        \innerp{v}{s_j} = \innerp{\sum_i a_i s_i}{s_j} = \sum_i a_i \innerp{s_i}{s_j} = \sum_i a_i \delta_{ij} = a_j    
+    \]
+\end{defn*}
+
+
+\end{document}

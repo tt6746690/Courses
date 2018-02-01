@@ -16,6 +16,10 @@
 
 \newcommand{\bmu}{\boldsymbol{\mu}}
 
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calC}{\mathcal{C}}
+
+
 \linksection{19}{Chapter 1 Introduction}
 \linksection{22}{1.1 Example: Polynomial Curve Fitting}
 
@@ -243,13 +247,13 @@
         \]
         We can find maximum likelihood estimator $\matr{w}_{mle}$ and the corresponding precision given by 
         \[
-            \frac{1}{\beta_{mle}} = \frac{1}{N}\sum_{n=1}^N (y(x_n, \matr{w}_{mle}  - t_n)^2
+            \frac{1}{\beta_{mle}} = \frac{1}{N}\sum_{n=1}^N (y(x_n, \matr{w}_{mle} ) - t_n)^2
         \]
         Having determined parameter $\matr{w}$ and $\beta$, we can make predictions for new values of $x$ by expressing in terms of the predictive distribution. 
         \[
             p(t|x,w_{mle}, \beta_{mle})
             = 
-            \normal{t|y(x,\matr{w}_{mle}, \beta^{-1}_{mle})}
+            \normal{t|y(x,\matr{w}_{mle}), \beta^{-1}_{mle}}
         \]
         We can introduce a prior distribution over polynomial coefficients $\matr{w}$
         \[
@@ -285,6 +289,120 @@
     \end{enumerate}
 \end{defn*}
 
+
+\linksection{51}{1.4 The Curse of Dimensionality}
+
+
+\begin{defn*}
+    \textbf{Curse of Dimensionality} 
+    \begin{enumerate}
+        \item \textbf{Grid Search} Divide region of space into regular cells, number of cell grow exponential with dimensionality of space. Need exponentially large quantity of training data to ensure cell not empty
+        \item \textbf{Polynomial Fitting} As dimension $D$ increases, number of independent coefficients grows proportionally to $D^n$ for n-degree polynomial
+    \end{enumerate}
+\end{defn*}
+
+
+\linksection{56}{1.5 Decision Theory}
+
+\begin{defn*}
+    \textbf{Motivation} 
+    \begin{enumerate}
+        \item \textbf{Statistical inference} is the process of deducing properties of an underlying probability distribution by analysis of data. More concretely, it deals with determination of $p(\matr{x},\matr{t})$, the joint distribution providing a complete summary of uncertainty associated with these variables. 
+        \item \textbf{Decision theory} deals with making optimal decisions given the appropriate probabilities, which is usually simple once we solved the inference problem. 
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Minimizing Misclassification Rate} We want to come up with a rule that divide the input space into regiosn $\calR_k$ called decision regions, one for each class, such that all points in $\calR_k$ are assigned to class $\calC_k$. The boundary between them are called decision boundaries. The probability of missclassification which we want to minimize is given by
+    \[
+        p(mistake) = p(\matr{x}\in \calR_1, \calC_2) + p(\matr{x}\in \calR_2, \calC_1) = \int_{\calR_1} p(\matr{x}, \calC_2) d\matr{x} + \int_{\calR_2} p(\matr{x}, \calC_1) d\matr{x}
+    \]
+    Generally for $K$ classes, it's easier maximize the probability of being correct, given by 
+    \[
+        p(correct) = \sum_{k=1}^K p(\matr{x}\in \calR_k, \calC_k) = \sum_{k=1}^K \int_{\calR_k} p(\matr{x}, \calC_k) d\matr{x}  \propto \sum_{k=1}^K \int_{\calR_k} p(\calC_k | \matr{x}) d\matr{x}
+    \]
+    Since $p(\matr{x})$ is common to all terms, we see that each $\matr{x}$ should be assfigned to class having largest posterior probability $p(C_k | \matr{x})$. 
+    \begin{center}
+        \includegraphics[width=10cm]{minimize_misclassification.jpg}
+    \end{center}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Minimizing the Expected Loss} 
+    \begin{enumerate}
+        \item \textbf{Loss Function} is a single, overall measure of loss incurred in taking any of the available decisions or actions. 
+        \item \textbf{Loss Matrix} For a new value of $\matr{x}$, the true class is $\calC_k$ and we assign $\matr{x}$ to class $\calC_j$, incurring a loss that we denote by $L_{kj}$, an element in the loss matrix. 
+        \item \textbf{Expected Loss} is the sum of the values of all possible losses, each multiplied by the probability of that loss occurring. Note loss function depends on the true class, which is unknown, so we instead try to minimize the expected loss
+        \[
+            \E{L} = \sum_k \sum_j \int_{x\in \calR_j} L_{kj} p(\matr{x}, \calC_k) d\matr{x}
+        \]
+        Note each $\matr{x}$ is independently assigned to one of decision region $\calR_j$. The goal is to pick a region $\calR_j$ in order to minimize the expected loss. The decision rule that minimizes the expected loss is one that assigns each new $\matr{x}$ to the class $j$ for which 
+        \[
+            \sum_k L_{kj} p(\matr{x}, \calC_j) \propto \sum_k L_{kj} p(\calC_j | \matr{x})    
+        \]
+        is minimum. 
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{The rejection option} Classification erorr arise form regions of input space wherew largest of posterior probability $p(\calC_k|\matr{x})$ is significantly less than unity, or equivalently where the joint distribution $p(\matr{x},\calC_k)$ have comparable values. These are the region we are uncertain about class membership. 
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Inference and Decision} \\
+    3 approaches to solve the decision problems 
+    \begin{enumerate}
+        \item \textbf{Generative Models} is a model for generating all values for a phenomenon, both those that can be observed in the world and "target" variables that can only be computed from those observed. Simply, generative models generate both inputs and outputs, typically given some hidden parameters. More precisely, it is an approach that explicitly or implicitly model the distribution of inputs as well as outputs are known as generative models. We either 
+        \begin{enumerate}
+            \item determine \textbf{class-conditional densities} $p(\matr{x}|\calC_k)$, for each class $\calC_k$ individually, infer prior $p(\calC_k)$, then compute \textbf{posterior probability} with Bayes rule.
+            \item model joint distribution $p(\matr{x}, \calC_k)$ directly and then normalize to obtain the \textbf{posterior probabilities}.
+        \end{enumerate}
+        then apply decision theory to determine class membership 
+        \item \textbf{Discriminative Models} is a model only for the target variable(s), generating them by analyzing the observed variables. In other word, approach that model the posterior probabilities $p(\calC_k | \matr{x})$ directly. Simply, discriminative models infer outputs based on inputs.
+        \item \textbf{Discriminative Function} maps input $\matr{x}$ onto class label. Probabilities play no role
+    \end{enumerate}
+    \begin{center}
+        \includegraphics[width=10cm]{classconditional_vs_posterior.jpg}
+    \end{center}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Combining Models} We can combiner outputs of different model systematically using rule of probability. If distribution of input features are independent, then by conditional independence
+    \[
+        p(\matr{x_a, x_b} | \calC_k) = p(\matr{x_a} | \calC_k) p(\matr{x_b} | \calC_k)
+    \]
+    Posterior of combined model 
+    \[
+        p(\calC_k | \matr{x_a, x_b}) \propto p(\matr{x_a, x_b}|\calC_k) p(\calC_k) \propto 
+        \frac{p(\calC_k | \matr{x_a}) p(\calC_k | \matr{x_b})}{p(\calC_k)}
+    \]
+    where $p(\calC_k)$ the class prior can be estimated from the fractions of data points in each class, then normalize the resulting posterior probabilities so that they sum to one. This conditional independence assumption is an example of \textbf{Naive Bayes Model}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Loss Function for Regression} Given predictive distribution $y(t|\matr{x})$, the decision theory for regression involves choosing a specific estimate $y(\matr{x})$, the regression function not a point prediction, of the value of target $t$ for each input $\matr{x}$ such that, given loss $L(t,y(\matr{x}))$, the expected loss is minimized
+    \[
+        \E{L} = \iint L(t,y(\matr{x})) p(\matr{x}, t) d\matr{x} dt
+    \]
+    If $L(t,y(\matr{x})) = (y(\matr{x}) - t)^2$, then 
+    \[
+        \E{L} = \iint (y(\matr{x}) - t)^2 p(\matr{x}, t) d\matr{x} dt
+        \quad \rightarrow \quad 
+        y(\matr{x}) = \E[t]{t|\matr{x}} \quad \text{(by taking derivative)}
+    \]
+    \begin{center}
+        \includegraphics[width=6cm]{regression_func_for_squared_loss.jpg}
+    \end{center}
+    The regression funtion $y(\matr{x})$ which maximizes the expected squared loss $L$ is given by mean of conditional distribution of $y(t|\matr{x})$, for a completely flexible $y$. \textbf{Minkowski Loss} is a generalization of squared loss, whose expectation is given by 
+    \[
+        \E{L_q} = \iint |y(\matr{x}) - t|^q p(\matr{x}, t) d\matr{x} dt
+    \]
+    The minimum for $\E{L_q}$ is given by conditional mean for $q=2$, conditional median for $q=1$, and conditional mode for $q\to 0$
+    \begin{center}
+        \includegraphics[width=8cm]{minkowski.jpg}
+    \end{center}
+\end{defn*}
 
 
 \end{document}

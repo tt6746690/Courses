@@ -1,6 +1,6 @@
 #lang racket
 
-; (require (rename-in "tree.rkt" (s-expression→tree-picture tree)))
+(require "tree.rkt")
 ; (current-font-size 20)
 
 ; We'll view nested lists as trees
@@ -46,7 +46,7 @@
 ; tree traversal
 (define (expand v)
   (match v
-    [`(let ,_ ,_) (expand (expand-let v))]
+    [`(let ,_ ,_) (expand (expand-let v))]     ; augmented let to LC
     [`(,e1 ,e2) `(,(expand e1) ,(expand e2))]
     [`(λ (,id) ,body) `(λ (,id) ,(expand body))]
     [_ v]))

@@ -10,14 +10,28 @@
 }
 
 \renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
-\renewcommand{\E}[2][]{\mathbb{E}_{#1}\{#2\}}
+\renewcommand{\E}[2][]{\mathbb{E}_{#1}\left\{#2\right\}}
 \newcommand{\var}[1]{var\{#1\}}
 \newcommand{\cov}[1]{cov\{#1\}}
 \newcommand{\normal}[1]{\mathcal{N}\left(#1\right)}
 \newcommand{\exponents}[1]{exp\left\{#1\right\}}
 
-\newcommand{\bx}{\mathbf{x}}
 \newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+
+
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\bx}{\matr{x}}
+\newcommand{\bX}{\matr{X}}
+\newcommand{\bw}{\matr{w}}
+
+
+\newcommand{\qqqquad}{\quad \quad \quad \quad}
+
+
+\newcommand{\lebpar}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\balpha}{\boldsymbol{\alpha}}
 
 
@@ -307,6 +321,15 @@
             \matr{\Lambda}_{ba} & \matr{\Lambda}_{bb}\\
         \end{pmatrix}
     \]
+    Then condition distribution 
+    \begin{align*}
+        p(\matr{x}_a | \matr{x}_b) &= \normal{\matr{x}| \bmu_{a|b}, \Lambda_{aa}^{-1}} \\
+        \bmu_{a|b} &= \bmu_a - \Lambda_{aa}^{-1} \Lambda_{ab} (\matr{x}_b - \bmu_b)
+    \end{align*}
+    and marginal distribution 
+    \[
+        p(\matr{x}_a) = \normal{\matr{x}_a | \bmu_a, \Sigma_{aa}}    
+    \]
 \end{defn*}
 
 
@@ -338,6 +361,76 @@
 
 
 \linksection{112}{2.3.5 Sequential Estimation}
+
+
+\begin{defn*}
+    \textbf{Points}
+    \begin{enumerate}
+        \item \textbf{Sequential Estimation} for Gaussian Mean 
+        \[
+            \bmu_{mle}^{(N)} = \bmu_{mle}^{(N-1)} + \frac{1}{N} (\bx_N - \bmu_{mle}^{(N-1)})
+        \]
+    \end{enumerate}
+\end{defn*}
+
+
+\linksection{120}{2.3.7 Student's t-distribution}
+
+\begin{defn*}
+    \textbf{Student's t} Univariarnt Gaussian with Gamma prior, then integrate out precision, resulting in marginal distribution of $x$
+\end{defn*}
+
+
+\linksection{128}{2.3.9 Mixture of Gaussian}
+
+
+\begin{defn*}
+    \textbf{Points}
+    \begin{enumerate}
+        \item \textbf{Mixture of Gaussian} Linear combination of Gaussians gives better characterization of data
+        \[
+            p(\bx) = \sum_{k=1}^K \pi_k \normal{\bx|\bmu_k, \matr{\Sigma}_k}    
+            \qquad 
+            \sum_{k=1}^K \pi_k = 1
+            \quad 
+            \pi_k \geq 0
+        \]
+        Log maximimum likelihood for $\boldsymbol{\pi}, \bmu, \matr{\Sigma}$ has no closed solution
+        \[
+            \ln{p(\matr{X}| \matr{\boldsymbol{\pi}, \bmu, \Sigma})} = 
+            \sum_{n=1}^N \ln{\sum_{k=1}^K \boldsymbol{\pi}_k \normal{\bx_n | \bmu_k , \matr{\Sigma}_k}}
+        \]
+    \end{enumerate}
+\end{defn*}
+
+\linksection{130}{2.4 The Exponential Family}
+
+\begin{defn*}
+    \textbf{Points}
+    \begin{enumerate}
+        \item Exponential Family over $\bx$, given parameters $\boldsymbol{\eta}$ is defined to be the set of distribution with form 
+        \[
+            p(\bx | \boldsymbol{\eta})
+            = h(\bx) g(\boldsymbol{\eta}) \exponents{\boldsymbol{\eta}^T \matr{u(x)}}    
+        \]
+        where $\matr{u}$ is a function of $\bx$, $\boldsymbol{\eta}$ are natural parameters. $g(\boldsymbol{\eta})$ is the coefficients that ensures the distribution is normalized 
+        \[
+            g(\boldsymbol{\eta}) \int h(\bx) \exponents{\boldsymbol{\eta}^T \matr{u}(\bx)} d\matr{x} = 1
+        \]
+        \item bernoulli distribution 
+        \item multinomial distribution
+        \item MLE for Exponential Family 
+        \[
+            -\nabla \ln{g(\boldsymbol{\eta})} = \E{\matr{u(x)}}
+        \]
+        for which we can solve for $\boldsymbol{\eta}$ given only sufficient statistics $\matr{u(x)}$
+        \[
+            -\nabla \ln{g(\boldsymbol{\eta}_{mle})} = \frac{1}{N} \sum_{n=1}^N \matr{u(x)_n}
+        \]
+    \end{enumerate}
+\end{defn*}
+
+
 
 
 \end{document}

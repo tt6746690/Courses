@@ -1,0 +1,80 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\newcommand{\bt}{\boldsymbol{\theta}}
+\renewcommand{\E}[1]{\mathbb{E}\left\{#1\right\}}
+\newcommand{\var}[1]{var\left\{#1\right\}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bw}{\mathbf{w}}
+
+
+\begin{enumerate}
+\item \textbf{Gradient Descent}
+\begin{enumerate}
+    \item Derive gradient descent update rule for each $\theta_i$ with learning rate $\alpha$. 
+    \begin{align*}
+        \frac{\partial \mathcal{C}}{\partial \theta_i} &= a_i (\theta_i - r_i) \\
+        \theta_i^{(t+1)} 
+        &= \theta_i^{(t)} - \alpha \frac{\partial \mathcal{C}}{\partial \theta_i^{(t)}} \\
+        &= (1-\alpha a_i)\theta_i^{(t)} + \alpha a_i r_i    
+    \end{align*}
+    \item Rewrite update rule in terms of error $e_i^{(t)} = \theta_i^{(t)} - r_i$
+    \begin{align*}
+        e_i^{(t+1)} &= (1-\alpha a_i)\theta_i^{(t)} + \alpha a_i r_i - r_i \\ 
+        &= (1-\alpha a_i)\theta_i^{(t)} - (1-\alpha a_i)r_i \\
+        &= (1-\alpha a_i)(\theta_i^{(t)} - r_i) \\
+        &= (1-\alpha a_i) e_i^{(t)} \\ 
+    \end{align*}
+    \item Solve recurrence to obtain explicit formula for $e_i^{(t)}$ in terms of initial error $e_i^{(0)}$
+    \[
+        e_i^{(t)} = (1-\alpha a_i)^t e_i^{(0)}
+    \]
+    Error decays over time if $1-\alpha a_i < 1$, i.e. $\alpha > 0$ and similarly error grows over time if $\alpha < 0$ 
+    \item Write an explicit formula for the cost $\mathcal{C}(\bt^{(t)})$ as a function of initial value $\bt^{(0)}$
+    \[
+        \mathcal{C}(\bt^{(t)}) 
+        = \frac{1}{2}\sum_{i=1}^N a_i \left( e_i^{(t)} \right)^2
+        = \frac{1}{2}\sum_{i=1}^N a_i \left( (1-\alpha a_i)^t e_i^{(0)} \right)^2
+        = \frac{1}{2}\sum_{i=1}^N a_i \left( 1-\alpha a_i \right)^{2t} \left(\theta_i^{(0)} - r_i\right)^2
+    \]
+    As $t\rightarrow \infty$, the term $(1-\alpha a_i)^{2t}$ starts to dominate.
+\end{enumerate}
+\item \textbf{Dropout}
+\begin{enumerate}
+    \item Find expressions for $\E{y}$ and $\var{y}$ for a given $\bx$ and $\bw$\\
+    By linearity of expectation and variance for independent random variables 
+    \begin{align*}
+        \E{y} &= \sum_j w_j x_j \E{m_j} = \frac{1}{2} \sum_j w_j x_j = \frac{1}{2} \bw^T \bx\\
+        \var{y} &= \sum_j w_j x_j \var{m_j} = \frac{1}{4} \sum_j w_j x_j = \frac{1}{4} \bw^T \bx \\ 
+    \end{align*}
+    \item Determine $\tilde{w}_j$ as as a function of $w_j$ such that $\E{y} = \tilde{y} =  \sum_j \tilde{w}_j x_j$, where $\tilde{y}$ is a deterministic prediction
+    \[
+        \frac{1}{2} \sum_j w_j x_j = \E{y} = \sum_j \tilde{w}_j x_j   
+    \]
+    So we have $\tilde{w}_j = \frac{1}{2} w_j$ 
+    \item Show cost can be rewritten to another form 
+    \begin{align*}
+        \mathcal{E} 
+        &= \frac{1}{2N} \sum_{i=1}^N \E{(y^{(i)} - t^{(i)})^2} \\ 
+        &= \frac{1}{2N} \sum_{i=1}^N \E{y^{(i)2}} - 2t\E{y^{(i)}} + t^{(i)2} \\ 
+        &= \frac{1}{2N} \sum_{i=1}^N \var{y^{(i)}} + \left(\E{y^{(i)}}\right)^2 - 2t\E{y^{(i)}} + t^{(i)2} \\ 
+        &= \frac{1}{2N} \sum_{i=1}^N (\E{y}^{(i)} - t^{(i)})^2 + \frac{1}{4}\sum_j \tilde{w}_j x_j \\ 
+        &= \frac{1}{2N} \sum_{i=1}^N (\tilde{y}^{(i)} - t^{(i)})^2 + \mathcal{R}(\tilde{w}_1, \cdots, \tilde{w}_D) \\ 
+    \end{align*}
+    where 
+    \[
+        \mathcal{R}(\tilde{w}_1, \cdots, \tilde{w}_D) = \frac{1}{4}\sum_j \tilde{w}_j x_j
+    \]
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,232 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+\newcommand{\linksection}[3][../../bishop_pattern_recognition_and_machine_learning.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+\newcommand{\linkinline}[3][../../bishop_pattern_recognition_and_machine_learning.pdf]{
+    \noindent\href[page=#2]{#1}{#3}
+}
+
+\renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\E}[2][]{\mathbb{E}_{#1}\left\{#2\right\}}
+\newcommand{\var}[1]{var\{#1\}}
+\newcommand{\cov}[1]{cov\{#1\}}
+\newcommand{\normal}[1]{\mathcal{N}\left(#1\right)}
+\newcommand{\exponents}[1]{exp\left\{#1\right\}}
+
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+
+
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\bx}{\matr{x}}
+\newcommand{\bX}{\matr{X}}
+\newcommand{\bw}{\matr{w}}
+
+
+\newcommand{\qqqquad}{\quad \quad \quad \quad}
+
+
+\newcommand{\lebpar}[2]{\frac{\partial #1}{\partial #2}}
+
+\linksection{196}{4 Linear Models for Classification}
+
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{Classification} Take input vector $\matr{x}$ andf assign it to one of $K$ discrete classes $\mathcal{C}_k$ where $k=1,\cdots,K$
+        \item Decision region, decision boundary
+        \item Linearly Separable
+        \item 1-of-K encoding for target value $t$
+        \item Approaches 
+        \begin{enumerate}
+            \item Discriminant function
+            \item Model conditional probability distribution $p(\calC_k | \bx)$ either directly or via modeling class-conditional densities $p(\bx | \calC_k)$ with a given prior $p(\calC_k)$
+        \end{enumerate}
+        \item Generalized Linear Model and Activation Function $f$
+        \[
+            y(\bx) = f(\bw^T \bx + w_0)
+        \]
+        where decision surfaces are linear functions of $\bx$ (not linear to $\bw$)
+    \end{enumerate}
+\end{defn*}
+
+
+\linksection{198}{4.1 Discriminant Functions}
+
+
+\begin{defn*}
+    \textbf{Points}
+    \begin{enumerate}
+        \item \textbf{Two Class} For linear discriminant functions $y(\bx) = \bw^T \bx + w_0$, the weight vector $\bw$ is orthogonal to the decision surface, so determines orientation of the decision surface. 
+        \item \textbf{Multiclass} 
+        \begin{enumerate}
+            \item One-versus-Rest Classifier 
+            \item One-versus-one Classifier 
+            \item K-class Discriminant
+            \[
+                y_k(\bx) = \bw_k^T \bx + w_{k0}    
+                \qquad \text{Assign $\bx$ to $\calC_k$ if $y_k(\bx)>y_j(\bx)$ for all $j\neq k$}
+            \]
+        \end{enumerate}
+        \item \textbf{Least Squares}
+        Given training set $\{\underset{N\times (D+1)}{\tilde{\bX}}, \underset{N\times K}{\matr{T}} \}$, we have exact closed-form solution for discriminate function $\matr{y(x)}$ parameters $\underset{(D+1)\times K}{\tilde{\matr{W}}}$ 
+        \[
+            y(\bx) = \tilde{\matr{W}}^T \tilde{\bX}
+            \qquad 
+            \tilde{\matr{W}} = (\tilde{\bX}^T \tilde{\bX})^{-1} \tilde{\bX}^{T} \matr{T}
+        \]
+        \item \textbf{Fisher's Linear Discriminant}
+        Given mean vector of classes
+        \[
+            \matr{m}_k = \frac{1}{N_1} \sum_{n\in \calC_k} \bx_n    
+        \]
+        \begin{enumerate}
+            \item Maximizes separation of projected (to $y$) class, i.e. for 2 classes maximizes the mean of projected data $m_k$
+            \[
+                m_2 - m_1 = \bw^T  \matr{m}_2 - \bw^T \matr{m}_1
+                \qqqquad 
+                \text{subject to } \sum_i w_i^2 = 1
+            \]
+            Optimal solution given by $\bw \propto \matr{m}_2 - \matr{m}_1$
+            \item Maximizes separation between projected class mean while gives a small variance within each class to minimize overlap, within class variance given by
+            \[
+                s_k^2 = \sum_{n\in \calC_k} (\bw^T \bx_n - m_k)^2   
+            \]
+            Fisher criterion is the ratio of between class variance to within-class variance 
+            \[
+                J(\bw) = \frac{(m_2-m_1)^2}{s_1^2+s_2^2} = 
+                \frac{\bw^T \matr{S}_B \bw}{\bw^T \matr{S}_W \bw}    
+            \]
+            \[
+                \matr{S}_B = (\matr{m}_2 - \matr{m}_1)(\matr{m}_2 - \matr{m}_1)^T 
+                \quad \quad 
+                \matr{S}_W = \sum_{n\in \calC_1} (\bx_n - \matr{m}_1)(\bx_n - \matr{m}_1)^T + \sum_{n\in \calC_2} (\bx_n - \matr{m}_2)(\bx_n - \matr{m}_2)^T
+            \]
+            Optimal solution given by $\bw \propto \matr{W}_W^{-1} (\matr{m}_2 - \matr{m}_1)$. Projecting data points into $y$ space and choose a threshold $y_0$ such that we classify new point belonging to $\calC_1$ if $y(\bx) \geq y_0$ and belonging to $\calC_2$ otherwise
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
+
+\linksection{213}{4.2 Probabilitstic Generative Models}
+
+
+\begin{defn*}
+    \textbf{Points}
+    \begin{enumerate}
+        \item \textbf{Logistic function} $\sigma(a)$ 
+        \[
+            p(\calC_1 | \bx) = \frac{p(\bx|\calC_1) p(\calC_1)}{p(\bx|\calC_1) p(\calC_1) + p(\bx|\calC_2) p(\calC_2)} = 
+            \frac{1}{1+\exponents{-a}} = \sigma(a)
+            \qquad 
+            a = \ln{\frac{p(\bx|\calC_1) p(\calC_1)}{p(\bx|\calC_2) p(\calC_2)}}
+        \]
+        and logit function $a$, the inverse of logistic, representing log of ratio of posterior probabilities
+        \[
+            a 
+            = \ln\left\{\frac{\sigma}{1-\sigma}\right\}
+            = \ln\left\{ \frac{p(\calC_1 | \bx)}{p(\calC_2 | \bx)} \right\}
+        \]
+        \item \textbf{Softmax Function}, 
+        \[
+            p(\calC_k | \bx) = \frac{p(\bx|\calC_k)p(\calC_k)}{\sum_j p(\bx|\calC_j)p(\calC_j)} = \frac{\exponents{a_k}}{\sum_j \exponents{a_j}}
+            \qqqquad 
+            a_k = \ln{p(\bx|\calC_k) p(\calC_k)}
+        \]
+        a smoothed version of max function
+        \item \textbf{Continuous Inputs} if class conditional density $p(\bx|\calC_k)$ is Gaussian with all classes sharing the same covariance matrix, then we can express posterior distribution as a logistic sigmoid acting on a linear function of $\bx$, 
+        \[
+            p(\calC_k | \bx) = \sigma(\bw^T \bx + w_0)
+            \qquad 
+            \bw = \matr{\Sigma}^{-1} (\bmu_1 - \bmu_2) 
+            \quad 
+            w_0 = -\frac{1}{2} \bmu_1^T \matr{\Sigma}^{-1} \bmu_1 + \frac{1}{2} \bmu_2^T \matr{\Sigma}^{-1} \bmu_2 + \ln{\frac{p(\calC_1)}{p(\calC_2)}}
+        \]
+        The genearlized version for $K$ classes is given by 
+        \[
+            a_k(\bx) = \bw_k^T \bx + w_{k0} 
+            \qqqquad 
+            \bw_k = \matr{\Sigma}^{-1} \bmu_k 
+            \quad 
+            w_{k0} = -\frac{1}{2} \bmu_k^T \matr{\Sigma}^{-1} \bmu_k + \ln{p(\calC_k)}
+        \]
+        \item Quadratic Discriminant
+        \item \textbf{MLE solution for parameter for class-conditional densities and prior} for Gaussian class-conditionals with 2 classes ($t_n=1$ for $\calC_1$ and $t_n=0$ for $\calC_2$ and prior $p(\calC_1)=\pi$ and $p(\calC_2)=1-\pi$). Note for data point $x_n$ from class $\calC_1$, then $p(\matr{x}_n, \calC_1)=  p(\calC_1)p(\bx_n | \calC_1) = \pi \normal{\bx_n | \bmu_1, \matr{\Sigma}}$, we have likelihood function
+        \[
+            p(\matr{t}, \matr{X}| \pi, \bmu_1, \bmu_2, \matr{\Sigma}) 
+            = \prod_{n=1}^N \left( \pi \normal{\bx_n | \bmu_1, \matr{\Sigma}} \right)^{t_n} \left( (1-\pi)\normal{\bx_n | \bmu_2, \matr{\Sigma}} \right)^{1-t_n}
+        \]
+        We find mle estimate for
+        \begin{align*}
+            \pi &= \frac{N_1}{N_1 + N_2} 
+            \tag{fraction of points in each class} \\ 
+            \bmu_1 &= \frac{1}{N_1} \sum_{n=1}^N t_n \bx_n 
+            \tag{mean of input vectors assigned to $\calC_1$} \\ 
+            \bmu_2 &= \frac{1}{N_2} \sum_{n=1}^N (1-t_n) \bx_n    
+            \tag{mean of input vectors assigned to $\calC_2$} \\ 
+            \matr{\Sigma} &= \frac{N_1}{N} \matr{S_1} + \frac{N_2}{N} \matr{S_2} \tag{weighted average of covariance matrix for 2 classes} \\ 
+        \end{align*}
+    \end{enumerate}
+\end{defn*}
+
+
+\linksection{213}{4.2 Probabilitstic Discriminative Models}
+
+
+\begin{defn*}
+    \textbf{Points}
+    \begin{enumerate}
+        \item \textbf{Motivation} In discriminative approach, we are maximizing a likelihood function defined through conditional posterior distribution $p(\calC_k | \bx)$. Needs fewer adaptive parameters to be determined
+        \item \textbf{Fixed basis function} nonlinear transform of inputs using $\phi(\bx)$, such that decision boundary is linear in feature space but nonlinear in input space 
+        \item \textbf{Logistic Regression} Write posterior probability of each class as logistic sigmoid over a linear function of feature vector $\bphi$, such that the number of adjustable parameter is linear to the feature space (vs. quadratic for generating function approach)
+        \[
+            p(\calC_1 | \bphi) = y(\bphi) = \sigma(\bw^T \bphi)
+            \qquad 
+            p(\calC_2 | \bphi) = 1 - p(\calC_1 | \bphi)
+        \]
+        Let $\bphi_n = \bphi(\bx_n)$ and $y_n = p(\calC_1 | \bphi_n) = \sigma(\bw^T \bphi_n)$, we have likelihood
+        \[
+            p(\matr{t}|\bw) = \prod_{n=1}^N y_n^{t_n} (1-y_n)^{1-t_n}
+        \]
+        \[
+            \mathcal{E}(\bw)_{CE} = -\ln{p(\matr{t}|\bw)} = 
+            -\sum_{n=1}^N \left(t_n \ln{y_n} + (1-t_n)\ln{(1-y_n)}\right) 
+            \quad \rightarrow \quad 
+            \nabla_{\bw} \mathcal{E}(\bw) = \sum_{n=1}^N (y_n-t_n)\bx_n    
+        \]
+        No closed form solution for $\bw$, due to nonlinearity of logistic sigmoid. Error function is however convex.
+        \item \textbf{Multiclass Logistic Regression} By generative approach for multiclass classification, posterior distribution given by softmax transformation of linear function of feature variables 
+        \[
+            p(\calC_k | \bphi) = y_k(\bphi) = \frac{\exponents{a_k}}  {\sum_j \exponents{a_j}}  
+            \qqqquad 
+            a_k = \bw_k^T \bphi  \text{ (activation)}
+        \]
+        with likelihood 
+        \[
+            p(\matr{T}|\bw_1, \cdots, \bw_K)
+            = \prod_{n=1}^N \prod_{k=1}^K p(\calC_k | \bphi_n)^{t_{nk}}  
+            = \prod_{n=1}^N \prod_{k=1}^K y_{nk}^{t_{nk}}
+        \]
+        \[
+            \mathcal{E}_{CE}(\bw_1, \cdots, \bw_K) 
+            = -\ln{p(\matr{T}|\bw_1, \cdots, \bw_K)}
+            = -\sum_{n=1}^N \sum_{k=1}^K t_{nk} \ln{y_{nk}}
+        \]
+
+    \end{enumerate}
+\end{defn*}
+
+
+
+
+
+
+\end{document}

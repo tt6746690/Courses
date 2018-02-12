@@ -119,3 +119,89 @@ A good answer will know what a National Imagined Community is and think about ho
 + consumer lifetime of fans 
     + flexibilit of hello kitty integrates with changing age of consumers
         + introduction, change, rediscovery, nostalgia
+
+
+--- 
+
+
+Notes
+
++ sapporo ads
+    + post meiji company
+    + feel it has a long history
++ commodity fetishism
+    + relationship replaced by money 
+    + social relationships replaced by economic ones
+    + when a commmodity is connecte to money it is severed from 
++ fetishized commodity
+    + take connected to money, becomes a commodity, the social relation are obscured, resulting in fetishized object
++ alienation leads to fetishim of commodity 
+    + product, act of production and other producers are alienated
+    + commodification obscures relation between ...
++ commodity
+    + have a value tied to the maker and material
+    + connection to hands of labourer replaced by commodity value
++ intrinsic value
+    + perception transforms the trading value so that social value becomes more important
++ where does value come from 
+    + use-value
+    + material-works
+    + why is it worth more than its material-use-value
+        + louis vuitton... expensive
+    + where do we derive the value? 
+        + created by obscuring the use value
+        + also demonstrates social/cultural/class beliefs
++ hello kitty
+    + narrative
+        + not really much
+    + a brand without a product
+    + diversification
+    + localization 
+        + why kitty needs to be adapted to non-Japanese markets
+            + designer, blogger have cultural connection in Japan but not oversees
+            + just difference in culture 
+    + differentiated kitty
+        + recognize that different ages of consumers require different things from kitty
+    + National Imaginary    
+        + can be popular everywhewre 
+        + but is not popular in the same way everywhere
++ real vs fake 
+    + exclusivity and authenticity
+    + revolve around discourses of good taste, expert knowledge, design innovation, and social distinction
+    + ability to understand present cultural capital
++ copycast (shanzhai) culture
+    + what makes a fake fake 
+    + what makes the real real
++ copy cat culture
+    + culture jamming
+        + reconfigure and remake other ideas
+    + is there value in culture jamming?
+    + why is it different than a fake
+        + limits of copy cat culture are once against about commodity
+        + pop culture is commoditized, its potential to be a liberating form of expression is lost
+    + what are limits of popular, how commoditized is too much
+
++ guinesss world records
+
++ hello kitty
+    + friendship value
+        + expects anticipates to have consumers identify with the kitty
+    + commodity removes relationship 
+    + relationships are now being sold back to us
+    + a natioanl imaginary is part of the commodity
+
++ relationship 
+    + hello kitty is friend
+    + department stores re-create community traditions
+    + copycat culture recontextualize chinese nostalgia 
+    + how does department store fit into this fetishim? into the replacement of social relations with economic relations?
++ Creighton 
+    + consuming public not a passive audience manipulated by commercial interest 
+    + retailers did no dicate the nostlgic mood consuming public
+    + perceive desire for affirmation of an idealized community, a rural past, a sense of belongingness
+    + then surround their operations with cultrally appropriate symbolic images of these concepts
++ department store
+    + sell emotios 
+    + sell community connections
++ relationship
+    + what is department store, copycast culture, 

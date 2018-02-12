@@ -140,10 +140,10 @@ class Model(object):
         self.vocab = vocab
 
         self.vocab_size = len(vocab)
-        self.embedding_dim = self.params.word_embedding_weights.shape[1]
-        self.embedding_layer_dim = self.params.embed_to_hid_weights.shape[1]
-        self.context_len = self.embedding_layer_dim // self.embedding_dim
-        self.num_hid = self.params.embed_to_hid_weights.shape[0]
+        self.embedding_dim = self.params.word_embedding_weights.shape[1]      # D
+        self.embedding_layer_dim = self.params.embed_to_hid_weights.shape[1]  # 3D
+        self.context_len = self.embedding_layer_dim // self.embedding_dim     # 3
+        self.num_hid = self.params.embed_to_hid_weights.shape[0]              # N_H
 
     def copy(self):
         return self.__class__(self.params.copy(), self.vocab[:])
@@ -157,8 +157,16 @@ class Model(object):
 
     def indicator_matrix(self, targets):
         """Construct a matrix where the kth entry of row i is 1 if the target for example
-        i is k, and all other entries are 0."""
-        batch_size = targets.size
+        i is k, and all other entries are 0.
+        Note size of indicator matrix is B x N_V where B is size of targets vector
+
+        t = (2, 0, 1) so B = 3 and assume N_V = size(vocab) = 4, then 
+        indicator matrix (B x N_v) = 
+                                    [[0, 0, 1, 0],
+                                     [1, 0, 0, 0],
+                                     [0, 1, 0, 0]]
+        """
+        batch_size = targets.size   
         expanded_targets = np.zeros((batch_size, len(self.vocab)))
         expanded_targets[np.arange(batch_size), targets] = 1.
         return expanded_targets
@@ -169,28 +177,34 @@ class Model(object):
 
             y_i = e^{z_i} / \sum_j e^{z_j}.
 
-        This function should return a batch_size x vocab_size matrix, where the (i, j) entry
+        This function should return a batch_size x vocab_size (B x N_V) matrix, where the (i, j) entry
         is dC / dz_j computed for the ith training case, where C is the loss function
 
             C = -sum(t_i log y_i).
 
         The arguments are as follows:
 
-            output_activations - the activations of the output layer, i.e. the y_i's.
+            output_activations (B x N_V) - the activations of the output layer, i.e. the y_i's. (N_V x 1)
             expanded_target_batch - each row is the indicator vector for a target word,
-                i.e. the (i, j) entry is 1 if the i'th word is j, and 0 otherwise."""
+                i.e. the (i, j) entry is 1 if the i'th word is j, and 0 otherwise.
+        """
         
         ###########################   YOUR CODE HERE  ##############################
-
-
+        # Computing derivatives 
+        # for i = 1, 2, ..., N_V=250  dC / dz_j = y_j - t_j where 
+        # y is the output activation and t contains indicator vector of the target word
+        return output_activations - expanded_target_batch
         ############################################################################
+
 
 
     def compute_loss(self, output_activations, expanded_target_batch):
         """Compute the total loss over a mini-batch. expanded_target_batch is the matrix obtained
         by calling indicator_matrix on the targets for the batch."""
-        return -np.sum(expanded_target_batch * np.log(output_activations + TINY))
+        #  scalar = (B x N_V) * (B x N_V)
+        return -np.sum(expanded_target_batch * np.log(output_activations + TINY)) # why add TINY?
 
+    # forward pass
     def compute_activations(self, inputs):
         """Compute the activations on a batch given the inputs. Returns an Activations instance.
         You should try to read and understand this function, since this will give you clues for
@@ -203,29 +217,37 @@ class Model(object):
 
         # Embedding layer
         # Look up the input word indies in the word_embedding_weights matrix
-        embedding_layer_state = np.zeros((batch_size, self.embedding_layer_dim))
-        for i in range(self.context_len):
+        embedding_layer_state = np.zeros((batch_size, self.embedding_layer_dim)) # (B x 3D)
+        for i in range(self.context_len): # i= 1, 2, 3
+            # assign to each d columns
+            # (... D ..., ... D ..., ... D ...)
             embedding_layer_state[:, i*self.embedding_dim:(i+1)*self.embedding_dim] = \
-                                     self.params.word_embedding_weights[inputs[:, i], :]
+                                     self.params.word_embedding_weights[inputs[:, i], :] # embedding weights: (N_V, D)
 
         # Hidden layer
+        # (B x N_H) = (B x 3D) x (3D x N_H) + (N_H, )
         inputs_to_hid = np.dot(embedding_layer_state, self.params.embed_to_hid_weights.T) + \
                         self.params.hid_bias
         # Apply logistic activation function
+        # (B x N_H)
         hidden_layer_state = 1. / (1. + np.exp(-inputs_to_hid))
 
         # Output layer
+        # (B x N_V) = (B x N_H) x (N_H, N_V) + (N_V, )
         inputs_to_softmax = np.dot(hidden_layer_state, self.params.hid_to_output_weights.T) + \
                             self.params.output_bias
 
         # Subtract maximum.
         # Remember that adding or subtracting the same constant from each input to a
-        # softmax unit does not affect the outputs. So subtract the maximum to
+        # softmax unit does not affect the outputs. (because numerator of denominator for e^{-c} cancels out)
+        # So subtract the maximum to
         # make all inputs <= 0. This prevents overflows when computing their exponents.
-        inputs_to_softmax -= inputs_to_softmax.max(1).reshape((-1, 1))
+        inputs_to_softmax -= inputs_to_softmax.max(1).reshape((-1, 1)) 
+        # first dimension inferred from second, i.e. convert to column vector
 
         output_layer_state = np.exp(inputs_to_softmax)
         output_layer_state /= output_layer_state.sum(1).reshape((-1, 1))
+        # (B x N_V)
 
         return Activations(embedding_layer_state, hidden_layer_state, output_layer_state)
 
@@ -246,13 +268,17 @@ class Model(object):
         
         # The matrix with values dC / dz_j, where dz_j is the input to the jth hidden unit,
         # i.e. y_j = 1 / (1 + e^{-z_j})
+        # (B x N_V) x (N_V, N_H)
         hid_deriv = np.dot(loss_derivative, self.params.hid_to_output_weights) \
                     * activations.hidden_layer * (1. - activations.hidden_layer)
 
 
         ###########################   YOUR CODE HERE  ##############################
+        hid_to_output_weights_grad = np.dot(loss_derivative.T, activations.hidden_layer)
+        embed_to_hid_weights_grad = np.dot(hid_deriv.T, activations.embedding_layer)
 
-
+        output_bias_grad = np.dot(loss_derivative.T, np.ones(input_batch.shape[0]))
+        hid_bias_grad = np.dot(hid_deriv.T, np.ones(input_batch.shape[0]))
         ############################################################################
 
 
@@ -265,8 +291,7 @@ class Model(object):
             word_embedding_weights_grad += np.dot(self.indicator_matrix(input_batch[:, w]).T,
                                                   embed_deriv[:, w*self.embedding_dim:(w+1)*self.embedding_dim])
             
-        return Params(word_embedding_weights_grad, embed_to_hid_weights_grad, hid_to_output_weights_grad,
-                      hid_bias_grad, output_bias_grad)
+        return Params(word_embedding_weights_grad, embed_to_hid_weights_grad, hid_to_output_weights_grad, hid_bias_grad, output_bias_grad)
 
     def evaluate(self, inputs, targets, batch_size=100):
         """Compute the average cross-entropy over a dataset.
@@ -294,7 +319,7 @@ class Model(object):
 
         # Compute distance to every other word.
         idx = self.vocab.index(word)
-        word_rep = self.params.word_embedding_weights[idx, :]
+        word_rep = self.params.word_embedding_weights[idx, :] # idx-th row
         diff = self.params.word_embedding_weights - word_rep.reshape((1, -1))
         distance = np.sqrt(np.sum(diff**2, axis=1))
 
@@ -342,7 +367,7 @@ class Model(object):
         word_rep1 = self.params.word_embedding_weights[idx1, :]
         word_rep2 = self.params.word_embedding_weights[idx2, :]
         diff = word_rep1 - word_rep2
-        return np.sqrt(np.sum(diff ** 2))
+        return np.sqrt(np.sum(diff ** 2)) # norm
 
     def tsne_plot(self):
         """Plot a 2-D visualization of the learned representations using t-SNE."""
@@ -414,6 +439,7 @@ def train(embedding_dim, num_hid, config=DEFAULT_TRAINING_CONFIG):
     train_inputs, train_targets = data_obj['train_inputs'], data_obj['train_targets']
     valid_inputs, valid_targets = data_obj['valid_inputs'], data_obj['valid_targets']
     test_inputs, test_targets = data_obj['test_inputs'], data_obj['test_targets']
+
     
     # Randomly initialize the trainable parameters
     model = Model.random_init(config['init_wt'], vocab, config['context_len'], embedding_dim, num_hid)
@@ -487,14 +513,5 @@ def train(embedding_dim, num_hid, config=DEFAULT_TRAINING_CONFIG):
 
 
             
-            
-
-
-    
-
-    
-
-    
-
 
     

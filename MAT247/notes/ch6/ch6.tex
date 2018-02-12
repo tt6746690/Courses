@@ -7,6 +7,10 @@
     \subsection*{\href[page=#2]{#1}{#3}}
 }
 
+\newcommand{\linkinline}[3][../../linear_algebra_friedberg_insel_spence_4ed.pdf]{
+    \noindent\href[page=#2]{#1}{#3}
+}
+
 \newcommand{\linksolution}[3][../../solution_compiled.pdf]{
     \noindent\href[page=#2]{#1}{#3} \\
 }
@@ -25,9 +29,10 @@
 \newcommand{\tinvariant}[2]{\langle#2\rangle_{#1}}
 \newcommand{\innerp}[2]{\langle#1,#2\rangle}
 \renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
-
+\newcommand{\orthocomp}[1]{#1^{\perp}}
 
 \linksection{341}{Chapter 6 Inner Product Spaces}
+\linksection{341}{6.1 Inner Products and Norms}
 
 
 \begin{defn*}
@@ -61,7 +66,7 @@
         \]
         \item \textbf{Frobenius Inner Product for Matrices} Let $V=M_{n\times n}(F)$, $A,B\in V$, then 
         \[
-            \innerp{A}{B} = \tr{B^*A} = \sum_{i=1}^n (B^*A)_{ii}
+            \innerp{A}{B} = \trace{B^*A} = \sum_{i=1}^n (B^*A)_{ii}
         \]
     \end{enumerate}
 \end{defn*}
@@ -137,5 +142,193 @@
     \]
 \end{defn*}
 
+
+
+\linksection{353}{Gram-Schmidt Orthogonalization Process and Orthogonal Complements}
+
+\begin{defn*}
+    \textbf{Orthonormal Basis} Let $V$ be an inner product space. A subset of $V$ is an orthonormal basis for $V$ if it is an ordered basis that is orthonormal
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Every Inner Product Space has $n$ Orthogonal Basis} Let $V$ be an inner product space and $S = \{ v_1, v_2, \cdots, v_k\}$ be an orthogonal subset of $V$ consisting of nonzero vectors. If $y\in \span{S}$, then 
+    \[
+        y = \sum_{i=1}^k \frac{\innerp{y}{v_i}}{\norm{v_i}^2} v_i
+    \]
+\end{defn*}
+
+\begin{corollary*}
+    \textbf{Special case for Orthonormal Set} If, in addition to hypotheses of previous theorem, $S$ is orthonormal and $y\in \spam{S}$, then 
+    \[
+        y = \sum_{i=1}^k \innerp{y}{v_i}v_i    
+    \]
+\end{corollary*}
+
+\begin{corollary*}
+    \textbf{Nonzero Orthonormal Set is Linearly Independent} Let $V$ be an inner product space, andf let $S$ be an orthogonal subset of $V$ consisting of nonzero vectors. Then $S$ is linearly independent
+\end{corollary*}
+
+\begin{theorem*}
+    \textbf{6.4 Gram-Schmidt Process} Let $V$ be an inner product space and $S = \{w_1,w_2,\cdots, w_n\}$ be a linearly independent subset of $V$. Define $S' = \{v_1,v_2,\cdots, v_n\}$, where $v_1 = w_1$ and 
+    \[
+        v_k = w_k - \sum_{j=1}^{k-1} \frac{\innerp{w_k}{v_j}}{\norm{v_j}^2} v_j 
+        \quad \quad 
+        2\leq k\leq n
+    \]
+    Then $S'$ is an orthogonal set of nonzero vectors such that $\span{S'} = \span{S}$
+\end{theorem*}
+
+
+
+\begin{theorem*}
+    \textbf{6.5 Every Finite Dimensional I.P.S has an Orthonormal Basis} Let $V$ be a nonzero finite-dimensional inner product space. Then $V$ has an orthonormal basis $\beta$. Furthermore, if $\beta = \{v_1, v_2,\cdots, v_n\}$ and $x\in V$, then 
+    \[
+        x = \sum_{x=1}^n \innerp{x}{v_i}v_i    
+    \]
+\end{theorem*}
+
+
+\begin{corollary*}
+    \textbf{Expression for Matrix Representation of Transformation on Orthonormal Basis} Let $V$ be a finite-dimensional inner product space with an orthonormal basis $\beta = \{v_1,v_2,\cdots, v_n\}$. Let $T$ be a linear operator on $V$, and let $A = \cvec{T}{\beta}$. Then for any $i$ and $j$, $A_{ij} = \innerp{T(v_j)}{v_i}$, i.e. 
+    \[
+        T(v_j) = \sum_{i=1}^n \innerp{T(v_j)}{v_i}  v_i  
+    \]
+\end{corollary*}
+
+
+\begin{defn*}
+    \textbf{Fourier Coefficients} Let $\beta$ be an orthonormal subset (possibly infinite) of an inner product space $V$, and let $x\in V$. We define the Fourier coefficients of $x$ relative to $\beta$ to be the scalars $\innerp{x}{y}$, where $y\in \beta$
+\end{defn*}
+
+\linksection{361}{Orthogonal Complements}
+
+\begin{defn*}
+    \textbf{Orthogonal Complements} Let $S$  be a nonempty subset of an inner product space $V$. We define $\orthocomp{S} = \{x\in V: \innerp{x}{y} = 0 \text{ for all } y\in S \}$. The set $\orthocomp{S}$ is called the orthogonal complement of $S$
+    \begin{enumerate}
+        \item $\orthocomp{\{0\}} = V$ and $\orthocomp{V} = \{0\}$ 
+    \end{enumerate}
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{6.6 Finding Projection of a Vector onto a Subspace} Let $W$ be a finite-dimensional subspace of an inner product space $V$, and let $y\in V$. Then there exist unique vectors $u\in W$ and $z\in \orthocomp{W}$ such that $y=u+z$. Furthermore, if $\{v_1,v_2,\cdots,v_k\}$ is an orthonormal basis for $W$, then 
+    \[
+        u = \sum_{i=1}^k \innerp{y}{v_i}v_i    
+    \]
+    where $u$ is the orthogonal projection of $y$ on $W$.
+\end{theorem*}
+
+
+\begin{corollary*}
+    \textbf{Orthogonal Projection is Unique and Closest to Projected Vector} In the notation of previous theorem, the vector $u$ the unique vector in $W$ that is closest to $y$; that is, for any $x\in W$, $\norm{y-x} \geq \norm{y-u}$, and this inequality is an equality if and only if $x=u$
+\end{corollary*}
+
+
+\begin{theorem*}
+    \textbf{6.7 Orthonormal Basis and Subspaces} Suppose that $S = \{v_1,v_2,\cdots, v_k\}$ is an orthonormal set in an n-dimensional inner product space $V$.Then 
+    \begin{enumerate}
+        \item $S$ can be extended to an orthonormal basis $\{v_1,v_2,\cdots, v_k, v_{k+1}, \cdots, v_n\}$ for $V$. 
+        \item If $W = \span{S}$, then $S_1 = \{v_{k+1}, \cdots, v_n\}$ is an orthonormal basis for $\orthocomp{W}$ 
+        \item If $W$ is any subspace of $V$, then $\dim{V} = \dim{W} + \dim{\orthocomp{W}}$
+    \end{enumerate}
+\end{theorem*}
+
+\linksection{369}{6.3 The Adjoint of a Linear Operator}
+
+\begin{defn*}
+    \textbf{Dual Space} is a space of all linear transformations from a vector space $V$ to its field $F$. 
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{6.8 Every Linear Transformation from $V$ to $F$ Can Be Written as a Inner Product} Let $V$ be a finite-dimensional inner product space over $F$, and let $g: V\to F$ be a linear transformation. Then there exists a unique vector $y\in V$ such that $g(x) = \innerp{x}{y}$ for all $x\in V$, where
+    \[
+        y = \sum_i \overline{g(v_i)} v_i \qquad \text{$\beta = \{v_1,\cdots, v_n\}$ is orthonormal basis}
+    \]
+\end{theorem*}
+
+
+\begin{defn*}
+    \textbf{Adjoint Linear Operator} Given inner product space $V$, let $T$ be a linear operator on $V$. The adjoint of operator $T$, $T^*$, is the unique operator on $V$ satisfying 
+    \[
+        \innerp{T(x)}{y} = \innerp{x}{T^*(y)}    
+        \qquad \text{for all $x,y\in V$}
+    \]
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{6.9 Adjoint of an Linear Operator Exist for f.d. Inner Product Space} Let $V$ be a finite-dimensional inner product space, and let $T$ be a linear operator on $V$. Then there exists a unique function, called the adjoint of $T$, $T^*: V\to V$ such that
+    \[
+        \innerp{T(x)}{y} = \innerp{x}{T^*(y)}    
+    \]
+    for all $x,y\in V$. Furthermore, $T^*$ is linear. 
+\end{theorem*}
+
+
+
+\begin{theorem*}
+    \textbf{6.10 Adjoint of a Linear Operator in Matrix Form is the Adjoint of Matrix Form of that Linear Operator} Let $v$ be a finite-dimensional inner product space. Let $\beta$ be an orthonormal basis for $V$. If $T$ is a linear operator on $V$, thern 
+    \[
+        \cvec{T^*}{\beta} = \cvec{T}{\beta}^*
+    \]
+\end{theorem*}
+
+\begin{corollary*}
+    \textbf{For Left-Matrix Transformation} Let $A$ be $n\times n$ matrix, then $L_{A^*} = (L_A)^*$. (\linkinline{104}{theorem 2.16})
+\end{corollary*}
+
+\begin{theorem*}
+    \textbf{6.11 Properties of Adjoint of Linear Operators} \\
+    Let $V$ bewr an inner product space, and let $T$, $U$ be linear operators on $V$, then 
+    \begin{enumerate}
+        \item $(T+U)^* = T^* + U^*$ 
+        \item $(cT)^* = \overline{c}T^*$ for any $c\in F$
+        \item $(TU)^* = U^*T^*$ 
+        \item $T^{**} = T$ 
+        \item $I^* = I$ 
+    \end{enumerate}
+    assuming adjoints always exists.
+\end{theorem*}
+
+\begin{corollary*}
+    \textbf{For Matrix} \\
+    Let $A$ and $B$ be $n\times n$ matrix, then 
+    \begin{enumerate}
+        \item $(A+B)^* = A^* + B^*$ 
+        \item $(cA)^* = \overline{c}A^*$ for all $c\in F$
+        \item $(AB)^* = B^*A^*$ 
+        \item $A^{**} = A$ 
+        \item $I^* = I$ 
+    \end{enumerate}
+\end{corollary*}
+
+\linksection{372}{Least Squares Approximation}
+
+\begin{defn*}
+    \textbf{Some notation} Fort $x,y\in F^n$ 
+    \begin{enumerate}
+        \item $\innerp{x}{y}_n$ is the standard inner product of $x$ and $y$  in $F^n$
+        \item If $x$ and $y$ are column vectors, then $\innerp{x}{y}_n = y^*x$ 
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{lemma*}
+    Let $A\in M_{m\times n}(F)$, $x\in F^n$ and $y\in F^m$, then 
+    \[
+        \innerp{Ax}{y}_m = \innerp{x}{A^*y}_n    
+    \]
+\end{lemma*}
+
+\begin{lemma*}
+    Let $A\in M_{m\times n}(F)$. Then $\rank{A^*A}=\rank{A}$
+\end{lemma*}
+
+\begin{corollary*}
+    If $A$ is $m\times n$ matrix such that $\rank{A}=n$, then $A^*A$ is invertible
+\end{corollary*}
+
+
+\begin{theorem*}
+    \textbf{6.12 Close Form Solution for Least Squared Problem} Let $A\in M_{m\times n}(F)$ and $y\in F^m$. Then there exists $x_0\in F^n$ such that $(A^*A)x_0 = A^*y$ and $\norm{Ax_0 - y} \leq \norm{Ax -y}$ for all $x\in F^n$. Furthermore, if $\rank{A}=n$, then $x_0 = (A^*A)^{-1}A^*y$ 
+\end{theorem*}
 
 \end{document}

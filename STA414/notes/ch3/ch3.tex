@@ -8,6 +8,10 @@
     \subsection*{\href[page=#2]{#1}{#3}}
 }
 
+\newcommand{\linkinline}[3][../../bishop_pattern_recognition_and_machine_learning.pdf]{
+    \noindent\href[page=#2]{#1}{#3}
+}
+
 \renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \renewcommand{\E}[2][]{\mathbb{E}_{#1}\left\{#2\right\}}
 \newcommand{\var}[1]{var\{#1\}}
@@ -23,6 +27,9 @@
 
 
 \newcommand{\lebpar}[2]{\frac{\partial #1}{\partial #2}}
+
+\linksection{664}{Appendix C. Matrix Derivatives}
+
 
 \linksection{155}{Chapter 3 Linear Models for Regression}
 
@@ -153,6 +160,7 @@
 
 
 \linksection{165}{3.2 The Bias-Variance Decomposition}
+\linksection{165}{1.1.5 Background on Decision Theory}
 
 
 \begin{defn*}
@@ -184,8 +192,6 @@
         \includegraphics[width=8cm]{regularization_bias_variance_tradeoff.jpg}
     \end{center}
 \end{defn*}
-
-
 
 
 
@@ -255,5 +261,55 @@
     \]
     satisfied by $\eta_T \propto 1/t$
 \end{defn*}
+
+
+\linksection{171}{3.3 Bayesian Linear Regression}
+
+\linkinline{159}{definition of $p(\matr{t}|\matr{w})$ as product of independent gaussians with $\matr{w}^T \phi(\matr{x}_n)$ as mean}
+
+\linkinline{111}{Formula for marginal and Conditional Gaussian in determining Gaussian posterior}
+
+\begin{defn*}
+    \textbf{Parameter Distribution} Bayesian treatment of linear regression, Given a zero-mean isotropic ($\matr{\Sigma}=\sigma\matr{I}$) Gaussian prior and likelihood
+    \[
+        p(\matr{w}|\alpha) = \normal{\matr{w}| \matr{0}, \alpha^{-1}\matr{I}}
+        \quad \quad \quad 
+        p(\matr{t}|\matr{w}) = \prod_{n=1}^N \normal{t_n | \matr{w}^T \boldsymbol{\phi}(\matr{x}_n), \beta^{-1}}
+    \]
+    then we have posterior
+    \[
+        p(\matr{w}|\matr{t}) = \normal{\matr{w}|\matr{m}_N, \matr{S}_N}
+        \quad \quad \quad 
+        \matr{m}_N = \beta \matr{S}_N \matr{\Phi}^T \matr{t} 
+        \quad 
+        \matr{S}_N^{-1} = \alpha\matr{I} + \beta \matr{\Phi}^T\matr{\Phi}
+    \]
+    Maximization of posterior distribution of log likelihood with respecct to $\matr{w}$ is equivalent to minimization of sum-of-squares error function with the addition of a quadratic regularization term with $\lambda = \alpha/\beta$ 
+    \[
+        \ln{p(\matr{w}|\matr{t})} = -\frac{\beta}{2} \sum_{n=1}^N \left(t_n - \matr{w}^T \boldsymbol{\Phi}(\matr{x}_n)\right)^2 + \frac{\alpha}{2} \matr{w}^T \matr{w}
+    \]
+\end{defn*}
+
+
+\linksection{174}{3.3.2 Predictive Distribution} 
+
+
+\begin{defn*}
+    \textbf{Posterior Predictive Distribution} \href{https://en.wikipedia.org/wiki/Posterior_predictive_distribution}{wiki} Posterior predictive distribution in gaussian linear model is given by marginalizing distribution of prediction $t$ over parameters $\matr{w}$ over posterior distribution of estimated parameters given training dataset $\matr{w}, \matr{t}$.
+    \[
+        p(t|\matr{t}, \alpha,\beta) = \
+        p(t|\matr{w},\beta) p(\matr{w}|\matr{t}, \alpha, \beta) d\matr{w}
+    \]
+    where integrands refer to \linkinline{158}{3.8} and \linkinline{171}{3.49}. Note the posterior predictive distribution is also a gaussian distribution.
+\end{defn*}
+
+\linksection{179}{3.4 Bayesian Model Comparison}
+
+
+\linksection{179}{3.6 Limitations of Fixed Basis Functions}
+
+
+
+
 
 \end{document}

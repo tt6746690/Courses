@@ -50,7 +50,7 @@ variable(1) // loop unrolling
        movl    $9, %eax             // eax = 9
 
 .L18:
-       movq    $1, %eax             // eax = eax - 1;
+       subl    $1, %eax             // eax = eax - 1;
        movq    (%rdx), %rdx         // rdx = rdx[0]
        jne     .L18                 // if that last subtraction wasnt zero jump to .L18
        movq    8(%rdx), %rdx        // rdx = rdx[1]

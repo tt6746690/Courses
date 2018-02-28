@@ -1,5 +1,5 @@
 #lang racket
-
+(require "tree.rkt")
 
 
 #| Let's capture ES6's syntax for LC

@@ -17,6 +17,9 @@ movq %r10, %rcx
 addq $16, %r10
 retq
 _call_ec:
+movq %r11, %rax
+movq 8(%rax), %rcx
+pushq %rcx
 movq _make_ec@GOTPCREL(%rip), %rax
 movq %rax, 0(%r10)
 movq %r11, 8(%r10)
@@ -33,11 +36,6 @@ movq %r10, %r11
 addq $16, %r10
 call *(%rax)
 popq %r11
-movq %rcx, %rax
-movq %r11, %rax
-movq 8(%rax), %rcx
-pushq %rcx
-movq %rax, %rcx
 popq %rax
 pushq %r11
 movq 8(%rax), %r11

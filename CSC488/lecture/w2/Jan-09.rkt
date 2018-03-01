@@ -155,7 +155,7 @@
 
 #| Another example. |#
 
-(local [(define-syntax-rule (#%app e1 e2) (app e1 e2))]
+#;(local [(define-syntax-rule (#%app e1 e2) (app e1 e2))]
     (((λ (x) (λ (y) (x y))) (λ (z) z))
      (λ (a) a)))
 

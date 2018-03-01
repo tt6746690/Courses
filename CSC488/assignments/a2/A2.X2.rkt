@@ -419,12 +419,6 @@ void make_add() { closure(add); }
                                   result))
                  stack-pointer)))
 
-#;(λ_call_ec (f)
-             (define (λ_make_ec saved-stack-pointer)
-               (λ_ec (result) (set! stack-pointer saved-stack-pointer)
-                     result))
-             (f (λ_make_ec stack-pointer)))
-
 ; The CPU's stack pointer is a register:
 (define stack-pointer (register 'rsp))
 
@@ -435,6 +429,7 @@ void make_add() { closure(add); }
             (movq result stack-pointer)
             (variable 0)
             (retq)))
+
 (define make_ec
   (labelled 'make_ec
             (closure 'ec)
@@ -442,15 +437,13 @@ void make_add() { closure(add); }
 
 (define call_ec
   (labelled 'call_ec
-            (closure 'make_ec)    
-            (push_result)         ; make_ec on stack
+            (variable 0)
+            (push_result)         ; stack: [f]
+            (closure 'make_ec)
+            (push_result)         ; stack: [f make_ec]
             (movq stack-pointer result)
-            (call)                ; (make_ec stack-pointer) → k
-            (movq result temp)    ; temp = k
-            (variable 0)          ; f in result
-            (push_result)         ; f on stack
-            (movq temp result)    ; result = k
-            (call)                ; (f k)
+            (call)                ; (make_ec stack-pointer)   now stack: [f]
+            (call)                ; (f result)
             (retq)))
 
 

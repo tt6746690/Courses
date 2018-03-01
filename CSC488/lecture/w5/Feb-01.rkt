@@ -28,10 +28,10 @@
 
 (define (exprs n)
   (cond [(zero? n) (list "x")]
-        [else (append* (map (λ (e) (~a "x=>" e))
+        [else (append* (map (λ (e) (~a "x=>" e))    ; id => expr
                            (exprs (- n 1)))
                       (for/list ([n′ n])
-                        (for*/list ([e1 (exprs n′)]
+                        (for*/list ([e1 (exprs n′)] ; nesting, items all combination of e1 and e2
                                     [e2 (exprs (- n n′ 1))])
                           (~a e1 "(" e2 ")"))))]))
 

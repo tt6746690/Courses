@@ -94,7 +94,7 @@
 
 #;x ; Invalid.
 
-(λ (x) x)
+#; (λ (x) x)
 ; Add a closure λ0 to the set of closures.
 ;   λ0 is (λ (x) x) paired with the root environment •.
 ; Set the current result to λ0.

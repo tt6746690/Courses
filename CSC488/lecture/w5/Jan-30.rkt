@@ -66,6 +66,7 @@
 
 #;(define identifier
     (λ (s) ((sequence alphabetic (maybe identifier)) s)))
+; need to create a thunk since (maybe identifier) evaluated first 
 
 (define-syntax-rule (define-recursive f-id body-expr)
   (define (f-id v) (body-expr v)))

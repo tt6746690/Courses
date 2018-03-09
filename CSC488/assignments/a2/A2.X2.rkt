@@ -8,7 +8,9 @@ reference:
 (provide L2→X2
          Mac? heap-size postamble)
 
+(require "A2.L1.rkt")
 (require "A2.L2.rkt")
+(require "A2.M0.rkt")
 (module+ test (require rackunit))
 
 ; Whether to emit code for the Mac, that Apple's gcc wrapper for clang handles. |#
@@ -75,6 +77,7 @@ reference:
 
 (define (movq from to) (~a 'movq " " from   ", " to))
 (define (addq from to) (~a 'addq " " from   ", " to))
+(define (imulq from to) (~a 'imulq " " from   ", " to))
 
 #| Integer Constants
    =================
@@ -395,6 +398,22 @@ void make_add() { closure(add); }
             (closure 'add)
             (retq)))
 
+(define multiply
+  (labelled 'multiply
+            (variable 1)
+            (pushq result)
+            (variable 0)
+            (popq temp)
+            (imulq temp result)
+            (retq)))
+
+(define make_multiply
+  (labelled 'make_multiply
+            (closure 'multiply)
+            (retq)))
+
+
+
 
 
 ; Escape Continuations
@@ -447,42 +466,13 @@ void make_add() { closure(add); }
             (retq)))
 
 
-
-#;(call/ec f)
-; Call unary function f, passing in the continuation k of the (call/ec f) expression.
-; Calling k with argument v during the execution of (call/ec f) aborts that expression,
-;  and uses v as its result value.
-
-#;(+ 1 (call/ec (λ (k) 100)))  ; output 101
-(define callec-testcase '(L1: app (L1: app (L1: var +) (L1: datum 1))
-                              (L1: app (L1: var call/ec)
-                                   (L1: λ 0 (L1: datum 100)))))
-
-#;(+ 1 (call/ec (λ (k) (k 10))))  ; output 11
-(define callec2-testcase '(L1: app (L1: app (L1: var +) (L1: datum 1))
-                               (L1: app (L1: var call/ec)
-                                    (L1: λ 0 (L1: app (L1: var 0) (L1: datum 10))))))
-
-#;(- (sqr (call/ec (λ (k) (sin (k 3))))))
-
-; call stack:
-;   -
-;   sqr
-; -------- k
-;   sin
-; Calling k resets control flow to that line, throwing away the waiting call to sin.
-
-
-
-
 ; A2's L1→L2 translates ‘call/ec’ to a statement that creates a call_ec closure.
 (module+ test
   (check-equal? (L1→L2 '(L1: var call/ec)) (compiled:L2
                                             '((L2: closure call_ec))
                                             '())))
 
-; Put X2 versions of calss.
-
+; Put X2 versions of less than.
 ; Roughly, we've been treating “less than” as if it's:
 #;(define < (λ_make_less_than (variable_1)
                               (λ_less_than (variable_0)
@@ -509,19 +499,91 @@ void make_add() { closure(add); }
 
 ; Put X2 versions of make_less_than and less_than in RTL below.
 
+(define less_than
+  (labelled 'less_than
+            (variable 1)
+            (pushq result)
+            (variable 0)
+            (popq temp)   ; temp = variable_1   result = variable_0
+            (cmpq result temp)
+            (setl result-byte)
+            (movzbq result-byte result)
+            (retq)))
+
+(define make_less_than
+  (labelled 'make_less_than
+            (closure 'less_than)
+            (retq)))
+
 
 (define RTL
-  `(,add ,make_add ,call_ec ,make_ec ,ec))
+  `(,add
+    ,make_add
+    ,multiply
+    ,make_multiply
+    ,call_ec
+    ,make_ec
+    ,ec
+    ,less_than
+    ,make_less_than))
 
-; testing stuff
-(define (L1→X2 x) (L2→X2 (L1→L2 x)))
 
+; 200
 (define app-testcase '(L1: app (L1: λ 0 (L1: var 0)) (L1: datum 200)))
+; 36
 (define add-testcase '(L1: app (L1: app (L1: var +) (L1: datum 12)) (L1: datum 24)))
+
+#;(+ 1 (call/ec (λ (k) 100)))  ; output 101
+(define callec-testcase '(L1: app (L1: app (L1: var +) (L1: datum 1))
+                              (L1: app (L1: var call/ec) (L1: λ 0 (L1: datum 100)))))
+#;(+ 1 (call/ec (λ (k) (k 10))))  ; output 11
+(define callec2-testcase '(L1: app (L1: app (L1: var +) (L1: datum 1))
+                               (L1: app (L1: var call/ec)
+                                    (L1: λ 0 (L1: app (L1: var 0) (L1: datum 10))))))
+#;(+ 1 (+ 1 (call/ec (λ (k) (k 10)))))  ; output 12
+(define callec4-testcase '(L1: app (L1: app (L1: var +) (L1: datum 1))
+                               (L1: app (L1: var call/ec)
+                                    (L1: λ 0 (L1: app (L1: var 0) (L1: datum 10))))))
+#;(+ 15 (call/ec (λ (k)
+                   (+ 3 (k 16)))))  ; output 30
+(define callec3-testcase '(L1: app (L1: app (L1: var +) (L1: datum 14))
+                               (L1: app (L1: var call/ec)
+                                    (L1: λ 0 (L1: app (L1: app (L1: var +) (L1: datum 3))
+                                                  (L1: app (L1: var 0) (L1: datum 16)))))))
+#; (< 10 11)  ; 1
+(define lessthan1-testcase '(L1: app (L1: app (L1: var <) (L1: datum 10)) (L1: datum 11)))
+#; (< 10 10)  ; 0
+(define lessthan2-testcase '(L1: app (L1: app (L1: var <) (L1: datum 10)) (L1: datum 10)))
+#; (< 10 9)   ; 0
+(define lessthan3-testcase '(L1: app (L1: app (L1: var <) (L1: datum 10)) (L1: datum 9)))
+
+
+(define fib-testcase '(local [(define (fib n)
+                                               (cond [(= n 1) 1]
+                                                     [(= n 2) 1]
+                                                     [else (+ (fib (- n 1))
+                                                              (fib (- n 2)))]))]
+                                       (fib 13)))
+
+(define add2-testcase '(< 10 2))    ; 0
+
 
 
 (define out (open-output-file "file.s" 	#:exists 'replace))
-(define assembly (L1→X2 callec2-testcase))
+(define assembly (L2→X2 (L1→L2 (L0→L1 (M0→L0 fib-testcase)))))
 (map (λ (x) (display x out)) assembly)
 (close-output-port out)
+
+#;(provide T:*id* T:*datum*
+           T:set! T:if
+           T:λ T:*app*
+           T:block
+           T:let T:local
+           T:cond T:when T:while
+           T:breakable T:continuable T:returnable
+           T:and T:or
+           Ts ; List of all the transformations, defined after all of them.
+           standard-library
+           M0→L0)
+
 

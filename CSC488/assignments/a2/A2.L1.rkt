@@ -74,6 +74,7 @@
     [`(L0: app ,<e1> ,<e2>) `(L0: app ,(debruijn′ <e1>) ,(debruijn′ <e2>))]
     [`(L0: var ,<id>) `(L1: var ,(debruijn-index <id>))]
     [`(L0: set! ,<id> ,<e>) `(L1: set! ,(debruijn-index <id>) ,(debruijn′ <e>))]
+    [`(L0: if ,<e0> ,<e1> ,<e2>) `(L0: if ,(debruijn′ <e0>) ,(debruijn′ <e1>) ,(debruijn′ <e2>))]
     [_ e]))
 
 
@@ -169,8 +170,25 @@
 (define (L0→L1 e)
   (define (L0→L1′ e)
     (match e
-      [`(L0: ,<syntax> ...) `(L1: . ,<syntax>)]
+      ; [`(L0: ,<syntax> ...) (L0→L1′ `(L1: . ,<syntax>))]
+      ; recursive case for nested
+      [`(,_ λ ,<n> ,<e>) `(L1: λ ,<n> ,(L0→L1′ <e>))]
+      [`(,_ app ,<e1> ,<e2>) `(L1: app ,(L0→L1′ <e1>) ,(L0→L1′ <e2>))]
+      [`(,_ set! ,<n> ,<e>) `(L1: set! ,<n> ,(L0→L1′ <e>))]
+      [`(,_ if ,<n> ,<e1> ,<e2> ,<e3>) `(L1: if ,<n>
+                                             ,(L0→L1′ <e1>)
+                                             ,(L0→L1′ <e2>)
+                                             ,(L0→L1′ <e3>))]
+      [`(,_ datum ,<i>) `(L1: datum ,<i>)]
+      [`(,_ var ,<id>) `(L1: var ,<id>)]
       [_ e]))
   (L0→L1′ (index (debruijn e))))
 
 
+; L0 languages
+#;(L0: λ (<id>) <e>)
+#;(L0: app <e1> <e2>)
+#;(L0: var <id>)
+#;(L0: datum <i>)
+#;(L0: set! <id> <e>)
+#;(L0: if <e1> <e2> <e3>)

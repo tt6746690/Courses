@@ -38,6 +38,7 @@
 
 ; Struct for a macro: the name of the form it expands, and the function to expand that form.
 (struct transformer (name function) #:transparent)
+; function transforms expression of the form (name <part> ...)
 
 ; Convenience form to define a macro by pattern matching.
 
@@ -46,9 +47,13 @@
   (check-equal? (transformer-name m) '++)
   (check-equal? ((transformer-function m) '(++ x)) '(set! x (+ x 1))))
 
+
+; id for referencing the transformer in rkt,
+; name is transformer-name attr, a tag for triggering this transform
+; clauses for match
 (define-syntax-rule
-  (define-transformer id name
-    clause
+  (define-transformer id name 
+    clause  
     ...)
   (define id (transformer 'name (λ (e) (match e
                                          clause
@@ -59,9 +64,7 @@
 
   ; Turn the list of transformers into a dictionary. Details not important.
   (define env′ (for/hash ([t env]) (values (transformer-name t) (transformer-function t))))
-
   (local [(define (expand e)
-            
             (match e
               
               ; Head identifier determines meaning: pre-order traversal.
@@ -71,7 +74,7 @@
                              ; Internal node can re-arrange subtree, in particular its subtrees.
                              (expand ; Expansion continues after rewrite.
                               ; Rewrite:
-                              ((dict-ref env′ head) e))]
+                              ((dict-ref env′ head) e))]  ; call transformer-function on e when transformer-name is head
               
               ; Core forms: they determine which sub-forms are expressions to continue expanding.
               [`(L0: datum ,_) e]

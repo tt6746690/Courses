@@ -1,0 +1,253 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+\newcommand{\linksection}[3][../../algorithm_design.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+\newcommand{\linkclrs}[3][../../../../c_2016_2017/CSC373/intro_to_algo.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+
+
+\newcommand{\aub}[1]{\mathcal{O}\left( #1 \right)}
+\newcommand{\alb}[1]{\Omega\left( #1 \right)}
+\newcommand{\atb}[1]{\Theta\left( #1 \right)}
+\newcommand{\p}[1]{\mathbb{P}\left( #1 \right)}
+\renewcommand{\E}[1]{\mathbb{E}\left\{ #1 \right\}}
+
+
+
+
+\linksection{27}{Chapter 1 Some Representative Problems}
+
+\begin{defn*}
+    \textbf{Problems}
+    \begin{enumerate}
+        \item \textbf{Stable Matching} Consider $M = \{m_1,\cdots, m_n\}$ of $n$ men, and a set $W = \{w_1,\cdots, w_n\}$ of $n$ women. Let $M\times W$ denote set of all possible ordered pairs of form $(m,w)$, where $m\in M$ and $w\in W$. 
+        \begin{enumerate}
+            \item \textbf{Matching} $S$ is a set of ordered pairs, each from $M\times W$, with property that each member of $M$ and each member of $W$ appears in at most one pair in $S$. 
+            \item \textbf{Perfect Matching} $S'$ is a matching with property that each member of $M$ and each member of $W$ appears in exactly one pair in $S'$. (Marriage analalogy, everyone is married, no singlehood nor polygamy)
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
+
+
+\linksection{55}{Chapter 2 Basics of Algorithm Analysis}
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{Worst-case running time} A bound on the largest possible running time the algorithm could have over all inputs of a given size $N$, and see how this scales with $N$
+        \item \textbf{Average-case Analyiss} Performance of algorithm averaged over random instances
+        \item \textbf{Efficient Algorithm} An algorithm is efficient if it achieves quantitatively better than worst-case performance, at an analytical level than brute-force search. Alternatively, its efficient if it has the algorithm has a polynomial running time
+        \item \textbf{Poynomial Running time} An algorithm whose running time $T(n) = \aub{n^d}$ for some constant $d\in \R$, independent of input size $n$
+        \item \textbf{Asymptotic Upper Bounds} Let $T(n)$ and $f(n)$ be functions, then $T$ is asymptotically upperbounded by $f$, i.e. $T(n) = \aub{f(n)}$, if there exists constants fixed $c>0$ and $n_0 \geq 0$ so that for all $n\geq n_0$, $T(n) \leq cf(n)$
+        \item \textbf{Asymptotic Lower Bound} $T(n)$ is asymptotically lowerbounded by $\alb{f(n)}$, i.e. $T(n) = \alb{f(n)}$ if there exists constants fixed $\epsilon > 0$ and $n_0 \geq 0$ so that for all $n\geq n_0$, $T(n) \geq \epsilon f(n)$ 
+        \item \textbf{Asymptotic Tight Bounds} If $T(n)$ is both $\aub{f(n)}$ and $\alb{f(n)}$ , then $T(n) = \atb{f(n)}$
+        \item \textbf{Asymptotics Properties}
+        \begin{enumerate}
+            \item \textbf{Transitivity} 
+            \begin{enumerate}
+                \item if  $f = \aub{g}$ and $g = \aub{h}$, then $f = \aub{h}$
+                \item if  $f = \alb{g}$ and $g = \alb{h}$, then $f = \alb{h}$
+                \item if  $f = \atb{g}$ and $g = \atb{h}$, then $f = \atb{h}$
+            \end{enumerate}
+            \item \textbf{Sum of Functions} 
+            \begin{enumerate}
+                \item $f = \aub{h}$ and $g = \aub{h}$, then $f+g = \aub{h}$
+                \item If $g = \aub{f}$, then $f+g = \atb{f}$. $f$ is asymptotically tight bound for combined function $f+g$
+            \end{enumerate}
+        \end{enumerate}
+        \item \textbf{Asymptotics for Common Functions}
+        \begin{enumerate}
+            \item \textbf{Polynomial} Let $f$ be a polynomial of degree $d$, in which $a_d$ is positive. Then $f = \atb{n^d}$ 
+            \item \textbf{Logarithms} 
+            \begin{enumerate}
+                \item For every $b>1$ and every $x>0$, we have $\log_b n = \aub{n^x}$
+                \item $\log_a n = \atb{\log_b n}$ (base of logarithm not important)
+            \end{enumerate}
+            \item \textbf{Exponentials} 
+            \begin{enumerate}
+                \item For every $r>1$ and every $d > 0$, we have $n^d = \aub{r^n}$
+                \item Asymptotically, exponential functions with different base are all differen
+            \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
+
+\linksection{363}{Chapter 7: Network Flow}
+
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{Flow Network}
+    \end{enumerate}
+\end{defn*}
+
+
+
+\linksection{733}{Chapter 13: Randomized Algorithm}
+\linksection{734}{13.1 Contention Resolution}
+
+\begin{defn*}
+    \textbf{Asymptotic of natural number}
+    \[  
+        e^x = \lim_{n\to\infty} \left( 1 + \frac{x}{n} \right)^n    
+    \]
+\end{defn*}
+
+\begin{defn*}
+    \textbf{The Union Bound} The probability of a union of event is upper-bounded by the sum of their individual probabilities. Given vents $\mathcal{E}_1, \mathcal{E}_2, \cdots, \mathcal{E}_n$, we have 
+    \[
+        \p{\bigcup_{i=1}^n \mathcal{E}_i } \leq \sum_{i=1}^n \p{\mathcal{E}_i}
+    \]
+\end{defn*}
+
+
+\linksection{740}{13.2 Finding the Global Minimum Cut}
+
+
+\begin{theorem*}
+    There is a polynomial time algorithm to find a global min-cut in an undirected graph $G$. The idea is we can formulate the problem of finding global min-cut in undirected graph as finding min s-t cuts in directed graphs $n-1$ times.
+\end{theorem*}
+
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{Multigraphs} $G=(V,E)$ is an undirected graph that allows multiple parallel edges between same pair of nodes.
+        \item \textbf{Contraction Algorithm} Pick uniformly at random an edge $e = (u,v) \in E$ and contract it by producing a new graph $G'$ with given update rules
+        \begin{enumerate}
+            \item $u,v$ identified into a single node $w$
+            \item All other nodes keep identity 
+            \item Edges with one end equal to $u$ and other equal to $v$ deleted from $G'$
+            \item Other edges preserved in $G'$, with end upadted to $w$, if one if its end is equal to $u$ or $v$.
+        \end{enumerate}
+        The algorithm terminates when $G'$ has only two supernodes $v_1$ and $v_2$, where we output the cut $(S(v_1), S(v_2))$, where $S(v_1), S(v_2)\subseteq V$ are set of nodes that have been contracted into $v$
+    \end{enumerate}
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{Lower Bound of Contraction Algorithm is Polynomially Small} The Contraction Algorithm returns a global min-cut of $G$ with probability at least $1 / \binom{n}{2} = 2 / n(n-1)$.
+    \begin{proof}
+        Proof consists of identifying bad events, i.e. an edge in a min-cut is contracted, and (upper) bounding their probabilities.
+    \end{proof}
+\end{theorem*}
+
+\begin{theorem*}
+    An undirected graph $G = (V,E)$ on $n$ nodes has at most $\comb{n}{2}$ global min-cuts
+\end{theorem*}
+
+\begin{defn*}
+    \textbf{Number of Global Minimum Cuts} An undirected graph $G = (V,E)$ on $n$ nodes has at most $\binom{n}{2}$ global min-cuts
+\end{defn*}
+
+
+\linksection{734}{13.3 Random Variables and Their Expectations}
+
+
+\begin{defn*}
+    \textbf{Geometric Series} 
+    \[
+        \sum_{k=0}^{\infty}ar^k = \frac{a}{1-r} \qquad |r| < 1    
+    \]
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{Random Variable} $X$ is a function from the underlying sample space to the natural numbers, such that for each natural number $j$, the set $X^{-1}(j)$ of all sample points taking value $j$ is an event. $\p{X=j}$ is equivalent to writing $\p{X^{-1}(j)}$. 
+        \item \textbf{Expectation} $\E{X} = \sum_{j=0}^{\infty} j \p{X=j}$
+        \item \textbf{Linearity of Expectation} Given two random variable $X$ and $Y$ defined over the same probability space, we define $X+Y$ be random variable equal to $X(\omega) + Y(\omega)$ on a sample point $\omega$. For any $X$ and $Y$, we have 
+        \[
+            \E{X+Y} = \E{X} + \E{Y}    
+        \]
+    \end{enumerate}
+\end{defn*}
+
+\linksection{760}{13.6 Hashing: A Randomized Implementation of Dictionaries}
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{Dictionary Data Structure} Given a universe $U$ of possible elements, the data structure try to keep track of $S\subseteq U$ where $|S| << |U|$. The goal is to be albe to insert and delete element from $S$ quickly and determine if a given element belong to $S$. Note the dictionary is for situations where $U$ is enormous, so storing by index to an array, say, would be infeasible
+        \item \textbf{Hash Function} Given $S\subseteq U$, where $|S| = n$, we will set up an array $H$ of size $n$ to store the information, and use a function 
+        \[
+            h: U\rightarrow \{0,1,\cdots,n-1 \}    
+        \]
+        that maps elements of $U$ to array positions. $h$ is a hash function and $H$ is a hash table.
+        \item \textbf{Collision} happens when there exists distinct $u,v\in S$, where $h(u)=h(v)$
+        \item \textbf{Linked List} Each position $H[i]$ of hash table stores a linked list of all $u\in S$, with $h(u)=i$. $\texttt{Insert}$ adds $u$ to linked list at position $H[h(u)]$, $\texttt{Delete}$ scans the list and removes $u$ if it is present
+        \item \textbf{Uniform Random Hashing} For each $u\in U$, when inserting $u$ into $S$, select a value $h(u)$ uniformly at random in the set $\{0,1,\cdots,n-1\}$, independently of all previous choices. In this case, the probability that two randomly selected values $h(u)$ and $h(v)$ collide is exactly $\rfrac{1}{n}$
+        \item \textbf{Universal CLasses of Hash Functions} Choose a function at random from a selected set of functions. Each function $h \in \mathcal{H}$ maps $U$ into the set $\{0,1,\cdots, n-1\}$, with two additional properties 
+        \begin{enumerate}
+            \item \textbf{Universal} For any $u,v\in U$, the probability that a randomly chosen $h\in \mathcal{H}$ satisfies $h(u)=h(v)$ is at most $1/n$
+            \item Each $h\in \mathcal{H}$ can be compactly represented and, for a given $h\in \mathcal{H}$ and $u\in U$, we can compute value $h(u)$ efficiently
+        \end{enumerate}
+        \item \textbf{Gurantees of Universal Classes of Hash Functions} Let $\mathcal{H}$ be a universal class of hash functions mapping a universe $U$ to the set $\{0,1,\cdots,n-1\}$, let $S$ be an arbitrary subset of $U$ of size at most $n$, and let $u$ be any element in $U$. We define $X$ to be a random variable equal to the number of elements $s\in S$ for which $h(s)=h(u)$, for a random choice of hash function $h\in \mathcal{H}$ ($S$ and $u$ fixed, randomness is in choice of $h\in \mathcal{H}$). Then 
+        \[
+            \E{X} \leq 1    
+        \]
+        \item \textbf{Running time} for $\texttt{Lookup}$, $\texttt{Insert}$, and $\texttt{Delete}$ have running time proportional to time to compute $h(u)$ in addition to the length of linked list at $H[h(u)]$. Previous points imply that these operations have expected running time of $\aub{1}$
+    \end{enumerate}
+\end{defn*}
+
+
+
+\linksection{767}{13.7 Finding the Closest Pair of Points: Randomized Approach}
+
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{Goal} Use dictionary, find closest pair of points in $\aub{n}$ expected time, plus $\aub{n}$ expected dictionary operations. The separation of these two components corresponds to two places where randomization take place, the former in how the algorithm processes input, and the latter in how hashing introduces additional source of randomness as part of hashtable operations
+    \end{enumerate}
+\end{defn*}
+
+\linkclrs{948}{31.1 Elementary number-theoretic notions}
+\linkclrs{1011}{32.2 The Rabin-Karp Algorithm}
+
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{String Matching} Given text $T[1..n]$ and pattern $P[1..m]$ where $m\leq n$. Assume elements of $P$ and $T$ are drawn from alphabet $\Sigma$. $P$ occurs with \textbf{shift} $s$ in text $T$ if $T[s+j] = P[j]$ for all $1\leq j \leq m$, i.e. $P[1..m] = T[s+1..s+m]$. If $P$ occurs with shift $s$ in $T$, $s$ is a \textbf{valid shift}. The string-matching problem deals with finding all valid shift with a gaiven pattern $P$ occurs in a given text $T$
+        \item \textbf{Naive Algorithm} Checks for condition $P[1..m] = T[s+1..s+m]$ for all $s = 0, \cdots, n-m$, a total of $n-m+1$ possible values of $s$.
+        \item \textbf{Rabin-Karp Algorithm} 
+        \begin{enumerate}
+            \item $\atb{m}$ preprocessing, $\atb{(n-m+1)}$ matching worst case. 
+            \item \textbf{When $m$ is small} $\atb{m}$ preprocessing time, $\atb{(n-m+1)}$ matching time. Use \textbf{Horner's rule} to convert $P$ to decimal representation $p$ and each $t_0, \cdots, t_{n-m}$, where $t_s$ is decimal representation for $T[s+1..s+m]$
+            \begin{enumerate}
+                \item Computing $p$ takes $\atb{m}$ 
+                \item Computing $t_0$ takes $\atb{m}$
+                \item Computing $t_{s+1}$ from $t_s$ takes $O(1)$, so together takes $\atb{n-m}$
+                \item Comparing $p$ with each of $t_s$ takes $\atb{n-m}$
+            \end{enumerate}
+            \item \textbf{When $m$ is large}, arithmetic operation on $p$ not constant. 
+            \begin{enumerate}
+                \item $\atb{m}$ preprocessing, $\atb{(n-m+1)m}$ matching worst case. 
+                \item All characters interpreted as radix-$d$ digits
+                \item \textbf{Heuristic to rule out invalid shift} Compute $p \mod q$ and $t_s \mod q$. If $p \mod q \neq t_s \mod q$, then $p \neq t_s$, so $s$ is invalid. Computing modulo does not change time complexity. 
+                \item \textbf{Test for Spurious Hit} However if $t_s \mod q = p \mod q$ does not imply $t_s = p$, so need to test further to see whether $s$ is really valid or a spurious hit. Idea is this occurs infrequently
+            \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Binomial Series}
+    \[
+        (x+y)^n = \sum_{k=0}^n \binom{n}{k} x^k y^{n-k}
+    \]
+\end{defn*}
+
+
+\end{document}

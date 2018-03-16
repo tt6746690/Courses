@@ -1,0 +1,197 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+\newcommand{\linksection}[3][../../linear_algebra_friedberg_insel_spence_4ed.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+\newcommand{\linkinline}[3][../../linear_algebra_friedberg_insel_spence_4ed.pdf]{
+    \noindent\href[page=#2]{#1}{#3}
+}
+
+
+\newcommand{\vecspace}{\mathcal{V}}
+\newcommand{\field}{\mathcal{F}}
+\newcommand{\trace}[1]{tr(#1)}
+\renewcommand{\span}[1]{span(#1)}
+\renewcommand{\dim}[1]{dim(#1)}
+\newcommand{\nullity}[1]{nullity(#1)}
+\newcommand{\rank}[1]{rank(#1)}
+\newcommand{\cvec}[2]{\left[ #1 \right]_{#2}}
+\renewcommand{\matr}[3]{\left[ #1 \right]_{#2}^{#3}}
+\newcommand{\ltspace}[1]{\mathcal{L}(#1)}
+\newcommand{\augmatr}[2]{(#1|#2)}
+\renewcommand{\det}[1]{det\begin{pmatrix}#1\end{pmatrix}}
+
+\newcommand{\minormatr}[2]{\tilde{#1}_{#2}}
+
+
+\linksection{159}{Chapter 4 Determinants}
+\linksection{159}{4.1 Determinants of Order 2}
+
+
+\begin{defn*}
+    \textbf{Determinant} If $A$ is $2\times n$ matrix with entries from a field $F$, then we define the determinant of $A$, denoted $\det{A}$ or $|A|$, to be the scalar $ad-bc$ 
+    \[
+        A = 
+        \begin{pmatrix}
+            a & b \\ c & d \\
+        \end{pmatrix}    
+    \]
+    Determinant $M_{2\times n}(F)\to F$ is not a linear transformation since $\det{A+B}\neq \det{A}+\det{B}$
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{4.1 Determinant is Linear in Each Row} The function $det: M_{2\times n}(F)\to F$ is a linear function of each row of a $2\times n$ matrix when the other row is held fixed. That is, if $u,v$ and $w$ are in $F^2$ and $k$ is a scalar, then 
+    \[
+        \det{u+kv \\ w} = \det{u \\ w} + k \det{v \\ w}
+        \qquad 
+        \det{w \\ u+kv} = \det{w \\ u} + k \det{w \\ v}
+    \]
+\end{theorem*}
+
+
+\begin{theorem*}
+    \textbf{4.2 Nonzero Determinant Implies Invertibility} Let $A\in M_{n\times n}(F)$. Then the determinant of $A$ is nonzero if and only if $A$ is invertible. Moreover, if $A$ is invertible, then 
+    \[
+        A^{-1} = \frac{1}{\det{A}} 
+        \begin{pmatrix}
+            A_{22} & -A_{12} \\
+            -A_{21} & A_{11} \\ 
+        \end{pmatrix}
+    \]
+\end{theorem*}
+
+\linksection{221}{4.2 Determinants of Order $n$}
+
+\begin{defn*}
+    \textbf{Matrix for Computing Minors} Let $A\in M_{n\times n}(F)$, for $n\geq 2$, denote $(n-1)\times (n-1)$ matrix obtained from $A$ by deleting row $i$ and column $j$ by $\minormatr{A}{ij}$
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Determinants} Let $A\in M_{n\times n}(F)$. If $n=1$, $A=(A_{11})$, define $\det{A} = A_{11}$. For $n\geq 2$, we define $\det{A}$ recursively as 
+    \[
+        \det{A} = \sum_{j=1}^n (-1)^{1+j} A_{1j} \cdot \det{\minormatr{A}{1j}}
+    \]
+    The scalar $\det{A}$ is called the determinant of $A$ and is also denoted by $|A|$. The scalar 
+    \[
+        c_{ij} = (-1)^{i+j} \det{\minormatr{A}{ij}}    
+    \]
+    is called the \textbf{cofactor} of the entry of $A$ in row $i$, and column $j$. So determinant can be expressed as a \textbf{cofactor expansion along the first row} of $A$
+    \[
+        \det{A} = A_{11}c_{11} + A_{12}c_{12} + \cdots + A_{1n}c_{1n}
+    \]
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Determinant for Identity} Determinant of $n\times n$ identity matrix is 1
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{4.3 Determinant is Linear in Each Row} The determinant of an $n\times n$ matrix is a linear function of each row when the remaining rows are held fixed.That is, for $1\leq r \leq n$, we have 
+    \[
+        \det{a_1 \\ \vdots \\ a_{r-1} \\ u+kv \\ a_{r+1} \\ \vdots \\ a_n}
+        = 
+        \det{a_1 \\ \vdots \\ a_{r-1} \\ u \\ a_{r+1} \\ \vdots \\ a_n} 
+        + 
+        k\det{a_1 \\ \vdots \\ a_{r-1} \\ v \\ a_{r+1} \\ \vdots \\ a_n}
+    \]
+    where $k\in F$, and $u,v,a_i \in F^n$ are row vectors
+\end{theorem*}
+
+
+\begin{corollary*}
+    If $A\in M_{n\times n}(F)$ has a row consisting entirely of zeros, then $\det{A}=0$
+\end{corollary*}
+
+\begin{lemma*}
+    Let $B\in M_{n\times n}(F)$, where $n\geq 2$. If row $i$ of $B$ equals $e_k$ for some $k$ ($1\leq k \leq n$), then 
+    \[
+        \det{B} = (-1)^{i+k} \det{\minormatr{B}{ik}}    
+    \]
+\end{lemma*}
+
+\begin{theorem*}
+    \textbf{4.4 Cofactor Expansion Along Any Row Yields Determinant} \\
+    The determinants of a square matrix can be evaluated by cofactor expansion along any row. That is, if $A\in M_{n\times n}(F)$, then for any integer $i$ ($1\leq i\leq n$), 
+    \[
+        \det{A} = \sum_{j=1}^n (-1)^{i+j} A_{ij}\cdot \det{\minormatr{A}{ij}}    
+    \]
+\end{theorem*}
+
+\begin{corollary*}
+    \textbf{Same Rows Implies Zero Determinant} If $A\in M_{n\times n}(F)$ has two identical rows, then $\det{A}=0$ 
+\end{corollary*}
+
+\begin{theorem*}
+    \textbf{4.5 Switching Rows Yields Negative Determinant} \\
+    If $A\in M_{n\times n}(F)$ and $B$ is a matrix obtained from $A$E by interchanging any two rows of $A$, then $\det{B}=-\det{A}$
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{4.6 Adding a Multiple of One Row to Another Do Not Change Determinant}\\ 
+    Let $A\in M_{n\times n}(F)$, and let $B$ be a matrix obtained by adding a multiple of one row of $A$ to another row of $A$. Then $\det{B} = \det{A}$
+\end{theorem*}
+
+
+\begin{corollary*}
+    If $A\in M_{n\times n}(F)$ has rank less than $n$, then $\det{A}=0$
+\end{corollary*}
+
+\begin{defn*}
+    \textbf{Simplifying Operations for Computing Determinants} \\
+    Applying elementary operation to $A$ yields $B$
+    \begin{enumerate}
+        \item Exchanging two rows of $A$, then $\det{B}=-\det{A}$. ($\det{E} = -1$)
+        \item Multiply a row of $A$ by a scalar, then $\det{B}=k\det{A}$. ($\det{E} = k$)
+        \item Add a multiple of one row of $A$ to another row of $A$, then $\det{B}=\det{A}$. ($\det{E}=1$)
+        \item $\det{E^t} = \det{E}$
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Upper Triangular Matrix} The determinant of an upper triangular matrix is the product of its diagonal entries. 
+\end{defn*}
+
+\linkinline{231}{Can use type 1,3 elementary operation to convert a matrix to upper triangular form, then compute determinants}
+
+
+\linksection{235}{4.3 Properties of Determinants}
+
+
+\begin{theorem*}
+    \textbf{4.7 Multiplication Rule for Determinants} For any $A,B\in M_{n\times n}(F)$,
+    \[
+        \det{AB} = \det{A} \cdot \det{B}    
+    \]
+\end{theorem*}
+
+\begin{corollary*}
+    \textbf{Determinant of Inverse Matrix} A matrix $A\in M_{n\times n}(F)$ is invertible if and only if $\det{A}\neq 0$. Furthermore, if $A$ is invertible, then $\det{A^{-1}} = \frac{1}{\det{A}}$
+\end{corollary*}
+
+\begin{theorem*}
+    \textbf{4.8 Matrix Transpose Have Equal Determinant} For any $A\in M_{n\times n}(F)$, 
+    \[
+        \det{A^t} = \det{A}    
+    \]
+    Implies argument to rows can be applied to columns equally well
+\end{theorem*}
+
+
+
+\begin{theorem*}
+    \textbf{4.9 Cramer's Rule} 
+\end{theorem*}
+
+
+
+
+
+
+
+\end{document}

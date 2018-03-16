@@ -1,0 +1,54 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\begin{enumerate}
+    
+\item \textbf{Binary Addition with RNN}
+
+
+Idea is to have $h_1, h_2, h_3$ activate when sum of inputs to hidden layer is at least 1, 2, or 3, respecrively. $h_3^{(t-1)}$ represent the carry over to the sum at step $t$, $h_1^{(t-1)}$ and $h_2^{(t-1)}$ are irrelevant to computation of sum at step $t$.
+
+\[
+    \mathbf{U} = 
+    \begin{pmatrix}
+        1 & 1 \\ 
+        1 & 1 \\
+        1 & 1 \\
+    \end{pmatrix}    
+    \qquad 
+    \mathbf{W} = 
+    \begin{pmatrix}
+        0 & 0 & 1 \\
+        0 & 0 & 1 \\
+        0 & 0 & 1 \\ 
+    \end{pmatrix}
+    \qquad 
+    \mathbf{b}_h = 
+    \begin{pmatrix}
+        -0.5 \\ -1.5 \\ -2.5 \\
+    \end{pmatrix}
+    \qquad 
+    \mathbf{v} = 
+    \begin{pmatrix}
+        1 \\ -1 \\ 5 \\ 
+    \end{pmatrix}
+    \qquad 
+    b_y = -0.5
+\]
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+\end{document}

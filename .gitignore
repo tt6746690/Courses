@@ -4,6 +4,14 @@
 STA302/apply_linear_model_kutner/apply_linear_model_kutner.pdf
 MAT247/linear_algebra_friedberg_insel_spence_4ed.pdf
 
+# dta files 
+cifar-10-batches-py/*
+mnist_all.mat
+cifar-10-python.tar.gz
+
+CSC321/tutorial/w6/data/*
+CSC321/homework/pa2/data/*
+
 
 
 # MacOS

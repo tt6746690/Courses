@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+\newcommand{\linksection}[3][../../bishop_pattern_recognition_and_machine_learning.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+\newcommand{\linkinline}[3][../../bishop_pattern_recognition_and_machine_learning.pdf]{
+    \noindent\href[page=#2]{#1}{#3}
+}
+
+\renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\E}[2][]{\mathbb{E}_{#1}\left\{#2\right\}}
+\newcommand{\var}[1]{var\{#1\}}
+\newcommand{\cov}[1]{cov\{#1\}}
+\newcommand{\normal}[1]{\mathcal{N}\left(#1\right)}
+\newcommand{\exponents}[1]{exp\left\{#1\right\}}
+
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+
+
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\bx}{\matr{x}}
+\newcommand{\bt}{\matr{t}}
+\newcommand{\bX}{\matr{X}}
+\newcommand{\bw}{\matr{w}}
+
+\newcommand{\lebpar}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\qqqquad}{\quad \quad \quad \quad}
+
+
+
+\linksection{375}{8 Graphical Models}
+\linksection{376}{8.1 Bayesian Networks}
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{Graphical Model} The joint distribution defined by the graph is given by the product, over all nodes of the graph, of a conditional distribution for each node conditioned on the variable corresponding to the parents of that node in the graph
+        \[
+            p(\mathbf{x}) = \prod_{k=1}^K p(x_k | parent(x_k))
+        \]
+        which represents \textbf{factorization properties} of the joint distribution for a directed graphical model
+        \begin{enumerate}
+            \item \textbf{Node} 
+            \begin{enumerate}
+                \item \textbf{Open Circle} Random variable 
+                \begin{enumerate}
+                    \item \textbf{Shaded} Observed variable, i.e. variable $\{t_n\}$ from the training set, for setting the variable to some observed value
+                    \item \textbf{Unshaded} Latent variable
+                \end{enumerate}
+                \item \textbf{Solid Circle (Dot)} Deterministic parameter 
+            \end{enumerate}
+            \item \textbf{Link} probabilistic relationships between these variables
+            \item \textbf{Plate} labelled with $N$ indicate $N$ nodes of a certain kind by drawing a single representative node and surround it with a box
+        \end{enumerate}
+        \item \textbf{Bayesian Polynomial Regression}
+        \[
+            p(\bt,\bw) = p(\bw) \prod_{n=1}^N p(t_n | \bw)
+            \qquad 
+            p(\bt,\bw| \bx, \alpha, \sigma^2) = p(\bw|\alpha) \prod_{n=1}^N p(t_n |\bw, x_n, \sigma^2)
+        \]
+        \item \textbf{Generative Models}
+        \item \textbf{Discrete Variable}
+    \end{enumerate}
+\end{defn*}
+
+
+
+\linksection{439}{9 Mixture Models and EM}
+\linksection{440}{9.1 K-means Clustering}
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{Clustering} 
+        \item \textbf{K-means} Problem with K-means is that at every step, every point is assigned to one and only one cluster centers, but maybe many points which are halfway between cluster centers. It is beneficial to have soft assignment of such points by adopting a probabilistic viewpoint
+        \item \textbf{Application} in image segmentation and compression
+    \end{enumerate}
+\end{defn*}
+
+
+\linksection{446}{9.2 Mixture of Gaussians}
+
+\begin{defn*}
+    \textbf{Mixtures of Gaussians} Given 
+    \[
+        p(\bx) = \sum_{k=1}^K \pi_k \normal{\bx | \bmu_k, \boldsymbol{\Sigma}_k}    
+    \]
+    Introduce latent variable $\matr{z}$ 
+\end{defn*}
+
+
+\linksection{455}{9.3 An alternative view of EM}
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{EM model} Given observed data $\bX$ and latent variables $\matr{Z}$, we want to optimize for the likelihood function
+        \[
+            \ln{p(\bX | \matr{\theta})} = \ln{\sum_{\matr{ZZ}} p(\bX, \matr{Z} | \theta)}
+        \]
+    \end{enumerate}
+\end{defn*}
+
+
+
+
+\end{document}

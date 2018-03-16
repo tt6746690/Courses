@@ -574,6 +574,260 @@ void make_add() { closure(add); }
 (map (λ (x) (display x out)) assembly)
 (close-output-port out)
 
+(module+ test
+  (check-equal? (L0→L1 (M0→L0 fib-testcase))
+                '(L1:
+                  app
+                  (L1:
+                   app
+                   (L1:
+                    app
+                    (L1:
+                     app
+                     (L1:
+                      app
+                      (L1:
+                       app
+                       (L1:
+                        λ
+                        24
+                        (L1:
+                         λ
+                         23
+                         (L1:
+                          λ
+                          22
+                          (L1:
+                           λ
+                           21
+                           (L1:
+                            λ
+                            20
+                            (L1:
+                             λ
+                             19
+                             (L1:
+                              app
+                              (L1:
+                               λ
+                               17
+                               (L1:
+                                app
+                                (L1:
+                                 λ
+                                 14
+                                 (L1:
+                                  app
+                                  (L1:
+                                   λ
+                                   12
+                                   (L1:
+                                    app
+                                    (L1:
+                                     λ
+                                     9
+                                     (L1:
+                                      app
+                                      (L1:
+                                       λ
+                                       6
+                                       (L1:
+                                        app
+                                        (L1:
+                                         λ
+                                         3
+                                         (L1:
+                                          app
+                                          (L1:
+                                           λ
+                                           2
+                                           (L1:
+                                            app
+                                            (L1:
+                                             λ
+                                             0
+                                             (L1:
+                                              app
+                                              (L1: var 1)
+                                              (L1: datum 13)))
+                                            (L1:
+                                             set!
+                                             0
+                                             (L1:
+                                              λ
+                                              1
+                                              (L1:
+                                               if
+                                               0
+                                               (L1:
+                                                app
+                                                (L1:
+                                                 app
+                                                 (L1: var 8)
+                                                 (L1: var 0))
+                                                (L1: datum 1))
+                                               (L1: datum 1)
+                                               (L1:
+                                                if
+                                                1
+                                                (L1:
+                                                 app
+                                                 (L1:
+                                                  app
+                                                  (L1: var 8)
+                                                  (L1: var 0))
+                                                 (L1: datum 2))
+                                                (L1: datum 1)
+                                                (L1:
+                                                 app
+                                                 (L1:
+                                                  app
+                                                  (L1: var +)
+                                                  (L1:
+                                                   app
+                                                   (L1: var 1)
+                                                   (L1:
+                                                    app
+                                                    (L1:
+                                                     app
+                                                     (L1: var 12)
+                                                     (L1: var 0))
+                                                    (L1: datum 1))))
+                                                 (L1:
+                                                  app
+                                                  (L1: var 1)
+                                                  (L1:
+                                                   app
+                                                   (L1:
+                                                    app
+                                                    (L1: var 12)
+                                                    (L1: var 0))
+                                                   (L1:
+                                                    datum
+                                                    2))))))))))
+                                          (L1: datum 0)))
+                                        (L1:
+                                         set!
+                                         5
+                                         (L1:
+                                          λ
+                                          5
+                                          (L1:
+                                           λ
+                                           4
+                                           (L1:
+                                            if
+                                            2
+                                            (L1:
+                                             app
+                                             (L1:
+                                              app
+                                              (L1: var 8)
+                                              (L1: var 1))
+                                             (L1: var 0))
+                                            (L1:
+                                             if
+                                             3
+                                             (L1:
+                                              app
+                                              (L1: var 12)
+                                              (L1:
+                                               app
+                                               (L1:
+                                                app
+                                                (L1: var 9)
+                                                (L1: var 1))
+                                               (L1: var 0)))
+                                             (L1: datum 1)
+                                             (L1: datum 0))
+                                            (L1: datum 0)))))))
+                                      (L1:
+                                       set!
+                                       5
+                                       (L1:
+                                        λ
+                                        8
+                                        (L1:
+                                         λ
+                                         7
+                                         (L1:
+                                          app
+                                          (L1: var 11)
+                                          (L1:
+                                           app
+                                           (L1:
+                                            app
+                                            (L1: var <)
+                                            (L1: var 1))
+                                           (L1: var 0))))))))
+                                    (L1:
+                                     set!
+                                     5
+                                     (L1:
+                                      λ
+                                      11
+                                      (L1:
+                                       λ
+                                       10
+                                       (L1:
+                                        app
+                                        (L1:
+                                         app
+                                         (L1: var <)
+                                         (L1: var 0))
+                                        (L1: var 1)))))))
+                                  (L1:
+                                   set!
+                                   5
+                                   (L1:
+                                    λ
+                                    13
+                                    (L1:
+                                     app
+                                     (L1:
+                                      app
+                                      (L1: var *)
+                                      (L1: datum -1))
+                                     (L1: var 0))))))
+                                (L1:
+                                 set!
+                                 5
+                                 (L1:
+                                  λ
+                                  16
+                                  (L1:
+                                   λ
+                                   15
+                                   (L1:
+                                    app
+                                    (L1:
+                                     app
+                                     (L1: var +)
+                                     (L1: var 1))
+                                    (L1:
+                                     app
+                                     (L1: var 6)
+                                     (L1: var 0))))))))
+                              (L1:
+                               set!
+                               5
+                               (L1:
+                                λ
+                                18
+                                (L1:
+                                 if
+                                 4
+                                 (L1: var 0)
+                                 (L1: datum 0)
+                                 (L1: datum 1)))))))))))
+                       (L1: datum 0))
+                      (L1: datum 0))
+                     (L1: datum 0))
+                    (L1: datum 0))
+                   (L1: datum 0))
+                  (L1: datum 0)))
+  )
+
 #;(provide T:*id* T:*datum*
            T:set! T:if
            T:λ T:*app*

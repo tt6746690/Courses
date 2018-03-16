@@ -620,6 +620,16 @@
 \begin{corollary*}
     Let $A\in M_{n\times n}(F)$, and let $\gamma$ be an ordered basis for $F^n$. Then $\cvec{L_A}{\gamma} = Q^{-1}AQ$, where $Q$ is the $n\times n$ matrix whose $j$th column is the $j$th vectort of $\gamma$, 
     \begin{rem}
+        This is true because 
+        \[
+            \cvec{L_A}{\beta}(e_j) = Ae_j = \text{ $j$-th column of $A$}
+            \quad \rightarrow \quad 
+            \cvec{L_A}{\beta} = A
+        \]
+        \[
+            Q(v_j) = \matr{I}{\gamma}{\beta}(v_j) = I(v_j) = v_j = \text{ $j$-th column of $Q$}
+        \]
+        where $\beta$ is the standard basis. \\
         Note we make distinction between $A$ and $L_A$. The former is a matrix, the latter is a function. They are not equivalent when represented as matrices since $A$ is the same regardless but $L_A$ is subject to a change of basis. 
     \end{rem}    
 \end{corollary*}

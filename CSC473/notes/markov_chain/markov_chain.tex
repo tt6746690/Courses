@@ -1,0 +1,89 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+\newcommand{\linksection}[3][../../foundation_of_datascience.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+
+
+\linksection{76}{Chapter 4 Random Walks and Markov Chains}
+
+
+\begin{defn*}
+    \textbf{Concepts}
+    \begin{enumerate}
+        \item \textbf{Random Walk} A sequence of vertices generated from a start vertex by probabilitically selecting an incident edge, traversing the edge to a new vertex, and repeating the process.
+        \begin{enumerate}
+            \item \textbf{Strongly Connected} For any $x,y\in V$, the graph contains a path of directed edges starting at $x$ and ending at $y$
+            \item \textbf{Probability distribution at time $t$} 
+            \[
+                \matr{p(t)} P = \matr{p(t+1)} 
+            \]
+            where $\matr{p(t)}$ be a row vector with a component for each vertex specifiying the probability mass of the vertex at time $t$, i.e. the probability in state $i$ at time $t$, and $P$ be the \textbf{transition matrix} with
+            \begin{enumerate}
+                \item $P_{ij}$ is the probability of the walk at vertex $i$ selecting the edge to vertex $j$
+                \item $P_{ij} > 0$ with $\sum_j P_{ij} = 1$ for all $i$
+            \end{enumerate}
+        \end{enumerate}
+        \item \textbf{Markov Chain}
+        \begin{enumerate}
+            \item \textbf{State (vertices)} A markov chain has finite set of states (vertices)
+            \item \textbf{Transition Probability (edge weights)} For each pair of state $x$ and $y$, the transition probability $p_{xy}$ is the probability of going from $x$ to $y$, where for each $x$, $\textstyle \sum_y p_{xy} = 1$
+            \item \textbf{Idea} Start at some state. At a given state, if it is in state $x$ the next state $y$ is selected randomly with probability $p_{xy}$
+            \item \textbf{Connected} A markov chain is connected if underlying graph is strongly connected 
+            \item \textbf{Transition Probability Matrix} THer matrix $P$ consisting of $p_{xy}$
+            \item \textbf{Persistent} Should a state be reached, the random process will return to it with probability one. Equivalent to say that state is in a strongly connected component with no out edges.
+            \item \textbf{Stationary Distribution} The long-term average probability, the average probability distribution of random walk over the first $t$ steps, converges to a limiting distribution for connected chains
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
+
+
+
+\linksection{80}{4.1 Stationary Distribution}
+
+\begin{defn*}
+    \textbf{Long-term average probability distribution} \\
+    
+    Let $\matr{p(t)}$ be probability distribution after $t$ steps of random walk, then 
+    \[
+        \matr{a(t)} = \frac{1}{t}\left( \matr{p(0) + p(1) + \cdots + p(t-1)} \right)
+    \]
+\end{defn*}
+
+\newcommand{\sdist}{\boldsymbol{\pi}}
+
+\begin{theorem*}
+    \textbf{Fundamental theorem of Markov Chains} For a connected Markov chain there is a unique probability vector $\sdist$ satisfying $\sdist P = \sdist$. Moreover, for any starting distribution, $\lim_{t\to\infty} \matr{a(t)}$ exists and equals $\sdist$
+\end{theorem*}
+
+\begin{lemma*}
+    For a random walk on a strongly connected graph with probabilities on edges, if vector $\sdist$ satisfies $\pi_x p_{xy} = \pi_y p_{yx}$ for all $x$ and $y$ and $\textstyle \sum_x \pi_x = 1$, then $\sdist$ is the stationary distribution of the walk
+\end{lemma*}
+
+
+\linksection{80}{4.2 Markov Chain Monte Carlo}
+
+
+\begin{defn*}
+    \textbf{Metropolis-Hasting Algorithm} 
+    \begin{enumerate}
+        \item For Markov Chain with a fixed stationary probability
+        \item Let $r$ be maximum possible degree in the graph and $\matr{p}=(p_1,\cdots)$ be target distribution, then assign 
+        \[
+            p_{ij} = \frac{1}{r} \min (1, \frac{p_j}{p_i})
+            \qquad 
+            p_{ii} = 1 - \sum_{j\neq i} p_{ij}
+        \]
+        whereby the stationary probability is simply $\matr{p}$
+    \end{enumerate}
+\end{defn*}
+
+
+
+
+\end{document}

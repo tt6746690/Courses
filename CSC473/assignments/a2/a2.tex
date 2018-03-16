@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+\renewcommand{\E}[1]{\mathsf{E}\left\{#1\right\}}
+\newcommand{\V}[1]{\mathsf{V}\left\{#1\right\}}
+\renewcommand{\P}[1]{\mathsf{P}\left(#1\right)}
+\newcommand{\abs}[1]{\left|\,#1\,\right|}
+
+\begin{enumerate}
+    
+\item \textbf{Design Markov Chain}
+\begin{enumerate}
+\item  
+\begin{proof}
+    We prove that graph $G$ is strongly connected. Consider $\sigma, \sigma' \in V$, if $\sigma=\sigma'$, then path $p$ is the self-loop. If $\sigma \neq \sigma'$, then we can construct a path $p$ from $\sigma$ to $\sigma'$. In each step of the path, let $i$ be the first index such that $\sigma_i \neq \sigma_i'$, we add the edge that swaps $\sigma_i$ with $\sigma_j$ for some index $j$ where $\sigma_j = \sigma_i'$. We claim that such index $j \geq i$, and after the swap, the first $i$ integers of the destination vertex equals $\sigma_1' \cdots \sigma_i'$. For $i=1$, every other $j > 1$, and we get $\sigma_1'$ at index 1 after one swap, so claim is true. Now we prove claim is true for $i>1$. By induction hypothesis, the first $i-1$ integers of the vertex is $\sigma_1'\cdots \sigma_{i-1}'$ and that $\sigma_i' \neq \sigma_k' = \sigma_k$ for $k=1,\cdots, i-1$ since $\sigma'$ is a permutation. So there is some $j \neq k$ for $k=1,\cdots, i-1$ such that $\sigma_j = \sigma_i'$ and we swap $\sigma_j$ with $\sigma_i$ such that the first $i$ integers in the permutation is equal to $\sigma_1'\cdots \sigma_{i}'$, hence the claim is true in the inductive case. By $i=n$, we have $\sigma_1' \cdots \sigma_n'$ as the resulting vertex. Since choice of $\sigma, \sigma'$ arbitrary, we can always find such path, so graph is strongly connected. 
+\end{proof}
+
+\item To find the transition probabilities $P$ on Markov chain on $G$ such that stationary distribution $p$ has $p_{\sigma} \propto 2^{-inv(\sigma)}$, we first note that the maximum number of degrees is same for all vertices, specifically $r=\binom{n}{2}$, since we have edge connecting two vertices by arbitrarily swapping 2 numbers. Therefore, 
+\[
+    P_{ij} = \frac{1}{\binom{n}{2}} 
+    \min \{ 1, 2^{inv(\sigma_1) - inv(\sigma_2)}\}
+    \qquad 
+    P_{ii} = 1 - \sum_{j\neq i} P_{ij}
+\]  
+\end{enumerate}
+ 
+\newpage 
+
+\item \textbf{Streaming}
+\begin{enumerate}
+\item We express $\E{c}$ in terms of $f_1 = |\{t:\sigma_t = i\}|$. Let $c_j$ be arbitrary where $j\in [k]$, then we can express $c_j$ as follows 
+\[
+    c_j = f_1 h_j(1) + \cdots + f_n h_j(n) = \sum_{i=1}^n f_i h_j(i)
+\]
+Also note that $(h_j(i))^2: [n]\rightarrow \{1\}$ outputs 1 with probability 1, so then $\E{(h_j(i))^2}=1$. Also we have that $\E{h_j(i)} = 0$ for arbitrary hash function $h_j$ and arbitrary input $i=1,\cdots,n$.
+\begin{align*}
+    \E{c_j^2} &= \E{\left(f_1 h_j(1) + \cdots + f_n h_j(n)\right)^2} \\ 
+    &= \E{ \sum_{i=1}^n f_i^2 (h_j(i))^2 + \sum_{i'\neq i}^n f_{i'} f_i h_j(i') h_j(i) } \\ 
+    &= \sum_{i=1}^n f_i^2 \E{(h_j(i))^2} + \E{ \sum_{i'\neq i}^n f_{i'} f_i h_j(i')h_j(i)} \\ 
+    &= \sum_{i=1}^n f_i^2 + \sum_{i'\neq i}^n f_{i'} f_i \E{h_j(i')h_j(i)}\\
+    &= \sum_{i=1}^n f_i^2 + \sum_{i'\neq i}^n f_{i'} f_i \E{h_j(i')}\E{h_j(i)} \tag{$h_j(i),h_j(i')$ independent}\\ 
+    &= \sum_{i=1}^n f_i^2\\
+\end{align*}
+So then, $ \E{c} = \E{\frac{1}{k}\left( c_1^2 + \cdots + c_k^2 \right)} = \frac{1}{k} \sum_{j=1}^k \E{c_j^2} = \frac{1}{k} \sum_{j=1}^k \sum_{i=1}^n f_i^2 = \sum_{i=1}^n f_i^2$
+\item Note 
+\[
+    (1-\epsilon)\E{c} \leq c \leq (1+\epsilon)\E{c}
+    \iff
+    \abs{\E{c}-c} \leq \epsilon\E{c}
+\]
+So proving $\P{(1-\epsilon)\E{c} \leq c \leq (1+\epsilon)\E{c}} \geq \frac{1}{2}$ is equivalent to 
+\[
+    \P{\abs{\E{c}-c} \leq \epsilon\E{c}} \geq \frac{1}{2}
+    \qquad \text{or} \qquad 
+    \P{\abs{\E{c}-c} > \epsilon\E{c}} < \frac{1}{2}
+\]
+We note the previous expression can be reformulated with chebyshev's inequality
+\[
+    \P{\abs{\E{c}-c} > \epsilon\E{c}} < \frac{\V{c}}{\epsilon^2 \E{c}^2}
+\]
+Note from previous $\E{c_j^2} = \E{c} = \sum_{i=1}^n f_i^2$. We then compute $\V{c}$
+\begin{align*}
+    \V{c} 
+    &= \frac{1}{k^2} \sum_{j=1}^k \V{c_j^2} \\
+    &= \frac{1}{k^2} \sum_{j=1}^k \E{c_j^4} - \E{c_j^2}^2 \\
+    &\leq \frac{1}{k^2} \sum_{j=1}^k 3\E{c_j^2}^2 - \E{c_j^2}^2 \\
+    &= \frac{2}{k^2} \sum_{j=1}^k \E{c_j^2}^2 \\ 
+    &= \frac{2}{k} \E{c}^2 \\ 
+\end{align*}
+So then 
+\[
+    \P{\abs{\E{c}-c} > \epsilon\E{c}} < \frac{\V{c}}{\epsilon^2 \E{c}^2} \leq \frac{ \frac{2}{k} \E{c}^2 }{\epsilon^2 \E{c}^2} = \frac{2}{k \epsilon^2}
+\]
+Let $k = \frac{4}{\epsilon^2}$ such that $\P{\abs{\E{c}-c} > \epsilon\E{c}} < \frac{1}{2}$, which satisfies the probability constraint given in the problem specification. 
+
+\end{enumerate}
+
+\item \textbf{Linear Programming} 
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+\end{document}

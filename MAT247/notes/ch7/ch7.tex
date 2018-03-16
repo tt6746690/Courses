@@ -1,0 +1,195 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+\newcommand{\linksection}[3][../../linear_algebra_friedberg_insel_spence_4ed.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+\newcommand{\linkinline}[3][../../linear_algebra_friedberg_insel_spence_4ed.pdf]{
+    \noindent\href[page=#2]{#1}{#3}
+}
+
+\newcommand{\linksolution}[3][../../solution_compiled.pdf]{
+    \noindent\href[page=#2]{#1}{#3} \\
+}
+
+\newcommand{\vecspace}{\mathcal{V}}
+\newcommand{\field}{\mathcal{F}}
+\newcommand{\trace}[1]{tr(#1)}
+\renewcommand{\span}[1]{span(#1)}
+\renewcommand{\dim}[1]{dim(#1)}
+\newcommand{\nullity}[1]{nullity(#1)}
+\newcommand{\rank}[1]{rank(#1)}
+\newcommand{\cvec}[2]{\left[ #1 \right]_{#2}}
+\renewcommand{\matr}[3]{\left[ #1 \right]_{#2}^{#3}}
+\newcommand{\ltspace}[1]{\mathcal{L}(#1)}
+\renewcommand{\det}[1]{det(#1)}
+\newcommand{\tinvariant}[2]{\langle#2\rangle_{#1}}
+\newcommand{\innerp}[2]{\langle#1,#2\rangle}
+\renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\orthocomp}[1]{#1^{\perp}}
+\newcommand{\divides}{\mid}
+
+
+\linksection{34}{Direct Sum Definition}
+
+\begin{defn*}
+    \textbf{Summation of Sets} If $S_1$ and $S_2$ are nonemtpy subsets of a vector space $V$, then the \textbf{sum} of $S_1$ and $S_2$, denoted $S_1 + S_2$, is the set 
+    \[
+        \{x+y : x\in S_1 \text{ and } y\in S_2\}    
+    \]
+    \begin{enumerate}
+        \item $W_1+W_2$ is a subspace of $V$ containing both $W_1$ and $W_2$
+        \item If for a subset $S\subseteq V$, $W_1\subseteq S$ and $W_2\subseteq S$, then $W_1+W_2\subseteq S$
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Direct Sum} A vector space $V$ is called the direct sum of $W_1$ and $W_2$ if $W_1$ and $W_2$ are subspaces of $V$ such that $W_1 \cap W_2 = \{0\}$ and $W_1 + W_2 = V$. We denote that $V$ is the direct sum of $W_1$ and $W_2$ by writing $V=W_1 + W_2$. We denote $V$ is the direct sum of $W_1$ and $W_2$ by writing $V = W_1 \oplus W_2$
+    \begin{enumerate}
+        \item Direct sum of the set of upper triangular like matrices and lower triangular matrices is $M_{m\times n}(F)$
+        \item The trick of decomposing vector space into direct sums is that the intersection of subsets yield the zero vector
+    \end{enumerate}
+\end{defn*}
+
+
+
+\linksection{330}{5.4 Invariant Subspaces and Direct Sum}
+
+
+\linksection{494}{Chapter 7 Canonical Forms}
+\linksection{494}{7.1 The Jordan Canonical Form}
+
+
+\begin{defn*}
+    \textbf{Jordan Block and Jordan Canonical Form} Select ordered basis whose union is an ordered basis $\beta$, the Jordan caconical basis for $T$, for $V$ such that 
+    \[
+        \cvec{T}{\beta} = 
+        \begin{pmatrix}
+            A_1 & O & \cdots & O \\
+            O & A_2 & \cdots & O \\
+            \vdots & \vdots & & \vdots \\
+            O & O & \cdots & A_k \\ 
+        \end{pmatrix}    
+    \]
+    where $A_i$ are jordan block corresponding to $\lambda$
+    \[
+        A_i = 
+        \begin{pmatrix}
+            \lambda
+        \end{pmatrix}
+        \qquad 
+        \text{or}
+        \qquad 
+        A_i = 
+        \begin{pmatrix}
+            \lambda & 1 & O & \cdots & O & O \\
+            O & \lambda & 1 & \cdots & O & O \\
+            \vdots & \vdots & \vdots & & \vdots & \vdots \\
+            O & O & O & \cdots & \lambda & 1 \\ 
+            O & O & O & \cdots & O & \lambda \\ 
+        \end{pmatrix}
+    \]
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Generalized Eigenvector} Let $T$ be a linear operator on a vector space $V$, and let $\lambda$ be a scalar. A nonzero vector $x$ in $V$ is called a generalized eigenvector of $T$ corresponding to $\lambda$ if $(T-\lambda I)^p(x) = 0$ for some positive integer $p$
+    \begin{enumerate}
+        \item For $v$ in a Jordan canonical basis for $T$, $(T-\lambda I)^p (v) = 0$ for sufficiently large $p$. Eigenvectors satisfy this condition for $p=1$
+        \item If $x$ is a generalized eigenvector of $T$ corresponding to $\lambda$, and $p$ is smallest positive integer for which $(T-\lambda I)^p(x)=0$, then $(T-\lambda I)^{p-1}(x)=0$ is an eigenvector of $T$ corresponding to $\lambda$
+        \[
+            (T-\lambda I)(v) = 0
+            \qquad 
+            \text{ where eigenvector }
+            v = (T-\lambda I)^{p-1}(x) \neq 0
+        \]
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Generalized Eigenspace} Let $T$ be a linear operator on a vector space $V$, and let $\lambda$ be an eigenvalue of $T$. The generalized eigenspace of $T$ corresponds to $\lambda$, denoted $K_{\lambda}$, is the subset of $V$ defined by 
+    \[
+        K_{\lambda} = 
+        \{ x\in V: (T-\lambda I)^p(x) = 0 \text{ for some positive integer } p\} = 
+        N((T-\lambda I)^p)
+    \]
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{7.1 Properties of Generalized Eigenspace} Let $T$ be linear operator on a vector space $V$, and let $\lambda$ be an eigenvalue of $T$. Then 
+    \begin{enumerate}
+        \item $K_{\lambda}$ is a T-invariant subspace of $V$ containing $E_{\lambda}$ (the eigenspace of $T$ corresponding to $\lambda$)
+        \item For any scalar $\mu \neq \lambda$, the restiction $T - \mu I$ to $K_{\lambda}$ is one-to-one.
+    \end{enumerate}
+    Note
+    \begin{enumerate}
+        \item Second property implies $E_{\mu} = N(T-\mu I) = 0$ for all $\mu \neq \lambda$, so $K_{\lambda}$ contains only one eigenspace $E_{\lambda}$ and $\lambda$ is the only eigenvalue of $T_{\lambda_k}$
+        \item Proof of one-to-one relies on proving $N(T-\mu I) = 0$, i.e. any $x\in K_{\lambda}$, $x=0$, by contradiction.
+    \end{enumerate}
+\end{theorem*}
+
+
+\begin{theorem*}
+    \textbf{7.2 Property of Generalized Eigenspace When Characteristic Polynomial Splits} Let $T$ be a linear operator on a finite-dimensional vector space $V$ such that the characteristic polynomial of $T$ splits. Suppose that $\lambda$ is an eigenvalue of $T$ with multiplicity $m$. Then 
+    \begin{enumerate}
+        \item $\dim{K_{\lambda}} \leq m$ 
+        \item $K_{\lambda} = N((T-\lambda I)^m)$
+    \end{enumerate}
+    For proofs
+    \begin{enumerate}
+        \item Use \linkinline{326}{theorem 5.21} T-invariant $W\subseteq V$ have $P_{T_W}(t) \divides P_T(t)$, we have $\cvec{T_W}{\beta}$ in the form of a Jordan Block, therefore 
+        \[
+            h(t) = P_{T_W}(t) = (-1)^d(t-\lambda)^d    
+        \]
+        \item Prove forward direction $(\Rightarrow)$ Use \linkinline{329}{theorem 5.23 Cayley-Hamilton} $f(T) = T_0$, i.e. linear operator satisfies its characteristic equation, on $T_W$
+        \[
+            h(T_W) = (-1)^d (T-\lambda I)^d = T_0
+        \]
+        So $(T-\lambda I)^d(x) = 0$ for all $x\in W$ where $d\leq m$, so $K_{\lambda} \subseteq N((T-\lambda I)^m)$
+    \end{enumerate}
+\end{theorem*}
+ 
+
+\begin{theorem*}
+    \textbf{7.3 Lemma for Proving That Basis for $E_{\lambda}$s' Spans Entire Space} Let $T$ be a linear operator on a finite-dimensional vector space $V$ such that the characteristic polynomial of $T$ splits, and let $\lambda_1,\lambda_2,\cdots, \lambda_k$ be the distinct eigenvalues of $T$. Then for every $x\in V$, there exists vectors $v_1\in K_{\lambda_i}$, $1\leq i \leq k$, such that 
+    \[ 
+        x = v_1 + v_2 + \cdots + v_k    
+    \]
+    \begin{proof}
+        Cayley-Hamilton theorem works on some special case of characteristic polynomial of the form $(t-\lambda)^d$ yields the zero transformation, which makes some subset of the vector space satisfy condition for generalized eigenspace, i.e. $(T-\lambda I)(x) = 0$
+    \end{proof}
+\end{theorem*}
+
+
+\begin{theorem*}
+    \textbf{7.4 Basis for Generalized Eigenspace} \\
+    Let $T$ be a linear operator on a finite-dimensional vector space $V$ sucht hat the characteristic polynomial of $T$ splits, and let $\lambda_1, \cdots, \lambda_k$ be the distinct eigenvalues of $T$ with corresponding multiplicity $m_1,\cdots, m_k$. For $1\leq i \leq k$, let $\beta_i$ be an ordered basis for $K_{\lambda_i}$. Then the following statements are true 
+    \begin{enumerate}
+        \item $\beta_i \cap \beta_j = \emptyset$ for $i\neq j$ 
+        \item $\beta = \beta_1 \cap \beta_2 \cap \cdots \cap \beta_k$ is an ordered basis for $V$
+        \item $\dim{K_{\lambda_i}} = m_i$ for all $i$
+    \end{enumerate} 
+\end{theorem*}
+
+\begin{corollary*}
+    \textbf{Assumption for Diagonalizability} Let $T$ be a linear operator on a finite-dimensional vector space $V$ sucht hat the characteristic polynomial of $T$ splits. Then $T$ is diagonalizable if and only if $E_{\lambda} = K_{\lambda}$ for every eigenvalue $\lambda$ of $T$
+\end{corollary*}
+
+\begin{defn*}
+    \textbf{Cycle of Generalized Eigenvectors} Let $T$ be a linear operator on a vector space $V$, and let $x$ be a generalized eigenvector of $T$ corresponding to the eigenvalue $\lambda$. Suppose that $p$ is the smallest positive integer for which $(T-\lambda I)^p (x) = 0$. Then the ordered set 
+    \[
+        \{ (T-\lambda I)^{p-1}(x), (T-\lambda I)^{p-2}(x), \cdots, (T-\lambda I)(x), x \}
+    \]
+    is called a cycle of generaliezd eigenvectors of $T$  corresponding to $\lambda$. The vectors $(T-\lambda I)^{p-1}(x)$ and $x$ are called the initial vector and the end vector of the cycle, respectively. We say that the length of the cycle is $p$.
+\end{defn*}
+ 
+
+
+
+\end{document}

@@ -116,8 +116,14 @@
     \[
         K_{\lambda} = 
         \{ x\in V: (T-\lambda I)^p(x) = 0 \text{ for some positive integer } p\} = 
-        N((T-\lambda I)^p)
+        \bigcup_{p\geq 1} N((T-\lambda I)^p)
     \]
+    \begin{enumerate}
+        \item Note 
+        \[
+            N(U) \subseteq N(U^2) \subseteq \cdots \subseteq N(U^k) \subseteq N(U^{k+1}) \subseteq \cdots
+        \]
+    \end{enumerate}
 \end{defn*}
 
 
@@ -130,7 +136,7 @@
     Note
     \begin{enumerate}
         \item Second property implies $E_{\mu} = N(T-\mu I) = 0$ for all $\mu \neq \lambda$, so $K_{\lambda}$ contains only one eigenspace $E_{\lambda}$ and $\lambda$ is the only eigenvalue of $T_{\lambda_k}$
-        \item Proof of one-to-one relies on proving $N(T-\mu I) = 0$, i.e. any $x\in K_{\lambda}$, $x=0$, by contradiction.
+        \item For $\mu \neq \lambda$, $K_{\lambda} = K_{\mu} = 0$
     \end{enumerate}
 \end{theorem*}
 
@@ -186,9 +192,48 @@
     \[
         \{ (T-\lambda I)^{p-1}(x), (T-\lambda I)^{p-2}(x), \cdots, (T-\lambda I)(x), x \}
     \]
-    is called a cycle of generaliezd eigenvectors of $T$  corresponding to $\lambda$. The vectors $(T-\lambda I)^{p-1}(x)$ and $x$ are called the initial vector and the end vector of the cycle, respectively. We say that the length of the cycle is $p$.
+    is called a cycle of generaliezd eigenvectors of $T$  corresponding to $\lambda$. The vectors $(T-\lambda I)^{p-1}(x)$ and $x$ are called the initial vector and the end vector of the cycle, respectively. We say that the length of the cycle is $p$ (number of vectors).
 \end{defn*}
+
+\begin{theorem*}
+    \textbf{7.5 Jordan Canonical Basis as Disjoint Union of Cycles of Generalized Eigenvectors} \\
+    Let $T$ be a linear operator on a finite-dimensional vector space $V$ whose characteristic polynomial splits, and suppose that $\beta$ is a basis for $V$ such that $\beta$ is a disjoint union of cycles of generalized eigenvectors of $T$. Then the following are true 
+    \begin{enumerate}
+        \item For each cycle $\gamma$ of generalized eigenvectors contained in $\beta$, $W = \span{\gamma}$ is T-invariant and $\cvec{T_W}{\gamma}$ is a Jordan block 
+        \item $\beta$ is a Jordan canonical basis for $V$
+    \end{enumerate}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{7.6 Existence of Disjoint Union of Cycles of Generalized Eigenvectors} Let $T$ be a linear operator on a vector space $V$, and let $\lambda$ be an eigenvalue of $T$. Suppose that $\gamma_1, \gamma_2, \cdots, \gamma_q$ are cycles of generalized eigenvectors of $T$ corresponding to $\lambda$ such that the initial vectors of the $\gamma_i$'s are distinct and form a linearly independent set. Then the $\gamma_i$'s are disjoint, and their union $\gamma = \bigcup_{i=1}^q \gamma_i$ is linearly independent
+\end{theorem*}
  
+
+\begin{corollary*}
+    Every cycle of generalized eigenvectors of a linear operator is linearly independent
+\end{corollary*}
+
+
+\begin{theorem*}
+    \textbf{7.7 Existence of Disjoint Union in Generalized Eigenspace} Let $T$ be a linear operator on a finite-dimensional vector space $V$, and let $\lambda$ be an eigenvalue of $T$. Then $K_{\lambda}$ has an ordered basis consisting of a union of disjoint cycles of generalized eigenvectors corresponding to $\lambda$
+\end{theorem*}
+
+\begin{corollary*}
+    \textbf{$P_T(t)$ Splits Ensures Existence of Jordan Canonical Form} Let $T$ be a linear opertor on a finite-dimensional vector space $V$ whose characteristic polynomial splits. Then $T$ has a Jordan Canonical Form
+\end{corollary*}
+
+\begin{defn*}
+    \textbf{Jordan Canonical Form for Matrices} Let $A\in M_{n\times n}(F)$ be such that the characteristic polynomial of $A$ (and hence of $L_A$) splits. Then the Jordan canonical form of $A$ is defined to be the Jordan canonical form of the linear operator $L_A$ on $F^n$
+\end{defn*}
+
+\begin{corollary*}
+    Let $A$ be $n\times n$ matrix whose characteristic polynomial splits. Then $A$ has a Jordan canonical form $J$, and $A$ is similar to $J$
+\end{corollary*}
+
+
+
+\linksection{509}{7.2 The Jordan Canonical Form II}
+
 
 
 

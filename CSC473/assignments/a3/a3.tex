@@ -1,0 +1,156 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+
+\geometry{margin=1in}
+
+\begin{document}
+
+
+\begin{lemma*}
+    \textbf{5: Farkas's Lemma} For any $m\times n$ matrix $A$ and $m\times 1$ vector $b$, exactly one of following is true 
+    \begin{enumerate}
+        \item There exists $x\in \R^n$ such that $x\geq 0$ and $Ax = b$ 
+        \item There exists $y\in \R^m$ such that $A^T y \leq 0$ and $b^T y > 0$ 
+    \end{enumerate}
+\end{lemma*}
+
+\begin{lemma*}
+    \textbf{7: Farkas's Lemma variant} For any $m\times n$ matrix $A$ and $m\times 1$ vector $b$, exactly one of following is true 
+    \begin{enumerate}
+        \item There exists $x\in \R^n$ such that $x\geq 0$ and $Ax \leq b$ 
+        \item There exists $y\in \R^m$ such that $y\geq 0$, $A^T y \geq 0$ and $b^T y < 0$ 
+    \end{enumerate}
+\end{lemma*}
+
+$ $\\
+
+\textbf{Question 1: LP Theory} 
+
+\begin{enumerate}
+\item use lemma 5 prove lemma 7
+    \begin{proof}
+        Equivalent to proving $(\textbf{7.1}) \iff \neg (\textbf{7.2})$ 
+        \begin{enumerate}
+            \item $(\Rightarrow)$ Assume (\textbf{7.1}) true, 2 cases 
+            \begin{enumerate}
+                \item Exists $x\in \R^m$ such that $x\geq 0$ and $Ax = b$, then (\textbf{5.1}) is true and (\textbf{5.2}) is false. By contradiction, assume (\textbf{7.2}) is true, let $y' \in\R^m$ such that $y'\geq 0$, $A^T y' \geq 0$ and $b^T y' < 0$. Let $y = -y'$, therefore, there exists $y \in\R^m$ such that $A^T y \leq 0$ and $b^T y > 0$, which is saying (\textbf{5.2}) is true, hence contradiction. Therefore (\textbf{7.2}) is false  
+                \item Otherwise, exists $x\in \R^m$ such that $x\geq 0$ and $Ax < b$, then (\textbf{5.1}) is false and (\textbf{5.2}) is true. Let $y\in \R^m$ be any vector satisfying (\textbf{5.2}), we claim $y > 0$. By contradiction assume $y \leq 0$, then $b < 0$ since $b^T y > 0$ (\textbf{5.2}). Use $b^T y > 0$ again, $y\neq 0$, so $y < 0$. Therefore $Ax < b < 0$. Multiply $y < 0$ to both sides, we have
+                \[
+                    y^t (Ax) > 0 
+                    \quad \rightarrow \quad 
+                    (A^T y)^T x > 0
+                \]
+                Contradiction since $x \geq 0$ and $A^T y \leq 0$ (\textbf{5.2}). Therefore $y> 0$ for all $y$ satisfying (\textbf{5.2}). Therefore, no $y\in \R^m$ exists satisfying (\textbf{5.2}) for which $y \leq 0$, i.e. 
+                \[
+                    \nexists y\in \R^m \, , \, y \leq 0 \quad A^T y\leq 0 \quad  b^T y > 0
+                \]
+                therefore 
+                \[
+                    \nexists y\in \R^m \, ,\, y\geq 0 \quad A^T y\geq 0 \quad b^T y < 0  
+                \]
+                which is equivalent to (\textbf{7.2}) false
+            \end{enumerate}
+            \item $(\Leftarrow)$
+            Idea is that given (\textbf{7.2}) false, we want to construct matrices $\tilde{A}$ and $\tilde{b}$ satisfying constraints for (\textbf{7.2}) as well as (\textbf{5.2}), 
+            \[
+                \underset{m\times (m+n)}{\tilde{A}} = 
+                \begin{pmatrix}
+                    -A & -I \\ 
+                \end{pmatrix}  
+                \qquad 
+                \underset{m\times 1}{\tilde{b}} = 
+                \begin{pmatrix}
+                    -b
+                \end{pmatrix}  
+            \]
+            Therefore, $(\textbf{7.2})$ can be rewritten as,
+            \[
+                \nexists y\in \R^m  \, ,\, y\geq 0 \quad A^T y\geq 0 \quad b^T y < 0
+                \qquad \rightarrow \qquad 
+                \nexists y\in \R^m  \, ,\, \tilde{A}^T y \leq 0 \quad \tilde{b}^T y > 0
+            \]
+            where the latter formulation is simply saying $(\textbf{5.2})$ is false, therefore $(\textbf{5.1})$ is true, i.e. 
+            \[
+                \exists \tilde{x} \in\R^{m+n} \, ,\, \tilde{x} \geq 0 \quad \tilde{A}\tilde{x} = \tilde{b} 
+            \]
+            let $\tilde{x} = (x,x')$ where $x\in\R^n, x'\in\R^m$, note $x,x'\geq 0$, also 
+            \[
+                \begin{pmatrix}
+                    -A & -I \\ 
+                \end{pmatrix}  
+                \begin{pmatrix}
+                    x \\ x' \\
+                \end{pmatrix}
+                = 
+                \begin{pmatrix}
+                    -b
+                \end{pmatrix}  
+                \qquad \iff \qquad 
+                -Ax - x' = -b 
+            \]
+            therefore $Ax = b-x' \leq b$ since $x' \geq 0$, therefore,
+            \[
+                \exists x\in\R^n \, ,\, x\geq 0 \quad Ax \leq b
+            \]
+            hence $(\textbf{7.1})$ is true. 
+        \end{enumerate}
+    \end{proof}
+    \item Use lemma 7, prove for any $m\times n$  matrix $A$ and $m\times 1$ matrix $b$ such that $\{x: Ax \leq b\, ,\, x\geq 0\} \neq \emptyset$, and any $n\times 1$ vector $c$, the system of inequalities 
+    \[
+        c^T x \geq 1 \qquad Ax \leq b \qquad x \geq 0     
+    \]
+    is infeasible if and only if there exists a $y\in\R^m$, $y\geq 0$, such that $A^T y\geq c$ and $b^T y < 1$
+    \begin{proof}
+        Define 
+        \[
+            \tilde{A} =
+            \begin{pmatrix}
+                A \\
+                -c^T \\
+            \end{pmatrix}    
+            \qquad 
+            \tilde{b} = 
+            \begin{pmatrix}
+                b \\ 
+                -1 \\ 
+            \end{pmatrix}
+        \]
+        Then proving the following suffices
+        \[
+            \nexists x\in\R^n \, ,\, \tilde{A}x \leq \tilde{b} \quad x \geq 0
+            \qquad \iff \qquad 
+            \exists y \in\R^m \, ,\, y \geq 0 \quad A^T y \geq c \quad b^T y < 1
+        \]
+        \begin{enumerate}
+            \item ($\Leftarrow$) let $\tilde{y} = \begin{pmatrix} y & 1 \\ \end{pmatrix}$, then, 
+            \[
+                \exists \tilde{y} \in\R^{m+1} \, ,\, \tilde{y} \geq 0 \quad \tilde{A}^T \tilde{y} \geq 0 \quad \tilde{b}^T \tilde{y} < 0
+            \]
+            lhs follows by Farkas's lemma.
+            \item $(\Rightarrow)$ Assume lhs true, by Farkas's lemma, 
+            \[
+                \exists \tilde{y} \in\R^{m+1} \, ,\, \tilde{y} \geq 0 \quad \tilde{A}^T \tilde{y} \geq 0 \quad \tilde{b}^T \tilde{y} < 0 
+            \]
+            Let $\tilde{y} = \begin{pmatrix} y & a \end{pmatrix}$ satisfying the condition above. If $a\neq 0$, let $\tilde{y}' = \rfrac{1}{a} \tilde{y} = \begin{pmatrix} \rfrac{1}{a} y & 1 \end{pmatrix}$. Since $a > 0$,
+            \[
+                \tilde{A} \tilde{y}' = \frac{1}{a} \tilde{A}\tilde{y} \geq 0 
+                \qquad 
+                \tilde{b}^T \tilde{y}' = \frac{1}{a} \tilde{b}^T \tilde{y} < 0 
+            \]
+            Since $\tilde{A} \tilde{y}' = A^T y  - c$ and $\tilde{b}^T \tilde{y}' = b^T y - 1$, then $A^T y \geq c$ and $b^T y < 1$. This proves rhs true. Now we consider the case where $a=0$. We claim $a=0$ is not possible. Since if $a=0$, then we note $y$ in $\tilde{y}$ statifies $ A^T y \geq 0$ and $b^T y \leq 0$
+            \[
+                \exists y\in\R^m \, ,\, y\geq 0 \quad A^T y \geq 0 \quad b^T y \leq 0
+                \qquad \overset{Farkas}{\rightarrow} \qquad 
+                \nexists x\in \R^n \, ,\, x \geq 0 \quad Ax \leq b
+            \]
+            which contradicts the assumption that $\{x: Ax\leq 0 \quad x\geq 0\} \neq \emptyset$
+        \end{enumerate}
+    \end{proof}
+\end{enumerate}
+
+
+
+
+
+
+\end{document}

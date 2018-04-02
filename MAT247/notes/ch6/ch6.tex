@@ -53,6 +53,8 @@
     \textbf{Conjugate Transpose or Adjoint of a Matrix} Let $A\in M_{m\times n}(F)$, the conjugate transpose or adjoint of $A$ is an $n\times m$ matrix $A^*$ such that $(A^*)_{ij} = \overline{A_{ji}}$ for all $i,j$. For $F=\R$, $A^* = A^T$
 \end{defn*}
 
+
+
 \begin{defn*}
     \textbf{Inner Product Definition Example}
     \begin{enumerate}
@@ -60,7 +62,7 @@
         \[
             \innerp{x}{y} = \sum_{i=1}^n a_i \overline{b}_i    
         \]
-        \item \textbf{Inner Product for Real-valued Continuous Functions on $[0,1]$} Let $V=C([0,1])$, $f,g\in V$, define 
+        \item Inner Product for \textbf{Real-valued Continuous Functions} on $[0,1]$. Let $V=C([0,1])$, $f,g\in V$, define 
         \[
             \innerp{f}{g} = \int_0^1 f(t) g(t) dt    
         \]
@@ -132,7 +134,7 @@
 
 
 \begin{defn*}
-    \textbf{Orthonormal Set Property} Let $V$ be inner product space and $S = \{s_1,s_2,\cdots\}\subseteq V$ be an orthonormal set. Let $v\in \span{S}$, then $v = a_1s_1 + \cdots + a_k s_k$. Then 
+    \textbf{Orthonormal Set Property} Let $V$ be inner product space and \\ $S = \{s_1,s_2,\cdots\}\subseteq V$ be an orthonormal set. Let $v\in \span{S}$, then $v = a_1s_1 + \cdots + a_k s_k$. Then 
     \[
         \innerp{v}{s_j} = a_j    
     \]
@@ -158,7 +160,7 @@
 \end{defn*}
 
 \begin{corollary*}
-    \textbf{Special case for Orthonormal Set} If, in addition to hypotheses of previous theorem, $S$ is orthonormal and $y\in \spam{S}$, then 
+    \textbf{Special case for Orthonormal Set} If, in addition to hypotheses of previous theorem, $S$ is orthonormal and $y\in \span{S}$, then 
     \[
         y = \sum_{i=1}^k \innerp{y}{v_i}v_i    
     \]
@@ -241,7 +243,7 @@
 \begin{theorem*}
     \textbf{6.8 Every Linear Transformation from $V$ to $F$ Can Be Written as a Inner Product} Let $V$ be a finite-dimensional inner product space over $F$, and let $g: V\to F$ be a linear transformation. Then there exists a unique vector $y\in V$ such that $g(x) = \innerp{x}{y}$ for all $x\in V$, where
     \[
-        y = \sum_i \overline{g(v_i)} v_i \qquad \text{$\beta = \{v_1,\cdots, v_n\}$ is orthonormal basis}
+        y = \sum_i \overline{g(v_i)} v_i \qquad \text{$\beta = \{ v_1,\cdots , v_n \}$ is orthonormal basis}
     \]
 \end{theorem*}
 
@@ -334,6 +336,14 @@
 
 \linksection{381}{6.4 Normal and Self-Adjoint Operators}
 
+\begin{defn*}
+    \textbf{Motivation} Condition for orthonormal basis of eigenvectors in 
+    \begin{enumerate}
+        \item $F = \mathbb{C}$, $T$ normal
+        \item $F = \R$, $T$ self-adjoint
+    \end{enumerate}
+\end{defn*}
+
 \begin{lemma*}
     \textbf{Condition on Existence of Eigenvector for Adjoint Linear Operators} Let $T$ be a linear operator on a finite-dimensional inner product space $V$. If $T$ has an eigenvector, then so does $T^*$. If $\lambda$ is an eigenvalue of $T$, then $\overline{\lambda}$ is an eigenvalue of $T^*$
     \begin{proof}
@@ -357,13 +367,14 @@
             \item $\orthocomp{W}$ is a T-invariant subspace as an assumption, i.e. if $y\in \orthocomp{W}, x\in W$, then $\innerp{T(y)}{x} = 0$
             \item $P_{T_{\orthocomp{W}}}(t) | P_T(t)$, so characteristic polyonmial of $T_{\orthocomp{W}}$ splits
         \end{enumerate}
-        to get the orthonormal basis $\gamma$, for which $\cvec{T_{\orthocomp{W}}}_{\gamma}$ is upper triangular.
+        to get the orthonormal basis $\gamma$, for which $\cvec{T_{\orthocomp{W}}}{\gamma}$ is upper triangular.
     \end{proof} 
 \end{theorem*}
 
 \begin{defn*}
     \textbf{Normal Linear Operator} Let $V$ be an inner product space, and let $T$ be a linear operator on $V$. We say that $T$ is normal if $TT^* = T^*T$ . An $n\times n$ real or complex matrix $A$ is normal if $AA^* = A^*A$ (Commutivity). 
     \begin{enumerate}
+        \item Motivation is that if $\cvec{T}{\beta}$ is diagonal, then $T^*$ also diagonal, hence $T$ and $T^*$ commutes
         \item $T$ is normal if and only if $\cvec{T}{\beta}$ is normal, where $\beta$ is an orthonormal basis
         \item Skew-symmetric matrix ($A^t = -A$) is normal by $A^tA = -A^2 = AA^t$
         \item Normality not sufficient to guarantee an orthonormal basis of eigenvectors. However, normality suffices if $V$ is a complex inner product space
@@ -377,7 +388,7 @@
         \item $\norm{T(x)} = \norm{T^*(x)}$ for all $x\in V$
         \item $T - cI$ is normal for every $c\in F$
         \item If $x$ is an eigenvector of $T$, then $x$ is also an eigenvector of $T^*$. In fact,if $T(x) = \lambda x$, then $T^*(x) = \overline{\lambda} x$
-        \item If $\lambda_1$ and $\lambda_2$ are distinct eigenvalues of $T$ with corresponding eigenvectors $x_1$ and $x_2$, then $x_1$ and $x_2$ are orthogonal
+        \item If $\lambda_1$ and $\lambda_2$ are distinct eigenvalues of $T$ with corresponding eigenvectors $x_1$ and $x_2$, then \textbf{$x_1$ and $x_2$ are orthogonal}, i.e. $\innerp{x_1}{x_2} = 0$
     \end{enumerate}
 \end{theorem*}
 
@@ -385,7 +396,7 @@
     \textbf{6.16 Normal Operator iff Diagonalizable ($F=\mathbb{C}$)} \\
     Let $T$ be a linear operator on a finite-dimensional \textbf{complex} inner product space $V$. Then $T$ is normal if and only if there exists an orthonormal basis for $V$ consisting of eigenvectors of $T$.
     \begin{proof}
-        Idea is the orthonormal basis that makes $T$ an upper triangular matrix happens to be a set of eigenvectors. The proof consists of using fundamental theorem of algebra to show that $P_T(t)$ splits and by Schur's theorem there exists orthonrmal basis $\beta = \{v_1,v_2,\cdots, v_n\}$ for $V$ such that $\cvec{T}{\beta} = A$ is upper triangular. Then use induction on $k$ to prove that $v_k \in \beta$ is in fact eigenvectors, given that $\{v_1,\cdots, v_{k-1}\}$ are eigenvectors, with base case $k=1$, $T(v_1) = A_{11}v_1$ since $A$ is upper triangular. The converse is true by $\cvec{T}{\beta}$ diagonal and so $\cvec{T^*}{\beta}$ also diagonal, diagonal matrix commute, so $T$ is normal
+        Idea is the orthonormal basis that makes $T$ an upper triangular matrix (using Schur's Theorem) happens to be a set of eigenvectors
     \end{proof}
     \begin{enumerate}
         \item \linkinline{384}{example showing theorem does not work on infinite dimension vector spaces} with problem definition \linkinline{347}{here}. Specifically an example where $T$ is normal and that $T$ has no eigenvectors
@@ -395,7 +406,7 @@
 
 
 \begin{defn*}
-    \textbf{Self-Adjoint} Let $T$ be a linear operator on an inner product space $V$. We say that $T$ is self-adjoint (Hermitian) if $T = T^*$. An $n\times n$ real or complex matrix $A$ is self-adjoint (Hermitian) if $A=A^*$
+    \textbf{Self-Adjoint (Hermitian)} Let $T$ be a linear operator on an inner product space $V$. We say that $T$ is self-adjoint (Hermitian) if $T = T^*$. An $n\times n$ real or complex matrix $A$ is self-adjoint (Hermitian) if $A=A^*$
     \begin{enumerate}
         \item If $\beta$ is orthonormal basis, then $T$ is self-adjoint if and only if $\cvec{T}{\beta}$ is self-adjoint (symmetric matrix for $F=\R$)
         \item If $T$ is self-adjoint, then $T$ is normal
@@ -431,6 +442,187 @@
         \sqrt{i} = e^{i \pi / 4} = \cos \frac{\pi}{4} + i \sin \frac{\pi}{4} = \frac{1}{\sqrt{2}} + i \frac{1}{\sqrt{2}}
     \]
 \end{defn*}
+
+\begin{defn*}
+    \textbf{Positive Definite/Semidefinite} \\
+    A linear operator $T$ on a finite-dimensional inner product space is called positive definite (positive semidefinite) if $T$ is 
+    \begin{enumerate}
+        \item self-adjoint, and 
+        \item $\innerp{T(x)}{x} >0$ ($\innerp{T(x)}{x} \geq 0$) for all $x\neq 0$
+    \end{enumerate}
+    An $n\times n$ matrix $A$ with entries from $\R$ or $\mathbb{C}$ is positive definite (positive semidefinite) if $L_A$ is positive definite (positive semidefinite)
+\end{defn*}
+
+
+\linksection{286}{5.2 Direct Sums} 
+
+\begin{defn*}
+    \textbf{Sum} Let $W_1, W_2,\cdots, W_k$ be subspaces of a vector space $V$. The sum of these subspacecs is the set 
+    \[
+        \{v_1 + \cdots + v_k : v_i \in W_i \text{ for } 1 \leq i \leq k\}    
+    \]
+    which we denote by $W_1 + \cdots + W_k$ or $\textstyle\sum_{i=1}^k W_i$
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Direct Sum} Let $W_1, W_2, \cdots, W_k$ be subspaces of a vector space $V$. We call $V$ the direct sum of the subspaces $W_1, W_2, \cdots, W_k$ and write $V = W_1 \oplus W_2 \oplus \cdots \oplus W_k$ if 
+    \[
+        V = \sum_{i=1}^k W_i    
+        \qquad \text{and} \qquad 
+        W_j \cap \sum_{i\neq j} W_i = \{ 0\} \text{ for each } 1 \leq j \leq k
+    \]
+    \begin{enumerate}
+        \item dimension of direct sum is sum of dimension of the subspaces in the sum
+        \[
+            \dim{V} = \dim{W_1} + \cdots + \dim{W_k}
+        \]
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{5.10 Equivalence Condition for Direct Sum} \\
+    Let $W_1, \cdots W_k$ be subspaces of finite-dimensional vector space $V$. The following results are equivalent
+    \begin{enumerate}
+        \item $V = W_1 \oplus \cdots \oplus W_k$ 
+        \item $V = \textstyle\sum_{i=1}^k W_i$ and, for any vector $v_1, \cdots, v_k$ such that $v_i \in W_i$ ($1\leq i \leq k$), if $v_1 + \cdots v_k = 0$, then $v_i = 0$ for all $i$.
+        \item Each vector $v\in V$ can be uniquely written as $v = v_1 + v_2 + \cdots + v_k$ where $v_i \in W_i$ 
+        \item If $\gamma_i$ is an ordered basis for $W_i$ ($1\leq i \leq k$), then $\gamma_1 \cup \gamma_2 \cup \cdots \cup \gamma_k$ is an ordered basis for $V$
+        \item For each $i = 1,2,\cdots, k$, there exists an ordered basis $\gamma_i$ for $W_i$ such that $\gamma_1 \cup \gamma_2 \cup\cdots \cup \gamma_k$ is an ordered basis for $V$ 
+    \end{enumerate}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{5.11} A linear operator $T$ on a finite-dimensional vector space $V$ is diagonalizable if and only if $V$ is the direct sum of the eigenspaces of $T$
+\end{theorem*}
+
+
+\linksection{410}{6.6 Orthogonal Projection and the Spectral Theorem} 
+
+\begin{defn*}
+    \textbf{Projection on a Subspace} \\
+    Let $V$ be a vector space and $W_1$ and $W_2$ be subspaces of $V$ such taht $V = W_1 \oplus W_2$. A function $T:V\to V$ is called the projection on $W_1$ along $W_2$ if, for $x = x_1 + x_2$ with $x_1 \in W_1$ and $x_2\in W_2$, we have $T(x) = x_1$
+    \begin{enumerate}
+        \item $R(T) = W_1 = \{ x\in V: T(x) = x \}$ and $N(T) = W_2$
+        \item $V = R(T) \oplus N(T)$, i.e. 
+        \begin{enumerate}
+            \item every projection uniquely determined by its range and nullspace
+            \item $W_1$ does not uniquely determine $T$
+        \end{enumerate}
+        \item $T$ \textbf{is a projection if and only if} $T = T^2$
+    \end{enumerate}
+    \begin{proof}
+        Proving $T$ is a projection iff $T^2 = T$. Forward direction, 
+        \[
+            T^2(x) = T(T(x)) = T(x_1) = x_1 = T(x)
+        \]
+        For reverse direction, assume $T^2 = T$, then $T(I-T) = 0_V$. Let $W_1 = R(T)$ and $W_2 = N(T)$, now claim $V = W_1 \oplus W_2$. We first prove $N(T) = R(I-T)$. Since $T(I-T)=0$, then $R(I-T)\subseteq N(T)$. Conversely, if $x\in N(T)$, then $(I-T)(x) = x - T(x) = x$, i.e. $x\in R(I-T)$. Now write $I = T+I-T$, then $x = T(x) + (I-T)(x)$ for any $x\in V$. Then $v = w_1 + w_2$ where $w_1\in W_1$ and $w_2\in W_2$. Now we prove uniqueness, i.e. $\{ 0\} = R(T) \cap N(T)$. Let $T(x) \in R(T) \cap N(T)$ as $T(x)\in R(T)$ by default and let $T(x)\in N(T)$. Then $T(x) = 0$. Proved $V = W_1 \oplus W_2$. Then we can write $x = x_1 + x_2$ where $x_1 \in R(T)$ and $x_2 \in N(T)$, hence 
+        \[
+            T(x) = T(x_1 + x_2) = T(x_1) + T(x_2) = T(x_1) = x_1
+        \]
+        where the last equality given by letting $x_1 = T(y)$, then $T(x_1) = T^2(y) = T(y)=  x_1$
+    \end{proof}
+\end{defn*}
+
+
+
+\begin{defn*}
+    \textbf{Orthogonal Projection} Let $V$ be an inner product space, and let $T: V\to V$ be a a linear operator. We say that $T$ is an orthogonal projection if 
+    \begin{enumerate}
+        \item $T$ is a projection, and
+        \item $\orthocomp{R(T)} = N(T)$ and $\orthocomp{N(T)} = R(T)$
+    \end{enumerate}
+    Note
+    \begin{enumerate}
+        \item If $V$ finite-dimensional, need to assume either condition in 2. hold. 
+        \item Orthogonal projection $T$ is uniquely determmined by its range $W$, so instead call $T$ the orthogonal projection of $V$ on $W$
+    \end{enumerate}
+\end{defn*}
+
+\begin{proposition*}
+    \textbf{Projection of Vector to a Subspace is an Orthogonal Projection} Let $W$ be subspace of $V$. there exists $u\in W$ and $z\in \orthocomp{W}$ and $y\in V$ such that $y=u+z$. If we define linear operator $T: V\rightarrow V$ by 
+    \[
+        T(y) = u = \sum_{i=1}^k \innerp{y}{v_i} v_i    
+    \]
+    where $\{v_1, \cdots, v_n\}$ is an orthonormal basis for $W$. Then $T$ is an orthogonal projection.
+    \begin{proof}
+        Prove that $T^2 = T = T^*$. For any $v_j \in \beta$, we have 
+        \[
+            T(T(v_j)) = T(\sum_{i=1}^k \innerp{v_j}{v_i}v_i) = T(v_j)
+        \]
+        therefore $T^2 = T$ since linear operator characterized by basis entirely. Let $x,y\in V$,
+        \[
+            \innerp{T(x)}{y} = \innerp{\sum_i \innerp{x}{v_i}v_i}{y} = \sum_i \innerp{x}{v_i}\innerp{v_i}{y} = \sum_i \overline{\innerp{y}{v_i}} \innerp{x}{v_i} = \innerp{x}{\sum_i \innerp{y}{v_i}v_i} = \innerp{x}{T(y)}
+        \]
+        therefore $T = T^*$ by theorem 6.24, $T$ is orthogonal projection.
+    \end{proof}
+    \begin{proof}
+        Alternatively we can prove that $N(T)$ and $R(T)$ are reciprocally orthogonal sets. Since $T$ is a projection, we have $V = R(T) \oplus N(T)$, where $N(T) = \{x\in V: \innerp{x}{v_i} = 0 \text{ for all }i\} = \orthocomp{W}$ and $R(T) = W$. Therefore $N(T) = \orthocomp{R(T)}$ and $\orthocomp{N(T)} = (R(T)^{\perp})^{\perp} \supseteq R(T)$. Now we show if $x\in \orthocomp{N(T)}$, then $x\in R(T) = W$. Now by direct sum, we can write $x = y+w$ where $y\in N(T)$ and $w\in R(T)=W$, then 
+        \[
+            0 = \innerp{x}{y} = \innerp{y}{y} + \innerp{w}{y} 
+            \quad \rightarrow \quad 
+            \innerp{y}{y} = 0 
+            \quad \rightarrow \quad 
+            y = 0
+        \]
+        therefore $x = w \in W$. 
+    \end{proof}
+\end{proposition*}
+
+\begin{theorem*}
+    \textbf{6.24 $T^2 = T = T^*$ iff Orthogonal Projection} \\
+    Let $V$ be an inner product space, and let $T$ be a linear operator on $V$. Then $T$ is an orthogonal projection if and only if $T$ has an adjoint $T^*$ and $T^2 = T = T^*$
+    \begin{enumerate}
+        \item Let $T$ be orthogonal projection of $V$ on $W$, and $\beta = \{v_1, \cdots, v_n\}$ is an orthonormal basis for $V$, and $\{v_1, \cdots, v_k\}$ is a basis for $W$, then
+        \[
+            \cvec{T}{\beta} = 
+            \begin{pmatrix}
+                I_k & O \\
+                O & O \\
+            \end{pmatrix}    
+        \]
+        \item Let $U$ be any projection on $W$, then exists $\gamma$ such that $\cvec{U}{\gamma}$ has same for as above, but $\gamma$ need not be orthonormal
+    \end{enumerate}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{6.25 The Spectral Theorem} \\
+    Suppose $T$ a linear operator  on a finite-dimensional inner product space $V$ over $F$ with distinct eigenvalues $\lambda_1, \cdots, \lambda_k$. Assume $T$ is normal if $F = \mathbb{C}$ and that $T$ is self-adjoint if $F = \R$. (i.e. guarantees orthonormal basis of eigenvectors). For each $i$ ($1\leq i \leq k$), let $W_i$ be the eigenspace of $T$ corresponding to the eigenvalue $\lambda_i$, and let $T_i$ be the orthogonal projection of $V$ on $W_i$. Then the following statements are true 
+    \begin{enumerate}
+        \item $V = W_1\oplus \cdots\oplus W_k$ 
+        \item If $W_i'$ denotes the direct sum of subspaces $W_j$ for $j\neq i$, then $\orthocomp{W_i} = W_i'$
+        \item $T_i T_j = \delta_{ij} T_i$ for $1\leq i,j\leq k$
+        \item $I = T_1 + T_2 + \cdots + T_k$ (\textbf{resolution of identity operator induced by $T$})
+        \item $T = \lambda_1 T_1 + \lambda_2 T_2 + \cdots + \lambda_k T_k$ (\textbf{spectral decomposition})
+    \end{enumerate}
+    note 
+    \begin{enumerate}
+        \item Note since $T_i$ orthogonal projection, we have $N(T_i) = \orthocomp{R(T_i)} = \orthocomp{W_i} = W_i'$
+        \item \textbf{Spectrum} The set $\{\lambda_1, \cdots, \lambda_k\}$ is called spectrum of $T$
+        \item Let $\beta$ be union of orthonormal basis of $W_i$'s and let $m_i = \dim{W_i}$, then 
+        \[
+            \cvec{T}{\beta} = 
+            \begin{pmatrix}
+                \lambda_1 I_{m_1} & O & \cdots & O \\ 
+                O & \lambda_2 I_{m_2} & \cdots & O \\
+                \vdots & \vdots & & \vdots \\
+                O & O & \cdots & \lambda_k I_{m_k} \\
+            \end{pmatrix}    
+        \]
+    \end{enumerate}
+\end{theorem*}
+
+\begin{corollary*}
+    \textbf{Condition for Normal} If $F=\mathbb{C}$, then $T$ is normal if and only if $T^* = g(T)$ for some polynomial 
+\end{corollary*}
+
+\begin{corollary*}
+    \textbf{Condition of Unitary} If $F = \mathbb{C}$, then $T$ is unitary if and only if $T$ is normal and $|\lambda|=1$ for every eigenvalue $\lambda$ of $T$
+\end{corollary*}
+
+\begin{corollary*}
+    \textbf{Condition for Self-Adjoint} If $F = \mathbb{C}$ and $T$ is normal, then $T$ is self-adjoint if and only if every eigenvalue of $T$ is real
+\end{corollary*}
 
 
 

@@ -238,8 +238,47 @@
 \end{defn*}
 
 
+
 \linksection{284}{Application: Closed Formula for Exponential of Diagonalizable Matrix}
 \linksection{285}{Application: System of Differential Equations}
+
+\linksection{286}{5.2 Direct Sums} 
+
+\begin{defn*}
+    \textbf{Sum} Let $W_1, W_2,\cdots, W_k$ be subspaces of a vector space $V$. The sum of these subspacecs is the set 
+    \[
+        \{v_1 + \cdots + v_k : v_i \in W_i \text{ for } 1 \leq i \leq k\}    
+    \]
+    which we denote by $W_1 + \cdots + W_k$ or $\textstyle\sum_{i=1}^k W_i$
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Direct Sum} Let $W_1, W_2, \cdots, W_k$ be subspaces of a vector space $V$. We call $V$ the direct sum of the subspaces $W_1, W_2, \cdots, W_k$ and write $V = W_1 \oplus W_2 \oplus \cdots \oplus W_k$ if 
+    \[
+        V = \sum_{i=1}^k W_i    
+        \qquad \text{and} \qquad 
+        W_j \cap \sum_{i\neq j} W_i = \{ 0\} \text{ for each } 1 \leq j \leq k
+    \]
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{5.10 Equivalence Condition for Direct Sum} \\
+    Let $W_1, \cdots W_k$ be subspaces of finite-dimensional vector space $V$. The following results are equivalent
+    \begin{enumerate}
+        \item $V = W_1 \oplus \cdots \oplus W_k$ 
+        \item $V = \textstyle\sum_{i=1}^k W_i$ and, for any vector $v_1, \cdots, v_k$ such that $v_i \in W_i$ ($1\leq i \leq k$), if $v_1 + \cdots v_k = 0$, then $v_i = 0$ for all $i$.
+        \item Each vector $v\in V$ can be uniquely written as $v = v_1 + v_2 + \cdots + v_k$ where $v_i \in W_i$ 
+        \item If $\gamma_i$ is an ordered basis for $W_i$ ($1\leq i \leq k$), then $\gamma_1 \cup \gamma_2 \cup \cdots \cup \gamma_k$ is an ordered basis for $V$
+        \item For each $i = 1,2,\cdots, k$, there exists an ordered basis $\gamma_i$ for $W_i$ such that $\gamma_1 \cup \gamma_2 \cup\cdots \cup \gamma_k$ is an ordered basis for $V$ 
+    \end{enumerate}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{5.11} A linear operator $T$ on a finite-dimensional vector space $V$ is diagonalizable if and only if $V$ is the direct sum of the eigenspaces of $T$
+\end{theorem*}
+
+
 
 
 \begin{defn*}

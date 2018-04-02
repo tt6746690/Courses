@@ -11,6 +11,17 @@ cifar-10-python.tar.gz
 
 CSC321/tutorial/w6/data/*
 CSC321/homework/pa2/data/*
+CSC321/homework/pa4/samples_*
+CSC321/homework/pa4/emojis/*
+CSC321/homework/pa4/samples_vanilla/*
+CSC321/homework/pa4/samples_cyclegan_pretrained/*
+CSC321/homework/pa4/samples_cyclegan_cycle_pretrained/*
+CSC321/homework/pa4/samples_cyclegan_cycle/*
+CSC321/homework/pa4/samples_cyclegan/*
+CSC321/homework/pa4/pretrained_cycle/*
+CSC321/homework/pa4/emojis/*
+CSC321/homework/pa3/checkpoints/*
+CSC321/homework/pa4/emojis/*
 
 
 

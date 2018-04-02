@@ -1,0 +1,172 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+\begin{align*}
+    Max &\quad \sum_{(s,u)\in E} f_{sv} - \sum_{(v,s)\in\E} f_{vs} 
+    & 
+    Max &\quad d^T f \\
+    st. &\sum_{(v,u)\in E} f_{vu} - \sum_{(u,v) \in E} f_{uv} = 0 \qquad \forall u\in V \setminus \{s,t\} 
+    & 
+    s.t. &\quad Af \geq b \quad Af \leq b \\
+    &0 \leq f_e \leq c_e \qquad \forall e\in E 
+    & 
+    & f_e \geq 0
+    \\
+\end{align*}
+where
+\[
+    \underset{m\times 1}{d} 
+    \qquad 
+    \underset{(n-2+m)\times m}{A} = 
+    \begin{pmatrix}
+        \underset{(n-2)\times m}{B} \\
+        I_m \\ 
+    \end{pmatrix} 
+    \qquad 
+    \underset{(n-2+m)\times 1}{b} = 
+    \begin{pmatrix}
+        \underset{(n-2)\times 1}{0} \\
+        C \\ 
+    \end{pmatrix}
+\]
+
+
+\[
+    d_{uv} = 
+    \begin{cases}
+        1  & u = s \quad (s,v)\in E  \\ 
+        -1 & v = s \quad (u,s)\in E  \\ 
+        0 & otherwise
+    \end{cases}  
+    \qquad 
+    \qquad 
+    B_{ve} = 
+    \begin{cases}
+        1 & (\cdot , v) = e \\
+        -1 & (v, \cdot ) = e \\ 
+        0 & otherwise \\
+    \end{cases}    
+\]
+
+\noindent Let $|E| = m$ and $|v| = n$. PLP has $m$ variables and $2(n-2)+m$ varialbes. Supposedly, the dual has $2(n-2) + m$ variables and $m$ constraints. However, we can reduce number of dual variables to $n-2+m$ by noticing that 
+\[
+    Ax = b \iff Ax \leq b \quad (-A) x \leq (-b) \iff 
+    \tilde{A}x =
+    \begin{pmatrix}
+        A \\
+        -A
+    \end{pmatrix}
+    x \leq 
+    \begin{pmatrix}
+        b \\
+        -b \\
+    \end{pmatrix}
+    =  \tilde{b}
+\]
+Given dual varaibles $y = \begin{pmatrix} y_1 & y_2 \end{pmatrix} \in\R^{2m}$ where $y_1,y_2\in\R^{m+}$ have the following dual constraints 
+\[
+    \tilde{A}^T y = 
+    \begin{pmatrix}
+        A^T & -A^T 
+    \end{pmatrix}
+    \begin{pmatrix}
+        y_1 \\
+        y_2 \\ 
+    \end{pmatrix} 
+    = A^T(y_1 - y_2) 
+    = A^T y'
+    \geq c 
+\]
+for some $y' = y_1 - y_2 \in\R^m$. Note we reduce number of dual variables by half, i.e. non-negative $y_1,y_2 \in\R^{m+}$ to $y' \in\R^m$, which can be negative
+
+\begin{align*}
+    Min &\sum_{e\in E} c_e y_e 
+    &
+    Min \quad &b^T \tilde{y}
+    = b^T \begin{pmatrix}
+        x \\ y \\
+    \end{pmatrix}
+    \\
+    s.t.& \quad x_v - x_u + y_{uv} \geq 0 \qquad \forall (u,v)\in E 
+    & 
+    s.t.& A^T \tilde{y} \geq d \\
+    & x_s = 1 \quad x_t = 0  
+    &
+    &y \geq 0 
+    \\
+    & y_e \geq 0 \qquad \forall e\in E
+\end{align*}
+where $\underset{(n-2)\times 1}{x}$ has one value for each $V\setminus \{s,t\}$, and $\underset{m\times 1}{y}$ has one value for each $e\in E$
+
+
+\[
+    b^T \tilde{y} = 
+    \begin{pmatrix}
+        \underset{(n-2)\times 1}{0} & C \\
+    \end{pmatrix}
+    \begin{pmatrix}
+        \underset{(n-2)\times 1} x \\
+        \underset{m\times 1} y \\ 
+    \end{pmatrix}
+    = \sum_{e\in E} c_e y_e   
+    \qquad \text{and}\qquad 
+    y\geq 0 \quad \rightarrow \quad y_e \geq 0 \forall e\in E
+\]
+
+\[
+    A^T \tilde{y} = 
+    \begin{pmatrix}
+        \underset{m\times (n-2)}{B^T} & I_m \\ 
+    \end{pmatrix}    
+    \begin{pmatrix}
+        x \\ y \\ 
+    \end{pmatrix}
+    = 
+    B^T x  + I_m y 
+    \qquad 
+    (I_m y)_{e} = y_e
+\]
+\[
+    (B^T)_{ev} = B_{ve} = 
+    \begin{cases}
+        1 & (\cdot , v) = e \\
+        -1 & (v, \cdot ) = e \\ 
+        0 & otherwise \\
+    \end{cases}   
+    \quad 
+    \rightarrow 
+    \quad 
+    (B^T x)_{e=(v_1,v_2)} = \sum_{v\in V\setminus \{s,t\}} (B^T)_{ev} x_v = B_{v_1 e} x_{v_1} + B_{v_2 e} x_{v_2} = x_{v_1} - x_{v_2}
+\]
+
+
+therefore for edges whose vertices consists of neither $s$ nor $t$
+\[
+    A^T \tilde{y} \geq d 
+    \quad \rightarrow \quad 
+    x_v - x_u + y_{uv} \geq 0 \quad \forall (u,v)\in E: u,v\neq s,t
+\]
+For edges that connects $s$, we have 
+\[
+    x_u + y_{su} \geq 1 
+    \quad 
+    x_s + y_{us} \geq -1
+\]
+if we set variables $x_s=1$, then we can write above as 
+\[
+    x_u - x_s + y_{su} \geq 0 
+    \quad 
+    x_s - x_u + y_{us} \geq 0   
+\]
+to fit with how the above formulation. Setting $x_t=0$ does the trick for edges that connects $t$
+
+
+
+
+
+
+
+\end{document}

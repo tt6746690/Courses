@@ -1,5 +1,11 @@
 
 
+### Points 
+
+
++ emphasize and explain __NATIONAL imagined communities__, with emphasis on it being __NATIONAL__
++ instead of forming imagined community, write about how it contributes a collective __national imagined community__
+
 
 ### Paper 
 

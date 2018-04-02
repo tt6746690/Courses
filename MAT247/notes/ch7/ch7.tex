@@ -33,6 +33,7 @@
 \renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\orthocomp}[1]{#1^{\perp}}
 \newcommand{\divides}{\mid}
+\renewcommand\qedsymbol{$\blacksquare$}
 
 
 \linksection{34}{Direct Sum Definition}
@@ -49,12 +50,22 @@
 \end{defn*}
 
 \begin{defn*}
-    \textbf{Direct Sum} A vector space $V$ is called the direct sum of $W_1$ and $W_2$ if $W_1$ and $W_2$ are subspaces of $V$ such that $W_1 \cap W_2 = \{0\}$ and $W_1 + W_2 = V$. We denote that $V$ is the direct sum of $W_1$ and $W_2$ by writing $V=W_1 + W_2$. We denote $V$ is the direct sum of $W_1$ and $W_2$ by writing $V = W_1 \oplus W_2$
+    \textbf{Direct Sum} A vector space $V$ is called the direct sum of $W_1$ and $W_2$, denoted as $V = W_1 \oplus W_2$, if $W_1$ and $W_2$ are subspaces of $V$ such that 
+    \begin{enumerate}
+        \item $V = W_1 + W_2$
+        \item $W_1 \cap W_2 = \{0\}$ (implies uniqueness)
+    \end{enumerate}
+    More generally, assume $W_1, \cdots, W_k$ are subspaces of $V$, then $V = W_1 \oplus W_2 \oplus \cdots \oplus W_k$ if
+    \begin{enumerate}
+        \item $V = W_1 + \cdots + W_k$
+        \item $W_i \bigcap (\textstyle\sum_{j\neq i} W_j) = \{ 0\} $
+    \end{enumerate}
     \begin{enumerate}
         \item Direct sum of the set of upper triangular like matrices and lower triangular matrices is $M_{m\times n}(F)$
         \item The trick of decomposing vector space into direct sums is that the intersection of subsets yield the zero vector
     \end{enumerate}
 \end{defn*}
+
 
 
 
@@ -132,12 +143,22 @@
     \begin{enumerate}
         \item $K_{\lambda}$ is a T-invariant subspace of $V$ containing $E_{\lambda}$ (the eigenspace of $T$ corresponding to $\lambda$)
         \item For any scalar $\mu \neq \lambda$, the restiction $T - \mu I$ to $K_{\lambda}$ is one-to-one.
+        \begin{enumerate}
+            \item $E_{\mu} = N(T-\mu I) = 0$ for all $\mu \neq \lambda$, so $\lambda$ is the only eigenvalue of $T_{\lambda_k}$
+            \item For $\mu \neq \lambda$, $K_{\lambda} \cap K_{\mu} = 0$. 
+        \end{enumerate}
     \end{enumerate}
-    Note
-    \begin{enumerate}
-        \item Second property implies $E_{\mu} = N(T-\mu I) = 0$ for all $\mu \neq \lambda$, so $K_{\lambda}$ contains only one eigenspace $E_{\lambda}$ and $\lambda$ is the only eigenvalue of $T_{\lambda_k}$
-        \item For $\mu \neq \lambda$, $K_{\lambda} = K_{\mu} = 0$
-    \end{enumerate}
+    \begin{proof}
+        Prove 2.2 \\
+        Suppose $\mu \neq \lambda$, $T-\mu I |_{K_{\lambda}}$ is invertible on $K_{\lambda}$ by property 2. Then let 
+        \[
+            x \in K_{\lambda} \cap N(T-\mu I)    
+        \]
+        then $x = 0$. Similarly, consider large enough $q$, such that $K_{\mu} = (T-\mu I)^q$, which is invertible as it is a composition of invertible transformation. So then 
+        \[
+            K_{\mu} \cap K_{\lambda} = \emptyset
+        \]
+    \end{proof}
 \end{theorem*}
 
 
@@ -160,10 +181,55 @@
         So $(T-\lambda I)^d(x) = 0$ for all $x\in W$ where $d\leq m$, so $K_{\lambda} \subseteq N((T-\lambda I)^m)$
     \end{enumerate}
 \end{theorem*}
+
+
+\begin{defn*}
+    \textbf{Nilpotent} A linear operator $T$ on a vector space $V$ is called nilpotent if $T^p = T_0$ for some positive $p$. An $n\times n$ matrix $A$ is called nilpotent if $A^p = 0$ for some positive integer $p$
+\end{defn*}
+
+\begin{lemma*}
+    \textbf{Fitting Decomposition} For $S\in L(V)$, there is a unique decomposition 
+    \[
+        V = W \oplus U    
+    \]
+    where $W,U$ are $S$-invariant, and 
+    \begin{enumerate}
+        \item $S|_W$ invertible 
+        \item $S|_U$ nilpotent that is, if $(S|_U)^q = 0$ for some $q > 0$
+    \end{enumerate}
+    \begin{proof}
+        Note 
+        \[
+            N(S) \subseteq N(S^2) \subseteq \cdots 
+            \qquad 
+            R(S) \supseteq R(S^2) \supseteq \cdots
+        \]
+        have to stablize for nilpotent $S = (T-\lambda I)$, that is there exists $p>0$, such that 
+        \[
+            N(S^p) = N(S^{p+1})
+            \qquad 
+            R(S^p) = R(S^{p+1})
+        \]
+        Now let $U = N(S^p)$ and $W = R(S^p)$, both $S$-invariant. It is obvious that $S|_V$ is nilpotent. Also $S(W) = S(R(S^p)) = R(S^{p+1}) = R(S^p) = W$, i.e. on-to. so $S|_W$ invertible. Claim $V = W\oplus U$, let $x\in V$, then 
+        \[
+            S^px \in R(S^p) = R(S^{2p})
+        \]
+        So exists $y\in V$, such that $S^px = S^{2p}y$, so then $S^p(x - S^py) = 0$, then $x - S^p y \in N(S^p) = U$. So then
+        \[
+            x = x_1 + x_2 
+            \qquad 
+            x_1 = S^p y \in W
+            \quad
+            x_2 = x - x_1 \in U
+        \]
+
+    \end{proof}
+\end{lemma*}
  
 
 \begin{theorem*}
-    \textbf{7.3 Lemma for Proving That Basis for $E_{\lambda}$s' Spans Entire Space} Let $T$ be a linear operator on a finite-dimensional vector space $V$ such that the characteristic polynomial of $T$ splits, and let $\lambda_1,\lambda_2,\cdots, \lambda_k$ be the distinct eigenvalues of $T$. Then for every $x\in V$, there exists vectors $v_1\in K_{\lambda_i}$, $1\leq i \leq k$, such that 
+    \textbf{7.3 Generalized Eigenspace Decomposition} \\
+    Let $T$ be a linear operator on a finite-dimensional vector space $V$ such that the characteristic polynomial of $T$ splits, and let $\lambda_1,\lambda_2,\cdots, \lambda_k$ be the distinct eigenvalues of $T$. Then for every $x\in V$, there exists vectors $v_1\in K_{\lambda_i}$, $1\leq i \leq k$, such that 
     \[ 
         x = v_1 + v_2 + \cdots + v_k    
     \]
@@ -188,15 +254,29 @@
 \end{corollary*}
 
 \begin{defn*}
-    \textbf{Cycle of Generalized Eigenvectors} Let $T$ be a linear operator on a vector space $V$, and let $x$ be a generalized eigenvector of $T$ corresponding to the eigenvalue $\lambda$. Suppose that $p$ is the smallest positive integer for which $(T-\lambda I)^p (x) = 0$. Then the ordered set 
+    \textbf{Cycle of Generalized Eigenvectors} Let $T$ be a linear operator on a vector space $V$, and let $x$ be a generalized eigenvector of $T$ corresponding to the eigenvalue $\lambda$. Then $x$ is a generalized eigenvector of \textbf{height} $p$ if $p$ is the smallest positive integer for which $(T-\lambda I)^p (x) = 0$ but $(T-\lambda I)^{p-1} (x) \neq 0$. Then the ordered set,
     \[
         \{ (T-\lambda I)^{p-1}(x), (T-\lambda I)^{p-2}(x), \cdots, (T-\lambda I)(x), x \}
     \]
-    is called a cycle of generaliezd eigenvectors of $T$  corresponding to $\lambda$. The vectors $(T-\lambda I)^{p-1}(x)$ and $x$ are called the initial vector and the end vector of the cycle, respectively. We say that the length of the cycle is $p$ (number of vectors).
+    is called a cycle of generalized eigenvectors of $T$  corresponding to $\lambda$. The vectors $(T-\lambda I)^{p-1}(x)$ and $x$ are called the \textbf{initial vector} and the \textbf{end vector} of the cycle, respectively. We say that the \textbf{length} of the cycle is $p$ (number of vectors). 
+    \begin{enumerate}
+        \item The elements of a cycle are linearly independent
+    \end{enumerate}
+    \begin{proof}
+        Given 
+        \[
+            a_1 (T-\lambda I)^{p-1} x + \cdots + a_{p-1}(T-\lambda I)    x + a_p x = 0
+        \]
+        Apply $(T-\lambda I)^{p-i}$ for $i = 1, \cdots, p$ times. For $i=1$, we have
+        \[
+            0 + \cdots + 0 + a_p (T-\lambda I)^{p-1}x = 0    
+        \]
+        Note $(T-\lambda I)^{p-1}x \neq 0$, so then $a_p = 0$. We can deduce $a_1 = \cdots = a_p = 0$
+    \end{proof}
 \end{defn*}
 
 \begin{theorem*}
-    \textbf{7.5 Jordan Canonical Basis as Disjoint Union of Cycles of Generalized Eigenvectors} \\
+    \textbf{7.5 Disjoint Union of Cycles of Generalized Eigenvectors as Jordan Canonical Basis} \\
     Let $T$ be a linear operator on a finite-dimensional vector space $V$ whose characteristic polynomial splits, and suppose that $\beta$ is a basis for $V$ such that $\beta$ is a disjoint union of cycles of generalized eigenvectors of $T$. Then the following are true 
     \begin{enumerate}
         \item For each cycle $\gamma$ of generalized eigenvectors contained in $\beta$, $W = \span{\gamma}$ is T-invariant and $\cvec{T_W}{\gamma}$ is a Jordan block 
@@ -205,7 +285,29 @@
 \end{theorem*}
 
 \begin{theorem*}
-    \textbf{7.6 Existence of Disjoint Union of Cycles of Generalized Eigenvectors} Let $T$ be a linear operator on a vector space $V$, and let $\lambda$ be an eigenvalue of $T$. Suppose that $\gamma_1, \gamma_2, \cdots, \gamma_q$ are cycles of generalized eigenvectors of $T$ corresponding to $\lambda$ such that the initial vectors of the $\gamma_i$'s are distinct and form a linearly independent set. Then the $\gamma_i$'s are disjoint, and their union $\gamma = \bigcup_{i=1}^q \gamma_i$ is linearly independent
+    \textbf{7.6 Existence Condition for a Disjoint Union of Cycles} \\ 
+    Let $T$ be a linear operator on a vector space $V$, and let $\lambda$ be an eigenvalue of $T$. Suppose that $\gamma_1, \gamma_2, \cdots, \gamma_q$ are cycles of generalized eigenvectors of $T$ corresponding to $\lambda$ such that the initial vectors of the $\gamma_i$'s are 
+    \begin{enumerate}
+        \item \textbf{distinct}, and
+        \item form a \textbf{linearly independent set}
+    \end{enumerate}
+     Then the $\gamma_i$'s are 
+     \begin{enumerate}
+         \item \textbf{disjoint}, i.e. $\gamma_i \cap \gamma_j = \emptyset$ for $i\neq j$, and
+         \item their union $\gamma = \bigcup_{i=1}^q \gamma_i$ is \textbf{linearly independent}
+     \end{enumerate}
+     \begin{proof}
+        To prove cycles disjoint. Assume there exits $x\in K_{\lambda}$ with height $p$, such that $x\in \gamma_1$ and $x\in \gamma_2$, without loss of generality of choice of $\gamma$s'. Then $(T-\lambda I)^{p-1} x \neq 0$ is initial vector for both $\gamma_1$ and $\gamma_2$. Contradiction as we assumed that initial vectors are all distinct. \\
+        Let $\gamma = \{x_1, \cdots, x_n\}$, suppose
+        \[
+        a_1 x_1 + \cdots + a_n x_n = 0 
+        \]
+        where $a_j$ not all zero. Let $k$ be such that $a_k \neq 0$ and that $x_k$ has largest height $p$ possible. Apply $(T-\lambda I)^{p-1}$ to the equation, we get 
+        \[
+        \cdots + 0 + a_k (T - \lambda I)^{p-1} x_k + 0 + \cdots = 0
+        \]
+        since $x_j$ with height less than $p$ is killed by $(T-\lambda I)^{p-1}$ and $x_j$ whose height is larger than $p$ has $a_j = 0$ by the choice of $k$, so then, $a_k (T-\lambda I)^{p-1} x_k = 0$ implies $a_k \neq 0$, contradiction.
+     \end{proof}
 \end{theorem*}
  
 
@@ -215,7 +317,12 @@
 
 
 \begin{theorem*}
-    \textbf{7.7 Existence of Disjoint Union in Generalized Eigenspace} Let $T$ be a linear operator on a finite-dimensional vector space $V$, and let $\lambda$ be an eigenvalue of $T$. Then $K_{\lambda}$ has an ordered basis consisting of a union of disjoint cycles of generalized eigenvectors corresponding to $\lambda$
+    \textbf{7.7 Existence of Disjoint Union in Generalized Eigenspace}\\ 
+    Let $T$ be a linear operator on a finite-dimensional vector space $V$, and let $\lambda$ be an eigenvalue of $T$. Then $K_{\lambda}$ has an ordered basis consisting of a union of disjoint cycles of generalized eigenvectors corresponding to $\lambda$, 
+    \[
+        \gamma = \gamma_1 \cup \cdots \cup \gamma_q
+    \]
+    where the initial vectors of $r_1, \cdots, r_q$ are eigenvectors that form a basis of $E_{\lambda}$
 \end{theorem*}
 
 \begin{corollary*}
@@ -230,10 +337,108 @@
     Let $A$ be $n\times n$ matrix whose characteristic polynomial splits. Then $A$ has a Jordan canonical form $J$, and $A$ is similar to $J$
 \end{corollary*}
 
+\begin{defn*}
+    \textbf{Finding Basis For JCF}
+    \begin{enumerate}
+        \item Compute characteristic polynomial 
+        \item Compute $\dim{E_{\lambda_i}}$, which is the number of disjoint cycles as basis for $K_{\lambda_i}$
+        \item Find proper end vector
+        \item Take union of vectors in the disjoint union of cycles of generalized eigenvectors
+    \end{enumerate}
+\end{defn*}
+
 
 
 \linksection{509}{7.2 The Jordan Canonical Form II}
 
+
+\begin{defn*}
+    \textbf{Get Away}
+    \begin{enumerate}
+        \item $T$ is unique up to an ordering of eigenvalues of $T$
+        \item $\beta_i$ for $\beta$ is not unique
+        \item for each $i$, the number $n_i$ of cycles that form $\beta_i$, and length $p_j$ of each cycle, is completely determined by $T$
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Dot Diagram} Use an array of dots called dot diagram of $T_i$, where $T_i$ is restriction of $T$ to $K_{\lambda_i}$, to visualize each of $A_i$ and ordered basis $\beta_i$. Suppose $\beta_i$ is a disjoint union of cycles of generalized eigenvectors $\gamma_1, \cdots, \gamma_{n_i}$ with lengths $p_1 \geq \cdots \geq p_{n_i}$, respectively. The dot diagram $T_i$ contains one dot for each vector in $\beta_i$, and the dots are configured as follows 
+    \begin{enumerate}
+        \item there are $n_i$ columns (each representing a cycle or Jordan block)
+        \item $j$-th column consists of $p_j$ dots that correspond to cycle $\gamma_j$ starting with initial vector at the top and continuing down to the end vector
+    \end{enumerate}
+    Note
+    \begin{enumerate}
+        \item Dot diagram has dimension $p_1 \times n_i$
+        \item Let $r_j$ be number of dots in $j$-th row, then $r_1 \geq r_2 \geq \cdots \geq r_{p_1}$
+        \item Dot diagram is complete determined by $T$ and $\lambda_i$
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{7.9 Dots in First $r$ Rows are a Basis for $N((T-\lambda I)^r)$} \\ 
+    For any positive integer $r$, the vectors in $\beta_i$ that are associated with the dots in the first $r$ rows of the dot diagrams of $T_i$ constitute a basis for $N((T-\lambda_i I)^r)$. Hence the number of dots in the first $r$ rows of the dot diagram equals $\nullity{(T-\lambda_i I)^r}$
+    \begin{enumerate}
+        \item Implies number of dots in a row ($r_j$), the dot diagram, and consequently the number of Jordan blocks ($n_i$ columns) all does not depend on choice of basis
+    \end{enumerate}
+\end{theorem*}
+
+\begin{corollary*}
+    \textbf{Number of Jordan Blocks is Dimension of Eigenspace} \\
+    The dimension of $E_{\lambda_i}$ is $n_i$. Hence in Jordan canonical form of $T$, the number of Jordan blocks corresponding to $\lambda_i$ equals the dimension of $E_{\lambda_i}$
+\end{corollary*}
+
+
+\begin{theorem*}
+    \textbf{7.10 Supplementing Preivous Theorem} \\
+    Let $r_j$ denote number of dots in $j$th row of dot diagram of $T_i$, the restriction of $T$ to $K_{\lambda_i}$. Then the following statements are true 
+    \begin{enumerate}
+        \item $r_1 = \dim{V} = \rank(T-\lambda_i I)$ 
+        \item $r_j = \rank{(T-\lambda_i I)^{j-1}} - \rank{(T-\lambda_i I)^j}$ if $j>1$
+    \end{enumerate}
+\end{theorem*}
+
+\begin{corollary*}
+    \textbf{Dot Diagram of $T_i = T|_{K_{\lambda_i}}$ is Unique} \\
+    For any eigenvalue $\lambda_i$ of $T$, the dot diagram of $T_i$ is unique. Thus, subject to the convention that the cycles of the generalized eigenvectors for the bases of each generalized eigenspace are listed in order of decreasing length, the Jordan canonical form of a linear operator or a matrix is unique up to the ordering of the eigenvalues
+\end{corollary*}
+
+\begin{theorem*}
+    \textbf{7.11 Similar Matrix $\iff$ Same JCF} \\
+    Let $A$ and $B$ be $n\times n$ matrices, each having Jordan canonical forms computed according to the conventions of this section. Then $A$ and $B$ are similar if and only if they have (up to an ordering of their eigenvalues) the same Jordan canonical form.
+    \begin{proof}
+        A property: If $A$ and $B$ similar, then exists $Q$ such that $A = Q^{-1}BQ$, then $A$ and $B$ have same eigenvalues. Specifically, if $Av = \lambda v$, then 
+        \[
+            Q^{-1}BQ v = \lambda v 
+            \qquad \iff \qquad 
+            B (Qv) = \lambda (Qv)
+        \]
+    \end{proof}
+\end{theorem*}
+
+
+\begin{defn*}
+    \textbf{Steps for Finding Jordan Canonical Form/Basis} \\
+    \begin{enumerate}
+        \item Determine the shape of Jordan Canonical Form $J$
+        \begin{enumerate}
+            \item Compute characteristic polynomial 
+            \item Determine the dot diagram for each $K_{\lambda_i}$
+            \item Compute $\dim{N((T-\lambda I)^i)}$ for $i=1,\cdots, p$
+            \item Compute $r_j$ based on $\dim{N(T-\lambda I)^i}$
+            \item Determine the shape of Jordan Canonical Form from dot diagrams for all $K_{\lambda_i}$    
+        \end{enumerate}
+        \item Find a Jordan Canonical Basis for each $K_{\lambda_i}$
+        \begin{enumerate}
+            \item Compute matrix $(T-\lambda I)^i$ for $i=1,\cdots,p$ 
+            \item Find a basis for $K_{\lambda_i} = N((T-\lambda I)^p)$ and select an end vector for the first cycle 
+            \item Compute the cycle
+            \item Compute other cycles, by selecting vectors that are linearly independent of the vectors already determined
+            \item In case when $K_{\lambda_i} = E_{\lambda_i}$, Jordan canonical basis for $T_i$ is simply the basis for $E_{\lambda_i}$
+        \end{enumerate}
+    \end{enumerate}
+\end{defn*}
 
 
 

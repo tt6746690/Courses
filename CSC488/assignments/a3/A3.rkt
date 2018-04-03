@@ -2,13 +2,6 @@
 
 (module+ test (require rackunit))
 
-#;(type-of '(let [f (λ (x) x)]
-              (let [b #t]
-                (let [seq (λ (_) (λ (x) x))]
-                  ((seq
-                    (set! f (λ (x) 3)))
-                   (set! b (f b)))))))
-
 
 #| Assignment 3 (replacement)
  | ============
@@ -40,13 +33,23 @@
  | HINT: Use type-of to determine the most general types of `f' and `b'. How do they differ?
  |
  | Type your description in the space below:
- |  
- |  Most general type of `f' : (∀ (α0) ((var α0) → (var α0))))
- |                       `b' : (∀ () bool)
- |  (α0 → int) ≡ (α0 → α0)  ⇒  (α0 ≡ α0) and (int ≡ α0)  ⇒  (α0 ≡ int)
-
- |  Idea: f is polymorphic, mutation to `f' 
  |#
+
+#|
+
+  Given (set! v e), we evaluate (type-of v) and (type-of e) in example's context
+
+       (type-of v)                       (type-of e)
+  f :  '(∀ (α0) ((var α0) → (var α0)))   '(∀ (α0) ((var α0) → int))
+  b :  '(∀ () bool)                      '(∀ () bool)
+
+  Idea is because we use let-generalization.
+  The type-checker assigns f initialized in let as ∀α. (α → α)
+  The type-checker does not complain (set! b (f b)) after f is mutated to ∀α. (α → int),
+    because it still regard f's type as the generalized ∀α. (α → α)
+  One way to prevent this is to disallow mutation that assigns f to a non alpha equivalent type
+    such that application of f elsewhere is valid
+|#
 
 
 #| Question 2
@@ -65,6 +68,7 @@
  |
  | HINT: Take a look at how function types are handled in subst, free-vars, and solve.
  |#
+
 
 #| Question 3
  | ~~~~~~~~~~
@@ -89,6 +93,10 @@
  |  and
  |
  |   ∀β. ((∀α. β → α) → β) → β]
+ | 
+ | i.e.   k                   : (∀α. β → α)                 ; (∀ (α) ((var β) → (var α)))
+ |        (λ (k) ⋯)           : ((∀α. β → α) → β)           ; ((∀ (α) ((var β) → (var α))) → (var β))
+ |        (call/ec (λ (k) ⋯)) : (∀β. ((∀α. β → α) → β) → β) ; (((∀ (α) ((var β) → (var α))) → (var β)) → (var β))
  |
  | Since ∀ can only appear in the outermost position in our type system,
  | we cannot give call/ec this type! We can get around this if we give
@@ -99,7 +107,15 @@
  |
  | Devise most general types for call/ec and jump and add them to the builtin table.
  | Then, update subst, free-vars, and solve to handle the new type (just as you did with list).
+ |
+ |        α : type fitting situation where k is called, return type for (k arg)
+ |        β : type of arg when evoking continuation k, also type of return value of call/ec
+ | i.e.   k                     : (∀β. (cont β))
+ |        jump                  : (∀αβ. (cont β) → (β → α))
+ |        (λ (k) ⋯)             : (∀β. (cont β) → β)
+ |        (call/ec (λ (k) ⋯))   : (∀β. ((cont β) → β) → β)
  |#
+
 
 #| Data Structures
  | ~~~~~~~~~~~~~~~
@@ -156,8 +172,8 @@
     [null (∀ (α) (list (var α)))]
     [cons (∀ (α) ((var α) → ((list (var α)) → (list (var α)))))]
     ; Add continuation functions here
-    #;[call/ec ...]
-    #;[jump    ...]))
+    [call/ec (∀ (β) (((cont (var β)) → (var β)) → (var β)))]
+    [jump (∀ (α β) ((cont (var β)) → ((var β) → (var α))))]))
 
 
 ; fresh : → mono-type  i.e. '(var α1) 
@@ -172,24 +188,13 @@
   (match A
     [`(∀ (,αs ...) ,A) (define σ (map (λ (α) `(,α ,(fresh))) αs)) ; ((α1 (var α2)) (α2 (var α3)))
                        (subst-all σ A)]))
-; (instantiate '(∀ (α1 α2) (α1 → int)))   ; '(α1 → int)
 
 ; generalize : mono-type (list-of (symbol × poly-type)) (list-of constraint) → poly-type
 (define (generalize A Γ G)
   ; We can only generalize over variables not in Γ.
   ; However, we don't know which variables are in Γ until we've solved all constraints.
-  (println "A ---- ")
-  (println A)
-  (println "Γ ---- ")
-  (println Γ)
-  (println "G ---- ")
-  (println G)
   (define σ      (solve G))
-  (println "σ ---- ")
-  (println σ)
   (define A′     (subst-all σ A))
-  (println "A′ ---- ")
-  (println A′)
   ; subst-all does not support poly-types.
   ; Supporting them would require implementing capture-avoiding substitution.
   ; Instead we just instantiate every type in the environment.
@@ -205,6 +210,16 @@
   (define p (assoc x Γ))
   (unless p (error (~a "Variable " x " not in scope.")))
   (instantiate (second p)))
+
+
+; check if 2 types are equivalent
+(define (α≡ x y)
+  (match-define `(∀ (,αsx ...) ,Ax) x)
+  (match-define `(∀ (,αsy ...) ,Ay) y)
+  (define σ (map (λ (x y) `(,x (var ,y))) αsx αsy))
+  (and (equal? (length αsx) (length αsy))
+       (equal? (subst-all σ Ax) Ay)))
+
 
 ; infer : term (list-of (symbol × poly-type)) → mono-type (list-of constraint)
 ;
@@ -231,24 +246,19 @@
     ; (A ≡ B)  where  x : A  t : B
     [`(set! ,x ,t)       (define A (lookup x Γ))
                          (define-values (B G) (infer t Γ))
-                         (values 'unit `((,A ≡ ,B) ,@G))]
+                         (cond [(α≡ (type-of x Γ) (type-of t Γ))
+                                (values 'unit `((,A ≡ ,B) ,@G))]
+                               [else (error (~a "Cannot mutate "
+                                                (type-of x Γ) " to " (type-of t Γ) "."))])
+                         ]
     ; (A ≡ bool) (B ≡ C)  where  t1 : A  t2 : B  t3 : C
     [`(if ,t₁ ,t₂ ,t₃)   (define-values (A G₁) (infer t₁ Γ))
                          (define-values (B G₂) (infer t₂ Γ))
                          (define-values (C G₃) (infer t₃ Γ))
                          (values C `((,A ≡ bool) (,B ≡ ,C) ,@G₁ ,@G₂ ,@G₃))]
     [`(let [,x ,t1] ,t2) (define-values (A G1) (infer t1 Γ))
-                         ; (println `("====> " ,x " has type " ,(generalize A Γ G1)))
                          (define-values (B G2) (infer t2 `((,x ,(generalize A Γ G1)) ,@Γ)))
                          (values B `(,@G1 ,@G2))]))
-
-#; '((b (∀ () bool))
-     (+ (∀ () (int → (int → int))))
-     (* (∀ () (int → (int → int))))
-     (< (∀ () (int → (int → bool))))
-     (∧ (∀ () (bool → (bool → bool))))
-     (∨ (∀ () (bool → (bool → bool))))
-     (¬ (∀ () (bool → bool))))
 
 
 ; subst : symbol mono-type → ((mono-type → mono-type) or (constraint → constraint))
@@ -260,14 +270,13 @@
     (match A
       [`(,C → ,D) `(,(rec C) → ,(rec D))]
       [`(,C ≡ ,D) `(,(rec C) ≡ ,(rec D))]
-      [`(list ,α) `(list ,(rec α))]
       ; Handle list types here
+      [`(list ,α) `(list ,(rec α))]
       ; Handle cont types here
+      [`(cont ,α) `(cont ,(rec α))]
       [_          (if (equal? A `(var ,α)) B A)]))
   rec)
 
-
-; subst, free-vars, and solve 
 
 ; subst-all : (list-of (symbol × mono-type)) mono-type → mono-type
 ; substitute all occurrances of symbol in A to mono-type it maps to
@@ -282,10 +291,15 @@
   (match A
     [`(var ,α)        `(,α)]
     [`(,A → ,B)       `(,@(free-vars A) ,@(free-vars B))]
-    [`(∀ (,αs ...) A) (remove* αs (free-vars A))]
-    [`((cons ,A) ,L) `(,@(free-vars A) ,@(free-vars L))]
+    [`(∀ (,αs ...) ,A) (remove* αs (free-vars A))]
+    ; Handle list types here
+    [`(list ,A)       (free-vars A)]
     ; Handle cont types here
+    [`(cont ,A)       (free-vars A)]
     [_                '()]))
+
+
+
 
 ; solve : (list-of constraint) → (list-of (symbol × mono-type))
 ;
@@ -302,50 +316,60 @@
                                        ; Eliminates all occurrences of α in G before solving
                                        (define σ (solve (map (subst α B) G)))
                                        ; Eliminate all assigned variables in σ from B
-                                       (println "((var ,α)  ≡ ,B) ----- ")
-                                       (println `((,α ,(subst-all σ B)) ,@σ))
                                        `((,α ,(subst-all σ B)) ,@σ)]
     [`((,A        ≡ (var ,α))  ,G ...) (solve `(((var ,α) ≡ ,A) ,@G))]
     [`(((,A → ,B) ≡ (,C → ,D)) ,G ...) (solve `((,A ≡ ,C) (,B ≡ ,D) ,@G))]
-    ; Handle list types here
-    ; Handle cont types here
+    ;   G ∪ { (list A) ≡ (list B) }   ⇒   G ∪ { A ≡ B }
+    [`(((list ,A) ≡ (list ,B)) ,G ...) (solve `((,A ≡ ,B) ,@G))]
+    ;   G ∪ { (cont A) ≡ (cont B) }   ⇒   G ∪ { A ≡ B }
+    [`(((cont ,A) ≡ (cont ,B)) ,G ...) (solve `((,A ≡ ,B) ,@G))]
     [`((,A        ≡ ,B)        ,G ...) (error (~a "Cannot unify " A " and " B "."))]))
 
-#;  (type-of '((cons 1) null))
-
-#; (infer '((cons 1) null))
-#; '(var α27)
-#; '(((var α25)
-      ≡ ((list (var α)) → (var α27)))
-     (((var α24) → ((list (var α)) → (list (var α))))
-      ≡ (int → (var α25))))
-
-#; (((var α24) → ((list (var α)) → (list (var α))))
-      ≡ (int → (var α25)))
-
-; has G
-#; '(((var α32) ≡ ((list (var α)) → (var α34)))
-     (((var α31) → ((list (var α)) → (list (var α)))) ≡ (int → (var α32))))
-     ; ((cons α) alist) ≡ (int → )
-; has σ
-#; '((α32 ((list (var α)) → (list (var α))))
-     (α31 int) (α34 (list (var α))))
-
-; built-in types
-#; [null (∀ (α) (list (var α)))]
-#; [cons (∀ (α) ((var α) → ((list (var α)) → (list (var α)))))]
 
 (module+ test
+  ; equivalent type
+  (check-equal? (α≡ '(∀ (α24) ((var α24) → (var α24)))
+                    '(∀ (α33) ((var α33) → int)))
+                #f)
+  (check-equal? (α≡ '(∀ (α24) ((var α24) → (var α24)))
+                    '(∀ (α33) ((var α33) → (var α33))))
+                #t)
+  (check-equal? (α≡ '(∀ () bool)
+                    '(∀ () bool))
+                #t)
+  ; subst-all
+  (check-equal? (subst-all '((α (var α171)) (β (var α172)))
+                           '((cont (var β)) → ((var β) → (var α))))
+                '((cont (var α172)) → ((var α172) → (var α171))))
+  ; free-vars
+  (check-equal? (free-vars '(var α))
+                '(α))
+  (check-equal? (free-vars '((var α) → (var β)))
+                '(α β))
+  (check-equal? (free-vars '(∀ (α) (var α)))
+                '())
+  (check-equal? (free-vars '(∀ (α) (var β)))
+                '(β))
+  (check-equal? (free-vars '(list (var α)))
+                '(α))
+  ; instantiate
+  (check-equal? (instantiate '(∀ (α1 α2) (α1 → int)))
+                '(α1 → int))
   ; behavior of type-of
   (check-equal? (type-of '((λ (x) x) 1))
                 '(∀ () int))
   (check-equal? (type-of '((+ 1) 1))
                 '(∀ () int))
   (check-match (type-of 'null)
-                `(∀ () (list (var ,α))))
+               `(∀ (,α) (list (var ,α))))
   (check-match (type-of 'cons)
                `(∀ (,α<n>)
                    ((var ,α<n>) → ((list (var ,α<n>)) → (list (var ,α<n>))))))
+  (check-equal? (type-of '((cons 1) null))
+                '(∀ () (list int)))
+  (check-equal? (type-of '((cons #t) ((cons #f) null)))
+                '(∀ () (list bool)))
+  (check-exn exn:fail? (λ () (type-of '((cons 1) ((cons #t) null)))))
   
   ; behavior of infer
   (check-match (local [(define-values (A G) (infer '(λ (x) x)))] `(,A ,G))
@@ -356,11 +380,36 @@
   (check-match (local [(define-values (A G) (infer 'cons))] `(,A ,G))
                `(((var ,α<n>) → ((list (var ,α<n>)) → (list (var ,α<n>))))
                  ()))
-  
-  ; (infer '(λ (x) 1))          → '((var α0) → int)
-  ; (infer '(λ (x) (λ (y) #t))) → '((var α1) → ((var α2) → bool))
-  ; (infer '((λ (x) x) 1))
-  ; '(var α4)
-  ; '((((var α3) → (var α3)) ≡ (int → (var α4))))
-  )
 
+  ; q3
+  (check-equal? (type-of '(call/ec (λ (k) 3)))
+                '(∀ () int))
+  (check-equal? (type-of '(call/ec (λ (k) ((jump k) 1))))
+                '(∀ () int))
+  (check-equal? (type-of '(call/ec (λ (k) (if ((jump k) 1)
+                                              2
+                                              ((jump k) 3)))))
+                '(∀ () int))
+  (check-exn exn:fail? (λ () (type-of '(call/ec (λ (k) (if ((jump k) 1)
+                                                           2
+                                                           ((jump k) #t)))))))
+
+  ; q1
+  (check-exn exn:fail? (λ () (type-of '(let [f (λ (x) x)]
+                                         (let [b #t]
+                                           (let [seq (λ (_) (λ (x) x))]
+                                             ((seq
+                                               (set! f (λ (x) 3)))
+                                              (set! b (f b)))))))))
+  (check-exn exn:fail? (λ () (type-of '(let [f (λ (x) (λ (y) x))]
+                                         (let [b #t]
+                                           (let [seq (λ (_) (λ (x) x))]
+                                             ((seq
+                                               (set! f (λ (x) (λ (y) 3))))
+                                              (set! b ((f b) b)))))))))
+  (check-equal? (type-of '(let [f (λ (x) x)]
+                            (let [b #t]
+                              (set! b (f b)))))
+                '(∀ () unit))
+  
+  )

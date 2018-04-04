@@ -411,5 +411,12 @@
                             (let [b #t]
                               (set! b (f b)))))
                 '(∀ () unit))
+  (check-equal? (type-of '(let [f (λ (x) #t)]
+                            (let [b #t]
+                              (let [seq (λ (_) (λ (x) x))]
+                                ((seq
+                                  (set! f (λ (x) b)))
+                                 (set! b (f b)))))))
+                '(∀ () unit))
   
   )

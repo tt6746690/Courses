@@ -202,6 +202,25 @@
     \textbf{Fourier Coefficients} Let $\beta$ be an orthonormal subset (possibly infinite) of an inner product space $V$, and let $x\in V$. We define the Fourier coefficients of $x$ relative to $\beta$ to be the scalars $\innerp{x}{y}$, where $y\in \beta$
 \end{defn*}
 
+\begin{defn*}
+    \textbf{Example of infinite dimension vector space } Define inner product on vector space $H$ as
+    \[
+        \innerp{f}{g} = \frac{1}{2\pi}\int_{0}^{2\pi} f(t) \overline{g(t)} dt
+    \]
+    Let $f_n(t) = e^{int}$ where $0\leq t \leq 2\pi$ ($e^{int} = \cos nt + i\sin nt$). Let $S = \{ f_n : n \text{ is an integer} \}$. $S\subseteq H$. For $m\neq n$, we have $\innerp{f_m}{f_n} = \delta_{mn}$, therefore an orthonormal subset of $H$ \\
+    \linkinline{360}{6.2 Example 7} showed that 
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Another example of infinite dimension vector space} \linkinline{23}{1.2 example 5} Define a vector space of sequences $\sigma(n) = \{ a_n\} = a_1, a_2,\cdots$ where $\sigma(n) \neq 0$ for finitely many elements. Define inner product as 
+    \[
+        \innerp{\sigma}{\mu} = \sum_{n=1}^{\infty} \sigma(n) \overline{\mu(n)}
+    \]
+    \linkinline{368}{6.2.23} As an example, define $e_k(n) = \delta_{nk}$. We can prove that $\{e_1, e_2, \cdots \}$ are orthonormal basis for $V$. \\
+    \linkinline{406}{6.5.16} shows that $W = \span{e_2, e_4, \cdots}$ and some unitary $U$ such that $\orthocomp{W}$ is not U-invariant
+\end{defn*}
+
+
 \linksection{361}{Orthogonal Complements}
 
 \begin{defn*}
@@ -452,6 +471,86 @@
     \end{enumerate}
     An $n\times n$ matrix $A$ with entries from $\R$ or $\mathbb{C}$ is positive definite (positive semidefinite) if $L_A$ is positive definite (positive semidefinite)
 \end{defn*}
+
+
+
+\linksection{391}{6.4 Unitary and Orthogonal Operators}
+
+\begin{defn*}
+    \textbf{Unitary Operator and Orthogonal Operator} Let $T$ be a linear operator on a finite-dimensional inner product space $V$ (over $F$). If $\norm{T(x)} = \norm{x}$ for all $x\in V$, we call $T$ a unitary operator if $F = \mathbb{C}$ and an orthogonal operator if $F = \R$
+    \begin{enumerate}
+        \item \textbf{Isomtry} for infinite-dimensional case 
+        \item \textbf{Motivation} Linear operator that preserves length 
+    \end{enumerate}
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{6.18 Property of Unitary/Orthogonal Operator} Let $T$ be a linear operator on a finite-dimensional inner product space $V$. Then the following statements are equivalent 
+    \begin{enumerate}
+        \item $TT^* = T^*T = I$ (unitary/orthogonal operators are \textbf{normal})
+        \item $\innerp{T(x)}{T(y)} = \innerp{x}{y}$ for all $x,y\in V$
+        \item If $\beta$ is an orthonormal basis for $V$, then $T(\beta)$ is an orthonormal basis for $V$ 
+        \item There exists an orthonormal basis $\beta$ for $V$ such that $T(\beta)$ is an orthonormal basis for $V$ 
+        \item $\norm{T(x)} = \norm{x}$ for all $x\in V$ ($T$ is a \textbf{unitary/orthogonal})
+    \end{enumerate}
+\end{theorem*}
+
+\begin{lemma*}
+    Let $U$ be a self-adjoint operator ona finite-dimensional inner product space $V$. If $\innerp{x}{U(x)} = 0$ for all $x\in V$, then $U = T_0$
+    \begin{enumerate}
+        \item \textbf{Interpretation} All vectors are orthogonal to $\{ 0 \}$, the range of $T_0$
+    \end{enumerate}
+\end{lemma*}
+
+\begin{corollary*}
+    \textbf{$F=\R$ Orthongal Operator has All Eigenvalues $\pm 1$} Let $T$ be a linear operator on a finite-dimensional real inner product space $V$. Then $V$ has an orthonormal basis of eigenvetors of $T$ with corresponding eigenvalues of \textbf{absolute value 1} if and only if $T$ is both \textbf{self-adjoint} and \textbf{orthogonal}
+    \begin{enumerate}
+        \item \textbf{Interpretation} Length-preserving operator has eigenvalue of $\pm 1$
+    \end{enumerate}
+\end{corollary*}
+
+\begin{corollary*}
+    \textbf{$F=\mathbb{C}$ Unitary Operator has All Eigenvalues $\pm 1$} Let $T$ be a linear operator on a finite-dimensional complex inner product space $V$. Then $V$ has an orthonormal basis of eigenvectors of $T$ with corresponding eigenvalues of absolute value 1 if and only if $T$ is unitary
+\end{corollary*}
+
+\begin{defn*}
+    \textbf{Reflection} Let $L$ be a one-dimensional subspace of $\R^2$. We may view $L$ as a line in the plane through the origin. A linear operator $T$ on $\R^2$ is called a reflection of $\R^2$ about $L$ if $T(x) = x$ for all $x\in L$ and $T(x) = -x$ for all $x\in \orthocomp{L}$
+    \begin{enumerate}
+        \item Reflection transformation is an orthogonal operator
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Orthogonal/Unitary Matrix} A square matrix $A$ is called an orthogonal matrix if $A^T A = AA^T = I$ and unitary if $A^* A = AA^* = I$
+    \begin{enumerate}
+        \item \textbf{Inverse} of unitary matrix $A^{-1} = A^*$
+        \item $AA^* = I$ if and only if rows of $A$ form orthonormal basis for $F^n$, similarly for columns of $A$ (prove $\innerp{r_i}{r_j} = \delta_{ij}$)
+        \item For $F=\R$, if columns of $A$ consists of orthonormal basis of eigenvectors $\beta$, then rows of $A^T$ are $\beta$, so then $A$ is orthogonal
+        \item T unitary/orthogonal if and only if $\cvec{T}{\beta}$ is unitary/orthogonal for some orthonormal basis $\beta$ for $V$
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Unitarily Equivalent} Matrices $A$ and $B$ are unitarily equivalent (orthogonally equivalent) if and only if there exists a unitary (orthogonal) matrix $P$ such that $A= P^* B P$
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{6.19 Condition for Normal ($F=\mathbb{C}$) Matrix} Let $A\in M_{n}(\mathbb{C})$. Then $A$ is normal if and only if $A$ is unitarily equivalent to a diagonal matrix
+    \begin{proof}
+        $(\Rightarrow)$ Since $A$ complex normal, exists orthonormal basis $\beta$ consisting of eigenvectors for $V$. So $D = Q^{-1}AQ$ where $D$ is diagonal and $Q$ has columns consisting of vectors in $\beta$, therefore $Q$ unitary/orthogonal. Therefore $A$ and $D$ is unitarily equivalent \\
+        $(\Leftarrow)$ Let $A = P^*DP$ for some unitary $P$ and diagonal $D$, therefore, 
+        \[
+            AA^* = (P^*DP)(P^*DP)^* = P^*DPP^*D^*P = P^*DD^*P = P^*D^*DP = (P^*D^*P)(P^*DP) = A^*A
+        \]
+    \end{proof}
+\end{theorem*}
+
+
+
+\begin{theorem*}
+    \textbf{6.20 Condition for Symmetric ($F=\R$) Matrix} Let $A \in M_{n}(\R)$. Then $A$ is symmetric if and only if $A$ is orthogonally equivalent to a real diagonal matrix.
+\end{theorem*}
+
 
 
 \linksection{286}{5.2 Direct Sums} 

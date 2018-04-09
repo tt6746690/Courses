@@ -6,6 +6,13 @@
 \begin{document}
 
 
+\renewcommand{\E}[1]{\mathsf{E}\left\{#1\right\}}
+\newcommand{\V}[1]{\mathsf{V}\left\{#1\right\}}
+\renewcommand{\P}[1]{\mathsf{P}\left(#1\right)}
+\newcommand{\abs}[1]{\left|\,#1\,\right|}
+
+
+
 \begin{lemma*}
     \textbf{5: Farkas's Lemma} For any $m\times n$ matrix $A$ and $m\times 1$ vector $b$, exactly one of following is true 
     \begin{enumerate}
@@ -147,6 +154,144 @@ $ $\\
         \end{enumerate}
     \end{proof}
 \end{enumerate}
+
+
+$ $\\
+\textbf{Question 2: Primal-Dual Algorithm} Given directed $G = (V,E)$ where $w_e > 0$. Given $s,t \in V$ and a flow from $s$ to $t$. weight of flow $w(f) = \textstyle\sum_{e\in E} w_e f_e$. Objective to send one unit of flow from $s$ to $t$ so that weight of flow minimized 
+
+\begin{enumerate}
+\item Primal 
+\begin{align*}
+    \min \quad & \sum_{e\in E} w_e f_e \\ 
+    st \quad  & \\
+    \forall u\in V \setminus \{s,t\} \quad & \sum_{(v,u)\in E} f_{vu} - \sum_{(u,v)\in E} f_{uv} = 0 \\
+    & \sum_{(v,s)\in E} f_{vs} - \sum_{(s,v)\in E} f_{sv} = -1 \\ 
+    & \sum_{(v,t)\in E} f_{vt} - \sum_{(t,v)\in E} f_{tv} = 1 \\ 
+    \forall e\in E \quad & f_e \geq 0
+\end{align*}
+Dual is given by 
+\begin{align*}
+    \max \quad & y_t - y_s \\
+    st \quad & \\
+    \forall (u,v)\in E \quad &  y_v - y_u \leq w_{uv}
+\end{align*}
+\item Given feasible $y$, characterize when there exists feasible flow $f$ such that $y,f$ satisfies complementary slackness conditions \\ 
+Feasible $f,y$ are optimal if following complementary slackness condition holds
+\[
+    \forall (u,v)\in E \quad (w_{uv} + y_u - y_v)f_{uv} = 0
+\]
+Therefore, \textit{ $f,y$ optimal if and only if there exists a flow $f$ such that $f_{uv} \neq 0$ for any $w_{uv}+y_u-y_v = 0$, i.e. flow only operates on tight edges  }
+
+\item Give a primal-dual algorithm which finds a pair of feasible solutions primal and dual linear programs \\
+
+\begin{algorithm}[H]
+    $y\leftarrow 0$ \\
+    $S \leftarrow \{s\}$ \\ 
+    \While{$t \not\in S$}{
+        $\delta \leftarrow \min \{ w_{uv} + y_u - y_v : u\in S \,\land\, v\not\in S \,\land\, (u,v) \in E \} $ \\
+        $Q = \{ v\not\in S: (u,v)\in E \,\land\, u\in S \,\land\, w_{uv} + (y_u - \delta) - y_v = 0 \}$ \\ 
+        \For{$u\in S$}{
+            $y_u \leftarrow y_u - \delta$ \\ 
+        }
+        $S \leftarrow S \cup Q$ \\
+    }
+    $ p \leftarrow$ a path from $s$ to $t$ consists of edges in $S$ \\
+    $ f_e \leftarrow 
+    \begin{cases}
+        1 &  e \in p \\
+        0 & otherwise \\ 
+    \end{cases} $\\ 
+    \Return{ $(f,y)$}
+\end{algorithm} 
+
+\newpage
+
+We will prove the following points 
+\begin{enumerate}
+\item $y$ remain feasible in each iteration 
+\begin{proof}
+    For all $u\in V$, $y_u = 0$ before loop starts and hence is a feasible solution to the dual. At any iteration, assume $y$ is feasible we prove that $y_u' = y_u - \delta$ ($u\in S$) $y_u' = 0$ ($u\not\in S$) remains feasible. For any $(u,v)\in E$ such that $u,v\in S$, we have 
+    \[
+        w_{uv} + y_u' - y_v'  = w_{uv} + y_u - \delta - y_v + \delta = w_{uv} + y_u - y_v \geq 0 
+    \]
+    For any $(u,v)\in E$ such that $u\in S$ and $v\not\in S$, then 
+    \begin{align*}
+        w_{uv} + y_u' - y_v' = 
+        w_{uv} + y_u - \delta - y_v 
+        &= (w_{uv} + y_u  - y_v)  \\
+        & \quad - \min \{ w_{uv} + y_u - y_v : u\in S \,\land\, v\not\in S \,\land\, (u,v) \in E \} \geq 0 \\ 
+    \end{align*}
+    For any $(u,v)\in E$ such that $u\not\in S$, $v\in S$, then 
+    \[
+        w_{uv} + y_u' - y_v' = w_{uv} + y_u - y_v + \delta \geq \delta \geq 0
+    \]
+    For any $(u,v)\in E$ such that $u,v\not\in S$, $y_u' = y_v' = 0$ satisfies dual constraints. 
+\end{proof}
+
+
+\item complementary slackness is maintained, i.e. \textit{for all $e\in S$, $w_{uv} + y_u - y_v = 0$}
+\begin{proof}
+    Assume $S$ consists of only 'tight' edges, we now prove that edges in $S$ remains tight after updating $y_u$. Let $(u,v)\in S$, then $w_{uv} + y_u - y_v = 0$, updating $y_u' = y_u - \delta$ and $y_v' = y_v = \delta$, we have 
+    \[
+        w_{uv} + y_v' - y_v' = w_{uv} - \delta - (y_v - \delta) = w_{uv} + y_u - y_v = 0
+    \]
+    Also note $Q$ consists of edges that becomes 'tight' after updating $u\in S$ by $-\delta$. Therefore $S \cup A$ contains 'tight' edges only
+\end{proof}
+\item dual objective strictly increases in each iteration 
+\begin{proof}
+    Inside the loop $y_t' = y_t = 0$, and $y_s' = y_s - \delta$. Therefore 
+    \[
+        y_t' - y_s' = y_t - y_s + \delta
+    \]
+    the dual increases by $\delta$ during each iteration
+\end{proof}
+\item algorithm terminates
+\begin{proof}
+    The loop terminates because in each iteration $|S|$ increases by $|Q| \geq 1$ since we always pick a $\delta$ that makes at least one edge $(u,v)\in E$, $u\in S$, $v\not\in S$ 'tight'. The loop body runs in polynomial time, therefore the algorithm terminates in polynomial time 
+\end{proof}
+\item the algorithm is correct 
+\begin{proof}
+    The returned primal solution is a feasible solution in that it represent a flow that pushes one unit from $s$ to $t$ while satisfying conservation constraint. The corresponding dual solution $y$ is also feasible and $f,y$ satisfies the complementary slackness constraint and hence $f,y$ are optimal solution. Note $f$ is an integral solution 
+\end{proof}
+\item the algorithm has runtime of $O(nm)$
+\begin{proof}
+    The loop runs at most $n$ iterations. At each iteration of the for loop, finding $\delta$ and $Q$ requires $O(m)$ and updating $y$ requires $O(n)$, hence $O(m+n)$ for each iteration. In total, the algorithm termiantes in $O(n(m+n))$ 
+\end{proof}
+
+
+\end{enumerate}
+\end{enumerate}
+
+
+
+
+$ $\\
+\textbf{Question 3: Simple Randomized Approximation Algorithm} Given directed $G=(V,E)$ with $w_e \geq 0$ for all $e\in E$. Goal is to partition vertices into $k$ disjoint sets $V_1,\cdots, V_k$ such that the objective is maximized 
+\[
+    \sum_{i=1}^{k-1} \sum_{j=i+1}^k  \sum_{u,v: (u,v)\in E,u\in V_i, v\in V_j} w_{uv}    
+\]
+i.e. total weights of edges that go from $V_i$ from $V_j$ such that $i<j$. Give a randomized polynomial approximation algorithm that achieves approximation ratio of $\textstyle\frac{k-1}{2k}$ in expectation. Justify approx ratio and running time 
+
+
+\begin{proof}
+    The algorithm works by assigning each $v\in V$ to $V_1,\cdots, V_k$ with uniform probability, i.e. $\textstyle\frac{1}{k}$. We prove that such assignment guarantees a $\textstyle\frac{k-1}{2k}$-approximation algorithm. Let $X:V\rightarrow \{1,\cdots, k\}$ be a random variable representing the random assignment of $v$ to $V_1,\cdots ,V_k$. Note 
+    \[
+        \P{X_u < X_v} = \sum_{i=1}^{k-1}\sum_{j=i+1}^k \P{X_u=i,X_v=j} =\sum_{i=1}^{k-1}\sum_{j=i+1}^k \frac{1}{k^2} = \frac{k-1}{2k}    
+    \]
+    Let $Y_{uv} = \mathbbm{1}_{u\in V_i, v\in V_j, i < j}$. Note 
+    \[  
+        \E{Y_{uv}} = \P{X_u < X_v} = \frac{k-1}{2k}  
+    \]
+    We then derive expectation of objective as follows 
+    \begin{align*}
+        \E{\sum_{(u,v)\in E} Y_{uv}w_{uv}}
+        = \sum_{(u,v)\in E} w_{uv} \E{Y_{uv}}
+        = \frac{k-1}{2k} \sum_{(u,v)\in E} w_{uv} 
+        \geq \frac{k-1}{2k} \, opt
+    \end{align*}
+    where last inequality follow from the fact that optimal assignment is upper bounded by the sum of weight of all edges. The upper bound on expectation of objective is $opt$ by definition. Therefore, the algorithm is $\textstyle \frac{k-1}{2k}$-approximation algorithm. The algorithm has polynomial complexity $O(m)$, where $m=|E|$ since the algorithm simply samples uniformly from $\{ 1,\cdots, k\}$. 
+\end{proof}
+
 
 
 

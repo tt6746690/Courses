@@ -1,0 +1,245 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+\renewcommand{\E}[1]{\mathsf{E}\left\{#1\right\}}
+\newcommand{\V}[1]{\mathsf{V}\left\{#1\right\}}
+\renewcommand{\P}[1]{\mathsf{P}\left(#1\right)}
+\newcommand{\abs}[1]{\left|\,#1\,\right|}
+
+
+
+
+\newcommand{\linkinline}[3][design_of_approx_algo.pdf]{
+    \noindent\href[page=#2]{#1}{#3}
+}
+
+
+\textbf{Section 1 \linkinline{13}{chapter 1: Intro to approximation algorithms}}
+
+\begin{enumerate}
+    \item \textbf{$\alpha$-approximation algorithms} (minimization: $opt \leq f \leq \alpha \, opt$ for $\alpha > 1$)
+    \item \textbf{Polynomial-time approximation scheme} (PTAS) is a family of algorithm $\{A_{\epsilon}\}$ to a problem with $(1+\epsilon)$-approximation algorithm (for minimization) and $(1-\epsilon)$-approximation algorithm (for maximization)
+    \item \textbf{Set Cover} Given $E = \{e_1,\cdots,e_n\}$, subsets $S_1,\cdots , S_m \subseteq E$ Find $I \subseteq \{1,\cdots,m\}$ such that $\textstyle \sum_{j\in I} w_j$ minimized while $\textstyle \cup_{j\in I} S_j = E$, i.e. set of $S_j$ covers $E$
+    \begin{enumerate}
+        \item \textbf{Weighted Vertex Cover} as a specialized case for set cover. Given $G=(V,E)$, and $w_v\geq 0$ for each $v\in V$, goal is to find $C\subseteq V$ such that for all $(u,v)\in E$, $u\in C$ or $v\in C$. We can convert vertex cover to a set cover problem by noticing that $E$ is the set we want to cover and let $S_v$ of weight $w_v$ be edges incident to vertex $v\in V$. Note for any vertex cover $C$ there is a set cover $I$ of same weight. 
+        \item \textbf{Unweighted Vertex Cover} $w_v = 1$ for all $v\in V$
+        \item \textbf{LP formulation and Relaxation} Let $x_v$ be decision variables that represent the decision that $S_v = \{ e\in E: v\in e \}$ is included in the solution, i.e. $x_v = 1$ implies $v \in C$
+        \begin{align*}
+            \min \quad & \sum_{j=1}^{n} w_j x_j 
+            & 
+            \min \quad & \sum_{j=1}^{n} w_j x_j 
+            \\
+            s.t. \quad & 
+            &
+            s.t. \quad &
+            \\
+            \forall e\in E \quad & \sum_{j: e\in S_j} x_j \geq 1 
+            &   \overset{\text{relaxation}}{\longrightarrow} \quad \quad 
+            \forall e\in E \quad & \sum_{j: e\in S_j} x_j \geq 1 
+            \\
+            \forall v\in V \quad & x_v \in \{0, 1 \} 
+            & 
+            \forall v\in V \quad & x_v \geq 0
+            \\ 
+        \end{align*}
+        Note every feasible solution for IP is feasible for LP. Let $Z_{IP}^*$ and $Z_{LP}^*$ be optimal value for integer and the relaxed linear program, and $OPT$ be optimal value of the problem, then 
+        \[
+            Z_{LP}^* \leq Z_{IP}^* = OPT 
+        \]
+        for minimization problem
+        \item \textbf{Deterministic Rounding} Given LP solution $x^*$, include $S_v$ in solution if and only if $x_v^* \geq \rfrac{1}{f}$ where $f_e = |\{ v : e\in S_v \}|$ represent number of times $e$ is included in some $S_v$ and $f = \max_{e\in E} f_e$ represents maximum number of times any $e$ appears in $S$. Equivalent to rounding to get an approximate integer solution
+        \[
+            \hat{x}_v = 
+            \begin{cases}
+                1 & x_v^* \geq \frac{1}{f} \\
+                0 & \text{otherwise} \\ 
+            \end{cases}    
+        \]
+        Note $\hat{x}$ is \textbf{feasible} according to this rounding scheme. We prove this by proving the solution according to $\hat{x}$ is a set cover, i.e. we claim for all $e\in E$, $e\in S_v$ for some $v$. By contradiction assume exists $e\in E$ such that $e\not\in S_v$ for all $v$ (i.e. $x_v^* < \rfrac{1}{f}$), therefore 
+        \[
+            \sum_{v:e\in S_v} x_v^*
+            < \sum_{v:e\in S_v} \frac{1}{f}
+            = \frac{f_v}{f} 
+            \leq 1
+        \]
+        also note $x_v^*$ feasible, i.e. $\textstyle \sum_{v:e\in S_v} x_v^* \geq 1$, contradiction. 
+        \item \textbf{$f$-approximation algorithm} Now we prove deterministic rounding above yields a $f$-approximation algorithm. Since $\hat{x}_v$ feasible, then we have lower bound 
+        \[
+            opt = Z_{IP}^* \leq \sum_{j} w_j \hat{x}_j
+        \]
+        This \textit{lower bound always hold for any integer LP programming that uses rounding}. Note for any $\hat{x}_v$, we have $f x_v^* \geq \hat{x}_v$ since $f x_v^* \geq 0 = \hat{x}_v$ for $x_v^* < \rfrac{1}{f}$ and $f x_v^* \geq 1 = \hat{x}_v$ for $x_v^* \geq \rfrac{1}{f}$, therefore 
+        \[
+            \sum_j w_j \hat{x}_j \leq \sum_j w_j (f x_j^*) = f \sum_j w_j x_j^* = f Z_{LP}^* \leq f Z_{IP}^* = f\, opt
+        \]
+        therefore, $opt \leq \textstyle \sum_j w_j \hat{x}_j \leq f \, opt$ 
+        \item \textbf{Dual of Relaxed LP}
+        \begin{align*}
+            \min \quad & \sum_{j=1}^{n} w_j x_j 
+            & 
+            \max \quad & \sum_{e} y_e
+            \\
+            s.t. \quad & 
+            &
+            s.t. \quad &
+            \\
+            \forall e\in E \quad & \sum_{j: e\in S_j} x_j \geq 1 
+            &   \overset{\text{dual of relaxed LP}}{\longrightarrow} \quad \quad 
+            \forall v \in V \quad & \sum_{e: e\in S_v} y_e \leq w_u 
+            \\
+            \forall v\in V \quad & x_v \geq 0
+            & 
+            \forall e\in E \quad & y_e \geq 0
+            \\ 
+        \end{align*}
+        By weak duality, any feasible dual solution $y$ follows $\textstyle \sum_e y_e \leq Z_{LP}^*$, therefore 
+        \[
+            \sum_e y_e = Z_{DLP} \leq Z_{PLP}^* \leq Z_{IP}^* = opt
+        \]
+        \item \textbf{Rounding a dual solution} Let $y^*$ be optimal solution to dual LP, and we include subset $S_v$ such that the corresponding dual constriant is 'tight', i.e. 
+        \[
+            \hat{x}_v = 
+            \begin{cases}
+                1 & \textstyle \sum_{e:e\in S_v} y_e = w_v \\
+                0 & \text{otherwise}
+            \end{cases}
+        \]
+        Note we can prove $\hat{x}_v$ is feasible, i.e. collections of $S_v$ for which $\hat{x}_v = 1$ is a set cover. \linkinline{22}{proof here}. General idea is that assume $e$ not covered, then imply for all $v\in V$, 
+        \[
+            \sum_{e:e\in S_v} y_e < w_v
+        \]
+        So we can find a smallest difference between lhs and rhs, denoted as $\delta$, cross all dual constraints, and increment $y_e$ by $\delta$ and obtain a solution that has better objective value than the optimal solution that we started with.
+        \item \textbf{$f$-approximation algorithm for dual rounding} Lower bound holds since $\hat{x}_v$ feasible for IP. Now we prove upper bound 
+        \[
+            f \, opt 
+            \geq f \sum_e  y_e 
+            \geq \sum_{v\in V} \sum_{e: e\in S_v} y_e 
+            \geq \sum_{v:\hat{x}_v=1} w_v + \sum_{v:\hat{x}_v=0} 0
+            = \sum_v w_v \hat{x}_v
+        \]
+        \item \textbf{Primal-Dual: Constructing Dual Solution} Idea is to construct a dual optimal solution by relying on complementary slackness such that we dont have to solve dual LP directly. \linkinline{24}{algorithm here}. General outline of primal-dual algorithm  \\
+        \begin{center}
+            \begin{algorithm}[H]
+                Initialize some feasible DLP $y$ and candidate $x$ for PLP\\ 
+                \While{$x$ not feasible to PLP}{
+                    Adjust $y$ by the slack $\delta$, such that  \\ 
+                    \quad $y$ remains feasible, dual objective increases, additional constraint become tight
+                    Update $x$ according to complementary slackness condition \\ 
+                }
+            \end{algorithm}
+        \end{center}
+        Idea is start with some feasible DLP variable $y$ and use it to infer some, possibly infeasible, $x$ to PLP
+        \item \textbf{Randomized Rounding} Idea is to interpret LP solution $x^*_v$ as probability that $\hat{x}_v$ is set to 1, i.e. $S_v$ included in the final solution with probability $x^*_v$ for each $v\in V$ as random independent events. Let $X_v$ be an indicator variable, $X_v = \mathbbm{1}_{\hat{x}_v =1}$. Therefore $\E{X_v} = x_v^*$. Therefore we can determine expected value of the solution 
+        \[
+            \E{\sum_{j} w_j X_j} = \sum_j w_j \P{X_j=1} = \sum_j w_j x_j^* = Z_{LP}^* \leq opt
+        \]
+        which is a good approximation, but not every element $e$ is covered by this procedure, the probability of a single edge $e$ not covered is given by 
+        \[
+            \P{e \text{ not covered }} 
+            = \prod_{v: e\in S_v} (1 - x_v^*)
+            \leq \prod_{v: e\in S_v} e^{-x_v^*}
+            = e^{-\textstyle\sum_{v: e\in S_v} x_v^*} 
+            \leq e^{-1}
+        \]
+        where last inequality given by LP constraint. We want to devise a polynomial-time algorithm whose chance of failure is at most inverse of a polynomial $m^{-c}$, then in this case we can say the algorithm \textit{works} with \textit{high probability}. The \textbf{revised} algorithm works by flipping a coin that comes heads up with probability $x_v^*$ and we flip the $c\ln m$ times and decide if we include $S_v$ in the solution or not. Let 
+        \[
+            X_v =
+            \begin{cases}
+                1 & \text{at least 1 head in $c\ln m$ coin flips with } \P{head} = x_v^* \\
+                0 & \text{otherwise}
+            \end{cases}    
+        \]
+        Note 
+        \[
+            \P{X_v=0} = (1 - x_v^*)^{c\ln m} 
+            \qquad 
+            \P{X_v=1} = 1 - (1 - x_v^*)^{c\ln m} 
+        \]
+        We can derive a bound on $\P{X_v=1}$ by deriving its derivative $\P{X_v=1}' = (c\ln m)(1-x_v^*)^{c\ln m - 1} \leq c\ln m$ and observe that $\P{X_v=1} \leq (c\ln m)x_v^*$. Now we derive probability of outputting a feasible set cover
+        \[
+            \P{\text{any $e$ not covered}} 
+            = \prod_{v:e\in S_v} (1 - x_v^*)^{c\ln m} 
+            \leq \prod_{v:e\in S_v} e^{-x_v^* (c\ln m)}
+            = e^{-(c\ln m) \textstyle\sum_{v:e\in S_v} x_v^*} 
+            \leq \frac{1}{m^c}
+        \]
+        Let $F$ be event where solution is a feasible set cover, then 
+        \[
+            \P{\overline{F}} 
+            = \P{\text{exists $e$ uncovered}}
+            \overset{unionbound}{\leq} \sum_e \P{\text{$e$ not covered}}
+            \leq \frac{1}{m^{c-1}}
+            \qquad 
+            \P{F} \geq 1 - \frac{1}{m^{c-1}}
+        \]
+        We can now compute expected objective of the integer program 
+        \[
+            \E{\sum_{v} w_v X_v} 
+            = \sum_v w_v \P{X_v = 1} 
+            \leq \sum_v w_v (c\ln m)x_v^* 
+            = (c\ln m) Z_{LP}^*
+            \leq (c\ln m) \, opt
+        \]
+        therefore the algorithm is $O(\ln m)$-approximation algorithm
+    \end{enumerate}
+\end{enumerate}
+
+
+\textbf{Section 1 \linkinline{105}{chapter 5: Random sampling and randomized rounding of LP}}
+
+
+\begin{enumerate}
+    \item \textbf{MAX SAT} $n$ boolean variables $x_1,\cdots, x_n$ and $m$ clauses $C_1,\cdots,C_m$, each consists of a disjunction $\lor$ or some number of literals (variables and their negations) and is of length $l_j$, and nonnegative weight $w_j$ for each clause $C_j$. Objective is to find an assignment of true/false to $x_i$ that maximizes the weight of \textit{satisfied} clauses. A clause is satified if the clause evaluates to true. 
+    \item \textbf{Randomized algorithm for MAX SAT} Setting each $x_i$ to true independently with probability $\rfrac{1}{2}$ gives $\rfrac{1}{2}$-approximation algorithm for MAX SAT problem. Let $X_j = \mathbbm{1}_{C_j=1}$, then 
+    \[
+        \E{X_j} 
+        = 1\cdot \P{C_j=1}
+        = 1 - \P{C_j=0}
+        = 1 - \left(\frac{1}{2} \right)^{l_j}
+        \geq \frac{1}{2}
+    \]
+    last inequality is a loose bound by the fact that $l_j \geq 1$. Therefore 
+    \[
+        \E{\sum_j w_j X_j} \geq \frac{1}{2} \sum_j w_j \geq \frac{1}{2}\, opt    
+    \]
+    where last inequality follows from the fact that the total weight is an easy upper bound on the optimal value. In general, if $l_j \geq k$ for each clause $C_j$, then the algorithm becomes a $(1 - (\rfrac{1}{2})^k)$-approximation algorithm
+    \item \textbf{MAX CUT} Given undirected $G=(V,E)$, $w_{ij} \geq 0$ for each $(i,j)\in E$. Objective is to partition vertex into $U$ and $W = V \setminus U$, to maximize weight of edges whose two endpoints in different parts, i.e. edges that is \textit{in the cut}. In case $w_{ij}=1$ we have unweighted MAX CUT problem.
+    \item \textbf{Randomized algorithm for MAX CUT} If we place each $v\in V$ into $U$ independently with probability $\rfrac{1}{2}$, the we have a $\rfrac{1}{2}$-approximation algorithm for the max cut problem. Let $X_{ij} = \mathbbm{1}_{(i\in U \land j\in W)\lor(i\in W \land j\in U) }$, i.e. indicator specifing if an edge is in the cut. Note $\E{X_e} = \rfrac{1}{2}$, then expected objective is 
+    \[
+        \E{\sum_e w_e X_e} = \frac{1}{2} \sum_e w_e \geq \frac{1}{2} \, opt
+    \]
+    where last inequality given by the fact that optimal value bounded above by sum of weights of all edges.
+    \item \textbf{Derandomization} Idea is to convert a randomized algorithm to obtain a deterministic algorithm whose solution value is as good as the expected value of the randomized algorithm. 
+    \item \textbf{Derandomization for MAX SAT} Let $W$ be total weight of clauses for a particular assignment. Set $x_1, \cdots$ sequentially. Given we have already set $x_1,\cdots, x_i$ to $b_1, \cdots, b_i$, we next set $x_{i+1}$ according by following
+    \[
+        x_{i+1} = 
+        \begin{cases}
+            1 & \E{W | x_1 \leftarrow b_1, \cdots, x_i \leftarrow b_i, x_{i+1}\leftarrow true} \P{x_{i+1}\leftarrow true} 
+            \\
+            &\qquad \qquad > \E{W | x_1 \leftarrow b_1, \cdots, x_i \leftarrow b_i, x_{i+1}\leftarrow false} \P{x_{i+1}\leftarrow false} \\
+            0 & \text{otherwise}
+        \end{cases}    
+    \]
+    in other words, we set $x_{i+1}$ that will maximize the expected value of the resulting solution. Setting it this way ensures that
+    \[
+        \E{W|x_1\leftarrow b_1. \cdots, x_{i}\leftarrow b_i, x_{i+1}\leftarrow b_{i+1}} 
+        \geq \E{W|x_1\leftarrow b_1. \cdots, x_{i}\leftarrow b_i}
+    \]
+    which is derived by expanding $\E{W|x_1\leftarrow b_1, \cdots, x_i\leftarrow b_i}$ by laws of conditional expectation. Now by induction, implies when algorithm terminates, we have 
+    \[
+        \E{W|x_1\leftarrow b_1. \cdots, x_{n}\leftarrow b_n}
+        \geq \E{W} \geq \frac{1}{2} \, opt
+    \]
+    therefore a $\rfrac{1}{2}$-approximation algorithm. Expectation with conditional expectation is readily computable  
+    \[
+        \E{W|x_1 \leftarrow b_1, \cdots, x_i \leftarrow  b_i} = 
+        \sum_j w_j \P{C_j=1|x_1 \leftarrow b_1, \cdots, x_i \leftarrow \leftarrow b_i}
+    \]
+    $P(C_j=1)$ is 1 if setting of $x_1,\cdots,x_i$ already satisfies the clause, and is $1-(\rfrac{1}{2})^k$ otherwise, where $k$ is the number of unset literals in the clause
+\end{enumerate}
+
+ 
+
+
+\end{document}
+ 

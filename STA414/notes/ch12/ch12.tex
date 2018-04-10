@@ -1,0 +1,159 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+\newcommand{\linksection}[3][../../bishop_with_ch12.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+\newcommand{\linkinline}[3][../../bishop_with_ch12.pdf]{
+    \noindent\href[page=#2]{#1}{#3}
+}
+
+\renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\E}[2][]{\mathbb{E}_{#1}\left\{#2\right\}}
+\newcommand{\var}[1]{var\{#1\}}
+\newcommand{\cov}[1]{cov\{#1\}} 
+\newcommand{\normal}[1]{\mathcal{N}\left(#1\right)}
+\newcommand{\exponents}[1]{exp\left\{#1\right\}}
+
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bTheta}{\boldsymbol{\Theta}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\bx}{\matr{x}}
+\newcommand{\bt}{\matr{t}}
+\newcommand{\bw}{\matr{w}}
+\newcommand{\bX}{\matr{X}}
+\newcommand{\bZ}{\matr{Z}}
+\newcommand{\bz}{\matr{z}}
+\newcommand{\bu}{\matr{u}}
+
+
+
+\newcommand{\lebpar}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\qqqquad}{\quad \quad \quad \quad}
+
+
+
+\linksection{579}{12 Continuous Latent Variables}
+
+\begin{defn*}
+    \textbf{Motivation}
+    \begin{enumerate}
+        \item \textbf{Idea} datasets have property that data points all lie close to a manifold of a much lower dimension than that of original data space 
+        \item \textbf{Digit Example} translation, rotation, and scaling are latent variables. Additional degree of freedom of variability comes from variability in individual writing style
+        \item \textbf{PCA} A continuous latent model that assumes Gaussian distribution for both latent and observed variables and make use of linear-Gaussian dependence of observed variables on the state of the latent variables
+    \end{enumerate}
+\end{defn*}
+
+\linksection{579}{12.1 Principal Component Analysis}
+
+
+\begin{defn*}
+    \textbf{PCA} has 2 formulation
+    \begin{enumerate}
+        \item Orthogonal projection of data onto a lower dimensional linear space, the principal subspace, such that variance of projected data is maximized
+        \item Linear projection that minimizes the average projection cost, defined as the mean squared distance between the data points and their projections
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Maximum variance formulation} GIven $\{\bx_n\}$ where $\bx_n \in \R^D$. Goal is to project data onto space with dimensionality $M < D$ while maximizing varaince of projected data. Given $M=1$, let $\bu$ be a unit vector ($\bu^T \bu = 1$). Each data point is projected onto a scalar $\bu^T \bx_n$. Let mean of projected data be 
+    \[
+        \overline{x} = \frac{1}{N} \sum_{n=1}^N \bx_n    
+    \]
+    We want to maximize projected variance 
+    \begin{align*}
+        \frac{1}{N} \sum_{n=1}^N \left( \bx_n^T \bu - \overline{\bx}^T \bu \right)^2
+        &= \frac{1}{N} \sum_{n=1}^N \left( \bx_n^T \bu - \overline{\bx}^T \bu \right)^T \left( \bx_n^T \bu - \overline{\bx}^T \bu \right) \\ 
+        &= \frac{1}{N} \sum_{n=1}^N \bu^T \left( \bx_n - \overline{\bx} \right) \left( \bx_n - \overline{\bx}  \right)^T \bu \\ 
+        &= u^T S u 
+    \end{align*}
+    where $\textstyle S = \frac{1}{N} \sum_{n=1}^N \left( \bx_n - \overline{\bx} \right) \left( \bx_n - \overline{\bx}  \right)^T$ is the covariance matrix. Maximize using langrange multipliers 
+    \[
+        \bu^T \matr{S} \bu + \lambda (1 - \bu^T \bu)    
+    \]
+    gives us that variance will be maximized when we set $u$ be eigenvector having largest eigenvalue $\lambda$. In general, the optimal linear projection for which the variance of projectedf data is maximized is defined by $M$ eigenvectors $\bu_1, \cdots, \bu_M$ of the data covariance matrix $\matr{S}$ corresponding to $M$ largest eigenvalues $\lambda_1, \cdots, \lambda_M$ 
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Minimum-error formulation} Given orthonormal basis for data space \\ 
+    $\{\bu_1, \cdots,\bu_M, \cdots, \bu_D\}$, where the first $M$ basis forms the basis for the principal subspace where we project onto. We approximate the each data point $\bx_n$
+    \[
+        \bx_n = \sum_{i=1}^D (\bx_n^T \bu_i) \bu_i
+        \qquad 
+        \overset{approximate}{\longleftarrow}
+        \qquad 
+        \tilde{\bx}_n = \sum_{i=1}^M \alpha_{ni} \bu_i + \sum_{i=M+1}^D \beta_i \bu_i
+    \]
+    where $\alpha_{ni}$ varies and $\beta_i$ fixed constant. Goal is to \textbf{minimize squared distance} between original data point $\bx_n$ and its approximation $\tilde{\bx}_n$, averaged over the entire dataset, 
+    \[
+        J = \frac{1}{N} \sum_{n=1}^N \norm{\bx_n - \tilde{\bx}_n}^2
+    \]
+    computing $\textstyle \frac{\partial J}{\partial \alpha_{ni}}$ and $\textstyle \frac{\partial J}{\partial \beta_{i}}$, set to zero, we get 
+    \[
+        z_{ni} = \bx_n^T \bu_i 
+        \quad 
+        b_{i} = \overline{\bx}^T \bu_i    
+        \quad \overset{reformulate J}{\longrightarrow} \quad 
+        J = \frac{1}{N} \sum_{n=1}^N \sum_{i=M+1}^D (\bx_n^T \bu_i - \overline{\bx}^T \bu_i)^2 = \sum_{i=M+1}^D \bu_i^T \matr{S} \bu_i
+    \]
+    Similar to how we maximized $\bu^T \matr{S} \bu$ in the maximum variance formulation, the choice of choosing $\bu_i$ where $i=M+1,\cdots, D$ where the corresponding eigenvalues are smallest minimizes $J$. Therefore the distortion measure can be written as 
+    \[
+        J = \sum_{i=M+1}^D \langle Su_i, u_i \rangle = \sum_{i=M+1}^D \lambda_i \langle u_i, u_i \rangle = \sum_{i=M+1}^D \lambda_i
+    \]
+    Note this is equivalent to picking eigenvectors as basis for the principal component whose corresponding eigenvalues are the largest in the previous formulation
+\end{defn*}
+
+\begin{defn*}
+    \textbf{PCA for high-dimensional data} 
+    \begin{enumerate}
+        \item \textbf{Compute eigenvalues} Let $\bX$ be $N\times D$ centered data matrix, whose $n$-th row given by $(\bx - \overline{\bx})^T$. The covariance is therefore $\matr{S} = N^{-1} \bX^T \bX$, then 
+        \[
+            \frac{1}{N} \bX^T \bX \bu_i = \lambda_i \bu_i    
+            \qquad \overset{\times \bX}{\longrightarrow} \qquad 
+            \frac{1}{N} \bX \bX^T (\bX \bu_i) = \lambda_i (\bX \bu_i)
+            \iff 
+            \frac{1}{N} \bX \bX^T \matr{v}_i = \lambda_i \matr{v}_i 
+        \]
+        for $\matr{v}_i = \bX \bu_i$. We can solve for the eigenvalues $\lambda_i$ in $O(N^3)$ time instead of $O(D^3)$.
+        \item \textbf{Compute eigenvectors} In order to determine the eigenvectors we multiply both sides by $\bX^T$ 
+        \[
+            (\frac{1}{N} \bX^T \bX) (\bX^T \matr{v}_i) = \lambda_i (\bX^T \matr{v}_i)    
+        \]
+        where $\bX^T \matr{v}_i = \bu_i$ an eigenvector of $\matr{S}$
+    \end{enumerate}
+\end{defn*} 
+
+
+\linksection{611}{12.4 Nonlinear Latent Variable Models}
+
+\begin{defn*}
+    \textbf{Independent component analysis} Observed variables related linearly to the latent variables, but for which the latent distribution is non-Gaussian
+\end{defn*}
+
+\begin{defn*}
+    \textbf{Autoassociative neural networks (Autoencoders)} 
+    \begin{enumerate}
+        \item \textbf{Idea} A multiplayer perception where the input/output dimensions are equal $D$ and that the hiddern dimension is smaller $M < D$ (act as a bottleneck layer). We want to minimize degree of mismatch between input vectors and their reconstruction, i.e. 
+        \[
+            \calE (\bw) = \frac{1}{2} \sum_n \norm{y(\bx_n, \bw) - \bx_n}^2
+        \]
+        \item \textbf{Linear Dimensionality Reduction} autoassociative neural net with 1 hiddern layer performs projection onto $M$-dimensional subspace spanned by the first $M$ principal components of the data. THe vector of weights leading into the hidden unit forms a basis set that spans the principal subspace
+        \item \textbf{Nonlinear Dimensionality Reduction} autoassociative neural net with more than 1 hidden unit containing nonlinear activation function does nonlinear dimensionality reduction. 
+    \end{enumerate}
+\end{defn*}
+
+
+\end{document}

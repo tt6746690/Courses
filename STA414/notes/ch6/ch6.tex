@@ -1,0 +1,172 @@
+\documentclass[11pt]{article}
+\input{/Users/markwang/.preamble}
+\begin{document}
+
+
+
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+\newcommand{\linksection}[3][../../bishop_pattern_recognition_and_machine_learning.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+\newcommand{\linkinline}[3][../../bishop_pattern_recognition_and_machine_learning.pdf]{
+    \noindent\href[page=#2]{#1}{#3}
+}
+
+\renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\E}[2][]{\mathbb{E}_{#1}\left\{#2\right\}}
+\newcommand{\var}[2][]{var_{#1}\left\{#2\right\}}
+\newcommand{\cov}[1]{cov\{#1\}} 
+\newcommand{\normal}[1]{\mathcal{N}\left(#1\right)}
+\newcommand{\exponents}[1]{exp\left\{#1\right\}}
+
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bTheta}{\boldsymbol{\Theta}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\bx}{\matr{x}}
+\newcommand{\bt}{\matr{t}}
+\newcommand{\bw}{\matr{w}}
+\newcommand{\bX}{\matr{X}}
+\newcommand{\bZ}{\matr{Z}}
+\newcommand{\bz}{\matr{z}}
+\newcommand{\bu}{\matr{u}}
+\newcommand{\by}{\matr{y}}
+
+
+
+\newcommand{\lebpar}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\qqqquad}{\quad \quad \quad \quad}
+
+
+\linksection{308}{6 Kernel Methods} 
+
+\begin{defn*}
+    \textbf{Kernel Methods} 
+    \begin{enumerate}
+        \item \textbf{Memory-based Method} Training data is not discarded during prediction (unlike neural nets, or bayesian regression). Requires a metric that defines measures of similarity of any two vector in the input space
+        \item \textbf{Kernel} Given a fixed nonlinear feature space mapping $\phi(\bx)$, the kernel function measures similarity
+        \[
+            k(\bx, \bx') = \bphi(\bx)^T \bphi(\bx') = \sum_{i=1}^M \bphi_i(\bx) \bphi(\bx')
+        \]
+        Linear kernel $k(\bx, \bx') = \bx^T \bx'$
+        \item \textbf{Valid Kernel} the Gram matrix $\matr{K}$ where $(\matr{K})_{nm} = k(\bx_n, \bx_m)$ is positive semidefinite for all possible $\bx_n, \bx_m$ 
+        \item \textbf{Dual Representation} Idea is for some linear models, i.e. perceptron, minimization of least squared loss often has an equivalent formulation comprised of entirely kernel functions
+        \item \textbf{Kernel Substitution (trick)} Replace scalar product of input vectors $\bx$ with some other choice of kernel (i.e. nonlinear PCA)
+        \item \textbf{Gaussian Processes} Dual of probabilistic discriminative models gives rise to Gaussian processses
+    \end{enumerate}
+\end{defn*}
+
+\linksection{321}{6.4 Gaussian Processes}
+ 
+\
+
+\begin{defn*}
+    \textbf{GP} 
+    \begin{enumerate}
+        \item \textbf{Bayesian Linear Regression Revisit} 
+        \[
+            y(\bx) = \bw^T \bphi(\bx) 
+            \qquad \text{where} \quad 
+            p(\bw) = \normal{\bw | \matr{0}, \alpha^{-1}\matr{I}}    
+        \]
+        Given design matrix $\Phi$ over $\bx_1, \cdots, \bx_N$, we can write
+        \[
+            \by(\bx) = \Phi \bw 
+        \]
+        \[
+            \E{\by} = \Phi \E{\bw} = \matr{0}
+            \quad 
+            \var{\by} = \E{\by \by^T} = \Phi \E{\bw \bw^T} \Phi^T = \matr{K}
+        \]
+        where $\matr{K}$ defined with $\matr{K}_{nm} = k(\bx_n, \bx_m) = \textstyle \frac{1}{\alpha} \bphi(\bx_n)^T \bphi(\bx_n)$. This is a special case of Gaussian process in that distributinon over a function $y(\bx)$ evaluated over some indexed set of input values yield a jointly multivariate Gaussian distribution
+        \item \textbf{Motivation} Gaussian processes is a probability distribution over functions $y(\bx)$ such that the set of values of $y(\bx)$ evaluated at an arbitrary set of points $\bx_1 ,\cdots , \bx_N$ jointly have a Gaussian distribution. Usually set prior mean be zero, and the Gaussian process is completely determined by the variance, or the kernel function 
+        \[
+            \var{\bx_n, \bx_m} = k(\bx_n, \bx_m)
+        \]
+        \item \textbf{Gaussian Process} A stochastic process is a collection of random variables (functions), i.e. $\{f(\bx): \bx\in \mathcal{X}\}$ for some index set $\mathcal{X}$. A Gaussian Process is a stochastic process such that any finite subcollection of random variables has multivariate Gaussian distribution. A collection of random variables $\{f(\bx): \bx\in \mathcal{X}\}$ are said to be drawn from Gaussian processes with \textbf{mean function} $m(\cdot)$ and covariance function $k(\cdot, \cdot)$ if for any finite set of elements $\bx_1, \cdots, \bx_m \in \mathcal{X}$, the associated set of random variables $f(\bx_1),\cdots, f(\bx_m)$ has distribution 
+        \[
+            \begin{pmatrix}
+                f(\bx_1) \\
+                \vdots \\
+                f(\bx_N) \\ 
+            \end{pmatrix}   
+            \sim 
+            \normal{
+            \begin{pmatrix}
+                m(\bx_1) \\
+                \vdots \\
+                m(\bx_N) \\ 
+            \end{pmatrix}
+            , 
+            \begin{pmatrix}
+                k(\bx_1, \bx_1) & \cdots & k(\bx_1, \bx_N) \\ 
+                \vdots & \ddots & \vdots \\
+                k(\bx_N, \bx_1) & \cdots & k(\bx_N, \bx_N) \\ 
+            \end{pmatrix}
+            } 
+        \]
+        \[
+            f(\cdot) = \mathcal{GP}(m(\cdot), k(\cdot, \cdot))
+        \]
+        \item \textbf{GP for Regression} 
+        \[
+            t_n = y_n + \epsilon 
+            \qquad \text{where}
+            p(t_n | y_n) = \normal{t_n | y_n, \beta^{-1}}
+        \]
+        We can derive the conditional and marginal, as we want to get $p(\bt, \by)$
+        \[
+            p(\bt| \by) = \normal{\bt|\by , \beta^{-1} \matr{I}_N}    
+            \qquad 
+            p(\by) = \normal{\by | \matr{0}, \matr{K}}
+        \]
+        where $p(\by)$ is Gaussian as $\by$ drawn from a Gaussian process. We then compute marginal distribution of training data $\bt$
+        \[
+            p(\bt) = \int p(\bt | \by) p(\by) d\by = \normal{\bt | \matr{0}, \matr{C}}    
+            \qquad 
+            \matr{C}(\bx_n, \bx_m) = k(\bx_n, \bx_m) + \beta^{-1} \delta_{nm}
+        \]
+        $\matr{C}$ captures both randomness in picking $\by$ and randomness in data noise $\epsilon$. We want to predict target value $t_{N+1}$ for a new input vector $\bx_{N+1}$ given training $(\bx, \bt)$ dataset, i.e. $p(t_{N+1}|\bt_N)$. We first determine joint distribution of $\bt_{N+1}$ 
+        \[
+            p(\bt_{N+1}) = p(\bt_1, \cdots, \bt_{N+1}) = \normal{\bt_{N+1} | \matr{0}, \matr{C}_{N+1}}
+            \qquad 
+            \matr{C}_{N+1} = 
+            \begin{pmatrix}
+                \matr{C}_N & \matr{k} \\
+                \matr{k}^T & c \\ 
+            \end{pmatrix}
+        \]
+        we get 
+        \[
+            p(t_{N+1}|\bt) = \normal{m(\bx_{N+1}), \sigma^2(\bx_{N+1})}
+            \qquad 
+            m(\bx_{N+1}) = \matr{k}^T \matr{C}_N^{-1} \bt 
+            \quad 
+            \sigma^2(\bx_{N+1}) = c - \matr{k}^T \matr{C}_N^{-1} \matr{k}
+        \]
+        where the mean and variance depends on $\bx_{N+1}$
+        \item \textbf{Characteristic of a kernel function} squared exponential with constant term and linear term
+        \[
+            k(\bx_n, \bx_m) = \theta_0 \exp{-\frac{\theta_1}{2}\norm{\bx_n - \bx_m}^2} + \theta_2 + \theta_3 \bx_n^T \bx_m
+        \]
+        $\theta_0$ simply scales the curve vertically without changing the shape of the curve. As $\theta_1$ increase, points far away will have higher correlations than before, so sampled function thend to be smoother overall. $\theta_2$ influences variance regardless of value of $x$, $\theta_3$ influences variance depending on values of $x$
+        \item \textbf{Learning hyperparameters} Evaluaate likelihood function  $p(\bt | \bTheta)$ where $\bTheta$ denotes hyperparameters of GP model, i.e. parameters in kernel function
+    \end{enumerate}
+\end{defn*}
+
+
+
+
+
+
+
+\end{document}

@@ -125,14 +125,21 @@
         \[
             p(\bX | \bTheta) = \sum_{\bZ} p(\bX, \bZ | \bTheta)    
         \]
-        which does not factor over $n$ easily. Have to consider $K^N$ different possible $Z$s. Not feasible. We solve this by rearranging the summation such that the cost scales linearly instead of exponentially 
+        which does not factor over $n$ easily. We first are concerned with evaluating computing $p(\bX | \bTheta)$ efficiently since we would have to consider $K^N$ different possible $Z$s, hence not feasible. We solve this by rearranging the summation such that the cost scales linearly instead of exponentially 
         \begin{align*}
             p(\bX | \bTheta)
             &= \sum_{\bZ} p(\bX, \bZ | \bTheta) \\ 
             &= \sum_{\bz_1, \cdots, \bz_n} p(\bz_1, \bx_1) \prod_{n=2}^N p(\bz_n | \bz_{n-1}) p(\bx_n | \bz_n)  \\ 
             &= \sum_{\bz_1} p(\bz_1) p(\bx_1 | \bz_1) \sum_{\bz_2} p(\bz_2 |\bz_1) p(\bx_2 | \bz_2) \cdots \sum_{\bz_N} p(\bz_{N} | \bz_{n-1}) p(\bx_N | \bz_N)
         \end{align*}
-        The emission probability maybe very complex leading to no closed form solution for the likelihood function. We us EM algorithm to solve the problem
+        which usually have no closed form. So we use EM algorithm 
+        \item \textbf{Forward-Backward algorithm} Used for computing the posterior of hidden states over observation 
+        \[
+            p(\bz_n | \bX) = \frac{p(\bX | \bz_n)p(\bz_n)}{p(\bX)} = \frac{\alpha(\bz_n)\beta(\bz_n)}{p(\bX)}
+        \]
+        where the algorithm evaluates $\alpha(\bz_n)$ in terms of $\alpha_{\bz_{n-1}}$ and in the backward pass evaluates $\beta(\bz_n)$ in terms of $\alpha_{\bz_{n+1}}$. The algorithm can be used to compute likelihood $p(\bX | \bTheta)$ !
+        \item \textbf{Baum-Welch algorithm} is EM for HMM
+        \item \textbf{Viterbi Decoding} determines the most probable paths from exponentially many possibilities
     \end{enumerate}
 \end{defn*}
 

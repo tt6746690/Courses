@@ -6,7 +6,7 @@
 \newcommand{\V}[1]{\mathsf{V}\left\{#1\right\}}
 \renewcommand{\P}[1]{\mathsf{P}\left(#1\right)}
 \newcommand{\abs}[1]{\left|\,#1\,\right|}
-
+\newcommand{\calC}{\mathcal{C}}
 
 
 
@@ -15,177 +15,175 @@
 }
 
 
-\textbf{Section 1 \linkinline{13}{chapter 1: Intro to approximation algorithms}}
+\textbf{Section 1 \linkinline{13}{chapter 1}: Intro to approximation algorithms}
 
 \begin{enumerate}
     \item \textbf{$\alpha$-approximation algorithms} (minimization: $opt \leq f \leq \alpha \, opt$ for $\alpha > 1$)
     \item \textbf{Polynomial-time approximation scheme} (PTAS) is a family of algorithm $\{A_{\epsilon}\}$ to a problem with $(1+\epsilon)$-approximation algorithm (for minimization) and $(1-\epsilon)$-approximation algorithm (for maximization)
     \item \textbf{Set Cover} Given $E = \{e_1,\cdots,e_n\}$, subsets $S_1,\cdots , S_m \subseteq E$ Find $I \subseteq \{1,\cdots,m\}$ such that $\textstyle \sum_{j\in I} w_j$ minimized while $\textstyle \cup_{j\in I} S_j = E$, i.e. set of $S_j$ covers $E$
-    \begin{enumerate}
-        \item \textbf{Weighted Vertex Cover} as a specialized case for set cover. Given $G=(V,E)$, and $w_v\geq 0$ for each $v\in V$, goal is to find $C\subseteq V$ such that for all $(u,v)\in E$, $u\in C$ or $v\in C$. We can convert vertex cover to a set cover problem by noticing that $E$ is the set we want to cover and let $S_v$ of weight $w_v$ be edges incident to vertex $v\in V$. Note for any vertex cover $C$ there is a set cover $I$ of same weight. 
-        \item \textbf{Unweighted Vertex Cover} $w_v = 1$ for all $v\in V$
-        \item \textbf{LP formulation and Relaxation} Let $x_v$ be decision variables that represent the decision that $S_v = \{ e\in E: v\in e \}$ is included in the solution, i.e. $x_v = 1$ implies $v \in C$
-        \begin{align*}
-            \min \quad & \sum_{j=1}^{n} w_j x_j 
-            & 
-            \min \quad & \sum_{j=1}^{n} w_j x_j 
-            \\
-            s.t. \quad & 
-            &
-            s.t. \quad &
-            \\
-            \forall e\in E \quad & \sum_{j: e\in S_j} x_j \geq 1 
-            &   \overset{\text{relaxation}}{\longrightarrow} \quad \quad 
-            \forall e\in E \quad & \sum_{j: e\in S_j} x_j \geq 1 
-            \\
-            \forall v\in V \quad & x_v \in \{0, 1 \} 
-            & 
-            \forall v\in V \quad & x_v \geq 0
-            \\ 
-        \end{align*}
-        Note every feasible solution for IP is feasible for LP. Let $Z_{IP}^*$ and $Z_{LP}^*$ be optimal value for integer and the relaxed linear program, and $OPT$ be optimal value of the problem, then 
-        \[
-            Z_{LP}^* \leq Z_{IP}^* = OPT 
-        \]
-        for minimization problem
-        \item \textbf{Deterministic Rounding} Given LP solution $x^*$, include $S_v$ in solution if and only if $x_v^* \geq \rfrac{1}{f}$ where $f_e = |\{ v : e\in S_v \}|$ represent number of times $e$ is included in some $S_v$ and $f = \max_{e\in E} f_e$ represents maximum number of times any $e$ appears in $S$. Equivalent to rounding to get an approximate integer solution
-        \[
-            \hat{x}_v = 
-            \begin{cases}
-                1 & x_v^* \geq \frac{1}{f} \\
-                0 & \text{otherwise} \\ 
-            \end{cases}    
-        \]
-        Note $\hat{x}$ is \textbf{feasible} according to this rounding scheme. We prove this by proving the solution according to $\hat{x}$ is a set cover, i.e. we claim for all $e\in E$, $e\in S_v$ for some $v$. By contradiction assume exists $e\in E$ such that $e\not\in S_v$ for all $v$ (i.e. $x_v^* < \rfrac{1}{f}$), therefore 
-        \[
-            \sum_{v:e\in S_v} x_v^*
-            < \sum_{v:e\in S_v} \frac{1}{f}
-            = \frac{f_v}{f} 
-            \leq 1
-        \]
-        also note $x_v^*$ feasible, i.e. $\textstyle \sum_{v:e\in S_v} x_v^* \geq 1$, contradiction. 
-        \item \textbf{$f$-approximation algorithm} Now we prove deterministic rounding above yields a $f$-approximation algorithm. Since $\hat{x}_v$ feasible, then we have lower bound 
-        \[
-            opt = Z_{IP}^* \leq \sum_{j} w_j \hat{x}_j
-        \]
-        This \textit{lower bound always hold for any integer LP programming that uses rounding}. Note for any $\hat{x}_v$, we have $f x_v^* \geq \hat{x}_v$ since $f x_v^* \geq 0 = \hat{x}_v$ for $x_v^* < \rfrac{1}{f}$ and $f x_v^* \geq 1 = \hat{x}_v$ for $x_v^* \geq \rfrac{1}{f}$, therefore 
-        \[
-            \sum_j w_j \hat{x}_j \leq \sum_j w_j (f x_j^*) = f \sum_j w_j x_j^* = f Z_{LP}^* \leq f Z_{IP}^* = f\, opt
-        \]
-        therefore, $opt \leq \textstyle \sum_j w_j \hat{x}_j \leq f \, opt$ 
-        \item \textbf{Dual of Relaxed LP}
-        \begin{align*}
-            \min \quad & \sum_{j=1}^{n} w_j x_j 
-            & 
-            \max \quad & \sum_{e} y_e
-            \\
-            s.t. \quad & 
-            &
-            s.t. \quad &
-            \\
-            \forall e\in E \quad & \sum_{j: e\in S_j} x_j \geq 1 
-            &   \overset{\text{dual of relaxed LP}}{\longrightarrow} \quad \quad 
-            \forall v \in V \quad & \sum_{e: e\in S_v} y_e \leq w_u 
-            \\
-            \forall v\in V \quad & x_v \geq 0
-            & 
-            \forall e\in E \quad & y_e \geq 0
-            \\ 
-        \end{align*}
-        By weak duality, any feasible dual solution $y$ follows $\textstyle \sum_e y_e \leq Z_{LP}^*$, therefore 
-        \[
-            \sum_e y_e = Z_{DLP} \leq Z_{PLP}^* \leq Z_{IP}^* = opt
-        \]
-        \item \textbf{Rounding a dual solution} Let $y^*$ be optimal solution to dual LP, and we include subset $S_v$ such that the corresponding dual constriant is 'tight', i.e. 
-        \[
-            \hat{x}_v = 
-            \begin{cases}
-                1 & \textstyle \sum_{e:e\in S_v} y_e = w_v \\
-                0 & \text{otherwise}
-            \end{cases}
-        \]
-        Note we can prove $\hat{x}_v$ is feasible, i.e. collections of $S_v$ for which $\hat{x}_v = 1$ is a set cover. \linkinline{22}{proof here}. General idea is that assume $e$ not covered, then imply for all $v\in V$, 
-        \[
-            \sum_{e:e\in S_v} y_e < w_v
-        \]
-        So we can find a smallest difference between lhs and rhs, denoted as $\delta$, cross all dual constraints, and increment $y_e$ by $\delta$ and obtain a solution that has better objective value than the optimal solution that we started with.
-        \item \textbf{$f$-approximation algorithm for dual rounding} Lower bound holds since $\hat{x}_v$ feasible for IP. Now we prove upper bound 
-        \[
-            f \, opt 
-            \geq f \sum_e  y_e 
-            \geq \sum_{v\in V} \sum_{e: e\in S_v} y_e 
-            \geq \sum_{v:\hat{x}_v=1} w_v + \sum_{v:\hat{x}_v=0} 0
-            = \sum_v w_v \hat{x}_v
-        \]
-        \item \textbf{Primal-Dual: Constructing Dual Solution} Idea is to construct a dual optimal solution by relying on complementary slackness such that we dont have to solve dual LP directly. \linkinline{24}{algorithm here}. General outline of primal-dual algorithm  \\
-        \begin{center}
-            \begin{algorithm}[H]
-                Initialize some feasible DLP $y$ and candidate $x$ for PLP\\ 
-                \While{$x$ not feasible to PLP}{
-                    Adjust $y$ by the slack $\delta$, such that  \\ 
-                    \quad $y$ remains feasible, dual objective increases, additional constraint become tight
-                    Update $x$ according to complementary slackness condition \\ 
-                }
-            \end{algorithm}
-        \end{center}
-        Idea is start with some feasible DLP variable $y$ and use it to infer some, possibly infeasible, $x$ to PLP
-        \item \textbf{Randomized Rounding} Idea is to interpret LP solution $x^*_v$ as probability that $\hat{x}_v$ is set to 1, i.e. $S_v$ included in the final solution with probability $x^*_v$ for each $v\in V$ as random independent events. Let $X_v$ be an indicator variable, $X_v = \mathbbm{1}_{\hat{x}_v =1}$. Therefore $\E{X_v} = x_v^*$. Therefore we can determine expected value of the solution 
-        \[
-            \E{\sum_{j} w_j X_j} = \sum_j w_j \P{X_j=1} = \sum_j w_j x_j^* = Z_{LP}^* \leq opt
-        \]
-        which is a good approximation, but not every element $e$ is covered by this procedure, the probability of a single edge $e$ not covered is given by 
-        \[
-            \P{e \text{ not covered }} 
-            = \prod_{v: e\in S_v} (1 - x_v^*)
-            \leq \prod_{v: e\in S_v} e^{-x_v^*}
-            = e^{-\textstyle\sum_{v: e\in S_v} x_v^*} 
-            \leq e^{-1}
-        \]
-        where last inequality given by LP constraint. We want to devise a polynomial-time algorithm whose chance of failure is at most inverse of a polynomial $m^{-c}$, then in this case we can say the algorithm \textit{works} with \textit{high probability}. The \textbf{revised} algorithm works by flipping a coin that comes heads up with probability $x_v^*$ and we flip the $c\ln m$ times and decide if we include $S_v$ in the solution or not. Let 
-        \[
-            X_v =
-            \begin{cases}
-                1 & \text{at least 1 head in $c\ln m$ coin flips with } \P{head} = x_v^* \\
-                0 & \text{otherwise}
-            \end{cases}    
-        \]
-        Note 
-        \[
-            \P{X_v=0} = (1 - x_v^*)^{c\ln m} 
-            \qquad 
-            \P{X_v=1} = 1 - (1 - x_v^*)^{c\ln m} 
-        \]
-        We can derive a bound on $\P{X_v=1}$ by deriving its derivative $\P{X_v=1}' = (c\ln m)(1-x_v^*)^{c\ln m - 1} \leq c\ln m$ and observe that $\P{X_v=1} \leq (c\ln m)x_v^*$. Now we derive probability of outputting a feasible set cover
-        \[
-            \P{\text{any $e$ not covered}} 
-            = \prod_{v:e\in S_v} (1 - x_v^*)^{c\ln m} 
-            \leq \prod_{v:e\in S_v} e^{-x_v^* (c\ln m)}
-            = e^{-(c\ln m) \textstyle\sum_{v:e\in S_v} x_v^*} 
-            \leq \frac{1}{m^c}
-        \]
-        Let $F$ be event where solution is a feasible set cover, then 
-        \[
-            \P{\overline{F}} 
-            = \P{\text{exists $e$ uncovered}}
-            \overset{unionbound}{\leq} \sum_e \P{\text{$e$ not covered}}
-            \leq \frac{1}{m^{c-1}}
-            \qquad 
-            \P{F} \geq 1 - \frac{1}{m^{c-1}}
-        \]
-        We can now compute expected objective of the integer program 
-        \[
-            \E{\sum_{v} w_v X_v} 
-            = \sum_v w_v \P{X_v = 1} 
-            \leq \sum_v w_v (c\ln m)x_v^* 
-            = (c\ln m) Z_{LP}^*
-            \leq (c\ln m) \, opt
-        \]
-        therefore the algorithm is $O(\ln m)$-approximation algorithm
-    \end{enumerate}
+    \item \textbf{Weighted Vertex Cover} as a specialized case for set cover. Given $G=(V,E)$, and $w_v\geq 0$ for each $v\in V$, goal is to find $C\subseteq V$ such that for all $(u,v)\in E$, $u\in C$ or $v\in C$. We can convert vertex cover to a set cover problem by noticing that $E$ is the set we want to cover and let $S_v$ of weight $w_v$ be edges incident to vertex $v\in V$. Note for any vertex cover $C$ there is a set cover $I$ of same weight. 
+    \item \textbf{Unweighted Vertex Cover} $w_v = 1$ for all $v\in V$
+    \item \textbf{LP formulation and Relaxation} Let $x_v$ be decision variables that represent the decision that $S_v = \{ e\in E: v\in e \}$ is included in the solution, i.e. $x_v = 1$ implies $v \in C$
+    \begin{align*}
+        \min \quad & \sum_{j=1}^{n} w_j x_j 
+        & 
+        \min \quad & \sum_{j=1}^{n} w_j x_j 
+        \\
+        s.t. \quad & 
+        &
+        s.t. \quad &
+        \\
+        \forall e\in E \quad & \sum_{j: e\in S_j} x_j \geq 1 
+        &   \overset{\text{relaxation}}{\longrightarrow} \quad \quad 
+        \forall e\in E \quad & \sum_{j: e\in S_j} x_j \geq 1 
+        \\
+        \forall v\in V \quad & x_v \in \{0, 1 \} 
+        & 
+        \forall v\in V \quad & x_v \geq 0
+        \\ 
+    \end{align*}
+    Note every feasible solution for IP is feasible for LP. Let $Z_{IP}^*$ and $Z_{LP}^*$ be optimal value for integer and the relaxed linear program, and $OPT$ be optimal value of the problem, then 
+    \[
+        Z_{LP}^* \leq Z_{IP}^* = OPT 
+    \]
+    for minimization problem
+    \item \textbf{Deterministic Rounding} Given LP solution $x^*$, include $S_v$ in solution if and only if $x_v^* \geq \rfrac{1}{f}$ where $f_e = |\{ v : e\in S_v \}|$ represent number of times $e$ is included in some $S_v$ and $f = \max_{e\in E} f_e$ represents maximum number of times any $e$ appears in $S$. Equivalent to rounding to get an approximate integer solution
+    \[
+        \hat{x}_v = 
+        \begin{cases}
+            1 & x_v^* \geq \frac{1}{f} \\
+            0 & \text{otherwise} \\ 
+        \end{cases}    
+    \]
+    Note $\hat{x}$ is \textbf{feasible} according to this rounding scheme. We prove this by proving the solution according to $\hat{x}$ is a set cover, i.e. we claim for all $e\in E$, $e\in S_v$ for some $v$. By contradiction assume exists $e\in E$ such that $e\not\in S_v$ for all $v$ (i.e. $x_v^* < \rfrac{1}{f}$), therefore 
+    \[
+        \sum_{v:e\in S_v} x_v^*
+        < \sum_{v:e\in S_v} \frac{1}{f}
+        = \frac{f_v}{f} 
+        \leq 1
+    \]
+    also note $x_v^*$ feasible, i.e. $\textstyle \sum_{v:e\in S_v} x_v^* \geq 1$, contradiction. 
+    \item \textbf{$f$-approximation algorithm} Now we prove deterministic rounding above yields a $f$-approximation algorithm. Since $\hat{x}_v$ feasible, then we have lower bound 
+    \[
+        opt = Z_{IP}^* \leq \sum_{j} w_j \hat{x}_j
+    \]
+    This \textit{lower bound always hold for any integer LP programming that uses rounding}. Note for any $\hat{x}_v$, we have $f x_v^* \geq \hat{x}_v$ since $f x_v^* \geq 0 = \hat{x}_v$ for $x_v^* < \rfrac{1}{f}$ and $f x_v^* \geq 1 = \hat{x}_v$ for $x_v^* \geq \rfrac{1}{f}$, therefore 
+    \[
+        \sum_j w_j \hat{x}_j \leq \sum_j w_j (f x_j^*) = f \sum_j w_j x_j^* = f Z_{LP}^* \leq f Z_{IP}^* = f\, opt
+    \]
+    therefore, $opt \leq \textstyle \sum_j w_j \hat{x}_j \leq f \, opt$ 
+    \item \textbf{Dual of Relaxed LP}
+    \begin{align*}
+        \min \quad & \sum_{j=1}^{n} w_j x_j 
+        & 
+        \max \quad & \sum_{e} y_e
+        \\
+        s.t. \quad & 
+        &
+        s.t. \quad &
+        \\
+        \forall e\in E \quad & \sum_{j: e\in S_j} x_j \geq 1 
+        &   \overset{\text{dual of relaxed LP}}{\longrightarrow} \quad \quad 
+        \forall v \in V \quad & \sum_{e: e\in S_v} y_e \leq w_u 
+        \\
+        \forall v\in V \quad & x_v \geq 0
+        & 
+        \forall e\in E \quad & y_e \geq 0
+        \\ 
+    \end{align*}
+    By weak duality, any feasible dual solution $y$ follows $\textstyle \sum_e y_e \leq Z_{LP}^*$, therefore 
+    \[
+        \sum_e y_e = Z_{DLP} \leq Z_{PLP}^* \leq Z_{IP}^* = opt
+    \]
+    \item \textbf{Rounding a dual solution} Let $y^*$ be optimal solution to dual LP, and we include subset $S_v$ such that the corresponding dual constriant is 'tight', i.e. 
+    \[
+        \hat{x}_v = 
+        \begin{cases}
+            1 & \textstyle \sum_{e:e\in S_v} y_e = w_v \\
+            0 & \text{otherwise}
+        \end{cases}
+    \]
+    Note we can prove $\hat{x}_v$ is feasible, i.e. collections of $S_v$ for which $\hat{x}_v = 1$ is a set cover. \linkinline{22}{proof here}. General idea is that assume $e$ not covered, then imply for all $v\in V$, 
+    \[
+        \sum_{e:e\in S_v} y_e < w_v
+    \]
+    So we can find a smallest difference between lhs and rhs, denoted as $\delta$, cross all dual constraints, and increment $y_e$ by $\delta$ and obtain a solution that has better objective value than the optimal solution that we started with.
+    \item \textbf{$f$-approximation algorithm for dual rounding} Lower bound holds since $\hat{x}_v$ feasible for IP. Now we prove upper bound 
+    \[
+        f \, opt 
+        \geq f \sum_e  y_e 
+        \geq \sum_{v\in V} \sum_{e: e\in S_v} y_e 
+        \geq \sum_{v:\hat{x}_v=1} w_v + \sum_{v:\hat{x}_v=0} 0
+        = \sum_v w_v \hat{x}_v
+    \]
+    \item \textbf{Primal-Dual: Constructing Dual Solution} Idea is to construct a dual optimal solution by relying on complementary slackness such that we dont have to solve dual LP directly. \linkinline{24}{algorithm here}. General outline of primal-dual algorithm  \\
+    \begin{center}
+        \begin{algorithm}[H]
+            Initialize some feasible DLP $y$ and candidate $x$ for PLP\\ 
+            \While{$x$ not feasible to PLP}{
+                Adjust $y$ by the slack $\delta$, such that  \\ 
+                \quad $y$ remains feasible, dual objective increases, additional constraint become tight
+                Update $x$ according to complementary slackness condition \\ 
+            }
+        \end{algorithm}
+    \end{center}
+    Idea is start with some feasible DLP variable $y$ and use it to infer some, possibly infeasible, $x$ to PLP
+    \item \textbf{Randomized Rounding} Idea is to interpret LP solution $x^*_v$ as probability that $\hat{x}_v$ is set to 1, i.e. $S_v$ included in the final solution with probability $x^*_v$ for each $v\in V$ as random independent events. Let $X_v$ be an indicator variable, $X_v = \mathbbm{1}_{\hat{x}_v =1}$. Therefore $\E{X_v} = x_v^*$. Therefore we can determine expected value of the solution 
+    \[
+        \E{\sum_{j} w_j X_j} = \sum_j w_j \P{X_j=1} = \sum_j w_j x_j^* = Z_{LP}^* \leq opt
+    \]
+    which is a good approximation, but not every element $e$ is covered by this procedure, the probability of a single edge $e$ not covered is given by 
+    \[
+        \P{e \text{ not covered }} 
+        = \prod_{v: e\in S_v} (1 - x_v^*)
+        \leq \prod_{v: e\in S_v} e^{-x_v^*}
+        = e^{-\textstyle\sum_{v: e\in S_v} x_v^*} 
+        \leq e^{-1}
+    \]
+    where last inequality given by LP constraint. We want to devise a polynomial-time algorithm whose chance of failure is at most inverse of a polynomial $m^{-c}$, then in this case we can say the algorithm \textit{works} with \textit{high probability}. The \textbf{revised} algorithm works by flipping a coin that comes heads up with probability $x_v^*$ and we flip the $c\ln m$ times and decide if we include $S_v$ in the solution or not. Let 
+    \[
+        X_v =
+        \begin{cases}
+            1 & \text{at least 1 head in $c\ln m$ coin flips with } \P{head} = x_v^* \\
+            0 & \text{otherwise}
+        \end{cases}    
+    \]
+    Note 
+    \[
+        \P{X_v=0} = (1 - x_v^*)^{c\ln m} 
+        \qquad 
+        \P{X_v=1} = 1 - (1 - x_v^*)^{c\ln m} 
+    \]
+    We can derive a bound on $\P{X_v=1}$ by deriving its derivative $\P{X_v=1}' = (c\ln m)(1-x_v^*)^{c\ln m - 1} \leq c\ln m$ and observe that $\P{X_v=1} \leq (c\ln m)x_v^*$. Now we derive probability of outputting a feasible set cover
+    \[
+        \P{\text{any $e$ not covered}} 
+        = \prod_{v:e\in S_v} (1 - x_v^*)^{c\ln m} 
+        \leq \prod_{v:e\in S_v} e^{-x_v^* (c\ln m)}
+        = e^{-(c\ln m) \textstyle\sum_{v:e\in S_v} x_v^*} 
+        \leq \frac{1}{m^c}
+    \]
+    Let $F$ be event where solution is a feasible set cover, then 
+    \[
+        \P{\overline{F}} 
+        = \P{\text{exists $e$ uncovered}}
+        \overset{unionbound}{\leq} \sum_e \P{\text{$e$ not covered}}
+        \leq \frac{1}{m^{c-1}}
+        \qquad 
+        \P{F} \geq 1 - \frac{1}{m^{c-1}}
+    \]
+    We can now compute expected objective of the integer program 
+    \[
+        \E{\sum_{v} w_v X_v} 
+        = \sum_v w_v \P{X_v = 1} 
+        \leq \sum_v w_v (c\ln m)x_v^* 
+        = (c\ln m) Z_{LP}^*
+        \leq (c\ln m) \, opt
+    \]
+    therefore the algorithm is $O(\ln m)$-approximation algorithm
 \end{enumerate}
 
 
-\textbf{Section 1 \linkinline{105}{chapter 5: Random sampling and randomized rounding of LP}}
+\textbf{Section 1 \linkinline{105}{chapter 5}: Random sampling and randomized rounding of LP}
 
 
 \begin{enumerate}
@@ -238,8 +236,111 @@
     $P(C_j=1)$ is 1 if setting of $x_1,\cdots,x_i$ already satisfies the clause, and is $1-(\rfrac{1}{2})^k$ otherwise, where $k$ is the number of unset literals in the clause
 \end{enumerate}
 
+
+$ $\\
+\textbf{Section 1 \linkinline{161}{chapter 7}: The primal-dual method}
+
+
+
+\begin{enumerate}
+    \item \textbf{Set Cover Problem} The algorithm \\ 
+    \begin{algorithm}[H]
+        $y\leftarrow 0$ \\
+        $I \leftarrow \emptyset$ \\
+        \While{$\exists e_i \not\in \cup_{j\in I}S_j$}{
+            \text{Increase dual $y_i$ until there is some $l$ such that $\textstyle\sum_{j:e_j\in S_l} y_j = w_l$} \\
+            \quad $y_i \leftarrow y_i + \epsilon$ where $\epsilon = \min_{j:e_i\in S_j} (w_j - \textstyle\sum_{k:e_k\in S_j} y_k)$ \\ 
+            $I\leftarrow I\cup \{l\}$
+        }
+        \Return{$I$}
+    \end{algorithm}
+    We want to prove the algorithm is $f$-approximation algorithm where $f = \max_i | \{ j : e_i \in S_j \} |$, i.e. max number of times an edge appears in different subsets. In any primal-dual algorithm we have 
+    \[
+       f \cdot \sum_{i=1}^n y_i \leq f\cdot Z^*_{LP} \leq f\cdot opt    
+    \]
+    Note for any $j\in I$, the dual constraint is satisfied, i.e. $w_j = \textstyle \sum_{i:e_i \in S_j} y_i$, therefore 
+    \[
+        \sum_{j\in I} w_j = \sum_{j\in I} \sum_{i:e_i\in S_j} y_i 
+        = \sum_{i=1}^n y_i \cdot |\{j\in I: e_i \in S_j\}|    
+        \leq f \sum_{i=1}^n y_i \leq f \cdot opt
+    \]
+    \item \textbf{Standard primal-dual analysis}:
+    \begin{enumerate}
+        \item Maintain a feasible dual
+        \item Increase dual variables until a dual constraint becomes tight. This indicates we need to add to our primal solution.
+        \item When analyze cost of primal solution, each object in the solution was given by a tight dual inequality ($A^T y = c$) and so we can rewrite cost of primal solution $c^Tx$ in terms of dual variables $y^T A x$.
+        \item Then we compare this cost with dual objective function and show that the primal cost is within a certain factor of the dual objective. 
+    \end{enumerate}
+    In summary, the standard primal-dual algorithm constructs a primal integer solution and a solution to the dual of the linear programming relaxation. 
+    \item \textbf{Feedback Vertex Set Problem} Given undirected graph $G=(V,E)$, and vertex weights $w_{i}\geq 0$ for all $i\in V$. Goal is to choose min-cost subset of vertices $S\subseteq V$ such that every cycle $C$ in the graph contains some vertex of $S$, i.e. $S$ \textit{hits} every cycle of the graph. Alternatively, we want to find minimum-cost subset $S$ such that removing $S$ leaves $G$ acyclic, i.e. the induced graph $G[V\setminus S]$ is acyclic.
+    \item \textbf{Induced Graph} $G[V\setminus S]$ is an induced graph on $V\setminus S$ with edges from $G$ that have both endpoints in $V\setminus S$
+    \item Integer program and the dual of relaxed linear program
+    \begin{align*}
+        \min \quad & \sum_{v\in V} w_v x_v 
+        & 
+        \max \quad & \sum_{C:C\in\calC} y_C 
+        \\
+        s.t. \quad & 
+        &
+        s.t. \quad &
+        \\
+        \forall C\in \calC \quad & \sum_{v\in C}x_v \geq 1 
+        &
+        \forall v\in V \quad & \sum_{C\in\calC: v\in C} y_C \leq w_v
+        \\
+        \forall v\in V \quad & x_v \in \{0,1\} 
+        &
+        \forall C\in\calC \quad & y_C\geq 0
+        \\ 
+    \end{align*}
+    the primal-dual algorithm given by \\
+    \begin{algorithm}[H]
+        $y\leftarrow 0$ \\
+        $S\leftarrow \emptyset$ \\
+        \While{exists cycle $C$ in $G$}{
+            Find cycle $C$ with at most $2\lceil \log_2 n \rceil$ vertices of degree 3 or more with bfs\\
+            Increase $y_C$ until there is some $l\in C$ such that $\textstyle\sum_{C'\in \calC: l\in C'} y_{C'} = w_l$ \\
+            \qquad  $y_C \leftarrow y_C + \epsilon$ where $\epsilon = \min_{i\in C} (w_i - \textstyle\sum_{C':i\in C'}y_{C'})$ \\
+            $S\leftarrow S \cup \{l\}$ \\
+            Remove $l$ from $G$  \\
+            Repeated remove vertices of degree one from $G$ \\ 
+        }
+        \Return{$S$}
+    \end{algorithm}
+    Idea is since we can remove at most $n$ vertices, we only need to maintain $|S| \leq n$ as primal solution, versus the potentially exponential number of dual variables. We now analyze the algorithm. Let $S$ be final set of vertices chosen, know for all $v\in S$, $w_v = \textstyle\sum_{C:v\in C} y_C$. So the cost of IP solution is given by 
+    \[
+        \sum_{v\in S} w_V = \sum_{v\in S}\sum_{C:v\in C} y_C 
+        = \sum_{C\in\calC} |S\cap C| y_C    
+    \]
+    where $|S\cap C|$ is simply the number of vertices of the solution $S$ in the cycle $C$. Idea is we want to bound $|S\cap C| \leq \alpha$, but for arbitrary cycle, $|S\cap C|$ can be quite large. Idea is we want to pick smaller cycles with some bound such that $|S\cap C| \leq |C| \leq \alpha$
+    \item \textbf{Picking the Right Cycle}
+    \begin{enumerate}
+        \item For any path $P$ consisting over vertices of degree two in $G$. The algorithm choose at most one vertex from $P$, i.e. $|S \cap P| \leq 1$ for the final solution $S$ given by the algorithm 
+        \item In any graph $G$ with no vertices of degree one, there is a cycle with at most $2\lceil \log_2 n \rceil$ vertices of degree three or more, and it can be found in linear time. 
+        \begin{proof}
+            There is a cycle since acyclic graph with $n$ vertices has at most $n-1$ edges. But $2m = \textstyle \sum_u deg(u) \geq 2n$, so must exists a cycle. Convert $G$ to $H$ where we treat every path of vertices of degree two as a single edge joining vertices of degree 3 or more. If we run bfs on $H$, there is at least twice the number of vertices in successive level, so the number of levels is bounded $l \leq \lceil \log_2 n \rceil$. We can find a path of vertices of degree two from a node on the current level to a previously visited node; This forms a cycle with at most $2\lceil \log_2 n \rceil$ vertices of degree two or more. Therefore we have found a cycle with at most $2\lceil \log_2 n \rceil$ vertices of degree three or more in $G$, and the algorithm terminates in $O(m+n)$.
+        \end{proof}
+    \end{enumerate}
+    Iea is can find a cycle $C$ that minimies number of vertices having degree 3 or higher, i.e. a cycle $C$ with $2\lceil \log_2 n \rceil$ vertices of degree 3 or higher. In the worst case, vertices of degree 3 or more alternates with paths of vertices of degree two, so $|S\cap C| \leq 4\lceil \log_2 n \rceil$
+    \item \textbf{$(4\lceil \log_2 n \rceil)$-approximation algorithm} Idea is $y_C > 0$ only if $C$ contains at most $2\lceil \log_2 n \rceil$ vertices of degree three or more. Claim if $C$ has at most $2\lceil \log_2 n \rceil$ vertices of degree three or more in $C$ can contain at most $4\lceil \log_2 n \rceil$ vertices of $S$ overall
+    \begin{enumerate}
+        \item possibly degree 3 vertex is in $S$ 
+        \item at most one of vertices in the path joining adjacent vertices of degree 3 or more is in $S$ 
+    \end{enumerate}
+    Therefore whenever $y_C = 0$, we have $|S\cap C| \leq 4\lceil \log_2 n \rceil$, so 
+    \[
+        \sum_{v\in S} w_v 
+        = \sum_{c\in\calC} |S\cap C| y_C
+        \leq (4\lceil \log_2 n \rceil) \sum_{C\in\calC}  y_C 
+        \leq (4\lceil \log_2 n \rceil) \cdot opt
+    \]
+    Important observation is that to get good performance guarantee, one must carefully pick the dual variable to increase, i.e. pick a dual variable that is small or minimial in some sense
+\end{enumerate}
+
+
+
  
 
 
 \end{document}
- 
+  

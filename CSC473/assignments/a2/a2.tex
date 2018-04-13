@@ -79,6 +79,54 @@ Let $k = \frac{4}{\epsilon^2}$ such that $\P{\abs{\E{c}-c} > \epsilon\E{c}} < \f
 
 \item \textbf{Linear Programming} 
 
+\begin{proof}
+    For any constraint with $k$ terms where $k>3$, i.e. corresponding row $i$ of $A$ has $k$ nonzero entries, we can introduce $k-3$ new variable $\{y_i\}_{i=1}^{k-3}$ and convert the original constraint 
+    \[
+        \sum_{j=1} A_{ij} x_1 \leq b_i 
+    \]
+    to an equivalent form. 
+    \begin{align*}
+        A_{il_1} x_{l_1} + A_{il_2} x_{l_2} + y_1 &\leq b_i  \\
+        y_{1} &= A_{il_3} x_3 + y_{2} \\
+        &\cdots \\
+        y_{k-3} &= A_{il_{k-1}} x_{k-1} + A_{il_{k}} x_k \\ 
+    \end{align*}
+    where $\{l_1, \cdots, l_k\}$ are the indices of nonzero entries in row $i$ of $A$, i.e. $A_{il_j} \neq 0$ where $l_j \in \{l_1, \cdots, l_k\}$, where the equality can be expressed as inequality constraints as follows 
+    \begin{align*}
+        y_{j-1} - A_{il_{j+1}} x_{j+1} - y_{j} &\leq 0 \\ 
+        - y_{j-1} + A_{il_{j+1}} x_{j+1} + y_{j} &\leq 0 \\ 
+    \end{align*}
+    Let $y'$ be all the extra variables introduced to all constraints. Let $D'$ be the matrix consisting of coefficients for the converted constraints, and $e'$ be the rhs of the converted matrices. Then 
+    \[
+        y = 
+        \begin{pmatrix}
+            x \\
+            y' \\
+        \end{pmatrix}
+        \qquad 
+        f = 
+        \begin{pmatrix}
+            c \\
+            0 \\ 
+        \end{pmatrix}    
+        \qquad 
+        D = 
+        \begin{pmatrix}
+            D' \\
+            I \\
+        \end{pmatrix}
+        \qquad 
+        e = 
+        \begin{pmatrix}
+            e' \\ 
+            0
+        \end{pmatrix}
+    \]
+    The objective is equivalent since $f^T y = c^T x$. The constrants are equivalent. Computing $y,f,D,e$ takes polynomial times, since we are simply converting $m$ to $m(K-2)$ constraints where $K \leq n$ is maximum number of nonzero entries in any given constraint.
+\end{proof}
+
+
+
 
 
 \end{enumerate}

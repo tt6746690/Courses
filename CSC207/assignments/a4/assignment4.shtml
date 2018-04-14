@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy for HTML5 (experimental) for Mac OS X https://github.com/w3c/tidy-html5/tree/c63cc39">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="http://www.cdf.toronto.edu/~csc207h/fall/styles.css" type="text/css">
+        <title>
+            CSC207 — Assignment 4
+        </title>
+    </head>
+    <body>
+        <div class="title">
+            <h1>
+                Fall 2016 — Introduction to Software Design — Assignment 4
+            </h1>
+        </div>
+        <p>
+            <strong>Group size:</strong> <span style="color:red">Individual</span>: this is <b>not</b> a team assignment.
+        </p>
+        <h2>
+            Due date
+        </h2>
+        <p>
+            The due date for A4 is extended to 11am Wednesday 7 December.
+        </p>
+        <h2>
+            Learning Objectives
+        </h2>
+        <ul>
+            <li>Read and understand code designed and developed by someone else
+            </li>
+            <li>Perform a code review
+            </li>
+        </ul>
+        <h2>
+            Overview
+        </h2>
+        <p>
+            In this assignment, you will be performing a code inspection on some of the code from another team in this course.
+        </p>
+        <p>
+            Do all of this work in your <b>personal</b> repository. In that repository, you will find a directory called <code>a4</code> containing the code.
+        </p>
+        <h2>
+            Part 1: Class Diagram
+        </h2>
+        <p>
+            Before inspecting a specific class, you will develop an understanding of the overall design of the project. Create, add, commit, and push a UML class diagram for the project in a file <code>a4/class-diagram.pdf</code> that conveys the following information:
+        </p>
+        <ul>
+            <li>The names of all of the non-GUI classes and interfaces in the project. (In particular, don't include any of the button classes.)
+            </li>
+            <li>Any inheritance and interface relationships between the classes and interfaces.
+            </li>
+            <li>The usage relationships between classes: do some classes contain instances of others? Or produce instances of others?
+            </li>
+        </ul>
+        <h2>
+            Part 2: Code Review: class <code>FileNode</code>
+        </h2>
+        <p>
+            After you feel you have an understanding of the components of the project, review a single class (see below) for correctness, design, and style. Place this review in your <b>personal</b> repository in a <b>text</b> file called <code>a4/code-review.txt</code> and push it.
+        </p>
+        <p>
+            Please read <a href="http://www.developer.com/tech/article.php/3579756" title="Effective Code Reviews Without the Pain - Developer.com">Effective Code Reviews Without the Pain</a> that provides some tips about writing -- and receiving -- feedback about code <strong>before you start</strong>. Structure your review as a memo written to the original authors of the code. Please keep the following items in mind as you write your review:
+        </p>
+        <ul>
+            <li>It may be helpful to note that Eclipse displays each file with line numbers.
+            </li>
+            <li>Keep your comments constructive, and highlight positive aspects of the code as well as the problems that you see.
+            </li>
+            <li>High-level observations are fine, but try to cite specific examples from the code whenever possible. ("On line 32 in YourClass.java ...")
+            </li>
+            <li>Suggest changes when you see places that you think could be improved, even if it's something small like "your indentation is inconsistent in method M of class C".
+            </li>
+            <li>Organisation and writing style are important. Organise your comments by type of comment and/or by class. Proofread your writing and keep the tone of the document professional.
+            </li>
+        </ul>
+        <h2>
+            Part 3: Design Discussion
+        </h2>
+        <p>
+            There are many button classes. They are mostly used in <code>PhotoRenamer.java</code>. Write a short (no more than 400 words) discussion of your thoughts on this design. Address at least these questions: is it useful to have so many button classes? What are the strengths of this approach? Are there alternative approaches? Do you think that having each declared in a separate file a good or a bad thing?
+        </p>
+        <p>
+            Note that you are not commenting on the style in the button classes —&nbsp;the instance veriable names could be improved, and there is little documentation. Comment only on what you think about the design.
+        </p>
+        <p>
+            Place your button reflection in your <b>personal</b> repository in a <b>text</b> file called <code>a4/push-my-buttons.txt</code> and push it.
+        </p>
+    </body>
+</html>

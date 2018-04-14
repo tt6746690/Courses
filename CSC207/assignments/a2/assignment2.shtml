@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.18.1), see www.w3.org">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="http://www.cdf.toronto.edu/~csc207h/fall/styles.css" type="text/css">
+        <title>
+            CSC207 &#8212; Assignment 2
+        </title>
+    </head>
+    <body>
+        <div class="title">
+            <h1>
+                Fall 2016 &#8212; Introduction to Software Design &#8212; Assignment 2
+            </h1>
+        </div>
+        <p>
+            <strong>Group size:</strong> Two
+        </p>
+        <h2>
+            Learning objectives
+        </h2>
+        <ul>
+            <li>Use Git
+            </li>
+            <li>Build a graphical user interface
+            </li>
+            <li>Write a full-fledged "real" application
+            </li>
+            <li>Design and work with a configuration file
+            </li>
+            <li>Implement a logging system
+            </li>
+            <li>Do a CRC design
+            </li>
+            <li>Work with all Java features seen so far
+            </li>
+            <li>Work in an environment where not everything is specified
+            </li>
+        </ul>
+        <h2>
+            Overview
+        </h2>
+        <p>
+            This project description applies to both A2 and A3, although the details for A3 will change a bit.
+        </p>
+        <p>
+            Many photo management programs (such as Google Photos and Apple iPhoto) allow you to tag images so that you can find them later. An issue with these applications is that they require you to use the application to view and search your photo collection.
+        </p>
+        <p>
+            Here's a description of an alternative approach that you will design and implement.
+        </p>
+        <p>
+            PhotoRenamer is an application that allows a user to easily rename image files based on a set of tags. The user can choose a directory and view a list of all image files anywhere under that directory. When viewing an image, the user can select tags from the currently-existing tags, and the user can also add new tags and delete existing ones from the currently-existing ones. The application will rename the image file to include the tags, each prefixed with the "@" character. For example, if the user has tagged an image with "Aunt June" and "Samantha", then the file will be renamed to include "@Aunt June @Samantha". This allows the user to use their operating system to search for image files. The user should also be able to open (in their OS) the directory containing the current image file.
+        </p>
+        <p>
+            Provided that an image has not been moved to a different location or manually renamed using the OS, users can view all the names that a file has had. For example, if the user views the image with Aunt June and Samantha, they can see both the original name and the name that includes "@Aunt June @Samantha".  The user can choose to go back to an older name.
+        </p>
+        <p>
+            The list of available tags persists when the application is quit and reopened.
+        </p>
+        <p>
+            The system keeps a log of all renaming ever done (old name, new name, and timestamp), and the user can view this log.
+        </p>
+        <p>
+            When PhotoRenamer is first run, it should create any configuration files that it needs, and if they are deleted it should recreate them the next time it is run.
+        </p>
+        <h2>
+            Getting set up
+        </h2>
+        <p>
+            Once you register your partnership in <a target="_blank" href="https://markus.teach.cs.toronto.edu/csc207-2016-09/en/main">MarkUs</a>, you will have a shared repository whose name is your group name. For example, if your group name is <code>group_4321</code>, then your repository URL will be <code>https://markus.teach.cs.toronto.edu/git/csc207-2016-09/group_4321</code>.
+        </p>
+        <p>
+            Clone your repository. It should have an <code>a2</code> subdirectory. Open Eclipse and create a new project inside <code>a2</code>. This will automatically create a <code>src</code> subdirectory. Create any packages you like.
+        </p>
+        <p>
+            Only add and commit your <code>.java</code> files and any text files you create. Do not add or commit the <code>bin</code> directory, nor any other automatically-generated files.
+        </p>
+        <h2>
+            Other features to consider
+        </h2>
+        <p>
+            At some point, you may want to add the following features. There are certainly many more features that would fit well.  It may or may not help you to consider these while you are doing your CRC analysis.
+        </p>
+        <ul>
+            <li>Find the two most similarly tagged files: the ones that share the most tags.
+            </li>
+            <li>Find the most common tag.
+            </li>
+            <li>Find the file with the most tags.
+            </li>
+            <li>Remove tags from all files.
+            </li>
+            <li>Revert all changes to a particular date.
+            </li>
+        </ul>
+        <h2>
+            How to approach this assignment
+        </h2>
+        <p>
+            Get some index cards and do a CRC analysis of the description in the Overview. You will be required to submit them, so don't lose them.
+        </p>
+        <p>
+            Read the Wikipedia page about <a target="_blank" href="https://en.wikipedia.org/wiki/Code_smell">Code Smells</a>.  Pay attention to these kinds of issues as you develop your program.
+        </p>
+        <p>
+            The graphical user interface code should be separate from the "back end" of the system that manipulates and manages the files. Imagine writing a command-line shell that allows you to interact with the image files: that's a completely different kind of user interface, but the classes that manage the data should not have to change for that to work.
+        </p>
+        <p>
+            As an example of what not to do, in Assignment 1, both <code>buildTree</code> and <code>buildDirectoryContents</code> arguably should not have been part of class <code>FileChooserButtonListener</code>: neither of them were part of the graphical user interface, and should have been in a separate class, perhaps in <code>FileNode</code>, or better yet in a class called something like <code>FileManager</code>.
+        </p>
+        <p>
+            Once you've done a CRC analysis, write the back end. For A2, the grading will largely be focused on your design and implementation of the non-GUI classes. If you deviate from your initial CRC analysis that is fine (and even expected), but make brief bullet-point notes about where and why you do this, and include them in a file called <code>notes.txt</code> in the <code>a2</code> directory in your group repository.
+        </p>
+        <h2>
+            What to submit
+        </h2>
+        <p>
+            As you work, regularly commit and push your changes. (Both you and your partner are expected to write a lot of code for this, and part of the final exam will ask questions about PhotoRenamer, so it is in both of your best interests to actively contribute.)
+        </p>
+        <p>
+            Put your CRC cards in an envelope. Write both of your names and your group name on the envelope; you will hand this in.
+        </p>
+        <h2>
+            A note on style
+        </h2>
+        <p>
+            You must use the Java naming conventions. Other than that, because there is no starter code, you can develop your own coding style. However, you and your teammate must use the same style. Brace placement, indentation, and whitespace around operators (or not), are all up to you. You will be marked on consistency.
+        </p>
+        <p>
+            You must write full Javadoc for your methods, including <code>@param</code>, <code>@return</code>, and <code>@throws</code>. Include <code>@Override</code> tags where appropriate.
+        </p>
+        <p>
+            Your Javadoc may be imperative ("Return the value") or descriptive ("Returns the value"). Whichever you choose, be consistent.
+        </p>
+        <p>
+            You may find <a target="_blank" href="http://www.cdf.toronto.edu/~csc207h/winter/lectures/javadoc.pdf">this set of Javadoc slides</a> helpful. It's not rocket science, so we won't be covering this in lecture.
+        </p>
+    </body>
+</html>

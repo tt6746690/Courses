@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# The argument to the program is the prefix of the two files to compare
+
+if diff $1.actual $1.expected
+then
+	echo "Test passed"
+else
+	echo "Test failed"
+fi

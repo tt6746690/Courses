@@ -1,0 +1,46 @@
+
+
+W:/CSC258/rundonaldrun/vga_adapter/vga_pll.v
+
+Mar 22 08PM:38:17>: Error in CNX file format.
+
+Error messages are listed in file
+W:/CSC258/rundonaldrun/vga_adapter/vga_pll.cnxerr.
+
+Can't create the custom megafunction variation file(s)
+
+W:/CSC258/rundonaldrun/vga_adapter/vga_pll.v
+
+Mar 22 08PM:38:52>: Error in CNX file format.
+
+Error messages are listed in file
+W:/CSC258/rundonaldrun/vga_adapter/vga_pll.cnxerr.
+
+Can't create the custom megafunction variation file(s)
+
+W:/CSC258/rundonaldrun/vga_adapter/vga_pll.v
+
+Mar 22 08PM:39:01>: Error in CNX file format.
+
+Error messages are listed in file
+W:/CSC258/rundonaldrun/vga_adapter/vga_pll.cnxerr.
+
+Can't create the custom megafunction variation file(s)
+
+W:/CSC258/rundonaldrun/vga_adapter/vga_pll.v
+
+Mar 22 08PM:39:09>: Error in CNX file format.
+
+Error messages are listed in file
+W:/CSC258/rundonaldrun/vga_adapter/vga_pll.cnxerr.
+
+Can't create the custom megafunction variation file(s)
+
+W:/CSC258/rundonaldrun/vga_adapter/vga_pll.v
+
+Mar 22 08PM:39:44>: Error in CNX file format.
+
+Error messages are listed in file
+W:/CSC258/rundonaldrun/vga_adapter/vga_pll.cnxerr.
+
+Can't create the custom megafunction variation file(s)

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy for HTML5 (experimental) for Mac OS X https://github.com/w3c/tidy-html5/tree/c63cc39">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="http://www.cdf.toronto.edu/~csc207h/fall/styles.css" type="text/css">
+        <title>
+            CSC207 — Assignment 3
+        </title>
+    </head>
+    <body>
+        <div class="title">
+            <h1>
+                Fall 2016 — Introduction to Software Design — Assignment 3
+            </h1>
+        </div>
+        <p>
+            <strong>Group size:</strong> Two
+        </p>
+        <h2>
+            Due date
+        </h2>
+        <p>
+            The due date for A3 is extended to 5pm Sunday 27 November.
+        </p>
+        <h2>
+            Learning Objectives
+        </h2>
+        <ul>
+            <li>Interact with another programmer working on the same code
+            </li>
+            <li>Work with version control
+            </li>
+            <li>Write a GUI
+            </li>
+            <li>Refactor existing code to apply design patterns
+            </li>
+            <li>Write a set of unit tests (in addition to finding bugs, it's a a good way to help decide on preconditions for your methods)
+            </li>
+            <li>Think about the implications of exceptions on the user experience
+            </li>
+        </ul>
+        <h2>
+            Overview
+        </h2>
+        <p>
+            Using the same repository as for A2 (but in a new subdirectory), write the GUI for the photo renamer, write full Javadoc for your program, use proper Java style, and include unit tests for the parts of your program that manage the master list of tags. (You are encouraged to write more unit tests, both for practice and because it can help you think of corner cases.)
+        </p>
+        <p>
+            You must use at least two design patterns in your code (they can be from lecture or from your own research), and indicate (using comments in your code) which classes are involved in each pattern, and what their roles are.
+        </p>
+        <p>
+            We will mark your solution based on appropriate functionality, and also based on Code Smells and on your Java style.
+        </p>
+        <p>
+            You are strongly encouraged to refactor your A2 code to improve it.
+        </p>
+        <h2>
+            Required code structure
+        </h2>
+        <p>
+            These are vital:
+        </p>
+        <ul>
+            <li>the class containing the main method must be named <code>PhotoRenamer</code>
+            </li>
+            <li>PhotoRenamer must be in package <code>photo_renamer</code>
+            </li>
+            <li>
+                <p>
+                    The structure of your group repository must be this:
+                </p>
+                <pre>
+<code>group_name/a3/src/photo_renamer
+</code>
+</pre>
+            </li>
+        </ul>
+        <p>
+            Notice that you will need to copy over any code from the <code>group_name/a2</code> subdirectory.
+        </p>
+        <p>
+            You are welcome to have other packages in the <code>src</code> directory.
+        </p>
+        <p>
+            On the command line, this sequence of commands must run without error in CDF:
+        </p>
+        <pre>
+<code>git clone https://markus.teach.cs.toronto.edu/git/csc207-2016-09/group_name
+cd group_name/a3/src
+javac photo_renamer/PhotoRenamer.java
+java photo_renamer.PhotoRenamer
+</code>
+</pre>
+        <p>
+            We will continue to check whether both partners are fully participating in the program development and that both of you are properly using version control.
+        </p>
+        <h2>
+            Partners
+        </h2>
+        <p>
+            You will not be allowed to work alone on A3. See the Learning Objectives. Please contact Paul if you have questions or other issues with this.
+        </p>
+        <h2>
+            Code review opportunity!
+        </h2>
+        <p>
+            Assignment 4 will have you do an individual code inspection on some of the code from another team in this course. If you and your partner would like a bonus 0.25% to your course mark, you can volunteer to have your A3 solution used for this. Do this by emailing <a href="mailto:jgirard@cdf.utoronto.ca?subject=207:%20A4%20volunteer">Justin Girard</a>. <b>CC: your partner. Include your group name and your UTORids!</b>
+        </p>
+        <p>
+            You will earn the 0.25% just by volunteering, whether or not your submission is selected.
+        </p>
+        <p>
+            For A4, we will select a submission from among all the volunteers, create an anonymous version (removing all mentions of whose assignment it is), and pushing that submission to each of your individual repositories.
+        </p>
+    </body>
+</html>

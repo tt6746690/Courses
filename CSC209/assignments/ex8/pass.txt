@@ -1,0 +1,4 @@
+fish:swim
+birds:fly
+lizards:crawl
+humanoids:walk

@@ -3,43 +3,113 @@
 \begin{document}
 
 
-\newcommand{\linktextbook}[3][../linear_algebra_friedberg_insel_spence_4ed.pdf]{
-    \noindent\#\href[page=#2]{#1}{#3}
+\newcommand{\linktextbookold}[3][../linear_algebra_friedberg_insel_spence_4ed.pdf]{
+    \href[page=#2]{#1}{#3}
+}
+
+
+\newcommand{\linktextbook}[3][../linear_algebra_copyable.pdf]{
+    \href[page=#2]{#1}{#3}
 }
 
 \newcommand{\linksolution}[3][../solution_compiled.pdf]{
-    \noindent\#\href[page=#2]{#1}{#3}
+    \href[page=#2]{#1}{#3}
 }
 
+\newcommand{\linktextoffset}[1]{
+    \linktextbook{#1 + 15}{#1}
+}
+
+
+\newcommand{\vecspace}{\mathcal{V}}
+\newcommand{\field}{\mathcal{F}}
+\newcommand{\trace}[1]{tr(#1)}
+\renewcommand{\span}[1]{span(#1)}
+\renewcommand{\dim}[1]{dim(#1)}
+\newcommand{\nullity}[1]{nullity(#1)}
+\newcommand{\rank}[1]{rank(#1)}
+\newcommand{\cvec}[2]{\left[ #1 \right]_{#2}}
+\renewcommand{\matr}[3]{\left[ #1 \right]_{#2}^{#3}}
+\newcommand{\ltspace}[1]{\mathcal{L}(#1)}
+\renewcommand{\det}[1]{det(#1)}
+\newcommand{\tinvariant}[2]{\langle#2\rangle_{#1}}
+\newcommand{\innerp}[2]{\langle#1,#2\rangle}
+\renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\orthocomp}[1]{#1^{\perp}}
+
 \begin{enumerate}
-    \item \textbf{HW1 2.2} \linktextbook{98}{text} \linksolution{36}{solution} 
-    \item \textbf{HW3 6.1} \linksolution{140}{text} 
-    \item \textbf{HW4 6.2} \linktextbook{368}{text} \linksolution{162}{solution} 
+    \item \textbf{hw1 5.1 5.2} \linksolution{109}{5.1}
     \begin{enumerate}
-        \item \linktextbook{23}{23 refers to 1.2 ex5}
+        \item \linktextoffset{256} \# 3ab*c*, 4ach, 7, 8, 9, 17*, 18*, 22a*
+        \item \linktextoffset{279} \# 2bf, 7*, 8 
+        \item $T$ invertible if and only if 0 not an eigenvalue 
     \end{enumerate}
-    \item \textbf{HW5 6.3} \linktextbook{364}{text} 
+    \item \textbf{hw2 5.2 5.3 5.4}
     \begin{enumerate}
-        \item \linktextbook{0}{12 refers to 6.2 exercise 13(c)} $W = (W^{\perp})^{\perp}$
+        \item \linktextoffset{279} \# 14ac,15*
+        \item \linktextoffset{312} \# 21, 23*,24*
+        \item \linktextoffset{321} \# 6ad,8,13*, 19* 
     \end{enumerate}
-    \item \textbf{HW6 6.4} \linktextbook{386}{text} \linksolution{179}{solution}
+    \item \textbf{hw3 5.4 6.1} \linksolution{147}{solution}
     \begin{enumerate}
+        \item \linktextoffset{321} \# 20, 23*, 24*, 26*
+        \item \linktextoffset{336} \# 3, 4, 5, 10, 11, 17*, 19, 20*, 28
+        \item \linksolution{140}{solution}  If $W\subseteq V$ $T$-invariant subspace, $v_1,\cdots, v_k$ are eigenvectors corresponding to distinct eigenvalues, then if $v_1 + \cdots + v_k \in W$, then $v_i \in W$ for all $i$
+        \item \linksolution{140}{solution}  If $T$ diagonalizable, $W \subseteq V$ T-invariant, then $T_W$ also diagonalizable. (Prove by noting $V = \textstyle\sum_{\lambda} (E_{\lambda}\cap W)$)
+        \item (10) Pythagorean theorem: If $x,y$ orthogonal, then $\norm{x+y}^2 = \norm{x}^2 + \norm{y}^2$.
+        \item (17) Given linear operator $T$, if $\norm{T(x)} = \norm{x}$ then $T$ is one-to-one 
+        \item (19) $\norm{x\pm y}^2 = \norm{x}^2 \pm 2 \mathfrak{R} \innerp{x}{y} + \norm{y}^2$ for all $x,y\in V$  
+        \item $W \cap \orthocomp{W} = \{0\}$ and so $V = W + \orthocomp{W}$, by existence of $u\in W$, $v\in \orthocomp{W}$ such that $x=u+v$ we have $V = W \oplus \orthocomp{W}$
+    \end{enumerate}
+    \item \textbf{hw4 6.2} \linksolution{162}{solution} 
+    \begin{enumerate}
+        \item \linktextoffset{352} \# 2dhkm 4, 6*, 7, 11*, 14, 15, 16*, 22, 23* (refer 1.2 ex5)
+        \item Know how to do Gram-Schmit 
+        \item (11) Let $A\in M_{n}(C)$, $AA^* = I$ ($A^*A = I$) iff rows (columns) of $A$ form an orthonormal basis for $C^n$
+        \item (15) Let $\{v_1,\cdots, v_n\}$ be orthonormal basis, then for all $x,y\in V$ with $\innerp{\cdot}{\cdot}$, $\innerp{x}{y} = \textstyle\sum_{i} \innerp{x}{v_i} \overline{\innerp{y}{v_i}}$, hence $\norm{x}^2= \innerp{x}{x} = \textstyle\sum_{i} |\innerp{x}{v_i}|^2$. If $\innerp{\cdot}{\cdot}'$ is ips for $F^n$, then $\innerp{\phi_{\beta}(x)}{\phi_{\beta}(y)}' = \innerp{x}{y}$ 
+        \item (23) Know how to prove inner product valid (sesquilinear, hermitian, positive definite) also $W = (\orthocomp{W})^{\perp}$ holds for finite dimensioanl $W$ only 
+    \end{enumerate}
+    \item \textbf{hw5 6.3} \linksolution{172}{solution}
+    \begin{enumerate}
+        \item \linktextoffset{365}  \# 2, 3, 6*, 7*, 8*, 10, 12* (6.2ex13(c)), 14*
+        \item (2) Given $g:V\to F$, exists $y\in V$ such that $g(x) = \innerp{x}{y}$ for all $x\in V$. We can compute $y$ with $y = \textstyle\sum_i \overline{g(v_i)}v_i$ for any orthonormal basis $\{v_1,\cdots, v_n\}$
+        \item (10) dunno how to do
+        \item (12) Let $T$ be a linear operator, then $\orthocomp{R(T^*)} = N(T)$. And if $V$ finite dimensional, then $R(T^*) = N(T)^{\perp}$
+    \end{enumerate}
+    \item \textbf{hw6 6.4} \linksolution{179}{solution}
+    \begin{enumerate}
+        \item \linktextoffset{374} \# 2acd, 4, 6, 8*, 9*, 10, 12, 13*, 15*
         \item \linktextbook{336}{8, refer to 5.4 ex24}
         \item \linktextbook{300}{9, refer to 6.3 ex12}
         \item \linktextbook{417}{15, refer to 6.6 ex10}
     \end{enumerate}
-    \item \textbf{HW7 7.1 7.2} \linktextbook{494}{text} \linksolution{241}{solution}
+    \item \textbf{hw7 7.1 7.2} \linksolution{241}{solution}
     \begin{enumerate}
+        \item \linktextoffset{494} \#2, 3, 4, 5*, 7*, 10
+        \item \linktextoffset{509} \# 2*, 3*
         \item \linktextbook{336}{7.f, refer to 5.4 ex24}
+        \item Know how to compute jordan canonical basis 
+        \item (4) If $\gamma$ is a cycle of generalized eigenvectors, then $\span{\gamma}$ is a $T$-invariant subspace of $V$ 
+        \item (7) When $\rank{U^m} = \rank{U^{m+1}}$, then $\rank{U^m} = \rank{U^k}$ and $N(U^m) = N(U^k)$ for all $k\geq m$. Therefore $K_{\lambda} = N((T-\lambda I)^m)$. Hence $T$ diagonalizable if and only if $\rank{T-\lambda I} = \rank{(T-\lambda I)^2}$, in which case $K_{\lambda} = E_{\lambda}$
+        \item (12) Any square upper triangular matrix with diagonal entry zero is nilpotent 
+        \item (13) Let $T$ be nilpotent, then $\cvec{T}{\beta}$ is an upper triangular matrix where $\beta$ is an ordered basis for $V = N(T^p)$. In this case $P_T(t) = (-1)^n t^n$, characteristic polynomia splits and eigenvalue equal to zero.
+        \item (14) If $T$ has $P_T(t) = (-1)^n t^n$ then $T$ is nilpotent. (proved with Cayley-Hamilton Theorem)
     \end{enumerate}
-    \item \textbf{HW8 7.2} \linktextbook{520}{text} \linksolution{246}{solution}
-    \item \textbf{HW9 6.6} \linktextbook{416}{text} \linksolution{204}{solution}
-    \item \textbf{HW10 6.5} \linktextbook{405}{text} \linksolution{191}{solution}
+    \item \textbf{hw8 7.2} \linksolution{246}{solution}
     \begin{enumerate}
+        \item \linktextoffset{509} \# 4*, 6, 13*, 14*, 17*
+    \end{enumerate}
+    \item \textbf{hw9 6.6} \linksolution{204}{solution}
+    \begin{enumerate}
+        \item \linktextoffset{403} \# 2, 3, 4, 5*, 6*, 7*, 8
+    \end{enumerate}
+    \item \textbf{hw10 6.5} \linksolution{191}{solution}
+    \begin{enumerate}
+        \item \linktextoffset{392}  \# 2c,e,5,7*,8,9,15*, 16*, 21*
         \item \textbf{16} refer to \linktextbook{368}{6.2.23} refer to \linktextbook{23}{1.2 example 5}
+        \item (5) To check if two matrix are not unitarily equivalent. Try to diagonalize the matrix, and they are not unitarily equivalent if they have different determinant, or different eigenvalues, either not symmetric (not self-adjoint in R so not diagonalizable)
     \end{enumerate}
 \end{enumerate}
-
 
 
 

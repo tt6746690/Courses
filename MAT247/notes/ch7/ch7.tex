@@ -228,7 +228,7 @@
  
 
 \begin{theorem*}
-    \textbf{7.3 Generalized Eigenspace Decomposition} \\
+    \textbf{7.3 Sum of Generalized Eigenspace Fills the Space} \\
     Let $T$ be a linear operator on a finite-dimensional vector space $V$ such that the characteristic polynomial of $T$ splits, and let $\lambda_1,\lambda_2,\cdots, \lambda_k$ be the distinct eigenvalues of $T$. Then for every $x\in V$, there exists vectors $v_1\in K_{\lambda_i}$, $1\leq i \leq k$, such that 
     \[ 
         x = v_1 + v_2 + \cdots + v_k    
@@ -240,13 +240,17 @@
 
 
 \begin{theorem*}
-    \textbf{7.4 Basis for Generalized Eigenspace} \\
+    \textbf{7.4 Generalized Eigenspace Decomposition} \\
     Let $T$ be a linear operator on a finite-dimensional vector space $V$ sucht hat the characteristic polynomial of $T$ splits, and let $\lambda_1, \cdots, \lambda_k$ be the distinct eigenvalues of $T$ with corresponding multiplicity $m_1,\cdots, m_k$. For $1\leq i \leq k$, let $\beta_i$ be an ordered basis for $K_{\lambda_i}$. Then the following statements are true 
     \begin{enumerate}
         \item $\beta_i \cap \beta_j = \emptyset$ for $i\neq j$ 
         \item $\beta = \beta_1 \cap \beta_2 \cap \cdots \cap \beta_k$ is an ordered basis for $V$
         \item $\dim{K_{\lambda_i}} = m_i$ for all $i$
     \end{enumerate} 
+    Equivalently, we have 
+    \[
+        V = K_{\lambda_1} \oplus \cdots \oplus K_{\lambda_k}    
+    \]
 \end{theorem*}
 
 \begin{corollary*}
@@ -306,7 +310,7 @@
         \[
         \cdots + 0 + a_k (T - \lambda I)^{p-1} x_k + 0 + \cdots = 0
         \]
-        since $x_j$ with height less than $p$ is killed by $(T-\lambda I)^{p-1}$ and $x_j$ whose height is larger than $p$ has $a_j = 0$ by the choice of $k$, so then, $a_k (T-\lambda I)^{p-1} x_k = 0$ implies $a_k \neq 0$, contradiction.
+        since $x_j$ with height less than $p$ is killed by $(T-\lambda I)^{p-1}$ and $x_j$ whose height is larger than $p$ has $a_j = 0$ by the choice of $k$, so then, $a_k (T-\lambda I)^{p-1} x_k = 0$ implies $a_k = 0$, contradiction.
      \end{proof}
 \end{theorem*}
  
@@ -439,6 +443,177 @@
         \end{enumerate}
     \end{enumerate}
 \end{defn*}
+
+\linksection{531}{7.3 Minimal Polynomial} 
+
+\begin{defn*}
+    \textbf{Minimal Polynomial} Let $T$ b a linear operator on finite-dimensional vector space. A polynomial $p(t)$ is called a minimal polynomial of $T$ if $p(t)$ is a monic polynomial (leading coefficient is 1) of least positive degree for which $p(T) = T_0$ 
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{7.12 Property of Minimal Polynomial} Let $p(t)$ be a minimal polynomial of $T$ on finite dimensional $V$ 
+    \begin{enumerate}
+        \item For any polynomial $g(t)$ where $g(T) = T_0$, $p(t)$ divides $g(t)$. In particular, $p(t)$ dividies characteristic polynomial of $T$ 
+        \item The minimal polynomial of $T$ is unique
+    \end{enumerate}
+\end{theorem*}
+
+
+\begin{defn*}
+    \textbf{Minimal Polynomial of Matrix} Let $A\in M_{n}(F)$. The minimal polynomial $p(t)$ of $A$ is the monic polynomial of least positive degree for which $p(A)=O$
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{7.13 Operator and Matrix Equivalence} For any $A\in M_n(F)$, the minimal polynomial $A$ is the same as the minimal polynomial of $L_A$
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{7.14 Characteristic/Minimal Polynomial Have the Same Zeros} \\
+    Let $T$ be a linear operator on a finite-dimensional vector space $V$, and let $p(t)$ be a minimal polynomial of $T$. A scalar $\lambda$ is an eigenvalue of $T$ if and only if $p(\lambda)=0$. Hence characteristic polynomial and minimal polynomial of $T$ have the same zeros.
+\end{theorem*}
+
+\begin{corollary*}
+    If $T$ has minimal polynomial $p(t)$ and characteristic polynomial $f(t)$, then 
+    \[
+        f(t) = (\lambda_1 - t)^{n_1} \cdots  (\lambda_k - t)^{n_k}
+    \]
+    where $\lambda_1, \cdots, \lambda_k$ are distinct eigenvalues. Then exists $m_1, \cdots, m_k$ where $1\leq m_i \leq n_i$ and 
+    \[
+        p(t) = (t-\lambda_1)^{m_1} \cdots (t-\lambda_k)^{m_k}
+    \]
+    \begin{enumerate}
+        \item We can somewhat infer the minimal polynomial from shape of characteristic polynomial
+        \item The degree of the minimal polynomial of an operator must be greater than or equal to the number of distinct eigenvalues of the operator
+    \end{enumerate}
+\end{corollary*}
+
+
+\begin{theorem*}
+    \textbf{7.15 $T$-cyclic Space Have Minimal Polynomial of Largest Degree} \\ 
+    Let $T$ be a linear operator on an $n$-dimensional vector space $V$ such that $V$ is $T$-cyclic subspace of itself. Then the characteristic polynomial $f(t)$ and the minimal polynomial $p(t)$ have the same degree, and hence 
+    \[
+        f(t) = (-1)^n p(t)    
+    \]
+    \begin{enumerate}
+        \item Gives the condition under which the degree of minimal polynomial of an operator is as large as possible
+    \end{enumerate}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{7.16 Diagonalizable Operator Has Minimal Polynomial with Smallest Degree} \\
+    Let $T$ be a linear operator on a finite-dimensional vector space. Then $T$ is diagonalizable if and only if the minimial polynomial of $T$ is of the form 
+    \[
+        p(t) = (t-\lambda_1) (t-\lambda_2) \cdots (t-\lambda_k)    
+    \] 
+    where $\lambda_1 , \cdots, \lambda_k$ are distinct eigenvalues of $T$
+    \begin{proof}
+        Realize that $p(t) = (t-\lambda_1) \cdots (t-\lambda_k)$ is the minimal polynomial since it brings each eigenvector $v_i$ to 0 for some $(T-\lambda_i I)$
+    \end{proof}
+\end{theorem*}
+
+\begin{defn*}
+    \textbf{Describing Minimal Polynomial}
+    \begin{enumerate}
+        \item If $T$ diagonalizable, then 
+        \[
+            p(t) = (t-\lambda_1) \cdots (t-\lambda_k)
+        \]
+        \item If $V$ $T$-cyclic subspace of itself, then 
+        \[
+            f(t) = (-1)^n p(t)    
+        \]
+        \item If characteristic polynomial splits, we describe $p(t)$ with Jordan canonical form. Let $p_i$ be size of largest Jordan block corresponding to $\lambda_i$ in a Jordan canonical form of $T$, then
+        \[
+            p(t) = (t-\lambda_1)^{p_1}  \cdots (t-\lambda_k)^{p_k}   
+        \]
+        \item If characteristic polynomial does not split, then we describe $p(t)$ with rational canonical form
+    \end{enumerate}
+\end{defn*}
+
+
+\linksection{539}{The Rational Canonical Form}
+
+\begin{defn*}
+    \textbf{Irreducible Monic Polynomial} Let $T$ be a linear operator on a finite-dimensional vector space $V$ with characteristic polynomial 
+    \[
+        f(t) = (-1)^n (\phi_1(t))^{n_1} \cdots (\phi_k(t))^{n_k}  
+    \]
+    where $\phi_i(t)$ are distinct irreducible monic polynomials and the $n_i$'s are positive integers. For $1\leq i \leq k$, define subset $K_{\phi_i}$ of $V$ by 
+    \[
+        K_{\phi_i} = \{x\in V: (\phi_i(T))^p(x) = 0 \text{  for some positive integer } p\}    
+    \]
+    \begin{enumerate}
+        \item In case $f(t)$ splits, $\phi_i = t-\lambda_i$
+        \item Each $K_{\phi_i}$ is $T$-invariant subspace of $V$ 
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{T-cyclic Basis and Companion Matrix} Let $x\in V$ be nonzero. Use $C_x$ be $T$-cyclic subspace generated by $x$, if $\dim{C_x}=k$, then 
+    \[
+        \beta_x = \{x, T(x), T^2(x), \cdots, T^{k-1}(x)\}    
+    \]
+    is an ordered basis for $C_x$. Let $A = \cvec{T|_{C_x}}{\beta_x}$, then 
+    \[
+        A = 
+        \begin{pmatrix}
+            0 & 0 & \cdots & 0 & -a_0 \\
+            1 & 0 & \cdots & 0 & -a_1 \\
+            0 & 1 & \cdots & 0 & -a_2 \\
+            \vdots & \vdots &  & \vdots & \vdots \\
+            0 & 0 & \cdots & 1 & -a_{k-1} \\
+        \end{pmatrix}    
+    \]
+    where 
+    \[
+        a_1 x + a_2 T(x) + \cdots + a_{k-1} T^{k-1}(x) + T^k (x) = 0    
+    \]
+    Furthermore, the charateristic polynomial of $A$ given by (proved with induction)
+    \[
+        det(A-tI) = (-1)^k (a_0 + a_1 t + \cdots + a_{k-1}t^{k-1} + t^k)
+    \]
+    The matrix $A$ is the \textbf{companion matrix} of the monic polynomial
+    \[
+        h(t) = a_0 + a_1 t + \cdots + a_{k-1}t^{k-1} t^k    
+    \]
+    \begin{enumerate}
+        \item Every monic polynomial $h(t)$ has a companion matrix, whose characteristic polynomial $f(t) = (-1)^k h(t)$
+        \item Monic Polynomial $h(t)$ is also a minimal polynomial of $A$, 
+    \end{enumerate}
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{Rational Canonical Form} For every linear operator $T$, there eixsts an ordered basis $\beta$ for $V$ such that 
+    \[
+        \cvec{T}{\beta}=  
+        \begin{pmatrix}
+            C_1 & O & \cdots & O \\
+            O & C_2 & \cdots & O \\
+            \vdots & \vdots &  & \vdots \\
+            O & O & \cdots & C_r \\ 
+        \end{pmatrix}    
+    \]
+    where $C_i$ is the companion matrix of a polynomial $(\phi(t))^m$ such that $\phi(t)$ is a monic irreducible divisor of the characteristic polynomial of $T$ and $m$ is positive integer. $\cvec{T}{\beta}$ is called the rational canonical form of $T$ and the accompanying basis is the rational canonicl basis for $T$
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{$T$-annihilator} Let $T$ be a linear operator on a finite-dimensional vector space $V$, and let $x$ be a nonzero vector in $V$. The polynomial $p(t)$ is called a $T$-annihilator of $x$ if $p(t)$ is a monic polynomial of least degree for which $p(T)(x)=0$
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{7.17} Let $T$ be a linear operator on a finite-dimensional vector space $V$, and let $\beta$ be a ordered basis for $V$. Then $\beta$ is a rational canonical basis for $T$ if and only if $\beta$ is the disjoint union of $T$-cycilc bases $\beta_{v_i}$, where each $v_i$ lies in $K_{\phi}$ for some irreducible monic divisor $\phi(t)$ of the characteristic polynomial of $T$
+\end{theorem*}
+
+
+\begin{theorem*}
+    \textbf{7.22 Existence for Rational Canonical Basis} Each linear operator on a finite-dimensional vector space has a rational canonical basis and, hence, a rational canonical form
+\end{theorem*}
+
 
 
 

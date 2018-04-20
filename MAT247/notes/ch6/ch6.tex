@@ -33,7 +33,7 @@
 
 \linksection{341}{Chapter 6 Inner Product Spaces}
 \linksection{341}{6.1 Inner Products and Norms}
-
+ 
 
 \begin{defn*}
     \textbf{Inner Product} Let $V$ be a vector space over $F$. An inner product on $V$ is a function that assigns, to every ordered pair of vectors $x$ and $y$ in $V$, a scalar in $F$, denoted $\innerp{x}{y}$, such that for all $x,y,z\in VE$ and all $c\in F$, 
@@ -129,6 +129,20 @@
     \begin{enumerate}
         \item $S = \{v_1,v_2,\cdots\}$, then $S$ is orthonormal if and only if $\innerp{v_i}{v_j} = \delta_{ij}$
         \item We can \textbf{normalize} an orthogonal set $S$, by multiplying $1/\norm{x}$ for each $x\in S$
+        \item No matter $S$, $\orthocomp{S}$ is always a subspace. 
+        \[
+            \innerp{cx+ y}{z} = c\innerp{x}{z} + \innerp{y}{z} = 0
+        \]
+        for $c\in F$  and $x,y \in \orthocomp{S}$ and $z\in S$
+        \item $S \cap \orthocomp{S} \subset \{0\}$
+        \[
+            x \perp x 
+            \quad \rightarrow \quad 
+            \innerp{x}{x} = 0 
+            \quad \rightarrow \quad 
+            x = 0
+        \]
+        for $x\in S \cap \orthocomp{S}$
     \end{enumerate}
 \end{defn*}
 
@@ -250,6 +264,11 @@
         \item $S$ can be extended to an orthonormal basis $\{v_1,v_2,\cdots, v_k, v_{k+1}, \cdots, v_n\}$ for $V$. 
         \item If $W = \span{S}$, then $S_1 = \{v_{k+1}, \cdots, v_n\}$ is an orthonormal basis for $\orthocomp{W}$ 
         \item If $W$ is any subspace of $V$, then $\dim{V} = \dim{W} + \dim{\orthocomp{W}}$
+    \end{enumerate}
+    If $V$ finite dimensional, then 
+    \begin{enumerate}
+        \item $W = (\orthocomp{W})^{\perp}$
+        \item $V = W \oplus \orthocomp{W}$
     \end{enumerate}
 \end{theorem*}
 
@@ -477,10 +496,11 @@
 \linksection{391}{6.4 Unitary and Orthogonal Operators}
 
 \begin{defn*}
-    \textbf{Unitary Operator and Orthogonal Operator} Let $T$ be a linear operator on a finite-dimensional inner product space $V$ (over $F$). If $\norm{T(x)} = \norm{x}$ for all $x\in V$, we call $T$ a unitary operator if $F = \mathbb{C}$ and an orthogonal operator if $F = \R$
+    \textbf{Unitary/Orthogonal Operator} Let $T$ be a linear operator on a finite-dimensional inner product space $V$ (over $F$). If $\norm{T(x)} = \norm{x}$ for all $x\in V$, we call $T$ a unitary operator if $F = \mathbb{C}$ and an orthogonal operator if $F = \R$
     \begin{enumerate}
         \item \textbf{Isomtry} for infinite-dimensional case 
-        \item \textbf{Motivation} Linear operator that preserves length 
+        \item \textbf{Motivation} Linear operator that preserves length
+        \item $T$ is onto for finite dimensional $V$ 
     \end{enumerate}
 \end{defn*}
 
@@ -493,6 +513,16 @@
         \item There exists an orthonormal basis $\beta$ for $V$ such that $T(\beta)$ is an orthonormal basis for $V$ 
         \item $\norm{T(x)} = \norm{x}$ for all $x\in V$ ($T$ is a \textbf{unitary/orthogonal})
     \end{enumerate}
+    \begin{proof}
+        (2 to 3)
+        \[
+            \innerp{T(\beta_i)}{T(\beta_j)} = \innerp{\beta_i}{\beta_j} = \delta_{ij}
+        \]
+        (4 to 5) Given $x = a_1 \beta_1 + \cdots + a_n \beta_n$ and $T(x) = a_1 T(\beta_1) + \cdots + a_n T(\beta_n)$, we have 
+        \[
+            \innerp{x}{x} = |a_1|^2 + \cdots + |a_n|^2 = \innerp{T(x)}{T(x)}
+        \]
+    \end{proof}
 \end{theorem*}
 
 \begin{lemma*}
@@ -503,7 +533,7 @@
 \end{lemma*}
 
 \begin{corollary*}
-    \textbf{$F=\R$ Orthongal Operator has All Eigenvalues $\pm 1$} Let $T$ be a linear operator on a finite-dimensional real inner product space $V$. Then $V$ has an orthonormal basis of eigenvetors of $T$ with corresponding eigenvalues of \textbf{absolute value 1} if and only if $T$ is both \textbf{self-adjoint} and \textbf{orthogonal}
+    \textbf{$F=\R$ Orthogonal and Self-Adjoint Operator has All Eigenvalues $\pm 1$} Let $T$ be a linear operator on a finite-dimensional real inner product space $V$. Then $V$ has an orthonormal basis of eigenvetors of $T$ with corresponding eigenvalues of \textbf{absolute value 1} if and only if $T$ is both \textbf{self-adjoint} and \textbf{orthogonal}
     \begin{enumerate}
         \item \textbf{Interpretation} Length-preserving operator has eigenvalue of $\pm 1$
     \end{enumerate}
@@ -549,8 +579,20 @@
 
 \begin{theorem*}
     \textbf{6.20 Condition for Symmetric ($F=\R$) Matrix} Let $A \in M_{n}(\R)$. Then $A$ is symmetric if and only if $A$ is orthogonally equivalent to a real diagonal matrix.
+    \begin{enumerate}
+        \item Idea is we can diagonalize a symmetric matrix by finding orthogonal matrix $P$ whose column consists of orthonormalized (Gram-Schmit) set of eigenvectors (find basis for eigenspaces)
+    \end{enumerate}
 \end{theorem*}
 
+
+\begin{theorem*}
+    \textbf{6.21 Schur} Let $A\in M_{n\times n}(F)$ be a matrix whose characteristic polynomial splits over $F$ 
+    \begin{enumerate}
+        \item If $F=C$, then $A$ is unitarily equivalent to a complex upper triangular matrix 
+        \item If $F=R$, then $A$ is orthogonally equivalent to a real upper triangular matrix
+    \end{enumerate}
+    As an example, unitary $P$ with columns consists of orthonormal basis of eigenvectors satisfies $P^*AP = U$ for some upper triangular matrix $U$. Note $U$ happens to be diaognal if $A$ is normal in $C$ or self-adjoint in $R$
+\end{theorem*}
 
 
 \linksection{286}{5.2 Direct Sums} 
@@ -607,6 +649,7 @@
         \begin{enumerate}
             \item every projection uniquely determined by its range and nullspace
             \item $W_1$ does not uniquely determine $T$
+            \item If $T$ orthogonal projection, then $T$ uniquely determined by its range
         \end{enumerate}
         \item $T$ \textbf{is a projection if and only if} $T = T^2$
     \end{enumerate}
@@ -615,11 +658,22 @@
         \[
             T^2(x) = T(T(x)) = T(x_1) = x_1 = T(x)
         \]
-        For reverse direction, assume $T^2 = T$, then $T(I-T) = 0_V$. Let $W_1 = R(T)$ and $W_2 = N(T)$, now claim $V = W_1 \oplus W_2$. We first prove $N(T) = R(I-T)$. Since $T(I-T)=0$, then $R(I-T)\subseteq N(T)$. Conversely, if $x\in N(T)$, then $(I-T)(x) = x - T(x) = x$, i.e. $x\in R(I-T)$. Now write $I = T+I-T$, then $x = T(x) + (I-T)(x)$ for any $x\in V$. Then $v = w_1 + w_2$ where $w_1\in W_1$ and $w_2\in W_2$. Now we prove uniqueness, i.e. $\{ 0\} = R(T) \cap N(T)$. Let $T(x) \in R(T) \cap N(T)$ as $T(x)\in R(T)$ by default and let $T(x)\in N(T)$. Then $T(x) = 0$. Proved $V = W_1 \oplus W_2$. Then we can write $x = x_1 + x_2$ where $x_1 \in R(T)$ and $x_2 \in N(T)$, hence 
+        For reverse direction, assume $T^2 = T$, then $T(I-T) = 0_V$. Let $W_1 = R(T)$ and $W_2 = N(T)$, now claim $V = W_1 \oplus W_2$. 
+        \begin{enumerate}
+            \item To prove $x = x_1 + x_2$ where $x\in W_1$ and $x_2\in W_2$. Observe for any $x\in V$, 
+            \[
+                I(x) = T(x) + (I-T)(x) 
+                \qquad \longrightarrow \qquad 
+                V = R(T) + R(I-T)
+            \]
+            Therefore, we want to prove $N(T) = R(I-T)$. Since $T(I-T)=0$, then $R(I-T)\subseteq N(T)$. Conversely, if $x\in N(T)$, then $(I-T)(x) = x - T(x) = x$, i.e. $x\in R(I-T)$. 
+            \item To prove uniqueness, i.e. $\{ 0\} = R(T) \cap N(T)$. Let $T(x) \in R(T) \cap N(T)$ as $T(x)\in R(T)$ by default and let $T(x)\in N(T)$. Then $T(x) = 0$. 
+        \end{enumerate}
+        Therefore $V = W_1 \oplus W_2$. Then we can write $x = x_1 + x_2$ where $x_1 \in R(T)$ and $x_2 \in N(T)$, hence 
         \[
             T(x) = T(x_1 + x_2) = T(x_1) + T(x_2) = T(x_1) = x_1
         \]
-        where the last equality given by letting $x_1 = T(y)$, then $T(x_1) = T^2(y) = T(y)=  x_1$
+        where the last equality given by letting $x_1 = T(y)$, then $T(x_1) = T^2(y) = T(y)=  x_1$. So $T$ is a projection on $R(T)$ along $N(T)$
     \end{proof}
 \end{defn*}
 
@@ -682,6 +736,10 @@
         \]
         \item Let $U$ be any projection on $W$, then exists $\gamma$ such that $\cvec{U}{\gamma}$ has same for as above, but $\gamma$ need not be orthonormal
     \end{enumerate}
+    \begin{proof}
+        $\Rightarrow$. $T^2=T$ iff projection. So left with proving $T=T^*$, i.e. for all $x,y\in V$, $\innerp{x}{T(y)} = \innerp{T(x)}{y}$ \\ 
+        $\Leftarrow$. $T^2 =T$ iff projection. So left with proving $R(T) = \orthocomp{N(T)}$ and $\orthocomp{R(T)} = N(T)$ (not equivalent in infinite dimensional $V$). Note that $x\in R(T)$ iff $T(x)=x$. A way to prove that $T(x) = x$ is to prove $\norm{x - T(x)} = 0$
+    \end{proof}
 \end{theorem*}
 
 \begin{theorem*}
@@ -708,6 +766,10 @@
                 O & O & \cdots & \lambda_k I_{m_k} \\
             \end{pmatrix}    
         \]
+        \item Let $g(t)$ be any polynomial in $F$, then
+        \[
+            g(T) = g(\lambda_1) T_1 + \cdots + g(\lambda_k) T_k    
+        \]
     \end{enumerate}
 \end{theorem*}
 
@@ -716,7 +778,7 @@
 \end{corollary*}
 
 \begin{corollary*}
-    \textbf{Condition of Unitary} If $F = \mathbb{C}$, then $T$ is unitary if and only if $T$ is normal and $|\lambda|=1$ for every eigenvalue $\lambda$ of $T$
+    \textbf{Condition for Unitary} If $F = \mathbb{C}$, then $T$ is unitary if and only if $T$ is normal and $|\lambda|=1$ for every eigenvalue $\lambda$ of $T$
 \end{corollary*}
 
 \begin{corollary*}

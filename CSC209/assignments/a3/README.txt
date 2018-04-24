@@ -1,2 +1,0 @@
-It is indeed possible to detect hard links. We can of course copy the file hard link points to for the first time and then create links afterwards. However, if multiple processes are running in succession, whose order is unpredictable, it is unclear as to which process copy over the file and which process creates hard links to the file. This is especially true for copying file cross different partition/filesystem
-

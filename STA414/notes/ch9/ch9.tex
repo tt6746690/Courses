@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-\input{/Users/markwang/.preamble}
+\input{\string~/.preamble}
 \begin{document}
 
 
@@ -20,6 +20,8 @@
 \newcommand{\cov}[1]{cov\{#1\}} 
 \newcommand{\normal}[1]{\mathcal{N}\left(#1\right)}
 \newcommand{\exponents}[1]{exp\left\{#1\right\}}
+\newcommand{\kl}[2]{KL(#1 || #2)}
+
 
 \newcommand{\bmu}{\boldsymbol{\mu}}
 \newcommand{\bpi}{\boldsymbol{\pi}}
@@ -31,6 +33,7 @@
 \newcommand{\calR}{\mathcal{R}}
 \newcommand{\calC}{\mathcal{C}}
 \newcommand{\calD}{\mathcal{D}}
+\newcommand{\calL}{\mathcal{L}}
 \newcommand{\bx}{\matr{x}}
 \newcommand{\bt}{\matr{t}}
 \newcommand{\bw}{\matr{w}}
@@ -226,6 +229,52 @@
     \end{enumerate}
 \end{defn*}
 
+
+
+\linksection{466}{9.4 The EM Algorithm in General}
+
+
+\begin{defn*}
+    \textbf{Kullback-Leibler Divergence} $\kl{P}{Q}$ from $Q$ to $P$ is the information gain if $Q$ is used instead of $P$. In application, $P$ typically represents the true distribution, while $Q$ typically represents a model, or an approximation of $P$. In order to find a distribution $Q$ that is closest to $P$, we can minimize KL divergence and compute an information projection.
+    \[
+        \kl{P}{Q} = \E[i \sim P]{\log \frac{P(i)}{Q(i)}} =  -\sum_i P(i) \log \frac{Q(i)}{P(i)}
+    \]
+\end{defn*}
+
+\textbf{EM Algorithm in General}
+
+\begin{enumerate}
+    \item Given probabilistic model $p(\bX, \bZ | \bTheta)$, goal is to maximize the likelihood fucntion given by 
+    \[
+        p(\bX | \bTheta) = \sum_{\bZ} p(\bX, \bZ | \bTheta)    
+    \]
+    Idea is optimizing $p(\bX | \bTheta)$ directly is difficult, but optimizing $p(\bX, \bZ | \bTheta)$ is significantly easier. For any distribution $q(\bZ)$ over latent variables, we have following decomposition 
+    \[
+        \ln p(\bX | \bTheta) = \calL(q, \bTheta) + \kl{q}{p}
+    \]
+    where 
+    \[
+        \calL(q,\bTheta) = \sum_{\bZ} q(\bZ) \ln \left\{ \frac{p(\bX, \bZ | \bTheta)}{q(\bZ)} \right\}
+        \qquad 
+        \kl{q}{p} = - \sum_{\bZ} q(\bZ) \ln \left\{ \frac{p(\bX | \bZ, \bTheta)}{q(\bZ)} \right\}
+    \]
+    \begin{proof}
+        \begin{align*}
+            \calL(q, \bTheta)
+            &= \sum_{\bZ} p(\bZ) \left(  \ln p(\bX, \bZ | \bTheta) - \ln q(\bZ) \right) \\ 
+            &= \sum_{\bZ} p(\bZ) \left(  \ln p(\bZ | \bX, \bTheta) + \ln p(\bX | \bTheta) - \ln q(\bZ) \right) \\
+            &= \sum_{\bZ} p(\bZ) \left(  \ln p(\bZ | \bX, \bTheta) - \ln q(\bZ) \right) + \sum_{\bZ} p(\bZ) \ln p(\bX | \bTheta) \\
+            &= \sum_{\bZ} p(\bZ) \left( \frac{p(\bZ |\bX, \bTheta)}{p(\bZ)} \right) + \ln p(\bX | \bTheta) \sum_{\bZ} p(\bZ) \\
+            &= -\kl{p}{q} + \ln p(\bX | \bTheta)
+        \end{align*}
+        Note $\kl{q}{p}$ is kullback-leibler divergence between $q(\bZ)$ and the posterior $p(\bZ | \bX, \bTheta)$. Note $\kl{q}{p} \geq 0$ with equality if and only if $q(\bZ) - p(\bZ | \bX, \bTheta)$.  Hence $\calL(q, \bTheta) \leq \ln p(\bX | \bTheta)$, i.e. $\calL(q,\bTheta)$ is a lower bound on $\ln p(\bX | \bTheta)$
+        \begin{center}
+            \includegraphics[width=8cm]{kl_decomposition.png}
+        \end{center}
+    \end{proof}
+\end{enumerate}
+ 
+ 
 
 \end{document}
  

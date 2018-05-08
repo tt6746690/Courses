@@ -1,0 +1,84 @@
+\documentclass[11pt]{article}
+\input{\string~/.preamble}
+\begin{document}
+
+
+% arg1=pdfurl arg2=pagenum arg3=sectiontitle
+% \newcommand{\linksection}[3][../../bishop_pattern_recognition_and_machine_learning.pdf]{
+%     \subsection*{\href[page=#2]{#1}{#3}}
+% }
+
+
+\newcommand{\linksection}[3][../bishop_pattern_recognition_and_machine_learning.pdf]{
+    \subsection*{\href[page=#2]{#1}{#3}}
+}
+
+\newcommand{\linkinline}[3][../../bishop_pattern_recognition_and_machine_learning.pdf]{
+    \noindent\href[page=#2]{#1}{#3}
+}
+
+\renewcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\E}[2][]{\mathbb{E}_{#1}\left\{#2\right\}}
+\newcommand{\var}[2][]{var_{#1}\left\{#2\right\}}
+\newcommand{\cov}[1]{cov\{#1\}} 
+\newcommand{\normal}[1]{\mathcal{N}\left(#1\right)}
+\newcommand{\exponents}[1]{exp\left\{#1\right\}}
+
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bTheta}{\boldsymbol{\Theta}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\bx}{\matr{x}}
+\newcommand{\bt}{\matr{t}}
+\newcommand{\bw}{\matr{w}}
+\newcommand{\bX}{\matr{X}}
+\newcommand{\bZ}{\matr{Z}}
+\newcommand{\bz}{\matr{z}}
+\newcommand{\bu}{\matr{u}}
+
+
+
+\newcommand{\lebpar}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\qqqquad}{\quad \quad \quad \quad}
+
+% function for conditional independence
+% https://tex.stackexchange.com/questions/218631/symbol-for-not-conditionally-independent
+\newcommand{\bigCI}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\newcommand{\nbigCI}{\centernot{\bigCI}}
+
+\newcommand{\condi}[3]{#1 \bigCI #2 \,|\, #3}
+\newcommand{\notcondi}[3]{#1 \nbigCI #2 \,|\, #3}
+
+
+\linksection{476}{Chapter 10 Variational Inference}
+
+\begin{enumerate}
+    \item \textbf{Goal} Evaluate posterior $P(\bZ | \bX)$ of the latent variables $\bZ$ given observed variables $\bX$.
+    \item \textbf{Use Case} In EM, need to evaluate expectation of $\log(p(\bX, \bZ))$ w.r.t. $p(\bZ | \bX)$ 
+    \item \textbf{Problem} Latent space may have very high dimension or posterior distribution too complex to be analytically tractable. 
+    \item \textbf{Approaches} 
+    \begin{enumerate}
+        \item \textbf{Stochastic} Markov chain Monte Carlo and other sampling methods
+        \item \textbf{Deterministic} variational inference, laplace approximation
+    \end{enumerate}
+\end{enumerate}
+
+
+\linksection{477}{10.1 Variational Inference}
+
+
+\begin{enumerate}
+    \item \textbf{Functional derivative} How value of a functional changes in response to infinitesimal changes to the input function
+\end{enumerate}
+
+ 
+
+
+\end{document}

@@ -261,11 +261,11 @@
     \begin{proof}
         \begin{align*}
             \calL(q, \bTheta)
-            &= \sum_{\bZ} p(\bZ) \left(  \ln p(\bX, \bZ | \bTheta) - \ln q(\bZ) \right) \\ 
-            &= \sum_{\bZ} p(\bZ) \left(  \ln p(\bZ | \bX, \bTheta) + \ln p(\bX | \bTheta) - \ln q(\bZ) \right) \\
-            &= \sum_{\bZ} p(\bZ) \left(  \ln p(\bZ | \bX, \bTheta) - \ln q(\bZ) \right) + \sum_{\bZ} p(\bZ) \ln p(\bX | \bTheta) \\
-            &= \sum_{\bZ} p(\bZ) \left( \frac{p(\bZ |\bX, \bTheta)}{p(\bZ)} \right) + \ln p(\bX | \bTheta) \sum_{\bZ} p(\bZ) \\
-            &= -\kl{p}{q} + \ln p(\bX | \bTheta)
+            &= \sum_{\bZ} q(\bZ) \left(  \ln p(\bX, \bZ | \bTheta) - \ln q(\bZ) \right) \\ 
+            &= \sum_{\bZ} q(\bZ) \left(  \ln p(\bZ | \bX, \bTheta) + \ln p(\bX | \bTheta) - \ln q(\bZ) \right) \\
+            &= \sum_{\bZ} q(\bZ) \left(  \ln p(\bZ | \bX, \bTheta) - \ln q(\bZ) \right) + \sum_{\bZ} q(\bZ) \ln p(\bX | \bTheta) \\
+            &= \sum_{\bZ} q(\bZ) \left( \frac{p(\bZ |\bX, \bTheta)}{p(\bZ)} \right) + \ln p(\bX | \bTheta) \sum_{\bZ} q(\bZ) \\
+            &= -\kl{q}{p} + \ln p(\bX | \bTheta)
         \end{align*}
         Note $\kl{q}{p}$ is kullback-leibler divergence between $q(\bZ)$ and the posterior $p(\bZ | \bX, \bTheta)$. Note $\kl{q}{p} \geq 0$ with equality if and only if $q(\bZ) - p(\bZ | \bX, \bTheta)$.  Hence $\calL(q, \bTheta) \leq \ln p(\bX | \bTheta)$, i.e. $\calL(q,\bTheta)$ is a lower bound on $\ln p(\bX | \bTheta)$
         \begin{center}

@@ -1,1 +1,1 @@
-http://www.math.toronto.edu/~drorbn/classes/18-327-Topology/
+http://www.math.toronto.edu/~drorbn/classes/18-327-Topology/index.html

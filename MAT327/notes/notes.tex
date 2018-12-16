@@ -1,0 +1,341 @@
+\documentclass[10.5pt]{article}
+\input{\string~/.preamble}
+\geometry{margin=0.5in}
+\usepackage{mathrsfs} % https://www.ctan.org/pkg/mathrsfs
+
+% arg1=pdfurl arg2=pagenum arg3=text
+\newcommand{\linkbook}[3][../topology_2ed_james_munkres.pdf]{
+    \noindent\href[page=#2]{#1}{\urlstyle{rm}{#3}}
+}
+% {ipad pagenum}-4 -= {.pdf pagenum}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\bx}{\mathbf{x}}
+
+
+
+\begin{document}
+
+\section*{Basics}
+
+\begin{enumerate}
+    \item \textbf{Functions}
+    \begin{itemize}
+        \item \textbf{injective} $f:X\to Y$ injective or one-to-one if $\forall a,b\in X$, $f(a) = f(b) \Rightarrow a=b$
+        \item \textbf{surjective} $f:X\to Y$ is surjective if any $y \in Y \Rightarrow y = f(x)$ for some $x\in X$
+        \item composition of injective/surjective/bijective functions are injective/surjective/bijective
+        \item If $f$ is injective with range $Y$, then its inverse function $f^{-1}: Y\to X$ is a bijective function
+    \end{itemize}
+    \item \textbf{Set Relations}
+    \begin{itemize}
+        \item \textbf{De Morgan's Law}
+        \[
+            X \setminus \left( \bigcup_{\alpha \in I} A_{\alpha} \right)
+            = \bigcap_{\alpha \in I} \left( X \setminus A_{\alpha} \right)
+            \qquad 
+            X \setminus \left( \bigcap_{\alpha \in I} A_{\alpha} \right)
+            = \bigcup_{\alpha \in I} \left( X \setminus A_{\alpha} \right)
+        \]
+        \item \textbf{how functions acts on sets} Let $A,B\subseteq X$ and $C,D\subseteq Y$
+        \begin{itemize}
+            \item $f$ well-behaved for union
+            \[
+                f(A\cup B) = f(A) \cup f(B)    
+            \]
+            \item $f$ not well-behaved for intersection, difference
+            \begin{align*}
+                f(A\cap B) &\subseteq f(A) \cap f(B) \\
+                f(A) \setminus f(B) &\subseteq f(A\setminus B) \\
+            \end{align*}
+            \item $f^{-1}$ well-behaved with union, intersection, difference, and set complement
+            \begin{align*}
+                f^{-1} (C\cup D) 
+                &= f^{-1}(C) \cup f^{-1}(D) \\
+                f^{-1} (C\cap D) 
+                &= f^{-1}(C) \cap f^{-1}(D) \\
+                f^{-1} (C\setminus D) 
+                &= f^{-1} (C) \setminus f^{-1}(D) \\
+                f^{-1} (Y\setminus C) 
+                &= X\setminus f^{-1}(C)
+            \end{align*}
+            \item $f$ and $f^{-1}$ mixed 
+            \begin{align*}
+                A &\subseteq f^{-1}(f(A)) \tag{with equality if $f$ is injective} \\ 
+                f(f^{-1}(C)) &\subseteq C  \tag{with equality if $f$ surjective}\\
+            \end{align*}
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+\begin{rem}
+    Read
+    \begin{enumerate}
+        \item chapter 1, 1-8
+        \item chapter 2, 12-18
+    \end{enumerate}
+\end{rem}
+
+\newpage
+
+\section*{chapter 1}
+
+
+\subsubsection*{\linkbook{31}{Relation}}
+
+\begin{enumerate}
+    \item A relation on a set $A$ is a subset $C$ of cartesian product $A\times A$. $xCy$ means $(x,y)\in C$
+    \item \textbf{equivalence relation} is a relation if it satisfies reflexivity, symmetry, transitivity
+    \item \textbf{equivalence class} a subset of $A$ determined by some $x\in A$, i.e. $E = \{y\mid y\sim x\}$
+    \item \textbf{partition} of a set $A$ is a collection of disjoint nonempty subsets of $A$ whose union is all of $A$
+    \item \textbf{order relation} is a relation if it satisfies comparability (any $x\neq y\in A$ either $xCy$ or $yCx$ but not both) nonreflexivity ($xCx$ does not hold for any $x\in A$) and transitivity
+    \item \textbf{dictionary order relation} Let $A,B$ bet sets and $<_{A}$ and $<_{B}$ be order relations. The order relation on $A\times B$ is defined by $a_1 <_A a_2$ or if $a_1 = a_2$ and $b_1 <_B b_2$
+    \item \textbf{least upper bound property} An ordered set $A$ has the property if every nonempty subset $A_0$ of $A$ that is bounded above ($\exists b\in A$ s.t. $x\leq b$ for all $x\in A_0$) has a least upper bound (all bounds of $A_0$ has a smallest element)
+    \begin{itemize}
+        \item $\R$ and $(-1,1)$ has least upper bounde property
+        \item $B=(-1,0) \cup (0,1)$ does not heave least upper bound property, $\{ - \rfrac{1}{2n} \mid n\in \Z_{+} \}$ is bounded above by any $b\in (0,1)$ but its least upper bound $0 \not\in B$
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection*{\linkbook{46}{Cartesian Product}}
+\begin{enumerate}
+    \item \textbf{indexed family of sets} Let $\calA$ be nonempty collection of sets, let $f:J\to \calA$ be a surjective indexing function. $(\calA, f)$ is called indexed family of sets, denoted by $\{\calA_{\alpha}\}_{\alpha \in J} = \{\calA_{\alpha}\}$ where $f(\alpha) = \calA_{\alpha}$
+    \item \textbf{m-tuple} Let $m\in \Z_+$, Given a set $X$, define m-tuple of $X$ to be a function $\bx: \{1, \cdots, m\} \rightarrow X$ and denote $\bx = (x_1,\cdots, x_m)$
+    \item \textbf{cartesian product} Let $\calA = \{A_1, \cdots, A_m\}$ be indexed family of sets, let $X = \cup_{i=1}^m A_i$. Then cartesian product of $\calA$ is 
+    \[
+        X^m = \prod_{i=1}^m A_i \qquad A_1 \times \dots \times A_m    
+    \]
+    to be the set of all m-tuples $\bx$ of elements of $X$ such that $x_i\in A_i$ for each $i$
+    \item \textbf{$\omega$-tuple} Given a set $X$, define $\omega$-tuple of elements of $X$ be a function $\bx: \Z_+ \to X$. $\bx$ is an \textit{infinite sequence}, of elements of $X$. Denote $x_i = \bx(i)$ as i-th coordinate of $\bx$. Denote $\bx$ itself by $(x_1, x_2, \cdots)$ or $(x_n)_{n\in \Z_+}$
+    \item \textbf{cartesian product (infinite)} Let $\calA = \{A_1, A_2, \cdots \}$ be indexed family of sets and $X$ be union of sets in $\calA$, the cartesian product of $\calA$
+    \[
+        X^{\omega} = \prod_{i\in \Z_+} A_i 
+        \qquad
+        A_1 \times A_2 \times \cdots    
+    \]
+    is defined to be the set of all $\omega$-tuples $(x_1,x_2,\cdots)$ of elements of $X$ such that $x_i\in A_i$ for each $i$
+\end{enumerate}
+
+\newpage
+
+\section*{chapter 2}
+
+\subsubsection*{\linkbook{85}{Topological Spaces}}
+
+\begin{defn*} (\textbf{Topology})
+    Topology on a set $X$ is a collection $\calT$ of subsets of $X$ having properties 
+    \begin{enumerate}
+        \item $\emptyset, X\in \calT$
+        \item Arbitrary union of subcollection of $\calT$ is in $\calT$ (If $\forall \alpha \in I$, $U_{\alpha} \in \calT$, then $\cap_{\alpha\in I} U_{\alpha} \in \calT$)
+        \item Finite intersection of subcollection of $\calT$ is in $\calT$ (If $\forall 1\leq i \leq n$, $U_i \in \calT$, then $\cap_{i=1}^n U_i \in \calT$)
+    \end{enumerate}
+    A topological space is a pair $(X,\calT)$, where $\calT$ are the open sets.
+    \begin{itemize}
+        \item Standard topology on $\R^n$ is $\calT_0 = \calT_{std} = \{U\subset \R^n \mid \forall x\in U, \exists \epsilon > 0 \, B_{\epsilon}(x)\subset U\}$
+        \item Standard topology on $\R$ is generated by $\calB_{std} = \{(a,b) = \{x \mid a < x < b \}$ \textit{the open intervals}
+        \item Lower limit topology on $\R$ is generated by $\calB_{l.l.} = \{x \mid a \leq x < b\}$ \textit{the half-open intervals}
+        \item Discrete topology $\calT_1 = \calT_{disc} = \calP(X)$ \textit{all subsets are open}
+        \item Trivial topology $\calT_2 = \calT_{triv} = \{\emptyset, X\}$ \textit{only empty set and $X$ are open}
+        \item Finite complement topology $\calT_{f.c.} = \{U\subseteq X \mid X - U \text{ is finite or all of } X\}$
+        \item Countable complement topology $\calT_{c} = \{U\subseteq X \mid X - U \text{ is countable or all of } X\}$
+    \end{itemize}
+\end{defn*}
+
+\begin{lemma*}(\textbf{Arbitrary intersection of topologies is a topology})
+    $\forall \alpha \in I$ $\calT_{\alpha}$ is a topology, so is $\cap_{\alpha\in I} \calT_{\alpha}$
+\end{lemma*}
+
+\begin{defn*} (\textbf{Compare topology})
+    If $\calT' \subset \calT$, then $\calT'$ is coarser / weaker / smaller than $\calT$, $\calT$ is finer / stronger / larger than $\calT'$. $\calT$ and $\calT'$ are \textit{comparable} if $\calT \subset \calT'$ or $\calT' \subset \calT$
+    \[
+        \calT_{triv} \subset \calT_{f.c.} \subset \calT_{std} \subset \calT_{disc}
+        \qquad
+        \calT_{std} \subset \calT_{l.l.}
+    \]
+\end{defn*}
+
+
+\subsubsection*{\linkbook{88}{Basis for a Topology}}
+
+\textit{A terser representation of $\calT$}
+
+\begin{defn*} (\textbf{Basis})
+    If $X$ is a set, a basis for $(X,\calT)$ is a collection $\calB$ (\textit{basis elements}) of subsets of $X$ s.t.
+    \begin{enumerate}
+        \item For each $x\in X$, exists at least one basis element $B\in \calB$ containing it
+        \item If $x\in B_1 \cap B_2$, then exists $B_3\in \calB$ s.t. $x\in B_3 \in B_1 \cap B_2$
+    \end{enumerate}
+    A topology $\calT_{\calB}$ \textbf{generated by} $\calB$ is defined as 
+    \[
+        \calT_{\calB} = \{U\subset X \mid \forall x\in U,\,\, \exists B\in \calB, \,\, x\in B\subset U\}
+    \]
+    \begin{itemize}
+        \item $\calT_{\calB}$ is the unique minimal topology containing $\calB$
+        \[
+            \calT_{\calB} = \textstyle \bigcap_{\calT \in \mathbbm{T}} \calT 
+        \]
+        where $\mathbbm{T} = \{\calT \mid \calT \supset \calB \text{ and } \calT \text{is a topology}\}$
+        \item For any $X$, all one point sets of $X$ is a basis for $\calT_{disc}$
+    \end{itemize}
+\end{defn*}
+
+\begin{lemma*} ($\calB \rightarrow \calT_{\calB}$)
+    $\calT_{\calB}$ equals the collections of all unions of elements of $\calB$
+    \[
+        \calT_{\calB} = \left\{ 
+            \textstyle \bigcup_{\alpha\in I} B_{\alpha} \mid B_{\alpha} \in \calB \quad \forall \alpha \in I   
+        \right\}
+    \]
+\end{lemma*}
+
+\begin{lemma*} ($\calT_{\calB} \rightarrow \calB$)
+    Let $(X, \calT)$ be topological space. Let $\calC$ be a collection of open sets of $X$ such that
+    \[
+        \forall U\subset X,\quad \forall x\in U,\quad \exists C\in \calC \text{ s.t. } x\in C\subset U   
+    \]
+    Then $\calC$ is a basis for $\calT$ (handy in deciding $\calB_Y = \{B\cap Y \mid B\in \calB\}$ is a basis for $Y\subset X$)
+\end{lemma*}
+
+\begin{lemma*} (\textbf{compare topology by basis})
+    Let $\calB$ and $\calB'$ be bases for $\calT$ and $\calT'$, respectively, on $X$. Then following equivalent
+    \begin{enumerate}
+        \item $\calT' \supset \calT$ ($\calT'$ is finer than $\calT$)
+        \item For each $x\in X$ and each $B\in \calB$ containing $x$, there is a basis element $B'\in \calB'$ such that $x\in B' \subset \calB$
+    \end{enumerate}
+\end{lemma*}
+
+
+\subsubsection*{\linkbook{95}{Order Topology}}
+
+
+\begin{defn*} (\textbf{Order Topology}) Let $X$ be a set with simple order relation. Let $\calB$ be a collection of all sets of the following type
+    \begin{align*}
+        \calB 
+        &= \{(a,b) \mid a < b \quad a,b\in X \} \\
+        &\bigcup \{ [a_0, b) \mid a_0 \text{ is minimal element (if any) of $X$ } b\in X \quad b\neq a_0 \} \\
+        &\bigcup \{ (a,b_0] \mid b_0 \text{ is maximal element (if any) of $X$ } a\in X \quad a\neq b_0\} 
+    \end{align*}
+    Generated topology $\calT_{\calB}$ is called order topology
+    \begin{itemize}
+        \item In $\R$, $\calT_{ord} = \calT_{std}$
+        \item In $\Z_+$, $\calT_{ord} = \calT_{disc}$ (since any $\{n\} = (n-1,n+1) \in \calT_{ord}$)
+        \item In $\{1,2\} \times \Z_+$ in $\calT_{dict}$ is not in $\calT_{disc}$ (althogh most single point set are open, $2\times 1$ is not open)
+        \item In $\R^2$, both $\calB$ and $\calB'$ generates $\calT_{dict}$
+        \[
+            \calB = \{ (a\times b, c\times d) \mid a < c \lor (a=c \land b < d) \}
+            \quad
+            \calB' = \{ (a\times b, a\times d) \mid b < d \}
+        \]
+    \end{itemize}
+\end{defn*}
+
+\subsubsection*{\linkbook{97}{Product Topology}}
+
+\begin{defn*} (\textbf{Product Topology})
+    Let $X,Y$ be topological spaces, the product topology on $X\times Y$ is generated by the basis
+    \[
+        \calB = \{ U\times V \mid U\in \calT_X \; V\in \calT_Y\}    
+    \]
+\end{defn*}
+
+\begin{theorem*}
+    (\textbf{Product topology as basis}) If $\calB$, $\calC$ are basis for $X$ and $Y$ respectively. Then
+    \[
+        \calD = \{B \times C \mid B\in \calB \; C\in \calC \}    
+    \]
+    is a basis for topology of $X\times Y$
+\end{theorem*}
+
+\begin{defn*}
+    (\textbf{Projection}) Let $\pi_1 : X\times Y \to X$ be defined by $\pi_1(x,y) = x$. $\pi_1$ is a projection of $X\times Y$ \textbf{onto} the first factor
+    \begin{itemize}
+        \item projections are surjective
+    \end{itemize}
+\end{defn*}
+
+\subsubsection*{\linkbook{98}{Subspace Topology}}
+
+\begin{defn*}
+    (\textbf{Subspace Topology}) Let $(X,\calT)$. Let $Y\subset X$, then 
+    \[
+        \calT_Y = \{Y\cap U \mid U \in \calT\}
+    \]
+    is the subspace topology on $Y$. Alternatively, define using basis. If $\calB$ generates $\calT$, then 
+    \[
+        \calB_Y = \{B\cap Y \mid B \in \calB \}    
+    \]
+    is a basis for $\calT_Y$. 
+    \begin{itemize}
+        \item \textbf{(lemma)} $Y\subset X$. $U$ open in $Y$ and $Y$ open in $X$, then $U$ open in $X$
+        \item \textbf{(theorem)} $A\subset X$ and $B\subset Y$, then $\calT_{product \; A\times B} = \calT_{subspace A\times B}$ \textit{(subspace and product topology work well)}
+        \item $X$ ordered and $Y\subset X$. order topology on $Y$ maynot be same as order topology of $Y$ inherited as a subspace of $X$ (\textit{subspace and order topology does not work well})
+        \begin{itemize}
+            \item Let $Y=[0,1] \subset \R$. $\calB_Y$ are of the form $(a,b) \cap [0,1]$. Note
+            \begin{enumerate}
+                \item $[0,b)$ where $b\not\in [0,1]$ is open in $[0,1]$ but not in $\R$
+                \item $\calT_{ord} \cong \calT_{subspace}$ since the basis elements of the same form
+            \end{enumerate}
+            \item Let $Y=[0,1) \cup \{2\} \subset \R$. 
+            \begin{enumerate}
+                \item $\{2\}$ open in $\calT_{subspace}$ since $(1.5,2.5) \cap Y = \{2\}$. 
+                \item  $\{2\}$ not open in order topology since any basis of the form $\{x \in Y \mid a < x \leq 2 \; a\in Y\}$ contains some other point other than $\{2\}$
+                \item $\calT_{ord} \not\cong \calT_{subspace}$
+            \end{enumerate}
+        \end{itemize}
+        \item \textbf{(theorem)} \textit{subspace and order topology works well if the subspace is convex}
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{(convex)} Given ordered $X$ and subset $Y\subset X$ is convex if $(a,b) \subset X$ lies in $Y$ completely
+\end{defn*}
+
+\begin{theorem*} \textbf{(subspace and order topology works well if the subspace is convex)}  \\
+    Let $X$ be ordered and $Y\subset X$ be convex. Then order topology on $Y$ same as topology $Y$ inherits as a subspace of $X$.
+\end{theorem*}
+
+
+\subsubsection*{\linkbook{101}{Closed Sets and Limit Points}}
+
+\begin{defn*}
+    \textbf{(Closed)} A subset $A$ of $X$ is closed if $X - A$ is open.
+    \begin{itemize}
+        \item In $\calT_{f.c.}$, all finite subsets and $X$ are closed
+        \item In $\calT_{disc}$ every set is closed.
+    \end{itemize}
+\end{defn*}
+
+
+
+
+
+\newpage
+
+\subsubsection*{Continuity}
+
+
+\begin{enumerate}
+    \item \textbf{Continuity}
+    \begin{enumerate}
+        \item A function $f:\R^n \to \R^m$ is continuous if 
+        \begin{align*}
+            \forall x_0 \in \R^n, \quad \forall \epsilon > 0 \quad \exists \delta > 0 \text{ s.t. } & |x-x_0|<\delta \Rightarrow |f(x)-f(x_0)|<\epsilon \\ 
+            \text{ i.e. } & (x\in B_{\delta}(x_0) \Rightarrow f(x)\in B_{\epsilon}(f(x_0)))
+        \end{align*}
+        \item A function $f:\R^n \to \R^m$ is continuous if $f^{-1}(U)$ open for any open $U\subset \R^m$
+    \end{enumerate}
+    \item \textbf{Homeomorphism} Topological spaces $X,Y$ are homeomorphic if there is a homeomorphism between $X$ and $Y$, i.e. a bijective function $f:X\to Y$ such that $f$ and $f^{-1}$ are continuous
+    \begin{itemize}
+        \item $(-1,1) \cong \R$ by using $f(x) = \tan(x)$
+        \item If $\calT_1 \subset \calT_2$, then $Id: (X,\calT_2) \to (X,\calT_1)$ is continuous
+        \item If $\calT_1 = \calT_2$, then $Id: (X, \calT_1) \to (X,\calT_2)$ is a homeomorphism
+    \end{itemize}
+\end{enumerate}
+
+
+\end{document}

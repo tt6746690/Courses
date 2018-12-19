@@ -1233,6 +1233,79 @@
 
 \subsubsection{\linkbook{188}{28 Limit Point Compactness}}
 
+\begin{defn*}
+    \textbf{(Limit Point Compact)} $X$ is limit point compact if every infinite subset of $X$ has a limit point in $X$.
+    \begin{itemize}
+        \item \underline{(theorem)} Compactness implies limit point compactness, but not conversely (By contrapositive, try to show if $A$ has no limit point it must be finite. Assume $A'=\emptyset$, then $\overline{A}=A$ hence $A$ is closed. Since $X$ compact, $A$ also compact. Since no limit point, can find $U_a \cap A = \{a\}$ for all $a\in A$. Then $\cup_{a\in A} U_a \cup (X-A)$ covers $X$ and emits finite subcover. Since each $U_a$ contains only 1 point of $A$, $A$ must be finite)
+        \item (example) Given $Y=\{a,b\}$ with trivial topology. Let $X = \Z_+ \times Y$ is limit point compact but not compact. (limit point compact because any $\{n,a\}$ has a limit point $\{n, b\}$; in fact, every nonempty subset has a limit point in $X$. $X$ not compact since covering by $\{n\} \times Y$ has no subcover)
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{(Sequential Compact)} If $(x_n)$ is a sequence of points of $X$ and $n_1 < n_2 < \cdots < n_i < \cdots$ is an increasing sequence of positive integers, then $(y_i)$ defined by $y_i = x_{n_i}$ is a \textbf{subsequence} of $(x_n)$. $X$ is \textbf{sequentially compact} if every sequence of points in $X$ has a convergent subsequence.
+\end{defn*}
+
+\begin{defn*}
+    \textbf{(Totally Bounded)}
+    A metric space $(M,d)$ is totally bounded if and only if $\forall \epsilon>0$, there exists a finite covering of $X$ by $\epsilon$-balls
+    \[
+        \forall \epsilon > 0 \;\; \exists \; x_1, \cdots, x_n \in X \text{ such that } X = \bigcup_{i=1}^n B_{\epsilon}(x_i)
+    \]
+    \begin{itemize}
+        \item \underline{(theorem)} Given $X$ metrizable, $X$ is totally bounded iff $X$ is bounded. ($\Rightarrow$ straightforward; $\Leftarrow$ fill grid with balls)
+        \item (fact) If want a bounded yet not totally bounded take $X = \R^{\omega}$
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{(Cauchy Sequence)} A sequence $(x_n)$ in a metric space $(X,d)$ is Cauchy if 
+    \[
+        \forall \epsilon > 0 \;\; \exists \; N\in \N \text{ s.t. } 
+        \quad 
+        (m,n>N \Rightarrow d(x_n, x_m) < \epsilon)
+    \]
+    \begin{itemize}
+        \item (fact) Cauchy is a property of the sequence itself, holds regardless of the surrounding space
+        \item (example) In $\R_{std}$, Cauchy iff convergent
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{(Complete Sequence)} $X$ is complete if every Cauchy sequence in $X$ is convergent to a point in $X$.
+    \begin{itemize}
+        \item \underline{(theorem)} $X\subset \R^n_{std}$ is complete if and only if it is closed ($\Leftarrow$ by close sets contains all its limit points. $\Rightarrow$ Let $y\in \overline{X}$ Since $\R^n_{std}$ is metric, then exists $(x_n) \to y$ that is Cauchy. Since $X$ complete, $y\in X$, so $X$ is closed)
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{(Completion)} Metric $(X,d)$ has a completion $com(X)$, which is a complete metric space containing $X$ s.t. $\overline{A} = com(X)$
+    \begin{itemize}
+        \item (example) $com(\Q) = \R$
+    \end{itemize}
+\end{defn*}
+
+
+
+
+\begin{theorem*}
+    \textbf{(Compactness in Metric Space)} Let $X$ metrizable, then $X$ is 
+    \begin{enumerate}
+        \item compact
+        \item limit point compact
+        \item sequentially compact
+        \item totally bounded and complete (In $\R^n_{std}$, equiv to bounded and closed)
+    \end{enumerate}
+    \begin{proof}
+        \textbf{($1\Rightarrow 2$)} proved previously. \textbf{($2\Rightarrow 3$)} Consider $A = \{x_n \mid n\in \Z_+\}$. If finite, then exists $x$ such that $x_n= x$ for infinitely many values of $n$, then $(x_n)$ is constant and converges trivially. Otherwise $A$ is infinite, then $A$ has a limit point $x$. Consider a subsequence of $(x_n)\to x$. Pick $n_1$ s.t. $x_{n_1} \in B_1(x)$, and pick $n_i$ such that $x_{n_i} \in B_{1/i}(x)$ and $n_i > n_{i-1}$. This is possible, since any neighborhood of $x$ contains infinitely many points of $A$. The subsequence $x_{n_1}, x_{n_2},\cdots$ converges. \textbf{($3\Rightarrow 1$)} We will show that if $X$ sequentially compact, then $X$ is totally bounded and satisfies lebesgue number lemma.
+        \begin{enumerate}
+            \item (totally bounded) By contradiction, assume exists $\epsilon>0$ such that $X$ cannot be covered by finitely many $\epsilon$-balls. Now we construct a sequence $(x_n)$ by pick $x_1$ be any point of $X$. If already chosen $x_1,\cdots,x_n$, pick $x_{n+1} \in X$ be such that $x_{n+1}\in X - B(x_1,\epsilon) \cup \cdots \cup B_{\epsilon}(x_n)$. This is possible since these balls are finite and cannot cover all of $X$. By construction $d(x_{n+1}, x_n) \geq \epsilon$ for all $i=1,\cdots,n$. Therefore $(x_n)$ has no convergent subsequence. Since not always $x_{n_k}$ is inside a $\epsilon$-ball centered at any $x\in X$. In fact, any $\epsilon$-ball contains only 1 point of $x_{n}$ in the sequence.
+            \item (lebesgue number lemma) Let $\calA$ be a covering of $X$. By contradiction, assume no $\delta>0$ such tha each set with diameter less than $\delta$ is covered by an element of $\calA$. Then for each $n \in \Z_+$, can find set $C_n$ with diameter less than $1/n$ not contained in any element of $\calA$. Construct a sequence by taking $x_n \in C_n$. By sequential compactness, exists $x_{n_k} \to a$ for some $a\in A\in \calA$. Since $A$ open, then exists $\epsilon>0$ such that $B_{\epsilon}(a)\subset A$. Consider to take a large enough $i$ such that $1/n_i < \epsilon/2$, this implies that $C_{n_i}$ lies in $\epsilon/2$-neighborhood of $x_{n_i}$. Also take a large enough $i$ such that $d(x_{n_i}, a) < \epsilon/2$. Then $C_{n_i} \subset B_{\epsilon}(a) \subset A$, which contradicts assumption.
+        \end{enumerate}
+        Let $\calA$ be an open covering of $X$. Since $X$ is sequential compact, there exists a Lebesgue number $\delta$. Let $\epsilon = \delta/3$. Use total boundedness to find a finite covering of $X$ by $\epsilon$-balls, where each ball has diameter of at most $2\delta/3$, then by Lebesgue Number lemma, lies in some element of $\calA$. Pick one $A\in\calA$ for each $\epsilon$-balls, forming a finite subcover of $X$. \\
+        \textbf{($3\Rightarrow 5$)} Given $X$ sequentially compact, need to show its complete. Let $(x_n)$ be arbitrary Cauchy sequence. By sequential compactness, exists a convergent subsequence $y\in X$ such that $x_{n_k} \to y$. To show $X$ complete, enough to show the original sequence converges $x_n \to y$. Let $\epsilon>0$ be given, let $N$ be such that (1) $d(x_i, x_j) < \epsilon/2$ for some $i,j>N$ by Cauchy (2) $d(x_{n_k}, y)
+        \leq \epsilon/2$ for all indices to the subsequence $n_k>N$ by convergence of $(x_{n_k})$. Let $n>N$ and pick any index to the subsequence $n_k > N$, then $d(x_n, y) \leq d(x_n, x_{n_k}) + d(x_{n_k}, y) = \epsilon/2+\epsilon/2 = \epsilon$. Hence $x_n \to y$. \textbf{($5 \Rightarrow 3$)} Assume $X$ is totally bounded and complete, show its sequantially compact. Let $(x_n)$ be any sequence. Idea is to generate a subsequence that is Cauchy, then by completeness of space, the sequence is convergent. Cover $X$ by finitely many 1-balls; at least one of the balls, say $B_1$ contains infinitely many points of $(x_n)$, now let $J_1 = \{i\in \Z_+ \mid x_i \in B_1 \}$ be indices for which $x_n\in B_1$. We again cover $B_1$ by finitely many $1/2$-balls, and find another ball $B_n$ containing infinitely many $x_n$s. We can pick $J_k$ where $J_1 \supset J_2 \supset \cdots$. Let $n_1\in J_1$ and given $n_k$ pick $n_{k+1}\in J_{k+1}$ such that $n_{k+1}>n_k$. For $i,j\geq k$, $x_{n_i}$ and $x_{n_j}$ are contained in ball $B_k$ of radius $1/$, it follows $(x_{n_i})$ is cauchy.
+    \end{proof}
+\end{theorem*}
 
 
 \newpage

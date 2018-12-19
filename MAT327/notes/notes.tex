@@ -14,6 +14,7 @@
 \newcommand{\calB}{\mathcal{B}}
 \newcommand{\calC}{\mathcal{C}}
 \newcommand{\calD}{\mathcal{D}}
+\newcommand{\calE}{\mathcal{E}}
 \newcommand{\calT}{\mathcal{T}}
 \newcommand{\calP}{\mathcal{P}}
 \newcommand{\ba}{\mathbf{a}}
@@ -29,7 +30,6 @@
 \tableofcontents
 \newpage
 
-\section{Basics}
 
 \begin{enumerate}
     \item \textbf{Functions}
@@ -92,9 +92,9 @@
 
 \newpage
 
-\section{chapter 1 Topological Spaces and Continuous Functions}
+\section{General Topology}
 
-\subsubsection{\linkbook{31}{Relation}}
+\subsubsection{\linkbook{31}{3 Relation}}
 
 \begin{enumerate}
     \item A relation on a set $A$ is a subset $C$ of cartesian product $A\times A$. $xCy$ means $(x,y)\in C$
@@ -110,7 +110,7 @@
     \end{itemize}
 \end{enumerate}
 
-\subsubsection{\linkbook{46}{Cartesian Product}}
+\subsubsection{\linkbook{46}{5 Cartesian Product}}
 \begin{enumerate}
     \item \textbf{indexed family of sets} Let $\calA$ be nonempty collection of sets, let $f:J\to \calA$ be a surjective indexing function. $(\calA, f)$ is called indexed family of sets, denoted by $\{\calA_{\alpha}\}_{\alpha \in J} = \{\calA_{\alpha}\}$ where $f(\alpha) = \calA_{\alpha}$
     \item \textbf{m-tuple} Let $m\in \Z_+$, Given a set $X$, define m-tuple of $X$ to be a function $\bx: \{1, \cdots, m\} \rightarrow X$ and denote $\bx = (x_1,\cdots, x_m)$
@@ -129,9 +129,34 @@
     is defined to be the set of all $\omega$-tuples $(x_1,x_2,\cdots)$ of elements of $X$ such that $x_i\in A_i$ for each $i$
 \end{enumerate}
 
+
+\subsubsection{\linkbook{78}{11 The Maximum Principle}}
+
+\begin{defn*}
+    \textbf{(Strict Partial Ordering)} Given a set $A$, and a relation $\prec$ on $A$ is a strict partial order if 
+    \begin{enumerate}
+        \item (nonreflexivity) $a\prec a$ never holds
+        \item (tranasitivity) If $a\prec b$ and $b\prec c$, then $a\prec c$
+    \end{enumerate}
+    Idea is not all $x,y \in A$ is comparable, i.e. either $x\prec y$ or $y\prec x$. Although a subset $S\subset A$ can be simply ordered.
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{(The Maximum Principle)} Let $A$ be a set and $\prec$ be a strict partial order on $A$. Then exists a maximal simply ordered subset $B$ of $A$, i.e. does not exsits $B'\subset A$ such that $B\subsetneq B'$ and $B'$ simply ordered.
+\end{theorem*}
+
+\begin{defn*}
+    \textbf{(upper bound and maximal element)} Let $A$ be a set and $\prec$ be a strict partial order on $A$. If $B\subset A$, an \textbf{upper bound} on $B$ is $c\in A$ such that $b=c$ or $b\prec c$ for all $b\in B$. A \textbf{maximal element} of $A$ is an element $m\in A$ such that for no element $a\in A$ does  $m\prec a$ hold.
+\end{defn*}
+
+\begin{lemma*}
+    \textbf{(Zorn's Lemma)} Let $A$ be a strictly partially ordered set. If every ordered subset of $A$ has an upper bound in $A$, then $A$ has a maximal element.
+\end{lemma*}
+
+
 \newpage
 
-\section{chapter 2}
+\section{Topological Spaces and Continuous Functions}
 
 \subsubsection{\linkbook{85}{12 Topological Spaces}}
 
@@ -295,7 +320,7 @@
     \begin{itemize}
         \item \textbf{(lemma)} $Y\subset X$. $U$ open in $Y$ and $Y$ open in $X$, then $U$ open in $X$
         \item \textbf{(lemma)} A subspace of a subspace is a subspace
-        \item \textbf{(theorem)} A product of subspaces is a subspace of the product \textit{(subspace and product topology work well)}
+        \item \textbf{\underline{(theorem)}} A product of subspaces is a subspace of the product \textit{(subspace and product topology work well)}
         \item $X$ ordered and $Y\subset X$. order topology on $Y$ may not be same as order topology of $Y$ inherited as a subspace of $X$ (\textit{subspace and order topology does not work well})
         \begin{itemize}
             \item Let $Y=[0,1] \subset \R$. $\calB_Y$ are of the form $(a,b) \cap [0,1]$. Note
@@ -310,7 +335,7 @@
                 \item $\calT_{ord} \not\cong \calT_{subspace}$
             \end{enumerate}
         \end{itemize}
-        \item \textbf{(theorem)} \textit{subspace and order topology works well if the subspace is convex}
+        \item \textbf{\underline{(theorem)}} \textit{subspace and order topology works well if the subspace is convex}
     \end{itemize}
 \end{defn*}
 
@@ -376,7 +401,7 @@
         \[
             Int A \subset A \subset \overline{A}    
         \]
-        \item (theorem). Let $A\subset Y\subset X$, Let $\overline{A}$ denote closure of $A$ in $X$. Then the closure of $A$ in $Y$ is $\overline{A}\cap Y$
+        \item \underline{(theorem)}. Let $A\subset Y\subset X$, Let $\overline{A}$ denote closure of $A$ in $X$. Then the closure of $A$ in $Y$ is $\overline{A}\cap Y$
         \begin{itemize}
             \item In $\R$, $Y=(0,1]$, let $A=(0,0.5) \subset Y$. $Cl_{\R} A = [0, 0.5]$, $Cl_{Y} A = Cl_{\R} A \cap Y = (0, 0.5]$
         \end{itemize}
@@ -463,8 +488,8 @@
 \begin{defn*}
     \textbf{($T_1$ Space)} $X$ is $T_1$ if any two distinct points in $X$ are separated.
     \begin{itemize}
-        \item (theorem) Let $A\subset X$ $T_1$. $x\in A'$ if and only if every neighborhood of $x$ contains infinitely many points of $A$.
-        \item (theorem) Every finite point set, specifically one-point set, in a $T_1$ space is closed
+        \item \underline{(theorem)} Let $A\subset X$ $T_1$. $x\in A'$ if and only if every neighborhood of $x$ contains infinitely many points of $A$.
+        \item \underline{(theorem)} Every finite point set, specifically one-point set, in a $T_1$ space is closed
     \end{itemize}
 \end{defn*}
 
@@ -476,9 +501,9 @@
     \]
     \begin{itemize}
         \item \textbf{(motivation)} Generally, one point set not always closed; Sequences converges can converge to more than limit. 
-        \item \textbf{(theorem)} Every finite point set, specifically one-point set, in a Hausdorff space is closed
-        \item \textbf{(theorem)} If $X$ is $T_2$, then a sequence of points of $X$ converges to at most 1 point of $X$
-        \item \textbf{(theorem)} Every simply ordered set is $T_2$ in the order topology. Product of two $T_2$ space is $T_2$; Subspace of a $T_2$ space is $T_2$ (order/product/subspace topology well behaved with $T_2$)
+        \item \textbf{\underline{(theorem)}} Every finite point set, specifically one-point set, in a Hausdorff space is closed
+        \item \textbf{\underline{(theorem)}} If $X$ is $T_2$, then a sequence of points of $X$ converges to at most 1 point of $X$
+        \item \textbf{\underline{(theorem)}} Every simply ordered set is $T_2$ in the order topology. Product of two $T_2$ space is $T_2$; Subspace of a $T_2$ space is $T_2$ (order/product/subspace topology well behaved with $T_2$)
         \item \textbf{(examples)}
         \begin{itemize}
             \item $\R^n_{std}$, $X_{disc}$ are $T_2$
@@ -519,7 +544,7 @@
 \begin{defn*}
     \textbf{(Homeomorphism)} Let $f:X\to Y$ be a bijection If $f$ and the inverse function $f^{-1}:Y\to X$ are continuous, then $f$ is called a homeomorphism. (continuous bijection)
     \begin{itemize}
-        \item (theorem) If $X\cong Y$, then $X$ and $Y$ share topological property, i.e. property expressed in terms of topology only.
+        \item \underline{(theorem)} If $X\cong Y$, then $X$ and $Y$ share topological property, i.e. property expressed in terms of topology only.
         \item (example) $(-1,1) \cong \R$ since $f: (0,1) \to \R$ by $f(x) = \tan(x)$ is a homeomorphism
         \item (example) A function can be continuous but not homeomorphic. Consider $S^1 = \{x\times y\mid x^2 + y^2 = 1\}\subset \R^2$ the unit circle. Let $f:[0,1) \to S^1$ by $f(t) = (\cos(2\pi t), \sin(2\pi t))$. $f$ is bijective and continuous but $f^{-1}$ not continuous
         \item If $\calT_1 \subset \calT_2$, then $Id: (X,\calT_2) \to (X,\calT_1)$ is continuous
@@ -532,7 +557,7 @@
     \textbf{(Imbedding)} An injective map $f:X\to Y$ is a topological imbedding of $X$ in $Y$ if $f':X\to Z$ is a homeomorphism (note the image set $Z = f(X)$ carries subspace topology inherited from $Y$)
     \begin{itemize}
         \item Intuitively, an imbedding $f:X\to Y$ let us treat $X$ as a subspace of $Y$.
-        \item (theorem) Every map that is injective, continuous, and either open or closed is am imbedding.
+        \item \underline{(theorem)} Every map that is injective, continuous, and either open or closed is am imbedding.
         \item (example) $f:[0,1) \to \R$ by $f(t) = (\cos(2\pi t), \sin(2\pi t))$ maps to $S^1$. $f$ is a continuous injective map but not am imbedding.
     \end{itemize}
 \end{defn*}
@@ -608,7 +633,7 @@
     \]
     generates box topology
     \begin{itemize}
-        \item (theorem) Given basis $\calB_{\alpha}$ for each $X_{\alpha}$, $\textstyle \prod_{\alpha\in J} \calB_{\alpha}$ where $\textstyle B_{\alpha}\in \calB_{\alpha}$ is a basis for $\textstyle\prod_{\alpha\in J} X_{\alpha}$
+        \item \underline{(theorem)} Given basis $\calB_{\alpha}$ for each $X_{\alpha}$, $\textstyle \prod_{\alpha\in J} \calB_{\alpha}$ where $\textstyle B_{\alpha}\in \calB_{\alpha}$ is a basis for $\textstyle\prod_{\alpha\in J} X_{\alpha}$
     \end{itemize}
 \end{defn*}
 
@@ -625,8 +650,8 @@
     \end{align*}
     generates product topology
     \begin{itemize}
-        \item (theorem) Let $\textstyle f:A\to \prod_{\alpha\in J} X_{\alpha}$ defined by $f(a) = (f_{\alpha}(a))_{\alpha\in J}$ where $f_{\alpha}: A\to X_{\alpha}$ for each $\alpha$, Then $f$ is continuous if and only if each function $f_{\alpha}$ is continuous
-        \item (theorem) For finite products, $\calT_{box} = \calT_{prod}$
+        \item \underline{(theorem)} Let $\textstyle f:A\to \prod_{\alpha\in J} X_{\alpha}$ defined by $f(a) = (f_{\alpha}(a))_{\alpha\in J}$ where $f_{\alpha}: A\to X_{\alpha}$ for each $\alpha$, Then $f$ is continuous if and only if each function $f_{\alpha}$ is continuous
+        \item \underline{(theorem)} For finite products, $\calT_{box} = \calT_{prod}$
         \item (example where product topology works while box topology does not) In $\R^{\omega} = \textstyle \prod_{n\in \Z_+} \R$, countably infinite product of $\R$. Define $f:\R\to \R^{\omega}$ by $f(t) = (t,t,\cdots)$. Each $f_{\alpha} = \pi_{\alpha} \circ f$ continuous so $f$ continuous in product topology. However $f$ not continuous in box topology. Consider $B = \{ (-1/n, 1/n) \mid n\in \Z_+ \} \in \calB_{box}$ open,
         \[
             f^{-1}(B) 
@@ -718,9 +743,9 @@
         \item \textbf{(diamond)} $d_1 = \textstyle \sum_i |x_i - y_i|$
         \item \textbf{euclidean metric (circle)} on $\R^n$, $d_2 = d(\bx, \by) = \norm{x-y} = \sqrt{(x_1-y_2)^2 + \cdots + (x_n - y_n)^2}    $
         \item \textbf{square metric (square)} on $\R^n$, $d_{\infty} = \rho(\bx, \by) = max \{ |x_1 - y_1| ,\cdots , |x_n - y_n| \}$ (furthest coordinate within $\epsilon$)
-        \item (theorem) In $\R^n$, $\calT_{d_1} = \calT_{d_2} = \calT_{\infty}$ induces same topology $\calT_{std}$ (proof by showing basis elements nests!)
-        \item (theorem) If $X$ is metrizable, then $X$ is $T_2$
-        \item (theorem) Subspaces of metric space behaves well $d|_{A\times A}$ induces subspace topology for $A\subset X$.
+        \item \underline{(theorem)} In $\R^n$, $\calT_{d_1} = \calT_{d_2} = \calT_{\infty}$ induces same topology $\calT_{std}$ (proof by showing basis elements nests!)
+        \item \underline{(theorem)} If $X$ is metrizable, then $X$ is $T_2$
+        \item \underline{(theorem)} Subspaces of metric space behaves well $d|_{A\times A}$ induces subspace topology for $A\subset X$.
     \end{enumerate}
 \end{defn*}
 
@@ -733,7 +758,7 @@
         \item $\R^n$ is metrizable ($d_1,d_2,d_{\infty}$ induces $\R^n_{std}$)
         \item $\R^{\omega}$ is metrizable under product topology but not box topology
         \item $\R^J$ where $J$ uncountable is not metrizable
-        \item (theorem) countable products of metrizable spaces is metrizable
+        \item \underline{(theorem)} countable products of metrizable spaces is metrizable
         \item (by sequence lemma) sequences are sufficient to describe metrizable spaces
     \end{itemize}
 \end{defn*}
@@ -760,7 +785,7 @@
     \]
     to be the standard bounded metric corresponding to $d$
     \begin{itemize}
-        \item (theorem) $d$ and $\overline{d}$ induces the same topology, i.e. $\calT_{d} = \calT_{\overline{d}}$
+        \item \underline{(theorem)} $d$ and $\overline{d}$ induces the same topology, i.e. $\calT_{d} = \calT_{\overline{d}}$
         \item (trick) by above theorem, we can say \underline{$diam(A) \leq 1$ without loss of generality} by replacing $d$ with $\overline{d}$
     \end{itemize}
 \end{defn*}
@@ -889,7 +914,7 @@
 \begin{defn*}
     \textbf{(Quotient Map)} Given $X,Y$ and $p:X\to Y$ be a surjective map. $p$ is a quotient map if a subset $U\subset Y$ is open if and only if $p^{-1}(U)$ is open in $X$.
     \begin{itemize}
-        \item (theorem) $p$ is a surjective continuous map that is either open or closed, then $p$ is a quotient map
+        \item \underline{(theorem)} $p$ is a surjective continuous map that is either open or closed, then $p$ is a quotient map
         \item (example) projection maps $\pi_1 : X\times Y \to X$ is surjective, continuous, open and therefore a quotient map. However $\pi_1$ is not a closed map (since $\pi_1(\{x\times y\mid xy=1\}) = \R - \{0\}$ not closed)
     \end{itemize}
 \end{defn*}
@@ -927,6 +952,8 @@
     \textbf{(Separation and Connected)} Given topological space $X$. A \textbf{separation} of $X$ is a pair $U,V$ where $U\cap V=\emptyset$ and $X=U\cup V$ and $U,V$ both nonempty. The space $X$ is \textbf{connected} if there does not exists a separation of $X$. Equivalently, $X$ is connected if the only clopen sets are $\emptyset$ and $X$.
     \begin{itemize}
         \item (fact) connectedness is a topological property
+        \item \underline{(theorem)} Image of a connected space under a continuous map is connected
+        \item \underline{(theorem)} Finite product $\textstyle \prod X_{\alpha}$ connected if and only if $X_{\alpha}$ connected for all $\alpha$
     \end{itemize}
 \end{defn*}
 
@@ -945,11 +972,9 @@
             \item $X = \{(x,y) \mid y=0\} \cup \{(x,y) \mid y = 1/x \} \subset \R^2$ not connected (neither contain a limit point of each other)
         \end{itemize}
         \item (lemma) If $C,D$ forms a separation of $X$ and $Y$ is a connected subspace of $X$, then $Y$ lies entirely in $C$ or $D$
-        \item (theorem) Union of connected subspaces of $X$ with a commont point is connected  \\ 
+        \item \underline{(theorem)} Union of connected subspaces of $X$ with a commont point is connected  \\ 
         ($\textstyle \cap A_{\alpha} \neq \emptyset$ where $A_{\alpha}$ connected for all $\alpha$ then $\textstyle \cup A_{\alpha}$ connected)
-        \item (theorem) If $A\subset X$ be a connected subspace. If $A\subset B \subset \overline{A}$, then $B$ also connected
-        \item (theorem) Image of a connected space under a continuous map is connected
-        \item (theorem) Finite product $\textstyle \prod X_{\alpha}$ connected if and only if $X_{\alpha}$ connected for all $\alpha$
+        \item \underline{(theorem)} If $A\subset X$ be a connected subspace. If $A\subset B \subset \overline{A}$, then $B$ also connected
     \end{itemize}
 \end{defn*}
 
@@ -980,8 +1005,8 @@
     \end{enumerate}
     \begin{itemize}
         \item (fact) condition for connectedness to hold on $\R$
-        \item (theorem) If $L$ is linear continuum in order topology, then $L$ is connected, and so are intervals and rays in $L$
-        \item (theorem) If $Y\subset \R$, then $Y$ is connected if and only if $Y$ is convex and nonempty
+        \item \underline{(theorem)} If $L$ is linear continuum in order topology, then $L$ is connected, and so are intervals and rays in $L$
+        \item \underline{(theorem)} If $Y\subset \R$, then $Y$ is connected if and only if $Y$ is convex and nonempty
         \item (corollary) $\R$, intervals and rays in $\R$ are all connected
     \end{itemize}
 \end{defn*}
@@ -1007,10 +1032,10 @@
         \forall x,y\in X \; \exists \text{ continuous } f:[0,1] \to X \; f(0)=x \; f(1)=y
     \]
     \begin{itemize}
-        \item (theorem) continuous image of path-connected space is path-connected
-        \item (theorem) path-connected space is connected. (converse not always true: see topologist's sine curve)
+        \item \underline{(theorem)} continuous image of path-connected space is path-connected
+        \item \underline{(theorem)} path-connected space is connected. (converse not always true: see topologist's sine curve)
         \item (proposition) connectedness and path-connected subsets of $\R$ are the same
-        \item (theorem) If $X_{\alpha}$ path-connected, then $\textstyle \prod X_{\alpha}$ is also path-connected (in product topology) 
+        \item \underline{(theorem)} If $X_{\alpha}$ path-connected, then $\textstyle \prod X_{\alpha}$ is also path-connected (in product topology) 
         \item (example) unit ball $B^n = \{\bx \mid \norm{\bx} \leq 1 \} \subset \R^n$ is path-connected ($f:[0,1]\to \R^n \; t \to (1-t)\bx + t\by$ for any $\bx,\by \in \R^n$)
         \item (example) punctured euclidean space $\R - \{0\}$ is path-connected
         \item (example) unit sphere $S^{n-1} \{\bx \mid \norm{\bx} = 1\} \subset \R^n$ is path-connected ($g: \R^n \setminus \{0\} \to S^{n-1} \; \bx \to \bx / \norm{\bx}$ is continuous)
@@ -1035,10 +1060,226 @@
 \begin{defn}
     \textbf{(Cover and Compact)} A collection $\calA \subset\calP(X)$ \textbf{cover} $X$, or be a \textbf{covering} of $X$, if $\textstyle \cup_{A\in \calA} A = X$. $\calA$ is open cover, if it is a cover and all $A\in \calA$ are open. A space $X$ is said to be \textbf{compact} if every open cover $\calA$ contains a finite subcollection that also covers $X$, i.e. if $\{A_{\alpha}\}$ is an open cover, exists $I = \{\alpha_1,\cdots,\alpha_n\}$ such that $\textstyle \cup_{\alpha\in I} A_{\alpha} = X$ 
     \begin{itemize}
-        \item (example) $\R$ not compact, since $\calA = \{(n, n+2) \mid n\in \Z_+\}$ does not have a finite subcover
-        \item (example) $X = \{0\} \cup \{1/n \mid n\in \Z_+\} \subset \R$ is compact.
+        \item (examples)
+        \begin{itemize}
+            \item $\R$ is not compact ($\calA = \{(n, n+2) \mid n\in \Z_+\}$ does not have a finite subcover)
+            \item $(0,1]$ (and similarly $(0,1)$) is not compact ($\calA = \{ (1/n,1]\mid n\in \Z_+\}$ emits no finite cover)
+            \item $X = \{0\} \cup \{1/n \mid n\in \Z_+\} \subset \R$ is compact. (idea: $U \in \calA$ covering 0 covers all but finitely many points of $1/n$. Take $U$ and $U_{i}\in \calA$ for all $1/i$ not in $U$ forms a finite cover for $X$)
+            \item $X$ with finitely many points is compact (all covers are finite)
+            \item $[0,1]$ is compact 
+        \end{itemize}
+        \item \underline{(theorem)} Image of a compact space under a continuous map is compact
+        \item \underline{(theorem)} Let $f:X\to Y$ be bijective continuous map. If $X$ is compact and $Y$ is $T_2$, then $f$ is a homeomorphism (idea: $K\subset X$ closed. Since $X$ compact, $K$ also compact, $f(K)$ is then compact, which is closed in $T_2$ space $Y$)
+        \item \underline{(theorem)} Product of finitely many compact spaces is compact (tube lemma)
+        \item \underline{(theorem)} Product of infinitely many compact spaces in product topology is compact (Tychnoff theorem)
+        \item \underline{(theorem)} A continuous function $f:X\to \R$ where $X$ is compact is bounded. (idea: $X = \cup_{i=1}^{\infty} f^{-1}((-\epsilon_i,\epsilon_i))$, by compactness $X = \cup_{i=1}^n ((-\epsilon_i, \epsilon_i)) = f^{-1}((-M, M))$ where $M=\max_{i=1}^n \epsilon_i$)
     \end{itemize}
 \end{defn}
+
+\begin{defn*}
+    \textbf{(Compactness for subspace)}  Let $Y\subset X$. $Y$ is compact (i.e. every covering of $Y$ by open sets in $Y$ has a finite subcover) if and only if every covering of $Y$ by sets open in $X$ contains a finite subcollection covering $Y$
+    \begin{itemize}
+        \item \underline{(theorem)} Closed subspace of a compact space is compact, i.e. $Y\subset X$ where $X$ is compact and $Y$ is closed, then $Y$ is compact (idea: Given covering $\calA$ of $Y$ by open sets in $X$, $\calA \cup \{X - Y\}$ emits finite subcover for $X$, and therefore for $Y$ by definition of compactness for subspace)
+        \item (example) Given $[a,b]\in\R$ compact, any closed subset of $[a,b]$ is also compact.
+        \item \underline{(theorem)} Compact subspace of a $T_2$ space is closed, i.e. $Y\subset X$ where $X$ is $T_2$ and $Y$ is compact, then $Y$ is closed (idea: fix $x_0\in X\setminus Y$, find $U$ s.t. $x_0\in U\subset X\setminus Y$. By $T_2$, exists disjoint open pair $U_{y},V_{y}$ separating $x_0,y$ for all $y\in Y$. By compactness of $Y$, $\{V_y\mid y\in Y\}$ emits finite cover $V =V_{y_1}\cup \cdots \cup V_{y_n}$ which are disjoint from $U=U_{y_1}\cap\cdots\cap U_{y_n}$. $X\setminus Y$ open hence $Y$ closed)
+        \item (lemma) If $X$ is $T_2$ and $Y\subset X$ is compact and $x_0\not\in Y$, exists disjoint $U,V\in\calT_X$ that covers $x_0$ and $Y$, respectively
+        \item (example) $(a,b] \in \R$ not compact since its not closed. (In $T_2$, closedness is a necessary condition for compactness)
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{($T_3$ Space)} A space $X$ is $T_3$ if
+    \begin{enumerate}
+        \item it is $T_1$ (singletons are closed)
+        \item if $A \subset X$ is closed and $y \in A^c$, then there exists disjoint open $U,V\in\calT_X$ such that $A\subset U$ and $y\in V$
+    \end{enumerate}
+    \begin{itemize}
+        \item \underline{(theorem)} $X$ is compact and $T_2$, then $X$ is $T_3$ (straight from previous lemma)
+    \end{itemize}
+\end{defn*}
+
+\begin{lemma*}
+    \textbf{The Tube Lemma} Consider $X\times Y$, where $Y$ is compact. If $N \subset X\times Y$ is open and contains the slice $\{x_0\} \times Y$, then $N$ contains some \textbf{tube} $W\times Y$ about $\{x_0\}\times Y$, where $W$ is a neighborhood of $x_0\in X$
+    \begin{proof}
+        Idea is try to cover the slice $\{x_0\} \times Y$ with basis elements $U\times V \in N$, which happens to cover some tube about the slice. Since $\{x_0\}\times Y \cong Y$ and $Y$ compact, then the slice is compact. Hence can cover $\{x_0\}\times Y$ with finitely basis elements $\calA = \{U_1\times V_1, \cdots, U_n \times V_n\}$ where $U_i \times V_i \in N$. Note $W = U_1\cap \cdots \cap U_n$ is open and contains $x_0$. We claim that $\calA$ actually covers not only the slice but also the tube $W\times Y$. Let $x\times y\in W\times Y$. Some $V_i \supset y$ and since $x\in \cap_j U_j$, $x\in U_i$. Hence $x\times y\in U_i \times V_i$. 
+    \end{proof}
+    \begin{itemize}
+        \item (example) $N=\{ x\times y \mid |x| < 1/(y^2 + 1)\}$ is an open set containing $\{0\}\times \R$ but it contains no tube about the slice. (since $\R$ is not compact, tube lemma does not hold)
+    \end{itemize}
+\end{lemma*}
+
+\begin{theorem*}
+    \textbf{(Product of finitely many compact spaces is compact)}
+    \begin{proof}
+        Show $X\times Y$ compact given $X,Y$ compact and do induction from here. Let $\calA$ be any open cover for $X\times Y$. For any $x_0\in X$, $\{x_0\} \times Y \subset X\times Y$ is compact and therefore covered by finitely many open sets of $X\times Y$, specifically $\{A_1, \cdots, A_m\} \in \calA$. Let $N = \{A_1,\cdots,A_m\}$. Since $N \supset \{x_0\} \times Y$ and $N$ is open, there exists tube $W\times Y$ where $W$ is a neighborhood of $x_0$. For each $x\in X$, we can find such neighborhood $W_x$ of $x$ such that the tube $W_x\times Y$ is covered by finitely many elements of $\calA$. Since $X$ is compact, there is a finite covering $\{W_1, \cdots, W_k\}$ of $X$. Union of the tubes covers $X\times Y$, i.e. $\cup_{j=1}^k W_j \times Y = X\times Y$. Since each tube covered by finitely many elements of $\calA$ and there is finitely many tubes, we can cover $X\times Y$ with finitely many elements of $\calA$
+    \end{proof}
+\end{theorem*}
+
+\begin{defn*}
+    \textbf{(Finite intersection property - FIP)} A collection $\calC \subset\calP(X)$ is said to have \textbf{finite intersection property} if intersection of every finite subcollection is nonempty
+    \[
+        \{C_1,\cdots,C_n\} \subset \calC \quad \Rightarrow \quad \bigcap_{i=1}^n C_i \neq \emptyset
+    \]
+\end{defn*}
+
+\begin{theorem*}
+    \textbf{(define compactness using finite intersection property)} $X$ is compact if and only if every collection of closed sets having the finite intersection property has nonempty intersection
+    \[
+        X \text{ compact } 
+        \quad \iff \quad
+        \text{$\forall \calC$ of closed sets in $X$ with FIP $\Rightarrow$ $\cap_{C\in\calC} C \neq \emptyset$}
+    \]
+    \begin{proof}
+        Given $\calA \subset\calP(X)$, let $\calC = \{X - A \mid A\in \calA\}$. Then the following holds
+        \begin{enumerate}
+            \item $\calA$ is a collection of open sets if and only if $\calC$ is a collection of closed sets
+            \item $\calA$ covers $X$ if and only if intersection $\textstyle \cap_{C\in \calC} C$ of all elements of $\calC$ is empty (by DeMorgan's Law)
+            \item $\{A_1, \cdots, A_n\} \subset \calA$ covers $X$ if and only if intersection of corresponding elements $C_i = X-A_i$ of $\calC$ is empty
+        \end{enumerate}
+        Idea is to take contraposiitive of normal definition of compactness: Given any $\calA$ of open sets, if no finite subcollection of $\calA$ covers $X$, then $\calA$ does not cover $X$. Let $\calC$ be defined as above, apply above 3 points. We get: Given any $\calC$ of closed sets (1), if every finite collection of elements of $\calC$ is nonempty (3), then the intersection of all the elements of $\calC$ is nonempty (2)
+    \end{proof}
+    \begin{itemize}
+        \item (example) nested sequence of closed sets $C_1 \supset C_2 \supset \cdots$, where each $C_n \neq \emptyset$, then $\calC = \{C_n\}_{n\in \Z_+}$ has finite intersection property and the intersection $\cap_{n\in\Z_+} C_n \neq \emptyset$
+    \end{itemize}
+\end{theorem*}
+
+
+\subsubsection{\linkbook{182}{27 Compact Subspaces of the Real Line}}
+
+
+\begin{theorem*}
+    \textbf{(Compactness for Ordered Set with Least Upper Bound Property)} Let $X$ be a simply ordered set having least upper bound property. In order topology, each closed interval in $X$ is compact.
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{(Characterize Compact Subspace of $\R^n$)}
+    \begin{enumerate}
+        \item ($\R$) every closed interval in $\R$ is compact (follows from previous theorem)
+        \begin{itemize}
+            \item $[0,1] \in\R$ is compact
+        \end{itemize}
+        \item ($\R^n$) $A\subset \R^n$ is compact if and only if it is closed and bounded in euclidean $d_2$ or square $d_{\infty}$ metric
+        \begin{itemize}
+            \item (note) compact sets in metric space is \textbf{not} equivalent to the set of closed and bounded sets. boundedness depends on metric $d$ whereas compactness is purely a topological property 
+            \item Unit sphere and \underline{closed} unit ball $S^{n-1}, B^n \subset \R^n$ are compact (closed and bounded)
+            \item $A=\{x\times 1/x \mid 0 < x \leq 1 \} \subset \R^2$ is not compact (closed but not bounded)
+            \item $S=\{x\times \sin(1/x)\}$ is not compact (bounded but not closed since does not contain limit points $S'=\{0\}\times [-1,1]$)
+        \end{itemize}
+    \end{enumerate}
+    \begin{proof}
+        \textbf{(Part 1)} proof similar to how we proved $I=[0,1]$ is connected: 3 cases, by contradiction. \textbf{(Part 2)} Note $d_{\infty}(\bx,\by)\leq d_{2}(\bx,\by) \leq \sqrt{n} d_{\infty}(\bx,\by)$. So $A$ is bounded under $d_{2}$ if and only if it is bounded under $d_{\infty}$. So we need to consider square metric $d_{\infty}$ only. ($\Rightarrow$) Assume $A$ compact. Since $A\subset \R^n$ is compact and $\R^n$ is $T_2$, $A$ is closed. To show it is bounded, consider an open cover $\calA = \{B_{d_{\infty}}(\mathbf{0}, m) \mid m\in \Z_+\}$ for $\R^n$. Since $A\subset \R^n$ is compact, some finite collections covers $A$. So $A\subset B_{d_{\infty}}(\mathbf{0}, M)$ for some $M<\infty$. So any $\bx,\by\in A$ has $d_{\infty}(\bx,\by) \leq 2M$. Hence $A$ is bounded. ($\Leftarrow$) Idea is to find a compact superset of $A$, when combined with the fact that $A$ is closed, gives $A$ is compact. Assume for any $\bx,\by\in A$, $d_{\infty}(\bx,\by)\leq N$. Let $\bx_0\in A$ and let $b = d_{\infty}(\bx_0,\mathbf{0})$. Then for any $\bx\in A$, we have $d_{\infty}(\mathbf{0}, \bx) \leq d_{\infty}(\mathbf{0}, \bx_0) + d_{\infty}(\bx_0, \bx) \leq N + b = P$. Therefore $A\subset \textstyle \prod_{i=1}^n [-P,P]$ which is compact since $[-P,P]\subset\R$ is compact and finite product of compact set is compact. Since $A$ is closed and $A\subset [-P,P]^n$, $A$ is also compact.
+    \end{proof}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{(Extreme Value Theorem)} Let $f:X\to Y$ be continuous, $Y$ is in order topology. If $X$ is compact, then $f$ attains its maximum and minimum, i.e. $\exists c,d\in X$ such that $f(c) = \textstyle\inf_{x\in X} f(x)$ and $f(d) =\textstyle\sup_{x\in X} f(x)$
+    \begin{proof}
+        Now show $f$ attains its maximum, proof for minimum is similar.
+        ($\Rightarrow$) Since $f$ continuous and $X$ compact, then $A = f(X)$ is compact. Enough to show that $A$ contains its largest element $M$, and since $M\in A$, $M=f(d)$ for some $d\in X$. By contradiction assume $A$ has no largest element, the $\calA = \{(-\infty, a) \mid a\in A \}$ forms an open covering of $A$. Since $A$ compact, $\{(-\infty, a_1),\cdots,(-\infty, a_n)\}$ covers $A$. Let $a = \max \{a_1, \cdots, a_n\}$. Note $a\not\in (-\infty, a_i)$ for all $1\leq i \leq n$. Since $a\in A$, $a$ is not covered by $\calA$ which is a contradiction. (Alternatively, simply use the fact that $f(X)$ is a compact subspace of $T_2$ space $Y$ so closed, and therefore $\textstyle\sup_{x\in X} f(x) \in f(X)$)
+    \end{proof}
+\end{theorem*}
+ 
+\begin{defn*}
+    \textbf{(point-set distance)} Let $(X,d)$ be metric, let $A\subset X$ be nonempty. For each $x\in X$, define \textbf{distance from $x$ to $A$} by $d(x,A) = \inf \{d(x,a)\mid a\in A\}$. 
+    \begin{itemize}
+        \item (lemma) Fixing $A$, $d: X\to \R \; x \mapsto d(x,A)$ is a continuous function 
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{(diameter)} For metric space $(X,d)$ and $A\subset X$,  $diam(A,d) = \sup \{d(a_1,a_2) \mid a_1,a_2 \in A\}$
+\end{defn*}
+
+\begin{lemma*}
+    \textbf{(Lebesgue Number Lemma)} Let $\calA$ be open covering of metric space $(X,d)$. If $X$ is compact, there is a $\delta > 0$ such that for each subset of $X$ having diameter less than $\delta$, there exists an element of $\calA$ containing it. The number $\delta$ is a \textbf{Lebesgue number} for the covering $\calA$. In other words, 
+    \[
+        X \text{ compact } \quad \Rightarrow \quad
+        \exists \delta > 0 \;\; \forall B\subset \calP(X) \;\; ( diam(B,d) < \delta  \Rightarrow  \exists A\subset \calA \;  B\subset A )
+    \]
+    \begin{proof}
+        Let $\calA$ be a cover for $X$. If $X \in \calA$, then $\delta>0$ could be any since $X$ contains any subsets in $X$. Now assume $X\not\in \calA$. Choose finite $\{A_1, \cdots, A_n\} \subset \calA$ covering $X$. For each $i$, let $C_i = X \setminus A_i$. Define $f:X\to\R$ by 
+        \[
+            f(x) = \frac{1}{n} \sum_{i=1}^n d(x, C_i)    
+        \]
+        Key idea is $f(x) \geq 0$. Consider any $x\in X$, pick $\epsilon$ such that $B_{\epsilon}(x)\subset A_i$, then $d(x,C_i) \geq \epsilon$, so then $f(x) \geq \epsilon /n$. Note $f$ is continuous and by extreme value theorem attains its minimum $\delta$. Now we show $\delta$ is the Lebesgue number for $\calA$. Let $B\subset X$ having diameter less than $\delta$, let $x_0\in B$ be arbitrary. Note $B\subset B_{\delta}(x_0)$. By definition of $f$ as the average distance to all $C_i$s, since $f(x_0) \geq \delta$, we have $d(x_0, C_m) \geq \delta$ for some $C_m$. Therefore $B\subset X \setminus C_m = A_m \subset \calA$.
+    \end{proof}
+\end{lemma*}
+
+
+\begin{defn*}
+    \textbf{(Uniform Continuity)} Given $(X,d_X)$ and $(Y,d_Y)$ metric, then $f:X\to Y$ \textbf{uniformly continuous} if
+    \[
+        \forall \epsilon > 0 \; \exists \delta > 0 \; \forall x_0,x_1\in X \qquad
+        \left(
+            d_X(x_0, x_1) < \delta \Rightarrow d_Y(f(x_0), f(x_1)) < \epsilon
+        \right)
+    \]
+    \begin{itemize}
+        \item (note) Idea is one $\delta > 0$ works for all $x,y\in X$ nearby such that $f(x),f(y)\in Y$ are also nearby
+        \item \underline{(theorem)} Given continuous $f:X\to Y$, where $X,Y$ are metric and $X$ is compact, then $f$ is uniformly continuous
+    \end{itemize}
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{(continuous function on compact space is uniformly continuous)}
+    \begin{proof}
+        Let $\epsilon >0$. take open covering of $Y$ by balls $B(y, \epsilon/2)$. Let $\calA = \{ f^{-1}(B(y, \epsilon/2)) \mid y\in Y \}$ be open covering for $X$. Let $\delta$ be Lebesgue Number for $\calA$ on compact $X$. Let $x_0, x_1\in X$ such that $d_X(x_0, x_1) \leq \delta$. Then $diam(\{x_0, x_1\}) \leq \delta$, and by Lebesgue Number Lemma, $\exists A \in\calA$ such that $\{x_0, x_1\} \in A = f^{-1}(B(y, \epsilon/2))$ for some $y\in Y$. Therefore, $d_Y(f(x_0), f(x_1)) < \epsilon$
+    \end{proof}
+\end{defn*}
+
+
+\subsubsection{\linkbook{188}{28 Limit Point Compactness}}
+\newpage
+
+
+
+\section{Countability and Separation Axioms}
+
+
+\newpage
+\section{The Tychonoff Theorem}
+\subsubsection{\linkbook{240}{37 The Tychnoff Theorem}}
+
+\begin{lemma*}
+    \textbf{(Get Maximal $\calD\subset\calP(X)$ with FIP using Zorn's Lemma)} Let $X$ be a set; $\calA \subset \calP(X)$ having finite intersection property. Then there exists a collection $\calD \subset\calP(X)$ such that
+    \begin{enumerate}
+        \item $\calD \supset \calA$
+        \item $\calD$ has finite intersection property
+        \item no collection $\calD'\subset\calP(X)$ where $\calD' \supsetneq \calD$ has finite intersection property
+    \end{enumerate}
+    Call $\calD$ as maximal with respect to FIP
+    \begin{proof}
+        Let $\mathbbm{C}$ be a superset whose elements are collections of subsets of $X$, i.e. $\calA,\calD\in \mathbbm{C}$. Let 
+        \[
+            \mathbbm{A} = \{ \calB\subset \calP(X) \mid \calB \supset \calA \;\text{ and }\; \calB \text{ has FIP } \}  
+        \]
+        Use $\subsetneq$ as strict ordering on $\mathbbm{A}$. In order to apply Zorn's lemma on $(\mathbbm{A}, \subsetneq)$, we show if $\mathbbm{B} \subset \mathbbm{A}$ that is simply orderd by $\subsetneq$, then $\mathbbm{B}$ has an upper bound in $\mathbbm{A}$. Let $\calC = \cup_{\calB \in \mathbbm{B}} \calB$ and we show that $\calC$ is an element of $\mathbbm{A}$, and then it is the required upper bound for $\mathbbm{B}$. To show $\calC \in \mathbbm{A}$. We show
+        \begin{enumerate}
+            \item ($\calA\subset\calC$) obvious since any $\calB\in\mathbbm{B}$ has $\calA \subset \calB$
+            \item ($\calC$ has FIP) Let $C_1,\cdots,C_n\subset\calC$ a finite subset, we want to show that their intersection is nonempty. Since $\calC = \cup_{\calB\in\mathbbm{B}} \calB$, $\calC_i \in\calB_i$ for each $i$. Hence, $\{\calB_1, \cdots, \calB_n\} \subset\mathbbm{B}$. Since $\mathbbm{B}$ is assumed to be simply ordered, there exists $\calB_k$ such that $\calB_i \subset\calB_k$ for all $i\neq k$. Therefore $\{C_1, \cdots, C_n\}\subset \calB_k$. Since $\calB_k$ has FIP, $\cap_{i=1}^n C_i \neq \emptyset$ as desired.
+        \end{enumerate}
+        Hence the upper bound $\calC$ is inside $\mathbbm{A}$
+    \end{proof}
+\end{lemma*}
+
+\begin{lemma*}
+    \textbf{(Intersection on Maximal $\calD$ w.r.t FIP)} Let $X$ be a set and $\calD$ be a collection of subsets of $X$ that is maximal with respect to the finite intersection property. Then,
+    \begin{enumerate}
+        \item Any finite intersection of elements of $\calD$ is an element of $\calD$
+        \item If $A\subset X$ that intersects every element of $\calD$, then $A$ is an element of $\calD$
+    \end{enumerate}
+    \begin{proof}
+        \textbf{(Part 1)} Let $B$ be intersection of finitely many elements of $\calD$. Let $\calE = \calD \cup \{B\}$. To prove $B\in \calD$, we show $\calE$ has FIP so by maximality of $\calD$, $\calE=\calD$ and $B\in \calD$. Now take finitely many elements of $\calE$, if none of them is $B$, then their intersection is nonempty since they are a subset of $\calD$ which has FIP. Now if one of finitely many elements of $\calE$ is $B$, then the intersection $D_1 \cap \cdots \cap D_m \cap B$ is nonempty since $B$ is the intersection of finitely many elements of $\calD$. \textbf{(Part 2)} Let $X\subset X$ s.t. $A\cap D \neq \emptyset$ for all $D\in \calD$. Similar to idea of part 1, define $\calE = \calD \cup \{A\}$. We show that $\calE$ has FIP. Now take finitely many elements of $\calE$. If none of them is $A$, then they are nonempty by FIP of $\calD$. Otherwise, $D_1\cap \cdots \cap D_m \cap A$ is nonempty since $A\cap D_j$ for all $1\leq j\leq m$ by assumption.
+    \end{proof}
+\end{lemma*}
+
+\begin{theorem*}
+    \textbf{(Tychonoff Theorem)} Arbitrary product of compact spaces is compact in product topology
+    \begin{proof}
+        Let $X = \textstyle \prod_{\alpha\in J} X_{\alpha}$ where each space $X_{\alpha}$ is compact. Let $\calA\subset\calP(X)$ be arbitrary and have FIP, now we show that $\cap_{A\in\calA} A$ is nonempty, thereby proving that $X$ is compact. We apply lemma 1 to find a maximal collection $\calD$ such that $\calA\in\calD$ and $\calD$ has FIP. Now we show that $\cap_{D\in\calD} \overline{D}$ is nonempty. Let $\pi_{\alpha}: X\to X_{\alpha}$ be projection map. For each $\alpha$, consider $\{\pi_{\alpha}(D) \mid D\in\calD \} \subset X_{\alpha}$ which has FIP since $\calD$ does. By compactness, we can chooose $x_{\alpha} \in \cap_{D\in\calD} \overline{\pi_{\alpha}(D)}$, which is possible by FIP. Let $\bx = (x_{\alpha})_{\alpha\in J} \in X$. To complete the proof, we show that $\bx \in \cap_{D\in\calD} \overline{D}$. Consider any coordinate index $\beta$ and any $D\in\calD$, let $U_{\beta} \subset X_{\beta}$ be a neighborhood of $x_{\beta}$. Since $x_{\beta} \in \overline{\pi_{\beta}(D)}$, $U_{\beta}$ intersects $\pi_{\beta}(D)$. Let $\pi_{\beta}(\by) \in U_{\beta} \cap \pi_{\beta}(D)$ for some $\by \in D$. Hence $\by \in \pi_{-1}(U_{\beta}) \cap D$. Since $D$ is arbitrary, by lemma 2.2, $\pi^{-1}(U_{\beta}) \in\calD$. Since $\beta$ arbitrary, this holds for all $\beta\in J$. Then any basis element containing $\bx$ as finite intersection of subbasis $\pi^{-1}(U_{\beta}) \in\calD$, then by lemma 2.1, is also in $\calD$. Now use $\calD$ FIP again, $B\cap D \neq \emptyset$ where $D\in\calD$ and $B\in\calD$ is any basic element containing $\bx$. $\bx \in \cap_{D\in\calD} \overline{D}$
+    \end{proof}
+\end{theorem*}
 
 
 

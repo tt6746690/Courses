@@ -320,7 +320,7 @@
     \begin{itemize}
         \item \textbf{(lemma)} $Y\subset X$. $U$ open in $Y$ and $Y$ open in $X$, then $U$ open in $X$
         \item \textbf{(lemma)} A subspace of a subspace is a subspace
-        \item \textbf{\underline{(theorem)}} A product of subspaces is a subspace of the product \textit{(subspace and product topology work well)}
+        \item \underline{(theorem)} A product of subspaces is a subspace of the product \textit{(subspace and product topology work well)}
         \item $X$ ordered and $Y\subset X$. order topology on $Y$ may not be same as order topology of $Y$ inherited as a subspace of $X$ (\textit{subspace and order topology does not work well})
         \begin{itemize}
             \item Let $Y=[0,1] \subset \R$. $\calB_Y$ are of the form $(a,b) \cap [0,1]$. Note
@@ -335,7 +335,7 @@
                 \item $\calT_{ord} \not\cong \calT_{subspace}$
             \end{enumerate}
         \end{itemize}
-        \item \textbf{\underline{(theorem)}} \textit{subspace and order topology works well if the subspace is convex}
+        \item \underline{(theorem)} \textit{subspace and order topology works well if the subspace is convex}
     \end{itemize}
 \end{defn*}
 
@@ -501,9 +501,9 @@
     \]
     \begin{itemize}
         \item \textbf{(motivation)} Generally, one point set not always closed; Sequences converges can converge to more than limit. 
-        \item \textbf{\underline{(theorem)}} Every finite point set, specifically one-point set, in a Hausdorff space is closed
-        \item \textbf{\underline{(theorem)}} If $X$ is $T_2$, then a sequence of points of $X$ converges to at most 1 point of $X$
-        \item \textbf{\underline{(theorem)}} Every simply ordered set is $T_2$ in the order topology. Product of two $T_2$ space is $T_2$; Subspace of a $T_2$ space is $T_2$ (order/product/subspace topology well behaved with $T_2$)
+        \item \underline{(theorem)} Every finite point set, specifically one-point set, in a Hausdorff space is closed
+        \item \underline{(theorem)} If $X$ is $T_2$, then a sequence of points of $X$ converges to at most 1 point of $X$
+        \item \underline{(theorem)} Every simply ordered set is $T_2$ in the order topology. Product of two $T_2$ space is $T_2$; Subspace of a $T_2$ space is $T_2$ (order/product/subspace topology well behaved with $T_2$)
         \item \textbf{(examples)}
         \begin{itemize}
             \item $\R^n_{std}$, $X_{disc}$ are $T_2$
@@ -1194,7 +1194,9 @@
     \textbf{(Lebesgue Number Lemma)} Let $\calA$ be open covering of metric space $(X,d)$. If $X$ is compact, there is a $\delta > 0$ such that for each subset of $X$ having diameter less than $\delta$, there exists an element of $\calA$ containing it. The number $\delta$ is a \textbf{Lebesgue number} for the covering $\calA$. In other words, 
     \[
         X \text{ compact } \quad \Rightarrow \quad
+        \Big(\;
         \exists \delta > 0 \;\; \forall B\subset \calP(X) \;\; ( diam(B,d) < \delta  \Rightarrow  \exists A\subset \calA \;  B\subset A )
+        \;\Big)
     \]
     \begin{proof}
         Let $\calA$ be a cover for $X$. If $X \in \calA$, then $\delta>0$ could be any since $X$ contains any subsets in $X$. Now assume $X\not\in \calA$. Choose finite $\{A_1, \cdots, A_n\} \subset \calA$ covering $X$. For each $i$, let $C_i = X \setminus A_i$. Define $f:X\to\R$ by 
@@ -1222,7 +1224,7 @@
 
 
 \begin{defn*}
-    \textbf{(continuous function on compact space is uniformly continuous)}
+    \textbf{(Uniform Continuity Theorem)} continuous function on compact space is uniformly continuous
     \begin{proof}
         Let $\epsilon >0$. take open covering of $Y$ by balls $B(y, \epsilon/2)$. Let $\calA = \{ f^{-1}(B(y, \epsilon/2)) \mid y\in Y \}$ be open covering for $X$. Let $\delta$ be Lebesgue Number for $\calA$ on compact $X$. Let $x_0, x_1\in X$ such that $d_X(x_0, x_1) \leq \delta$. Then $diam(\{x_0, x_1\}) \leq \delta$, and by Lebesgue Number Lemma, $\exists A \in\calA$ such that $\{x_0, x_1\} \in A = f^{-1}(B(y, \epsilon/2))$ for some $y\in Y$. Therefore, $d_Y(f(x_0), f(x_1)) < \epsilon$
     \end{proof}
@@ -1230,16 +1232,275 @@
 
 
 \subsubsection{\linkbook{188}{28 Limit Point Compactness}}
+
+
+
 \newpage
-
-
-
 \section{Countability and Separation Axioms}
+
+
+\subsubsection{\linkbook{200}{30 The Countability Axioms}}
+
+\begin{defn*}
+    \textbf{(First Countability Axiom $\alpha_1$)} A space $X$ have a \textbf{countable basis at} $x$ if there is a countable collection $\calB$ of neighborhoods of $x$ such that each neighborhood of $x$ contains at least one of the elements of $\calB$. A space that has a countable basis at each of its points is said to satisfy the \textbf{first countability axiom}, or to be \textbf{first countable}
+    \begin{itemize}
+        \item (theorem) Every metrizable space is first countable
+        \item (observation) convergent sequences are adequate to detect limit points of sets and to check continuity of functions
+    \end{itemize}
+\end{defn*}
+
+
+\begin{theorem*}
+    \textbf{(Convergent Sequences in First Countable Space)} Let $X$ be a space
+    \begin{enumerate}
+        \item (the sequence lemma) Let $A\subset X$, if there is a sequence of points of $A$ converging to $x$, then $x\in \overline{A}$ ($seq\mdash cl(A)\subset cl(A)$); Converse holds if $X$ is first-countable
+        \item (sequence continuity) Let $f:X\to Y$. If $f$ is continuous, then very convergent sequence $x_n \to x$ in $X$, the sequence $f(x_n) \to f(x)$; Converse holds if $X$ is first-countable
+    \end{enumerate}
+\end{theorem*}
+
+\begin{defn*}
+    \textbf{(Second Countability Axiom $\alpha_2$)} If a space $X$ has a countable basis for its topology, then $X$ is said to satisfy the \textbf{second countability axiom}, or to be \textbf{second-countable}
+    \begin{itemize}
+        \item (theorem) second countable implies first countable
+        \item (fact) not all metrizable space is second countable (this axiom is very strong!)
+        \item (examples)
+        \begin{itemize}
+            \item $\R$ is second countable ($\calB = \{(a,b)\mid a,b\in \Q\}$ countable)
+            \item $\R^n$ is second countable ($\calB = \{ \textstyle\prod_{i=1}^n (a_i, b_i) \mid a_i,b_i \in\Q \}$ countable)
+            \item $\R^{\omega}$ is second countable in product topology ($\textstyle \calB = \{ \prod_{i\in I} (a_1, b_1) \times \prod_{i\not\in I} \R \mid a_i, b_i \in\Q \;\; I \text{ countable }\}$ countable)
+            \item $\R^{\omega}$ is not second countable in box topology ($\textstyle \calB = \{ \prod_{i=1}^{\infty} \mid a_i,b_i\in\Q \}$ is not countable)
+            \item $\R^{\omega}$ is first countable (being metrizable) but not second countable under uniform topology
+        \end{itemize}
+        \item (theorem) Countability Axioms behaves well for subspaces or countable products
+        \item (theorem) Every open cover in a second countable space contains a countable subcover
+        \item (theorem) Second countable space has a countable dense subset, i.e. $X$ second countable, $\exists A\subset X$ s.t. $\overline{A}=X$
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{(Dense)} A subset $A\subset X$ is \textbf{dense} in $X$ if $\overline{A} = X$ 
+    \begin{itemize}
+        \item (example) $\Q$ and $\R-\Q$ are dense in $\R$
+    \end{itemize}
+\end{defn*}
+
+
+\subsubsection{\linkbook{205}{31 The Separation Axioms}}
+
+\begin{defn*}
+    \textbf{($T_0$ Space)} $X$ is $T_0$ if for $x,y\in X$ where $x\neq y$, then either 
+    \begin{enumerate}
+        \item exists open $U$ such that $x\in U$ and $y\not\in U$ 
+        \item exists open $U$ such that $y\in U$ and $x\not\in U$
+    \end{enumerate}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{(Separated)} Let $x,y\in X$, $x$ and $y$ can be separated if each lies in a neighborhood which does not contain the other point. (neighborhood not necessarily disjoint)
+    \[
+        \forall x\neq y\in X \qquad \exists \text{ neighborhoods } U,V \text{ for } x,y \text{ respectively s.t. } y\not\in U \text{ and }x\not\in V
+    \]
+\end{defn*}
+
+\begin{defn*}
+    \textbf{($T_1$ Space)} $X$ is $T_1$ if any two distinct points in $X$ are separated
+    \begin{itemize}
+        \item \underline{(theorem)} A space is $T_1$ if and only if singleton/finite sets are closed
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{($T_2$ Hausdorff Space)} 
+    A topological space $X$ is called Hausdorff space if $X$ is $T_1$ and for each pair $x_1,x_2$ of distinct points of $X$, there exists neighborhoods $U_1$ and $U_2$ of $x_1$ and $x_2$, respectively that are disjoint.
+    \[
+        \forall x \neq y \in X \qquad \exists \text{ neighborhoods } U, V \text{ of x and y respectively}  \text{ s.t. } U\cap V = \emptyset
+    \]
+    \begin{itemize}
+        \item \underline{(theorem)} $T_2 \Rightarrow T_1$
+        \item \underline{(theorem)} If $X$ is $T_2$ and compact, then $X$ is $T_3$
+        \item \underline{(theorem)} If $X$ is $T_2$, then a sequence of points of $X$ converges to at most 1 point of $X$
+        \item \underline{(theorem)} $T_2$ is well behaved under order/product/subspace topology
+        \item (examples)
+        \begin{itemize}
+            \item $\R^n_{std}$, $X_{disc}$ are $T_2$
+            \item $X_{triv}$ not $T_2$ except when $|X_{triv}| =1$
+            \item $X_{f.c.}$ not $T_2$ when $X$ is infinite (since any $x,y\in X_{f.c.}$ are infinite and intersects)
+        \end{itemize}
+    \end{itemize}
+\end{defn*}
+
+
+\begin{defn*}
+    \textbf{($T_3$ Regular Space)} $X$ is \textbf{regular} if $X$ is $T_1$ and for each pair consisting of a point $x$ and a closed set $B$ disjoint from $x$, there exists disjoint open sets containing $x$ and $B$, respectively.
+    \[
+        \forall x\in X \; B \subset X \text{ closed s.t. } x\not\in B \qquad \exists\; U,V \text{ open s.t. } x\in U \;\; B\subset V \;\; U\cap V = \emptyset
+    \]
+    \begin{itemize}
+        \item (lemma) $X$ regular iff given $x\in X$ and neighborhood $U$ of $x$, exists neighborhood $V$ of $x$ such that $\overline{V} \subset U$
+        \item \underline{(theorem)} $T_3$ is well behaved under subspace/product 
+    \end{itemize}
+ \end{defn*}
+
+\begin{defn*}
+    \textbf{($T_4$ Normal Space)} $X$ is \textbf{normal} if $X$ is $T_1$ and for each pair $A,B$ of disjoint closed sets of $X$, there exists disjoint open sets containing $A$ and $B$, respectively.
+    \[
+        \forall A,B\subset X \text{ closed s.t. } A\cap B=\emptyset \qquad \exists\; U,V \text{ open s.t. } A\subset U \;\; B\subset V \;\; U\cap V = \emptyset
+    \]
+    \begin{itemize}
+        \item (lemma) $X$ normal iff given $A\subset X$ and neighborhood $U$ of $A$, exists neighborhood $V$ of $A$ such that $\overline{V} \subset U$
+        \item (observation) $T_4$ is not well behaved under subspace/product 
+        \item \underline{(theorem)} $T_3 + \alpha_2 \Rightarrow T_4$
+        \item \underline{(theorem)} metrizable $\Rightarrow$ $T_4$
+        \item \underline{(theorem)} compact $+ T_2 \Rightarrow T_4$
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{($T_{3.5}$ Completely Regular Space)} $X$ is completely regular if $X$ is $T_1$ and for all $x\in X$, $B\subset X$ closed, $x\not\in B$, there exists a continuous function $f:X\to [0,1]$ such that $f(x)=1$ and $f|_B = \{0\}$
+    \begin{itemize}
+        \item \underline{(theorem)} $X$ is $T_{3.5}$ if and only if $\{ f^{-1}((0, \infty)) \mid f:X\to \R \text{ continuous } \}$ is a basis for $\calT_X$ ($\Rightarrow$ check 2 axioms for a basis. (1) Let $U$ open and let $x\in U$, can find $f:X\to [0,1]$ such that $f|_{U^c} = \{0\}$ and $f(x)=1$, hence $x\in f^{-1}((0, \infty)) \subset U$. Let $U,V$ open and let $x\in U\cap V$, can find $f:X\to [0,1]$ such that $f|_{(U\cap V)^c} = \{0\}$ and $f(x)=1$, hence $x\in f^{-1}((0, \infty)) \subset U\cap V$. $\Leftarrow$ Let $x\in X$ and $B\in X$ closed s.t. $x\not\in B$. Let $U=X-B$ so $x\in U$. Hence can find continuous $f:X\to [0,1]$ such that $f(x) = 1$ and $f(B^c) = \{0\}$. Hence $T_{3.5}$
+        \item \underline{(theorem)} $T_{3.5}$ well behaved with subspace/product (subspace easy. product tricky. Let $\ba=(a_{\alpha})$ disjoint from closed set $A\subset X = \textstyle \prod X_{\alpha}$. Consider basis element $\textstyle \prod U_{\alpha}$ containing $\ba$ disjoint from $A$. Since each $X_{\alpha}$ $T_{3.5}$ can find $f_i: X_{\alpha_i} \to [0,1]$ for $\{a_1, \cdots, a_n\}$ where $X_{\alpha_i} \neq U_{\alpha_i}$ such that $f_i(a_{\alpha_i}) = 1$ and $f_i(X-U_{\alpha_i}) = \{0\}$. Let $\phi_i(\bx) = (f_i \circ \pi_{\alpha_i} )(\bx)$; $\phi_i$ maps $X$ continuously into $\R$ and vanishes outside $\pi_{\alpha_i}^{-1}(U_{\alpha_i})$. Hence $f(\bx) = \phi_1(\bx) \cdot \phi_2(\bx) \cdot \cdots \cdot \phi_n(\bx)$ is continuous on $X$ and equal 1 at $\ba$ and vanishes outside $\textstyle \prod U_{\alpha}$)
+        \item \underline{(theorem)} $T_4 \Rightarrow T_{3.5}$ ($T_{4} \iff T_{4.5} \Rightarrow T_{3.5}$)
+        \item \underline{(theorem)} $T_{3.5} \Rightarrow T_3$ (by $f^{-1}([0, 0,5)$ and $f^{-1}((0,5, 1])$ separates $B$ and $\{x\}$)
+    \end{itemize}
+\end{defn*}
+
+\begin{defn*}
+    \textbf{($T_{4.5}$ Completely Normal Space)} $X$ is completely normal if $X$ is $T_1$ and for all $A,B\subset X$ closed $A\cap B=\emptyset$, there exists a continuous function $f:X\to [0,1]$ such that $f|_A = \{0\}$ and $f|_B= \{1\}$. We say $A$ and $B$ can be separated by a continuous function
+    \begin{itemize}
+        \item \underline{(theorem)} $T_{4.5} \iff T_4$ ($\Rightarrow$ by Urysohn lemma; $\Leftarrow$ by $f^{-1}([0, 0,5)$ and $f^{-1}((0,5, 1])$ separates $A$ and $B$)
+    \end{itemize}
+\end{defn*}
+
+
+\subsubsection{\linkbook{210}{32 Normal Spaces}}
+
+\begin{theorem*}
+    \textbf{(Every regular space with a countable basis is normal)} $T_3 + \alpha_2 \Rightarrow T_4$
+    \begin{proof}
+        Let $A,B$ disjoint closed subsets of $X$. For each $x\in A$, exists open neighborhood $U$ s.t. $U\cap B = \emptyset$. By regularity, exists neighborhood $V$ of $x$ such that $\overline{V}\subset U$. Now since there is a countable basis, pick an element from $U_x \in \calB$ such that $x\in U_x\subset V$. Pick such $U_x$ for every $x\in A$, we find a countable covering for $A$, i.e. $\{U_n\}$, such that each $\overline{U}_n \cap B = \emptyset$. Similarly choose $\{V_n\}$ as a covering for $B$ where each $\overline{V}_n \cap A = \emptyset$. But note that $U=\cup_n U_n$ and $V=\cup_n V_n$ not necessarily disjoint. Use trick 
+        \[
+            U_n' = U_n - \bigcup_{i=1}^n \overline{V}_i 
+            \qquad 
+            V_n' = V_n - \bigcup_{i=1}^n \overline{U}_i
+            \qquad 
+            \qquad 
+            U' = \bigcup_{n\in \Z_+} U_n'
+            \quad
+            V' = \bigcup_{n\in \Z_+} V_n'
+        \]
+        to avoid $U_n$s and $V_n$s from potential intersections. Each $U_n',V_n'$ are open since each is difference of an open set with a closed set. Note $\{U_n'\}$ covers $A$, since any $x\in A$ is in some $U_n$ and in no $\overline{V}_i$. Similarly $\{V'_n\}$ covers $B$. Now we show $U' \cap V' = \emptyset$. Suppose $x\in U' \cap V'$. Then $x\in U_j' \cap V_k'$ for some $j,k$. Suppose $j\leq k$, then by definition of $U_j'$, $x\in U_j$ and by definition of $V_k'$, $x\not\in U_j$. here is a contradiction.
+    \end{proof}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{(Every metrizable space is normal)} metrizable $\Rightarrow$ $T_4$
+    \begin{proof}
+        Given $(X,d)$. Let $A,B\subset X$ disjoint and closed. For each $a\in A$, find $\epsilon_a$ s.t. $B_{\epsilon}(a) \cap B = \emptyset$. Let $U = \cup_{a\in A} B_{\epsilon_a/2}(a)$, similarly for $V=\cup_{b\in B} B_{\epsilon_b/2}(b)$. Note $A\subset U$ and $B\subset V$. Now claim they are disjoint. Suppose $x\in U\cap V$. then $x\in B_{\epsilon_a}(a) \cap B_{\epsilon/b}(b)$ for some $a\in A$ and $b\in B$. Then $d(a,b) \leq d(a,x)+d(x,y) \leq (\epsilon_a+\epsilon_b)/2$, implying either $d(a,b)< \epsilon_a$ or $\epsilon_b$. If former, then $b\in B_{\epsilon_a}(a)$, which is a contradiction. Same for the latter case.
+    \end{proof}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{(Compact Hausdorff space is normal)} compact $+ T_2 \Rightarrow T_4$
+    \begin{proof}
+        Let $A,B$ be disjoint closed subsets of $X$. For each $a\in A$, find $U_a, V_a$ disjoint containing $a$ and $B$ respectively, by regularity of $X$. $\{U_a\}$ covers $A$. Since $A$ compact, $\{U_i \mid i\in I\}$ is a finite cover for $A$. Let $U = \cup_{i\in I} U_i$ and $V = \cap_{i\in I} V_i$ are disjoint open sets containing $A$ and $B$ respectively.
+    \end{proof}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{(Every order topology is normal)} order $\Rightarrow T_4$
+\end{theorem*}
+
+
+
+\subsubsection{\linkbook{216}{33 The Urysohn Lemma}}
+
+\begin{theorem*}
+    \textbf{(Urysohn Lemma $T_4 \Rightarrow T_{4.5}$)} Let $X$ be $T_4$; let $A$ and $B$ be disjoint subsets of $X$. There exsits continuous map $f:X\to [a,b]$ such that $f(x) = a$ and $f(B) =\{b\}$
+    \begin{proof}
+        Proof sketch
+        \begin{enumerate}
+            \item Construct a simply ordered, countable set $\{U_p \mid p \in [0,1]\cap \Q \}$ such that for all $p<q$, $\overline{U}_p \subset U_q$.
+            \item Extend $U_p$ for $p\in \Q$ by defining $U_p = \emptyset$ if $p<0$ and $U_p = X$ if $p>1$
+            \item Consider $f(x) = \inf \{ p \mid x\in U_p \}$ and show $f$ is the desired function
+            \begin{enumerate}
+                \item $x\in A$, then $x\in U_p$ for all $p\geq 0$, hence $f(x) = \inf \{p \in\Q \mid p \geq 0 \} = 0$
+                \item $x\in B$, then $x\in U_p$ for no $p \leq 1$, hence $f(x) = \inf \{p\in \Q \mid p > 1 \} = 1$
+                \item $f$ continuous
+                \begin{itemize}
+                    \item (fact) $x\in \overline{U}_r \Rightarrow f(x) \leq r$ (since $x\in U_s$ for all $s>r$, $f(x) = \inf\{p\in \Q \mid p > r\} \leq r$)
+                    \item (fact) $x\not\in U_r \Rightarrow f(x)\geq r$ (since $x\not\in U_s$ for any $s<r$, $f(x) = \inf\{p\in\Q \mid p \geq r\} \geq r$)
+                \end{itemize}
+                Let $x_0\in X$ and $(c,d)\in\R$, want to find neighborhood $U$ of $x_0$ such that $f(U) \in (c,d)$. Pick $p,q\in\Q$ such that $c < p < f(x_0) < q < d$. Let $U = U_q - \overline{U}_p$. Let $y\in U$. By $y\in U_q \in \overline{U}_q$, we have $f(y) \leq q$. By $y\not\in \overline{U}_p$ implying $y\not\in U_p$, we have $f(y) \geq p$. Therefore $f(y) \in [p,q] \subset (c,d)$
+            \end{enumerate}
+        \end{enumerate}
+    \end{proof}
+\end{theorem*}
+
+
+\subsubsection{\linkbook{224}{34 The Urysohn Metrization Theorem}}
+
+
+\begin{theorem*}
+    \textbf{(Imbedding Theorem)} Let $X$ be $T_1$. Suppose $\{f_{\alpha}\}_{\alpha\in J}$ is an indexed family of continuous functions $f_{\alpha}: X\to\R$ satisfying requiremen that for each $x_0\in X$ and each neighborhood $U$ of $x_0$, there is an index $\alpha$ such that $f_{\alpha}(x_{\alpha}) > 0$ and $f_{\alpha}(X-U) = \{0\}$. Then the function $F:X\to\R^J$ defined by 
+    \[
+        F(x) = (f_{\alpha}(x))_{\alpha\in J}
+    \]
+    is am imbedding of $X$ in $\R^J$. If $f_{\alpha}$ maps $X$ to $[0,1]$ for each $\alpha$, then $F$ imbeds $X$ in $[0,1]^J$.
+    \begin{proof}
+        Let $\R^{\omega}$ be in product topology. Recall $F(x) = (f_{\alpha_1}(x), f_{\alpha_2}(x), \cdots)$). Note $F$ is continuous, since each $f_{\alpha}$ is continuous. $F$ is injective. Indeed, any $x\neq y\in X$, can find neighborhood $U$ of $x$ such that $y\in U^c$, so we can find $\alpha \in J$ such that $f_{\alpha}(x) > 0$ and $f_{\alpha}(y) = 0$, implying $F(x)\neq F(y)$. To prove $F$ is an imbedding, enough to show $X\cong F(X)\subset\R^J$. Only left to prove $F$ is an open map. Let $U\in X$, want to show $F(U)$ is open in $Z$. Let $x_0\in X$ and $y_0=F(x_0)\in \R^J$. We want to find open $W$ such that $y_0\in W\subset F(U)$. We can pick $\alpha$ such that $f_{\alpha} (x_0) > 0$ and $f_{\alpha}(U^c) = \{0\}$. Let $W = F(X) \cap \pi_{\alpha}^{-1}((0, \infty)) \subset \R^J$. Show
+        \begin{enumerate}
+            \item ($y_0\in W$) $y_0 \in F(X)$ by assumption. $\pi_{\alpha}(y_0) = \pi_{\alpha}(F(x_0)) = f_{\alpha}(x_0) > 0$. Therefore $y_0 \in \pi_{\alpha}^{-1}((0, \infty))$. 
+            \item ($W\subset F(U)$) Let $y\in W$, exists $x\in X$ such that $f(x) = y$ and $\pi_{\alpha}(y) = (0, \infty)$. Since $\pi_{\alpha}(y) = \pi_{\alpha}(F(x)) = f_{\alpha}(x)$ and $f_{\alpha}(x) = 0$ if $x\in X-U$, then $x\in U$.
+        \end{enumerate}
+        Therefore, $F$ is an imbedding of $X$ in $\R^J$ 
+    \end{proof}
+    \begin{itemize}
+        \item \underline{(theorem)} $X$ is $T_{3.5}$ if and only if $X$ imbeds in $[0,1]^J$ for some $J$ ($X$ is $T_{3.5}$ satisfies requirement for $\{f_{\alpha}\}_{\alpha\in J}$)
+        \item \underline{(theorem)} $X$ is $T_3$ and has a countable basis, then $T_3$ imbeds in $[0,1]^{\omega}$ (Urysohn Metriation Theorem)
+    \end{itemize}
+\end{theorem*}
+
+\begin{theorem*}
+    \textbf{(Urysohn Metrization Theorem $T_3 + \alpha_2 \Rightarrow $ metric)} Every regular space with a countable basis is metrizable
+    \begin{proof}
+        Idea is to imbed $X$ in a metrizable space $Y$, thereby proving $X$ is metrizable by homeomorphism. To show $X \hookrightarrow [0,1]^{\omega}$, we need to find a countable collection of continuous functions $\{f_n:X\to [0,1] \mid n\in \Z_+ \}$ that separates points from closed sets. The result follows by applying the imbedding theorem. Let $\{B_n\}$be a countable basis for $X$. Note $X$ is $T_3 + \alpha_2 \Rightarrow T_2 + \alpha_2 \Rightarrow T_4 \Rightarrow T_{4.5}$ by Urysohn lemma. For each $\overline{B}_n \subset B_m$, pick a continuous function $g_{n,m}: X\to [0,1]$ such that $g_{n,m}(\overline{B}_n) = \{1\}$ and $g_{n,m}(X-B_m) = \{0\}$. We claim $\{g_{n,m}\}$ separates points and closed sets! Let $x_0\in X$ and $B\subset X$ closed s.t. $x_0\not\in B$, we can find a basic element $B_m$ of $x$ contained in $B$. Since $X$ is $T_{3.5}$, we can find $B_n$ s.t. $x\in B_n \overline{B}_n \subset B_m$. By construction, $g_{n,m}(x_0) = 1$ and $g_{n,m}(X-U) = \{0\}$. Hence $\{g_{n,m}\}$ as desired. Note $\{g_{n,m}\}$ indexed by $\Z_+ \times \Z_+$ and hence countable. Reindex and this gives us a collection $\{f_{n,m}\}$ which satisfies condition for imbedding theorem.
+    \end{proof}
+\end{theorem*}
+
+\subsubsection{\linkbook{230}{35 The Tietze Extension Theorem}}
+
+\begin{theorem*}
+    \textbf{(Tietze Extension Theorem)} Let $X$ be $T_4$; Let $A\subset X$ be closed. Any continuous function of $A$ into closed $[a,b]\in \R$ ($\R$) maybe extended to a continuous function of all of $X$ into $[a,b]$ ($\R$)
+    \[
+        X \text{ is } T_4 \;\; A\subset X \text{ closed } \;\; f:A\to \R \text{ continuous }
+        \quad 
+        \Rightarrow 
+        \quad
+        \exists \; \tilde{f}: X\to \R \text{ continuous } \;\; \tilde{f}|_A = f
+    \]
+    \begin{proof}
+        Idea is to find $\{g_n\} \to \tilde{f}$ a sequence of functions that uniformly converges to $\tilde{f}$ to ensure its continuity. Let $f:\to [-1,1]$, be continuous, we can use the fact that $X$ is now $T_{4.5}$ (Urysohn lemma) and find $g_1: X\to [-1/3,1/3]$ where $g(B) = -1/3$ and $g(C) = 1/3$ where $B = f^{-1}([-1, -1/3])$ and $C=f^{-1}([1/3,1])$. This function satisfies 
+        \begin{align*}
+            |g_1(x)| &\leq 1/3  & x\in X \\
+            |f(x) - g_1(x)| &\leq 2/3 & x\in A \\
+        \end{align*}
+        Consider $f-g_1: X\to [-2/3,2/3]$. We can iteratively define $g_n$ and let $\tilde{f}(x) = \sum_{n\in \Z_+} g_n (x)$. $g$ converges and $g$ is uniformly continuous.
+    \end{proof}
+    \begin{itemize}
+        \item \underline{(theorem)} If $X$ satisfies Tietze, then $T$ is $T_{4.5}$ (let $B,C \subset X$ closed. Define $f:B\cup C \to \R$ by $f(x)=0$ if $x\in B$ and $f(1) = 1$ if $x\in C$. $f$ is continuous and use Tietze to find $\tilde{f}:X\to \R$, which is as required for $T_{4.5}$)
+    \end{itemize}
+\end{theorem*}
+
+
+
+
+
 
 
 \newpage
 \section{The Tychonoff Theorem}
-\subsubsection{\linkbook{240}{37 The Tychnoff Theorem}}
+\subsubsection{\linkbook{240}{37 The Tychonoff Theorem}}
 
 \begin{lemma*}
     \textbf{(Get Maximal $\calD\subset\calP(X)$ with FIP using Zorn's Lemma)} Let $X$ be a set; $\calA \subset \calP(X)$ having finite intersection property. Then there exists a collection $\calD \subset\calP(X)$ such that

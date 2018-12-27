@@ -4,7 +4,7 @@
 
 \begin{document}
 \begin{center}
-    {\Huge Introduction to Groups}
+    {\Huge Chapter 1 Introduction to Groups}
 \end{center}
 \tableofcontents
 \newpage
@@ -38,7 +38,7 @@
         \item \bheading{group} A group is an ordered pair $(G,\star)$ where $G$ is a set and $\star$ is a binary operation on $G$ satisfying 
         \begin{enumerate}
             \item (associative) $\forall a,b,c\in G$, $(a\star b) \star c = a\star (b \star c)$
-            \item (identity) $\exists e\in G \;\; \forall a\in G \;\;  a\star e = e \star a = a$ ($e$ is an identity of $G$)
+            \item (identity) $\exists e\in G \;\; \forall a\in G \;\;  a\star e = e \star a = a$ ($e$ is an identity of $G$, alternatively denoted by 1)
             \item (inverse) $\forall a\in G \;\; \exists a^{-1}\in G$, $a\star a^{-1}  = a^{-1} \star a = e$ ($a^{-1}$ is an inverse of $a$)
         \end{enumerate}
         \item \bheading{abelian group} A group if abelian/commutative if $a\star b = b\star a$ for all $a,b\in G$ 
@@ -63,17 +63,122 @@
             \item $(\integermodnmul, \times)$ is abelian group ($e = \overline{1}$, $a^{-1}$ exists by definition of $\integermodnmul$)
         \end{itemize}
         \item \bheading{theorem} direct product of two groups is a group
-        \item \bheading{proposition} identity/inverse are unique
+        \item \bheading{proposition}
         \begin{enumerate}
-            \item identity of $G$ is unique
-            \item inverse $a^{-1}$ of any $a$ in $G$ is unique
+            \item (identity unique) identity of $G$ is unique
+            \item (inverse unique) inverse $a^{-1}$ of any $a$ in $G$ is unique
             \item $(a^{-1})^{-1} = a$ for all $a$ in $G$
+            \item $(a\star b)^{-1} = b^{-1} \star a^{-1}$
+            \item (generalized associativity law) value of $a_1 \star a_2\star \cdots \star a_n$ independent of how its bracketed
         \end{enumerate}
+        \item \heading{notation}
+        \begin{itemize}
+            \item ($\times$) denote $x^n = xx \cdots x$ by $x^n$ and $x^{-n} = x^{-1}x^{-1} \cdots x^{-1}$ and $x^0 = 1$ the identity
+            \item ($+$) denote $na = a+a+ \cdots + a$ and $-na = -a-a-\cdots -a$ and $0a = 0$ the identity 
+        \end{itemize}
+        \item \bheading{proposition} Let $a,b,u,v\in G$
+        \begin{enumerate}
+            \item (left cancellation law holds) if $au = av$, then $u=v$ 
+            \item (right cancellation law holds) if $ub = vb$, then $u=v$
+        \end{enumerate}
+    \end{itemize}
+\end{definition*}
+
+\begin{definition*}
+    \bheading{order for an element $x\in G$} is the smallest positive integer $n\in\Z^+$ such that $x^n=1$, denoted by $\order{x}$. If no positive power of $x$ is the identity, the order of $x$ is defined to be infinity
+    \begin{itemize}
+        \item \heading{examples}
+        \begin{itemize}
+            \item if $|x|=1$, then $x=1$ the identity
+            \item In $(\Z,\Q,\R,\C, +)$, every nonzero elements has infinite order
+            \item In $(\R-\pc{0}, \Q-\pc{0}, \times)$, $|-1|=2$ and all other nonidentity elements have infinite order
+            \item In $\integermodn[9]$, $\order{\overline{5}} = 9$ since $9$ is the smallest integer multiple of 5 that is congruent to $0 \modb{9}$
+            \item In $\integermodnmul[7]$, $\order{\overline{3}} = 6$ since $3^6$ is smallest positive power of $3$ that is congruent to $1 \modb{7}$
+        \end{itemize}
+    \end{itemize}
+\end{definition*}
+
+\begin{definition*}
+    \bheading{multiplication/group table} Let $G= \pc{g_1, g_2, \cdots, g_n}$ be a finite group where $g_1 = 1$. The multiplication or group table of $G$ is a $n\times n$ matrix $A$ where $A_{ij} = g_i g_j$. 
+    \begin{itemize}
+        \item \heading{fact} For finite groups, the group table contains all information about the group
+    \end{itemize}
+\end{definition*}
+
+
+
+\section{\linkbook{36}{Dihedral Groups}}
+
+\begin{definition*}
+    \bheading{Dihedral Groups}
+    \begin{enumerate}
+        \item \bheading{symmetry of $n$-gon} is any rigid motion of the n-gon. We can describe symmetry by choosing a labelling of vertices $\pc{1,2,\cdots,n}$ and let the corresponding permutation $\sigma$ over the set as symmetry $s$
+        \item \bheading{order of $D_{2n}$} is $2n$. (lower bound: vertex 1 can be sent to any vertex $i$, and vertex 2 can be sent to either $i-1$ or $i+1$. Knowing position of $1,2$ determines position of all other vertices; upper bound: by reasoning that any element of $D_{2n}$ can be written as $r^is^j$ where $0\leq i \leq n-1$ and $0\leq j \leq 1$)
+        \item \bheading{dihedral group $D_{2n}$} Fix a regular $n$-gon at origin and label vertices through from 1 to n in a clockwise manner. Let $r$ be rotation clockwise about the origin through $2\pi/n$ radian and let $s$ be reflection about line of symmetry through vertex 1 and the origin.
+        \[
+            D_{2n} = \pc{
+                r,s \mid r^n = s^2 = 1 \;, \;\; sr^k = r^{-k}s
+            } = 
+            \pc{
+                1,r,r^2,\cdots,r^{n-1}, s,rs,r^2s,\cdots, r^{n-1}s
+            }
+        \]
+        \begin{enumerate}
+            \item $\order{r} = n$ and $\order{s} = 2$
+            \item $s \neq r^i$ for any $i$ and $sr^i \neq sr^j$ for all $i\neq j$
+            \item $r^ks = sr^{-k}$ for all $0\leq i \leq n$
+        \end{enumerate}
+        \item \bheading{interpreting presentation for $D_{2n}$} $r^n = 1$ means any power of $r$ can be reduced so that the power lie between 0 and $n-1$. Similarly, any power of $s$ can be reduced so that the power is either 0 or 1. $sr^k = r^{-k}s$ means every element in the group can be written as $r^i s^j$ for some $i,j$
+    \end{enumerate}
+\end{definition*}
+
+
+
+\begin{definition*}
+    \bheading{generators and relations}
+    \begin{enumerate}
+        \item \bheading{generators of $G$} is the set $S\subset G$ where every element of $G$ can be written as a (finite) product of elements of $S$ and their inverses. Denote $G = \pa{S}$ and say $G$ is generated by $S$ and $S$ generates $G$ 
+        \item \bheading{relations in $G$} any equation in a general group $G$ that the generator satisfies
+        \item \bheading{presentation of $G$} If $G=\pa{S}$ and $R_1,R_2,\cdots,R_m$ are relations in $G$ such that any relation among $S$ can be deduced from these, the generators and relations are called presentations
+        \[
+            G = \pa{S \mid R_1, R_2, \cdots, R_m}    
+        \]
+    \end{enumerate}
+    \begin{itemize}
+        \item \heading{example} $\Z = \pa{1}$
+        \item \heading{example} $D_{2n} = \pa{r,s}$
+    \end{itemize}
+\end{definition*}
+
+
+\section{\linkbook{42}{Symmetric Groups}}
+
+\begin{definition*}
+    \bheading{Symmetric Group}
+    \begin{enumerate}
+        \item \bheading{symmetric group $S_{\Omega}$ on set $\Omega$} Let $\Omega$ be nonempty set, $S_{\Omega} = \pc{\sigma: \Omega \to \Omega \mid \sigma \text{ is a bijection}}$, the set of all permutations of $\Omega$. $(S_{\omega}, \circ)$ is the symmetric group on $\Omega$.
+        \item \bheading{symmetric group of degree n} If $\Omega = \pc{1,2,\cdots,n}$, $S_n$ is the symmetric group of degree n
+        \item \bheading{$\order{S_n} = n!$} (by counting number of possible permutations using the constraint that $\sigma$ is injective) 
+        \item \bheading{cycle} a string of integers representing elements of $S_n$, which cyclically permutes them. $(a_1 \; a_2 \; \cdots \; a_m)$ is the permutation sending $a_i$ to $a_{i+1}$. $1\leq i \leq m-1$ and sends $a_m$ to $a_1$
+        \item \bheading{length of cycle} is the number of integers which appear in it
+        \item \bheading{$t$-cycle} is a cycle with length $t$
+        \item \bheading{disjoint cycle} A cycle is disjoint if they have no numbers in common
+        \item \bheading{$k$ cycles} Any $\sigma\in S_n$, we can represent $\sigma$ with $k$ cycles of the form 
+        \[
+            (a_1 \; a_2\; \cdots\; a_{m_1})(a_{m_1+1}\; a_{m_1+2}\;\cdots \; a_{m_2}) \cdots (a_{m_{k-1}+1}\; a_{m_{k-1}+2} \;\cdots \; a_{m_k})
+        \]
+        \item \bheading{cycle-decomposition of $\sigma$} is the product of $k$-cycles that representing $\sigma$
+    \end{enumerate}
+    \begin{itemize}
+        \item \heading{convention} 1-cycle not written during cycle-decomposition. This convention ensures that cycle decomposition of $\tau\in S_n$ is exactly the same as cycle decomposition of permutation in $S_{m}$ where $m>n$, which acts as $\tau$ on $\pc{1,2,\cdots,n}$ and fixes elements in $\pc{n+1,n+2,\cdots,m}$
+        \item \heading{computing inverse} Let $\sigma\in S_n$, cycle decomposition of $\sigma^{-1}$ can be obtained by writing numbers in each cycle of the cycle decomposition of $\sigma$ in reverse order
+        \item \heading{computing product} by following elements in successive permutations
+        \item \bheading{proposition} $S_n$ is non-abelian for $n\geq 3$ (counterexample: $(12) \circ(13) = (1\;3\;2)$ but $(13)\circ(12) = (1\;2\;3)$) \item 
     \end{itemize}
 \end{definition*}
 
 
 
 
-
 \end{document}
+ 

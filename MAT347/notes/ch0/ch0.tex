@@ -139,8 +139,20 @@
                 \oa \in \integermodn \mid \p{a,n} = 1
             }
         \]
+        \item \heading{example} $\integermodnmul[9] = \pc{\overline{1}, \overline{2}, \overline{4}, \overline{5}, \overline{7}, \overline{8}}$ ($\p{3,9}\neq 1$ and $\p{6,9}\neq 1$), with inverses $\pc{\overline{1}, \overline{5}, \overline{7}, \overline{2}, \overline{4}, \overline{8}}$ 
+        \item \heading{method} for computing inverse of $\overline{a} \subset \integermodnmul$. The condition for inverse is $\overline{a a^{-1}} = \overline{1}$ or $aa^{-1} \equiv 1 \modb{n}$. Since $\overline{a}$ is in $\integermodnmul$, $\p{a,n}=1$ holds, then exists $x,y\in \Z^+$ such that $ax + ny = 1$, i.e. $ax \equiv 1 \modb{n}$ the desired condition for inverses. Therefore, $\overline{x}$ is the multiplicative inverse of $\overline{a}$. So to find inverse for $\overline{a}$, we simply use Euclidean algorithm to compute the coefficient $x$
+        \item \heading{example} For $\integermodnmul[60]$ and $a=17$. Apply Euclidean algorithm, 
+        \begin{align*}
+            60 &= (3) 17 + 9 \\
+            17 &= (1) 9  + 8 \\
+            9  &= (1) 8  + 1
+        \end{align*}
+        $\p{a,n}=1$ so $\oa \in \integermodnmul[60]$ and $(-7)17 + (1)60 = 1$. So $\overline{-7} = \overline{53}$ is multiplicative inverse of $\overline{17}$
     \end{itemize}
-\end{definition*}
+\end{definition*} 
+
+
+
  
 
 

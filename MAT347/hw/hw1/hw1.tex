@@ -1,0 +1,28 @@
+\documentclass[11pt]{article}
+\input{\string~/.macros}
+\input{../../notes/preamble_local.tex}
+
+\begin{document}
+
+\begin{center}
+    {\Huge HW1}
+\end{center}
+
+
+\section*{\linkbook{25}{0.3 12}} Let $n\in \Z$, $n>1$ and let $a\in\Z$ with $1\leq a \leq n$. Prove if $a$ and $n$ are not relatively prime then there is an interger $b$ such that $ab \equiv 0 \modb{n}$ and deduce that there cannot be an integer $c$ such that $ac \equiv 1 \modb{n}$
+
+
+\section*{\linkbook{25}{0.3 13}} Let $n\in \Z$, $n>1$ and let $a\in\Z$ with $1\leq a \leq n$. Prove if $a$ and $n$ are relatively prime then there is an interger $c$ such that $ac \equiv 1 \modb{n}$ (use the fact that g.c.d. of two integers is a $\Z$-linear combination of the integers)
+
+\begin{proof}
+    By Euclidean algorithm, $\exists x,y\in\Z$ s.t. $ax + ny = \p{a, n} = 1$, so $1 - ax = yn$, hence $ax \equiv 1 \modb{n}$
+\end{proof}
+
+
+
+
+
+
+
+
+\end{document}

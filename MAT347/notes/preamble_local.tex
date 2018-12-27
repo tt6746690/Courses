@@ -3,8 +3,10 @@
 \newcommand{\oc}{\overline{c}}
 \newcommand{\oi}{\overline{i}}
 
-\newcommand{\integermodn}{\Z/n\Z}
-\newcommand{\integermodnmul}{(\Z/n\Z)^{\times}}
+\newcommand{\integermodn}[1][n]{\Z/#1\Z}
+\newcommand{\integermodnmul}[1][n]{(\Z/#1\Z)^{\times}}
+
+\newcommand{\order}[1]{\left|#1\right|}
 
 \newcommand{\modb}[1]{\left(mod \;\; #1 \right)}
 \newcommand{\heading}[1]{(#1)}

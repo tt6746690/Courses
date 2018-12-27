@@ -1,10 +1,79 @@
 \documentclass[11pt]{article}
-\input{\string~/.preamble}
+\input{\string~/.macros.tex}
+\input{../preamble_local.tex}
 
 \begin{document}
+\begin{center}
+    {\Huge Introduction to Groups}
+\end{center}
+\tableofcontents
+\newpage
+
+
+\section{\linkbook{29}{Basic Axioms and Examples}}
+
+
+\begin{definition*} \bheading{Binary Operation}
+    \begin{enumerate}
+        \item \bheading{binary operation} $\star$ on a set $G$ is a function $\star:G\to G$. write $a\star b$ instead of $\star(a,b)$
+        \item \bheading{associative $\star$} A binary operation on $G$ is associative if for all $a,b,c\in G$ $a\star (b\star c) = (a\star b) \star c$
+        \item \bheading{commutative $\star$} A binary operation on $G$ is commutative if for all $a,b\in G$, $a\star b = b\star a$
+        \item \bheading{closed under $\star$} $\star$ is a binary operation on $G$ and $H\subset H$, if $\star|_H$ is a binary operation on $H$, i.e. for all $a,b\in H$, $a\star b \in H$, then $H$ is closed under $\star$. Associativity/Commutativity of $\star$ is inherited on $H$
+    \end{enumerate}
+    \begin{itemize}
+        \item \heading{examples}
+        \begin{enumerate}
+            \item $+$ on $\Z,\Q,\R,\C$ is a commutative binary operation
+            \item $\times$ on $\Z,\Q,\R,\C$ is a commutative binary operation
+            \item $-$ is not commutative on $\Z$ ($a-b \neq b-a$ usually)
+            \item $-$ is not commutative on $\Z^+$ ($1,2\in\Z^+$, but $1-2 = -1 \not\in \Z^+$)
+        \end{enumerate}
+    \end{itemize}
+\end{definition*}
+
+
+\begin{definition*}
+    \bheading{Group}
+    \begin{enumerate}
+        \item \bheading{group} A group is an ordered pair $(G,\star)$ where $G$ is a set and $\star$ is a binary operation on $G$ satisfying 
+        \begin{enumerate}
+            \item (associative) $\forall a,b,c\in G$, $(a\star b) \star c = a\star (b \star c)$
+            \item (identity) $\exists e\in G \;\; \forall a\in G \;\;  a\star e = e \star a = a$ ($e$ is an identity of $G$)
+            \item (inverse) $\forall a\in G \;\; \exists a^{-1}\in G$, $a\star a^{-1}  = a^{-1} \star a = e$ ($a^{-1}$ is an inverse of $a$)
+        \end{enumerate}
+        \item \bheading{abelian group} A group if abelian/commutative if $a\star b = b\star a$ for all $a,b\in G$ 
+        \item \bheading{finite group} $G$ is a finite group if $G$ is a finite set
+        \item \bheading{direct product} If $(A, \star)$ and $(B, \circ)$ are groups, a new group $A\times B$ called direct product are defined as 
+        \[
+            A\times B = \pc{\p{a,b} \mid a\in A \;\; b\in B}
+        \]
+        with binary operation defined component-wise 
+        \[
+            (a_1, b_1)(a_2, b_2) = (a_1 \star a_2, b_1 \circ b_2)    
+        \]
+    \end{enumerate}
+    \begin{itemize}
+        \item \heading{examples}
+        \begin{itemize}
+            \item $\Z,\Q,\R,\C$ are groups under $+$ ($e=0$, $a^{-1} = -a$, associativity by axioms of $+$)
+            \item $\Q - \pc{0}, \R-\pc{0}, \C-\pc{0}, \Q^+, \R^+$ are gorups under $\times$ ($e = 1$, $a^{-1} = 1/a$, associativity by $\times$))
+            \item $(\Z - \pc{0}, \times )$ is not a group ($2^{-1} = 1/2\not\in \Z - \pc{0}$)
+            \item $(V,+)$ is an abelian group, where $V$ is a vector space (commutativity by axioms of a vector space)
+            \item $(\integermodn, +)$ is an abelian group ($e = \overline{1}$, $a^{-1} = \overline{-a}$)
+            \item $(\integermodnmul, \times)$ is abelian group ($e = \overline{1}$, $a^{-1}$ exists by definition of $\integermodnmul$)
+        \end{itemize}
+        \item \bheading{theorem} direct product of two groups is a group
+        \item \bheading{proposition} identity/inverse are unique
+        \begin{enumerate}
+            \item identity of $G$ is unique
+            \item inverse $a^{-1}$ of any $a$ in $G$ is unique
+            \item $(a^{-1})^{-1} = a$ for all $a$ in $G$
+        \end{enumerate}
+    \end{itemize}
+\end{definition*}
 
 
 
-    s
+
 
 \end{document}

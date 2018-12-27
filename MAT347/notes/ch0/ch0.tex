@@ -1,0 +1,147 @@
+\documentclass[11pt]{article}
+\input{\string~/.macros.tex}
+\input{../preamble_local.tex}
+
+\begin{document}
+
+\begin{center}
+    {\Huge Preliminaries}
+\end{center}
+
+\tableofcontents
+\newpage
+
+
+\section{\linkbook{14}{Basics}}
+
+
+\begin{definition*}
+\textbf{(Functions)} Let $f:A\to B$
+\begin{enumerate}
+    \item \bheading{injection} $a_1\neq a_2 \Rightarrow f(a_1) \neq f(a_2)$
+    \item \bheading{surjection} image of $f$ is all of $B$, i.e. $\forall b\in B \;\; \exists a\in A \;\; f(a)=b$
+    \item \bheading{left inverse} a function $g:B\to A$ such that $g\circ f:A\to A$ is the identity map on $A$
+    \item \bheading{right inverse} a function $h:B\to A$ such that $f\circ h:B\to B$ is the identity map on $B$
+\end{enumerate}
+\end{definition*} 
+    
+\begin{proposition*} Let $f:A\to B$
+\begin{enumerate}
+    \item $f$ is injective if and only if $f$ has a left inverse
+    \item $f$ is surjective if and only if $f$ has a right inverse
+    \item $f$ is bijective if exists $g:B\to A$ such that $f\circ g$ is identity map on $B$ and $g\circ f$ is identity map on $A$ ($g$ is the two-sided inverse)
+    \item If $A,B$ are finite sets and $|A|=|B|$, then $f$ is bijective iff $f$ is injective iff it is surjective
+\end{enumerate}
+\end{proposition*}
+  
+\begin{definition*}
+    \textbf{(Permutation, Restriction, Extension)}
+    \begin{enumerate}
+        \item \bheading{permutation} of set $A$ is a bijection from $A$ to itself
+        \item \bheading{restriction} If $A\subset B$ and $f:B\to C$, $f|_{A}$ is restriction of $f$ to $A$.
+        \item \bheading{extension} If $ A\subset B$ and $g:A\to C$ and there is a function $f:B\to C$ such that $f|_{A}=g$, then $f$ is an extension of $g$ to $B$
+    \end{enumerate}
+\end{definition*}
+
+\begin{definition*}
+    \textbf{(Equivalence Relation \& Partition)}
+    \begin{enumerate}
+        \item \bheading{binary relation} on a set $A$ is a subset $R$ of $A\times A$ and we write $a\sim b$ if $(a,b)\in R$
+        \item \bheading{relation} $\sim$ on $A$ is an equivalence relation if it is 
+        \begin{itemize}
+            \item (reflexive) $a\sim a$ for all $a\in A$
+            \item (symmetric) $a\sim b$ implies $b\sim a$, for all $a,b\in A$
+            \item (transitive) $a\sim b$ and $b\sim c$ implies $a\sim c$ for all $a,b,c\in A$
+        \end{itemize}
+        \item \bheading{equivalence class} Given $\sim$ on $A$, the equivalence class of $a \in A$ is $\pc{x\in A \mid x\sim a}$. If $C$ is any equivalence class, any element of $C$ is a representative to class $C$
+        \item \bheading{partition} of $A$ is any collection $\pc{A_i \mid i\in I}$ of nonempty subsets of $A$, for some indexing set $I$ such that 
+        \begin{itemize}
+            \item $A = \cup_{i\in I} A_i$
+            \item $A_i \cap A_j = \emptyset$ for all $i,j\in I$ with $i\neq j$
+        \end{itemize}
+    \end{enumerate}
+\end{definition*}
+
+\begin{proposition*} \textbf{(Equivalence relation and partition are the same)} Let $A$ be nonempty set
+    \begin{enumerate}
+        \item If $\sim$ is an equivalence relation on $A$ then the set of equivalence classes of $\sim$ forms a partition of $A$
+        \item If $\pc{A_i\mid i\in I}$ is a partition of $A$ then there is an equivalence relation on $A$ whose equivalence classes are precisely the sets $A_i$, $i\in I$ 
+    \end{enumerate}
+\end{proposition*}
+
+
+\newpage
+\section{\linkbook{17}{Properties of Integers}}
+
+\begin{definition*}
+    \textbf{(Properties of $\Z$)}
+    \begin{enumerate}
+        \item \bheading{well ordering of $\Z$} If $A \subset \Z^+$, exists $m\in A$ such that $m\leq a$ for all $a\in A$ ($m$ is minimal element of $A$)
+        \item \bheading{divides} If $a,b\in \Z$ and $a\neq 0$, $a \mid b$ if there is an element $c\in \Z$, such that $b=ac$. Otherwise, $a\nmid b$ 
+        \item \bheading{g.c.d.} If $a,b\in \Z - \pc{0}$, there is unique $d \in \Z^+$, the greatest common divisor $\p{a,b}$ of $a,b$ satisfying
+        \begin{enumerate}
+            \item $d$ is a common divisor of $a,b$ ($d\mid a$ and $d\mid b$ )
+            \item $d$ is greatest such divisor (If $e \mid a$ and $e\mid b$, then $e\mid d$ )
+        \end{enumerate}
+        Intuitively, an a-by-b rectangle can be covered with square tiles of side-length c only if c is a common divisor of a and b. gcd of $a$ and $b$ is the largest of such $c$
+        \item \bheading{relative prime} If $\p{a,b}=1$, then $a,b$ are relative prime
+        \item \bheading{l.c.m} If $a,b\in \Z - \pc{0}$. there is unique $l\in \Z^+$, the least common multiple of $a,b$ satisfying 
+        \begin{enumerate}
+            \item $l$ is a common multiple of $a$ and $n$ ($a\mid l$ and $b\mid l$)
+            \item $l$ is least of such multiple (If $a\mid m$ and $b\mid m$, then $l\mid m$)
+        \end{enumerate} 
+        \item \bheading{Relation between g.c.d. and l.c.m} Let $a,b\in \Z - \pc{0}$, let $d = \p{a,b}$ and $l = l.c.m.(a,b)$, then $dl=ab$
+        \item \bheading{The Division Algorithm} If $a,b\in \Z - \pc{0}$ there exist unique $q,r\in \Z$ such that $a=qb+r$ and $0\leq r < |b|$, where $q$ is the quotient and $r$ is the reminder. 
+        \item \bheading{Euclidean Algorithm} is a procedure that generates g.c.d. of two integers by iterating the division algorithm. Idea is g.c.d. of $a,b$ where $a>b$ is same as g.c.d. of $b,a-b$. Or equivalently. 
+        \begin{align*}
+            a &= q_0 b + r_0 \\
+            b &= q_1 r_0 + r_1 \\
+            r_0 &= q_2 r_1 + r_2 \\
+            \vdots \\
+            r_{n-2} &= q_n r_{n-1} + r_n \\
+            r_{n-1} &= q_{n+1} r_n
+        \end{align*}
+        where $r_n = \p{a,b}$ is the last nonzero reminder
+        \item \bheading{Consequence of Euclidean Algorithm} If $a,b\in \Z -\pc{0}$, then exists $x,y\in\Z$ such that 
+        \[
+            \p{a,b} = ax + by    
+        \]
+        by reversing steps of Euclidean algorithm
+    \end{enumerate}
+\end{definition*}
+
+
+\newpage
+\section{\linkbook{21}{$\integermodn$: The integers modulo n}}
+
+\begin{definition*}
+    \bheading{Integer Modulo n}
+    \begin{enumerate}
+        \item \bheading{modulo relation} Define $a\sim b$ \underline{iff} $n \mid (b-a)$. $\sim$ satisfies axioms for a relation
+        \item \bheading{congruence} $a$ is congruent to $b \mod n$ \underline{iff} $a \equiv b \modb{n}$ \underline{iff} $a\sim b$
+        \item \bheading{congruence/residue class of $a \mod n$} is the equivalence class by congruent modulo $n$, consisting of integers which differ from $a$ by an integral multiple of $n$, i.e. 
+        \[
+            \overline{a} = \pc{a+kn \mid k\in \Z}        
+        \]
+        There are $n$ distanct equivalence classes $\mod n$, i.e. $\pc{\overline{0}, \overline{1}, \cdots, \overline{n-1}}$. Specifically. $\oi$ are integers which leave a reminder of $i$ when divided by $n$
+        \item \bheading{integer modulo $n$ group} $\integermodn = (\pc{\overline{0}, \overline{1}, \cdots, \overline{n-1}}, \sim)$
+        \item \bheading{reducing $a \mod n$} is the process of finding the equivalence class mod $n$ of some integer $a$. Specifically, this is refering to finding the smallest nonnegative integer congruent to $a\mod n$
+        \item \bheading{modular arithmetic} Let $\oa,\ob \in \integermodn$, define sum and product by $\oa + \ob = \overline{a+b}$ and $\oa \cdot \ob = \overline{ab}$.
+        \item \bheading{theorem} Modular Arithmetic on $\integermodn$ is well defined; the sum/product of the residue classes does not depend on the choice of representatives chosen. Specifically, if $a_1,a_2,b_1,b_2\in \Z$ with $\overline{a_1} = \overline{b_1}$ and $\overline{a_2} = \overline{b_2}$ then $\overline{a_1 + a_2} = \overline{b_1 + b_2}$ and $\overline{a_1 a_2} = \overline{b_1 b_2}$.
+    \end{enumerate}
+    \begin{itemize}
+        \item $\p{\integermodn}^{\times} \subset \integermodn$ are residue classes which have a multiplicative inverse
+        \[
+            \p{\integermodn}^{\times} = \pc{
+                \oa \in \integermodn \mid
+                \exists \oc \in \integermodn \;\; \oa \cdot \oc = \overline{1}
+            } = \pc{
+                \oa \in \integermodn \mid \p{a,n} = 1
+            }
+        \]
+    \end{itemize}
+\end{definition*}
+ 
+
+
+\end{document}

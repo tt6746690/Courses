@@ -1,0 +1,21 @@
+\newcommand{\oa}{\overline{a}}
+\newcommand{\ob}{\overline{b}}
+\newcommand{\oc}{\overline{c}}
+\newcommand{\oi}{\overline{i}}
+
+\newcommand{\integermodn}{\Z/n\Z}
+\newcommand{\integermodnmul}{(\Z/n\Z)^{\times}}
+
+\newcommand{\modb}[1]{\left(mod \;\; #1 \right)}
+\newcommand{\heading}[1]{(#1)}
+\newcommand{\bheading}[1]{\textbf{(#1)}}
+
+% arg1=pdfurl arg2=pagenum arg3=text
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linktoc=all, linkcolor=blue}
+\newcommand{\linkbook}[3][../../abstract_algebra_dummit_and_foote.pdf]{
+    \noindent\href[page=#2]{#1}{\urlstyle{rm}{#3}}
+}
+
+\usepackage[a4paper, total={6in, 8in}, margin=0.5in]{geometry}

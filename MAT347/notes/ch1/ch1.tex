@@ -130,6 +130,9 @@
         \end{enumerate}
         \item \bheading{interpreting presentation for $D_{2n}$} $r^n = 1$ means any power of $r$ can be reduced so that the power lie between 0 and $n-1$. Similarly, any power of $s$ can be reduced so that the power is either 0 or 1. $sr^k = r^{-k}s$ means every element in the group can be written as $r^i s^j$ for some $i,j$
     \end{enumerate}
+    \begin{itemize}
+        \item \heading{fact} $D_{2n}$ for $n\geq 3$ is non-abelian
+    \end{itemize}
 \end{definition*}
 
 
@@ -173,12 +176,138 @@
         \item \heading{convention} 1-cycle not written during cycle-decomposition. This convention ensures that cycle decomposition of $\tau\in S_n$ is exactly the same as cycle decomposition of permutation in $S_{m}$ where $m>n$, which acts as $\tau$ on $\pc{1,2,\cdots,n}$ and fixes elements in $\pc{n+1,n+2,\cdots,m}$
         \item \heading{computing inverse} Let $\sigma\in S_n$, cycle decomposition of $\sigma^{-1}$ can be obtained by writing numbers in each cycle of the cycle decomposition of $\sigma$ in reverse order
         \item \heading{computing product} by following elements in successive permutations
-        \item \bheading{proposition} $S_n$ is non-abelian for $n\geq 3$ (counterexample: $(12) \circ(13) = (1\;3\;2)$ but $(13)\circ(12) = (1\;2\;3)$) \item 
+        \item \heading{example} $S_n$ is non-abelian for $n\geq 3$ (counterexample: $(12) \circ(13) = (1\;3\;2)$ but $(13)\circ(12) = (1\;2\;3)$)
+        \item \bheading{proposition} disjoint cycle commutes
+        \item \bheading{proposition} cycle-decomposition uniquely expresses a permutation as a product of disjoint cycles
+        \item \bheading{proposition} The order of a permutation is the l.c.m. of the lengths of cycles in its cycle decomposition
+    \end{itemize}
+\end{definition*}
+
+
+\section{\linkbook{47}{Matrix Groups}}
+
+\begin{definition*}
+    \bheading{Field and Matrix Group}
+    \begin{enumerate}
+        \item \bheading{field} A field is a set $F$ with two binary operations $+$ and $\cdot$ such that $(F,+)$ is an abelian group and $(F-\pc{0}, \cdot)$ is also an abelian group, and follows distributive law 
+        \[
+            a\cdot (b+c) = (a\cdot b) + (a\cdot c)    
+        \]
+        Denote $F^{\times} = F - \pc{0}$. 
+        \item \bheading{general linear group} For each $n\in\Z^+$, let $GL_n(F)$ be the set of all $n\times n$ matrices whose entries come from $F$ and whose determinant is nonzero
+        \[
+            GL_n(F) = \pc{
+                A \mid A \text{ is $n\times n$ matrix with entries from $F$ and $\det{A} \neq 0$}
+            }
+        \]
+        with matrix multiplication as the binary operation. $GL_n(F)$ is a group under matrix multiplication, called \textbf{general linear group of degree n}: since its closed under matrix multiplication, and satisfies inverse/identity axioms
+    \end{enumerate}
+    \begin{itemize}
+        \item \heading{example} $\Q,\R$, and $\BF_p = \integermodn[p]$ where $p$ is prime are fields
+        \item \heading{fact} $GL_n(F)$ for $n\geq 2$ is nonabelian (matrix multiplication does not commute)
+        \item \bheading{theorem} If $F$ is a field and $|F| < \infty$, then $\order{F} = p^m$ for some prime $p$ and integer $m$
+        \item \bheading{theorem} If $\order{F} = q < \infty$, then $\order{GL_n(F)} = (q^n - 1)(q^n - q)(q^n-q^2) \cdots (q^n - q^{n-1})$ 
+    \end{itemize}
+\end{definition*}
+
+
+
+\section{\linkbook{49}{Quaternion Group}}
+
+
+\begin{definition*}
+    \bheading{quaternion group} The quaternion group $Q_8$ is defined by 
+    \[
+        Q_8 = \pc{
+            1, -1, i, -i, j, -j, k, -k
+        }    
+    \]
+    with product $\cdot$ defined as 
+    \begin{align*}
+        &1 \cdot a = a \cdot 1 = a \quad \forall a\in Q_8 \\ 
+        &(-1) \cdot (-1) = 1 \\ 
+        &(-1) \cdot a = a \cdot (-1) = -a \quad \forall a\in Q_8 \\ 
+        &i \cdot i = j \cdot j = k \cdot k = -1 \\
+        &i\cdot j = k \quad j \cdot k = i \quad k \cdot i = j \\ 
+        &j\cdot i = -k \quad k \cdot j = -i \quad i \cdot k = -j \\ 
+    \end{align*}
+    \begin{itemize}
+        \item \heading{fact} $Q_8$ is non-abelian
+        \item \heading{fact} order of elements in $Q_8$
+        \begin{center}
+            \begin{tabular}{c|c}
+                element & order \\
+                1 & 1 \\
+                -1 & 2 \\ 
+                i, -i, j, -j, k,-k & 4 \\
+            \end{tabular}
+        \end{center}
+    \end{itemize}
+\end{definition*}
+
+
+\section{\linkbook{49}{Homomorphisms and Isomorphisms}}
+
+
+\begin{definition*}
+    \bheading{homomorphisms} Let $(G,\star)$ and $(H,\diamond)$ be groups. A map $\varphi:G\to H$ such that 
+    \[
+        \varphi(x\star y) = \varphi(x) \diamond \varphi(y)
+        \quad \quad
+        \forall x,y\in G    
+    \]
+    is called a \textbf{homomorphism}. Intuitively, $\varphi$ respects the group structures of its domain and codomain
+    \begin{itemize}
+        \item \bheading{theorem} If $\phi: G\to h$ is a homomorphism, then 
+        \begin{enumerate}
+            \item $\varphi(e_G) = e_H$
+            \item $\varphi(x^{-1}) = \varphi(x)^{-1}$
+            \item $\varphi(x^n) = \varphi(x)^n$ for all $n\in\Z$
+        \end{enumerate}
+    \end{itemize}
+\end{definition*}
+
+\begin{definition*}
+    \bheading{Isomorphisms}
+    \begin{enumerate}
+        \item \bheading{isomorphisms} The map $\varphi:G\to H$ is called an \textbf{isomorphism} and $G$ and $H$ are said to be \textbf{isomorphic} or of the same \textbf{isomorphic type}, write $G\cong H$, if 
+        \begin{enumerate}
+            \item $\varphi$ is a homomorphism
+            \item $\varphi$ is a bijection
+        \end{enumerate}
+        $G$ and $H$ are the same group, except that elements/operations are written differently.
+        \item \bheading{isomorphism classes} Let $\sG$ be nonempty collection of groups. Then $\cong$ is an equivalence relation on $\sG$. the equivalence classes are called isomorphism classes
+        \item \bheading{classification theorems} determine what properties of a structure specify its isomorphic types, i.e.
+        \[
+            \text{any \underline{non-abelian group of order 6} is isomorphic to $S_3$}    
+        \]
+        from which we know $D_6 \cong S_3$ and $GL_2(\BF_2) \cong S_3$
+    \end{enumerate}
+    \begin{itemize}
+        \item \bheading{theorem} $G$ and $H$ share properties which rely on group structures (i.e. commutativity)
+        \item \bheading{theorem} Isomorphic type of a symmetric group depends on cardinality only $S_{\triangle} \cong S_{\Omega} \iff \order{\triangle} = \order{\Omega}$
+        \item \bheading{theorem} If $\varphi: G\to H$ is an isomorphism, then 
+        \begin{enumerate}
+            \item $\order{G} = \order{H}$
+            \item $G$ is abelian iff $H$ is abelian
+            \item for all $x\in G$, $\order{x} = \order{\varphi (x)}$
+        \end{enumerate}
+        \item \heading{examples}
+        \begin{itemize}
+            \item $G\cong G$ by the identity map or conjugation $g \mapsto xgx^{-1}$ for some $x\in G$
+            \item $(\R,+) \cong (\R^+, \times)$ by the exponential map $exp: \R \to \R^+; x \mapsto e^x$
+            \item $S_3 \cong D_6$ by the example classification theorem
+            \item $GL_n(F) \cong F^{\times}$ by $\det: GL_n(F) \to F^{\times}$, i.e. $\det{AB} = \det{A}\det{B}$
+            \item $S_3 \ncong \integermodn[6]$ ($S_3$ is non-abelian; $\integermodn[6]$ is abelian)
+            \item $(\R,+) \ncong (\R^{\times}, \times)$ ($-1\in \R$ has order 2; $\R^{\times}$ has no element of order 2)
+        \end{itemize}
     \end{itemize}
 \end{definition*}
 
 
 
 
-\end{document}
+
+
+\end{document} 
  

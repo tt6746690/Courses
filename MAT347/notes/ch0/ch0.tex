@@ -107,6 +107,23 @@
             \p{a,b} = ax + by    
         \]
         by reversing steps of Euclidean algorithm
+        \item \bheading{prime} $p\in \Z^+$ is called a prime if $p>1$ and the only positie divisors of $p$ are 1 and $p$. An integer greater than 1 which is not prime is composite. For any prime number $p$ where $p\mid ab$ for some $a,b\in\Z$, then either $p\mid a$ or $p \mid b$
+        \item \bheading{foundamental theorem of arithemtic} If $n\in \Z$ and $n>1$, then $n$ can be factored uniquely into products of primes, i.e. exists distinct $p_1,\cdots,p_s$ and $\alpha_1,\cdots, \alpha_s$ such that 
+        \[
+            n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_s^{\alpha_s}
+        \]
+        Additionally suppose $a = p_1^{\alpha_1} \cdots p_s^{\alpha_s}$ and $b = p_1^{\beta_1} \cdots p_s^{\beta_s}$ where $\alpha_i,\beta_i$ can be 0. then 
+        \[
+            \p{a,b} = p_1^{\min(\alpha_1,\beta_1)} p_2^{\min(\alpha_2,\beta_2)} \cdots p_s^{\min(\alpha_s,\beta_s)}
+        \]
+        and l.c.m. is obtained by taking maximum of $\alpha_i,\beta_i$ instead of minimum
+        \begin{itemize}
+            \item $57970 = 2\cdot 5 \cdot 11 \cdot 17 \cdot 31$ and $10353 = 3\cdot 7 \cdot 17 \cdot 19$, then $\p{57970, 10353} = 17$
+        \end{itemize}
+        \item \bheading{Euler $\varphi$-function} for $n\in \Z^+$, let $\varphi(n)$ be number of positive integers $a\leq n$ with $a$ relative prime to $n$, i.e. $\p{a,n} = 1$.
+        \begin{itemize}
+            \item $\varphi(12)=4$ (1,5,6,7)
+        \end{itemize}
     \end{enumerate}
 \end{definition*}
 

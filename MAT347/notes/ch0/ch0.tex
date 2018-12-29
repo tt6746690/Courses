@@ -120,9 +120,36 @@
         \begin{itemize}
             \item $57970 = 2\cdot 5 \cdot 11 \cdot 17 \cdot 31$ and $10353 = 3\cdot 7 \cdot 17 \cdot 19$, then $\p{57970, 10353} = 17$
         \end{itemize}
-        \item \bheading{Euler $\varphi$-function} for $n\in \Z^+$, let $\varphi(n)$ be number of positive integers $a\leq n$ with $a$ relative prime to $n$, i.e. $\p{a,n} = 1$.
+        \item \bheading{Euler $\varphi$-function} for $n\in \Z^+$, let $\varphi(n)$ be number of positive integers $a\leq n$ with $a$ relative prime to $n$, i.e. $\p{a,n} = 1$. Then for any prime powers $p^a$ for some $a\geq 1$,
+        \[
+            \varphi(p^a) = p^a - p^{a-1}
+                = p^{a-1} ( p - 1 )
+                = p (1 - \frac{1}{p})
+        \]
+        and for any $n\in \Z^+$,
+        \[
+            \varphi(n) = n \prod_{p \mid n} (1 - \frac{1}{p})
+        \]
+        where $p\mid n$ are the distinct prime numbers dividing $n$.
+        \begin{proof}
+            \textbf{(1)} Since $p$ is prime, $\p{m, p^a} \in \pc{1,p,p^2,\cdots,p^a}$. The only time $\p{m,p^a} \neq 1$ is when $m$ is some multiple of $p$, i.e. $m \in \{p, 2p, 3p, \cdots, p^k \}$ which has order $p^{k-1}$. Therefore $\varphi(p^a) = p^a - p^{a-1}$, exactly when $\p{m,p^a}=1$ \textbf{(2)}
+            Write $n=p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_s^{\alpha_s}$ by foundamental theorem of arithmetic, therefore
+            \begin{align*}
+                \varphi(n)
+                &= \varphi(p_1^{\alpha_1}) \varphi(p_2^{\alpha_2}) \cdots \varphi(p_s^{\alpha_s}) \\
+                &= p_1^{\alpha_1} (1- \frac{1}{p_1}) p_2^{\alpha_2} (1- \frac{1}{p_2}) \cdots p_s^{\alpha_s} (1- \frac{1}{p_s}) \\
+                &= p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_s^{\alpha_s} (1- \frac{1}{p_1}) (1- \frac{2}{p_2}) \cdots (1- \frac{1}{p_s}) \\
+                &= n \prod_{p \mid n} (1 - \frac{1}{p})
+            \end{align*}
+        \end{proof}
         \begin{itemize}
-            \item $\varphi(12)=4$ (1,5,6,7)
+            \item \heading{fact} $\varphi$ is multiplicative
+            \[
+                \varphi(ab) = \varphi(a) \varphi(b)
+                \quad \quad \p{a,b}=1    
+            \]
+            \item \heading{example} $\varphi(12)=\varphi(2^2)\varphi(3) = (12)(1-1/2)(1-1/3) = 4$ (1,5,6,7 are coprime to 12)
+            \item \bheading{theorem} $\order{\integermodnmul} = \varphi(n)$ 
         \end{itemize}
     \end{enumerate}
 \end{definition*}

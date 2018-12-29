@@ -1,0 +1,53 @@
+\documentclass[11pt]{article}
+\input{\string~/.macros.tex}
+\input{../preamble_local.tex}
+
+\begin{document}
+\begin{center}
+    {\Huge Chapter 2 Subgroups}
+\end{center}
+\tableofcontents
+\newpage
+
+
+\section{\linkbook{59}{Definition and Examples}}
+
+
+\begin{definition*}
+    \bheading{Subgroup}
+    \begin{enumerate}
+        \item \bheading{subgroup} Let $G$ be a group. The subset $H$ of $G$ is a subgroup of $G$, denoted as $H\leq G$ if
+        \begin{enumerate}
+            \item $H$ is nonempty
+            \item $H$ is closed under products and inverses, i.e. $x,y\in G$ implies $x^{-1},xy\in H$
+        \end{enumerate}
+        If $H\leq G$ and $H\neq G$, then $H < G$. $H\leq G$ implies operation on $H$ is the operation on $G$ restricted to $H$. So any equation in $H$ can also be viewed as equation in $G$
+        \item \bheading{The Subgroup Criterion} $H \subset G$ is a subgroup if and only if
+        \begin{enumerate}
+            \item $H\neq \emptyset$
+            \item for all $x,y\in H$, $xy^{-1} \in H$
+        \end{enumerate}
+        Furthermore, if $H$ is finite, then suffice to check $H$ is nonempty and closed under multiplication
+    \end{enumerate}
+    \begin{itemize}
+        \item \heading{examples}
+        \begin{itemize}
+            \item $G\leq G$ and $\pc{1}\leq G$ (latter is called the trivial subgroup)
+            \item $\Z \leq \Q \leq \R$ under operation of addition 
+            \item $\pc{1,r,r^2,\cdots,r^{n-1}} \leq D_{2n}$
+            \item $2\Z \leq \Z$
+            \item $(\Q^{\times}, \times) \not\leq (\R, +)$ (operation are different)
+            \item $\Z^+ \leq \Z$ and $(\Z^+)^{\times} \not\leq \Q^{\times}$ (not closed under inverses and does not contain identity)
+            \item $D_6 \not\leq D_8$ ($D_6 \not\subset D_8$)
+        \end{itemize}
+        \item \bheading{theorem} subgroup is a transitive relation, i.e. $K\leq H, H\leq G$, then $K\leq G$ 
+    \end{itemize}
+\end{definition*}
+ 
+
+
+\section{\linkbook{62}{Centralizers and Normalizers, Stabilizers and Kernels}}
+
+
+
+\end{document}

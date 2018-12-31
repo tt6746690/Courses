@@ -1,0 +1,213 @@
+\documentclass[11pt]{article}
+\input{\string~/.macros}
+\usepackage[a4paper, total={6in, 8in}, margin=0.5in]{geometry}
+
+
+% arg1=pdfurl arg2=pagenum arg3=text
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linktoc=all, linkcolor=blue}
+\newcommand{\linkbook}[3][../fundamentals_of_computer_graphics_4ed.pdf]{
+    \noindent\href[page=#2]{#1}{\urlstyle{rm}{#3}}
+}
+
+\newcommand{\heading}[1]{(#1)}
+\newcommand{\bheading}[1]{\textbf{(#1)}}
+
+\begin{document}
+\linkbook{3}{table of contents}
+\tableofcontents
+\newpage
+
+
+\section{\linkbook{12}{Chapter 1 Introduction}}
+\section{\linkbook{24}{Chapter 2 Misc Math}}
+
+\begin{enumerate}
+    \item \bheading{\linkbook{30}{trig identities}}
+    \item \bheading{dot product}
+    \[
+        \ba \cdot \bb = \norm{\ba} \norm{\bb} \cos \phi    
+        \qquad
+        proj_{\ba}(\bb)= \norm{\ba}\cos(\phi) = \frac{a\cdot b}{\norm{\bb}}
+    \]
+    \item \bheading{cross product}
+    \[
+        \ba \times \bb = \norm{\ba} \norm{\bb} \sin (\phi) \bn 
+        = \det \begin{pmatrix}
+            \bi & \bj & \bk \\
+            a_1 & a_2 & a_3 \\
+            b_1 & b_2 & b_3 \\
+        \end{pmatrix}
+    \]
+    where $\bn$ is unit vector perpendicular to plane formed by $\ba,\bb$, determined by the right hand rule
+    \item \bheading{coordinate frames}
+    \begin{itemize}
+        \item the \textbf{global coordinate system} is one formed by cartesian canonical orthonormal basis and the canonical origin that is not stored explicitly. 
+        \item Other coordinate system is called a \textbf{frame of reference} or \textbf{coordinate frame} are stored explicitly (the origin, and 3 orthonormal vectors as a function of the canonical basis) and is called a \textbf{local coordinate system}
+        \item If $\bb$ is in canonical $\bx-\by-\bz$ coordinate and want to transform to a local $\bu-\bv-\bw$ coordinate. then the transformed vecter can be written as 
+        \[
+            \sum_{\bq \in \pc{\bu,\bv,\bw}} \inner{\bq}{\bb} \bq
+        \]
+    \end{itemize}
+    \item \bheading{construct basis} by Gram–Schmidt process
+    \item \bheading{\linkbook{55}{linear interpolation}} over 2 points or a set of points where the function is piece-wise linear
+    \item \bheading{\linkbook{55}{triangles}}
+    \begin{itemize}
+        \item barycentric coordinates is a nonorthogonal makes interpolation straight-forward over a triangle. Say $(\ba,\bb,\bc)$ forms a triangle, then the vertices $(\ba,\bb,\bc)$ act as basis vectors and form the barycentric coordinates. Any point $\bp$ is 
+        \[
+            \bp(\alpha,\beta,\gamma) = \alpha \ba + \beta \bb + \gamma \bc
+            \quad \quad 
+            \alpha+\beta+\gamma=1
+        \]
+        $(\alpha,\beta,\gamma)$ is the barycentric coordinate of $\bp$ w.r.t. $\ba,\bb,\bc$. Given $\bp$ in cartesian coordinate, we can find its baarycentric coordinate by solving
+        \[
+            \bp = \ba + \beta(\bb-\ba) + \gamma(\bc-\ba)
+            \quad \iff \quad
+            \begin{pmatrix}
+                x_b - x_a & x_c - x_a \\
+                y_b - y_a & y_c - y_a \\
+            \end{pmatrix}    
+            \begin{pmatrix}
+                \beta \\ \gamma \\
+            \end{pmatrix}
+            = 
+            \begin{pmatrix}
+                x_p - x_a \\
+                y_p - y_a \\
+            \end{pmatrix}
+        \]
+        Geometrically, $\alpha,\beta,\gamma$ can be computed using triangle area
+        \[
+            \alpha = A_{\alpha}/A 
+            \quad
+            \beta = A_{\beta} / A
+            \quad
+            \gamma = A_{\gamma} /A    
+        \]
+        Properties
+        \begin{itemize}
+            \item can detect pointson edge/verties easily
+            \item mixes coordinates of vertices smoothly
+            \item can detect insidedness of points easily, i.e. $\alpha,\beta,\gamma > 0$
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+
+
+\section{\linkbook{63}{Chapter 3 Raster Images}}
+
+\begin{enumerate}
+    \item \bheading{raster display} show images as rectangular arrays of pixels.
+    \item \bheading{raster images} a 2D array that stores pixel value for each pixel that is device-independent
+    \item \bheading{vector images} description of shapes that is resolution independent but needs to be rasterized before display
+    \item \bheading{point sample} the reflectance, or fraction of light reflected as a function of position on a piece of paper
+    \[
+        I(x,y) : R\subset \R^2 \to V
+    \]
+    where $V$ is the set of possible pixel values, i.e. $V=\R^+$ for grayscale images. Pixel in raster images are local average of the color of the image, called a point sample of the image
+    \item \bheading{pixel values} as tradeoff between memory and resolution. Lowered bits introduce artifacts such as clipping and banding
+    \item \bheading{RGB color} 
+    \begin{enumerate}
+        \item \heading{pixel coverage} $\alpha$ is the fraction of pixerl covered by the foreground layer.
+        \item \heading{composite pixel} Let $\bc_f,\bc_b$ be foreground and background colors respectively, then $\bc = \alpha \bc_f + (1-\alpha)\bc_b$
+        \item \bheading{alpha/transparency mask} $\alpha$ values for all pixels, stored as a separate grayscale image; or stored as a 4th channel, called the alpha channel
+    \end{enumerate}
+\end{enumerate}
+
+
+\section{\linkbook{79}{Chapter 4 Ray Tracing}}
+
+
+\begin{enumerate}
+    \item \bheading{rendering} take a scene, a model, composed of many geometric objects arranged in 3D space and produce a 2D image that shows the objects as viewed from a particular viewpoint
+    \begin{itemize}
+        \item \bheading{object-order rendering} for each object, update pixels that the object influences
+        \item \bheading{image-order rendering} for each pixel, set pixels based on the objects that influence it
+    \end{itemize}
+    \item \bheading{ray-tracing} image-order algorithm for making renderings of 3D scenes
+    \begin{enumerate}
+        \item \bheading{ray generation} compute origin and direction of each pixel's viewing ray based on the camera geometry
+        \item \bheading{ray intersection} finds closest object intersecting the viewing ray
+        \item \bheading{shading} computes the pixel color based on the reseults of ray intersection
+    \end{enumerate}
+    \item \bheading{linear perspective} 3D objects projected to image plane in such a way that stright lines in the scene become straight lines in the image
+    \item \bheading{parallel projection} 3D points are mapped to 2D by moving them along a projection direction until they hit the image plane
+    \begin{itemize}
+        \item \bheading{orthographic/oblique projection} if image plane is perpendicular to view direction, the projection is orthogrpahic; otherwise, it is called oblique
+    \end{itemize}
+    \item \bheading{camera frame} let $\be$ be the viewpoint, and $\bu,\bv,\bw$ be the three basis vectors. $\bu$ points upward (from camera's view), $\bv$ points upward, and $\bw$ points backward. $-\bw$ is called the view direction.
+    \item \bheading{computing viewing ray} represent ray with 3D parametric line
+    \[
+        \bp(t) = \be + t\bd
+    \]
+    idea is to find $\be,\bd$
+    \begin{enumerate}
+        \item \bheading{orthographic view} where $\be$ the viewpoint is placed on the image plane
+        \begin{itemize}
+            \item compute coordinate $(u,v)$ of each pixel $(i,j)$ on the image plane of size $(r-l)\times (t-b)$
+            \begin{align*}
+                u &= l + (i+0.5) \frac{r-l}{n_x} \\
+                v &= b + (j+0.5) \frac{t-b}{n_y}
+            \end{align*}
+            \item set ray's origin to be $\be + u\bu + v\bv$ and direction to be $-\bw$
+        \end{itemize}
+        \item \bheading{perspective views} project along lines that pass through a single point, the viewpoint, rather than along parallel lines. $\be$ the viewpoint is placed some distance $d$ in front of $\be$, call this distance the \textbf{image plane distance / focal length}
+        \begin{itemize}
+            \item compute coordinate $(u,v)$ of each pixel $(i,j)$ on the image plane using previous formula
+            \item set ray's origin to be $\be$ and direction to be $-d\bw + u\bu + v\bv$
+        \end{itemize}
+    \end{enumerate}
+    from eye $\be$ to a point $\bs$ on the image plane.
+    \item \bheading{ray-sphere intersection} Solve a quadratic formula satisfying the 2 condition, that the intersecting point is both on the ray and on the sphere.
+    \item \bheading{ray-triangle intersection} Want to find the first intersection between the ray $\be + t\bd$ and a surface that occurs at a $t\in [t_0, t_1]$. Given parametric surfaces $\bf$, we can solve for 
+    \[
+        \be + t\bd = \mathbf{f} (u,v)    
+    \]
+    for 3 unknowns, $u,u,v$. If the surface is a plane in barycentric coordinate, then solve for 
+    \[
+        \be + t\bd = \ba + \beta(\bb-\ba) + \gamma(\bc-\ba)    
+    \]
+    for some $t,\beta,\gamma$. The intersection is inside the triangle if and only if $\beta>0$,$\gamma>0$, and $\beta+\gamma<1$. There is no solution if either the triangle is degenerate or the ray is parallel to the plane containing the triangle. This equation can be solved analytically with Cramer's rule
+    \item \bheading{ray-polygon intersection} Given a planar polygon with vertices $\pc{\bp_1, \cdots, \bp_m}$ and surface normal $\bn$, we can compute intersection point between ray and plane containing polygon $\bp$ with 
+    \[
+        (\bp - \bp_1) \cdot n = 0
+        \quad \quad 
+        t = \frac{(\bp_1 - \be) \cdot \bn}{\bd \cdot \bn}
+    \]
+    then we check if $\bp$ is inside the polygon by sending 2D ray out from $\bp$ and count the number of intersections between the ray and boundary of the polygon: if the number of intersections is odd, then the point is inside the polygon.
+    \item \bheading{ray-scene-intersection} To intersect a ray with a group of objects, i.e. the scene, simply intersect ray with the objects in the group and return the intersection with the smallest $t$ value.
+    \item \bheading{shading model} is designed to capture the process of light reflection, whereby surfaces are illuminated by light sources and reflect part of the light to the camera
+    \begin{itemize}
+        \item \heading{light direction} $\bl$ is unit vector pointing toward light source
+        \item \heading{view direction} $\bv$ is the unit vector pointing toward camera
+        \item \heading{surface normal} $\bn$ is unit surface normal at point of reflection
+        \item \heading{properties of the surface}, i.e. color, shininess
+    \end{itemize}
+    \item \bheading{Lambertian Shading} For each color channel, compute pixel color $L$ with
+    \[
+        L = k_d I \max(0, \bn \cdot \bl)    
+    \]
+    where $k_d$ is the diffuse coefficient or the surface color, and $I$ is intensity of light source, and $n\cdot l = \cos(\theta)$ where $\theta$ is angle between surface normal and light source. Lambertian shading is \textbf{view independent}, i.e. color of the surface does not depend on the viewing direction $\bv$, leading to matte, chalky appearance. Higher $k_d$, more contrasty
+    \item \bheading{Blinn-Phong Shading} To account for shininess, or \textbf{specular reflection}, a \textbf{specular component} is added to the \textbf{diffuse component} to account for highlights. Blinn-Phong accounts for specular reflection by generating brightest reflection when $\bv$ and $\bl$ are symemtrically positioned across the surface normal, i.e. mirror reflection; the reflection decreases smoothly as the vectors move away from the mirror configuration. Idea is to compare bisector of $\bv$ and $\bl$ to the surface normal $\bn$
+    \[
+        L = k_d I \max(0, \bn \cdot \bl) + k_s I \max(0, \bn \cdot \bh)^p
+        \quad
+        \bh = \frac{\bv + \bl}{\norm{\bv + \bl}}    
+    \]
+    where $k_s$ is the specular coefficient of the surface and $p$ is Phong exponent where larger value indicate shinier/glossier surface
+    \item \bheading{Ambient Shading} To avoid rendering completely black pixels for surfaces that receive no illumination, add a constant illumination to surfaces, with no dependence on surface geometry
+    \[
+        L = k_a I_a + k_d I \max(0, \bn \cdot \bl) + k_s I \max(0, \bn \cdot \bh)^n    
+    \]
+    where $k_a$ is surface specific ambient coefficient and $I_a$ is the ambient light intensity.
+\end{enumerate}
+
+
+
+
+
+
+
+\end{document}

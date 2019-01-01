@@ -2,6 +2,8 @@
 \input{\string~/.macros}
 \usepackage[a4paper, total={6in, 8in}, margin=0.5in]{geometry}
 
+\usepackage{graphicx}   % incorporating graphics
+\graphicspath{{assets/}}
 
 % arg1=pdfurl arg2=pagenum arg3=text
 \usepackage{url}
@@ -20,8 +22,8 @@
 \newpage
 
 
-\section{\linkbook{12}{Chapter 1 Introduction}}
-\section{\linkbook{24}{Chapter 2 Misc Math}}
+\section{\linkbook{12}{Introduction}}
+\section{\linkbook{24}{Misc Math}}
 
 \begin{enumerate}
     \item \bheading{\linkbook{30}{trig identities}}
@@ -96,7 +98,7 @@
 
 
 
-\section{\linkbook{63}{Chapter 3 Raster Images}}
+\section{\linkbook{63}{Raster Images}}
 
 \begin{enumerate}
     \item \bheading{raster display} show images as rectangular arrays of pixels.
@@ -117,7 +119,7 @@
 \end{enumerate}
 
 
-\section{\linkbook{79}{Chapter 4 Ray Tracing}}
+\section{\linkbook{79}{Ray Tracing}}
 
 
 \begin{enumerate}
@@ -199,9 +201,216 @@
     where $k_s$ is the specular coefficient of the surface and $p$ is Phong exponent where larger value indicate shinier/glossier surface
     \item \bheading{Ambient Shading} To avoid rendering completely black pixels for surfaces that receive no illumination, add a constant illumination to surfaces, with no dependence on surface geometry
     \[
-        L = k_a I_a + k_d I \max(0, \bn \cdot \bl) + k_s I \max(0, \bn \cdot \bh)^n    
+        L = k_a I_a + k_d I \max(0, \bn \cdot \bl) + k_s I \max(0, \bn \cdot \bh)^p  
     \]
     where $k_a$ is surface specific ambient coefficient and $I_a$ is the ambient light intensity.
+    \item \bheading{multiple point lights} the effect by more than one light source is simply the sum of the effects of the light sources individually by superposition. Hence 
+    \[
+        L = k_a I_a + 
+        \sum_{i=1}^N \p{
+            k_d I_i \max(0, \bn \cdot \bl_i) + k_s I_i \max(0, \bn \cdot \bh_i)^p
+        }
+    \]
+    where $I_i, \bl_i, \bh_i$ are intensity, direction, and half vector of the $i$-th light source
+    \item \bheading{shadows} idea is surface is illuminated if nothing blocks the view of the light, i.e. the shadow ray $\bp + t\bl$ does not intersect any object in the scene.
+    \item \bheading{ideal specular reflection} or mirror reflection of a surface. the viewer sees the reflection of other objects instead of the highlights. The mirrored object's color is the color of ray at the surface in the reflection direction
+\end{enumerate}
+
+\section{\linkbook{99}{Linear Algebra}}
+
+\begin{enumerate}
+    \item \bheading{eigenvalues and diagonalization} If a matrix has eigenvectors, then we can find them by solving a quadratic equation
+    \[
+        (\bA - \lambda \bI) \bv = 0    
+    \]
+    \item \bheading{eigenvalue decomposition} If $\bA$ is symmetric, i.e. $\bA=\bA^T$, then we can decompose
+    \[
+        \bA = \bQ \bD \bQ^T     
+    \]
+    where $\bQ$ is an orthogonal matrix whose column are eigenvectors of $\bA$ and $\bD$ is a diagonal matrix whose diagonals are eigenvalues of $\bA$
+    \item \bheading{single value decomposition} Any $A$ can be decomposed to 
+    \[
+        \bA = \bU \bS \bV^T    
+    \]
+    where $\bU,\bV$ are orthogonal matrices, whose columns are left,right singular vectors of $\bA$ and $\bS$ is a diagonal matrix containing singular values of $\bA$. Let $\bM = \bA \bA^T$, 
+    \[
+        \bM = \bA \bA^T = (\bU \bS \bV^T) (\bU \bS \bV^T)^T = \bU \bS^2 \bU^T
+    \]
+    since $\bM$ is symmetric so svd reduces to eigenvalue decomposition. Therefore singlular values for $\bA$ are square roots of eigenvalues of $\bM$ and singular vector for $\bA$ are eigenvectors for $\bM$
+\end{enumerate}
+
+
+
+\section{\linkbook{118}{Transformation Matrices}}
+
+\begin{enumerate}
+    \item \bheading{2D linear transformations} scaling, shearing, reflection, rotation, etc. talks bout how symmetric eigenvalue decomposition can decompose a matrix into rotation, scaling, and rotation back to previous direction. and how singular value decomposition also has a geometric meaning, except the two rotation are not the same
+    \item \bheading{3D linear transforations}
+    \begin{itemize}
+        \item \bheading{scaling}
+        \[
+            scale(s_x,s_y,s_z) = 
+            \begin{pmatrix}
+                s_x & 0 & 0 \\ 
+                0 & s_y & 0 \\
+                0 & 0 & s_z \\
+            \end{pmatrix}  
+        \]
+        \item \bheading{rotation} about one of x,y,z axis.
+        \[
+            rotate\_z(\phi) = 
+            \begin{pmatrix}
+                \cos \phi & -\sin \phi & 0 \\
+                \sin \phi & \cos \phi & 0 \\
+                0 & 0 & 1 \\
+            \end{pmatrix}
+        \]
+        \item \bheading{arbitrary rotations}
+        \item \bheading{transforming normal vectors} surface normals are perpendicular to the tangent plane of a surface. Let $\bt$ be any tangent vector and $\bn$ be surface normal. $\bt_M = \bM\bt$ will still be tangent to the transformed surface. However $\bM\bn$ may not be perpendicular to the transformed surface. However we can find some matrix $\bN$ that transform surface normal correctly
+        \[
+            \bn^T \bt = 0 
+            \quad
+            \bt_M = \bM\bt
+            \quad
+            \bn_N = \bN\bn
+            \quad
+            \bn_N^T \bt_M = 0
+        \]
+        \[
+            \bn^T \bt = 0 
+            \quad\rightarrow\quad 
+            (\bn^T \bM^{-1})(\bM \bt) = (\bn^T\bM^{-1})\bt_M = 0
+            \quad\rightarrow\quad 
+            \bn_N = \p{\bn^T \bM^{-1}}^T = (\bM^{-1})^T \bn
+        \]
+        therefore $N = (M^{-1})^T$
+    \end{itemize}
+    \item \bheading{Translation and Affine Transformation} affine transformation is linear transformation followed by a translation. We an represent a 2D affine transformation on position vector with a $3\times 3$ matrix by sing homomeneous coordinate
+    \[
+        \begin{pmatrix}
+            x' \\ y' \\ 1 
+        \end{pmatrix}   
+        =
+        \begin{pmatrix}
+            m_{11} & m_{12} & x_t \\
+            m_{21} & m_{22} & y_t \\
+            0 & 0 & 1 \\
+        \end{pmatrix}  
+        \begin{pmatrix}
+            x \\ y \\ 1
+        \end{pmatrix}
+    \]
+    Matrix multiplication can be used to compose affine transformations. For vector that represent directions or offsets, vectors should not change when we translate the object, we set the third coordinate to zero to accomodate this
+    \[
+        \begin{pmatrix}
+            m_{11} & m_{12} & x_t \\
+            m_{21} & m_{22} & y_t \\
+            0 & 0 & 1 \\
+        \end{pmatrix}  
+        \begin{pmatrix}
+            x \\ y \\ 0
+        \end{pmatrix}    
+    \]
+    Another way uses shearing in a higher dimension to represent translation. More detail in book
+    \item \bheading{windowing transformation} Create transformation matrices that takes point in rectangle $[x_l,x_h] \times [y_l, y_h]$ to rectangle $[x_l'\times x_h', y_l' \times y_h']$, which can be accomplished by translation to origin, scale, then translate back
+    \[
+        window = 
+        translate(x_l', y_l') \cdot
+        scale(\frac{x_h' - x_l'}{x_h - x_l}, \frac{y_h' - y_l'}{y_h - y_l}) \cdot
+        translate(-x_l, -y_l)
+    \]
+    For 3D windowing transformation from $[x_l,x_h] \times [y_l, y_h] \times [z_l, z_h]$ to $[x_l',x_h'] \times [y_l', y_h'] \times [z_l', z_h']$ is given by
+    \[
+        \begin{pmatrix}
+            \frac{x_h' - x_l'}{x_h - x_l} & 0 & 0 & \frac{x_l' x_h - x_h' x_l}{x_h - x_l} \\
+            0 & \frac{y_h' - y_l'}{y_h - y_l} & 0 & \frac{y_l'y_h - y_h'y_l}{y_h - y_l} \\
+            0 & 0 & \frac{z_l'z_h - z_h'z_l}{z_h - z_l} & 0 \\
+            0 & 0 & 0 & 1 \\
+        \end{pmatrix}
+    \]
+    \item \bheading{Inverses of Transformation Matrices} certain types of transformation matrices are easy to invert. scaling are diagonal matrices. rotation are orthogonal matricies so inverse is simply the transpose. For arbitrary matrix, we can apply SVD and decompose into rotation, scaling, and another rotation, take inverses of each and then compose them back.
+    \item \bheading{coordinate transformations} Let $\bo, (\bx,\by)$ be canonical coordinate system in 2D and let $\be, (\bu, \bv)$ be another coordinate frame. We can specify a \textbf{frame-to-canonical matrix} for the $(u,v)$ frame, taking points expressed in $(u,v)$ frame and converts them to same points expressed in the canonical frame.
+    \[
+        \bp_{xy} = 
+        \begin{pmatrix}
+            \bu & \bv & \be \\
+            0 & 0 & 1 \\
+        \end{pmatrix}   
+        \bp_{uv} 
+    \]
+    The \textbf{canonical-to-frame matrix} is the inverse
+    \[
+        \bp_{uv} = 
+        \begin{pmatrix}
+            \bu & \bv & \be \\
+            0 & 0 & 1 \\
+        \end{pmatrix}^{-1}
+        \bp_{xy}
+    \]
+    Similarly for 3D...
+\end{enumerate}
+
+\section{\linkbook{148}{Viewing}}
+
+
+\begin{enumerate}
+    \item \bheading{viewing transformations} Moving object between their 3D positions (world space) and their positions in a 2D view of the 3D world (image space). Important to object-order rendering. Idea is we can find matrices that can project any point on a given pixel's viewing ray back to that pixel's position in the image space
+    \item \bheading{viewing transformations} map 3D location w.r.t. $(x,y,z)$ coordinate in the canonical coordinate system to coordinates in the image w.r.t. pixels
+    \begin{enumerate}
+        \item \heading{camera/eye transformation} is a rigid body transformation that places the camera at the origin in a convenient orientation, depending on position and orientation, or pose, of the camera
+        \item \heading{projection transformation} projects points from camera space so that all visible points fall in the unit cube $x\in [-1,1]^3$, only depending on the type of projection desired
+        \item \heading{viewport/windowing transformation} maps unit image rectangle to desired rectangle in pixel coordinate, depending on the size and position of the output image
+    \end{enumerate}
+    The camera transformation converts points in \underline{world space} to \underline{camera space}. The projection transformation converts points in camera space to \underline{canonial view volume}. The viewport transformation maps canonical view volume to \underline{screen space}
+    \Fig{viewing_transformations}{0.5}{1}{viewing\_transformations}
+    Assume we wish to view a scene with an orthographic camera looking along $-z$ direction with $+y$ up
+    \item \bheading{viewport transformation} maps axis-aligned rectangle to another, i.e. $[-1,1]^2 \to [-0.5,n_x-0.5] \times [-0.5, n_y - 0.5]$ where $n_x,n_y$ are number of pixels for the image. Recall windowing transformation, we have a matrix that ignores $z$-coordinate of points in the canonical view volume, since a point's distance along the projection direction doesn't affect where the point projects in the image.
+    \[
+        M_{vp} = 
+        \begin{pmatrix}
+            \frac{n_x}{2} & 0 & 0 & \frac{n_x-1}{2} \\
+            0 & \frac{n_y}{2} & 0 & \frac{n_y-1}{2} \\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1 \\
+        \end{pmatrix}
+    \]
+    the matrix is called the viewport matrix $M_{vp}$, where it leaves $z$-coordinates of points unmodifieds
+    \item \bheading{orthographic projection transformation} Instead of the canonical view volume, we want to accomodate arbitrary n-orthotope for orthographic projection. Given coordinates of the side of an axis-aligned volume, called the orthographic view volume, of size $[l,r] \times [b,t] \times [f,n]$, we want a map to the canonical view volume. This is again a windowing transformation
+    \[
+        M_{orth} = 
+        \begin{pmatrix}
+            \frac{2}{r-l} & 0 & 0 & -\frac{r+l}{r-l} \\
+            0 & \frac{2}{t-b} & 0 & -\frac{t+b}{t-b} \\
+            0 & 0 & \frac{2}{n-f} & -\frac{n+f}{n-f} \\
+            0 & 0 & 0 & 1 \\
+        \end{pmatrix}
+    \]
+    \item \bheading{the camera transformation} convention is to use $\be$ or eye position, $\bg$ for gaze direction and $\bt$ for view-up vector. We can construct a righ-handed basis with 
+    \[
+        \bw = -\frac{\bg}{\norm{\bg}}
+        \quad 
+        \bu = \frac{\bt \times \bw}{\norm{\bt \times \bw}}
+        \quad
+        \bv = \bw \times \bu
+    \]
+    idea is $\bw$ acts similarly to $-\bz$. Now we have a camera coordinate given by $\be, (\bu,\bv,\bw)$. We want point's coordinate be with respect to the camera coordinate system, however the points coordinate is in world space. The camera transformation is simply the world-to-frame transformation
+    \[
+        M_{cam} =
+        \begin{pmatrix}
+            \bu & \bv & \bw & \be \\
+            0 & 0 & 0 & 1 \\
+        \end{pmatrix}^{-1}
+    \]
+    To sum up, 
+    \[
+        \begin{pmatrix}
+            x_{pixel} \\ y_{pixel} \\ z_{canonical} \\ 1
+        \end{pmatrix}
+        (M_{vp} M_{orth} M_{cam})
+        \begin{pmatrix}
+            x \\ y \\ z \\ 1
+        \end{pmatrix}
+    \]
 \end{enumerate}
 
 

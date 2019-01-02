@@ -171,6 +171,7 @@
             (a_1 \; a_2\; \cdots\; a_{m_1})(a_{m_1+1}\; a_{m_1+2}\;\cdots \; a_{m_2}) \cdots (a_{m_{k-1}+1}\; a_{m_{k-1}+2} \;\cdots \; a_{m_k})
         \]
         \item \bheading{cycle-decomposition of $\sigma$} is the product of $k$-cycles that representing $\sigma$
+        \item \bheading{transposition} is a permutation which exchanges two element while leaving other elements fixed, i.e. a 2-cycle
     \end{enumerate}
     \begin{itemize}
         \item \heading{convention} 1-cycle not written during cycle-decomposition. This convention ensures that cycle decomposition of $\tau\in S_n$ is exactly the same as cycle decomposition of permutation in $S_{m}$ where $m>n$, which acts as $\tau$ on $\pc{1,2,\cdots,n}$ and fixes elements in $\pc{n+1,n+2,\cdots,m}$
@@ -180,6 +181,10 @@
         \item \bheading{proposition} disjoint cycle commutes
         \item \bheading{proposition} cycle-decomposition uniquely expresses a permutation as a product of disjoint cycles
         \item \bheading{proposition} The order of a permutation is the l.c.m. of the lengths of cycles in its cycle decomposition
+        \item \bheading{proposition} transpositions generate finite symmetric group
+        \begin{proof}
+            By cycle-decomposition, we can express every permutation with products of disjoint cycles. It suffices to show that every cycle can be expressed as a product of transpositions. Let $(a_1\;a_2\;\cdots\;a_n)$ be any $r$-cycle. We can show that the $r$-cycle can be written with a $r-1$-cycle $(a_1\;a_r)(a_1\;a_{r-1}) \cdots (a_1\;a_2)$.
+        \end{proof}
     \end{itemize}
 \end{definition*}
 

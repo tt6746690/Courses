@@ -49,5 +49,131 @@
 \section{\linkbook{62}{Centralizers and Normalizers, Stabilizers and Kernels}}
 
 
+\begin{definition*}
+    \bheading{Centralizers and Normalizers} Let $G$ be a group and $A\subset G$ be nonempty
+    \begin{enumerate}
+        \item \bheading{centralizer} The centralizer of $A$ in $G$ is a subset of $G$ which commute with every element of $A$
+        \[
+            C_G(A) = \pc{
+                g\in G \mid gag^{-1} = a \text{ for all }  a\in A
+            }    
+        \]
+        \begin{itemize}
+            \item  $ga=ag \iff gag^{-1}=a$
+        \end{itemize}
+        \item \bheading{center} The center of $G$ is a subset of $G$ which commutes with all the elements of $G$
+        \[
+            Z(G) = C_G(G) = \pc{
+                g\in G \mid gx = xg \text{ for all } x\in G
+            }    
+        \]
+        \item \bheading{normalizer} The normalizer of $A$ in $G$ are subsets of $G$ that \underline{fixes} $A$ by conjugation
+        \[
+            N_G(A) = \pc{
+                g\in G \mid gAg^{-1} = A
+            }
+        \]
+        where $gAg^{-1} = \pc{gag^{-1} \mid a\in A}$
+    \end{enumerate}
+    \begin{itemize}
+        \item \heading{convention} For $A=\pc{a}$, write $C_G(a)$ instead of $C_G(\pc{a})$. Note $a^n \in C_G(a)$ for all $n\in\Z^+$
+        \item \bheading{theorem} $Z(G) \subgroup C_G(A) \subgroup N_G(A) \subgroup G$
+        \begin{proof}
+            proofs for $C_G(A)$ and $N_G(A)$ are subgroups of $G$ are similar. For now want to show $N_G(A)\subgroup G$. Note $1 \in N_G(A)$ so $N_G(A) \neq \emptyset$. Let $g_1,g_2\in N_G(A)$, then $g_1Ag_1^{-1} = A$ and $g_2Ag_2^{-1} = A$. therefore 
+            \[
+                g_1g_2^{-1} A (g_1 g_2^{-1})^{-1} = g_1g_2^{-1} (g_2 A g_2^{-1}) g_2 g_1^{-1} = g_1 A g_1^{-1} = A  
+            \]
+            hence $g_1g_2^{-1} \in N_G(A)$. So $N_G(A)\subgroup G$.
+        \end{proof}
+        \item \heading{examples}
+        \begin{itemize}
+            \item If $G$ is abelian 
+            \begin{itemize}
+                \item $Z(G)=G$
+                \item $C_G(A) = N_G(A) = G$ for any subset $A$ ($gag^{-1} = gg^{-1}a = a$ for all $a\in A$, $g\in G$)
+            \end{itemize}
+            \item $C_{Q_8}(i) = \pc{\pm 1, \pm i}$
+            \item Let $G=D_8$ and $A = \pc{1,r,r^2,r^3} \subgroup G$ be subgroup of rorations
+            \begin{itemize}
+                \item $C_{D_8}(A) = A$
+                \item $N_{D_8}(A) = D_8$
+                \item $Z(D_8) = \pc{1,r^2}$
+            \end{itemize}
+            \begin{proof}
+                \textbf{(1)} Since all powers of $r$ commutes with each other, $A\subgroup C_{D_8}(A)$. since $sr^i = r^{-i}s \neq r^is$, $s$ does not commute with any rotation, so $s\not\in C_{D_8}(A)$. In fact, any $sr^i \not\in C_{D_8}(A)$ where $i\in \pc{0,1,2,3}$. If assume for contradiction, $s = (sr^i)(r^{-i}) \in C_{D_8}(A)$, a contradiction. Hence $C_{D_8} = A$. \textbf{(2)} Note, $A \subgroup N_{D_8}(A)$ by fact that centeralizer is contained in normalizer. Now consider 
+                \[
+                    sAs^{-1} = \pc{
+                        s1s^{-1}, srs^{-1}, sr^2s^{-1}, sr^3s^{-1}
+                    } = \pc{
+                        1, r^3,r^2,r
+                    } = A
+                \]
+                so that $s\in N_{D_8}$. Since $r,s\in N_{D_8}(A)$ and $N_{D_8}$ is closed under multiplication (its a subgroup!), $s^i r^j \in N_{D_8}$ for all $i,j$. $D_8 \subgroup N_{D_8}$, hence $N_{D_8}(A) = D_8$ \textbf{(3)} Note, $Z(D_8) \subgroup A$ by fact that center is contained in the centralizer. Note $sr = r^{-1}s = r^3 s \neq rs$ and $sr^3 = r^{-3}s = rs \neq r^3s$ hence $r,r^3\not\in Z(D_8)$ (but $sr^2 = r^{-2}s = r^2s$). Therefore $Z(D_8) \subgroup \pc{1,r^2}$. The reverse inclusion holds by $1$ (and $r^2$) commutes with $r$ and $s$. Since $r,s$ generates $D_8$, every element of $D_8$ commutes with $1$ (and $r^2$) hence $\pc{1,r^2} \subgroup Z(D_8)$ and so equality holds.
+            \end{proof}
+            \item Let $G=S_3$ and $A=\pc{1, \p{1\;2}}$,
+            \begin{itemize}
+                \item $C_{S_3}(A) = A$
+                \item $N_{S_3}(A) = A$
+                \item $Z(S_3) = \pc{1}$
+            \end{itemize}
+            \begin{proof}
+                \textbf{(1)} Both $1$ and $\p{1\;2}$ commutes with all of $A$ hence $A \subgroup C_{S_3}(A)$ (for $a,g=(1\;2)$, $gag^{-1} = (1\;2)(1\;2)(2\;1) = (1\;2)$, commutativity with $a=1$ or $g=1$ is trivial). To show $C_{S_3}(A) \subgroup A$, enough to show that both $(2\;3)$ and $(1\;3)$ do not commute with all elements of $A$, specifically $(1\;2)$ (by fact that transpositions generates $S_3$). $(2\;3)(1\;2) = (1\;3\;2) \neq (1\;2\;3) = (1\;2)(2\;3)$ similarly for $(1\;3)$. Alternatively, by Lagrange theorem, $\order{C_{S_3}(A)} \mid \order{S_3}=6$ and $2 = \order{A} \mid \order{C_{S_3}(A)}$. Possible values for $\order{C_{S_3}(A)}$ are 2 or 6. If latter is true, then $C_{S_3}(A) = S_3$ but this is a contradiction since $(2\;3)$ does not commute with $(1\;2)$. So $\order{C_{S_3}(A)} = 2$ hence $C_{S_3}(A)=A$. \textbf{(2)} Note $N_{S_3}(A)=A$ because $\sigma \in N_{S_3}(A)$ if and only if 
+                \[
+                    \sigma A\sigma^{-1}
+                    = \pc{\sigma 1 \sigma^{-1}, \sigma (1\;2) \sigma^{-1}}
+                    = \pc{1, (1\;2)}
+                    = A
+                \]
+                if and only if $\sigma (1\;2) \sigma^{-1} = (1\;2)$, i.e. $\sigma\in C_{S_3}(A) =A$. \textbf{(3)} $Z(S_3) \subgroup C_{S_3}(A)=A$ and $(1\;2)\not\in Z(S_3)$
+            \end{proof}
+        \end{itemize}
+    \end{itemize}
+\end{definition*}
+
+\begin{definition*}
+    \bheading{Stabilizers and Kernels of Group Actions}
+    \begin{enumerate}
+        \item \bheading{stabilizer} If $G$ is a group acting on a set $S$ and $s\in S$ is a fixed element, the stabilizer of $s$ in $G$ is 
+        \[
+            G_s = \pc{g\in G \mid g\cdot s = s}    
+        \]
+        \item \bheading{kernel} of action of $G$ on $S$ is defined as 
+        \[
+            \ker{\varphi} = \pc{
+                g\in G \mid g\cdot s = s \text{ for all } s\in S
+            }
+        \]
+        \item \bheading{centralizers and normalizers as kernels of some group action}
+        \begin{enumerate}
+            \item \heading{normalizer} Let $G\actson \sP(G)$ by conjugation, i.e. for any $g\in G$ and $B\subset G$
+            \[
+                g: B \to gBg^{-1} 
+                \quad \text{ where } \quad
+                gBg^{-1} = \pc{gbg^{-1} \mid b\in B}
+            \]
+            This is a group action. \\ 
+            \underline{The normalizer of $G$ on $A$ is the stabilizer of $A$ when $G$ acts on $\sP(G)$ by conjugation} \\
+            , i.e. $N_G(A) = G_s$ where $s=A\subset \sP(G)$. Therefore $N_G(A) \subgroup G$
+            \item \heading{centralizer} Let $N_G(A) \actson A$ by conjugation, i.e. for any $g\in N_G(A)$ and $a\in A$
+            \[
+                g: a\to gag^{-1}    
+            \]
+            which maps $A$ to $A$ by definition of $N_G(A)$ fixing $A$ and so gives an action on $A$. \\  \underline{The centralizer of $G$ on $A$ is simply the kernel of $N_G(A)$ acting on $A$ by conjugation}. 
+            \\ Since $C_G(A)\subgroup N_G(A)$ and $N_G(A)\subgroup G$, we have $C_G(A)\subgroup G$
+            \item \heading{center} \underline{The center of $G$ is the kernel of $G$ acting on $S=G$ by conjugation}
+        \end{enumerate} 
+    \end{enumerate}
+    \begin{itemize}
+        \item \bheading{theorem} $\ker{(G\actson S)} \subgroup G$
+        \item \bheading{theorem} $G_s \subgroup G$ ($1\in G_s$ and $(xy^{-1}) \cdot s = (xy^{-1}) \cdot (y\cdot s) = x\cdot s = s$ for any $x,y\in G_s$)
+        \item \heading{examples}
+        \begin{itemize}
+            \item Let $G=D_8$ and $A =\pc{1,2,3,4}$ the vertices of a square. Then the stabilizer of any vertex $a\in A$ is the subgroup $\pc{1,t} \subgroup D_8$, where $t$ is the reflection about line of symmetry passing through $a$ and center of the square. The kernel of the action is just the identity
+            \item Let $G=D_8$ and $A = \pc{\pc{1,3}, \pc{2,4}}$ be the two unordered pairs of opposite vertices. The kernel of the action of $G$ on $A$ is the subgroup $\pc{1,s,r^2,sr^2}$ and for any $a\in A$, the stabilizer of $a$ in $D_8$ is equal to the kernel of the action
+        \end{itemize}
+    \end{itemize}
+\end{definition*}
+
+
 
 \end{document}

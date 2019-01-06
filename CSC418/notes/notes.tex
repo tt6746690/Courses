@@ -125,8 +125,8 @@
 \begin{enumerate}
     \item \bheading{rendering} take a scene, a model, composed of many geometric objects arranged in 3D space and produce a 2D image that shows the objects as viewed from a particular viewpoint
     \begin{itemize}
-        \item \bheading{object-order rendering} for each object, update pixels that the object influences
-        \item \bheading{image-order rendering} for each pixel, set pixels based on the objects that influence it
+        \item \bheading{object-order rendering} for each object, update pixels that the object influences (gaphics pipeline)
+        \item \bheading{image-order rendering} for each pixel, set pixels based on the objects that influence it (ray tracing)
     \end{itemize}
     \item \bheading{ray-tracing} image-order algorithm for making renderings of 3D scenes
     \begin{enumerate}
@@ -362,7 +362,7 @@
         \item \heading{viewport/windowing transformation} maps unit image rectangle to desired rectangle in pixel coordinate, depending on the size and position of the output image
     \end{enumerate}
     The camera transformation converts points in \underline{world space} to \underline{camera space}. The projection transformation converts points in camera space to \underline{canonial view volume}. The viewport transformation maps canonical view volume to \underline{screen space}
-    \Fig{viewing_transformations}{0.5}{1}{viewing\_transformations}
+    \Fig{viewing_transformations}{0.4}{0.9}{viewing\_transformations}
     Assume we wish to view a scene with an orthographic camera looking along $-z$ direction with $+y$ up
     \item \bheading{viewport transformation} maps axis-aligned rectangle to another, i.e. $[-1,1]^2 \to [-0.5,n_x-0.5] \times [-0.5, n_y - 0.5]$ where $n_x,n_y$ are number of pixels for the image. Recall windowing transformation, we have a matrix that ignores $z$-coordinate of points in the canonical view volume, since a point's distance along the projection direction doesn't affect where the point projects in the image.
     \[
@@ -376,6 +376,7 @@
     \]
     the matrix is called the viewport matrix $M_{vp}$, where it leaves $z$-coordinates of points unmodifieds
     \item \bheading{orthographic projection transformation} Instead of the canonical view volume, we want to accomodate arbitrary n-orthotope for orthographic projection. Given coordinates of the side of an axis-aligned volume, called the orthographic view volume, of size $[l,r] \times [b,t] \times [f,n]$, we want a map to the canonical view volume. This is again a windowing transformation
+    \Fig{orthographic_view_volume}{0.5}{1}{orthographic view volume: on the -z axis with $0>n>f$}
     \[
         M_{orth} = 
         \begin{pmatrix}
@@ -386,6 +387,7 @@
         \end{pmatrix}
     \]
     \item \bheading{the camera transformation} convention is to use $\be$ or eye position, $\bg$ for gaze direction and $\bt$ for view-up vector. We can construct a righ-handed basis with 
+    \Fig{camera_coordinate}{0.5}{1}{the camera's coordinate system}
     \[
         \bw = -\frac{\bg}{\norm{\bg}}
         \quad 
@@ -406,17 +408,219 @@
         \begin{pmatrix}
             x_{pixel} \\ y_{pixel} \\ z_{canonical} \\ 1
         \end{pmatrix}
-        (M_{vp} M_{orth} M_{cam})
+        = 
+        (\bM_{vp} \bM_{orth} \bM_{cam})
         \begin{pmatrix}
             x \\ y \\ z \\ 1
         \end{pmatrix}
     \]
+    \item \bheading{projective transformation} Key property is that the size of an object on the screen (view plane) is proportional to $1/z$ for an eye at the origin looking up the negative $z$-axis
+    \[
+        y_s = \frac{d}{z} y    
+    \]
+    where $y$ is distance of point along $y$-axis and $y_s$ is where the point should be drawn on the screen
+    \Fig{projection_view_2d}{0.5}{1}{Eye at $\be$ gaze along $\bg$ (i.e. $-\bz$ axis). The view plane is distance $d$ from the eye.}
+    Two method of representing projection transformation with matrices
+    \begin{enumerate}
+        \item \heading{3D projective transformation} idea is to define $(x\;y\;z\;w)^T$ to represent the point $(x/w,y/w,z/w)$ since $w=1$. In this way the denominator $w$ can be an affine function of the original coordinates, 
+        \[
+            \begin{pmatrix}
+                \tilde{x} \\ \tilde{y} \\ \tilde{z} \\  \tilde{w}
+            \end{pmatrix}    
+            = 
+            \begin{pmatrix}
+                a_1 & b_1 & c_1 & d_1 \\ 
+                a_2 & b_2 & c_2 & d_2 \\ 
+                a_3 & b_3 & c_3 & d_3 \\ 
+                e & f & g & h \\
+            \end{pmatrix}
+            \begin{pmatrix}
+                x \\ y \\ z \\ 1
+            \end{pmatrix}
+            \quad \Rightarrow \quad
+            (x',y',z') = (\tilde{x}/\tilde{w}, \tilde{x}/\tilde{w}, \tilde{z}/\tilde{w})
+        \]
+        \item \heading{4D linear transformation} Idea is to view 3D projective transformation as a 4D linear transformation with the constraint that $\bx \sim \alpha \bx$ for all $\alpha\neq 0$, where $\ba\sim\bb$ means $\ba$ and $\bb$ are two homogeneous vectors representing the same point in cartesian coordinate (i.e. last coordinate is 1). Intuitively, 3D points in cartesian coordinate is a linear vector in 4D.
+    \end{enumerate}
+    \item \bheading{perspective projection} In 1D, use projection transformation to implement perpsective projection
+    \[
+        \begin{pmatrix}
+            y_s \\ 1 
+        \end{pmatrix}
+        \sim
+        \begin{pmatrix}
+            d & 0 & 0 \\
+            0 & 1 & 0 \\
+        \end{pmatrix}   
+        \begin{pmatrix}
+            y \\ z \\ 1
+        \end{pmatrix} 
+        = 
+        \begin{pmatrix}
+            dy \\
+            z \\
+        \end{pmatrix}
+        \sim
+        \begin{pmatrix}
+            \frac{dy}{z} \\
+            1
+        \end{pmatrix}
+    \]
+    In 3D, the image plane distance is $-n$ and the distance of point $(x,y,z)$ is $-z$. The \underline{perspective matrix} maps the persepctive view volume (a slice of a pyrmid) to the orthographic view volume
+    \[
+        \bP = 
+        \begin{pmatrix}
+            n & 0 & 0 & 0 \\
+            0 & n & 0 & 0 \\
+            0 & 0 & n+f & -fn \\
+            0 & 0 & 1 & 1 \\ 
+        \end{pmatrix}
+        \quad \quad
+        \bP 
+        \begin{pmatrix}
+            x \\ y \\ z \\ 1
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            nx \\ ny \\ (n+f)z - fn\\ z
+        \end{pmatrix}
+        \sim
+        \begin{pmatrix}
+            \frac{nx}{z} \\ 
+            \frac{ny}{z} \\
+            n+f-\frac{nf}{z} \\
+            1
+        \end{pmatrix}
+    \]
+    where row 1,2,4 implements perspectiv projection and row 3 leaves points on $z=n$ plane alone and points on $z=f$ plane alone while squishing points in between by the appropriate amount and preserves relative order of $z$ values.
+    \begin{figure}[ht]
+        \begin{center}
+        \includegraphics[width=2in]{perspective_projection_1}
+        \includegraphics[width=3in]{perspective_projection_2}
+        \caption{perspective projection maps line thorugh origin/eye to a line parallel to z-axis}
+        \end{center}
+    \end{figure}
+    To convert screen coordinate plus $z$ back to the original space, we can apply the inverse of projective projection
+    \[
+        \bP^{-1} = 
+        \begin{pmatrix}
+            \frac{1}{n} & 0 & 0 & 0 \\
+            0 & \frac{1}{n} & 0 & 0 \\
+            0 & 0 & 0 & 1 \\
+            0 & 0 & -\frac{1}{fn} & \frac{n+f}{fn} \\
+        \end{pmatrix}
+        \sim
+        \begin{pmatrix}
+            f & 0 & 0 & 0 \\
+            0 & f & 0 & 0 \\
+            0 & 0 & 0 & fn \\
+            0 & 0 & -1 & n+f \\
+        \end{pmatrix}
+    \]
+    The \underline{perspective projection matrix} maps perspective view volume to canonical view volume
+    \[
+        \bM_{pre} = \bM_{orth} \bP = 
+        \begin{pmatrix}
+            \frac{2n}{r-l} & 0 & \frac{l+r}{l-r} & 0 \\
+            0 & \frac{2n}{t-b} & \frac{b+t}{b-t} & 0 \\
+            0 & 0 & \frac{f+n}{n-f} & \frac{2fn}{f-n} \\
+            0 & 0 & 1 & 0 \\
+        \end{pmatrix}
+    \]
+    To sum up,
+    \[
+        \begin{pmatrix}
+            x_{pixel} / w_{pixel} \\
+            y_{pixel} / w_{pixel} \\
+            z_{ordered} / w_{pixel}\\ 
+            1 \\
+        \end{pmatrix}
+        \sim
+        \begin{pmatrix}
+            x_{pixel} \\ y_{pixel} \\ z_{ordered} \\ w_{pixel}
+        \end{pmatrix}
+        = 
+        (\bM_{vp} \bM_{orth} \bP \bM_{cam})
+        \begin{pmatrix}
+            x \\ y \\ z \\ 1
+        \end{pmatrix}    
+    \]
+    note we need to divide by the homogeneous coordinate $w$ if perspective projection $\bM_{per}$ is included. 
+    \item \bheading{properties of perspective transform} perspective transform preserves straight lines, planes, and triangles, and preserves the ordering of the points.
+    \item \bheading{field of view} although we can specify any window $(l,r,b,t)$ and distance to plane $n$, we can have a simpler system where we 
+    \begin{enumerate}
+        \item look through the center of the window ($l=-r$ and $b=-t$)
+        \item pixels are square and we want no distortion in the image ($nx / ny = r / t)$
+    \end{enumerate}
+    So pixel count $n_x, n_y$, (verticle) field-of-view $\theta$, and distance to plane $n$ defines the viewing window.
+    \[
+        \tan \frac{\theta}{2} = \frac{t}{|n|}    
+    \]
+    \Fig{fov}{0.5}{1}{field-of-view $\theta$ is the angle from bottom of the screen to the top of the screen}
 \end{enumerate}
 
 
+\section{\linkbook{167}{The Graphics Pipeline}}
+
+\begin{enumerate}
+    \item \bheading{the graphics pipeline} object-order rendering cosiders each object and find pixels that it could have an effect on. The proces of finding all pixels in an image occupied by an object is called \underline{rasterization}. object-order rendering can also be called rendering by rasterization. This sequence of operations in called the graphics pipeline. It is more effient.
+    \begin{enumerate}
+        \item interactive rendering via hardware for speed (OpenGL, Direct3D)
+        \item film production rendering for quality (RenderMan)
+    \end{enumerate}
+    Steps are 
+    \begin{enumerate}
+        \item \heading{vertex processing} incoming vertices transformed by modeling, viewing, projection transformation which maps them from original coordinate into screen space. Color, surface normal, texture are also transformed as needed.
+        \item \heading{rasterization} converts continuous representation of object to discrete pixels
+        \item \heading{fragment processing} compute a color and depth for each fragment. shading operations
+        \item \heading{fragment blending} compute final cover by combining fragments that overlapped each pixel, i.e. pick colo of fragment with smallest depth 
+    \end{enumerate}
+    \item \bheading{rasterization} In essence, rasterization converts continuous representation of objects to a discrete representation with pixels. The rasterizer enumerates pixels covered by the primitives and it interpolates values, called attributes, across the primitive. The output of the rasterizer is a set of fragments, one for each pixel covered by the primitive. Each fragment (lives) at a particular pixel and carries its own set of attribute values
+    \item \bheading{line drawing} given implicit function 
+    \[
+        f(x,y) = 
+        (y_0 - y_1)x + (x_1 - x_0)y + x_0y_1  - x_1y_0 = 0    
+    \]
+    assuming $x_0 < x_1$ and the slope $m = (y_1-y_0)/(x_1-x_0) \in (0,1]$. The midpoint algorithm keep drawing pixels from left to right and move upward in the $y$-direction if $f(x+1,y+0.5)<0$, i.e. the line passes over the midpoint of $(x+1,y)$ and $(x+1,y+1)$
+    \item \bheading{triangle rasterization} In 2D, given $\bp_0, \bp_1, \bp_2$ in screen coordinates, we can draw triangle and fillin color with barycentric coordinates
+    \[
+        \bc = \alpha \bc_0 + \beta \bc_1 + \gamma \bc_2    
+    \]
+    where $\bc_0,\bc_1,\bc_2$ are color of triangle vertices. This is called Gouraud interpolation
+    \item \bheading{A simple 2D pipeline} rasterization followed by blending stage where each fragment simply overwrites value of the previous one. This is the typical API for interfaces, graphing libraries
+    \item \bheading{A minimal 3D pipeline} To draw 2D objects in 3D, simply follow the 2D pipeline with one addition: in vertex processing stage the incoming vertex positions are multiplied by the modeling, camera, projection, and viewport mtraices, resulting in screen-space triangles drawn in the same way as if they'd been specified directly in 3D. Use \textbf{painter's algorithm} to get the correct occlusion relationship, i.e. primitives are draw in back-to-front order. However, the drawbacks are 
+    \begin{enumerate}
+        \item cannot handle triangles that intersect one another
+        \item several triangles can be arranged in an occlusion cycle
+        \item sorting primitives by depth is slow
+    \end{enumerate}
+    \Fig{painters_drawbacks}{0.4}{1}{Drawback's of painter's algorithm}
+    \item \bheading{use z-buffer for hidden surfaces} for each pixel, allocate a \textbf{depth buffer}, or z-buffer to store the closest distance of fragments that have been drawn so far. In the fragment blending stage, fragments with distance larger than the depth buffer is thrown away. This requires each fragment to carry a depth, which is computed by interpolation of $z$-coordinates. Thereare precision issues with $z$-buffer.$z$ buffer are nonnegative integers instead of float for memory speed reasons. 
+    \item \bheading{per-vertex shading} idea is we want 3D objects to be drawn with shading, using the same illumination euqation used for image-order rendering. These equation requries a light direction, eye direction and surface normal to compute the color of a surface. Idea is 
+    \begin{enumerate}
+        \item application provides normal vectors at each vertex
+        \item positions and color of lights are provided separately
+        \item at each vertex, the direction to the viewer and direction to each lights are computed based on positions of the camera, lights, and vertex.
+    \end{enumerate}
+    the shading equation is evaluated to compute a color, which is passed onto the rasterizer as the \textbf{vertex color}. Per-vertex shading is called \textbf{Gouraud shading}. Usually, computation of vertex color is in a coordinate system orthonormal when viewed in the world space, e.g. the eye space. per-vertex shading has the disadvantage of not producing details in shading that are smaller than the primitives used to draw the surfaces, since it computes shading once for each vertex and never in between vertices.
+    \item \bheading{per-fragment shading} To avoid interpolation artifacts associated with per-vertex shading, we can avoid interpolating colors by performing shading computations after the interpolation in the fragment stage. Geometric information needed for shading is passed through the rasterizer as attributes, so the vertex stage must coordinate with fragment stage to prepare the data appropriately. One approach is to interpolate eye-space surface normal and eye-space vertex positions.
+    \item \bheading{texture mapping} textures are images that are used to add extra detail to the shading of surfaces that would otherwise look too homogeneous and artificial. Idea is each time shading is computed, read one values used in the shading computation, e.g. diffuse color, from the texture instead of attribute values attached to the geometry. This is called \textbf{texture lookup} the shading code specifies a \textbf{texture coordinate}
+    \item \bheading{shading frequency} 
+    \begin{enumerate}
+        \item \heading{low shading frequency} shading with large-scale features can be evalauted fairly infrequently and interpolated
+        \item \heading{high shading frequency} shading that produces small-scale features, such as sharp highlights or detailed textures. Most likely the shading frequency needs to be at least one shading sample per pixel
+    \end{enumerate}
+\end{enumerate}
+
+\section{\linkbook{250}{Texture Mapping}}
+
+ 
 
 
 
+
+
+ 
 
 
 \end{document}

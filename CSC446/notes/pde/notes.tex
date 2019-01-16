@@ -1,0 +1,269 @@
+\documentclass[11pt]{article}
+\input{../preamble_local.tex}
+
+\begin{document}
+
+\linkbook{7}{table of contents}
+\linkbook{21}{flow chart}
+\tableofcontents
+
+\newpage
+
+\section{\linkbook{25}{Euler's Method and Beyond}}
+
+\subsection{\linkbook{25}{Ordinary differential equations and Lipschitz condition}}
+
+
+\begin{enumerate}
+    \item \bheading{Goal} Approximate solution to 
+    \[
+        \by' = \bf ( t, \by)
+        \quad \text{with initial condition} \quad 
+        \by ( t_0 ) = \by_0    
+    \]
+    where $t > t_0$ and $\bf: [t_0, \infty) \times \R^d \to \R^d$ is a sufficiently well behaved function
+    \item \bheading{Lipschitz condition} Given $\bf$ and norm $\norm{\cdot}$, the Lipschitz condition is defined by 
+    \[
+        \norm{
+            \bf(t, \bx) - \bf(t, \by)
+        } \leq \lambda \norm{\bx - \by}
+        \quad \quad
+        \text{for all}
+        \quad \bx, \by \in \R^d \;,\; t> t_0
+    \]
+    where $\lambda \in \R$ is called Lipschitz constant. 
+    \item \bheading{Picard Lindelof theorem} Consider initial value problem 
+    \[
+        y'(t) = f(t, y(t))
+        \quad
+        y(t_0) = y_0
+    \]
+    If $f$ is uniformly Lipschitz continous in $y$ and continous in $t$, then for some $\epsilon > 0$, there exists unique solution $y(t)$ to the initial value problem on the interval $[t_0 - \epsilon, t_0 + \epsilon]$ 
+    \item \bheading{Analytic function} A function $\bf$ is an analytic function if it is a function that is locally given by a convergent power series, i.e. an infinitely differentiable function such that at any point $(t,\by_0) \in [0, \infty)\times \R^d$ in its domain, the Taylor series converges to $\bf(\bx)$ for $\bx$ in a neighborhood of $(t,\by_0)$.
+    \begin{enumerate}
+        \item \heading{example} polynomial, exponential, trigonometric, logarithm, power function
+        \item \heading{note} if $\bf$ is analytic, solution $\by$ to the initial value problem is also analytic
+    \end{enumerate}
+    \item \bheading{Taylor Expansion} Given $f \in C^{\infty}(\R)$, the Taylor expansion of $f$ at $a$ is given by 
+    \begin{align*}
+        T(a)
+        &= \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n \\
+        &= f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!} (x-a)^2 + \cdots
+    \end{align*}
+    \item \bheading{Taylor's Theorem} Let $k\geq 1$ and function $f:\R\to\R$ be $k$ times differentiable at a point $a\in \R$, then exists $h_k:\R\to\R$ such that 
+    \[
+        f(x)
+        = \sum_{n=0}^{k} \frac{f^{(n)}(a)}{n!} (x-a)^n + h_k(x) (x-a)^k
+    \]
+    and $\lim_{x\to a} h_k(x) = 0$, i.e. the reminder term $R_k(x) = f(x) - P_k(x)$ is asymptotically trivial. If $f$ is $k+1$ times differentiable on the open interval and $f^k$ continous on the closed interval $[a,x]$, then the Lagrange remind is given by 
+    \[
+        R_k(x) = \frac{f^{k+1}(\zeta)}{(k+1)!} (x-a)^{k+1}
+    \]
+    for soem $\zeta \in [a,x]$ by the mean value theorem
+    \item \bheading{$\sO$ notation} $f(x) = \sO(g(x))$   describes asymptotic behavior of function $f$
+    \begin{enumerate}
+        \item \heading{as $x\to \infty$} if there exists $M\geq 0$ and $x_0\in\R$ such that $|f(x)| \leq M g(x)$ for all $x>x_0$. 
+        \item \heading{as $x\to a$} if there exists $M\geq 0$ and $\delta \in\R$ such that $|f(x)| \leq M g(x)$ when $0 < |x-a| < \delta$. Alternatively we can say 
+        \[
+            \lim_{x\to a} \sup \abs{\frac{f(x)}{g(x)}} < \infty
+        \]
+    \end{enumerate}
+\end{enumerate}
+
+
+\subsection{\linkbook{26}{Euler's method}}
+
+\begin{definition*}
+    \bheading{Euler's Method} Given initial value problem $\by' = \bf(t, \by)$ for $t\geq t_0$ and initial value $\by(t_0) = \by_0$. If we assume $\by'(t) = \bf(t, \by(t)) \approx \bf(t_0, \by(t_0))$ for $t\in [t_0,t_0+h)$ (i.e. deriviative in $[t_n, t_{n+1}]$ is approximated by value of derivative at $t_n$) for some sufficiently small time step $h>0$, we can approximate the value of $\by(t)$ by
+    \begin{align*}
+        \by(\bt) 
+        &= \by(t_0) + \int_{t_0}^t \bf(\tau, \by(\tau)) d\tau  \\
+        &\approx \by_0 + (t-t_0) \bf(t_0, \by_0)
+    \end{align*}
+    Given a sequence of times $(t_n)_{n\in\N} = \p{t_0, t_0+h,\cdots}$ we have numerical approximation $(\by_n)_{n\in\N}$ by 
+    \[
+        \by_{n+1} = \by_n + h\bf(t_n, \by_n)
+    \]
+    \begin{enumerate}
+        \item \heading{intuition} euler's method is a time-stepping numerical method that covers interval by an equidistant grid and produe numerical solution at the grid points. we can show that euler's method is convergent, i.e. as $h\to 0$, grid is refined, the numerical solution tends to exact solution
+    \end{enumerate}
+\end{definition*}
+
+\begin{definition*}
+    \bheading{convergent method} Given a time-stepping numerical method on a compact inteval $[t_0, t_0+t^*]$, we can compute numerical solutions dependent upon $h$
+    \[
+        \by_n = \by_{n,h}
+        \quad \text{for}
+        \quad n = 0,1,\cdots,\lfloor t*/h\rfloor    
+    \]
+    A method is said to be convergent if for every ODE with Lipschitz function $\bf$, the numerical solution tends to the true solution as the grid becomes increasingly fine. More rigorously, if every ODE with Lipschitz function $\by$ and for every $t^*>0$, then following holds 
+    \[
+        \lim_{h\to 0^+} \max_{n=0,1,\cdots,\lfloor t*/h\rfloor    } \norm{\by_{n,h} - \by(t_n)} = 0
+    \]
+\end{definition*}
+
+\begin{theorem*}
+    \bheading{Euler's method is convergent} 
+    \begin{proof}
+        Assume $\bf$ and therefore also $\by$ is analytic, i.e. convergent Taylor expansion. Let $\be_{n,h} = \by_{n,h} - \by(t_n)$ be the numerical error. Show $\lim_{h\to 0^+} \max_n \norm{\be_{n,h}} = 0$. By Taylor's theorem 
+        \[
+            \by(t_{n+1})
+            = \by(t_n) + h\by'(t_n) + \sO(h^2)
+            = \by(t_n) + h\bf(t_n,\by(t_n)) + \sO(h^2)
+        \]
+        given $\by$ continously differentiable, $\sO(h^2)$ can be bounded uniformly for all $h>0$ by a term $ch^2$ for some $c>0$. Subtract previous from iterative formula of euler's method 
+        \[
+            \be_{n+1,h} = 
+            \be_{n,h} + h\p{
+                \bf(t_n, \by(t_n) + \be_{n,h}) - \bf(t_m, \by(t_n))
+            } + \sO(h^2)
+        \]
+        By triangle inequality and Lipschitz condition 
+        \begin{align*}
+            \norm{\be_{n+1, h}}
+            &\leq \norm{\be_{n,h}} + h\norm{\bf(t_n, \by(t_n) + \be_{n,h}) - \bf(t_n, \by(t_n))} + ch^2 \\
+            &\leq (1+h\lambda) \norm{\be_{n,h}} + ch^2
+        \end{align*}
+        for $n=0,1,\cdots,\lfloor t^*/h \rfloor - 1$. By induction on $n$, we can show $\norm{\be_{n,h}} \leq \frac{c}{\lambda} h \p{(1+h\lambda)^n - 1}$. Since $1+h\lambda < e^{h\lambda}$ we have $(1+h\lambda)^n < e^{nh\lambda} < e^{\lfloor t*/h\rfloor h\lambda} \leq e^{t^* \lambda}$. Therefore 
+        \[
+            \norm{\be_{n,h}}   \leq \frac{c}{\lambda} (e^{t^*\lambda} - 1)h
+        \]
+        for $n=0,1,\cdots,\lfloor t*/h\rfloor$. This is an upper bound on the error that is independent of $h$, hence $\lim_{h\to 0} \norm{\be_{n,h}} = 0$. from which we can infer that error decays globally as $\sO(h)$
+    \end{proof}
+\end{theorem*}
+
+\begin{definition*}
+    \bheading{order $p$ method} Given arbitrary time-stepping method 
+    \[
+        \by_{n+1} = \bsY_n (\bf, h. \by_0, \by_1, \cdots, \by_n) \quad \quad n = 0,1,\cdots   
+    \]
+    for initial value problem, it is of order $p$ if 
+    \[
+        \by(t_{n+1}) - \bsY_n (\bf, h, \by(t_0), \by(t_1), \cdots, \by(t_n)) = \sO(h^{p+1})
+    \]
+    for every analytic $\bf$ and $n=0,1,\cdots$. Intuitively, a method is of order $p$ if it recovers exactly every polynomial oslution of degrees $p$ or less.
+    \begin{enumerate}
+        \item \heading{intuition} order of a method gives information about local behavior, i.e. advancing from $t_n$ to $t_{n+1}$ where $h>0$ is sufficiently small, we are incurring an error of $\sO(h^{p+1})$. Generally want the the global (convergence) behavior of the method instead.
+        \item \bheading{fact} euler's method is order 1
+        \begin{proof}
+            Euler's method can be written as $\by_{n+1} - \p{\by_n + h\bf(t_n, \by_n)} = 0$. Replace $\by_k$ by $\by(t_k)$ and expand terms of Taylor series about $t_n$ we have 
+            \[
+                \by(t_{n+1}) - \p{\by(t_n) + h\bf(t_n, \by(t_n))}
+                 = \p{
+                     \by(t_n) + h\by'(t_n) + \sO(h^2)
+                 } - \p{
+                     \by(t_n) + h\by'(t_n)
+                 } = \sO(h^2)
+            \]
+        \end{proof}
+    \end{enumerate}
+\end{definition*}
+
+
+
+\subsection{\linkbook{30}{The trapezoidal rule}}
+
+
+\begin{definition*}
+    \bheading{Trapezoidal Rule} Instead of approximating derivative by a constant in $[t_n, t_{n+1}]$, namely by its value at $t_n$, the trapezoidal rule approximates the value of the derivate by average of values at the endpoints. We can approximate solution $\by(t)$ by 
+    \begin{align*}
+        \by(t) 
+        &= \by(t_n) + \int_{t_n}^t \bf(\tau, \bf(\tau)) d\tau \\
+        &\approx \by(t_n) + \frac{1}{2} (t-t_n) \p{\bf(t_n, \by(t_n)) + \bf(t, \by(t))}
+    \end{align*}
+    Given a sequence of times $(t_n)_{n\in\N} = \p{t_0, t_0+h,\cdots}$ we have numerical approximation $(\by_n)_{n\in\N}$ by 
+    \[
+        \by_{n+1} = \by_n + \frac{1}{2} h \p{
+            \bf(t_n, \by_n) + \bf(t_{n+1}, \by_{n+1})
+        }
+    \]
+    \begin{enumerate}
+        \item \bheading{theorem} order of trapezoidal rule is 2
+        \begin{proof}
+            Compute by performing Taylor expansion on $\by(t_{n+1})$ and $\by'(t_{n+1})$ about $t_n$
+            \[
+                \by(t_{n+1}) - \pc{
+                    \by(t_n) + \frac{1}{2}h \pc{
+                        \bf(t_n, \by(t_n)) + \bf(t_{n+1}, \by(t_{n+1}))
+                    }
+                } = \sO(h^3)
+            \]
+        \end{proof}
+        \item \bheading{theorem} trapezoidal rule is convergent
+        \begin{proof}
+            Detail of proof \linkbook{31}{here}. We can show error is bounded by 
+            \[
+                \norm{\be_{n,h}}\leq \frac{ch^2}{\lambda} exp \p{
+                    \frac{t^* \lambda}{1 - \frac{1}{2}h\lambda}
+                }
+            \]
+            from which we can infer that error decays globally as $\sO(h^2)$
+        \end{proof}
+        \item \heading{note} euler's method is explicit, since we can compute $\by_{n+1}$ with a few arithmetic operations by computing $\bf$, a function of a known $\by_n$. Trapezoidal rule is implicit, i.e. finding $\by_{n+1}$ is not trivial and $\bf$ is a function of both $\by_n$ and $\by_{n+1}$. We might need to solve a nonlinear equation of $\by_{n+1}$
+        \[
+            \by_{n+1} - \frac{1}{2}h \bf(t_{n+1}, \by_{n+1}) = \bv
+        \]
+        where $\bv = \by_n + \textstyle \frac{1}{2} h \bf(t_n, \by_n)$ can be evaluated easily from assumptions.
+    \end{enumerate}
+\end{definition*}
+
+
+
+\subsection{\linkbook{35}{The theta method}}
+
+\begin{definition*}
+    \bheading{theta method} is a generalization of Euler's method ($\theta=1$) and the trapezoidal rule ($\theta = 1/2$), whereby the derivates are assumed to be piecewise constant and provided by a linear combination of derivatives at the endpoints of each interval. The numerical approximates are,
+    \[
+        \by_{n+1} = \by_n + h\p{
+            \theta \bf(t_n, \by_n) + (1-\theta) \bf(t_{n+1}, \by_{n+1})
+        }
+        \quad \quad n = 0,1,\cdots
+    \]
+    for some fixed $\theta \in [0,1]$
+    \begin{enumerate}
+        \item \heading{fact} theta method is explicit for $\theta=1$ and implicit otherwise
+        \item \bheading{theorem} theta method is of order 2 for $\theta=1/2$ and order 1 otherwise.
+        \item \bheading{theorem} theta method is convergent for every $\theta \in [0,1]$
+    \end{enumerate}
+\end{definition*}
+
+
+
+\section{\linkbook{41}{Multistep Method}}
+
+
+
+\section{\linkbook{161}{8 Finite Differences Schemes}}
+
+\subsection{\linkbook{161}{8.1 Finite differences}}
+
+
+
+\newcommand{\shift}{\boldsymbol{\sE}}
+\newcommand{\forw}{\boldsymbol{\bigtriangleup}_+}
+\newcommand{\back}{\boldsymbol{\bigtriangleup}_-}
+\newcommand{\cent}{\boldsymbol{\bigtriangleup}_0}
+\newcommand{\avg}{\boldsymbol{\Gamma}_0}
+
+
+
+\begin{definition*}
+    \bheading{finite difference operators} Given real sequences $\bz = \pc{z_k}_{k\in\Z}$, finite difference operators map the space $\R^{\Z}$ of all such sequences to itself.
+    \begin{enumerate}
+        \item \bheading{shift} $(\shift \bz)_k = z_{k+1}$
+        \item \bheading{forward difference} $(\forw \bz)_k = z_{k+1} - z_k$
+        \item \bheading{backward difference} $(\back \bz)_k = z_k - z_{k-1}$
+        \item \bheading{central difference} $(\cent \bz)_k = z_{k+\frac{1}{2}} - z_{k - \frac{1}{2}}$
+        \item \bheading{averaging} $(\avg \bz)_k = \frac{1}{2} (z_{k-\frac{1}{2}} + z_{k+\frac{1}{2}})$
+    \end{enumerate}
+    \begin{enumerate}
+        \item \heading{note} central difference and averaging operator are not maps of $\bz$ onto itself.
+    \end{enumerate}
+\end{definition*}
+
+
+
+
+
+
+\end{document}

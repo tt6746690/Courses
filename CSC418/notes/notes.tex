@@ -1,14 +1,14 @@
 \documentclass[11pt]{article}
 \input{\string~/.macros}
 \usepackage[a4paper, total={6in, 8in}, margin=0.5in]{geometry}
-
-\usepackage{graphicx}   % incorporating graphics
+\usepackage{listings}
+\usepackage{graphicx}
 \graphicspath{{assets/}}
-
-% arg1=pdfurl arg2=pagenum arg3=text
 \usepackage{url}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, linktoc=all, linkcolor=blue}
+
+% arg1=pdfurl arg2=pagenum arg3=text
 \newcommand{\linkbook}[3][../fundamentals_of_computer_graphics_4ed.pdf]{
     \noindent\href[page=#2]{#1}{\urlstyle{rm}{#3}}
 }
@@ -618,15 +618,319 @@
 
 
 \section{\linkbook{250}{Texture Mapping}}
+
+
+\begin{enumerate}
+    \item \bheading{texture mapping} are spatially varying surface properties, i.e. surface detail, make shadows/reflections, provide illumination, define surface shape
+\end{enumerate}
+
+
+
+
+
 \section{\linkbook{440}{17 Using Graphics Hardware}}
 
+
+\Fig{graphics_pipeline}{0.4}{0.9}{graphics pipeline}
 
 \begin{enumerate}
     \item \bheading{graphics hardware} hardware necessary to quickly render 3D objects using specialized rasterization-based hardware architectures. CPU can be programmed with OpenCL and CUDA
     \item \bheading{heterogeneous multiprocessing} 
+    \begin{enumerate}
+        \item \bheading{context} the mapping between the OS, hardware driver, the hardware and the windowing system is known as the graphics context. Context are established via API calls to the windowing system
+        \item \bheading{OpenGL} is cross-platform graphics API. Need to write code for both CPU and GPU. Currently data is sent to graphis card before it is needed and instacing it at render time.  Matrix stack is deprecated, need to use third-party libraaries like GLM. The shader langauge (GLSL) takes a larger role: perform matrix transformations, along with lighting and shading within the shaders.
+    \end{enumerate}
+    \item \bheading{buffer} linear allocation of memory on device on which GPU can operate. Programmatically, need to initialize buffer needed for application beforehand, i.e. a copy from host to device. At end of various stages of execution, can do device to host copies or pull data from GPU to CPU memory.
+    \begin{enumerate}
+        \item \bheading{display buffer} 2d array of color values for display eventually mapped to the window (implemented as 1d linear buffer). Fragment processing and blending stages write data to the output display buffer memory. The windowing system reads the contents of the display buffer to produce the raster images on the monitor's window
+        \item \bheading{cycle of refresh} double-buffered display state, i.e. the front buffer (drive pixel color) and the back buffer (holds current changes) are associated with a window. At end of rendering loop, buffers are swapped through a pointer texchange, the rendering will appear seamless if buffer pointer swap is synchronized with windowing system's refresh. 
+        \item \bheading{clearing memory to default state} we can clear background color (to black) with
+        \begin{align*}
+            &\texttt{glClearColor(0.0f, 0.0f, 0.0f, 1.0f); } \\ 
+            &\texttt{glClear(GL\_COLOR\_BUFFER\_BIT); }
+        \end{align*}
+        we can clear depth buffer, representing distance of fragments relative to camera, with
+        \[
+            \texttt{
+                glClear(GL\_COLOR\_BUFFER\_BIT $\;\mid\;$ GL\_DEPTH\_BUFFER\_BIT);
+            }
+        \]
+        These clearing needed before any geometry/fragments are processed
+    \end{enumerate}
+    \item \bheading{state} graphics card maintain a computational state, which determines how (subsequent) computations associated with scene data and shader will occur on the graphics hardware. efficient OpenGL programs attempt to minimize state changes, enabling states needed, while disabling states that are not requried for rendering.
+    \begin{enumerate}
+        \item \bheading{color states} \texttt{glClearColor} function sets default color values that are written to all pixels within the color buffer when \texttt{glClear} is called. Each time \texttt{glClear} is called it uses the previously set \underline{state} of the clear color (black in this case)
+        \item \bheading{z-buffer algorithm state} in depth test, a fragment's depth values will be compared to the depth value currently stored in the depth buffer prior to writing any fragment colors to the color buffer.
+        \begin{align*}
+            &\texttt{glEnable(GL\_DEPTH\_TEST);} \\
+            &\texttt{glDepthFunc(GL\_LESS);}  
+        \end{align*}
+        Sometimes depth test is not necessary and we can prevent z-buffer computation
+        \[
+            \texttt{glDisable(GL\_DEPTH\_TEST);}
+        \]
+    \end{enumerate}
+    \item \bheading{basic OpenGL application layout} A simple OpenGL application is a display loop that is either as fast as possible, or at a rate that coincides with the refresh rate of the monitor of display device. Below uses \texttt{GLFW} as for cross-platform windowing
+    
+    \begin{lstlisting}[frame=single, language=c++]
+        while (!glfwWindowShouldClose(window)) {
+            // OpenGL code called each time loop executed
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            // swap front and back buffers
+            // synchronize graphics context with display refresh
+            glfwSwapBuffers(window);
+
+            // poll for evernts
+            glfwPollEvents();
+
+            if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+                glfwSetWindowShouldClose(window, 1);
+        }
+    \end{lstlisting}
+    \textbf{framebuffer} is collection of depth and color buffers. framebuffer is directly related to size of the window that has been opened to contain the graphics context. The window, or viewport dimension is needed to contruct $M_{vp}$ matrix. This is accomplished with
+    \begin{align*}
+        &\texttt{int nx, ny;} \\
+        &\texttt{glfwGetFrameBufferSize(window,\&nx, \&ny);} \\
+        &\texttt{glViewport(0, 0, nx, ny);}
+    \end{align*}
+    \item \bheading{geometry} specified using arrays to store vertex data and other vertex attributes, i.e. vertex color, normal, texture coordinates. 
+    \begin{enumerate}
+        \item \bheading{hardware representation} The primitive types are limited to
+        \begin{itemize}
+            \item \bheading{points} to represent points or particle system
+            \item \bheading{lines} pair of vertices to represent lines, sihouettes, edge highlighting
+            \item \bheading{triangles} triangles, triangles strips, indexed triangles, indexed triangle strips, quadrilaterals, or triangle meshes approximating the geometric surfaces
+        \end{itemize}
+    \end{enumerate}
+    \item \bheading{shaders} mechanism by which computation occurs on GPU related to per-vertex or per-fragment processing. No primitives can be rendered without at least one vertex shader to process incoming primitive vertices and nother shader to process the rasterized fragments. \textit{geometry shader} designed to process primitives, and potentially creating additional primitives. \textit{compute shader} designed for performing general computation on GPU, and can be linked into the set of shaders necessary for a specific application
+    \begin{enumerate}
+        \item \bheading{vertex shader} control over how vertices are transformed, stage intermediate per-vertex values that will be interpolated in the fragment shader. Additionally, it could be used to perform general computations on GPU. (e.g. model particle motion of particles) Advanced general computation maybe coded with compute shaders. Data flows out of vertex shader, variable with \texttt{out} specifier, are inputs \texttt{in} variable to fragment shader if the name match up!
+        \item \bheading{passthrough vertex shader} passes incoming vertex position out as \texttt{gl\_Position}, a built-in reserved variable that OpenGL uses to rasterize fragments, without accoutning for projection, viewing, or model transformations
+        \begin{align*}
+            &\texttt{\#version 330 core} \\
+            &\texttt{layout(location=0) in vec3 in\_Position;} \\
+            &\texttt{void main(void) { gl\_Position = vec4(in\_Position, 1.0); }}
+        \end{align*}
+        Operations in vertex/fragment shaders are SIMD operations operating on all vertices/fragments in parallel. Additional data can be communicastedf from host to shaders by using input, output, or \textit{uniform variables}. \texttt{location=0} indicate that the source data is the attribute index 0 that is associated with the geometry. 
+        \item \bheading{fragment shader} outgoing value is written to the color buffer. Note \texttt{out} varaib lvariables passed from vertex to fragment shader are interpolated across the fragmnts (i.e. face of a triangle) using barycentric interpolation.
+        \begin{align*}
+            &\texttt{\#version 330 core} \\
+            &\texttt{layout(location=0) out vec4 out\_FragmentColor;} \\
+            &\texttt{void main(void) { out\_FragmentColor = vec4(1,1,1,1); }}
+        \end{align*}
+        in this fragment shader, all fragment set to white. \texttt{location=0} means location of output is color buffer index 0. 
+    \end{enumerate}
+    \item \bheading{loading, compiling, using shaders} shader are transferred to graphics hardware in form of character strings, which must be compiled and linked (to a shader program). At end of compilation, compilation status and errors can be queried. A shader program is what is used to affect rendering of geometry. 
+    \item \bheading{object} such as vertex buffer objects, framebuffer objects, texture objects, shader programs, are primary target for computation and processing, and should be bound to a known OpenGL state when used and unbounded when not in use.
+    \item \bheading{vertex buffer objects (VBO)} are storage containers for vertices, as well as vertex attributes, i.e. colors, normal vectors, texture coordinates. Steps
+    \begin{enumerate}
+        \item allocate vertices for primitives in host memory
+        \[
+            \texttt{GLfloat vertices[] = \pc{-0.5f, -0.5f, -0.5f};}
+        \]
+        \item vertex buffer object created on device (actual allocation not yet performed)
+        \begin{align*}
+            &\texttt{GLuint triangleVBO[1];} \\
+            &\texttt{glGenBuffers(1, triangleVBO); }
+        \end{align*}
+        \item bind state of OpenGL to the VBO handle
+        \[
+            \texttt{glBindBuffer(GL\_ARRAY\_BUFFER, triangleVBO[0]); }
+        \]
+        Any operations that affect vertex buffers that follow \texttt{glBindBuffer} will use the triangle data stored in VBO by reading/writing to it.
+        \item vertex on host copied to device before display loop
+        \[
+            \texttt{glBufferData(GL\_ARRAY\_BUFFER, 3*sizeof(GLfloat), verticecs, GL\_STATIC\_DRAW);}
+        \]
+        \texttt{GL\_STATIC\_DRAW} indicate that vertices will not change over course of rendering
+        \item host memory can be released after vertex data is transferred
+        \item when VBO no longer needs to be active for reading/writing, unbound with 
+        \[
+            \texttt{glBindBuffer(GL\_ARRAY\_BUFFER, 0);}
+        \]
+    \end{enumerate}
+    \item \bheading{vertex array object (VAO)} represent OpenGL's mechanism to bundle vertex buffers together into a consistent vertex state that can be communicated asnd linked with shadrs in the graphics hardware. In short, VAO makes connection between data (VBO) and shader input variable indices. The following steps allows for \texttt{layout(location=0) in vec3 in\_Position} to access bound vertex buffer in shader code.
+    \begin{enumerate}
+        \item create and bind vertex array buffer
+        \begin{align*}
+            &\texttt{GLuint VAO; } \\
+            &\texttt{glGenVertexArrays(1, \&VAO); } \\
+            &\texttt{glBindVertexArray(VAO); }
+        \end{align*}
+        \item enables vertex attribute index (in this case, 0). Without this, data in VBO will not be visible to shader
+        \begin{align*}
+            &\texttt{glEnableVertexAttribArray(0);}
+        \end{align*}
+        \item activate the VBO storing vertex data to be bound to vertex attribute
+        \begin{align*}
+            &\texttt{glBindBuffer(GL\_ARRAY\_BUFFER, triangleVBO[0]);}
+        \end{align*}
+        \item tells how OpenGL interprets data stored in VBO. Specifically, set attribute index 0 to hold 3 component (x, y, z) of \texttt{GLfloats} that are not normalized. \texttt{3 * sizeof(GLfloat)} means vertiecs are tightly packed in memory
+        \begin{align*}
+            &\texttt{glVertexAttribPointer(0, 3, GL\_FLOAT, GL\_FALSE, 3 * sizeof(GLfloat), 0);}
+        \end{align*}
+        \item Now inside display loop, the following trigger processing of vertex array objects. 
+        \begin{align*}
+            &\texttt{glBindVertexArray(VAO);} \\
+            &\texttt{glDrawArrays(GL\_TRIANGLES, 0, 3)}; \\
+            &\texttt{glBindVertexArray(0);}
+        \end{align*}
+        where \texttt{glDrawArrays} initiates pipleline for this geometry, interpreted as a series of triangle primitives starting at offset 0 and only rendering 3 of the indices. 
+    \end{enumerate}
+    \item \bheading{transformation matrices} GLM, OpenGL Mathematics, extends C++'s math capabilities, like Eigen
+    \item \bheading{uniform data} static data that is invariant across the execution of a shader program. It is same for all elements and is static. Usually uniform variable represent graphics state, i.e. projection, view, model matrices, light sources. 
+    \begin{align*}
+        &\texttt{\#version 330 core} \\
+        &\texttt{layout(location=0) in vec3 in\_Position;} \\
+        &\texttt{uniform mat4 projMatrix;} \\
+        &\texttt{void main(void) \{ } \\
+        &\quad\texttt{gl\_Position = projMatrix * vec4(in\_Position, 1.0);} \\
+        &\texttt{\} }
+    \end{align*}
+    To make \texttt{projMatrix} be available in shader, need to 
+    \begin{enumerate}
+        \item get handle to a uniform variable
+        \[
+            \texttt{GLint pMatID = glGetUniformLocation(shaderProgram, "projMatrix");}    
+        \]
+        \item bind shader program
+        \[
+           \texttt{ glUseProgram(shaderID);}
+        \]
+        \item transfer memory from host to device with \texttt{glUniform} functions. \texttt{4fv} means its $4\times 4$ matrix of floats and that array contains data, rather than passing value of pointer.
+        \begin{align*}
+            &\texttt{glUniformMatrix4fv(pMatID, 1, GL\_FALSE, glm::value\_ptr(projMatrix)); }
+        \end{align*}
+    \end{enumerate}
+    \item \bheading{shading with per-vertex attributes} can specify additional data, i.e. normal, texture coordinates, colors in VBO and bind to vertex attributes and access with 
+    \begin{align*}
+        &\texttt{layout(location=0) in vec3 in\_Position;} \\
+        &\texttt{layout(location=1) in vec3 in\_Color;} \\
+    \end{align*}
+    \item \bheading{structure for vertex data} can bundle vertex position and vertex attributes into structures
+    \begin{align*}
+        &\texttt{struct vertexData \{ glm::vec3 pos; glm::vec3 color \}; } \\ 
+        &\texttt{vector<vertexData> modelData;}
+    \end{align*}
+    \item \bheading{shading in fragment processor} gives better visual results and more accurate approximation of lighting than in vertex shader; in latter case, lighting only calculated per-vertex and fails to approximates lighting across surface. Goal of fragment shader is to output a value to framebuffer, i.e. color of a pixel, and depth if depth test enabled
+    \item \bheading{Blinn-Phone Shader Program} where VBO contains vertex position and normal vectors. Shading performed in fragment shader in camera space
+    \begin{lstlisting}[frame=single, language=c++]
+        // vertex shader
+        #version 330 core
+        layout(location=0) in vec3 in_Position;
+        layout(location=1) in vec3 in_Normal;
+        out vec4 normal;
+        out vec4 half;
+        out vec3 lightdir;
+        struct LightData {
+            vec3 position;
+            vec3 intensity;
+        };
+        uniform LightData light;
+        uniform mat4 projMatrix;
+        uniform mat4 viewMatrix;
+        uniform mat4 modelMatrix;
+        uniform mat4 normalMatrix;
+        
+        void main(void) {
+            // calculate lighting in camera space
+            vec4 pos = viewMatrix * mdoelMatrix * vec4(in_Positino, 1);
+            vec4 lightPos = viewMatrix * vec4(light.position, 1);
+
+            normal = normalMatrix * vec4(in_Normal, 0);
+
+            vec3 v = normalize(-pos.xyz);   // view direction
+            lightdir = normalize(lightPos.xyz - pos.xyz)
+            half = normalize(v + lightdir);
+
+            gl_Position = projMatrix * pos;
+        }
+    \end{lstlisting}
+    \begin{lstlisting}[frame=single, language=c++]
+        // fragment shader
+        #version 330 core
+
+        in vec4 normal;
+        in vec3 half;
+        in vec3 halfdir;
+
+        layout(location=0) out vec4 fragmentColor;
+
+        struct LightData {
+            vec3 position;
+            vec3 intensity;
+        };
+        uniform LightData light;
+
+        uniform vec3 Ia;
+        uniform vec3 ka, kd, ks;
+        uniform float phongExp;
+
+        void main(void) {
+            vec3 n = normalize(normal.xyz);
+            vec3 h = normalize(half);
+            vec3 l = normalize(lightdir);
+
+            vec3 intensity = ka*Ia + 
+                    kd*light.intensity*max(0, dot(n, l)) + 
+                    ks*light.intensity*pow(max(0, dot(n, h)), phongExp);
+            fragmentColor = vec4(intensity, 1);
+        }
+
+        // a normal shading fragment shader
+        #version 330 core
+        in vec4 normal;
+        layout(location=0) out vec4 fragmentColor;
+        void main(void) {
+            vec3 intensity  = normalize(normal.xyz) * 0.5 + 0.5;
+            fragmentColor = vec4(intensity, 1);
+        }
+    \end{lstlisting}
+    \item \bheading{meshes and instancing} for meshes, it is better to use \texttt{glDrawElements} over \texttt{glDrawArrays} since there are substantial vertex reuse. Also, OpenGL acn render many object from a single copy of VAO and associated VBO
+    \item \bheading{texture objects} need to be allocated and initialized by copying data on the host to device and setting the OpenGL state. Texture coordinates are often integrated into vertex buffer object and passed as vertex attributes to shader programs. Fragment shader usually performs texture lookup functions 
+    \begin{align*}
+        &\texttt{float* imgData = new float[imgHeight * imgWidth * 3]; } \\ 
+        &\texttt{GLuint texID;} \\
+        &\texttt{glGenTextures(1, \&textID)} \\ 
+        &\texttt{glBindTexture(GL\_TEXTURE\_2D, textID);} \\
+        &\texttt{glTexParameteri(GL\_TEXTURE\_2D, GL\_TEXTURE\_WRAP\_S, GL\_CLAMP); } \\ 
+        &\texttt{// host -> device copy} \\ 
+        &\texttt{glTexImage2D(GL\_TEXTURE\_2D, 0, GL\_RED, imgWidth, imgHeight, 0, GL\_RGB, GL\_FLOAT, imgData);} \\ 
+        &\texttt{glBindTexture(GL\_TEXTURE\_2D, 0);}
+    \end{align*}
+    We can then access textures by storing texture coordinates in vertex buffer object 
+    \begin{align*}
+        &\texttt{struct vertexData} \{ \\
+        &\texttt{       glm::vec3 pos;}      \\
+        &\texttt{       glm::vec3 normal;}       \\
+        &\texttt{       glm::vec2 texCoord;}     \\
+        \} 
+    \end{align*}
+    \Fig{vbo_with_texcoord}{0.4}{1}{Data layout of vertex buffer}
+    Also need to bind texture to \textit{texture units}, which will be made available as a uniform variable in shader programs
+    \item \bheading{texture lookup in shaders} texture lookup mostly done in fragment shader but vertex shader often stages fragment computation by passing texture coordinate out to the fragment shader, so that texture coordinates will be interpolated and afford per-fragment lookup of texture data
+    \begin{align*}
+        &\texttt{// vertex shader} \\
+        &\texttt{layout(location=2) in vec2 in\_TexCoord;} \\ 
+        &\texttt{out vec2 tCoord;} \\
+        &\texttt{tCoord = in\_TexCoord;}
+    \end{align*}
+    In fragment shader, a uniform varaible store the texture unit to which the texture is bound. This uniform variable has a \textit{sampler} type, i.e \texttt{sampler2D}. Texture lookup with \texttt{texture}, which replaces diffuse coefficient of the shading model.
+    \begin{align*}
+        &\texttt{in vec2 tCoord;} \\ 
+        &\texttt{uniform sampler2D textureUnit;} \\ 
+        &\texttt{void main(void)} \{ \\
+        &\quad\texttt{vec3 kdTexel = texture(textureUnit, tCoord).rgb;} \\
+        &\quad\texttt{vec3 intensity = ka * Ia + } \\
+        &\quad\quad\texttt{kdTexel * light.intensity * max(0, dot(n, l)) + } \\ 
+        &\quad\quad\texttt{ks * light.intensity * pow(max(0, dot(n, h)), phongExp); }
+        \}
+    \end{align*}
+    \item \bheading{object-oriented design} 
 \end{enumerate}
 
  
-
+ 
 
 \end{document}

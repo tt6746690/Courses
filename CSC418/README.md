@@ -9,6 +9,9 @@ https://docs.microsoft.com/en-us/windows/desktop/opengl/opengl
 
 // a good opengl tutorial
 http://www.opengl-tutorial.org/
+
+// good slides on glsl 
+https://www.cs.cmu.edu/afs/cs/academic/class/15462-s09/www/lec/10/lec10.pdf
 ```
 
 

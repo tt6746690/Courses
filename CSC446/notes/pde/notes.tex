@@ -8,6 +8,50 @@
 \tableofcontents
 
 \newpage
+\begin{center}
+    Basics
+\end{center}
+
+\begin{enumerate}
+    \item \bheading{Taylor Expansion} Given $f \in C^{\infty}(\R)$, the Taylor expansion of $f$ at $a$ is given by 
+    \begin{align*}
+        T(a)
+        &= \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n \\
+        &= f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!} (x-a)^2 + \cdots
+    \end{align*}
+    \item \bheading{Taylor's Theorem} Let $k\geq 1$ and function $f:\R\to\R$ be $k$ times differentiable at a point $a\in \R$, then exists $h_k:\R\to\R$ such that 
+    \[
+        f(x)
+        = \sum_{n=0}^{k} \frac{f^{(n)}(a)}{n!} (x-a)^n + h_k(x) (x-a)^k
+    \]
+    and $\lim_{x\to a} h_k(x) = 0$, i.e. the reminder term $R_k(x) = f(x) - P_k(x)$ is asymptotically trivial. If $f$ is $k+1$ times differentiable on the open interval and $f^k$ continous on the closed interval $[a,x]$, then the Lagrange remind is given by 
+    \[
+        R_k(x) = \frac{f^{k+1}(\zeta)}{(k+1)!} (x-a)^{k+1}
+    \]
+    for soem $\zeta \in [a,x]$ by the mean value theorem
+    \item \bheading{$\sO$ notation} $f(x) = \sO(g(x))$   describes asymptotic behavior of function $f$
+    \begin{enumerate}
+        \item \heading{as $x\to \infty$} if there exists $M\geq 0$ and $x_0\in\R$ such that $|f(x)| \leq M g(x)$ for all $x>x_0$. 
+        \item \heading{as $x\to a$} if there exists $M\geq 0$ and $\delta \in\R$ such that $|f(x)| \leq M g(x)$ when $0 < |x-a| < \delta$. Alternatively we can say 
+        \[
+            \lim_{x\to a} \sup \abs{\frac{f(x)}{g(x)}} < \infty
+        \]
+    \end{enumerate}
+    \item \bheading{power series expansions}
+    \begin{align*}
+        \frac{1}{1-x} 
+            &= \sum_{n=0}^{\infty} x^n = 1+x+x^2+x^3+\cdots \\
+        e^x 
+            &= \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1+x+\frac{x^2}{2}+\frac{x^3}{3!}+\cdots \\
+        (1+x)^{\alpha}
+            &= \sum_{k=0}^{\infty} \binom{\alpha}{k} x^k \\
+        \ln(1+x)
+            &= \sum_{n=1}^{\infty} (-1)^{n+1} \frac{x^n}{n} = x - \frac{x^2}{2} + \frac{x^3}{3} \tag{convergent if $|x|<1$} \\
+        \ln(1+x)
+            &= -\sum_{n=1}^{\infty} \frac{x^n}{n} = - x - \frac{x^2}{2} - \frac{x^3}{3} \tag{convergent if $|x|<1$}
+    \end{align*}
+\end{enumerate}
+
 
 \section{\linkbook{25}{Euler's Method and Beyond}}
 
@@ -44,30 +88,6 @@
         \item \heading{example} polynomial, exponential, trigonometric, logarithm, power function
         \item \heading{note} if $\bf$ is analytic, solution $\by$ to the initial value problem is also analytic
     \end{enumerate}
-    \item \bheading{Taylor Expansion} Given $f \in C^{\infty}(\R)$, the Taylor expansion of $f$ at $a$ is given by 
-    \begin{align*}
-        T(a)
-        &= \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n \\
-        &= f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!} (x-a)^2 + \cdots
-    \end{align*}
-    \item \bheading{Taylor's Theorem} Let $k\geq 1$ and function $f:\R\to\R$ be $k$ times differentiable at a point $a\in \R$, then exists $h_k:\R\to\R$ such that 
-    \[
-        f(x)
-        = \sum_{n=0}^{k} \frac{f^{(n)}(a)}{n!} (x-a)^n + h_k(x) (x-a)^k
-    \]
-    and $\lim_{x\to a} h_k(x) = 0$, i.e. the reminder term $R_k(x) = f(x) - P_k(x)$ is asymptotically trivial. If $f$ is $k+1$ times differentiable on the open interval and $f^k$ continous on the closed interval $[a,x]$, then the Lagrange remind is given by 
-    \[
-        R_k(x) = \frac{f^{k+1}(\zeta)}{(k+1)!} (x-a)^{k+1}
-    \]
-    for soem $\zeta \in [a,x]$ by the mean value theorem
-    \item \bheading{$\sO$ notation} $f(x) = \sO(g(x))$   describes asymptotic behavior of function $f$
-    \begin{enumerate}
-        \item \heading{as $x\to \infty$} if there exists $M\geq 0$ and $x_0\in\R$ such that $|f(x)| \leq M g(x)$ for all $x>x_0$. 
-        \item \heading{as $x\to a$} if there exists $M\geq 0$ and $\delta \in\R$ such that $|f(x)| \leq M g(x)$ when $0 < |x-a| < \delta$. Alternatively we can say 
-        \[
-            \lim_{x\to a} \sup \abs{\frac{f(x)}{g(x)}} < \infty
-        \]
-    \end{enumerate}
 \end{enumerate}
 
 
@@ -76,7 +96,7 @@
 \begin{definition*}
     \bheading{Euler's Method} Given initial value problem $\by' = \bf(t, \by)$ for $t\geq t_0$ and initial value $\by(t_0) = \by_0$. If we assume $\by'(t) = \bf(t, \by(t)) \approx \bf(t_0, \by(t_0))$ for $t\in [t_0,t_0+h)$ (i.e. deriviative in $[t_n, t_{n+1}]$ is approximated by value of derivative at $t_n$) for some sufficiently small time step $h>0$, we can approximate the value of $\by(t)$ by
     \begin{align*}
-        \by(\bt) 
+        \by(t) 
         &= \by(t_0) + \int_{t_0}^t \bf(\tau, \by(\tau)) d\tau  \\
         &\approx \by_0 + (t-t_0) \bf(t_0, \by_0)
     \end{align*}
@@ -94,7 +114,7 @@
     \[
         \by_n = \by_{n,h}
         \quad \text{for}
-        \quad n = 0,1,\cdots,\lfloor t*/h\rfloor    
+        \quad n = 0,1,\cdots,\lfloor t^*/h\rfloor    
     \]
     A method is said to be convergent if for every ODE with Lipschitz function $\bf$, the numerical solution tends to the true solution as the grid becomes increasingly fine. More rigorously, if every ODE with Lipschitz function $\by$ and for every $t^*>0$, then following holds 
     \[
@@ -240,26 +260,83 @@
 
 
 \newcommand{\shift}{\boldsymbol{\sE}}
-\newcommand{\forw}{\boldsymbol{\bigtriangleup}_+}
-\newcommand{\back}{\boldsymbol{\bigtriangleup}_-}
-\newcommand{\cent}{\boldsymbol{\bigtriangleup}_0}
-\newcommand{\avg}{\boldsymbol{\Gamma}_0}
+\newcommand{\forw}{\boldsymbol{\varDelta}_+}
+\newcommand{\back}{\boldsymbol{\varDelta}_-}
+\newcommand{\cent}{\boldsymbol{\varDelta}_0}
+\newcommand{\avg}{\boldsymbol{\varUpsilon}_0}
+\newcommand{\diff}{\boldsymbol{\sD}}
+\newcommand{\id}{\boldsymbol{\sI}}
 
 
 
-\begin{definition*}
-    \bheading{finite difference operators} Given real sequences $\bz = \pc{z_k}_{k\in\Z}$, finite difference operators map the space $\R^{\Z}$ of all such sequences to itself.
+\begin{enumerate}
+    \item \bheading{Finite difference operators} Given real sequences $\bz = \pc{z_k}_{k\in\Z} = z(kh)$ for $k\in\Z$ as discrete sampling of a function $z$ for some $h>0$. Let $x_k = kh$. We can define finite difference operators mapping the space $\R^{\Z}$ of all such sequences to itself.
+    \begin{align*}
+        (\shift \bz)_k 
+            &= z_{k+1} \tag{shift} \\
+        (\forw \bz)_k  
+            &= z_{k+1} - z_k \tag{forward difference} \\
+        (\back \bz)_k 
+            &= z_k - z_{k-1} \tag{backward difference} \\
+        (\cent \bz)_k 
+            &= z_{k+\frac{1}{2}} - z_{k - \frac{1}{2}} \tag{central difference} \\
+        (\avg \bz)_k 
+            &= \textstyle\frac{1}{2} (z_{k-\frac{1}{2}} + z_{k+\frac{1}{2}}) \tag{averaging}
+    \end{align*}
+    Finite difference operators are composed under function composition.
     \begin{enumerate}
-        \item \bheading{shift} $(\shift \bz)_k = z_{k+1}$
-        \item \bheading{forward difference} $(\forw \bz)_k = z_{k+1} - z_k$
-        \item \bheading{backward difference} $(\back \bz)_k = z_k - z_{k-1}$
-        \item \bheading{central difference} $(\cent \bz)_k = z_{k+\frac{1}{2}} - z_{k - \frac{1}{2}}$
-        \item \bheading{averaging} $(\avg \bz)_k = \frac{1}{2} (z_{k-\frac{1}{2}} + z_{k+\frac{1}{2}})$
-    \end{enumerate}
+        \item \bheading{fact} $\sT \in \pc{\shift, \forw, \back, \cent, \avg, \diff}$ are linear operators
+        \[
+            \sT(a\bw + b\bz) = a\sT\bw + b\sT\bz
+            \quad \text{ for } \quad
+            \bw,\bz\in\R^{\Z}\;,\;\; a,b\in\R    
+        \]
+        \item \bheading{convention} $\sT z_k$ stands for $(\sT \bz)_k$
+    \end{enumerate} 
+    \item \bheading{Differential operator} The goal is to approximate derivatives $\diff$ by expresing it with a linear combination of values along the grid.
+    \begin{align*}
+        (\diff\bz)_k &= z'(kh) \tag{differential}
+    \end{align*}
+    \item \bheading{Functions of operators} Finite difference operators are functions of $h$. Given an analytic function as Taylor series, $g(x) = \textstyle\sum_{j=0}^{\infty} a_j x^j$, we can expand $g$ about $\pc{\shift-\id, \avg - \id, \forw, \back, \cent, h\diff}$,
+    \[
+        g(\forw)\bz = \p{
+            \sum_{j=0}^{\infty} a_j \forw^j
+        } \bz = 
+        \sum_{j=0}^{\infty} a_j (\forw^j \bz)
+    \]
+    \item \bheading{Asymptotics of operators}
+    \[
+        \pc{\shift-\id, \avg - \id, \forw, \back, \cent, h\diff} \overset{h\to 0+}{\longrightarrow} O
+    \]
     \begin{enumerate}
-        \item \heading{note} central difference and averaging operator are not maps of $\bz$ onto itself.
+        \item \bheading{example} 
+        \[
+            \forw z_k = z_{k+1} - z_k =  z(x_k + h) - z(x_k) = hz'(\eta_k) = \sO(h)
+        \]
+        by some $\eta_k \in [x_k, x_{k+1}]$ by mean value theorem
     \end{enumerate}
-\end{definition*}
+    \item \bheading{Operator $\shift^{1/2}$}
+    \[
+        (\shift^{1/2} \bz)_k = z((k+\frac{1}{2})h)
+    \]
+    by defining it with a power series expansion of $g(x) = \sqrt{1+x}$
+    \[
+        \shift^{1/2} = (\id + (\shift - \id))^{1/2} = \id + \sum_{j=0}^{\infty} \frac{ (-1)^{j-1} }{ 2^{2j - 1} } \frac{(2j - 2)!}{(j-1)!j!}  (\shift - \id)^j
+    \]
+    \item \bheading{Operator ommutativity} Idea is all operator can be expressed w.r.t. $\shift$. 
+    \begin{align*}
+        \forw 
+            &= \shift - \id \\
+        \back
+            &= \id - \shift^{-1} \\ 
+        \cent
+            &= \shift^{1/2} - \shift^{-1/2} \\
+        \avg
+            &= \frac{1}{2} (\shift^{1/2} + \shift^{-1/2}) \\
+        \id
+            &= \shift^0
+    \end{align*}
+\end{enumerate}
 
 
 

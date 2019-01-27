@@ -1,4 +1,5 @@
 
+
 # pdf that are too large
 CSC2520/papers/2013_robust_inside_outside_segmentation_using_generalized_winding_numbers.pdf
 CSC2520/papers/2015_realtime_face_tracking_and_animation.pdf
@@ -30,6 +31,8 @@ CSC321/homework/pa4/emojis/*
 CSC321/tutorial/w10/data/*
 CSC321/homework/pa4/pretrained/*
 
+# should be private... 
+CSC367/assignments
 
 
 # MacOS

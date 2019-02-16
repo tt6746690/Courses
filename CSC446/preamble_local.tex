@@ -1,0 +1,42 @@
+\input{\string~/.macros}
+\usepackage[a4paper, total={6in, 8in}, margin=0.7in]{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linktoc=all, linkcolor=blue}
+\newcommand{\linkbook}[3][../../a_first_coures_in_numerical_analysis_of_differential_equations.pdf]{
+    \noindent\href[page=#2]{#1}{\urlstyle{rm}{#3}}
+}
+
+\newcommand{\heading}[1]{(#1)}
+\newcommand{\bheading}[1]{\textbf{(#1)}}
+
+
+\renewcommand\bf{\ensuremath{\bm{f}}}
+\renewcommand\bx{\ensuremath{\bm{x}}}
+\renewcommand\by{\ensuremath{\bm{y}}}
+\renewcommand\be{\ensuremath{\bm{e}}}
+\renewcommand\bv{\ensuremath{\bm{v}}}
+\renewcommand\bz{\ensuremath{\bm{z}}}
+\renewcommand\bu{\ensuremath{\bm{u}}}
+\renewcommand\bb{\ensuremath{\bm{b}}}
+\newcommand\bsY{\ensuremath{\boldsymbol{\mathcal{Y}}}}
+
+\newcommand{\tu}{\tilde{u}}
+
+\newcommand{\vD}{\boldsymbol{\varDelta}}
+
+\newcommand{\shift}{\boldsymbol{\sE}}
+\newcommand{\forw}{\boldsymbol{\varDelta}_+}
+\newcommand{\back}{\boldsymbol{\varDelta}_-}
+\newcommand{\cent}{\boldsymbol{\varDelta}_0}
+\newcommand{\avg}{\boldsymbol{\varUpsilon}_0}
+\newcommand{\diff}{\boldsymbol{\sD}}
+\newcommand{\id}{\boldsymbol{\sI}}
+
+\newcommand{\Dx}{\Delta x}
+\newcommand{\Dy}{\Delta y}
+\newcommand{\closure}[1]{cl\,#1}
+
+\newcommand{\abs}[1]{\ensuremath{\left|#1\right|}}

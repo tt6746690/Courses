@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "*.txt": "cmake",
+        "ostream": "c",
+        "__split_buffer": "c",
+        "__tree": "c",
+        "bitset": "c",
+        "initializer_list": "c",
+        "iterator": "c",
+        "map": "c",
+        "set": "c",
+        "string": "c",
+        "string_view": "c",
+        "utility": "c",
+        "vector": "c"
+    }
+}

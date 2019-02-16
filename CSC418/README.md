@@ -7,6 +7,12 @@ https://github.com/alecjacobson/computer-graphics-csc418
 // opengl reference 
 https://docs.microsoft.com/en-us/windows/desktop/opengl/opengl
 
+// a great opengl tutorial
+https://learnopengl.com/Getting-started/OpenGL
+
+// glfw
+https://www.glfw.org/docs/latest/modules.html
+
 // a good opengl tutorial
 http://www.opengl-tutorial.org/
 

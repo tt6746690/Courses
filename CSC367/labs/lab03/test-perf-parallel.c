@@ -80,7 +80,18 @@ static bool mixed_read_write_test(hash_table_t *hash, int shift)
 }
 
 
-static double do_perf_test(bool (*f)(hash_table_t*, int))
+typedef struct {
+    hash_table_t* hash;
+    int shift;
+} fargs_t;
+
+static void* mixed_read_write_test_1arg(void* val) {
+        fargs_t* args = (fargs_t*) val;
+        bool result = mixed_read_write_test(args->hash, args->shift);
+        pthread_exit((void*) result);
+}
+
+static double do_perf_test(void* (*f)(void*))
 {
 	hash_table_t *hash = hash_create(next_prime(hash_table_size));
 	if (hash == NULL) {
@@ -89,18 +100,43 @@ static double do_perf_test(bool (*f)(hash_table_t*, int))
 	}
 	int shift = random() + 1;
 
+        pthread_t tpool[threads_count];
+
+        fargs_t args;
+        args.hash = hash;
+        args.shift = shift;
+
+        void* status[threads_count];
+
 	struct timespec start, end;
 	clock_gettime(CLOCK_MONOTONIC, &start);
 
 	//TODO: run the function in threads_count separate threads
-	bool success = f(hash, shift);
-	//...
+
+        int rc;
+        for (int i = 0; i < threads_count; ++i) {
+                rc = pthread_create(&(tpool[i]), NULL, f, (void*) &args);
+                if (rc) { exit(-1); }
+        }
+
+        for (int i = 0; i < threads_count; ++i) {
+                rc = pthread_join(tpool[i], &(status[i]));
+                if (rc) { exit(-1); }
+        }
 
 	clock_gettime(CLOCK_MONOTONIC, &end);	
 
 	hash_destroy(hash);
-	if (!success) exit(1);
-	return timespec_to_msec(difftimespec(end, start));
+
+        for (int i = 0; i < threads_count; ++i) {
+                if (!status[i]) {
+                        fprintf(stderr, "result not right for thread %d\n", i);
+                        exit(-1);
+                }
+        }
+
+	return timespec_to_msec(difftimespec(end, start)) / threads_count;
+	/* return timespec_to_msec(difftimespec(end, start)); */
 }
 
 
@@ -112,6 +148,6 @@ int main(int argc, char *argv[])
 	}
 
 	srandom(time(NULL));
-	printf("%f\n", do_perf_test(mixed_read_write_test));
+	printf("%f\n", do_perf_test(mixed_read_write_test_1arg));
 	return 0;
 }

@@ -1,0 +1,67 @@
+\documentclass[11pt]{article}
+\input{../../preamble_local.tex}
+\usepackage{listings}
+\usepackage{hyperref}
+\graphicspath{{assets/}}
+
+\title{CSC446 A3}
+\author{Peiqi Wang 1001132561}
+
+\begin{document}
+\maketitle
+
+
+\section*{Problem 1} 
+Implement Ritz-Galerkin method on equidistant grid with piecewise linear hat function for
+\begin{align*}
+    &-y'' + y = (\pi^2 + 1) \sin (\pi x) \quad x\in(0,1) \\
+    &y(0) = 1\quad y'(1) = \frac{1}{2} (e-\frac{1}{e}) -\pi
+\end{align*}
+where the real solution to the problem is given by 
+\[
+    y(x) = \frac{1}{2} (e^x + e^{-x}) + \sin (\pi x)
+\]
+\begin{proof}[solution]
+    Note this BVP is a special case of BVP that appeared in the textbook, so 
+    \begin{align*}
+        a_{k,l} 
+        = \inner{\varphi_l'}{\varphi_k'} + \inner{\varphi_l}{\varphi_k}
+        = \begin{cases}
+            \frac{2(h^2+3)}{3h} & l=k \\
+            \frac{h^2-6}{6h} & l = k-1,k+1 \\
+            0 & \text{otherwise} \\
+        \end{cases}
+    \end{align*}
+    for $k=1,2,\cdots, m-1$. Let 
+    \[
+        \varphi_0(x) = \p{\frac{1}{2} \p{e - \frac{1}{e}} - \pi} x  + 1
+    \]
+    satisfies the boundary conditions. Now we compute the right hand side of the linear system
+    \begin{align*}
+        b_k
+        &= \inner{f}{\varphi_k} - a_{k,0} \\
+        &= \int_0^1 (\pi^2+1)\sin(\pi x) \varphi_k(x) dx 
+            - \int_0^1 \varphi_{0}'(x) \varphi'_k(x) + \varphi_0(x) \varphi_k(x) dx \\
+        &= 
+            \int_{(k-1)h}^{kh} (\pi^2 + 1) \sin(\pi x) \p{ 1-k+\frac{x}{h} } dx
+            +\int_{kh}^{(k+1)h} (\pi^2+1) \sin(\pi x) \p{ 1+k-\frac{x}{h} } dx \\
+        &\quad\quad -\int_{(k-1)h}^{kh}\p{\frac{1}{2} \p{e - \frac{1}{e}} - \pi} \frac{1}{h} + \p{\p{\frac{1}{2} \p{e - \frac{1}{e}} - \pi}x + 1} \p{ 1-k+\frac{x}{h}} dx \\
+        &\quad\quad -\int_{kh}^{(k+1)h} \p{\frac{1}{2} \p{e - \frac{1}{e}} - \pi} \p{-\frac{1}{h}} + \p{\p{\frac{1}{2} \p{e - \frac{1}{e}} - \pi}x + 1} \p{ 1+k-\frac{x}{h} } dx
+    \end{align*}
+    for $k=1,2,\cdots, m-1$. To allow for arbitrary approximate $y_m(x)$ at $x=1$, we have a basis function $\varphi_m(x)$ supported over $[x_{m-1}, x_m]$ only. The corresponding entries in $A$ and $b$ is as follows
+    \begin{align*}
+        a_{m, m-1} &= \frac{h^2-6}{6h} \\
+        a_{m,m} &= \frac{h^2+3}{3h} \\
+        b_m &=  
+        \int_{(m-1)h}^{mh} (\pi^2 + 1) \sin(\pi x) \p{ 1-m+\frac{x}{h} } dx\\
+        &\quad \quad 
+        -\int_{(m-1)h}^{mh}\p{\frac{1}{2} \p{e - \frac{1}{e}} - \pi} \frac{1}{h} + \p{\p{\frac{1}{2} \p{e - \frac{1}{e}} - \pi}x + 1} \p{ 1-m+\frac{x}{h}} dx
+    \end{align*}
+    During matrix assembly, we use \texttt{integral} to numerically integrate $b_k$ for $k=1,2,\cdots,m$, as exact value of the integral are not easy to obtain. We set \texttt{AbsTol} to \texttt{1e-20} such that error resulted from numerical integration does not contribute to error of Ritz-Galerkin method.
+\end{proof}
+
+
+\newpage
+\section*{Problem 2} Repeat qestion 1, but use cubic B-spline basis instead of piecewise linear hat basis function.
+
+\end{document}

@@ -15,15 +15,75 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdlib.h>
 
 #include "hash.h"
 
 
-struct _hash_table_t {
-	int size;// should be a prime number
-
-	//TODO
+struct node {
+    int key;
+    int value; 
+    struct node* next;      
 };
+typedef struct node node_t;
+
+struct _hash_table_t {
+    int size;// should be a prime number
+    node_t** list; 
+};
+
+
+int hash32shift(int key)
+{
+        key = ~key + (key << 15);
+        key = key ^ (key >> 12);
+        key = key + (key << 2);
+        key = key ^ (key >> 4);
+        key = key * 2057;
+        key = key ^ (key >> 16);
+        return key;
+}
+
+
+void linkedlist_destroy(node_t** head) {
+
+        if (!*head) return;
+
+        node_t* cur = *head;
+        node_t* next;
+        
+        while (cur != NULL) {
+                next = cur->next; 
+                free(cur);
+                cur = next;
+        }
+        *head = NULL;
+}
+
+// returns -1 if not found
+int linkedlist_find(node_t**head, int key) {
+        if (!*head) return -1;
+        for (node_t* cur = *head, *next; cur ; cur = next) {
+                if (cur->key == key) 
+                        return cur->value;
+                next = cur->next;
+        }
+        return -1;
+}
+
+void linkedlist_prepend(node_t**head, int key, int value) {
+        node_t* node = (node_t*) malloc(sizeof(node_t));
+        node->key = key;
+        node->value = value;
+        node->next = NULL;
+        if (!*head) {
+                *head = node;
+        } else {
+                node_t* next = *head;
+                *head = node;
+                (*head)->next = next;
+        }
+}
 
 
 static bool is_prime(int n)
@@ -50,17 +110,23 @@ int next_prime(int n)
 hash_table_t *hash_create(int size)
 {
 	assert(size > 0);
-
-	//TODO
-	return NULL;
+        hash_table_t* table = (hash_table_t*) malloc(sizeof(hash_table_t));
+        table->size = size;
+        table->list = (node_t**) malloc(size * sizeof(node_t*));
+        for (int i = 0; i < size; ++i) {
+                table->list[i] = NULL;
+        }
+        return table;
 }
 
 // Release all memory used by the hash table, its buckets and entries
 void hash_destroy(hash_table_t *table)
 {
 	assert(table != NULL);
-
-	//TODO
+        for (int i = 0; i < table->size; ++i) {
+                linkedlist_destroy(&(table->list[i]));
+        }
+        free(table->list);
 }
 
 
@@ -68,16 +134,21 @@ void hash_destroy(hash_table_t *table)
 int hash_get(hash_table_t *table, int key)
 {
 	assert(table != NULL);
+        int hash = hash32shift(key) % table->size;
 
-	//TODO
-	return -1;
+        if (table->list[hash] == NULL) {
+                return -1;
+        }
+
+        return linkedlist_find(&(table->list[hash]), key);
 }
+
 
 // Returns 0 on success, -1 on failure
 int hash_put(hash_table_t *table, int key, int value)
 {
 	assert(table != NULL);
-
-	//TODO
-	return -1;
+        int hash = hash32shift(key) % table->size;
+        linkedlist_prepend(&(table->list[hash]), key, value);
+	return 0;
 }

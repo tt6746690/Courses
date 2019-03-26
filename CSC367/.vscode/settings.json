@@ -12,6 +12,11 @@
         "string": "c",
         "string_view": "c",
         "utility": "c",
-        "vector": "c"
+        "vector": "c",
+        "__locale": "c",
+        "pthread.h": "c",
+        "filters.h": "c",
+        "assert.h": "c",
+        "type_traits": "c"
     }
 }

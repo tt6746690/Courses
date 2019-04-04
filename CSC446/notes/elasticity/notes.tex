@@ -1,0 +1,41 @@
+\documentclass[11pt]{article}
+\input{../../preamble_local.tex}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{bm}
+\hypersetup{colorlinks=true, linktoc=all, linkcolor=blue}
+\graphicspath{{../assets/}}
+
+\begin{document}
+
+\begin{center}
+    2009 structural analysis with applications to aerospace structures
+\end{center}
+
+\renewcommand{\linkbook}[3][../../readings/text_2009_structural_analysis_with_applications_to_aerospace_structures.pdf]{
+    \noindent\href[page=#2]{#1}{\urlstyle{rm}{#3}}}
+
+\begin{itemize}
+    \item \linkbook{28}{Newton's Law}
+    \item Strain-Displacement \linkbook{55}{direct strain} \linkbook{57}{angular strain} 
+    \item \linkbook{76}{2.1 Constitutive Law}
+    \item \linkbook{89}{2.3.1 Von Mises' criterion}
+    \item \linkbook{121}{3.1.1 Displacement formulation of linear elasticity}
+    \item \linkbook{501}{10 Energy Method}
+    \item \linkbook{679}{12 Variational Formulation}
+    \item \linkbook{686}{12.1.1 Listing of linear elasticity equations}
+    \item \linkbook{724}{13 Summary of yield criterion}
+\end{itemize}
+
+\begin{enumerate}
+    \item \bheading{stress} internal force that neighboring particles exert on each other 
+    \[
+        \tau_n = \lim_{dA_n \to 0} \frac{F_n}{dA_n}    
+    \]
+    \item \bheading{strain} characterizes deformation of a solid in neighborhood of a point.
+    \item 
+\end{enumerate}
+
+
+
+\end{document}

@@ -1,9 +1,10 @@
+clear all;
+global m;
 
-global m abstol;
-abstol = 1e-20;
+ms = [10,20,40,80,160,320,640];
+% ms = [10];
 
-% ms = [10,20,40,80,160,320,640];
-ms = [10];
+fprintf('m\tmax error\tratio\n');
 for iter = 1:size(ms,2)
     m=ms(iter);
     h=1/m;
@@ -16,8 +17,7 @@ for iter = 1:size(ms,2)
     max_e = max(e);
     
     xs = arrayfun(@(i)i*h,1:m);
-    plot(xs, arrayfun(@(i) (varphi0(i*h)), 1:m), ':', ...
-         xs, arrayfun(@(i) y(i*h), 1:m), '-', ...
+    plot(xs, arrayfun(@(i) y(i*h), 1:m), '-', ...
          xs, arrayfun(@(i) (c(i)+varphi0(i*h)), 1:m), '--');
 
     ratio = 0;
@@ -29,17 +29,11 @@ for iter = 1:size(ms,2)
 end
 
 function [A, b] = assembly()
-    global abstol;
     global m;
     
     h = 1/m;
     A = sparse(m,m);
     b = zeros(m,1);
-
-    left_integrand = @(k, x) ...
-         (f(x)-varphi0(x)).*(1-k+x./h) - varphi0prime()/h;
-    right_integrand = @(k, x) ...
-         (f(x)-varphi0(x)).*(1+k-x./h) + varphi0prime()/h;
 
     for k = 1:m
         if k ~= 1
@@ -48,11 +42,11 @@ function [A, b] = assembly()
         if k ~= m
             A(k,k) = 2*(h^2+3)/(3*h);
             A(k,k+1) = (h^2-6)/(6*h);
-            b(k) = integral(@(x) left_integrand(k,x),(k-1)*h,k*h,'AbsTol',abstol) ...
-                + integral(@(x) right_integrand(k,x),k*h,(k+1)*h,'AbsTol',abstol);
+            b(k) = gq(@(x) (f(x)-varphi0(x)).*(1-k+x./h), (k-1)*h, k*h, 5) ...
+                +  gq(@(x) (f(x)-varphi0(x)).*(1+k-x./h), k*h, (k+1)*h, 5);
         else
             A(k,k) =   (h^2+3)/(3*h);
-            b(k) = integral(@(x) left_integrand(k,x),(k-1)*h,k*h,'AbsTol',abstol);
+            b(k) = gq(@(x) (f(x)-varphi0(x)).*(1-k+x./h), (k-1)*h, k*h, 5);
         end
     end
 end

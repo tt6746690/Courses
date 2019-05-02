@@ -3,10 +3,10 @@ RSYNCTAGS = --archive --verbose --info=progress2 -au
 
 SRC_FOLDER = $(HOME)/School/c_2018_2019/CSC367/labs
 
-# REMOTE = wpq@$(COMPS0)
-# LAB_FOLDER = /u/wpq/github/CSC367/labs
-REMOTE = wangpeiq@$(CDF)
-LAB_FOLDER = $(CDFHOME)/github/CSC367/labs
+REMOTE = wpq@$(COMPS0)
+LAB_FOLDER = /u/wpq/github/CSC367/labs
+# REMOTE = wangpeiq@$(CDF)
+# LAB_FOLDER = $(CDFHOME)/github/CSC367/labs
 
 sync:
 	$(RSYNC) $(RSYNCTAGS) $(SRC_FOLDER)/ $(REMOTE):$(LAB_FOLDER)

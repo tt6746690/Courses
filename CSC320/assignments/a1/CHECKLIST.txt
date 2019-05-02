@@ -1,0 +1,72 @@
+-------------------------------------
+Assignment 1 Checklist/Grading sheet
+-------------------------------------
+
+Name: 
+Student ID:
+
+------------------------------------------------------------------------------
+A. PLEASE ANSWER THE FOLLOWING QUESTIONS (YOUR ASSIGNMENT WILL NOT BE MARKED
+   IF THEY ARE NOT ANSWERED)
+
+  
+1. I verify that my submission adheres to the Academic Honesty policy 
+   stated in http://www.cs.toronto.edu/~kyros/courses/320/policy.html
+
+   ___Yes   ___No
+
+2. I copied, modified, re-wrote, or re-purposed source code that was not 
+   originally written by me (in Python, Java, C++ or any other programming 
+   language). See http://www.cs.toronto.edu/~kyros/courses/320/policy.html 
+   for policy regarding uses of such pre-existing code
+
+   ___Yes   ___No
+      
+   If you checked yes, please supply the following
+   
+      - URL(s) to the original source code:
+
+      - Portion(s) of the assignment aided by that code (refer to
+        checklist below):
+
+      - Original source code should also be placed under 320/A1/extras 
+        in your submitted zip file. Please supply author name(s) if known.
+      
+3. I collaborated on this assignment with another student 
+   See http://www.cs.toronto.edu/~kyros/courses/320/policy.html for
+   policy on assignments done in collaboration
+
+   ___Yes   ___No
+
+   If you checked yes, please supply the following
+
+       Student name: 
+       Portion(s) of assignment completed by that student (see checklist    
+       below)
+
+
+------------------------------------------------------------------------------
+B. PLACE AN (X) IN FRONT OF PORTIONS OF THE ASSIGNMENT THAT YOU COMPLETED IN 
+   FULL.
+   
+   If a portion of the assignment was not completed fully, please provide 
+   additional information so that we can determine whether or not you are 
+   eligible for partial credit. THE MORE INFORMATION YOU SUPPLY (EG. METHOD 
+   WHICH CONTAINS PARTIAL CODE, SUGGESTIONS ON WHERE AND WHAT TO LOOK FOR IN 
+   YOUR PARTIAL IMPLEMENTATION, DETAILED COMMENTS IN YOUR CODE, ETC) THE MORE 
+   LIKELY IT IS WE WILL BE ABLE TO MAKE AN ACCURATE ASSESSMENT
+
+___   (  50 marks) Part 1.1   triangulationMatting() method
+                  
+___   (  10 marks) Part 1.2   createComposite() method
+
+___   (<=10 marks) Part 2     BONUS: efficient implementation & discussion
+                  
+___   (  25 marks) Part 3     report on experiments
+                  
+___   (  15 marks) Part 4     Written question
+
+___   (  10 marks) Part 5     BONUS: Live matting
+
+
+------------------------------------------------------------------------------ 

@@ -1,11 +1,14 @@
-CC=/usr/local/cuda-8.0/bin/nvcc
+CUDAHOME=/pkgs_local/cuda-10.0
+# CC=/usr/local/cuda-8.0/bin/nvcc
+CC=$(CUDAHOME)/bin/nvcc
+
 
 SOURCES=lab6.cpp
 
 HEADERS=
 
-INCLUDES+=-I/usr/local/cuda-8.0/include/ 
-INCLUDES+=-I/usr/local-cuda-8.0/samples/common/inc/
+INCLUDES+=-I$(CUDAHOME)/include/ 
+INCLUDES+=-I$(CUDAHOME)/samples/common/inc/
 
 CAPABILITY=-arch=sm_50
 

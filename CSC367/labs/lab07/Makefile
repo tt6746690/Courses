@@ -1,4 +1,5 @@
-CC=/usr/local/cuda-8.0/bin/nvcc
+# CC=/usr/local/cuda-8.0/bin/nvcc
+CC=/pkgs_local/cuda-10.0/bin/nvcc
 
 SOURCES=lab7.cu
 

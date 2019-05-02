@@ -1,0 +1,4 @@
+name: csc320env
+dependencies:
+    - python=2.7
+    - opencv

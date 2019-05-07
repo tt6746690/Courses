@@ -1,0 +1,429 @@
+## CSC320 Winter 2019 
+## Assignment 2
+## (c) Kyros Kutulakos
+##
+## DISTRIBUTION OF THIS CODE ANY FORM (ELECTRONIC OR OTHERWISE,
+## AS-IS, MODIFIED OR IN PART), WITHOUT PRIOR WRITTEN AUTHORIZATION 
+## BY THE INSTRUCTOR IS STRICTLY PROHIBITED. VIOLATION OF THIS 
+## POLICY WILL BE CONSIDERED AN ACT OF ACADEMIC DISHONESTY
+
+
+##
+## DO NOT MODIFY THIS FILE ANYWHERE EXCEPT WHERE INDICATED
+##
+
+##
+## The GUI contains several clickable buttons, an area for
+## displaying images, and a popup window for debugging display control
+##    - Pressing the "Select Image" button cycles through the 
+##      images relevant to each mode. 
+##    - Pressing the lower-right 
+##      button opens a dialog box to either choose image for opening
+##      (if it is one of the algorithm's inputs) or for writing
+##      (if it is one of the algortihm's outputs).
+##    - Pressing the "Run" button runs the inpainting routine for 
+##      a fixed number of iterations (default is 100)
+##      [you need to implement this] 
+##    - Pressing the "Step" button runs one iteration of the inpainting
+##      routine
+##    - Pressing the "Debug" button opens a popup window for controlling
+##      the information displayed on the images.
+##
+
+
+## 
+## GUI specification in the Kivy Language
+##
+
+#:kivy 1.9.1
+
+# The widget RootWidget is the top-level widget. It describes
+# exactly what appears in the application's window and exactly
+# where it appears within the window. This root widget has five widgets: 
+# four Button widgets and one FloatLayout widget for image display
+RootWidget:
+    # Define a variable called modeText which is a string 
+    # that holds the interface's current mode (ie. either 
+    # 'Matting' or 'Compositing')
+    # The string is initialized by calling method currentModeMsg()
+    # of the widget's class, ie.  FloatWidget. All methods of this
+    # class are defined in file ../mattingui/widgets.py
+    #
+    # Observe that if you want to call a method X() of the RootWidget
+    # class you need to call it using self.X()
+    modeText: self.currentModeMsg()
+    imageText: self.currentImageMsg()
+    
+    # The widget containing the image display area
+    FloatLayout:
+        # Coordinates of the widget's bottom left corner.
+        # Coordinates are expressed in the range 0 to 1 with
+        # 1 being the maximum possible value (ie. the window's width 
+        # for x and window's height for y)
+        pos_hint: {'x':.12, 'y':0.12}
+
+        # Size of the widget. Sizes are expressed in the range 0 to 1, where
+        # 1 is the maximum possible size (ie. the window's width 
+        # for x and window's height for y)
+        size_hint: .88, .88
+
+        # canvas is a Kivy built-in variable that every widget has.
+        # It is used to specify a list of graphics commands that should
+        # be executed before passing control to any widgets contained
+        # in the widget
+        canvas:
+            # Set the color to white
+            Color:
+                rgb: 1, 1, 1
+            # Draw a rectangle whose background image should be taken from
+            # the file specified in the variable 'source'. 
+            # IMPORTANT: note that the file's path is *relative* to Kivy's
+            # root directory. 
+            Rectangle:
+                # The variable self.pos is a 2D vector that contains the
+                # coordinates of the widget's bottom left corner
+                pos: self.pos[0], self.pos[1]
+                # The variable self.size is a 2D vector that contains the
+                # widget's size
+                size: self.size[0], self.size[1]
+                # Path to the file to use as the background image. Here we 
+                # use the Kivy's default background image
+                source: 'data/images/background.jpg'
+        
+        # EVENT HANDLING INSTRUCTIONS for widget FloatLayout
+
+        # If it is re-sized, call method resize() of the imviewer widget
+        # so that it can update the way it displays the image (if necessary)
+        # Observe that to call method X() of the imviewer widget we need to 
+        # call root.ids.imviewer.X(). 
+        on_size: root.ids.imviewer.resize(self.size, 10)
+
+        # If it is re-positioned, call method repos() of the imviewer widget
+        # so that it can update the way it displays the image (if necessary)
+        # Again, to call method X() of the imviewer widget we need to 
+        # call root.ids.imviewer.X(). 
+        on_pos: root.ids.imviewer.repos(self.pos, 10)
+
+        # The user-defined widget that controls image display
+        # The class is defined in file ../viewer.py
+        ImageViewer:
+            # This is how to tell Kivy what variable to use for
+            # the instance of method ImageViewer that contains
+            # the actual widget. Here we tell Kivy to use variable
+            # imviewer to store that widget. 
+            id: imviewer
+            
+            
+    # The widget for the 'Switch Mode' button
+    Button:
+        # The widget is an instance of Kivy's Button class and 
+        # we store that instance in the user-defined variable modeButton
+        #
+        id: modeButton
+        # Specify the size and position of the button within the root window
+        # See the FloatLayout widget's specs above for more info
+        size_hint: .12, .38
+        pos_hint: {'x':0, 'y':0.24}
+        
+        # Button windows allows to display text inside them
+        # By setting the widget's built-in variable 'markup' to True
+        # we tell it that the text will be formatted using a Markup
+        # language rather than formatted as plain text
+        markup: True
+        # Print the word 'Switch Mode' in font size 30, bold 
+        text: '[size=30][b]Switch\nMode[/b]'
+        
+        
+        # EVENT HANDLING INSTRUCTIONS for this button:
+        # If the button is pressed, call method next_mode() of the 
+        # RootWidget class
+        on_press: root.next_mode()
+        
+    # The widget for the 'Switch Image' button
+    Button:
+        # Store this widget in the variable imageButton
+        id: imageButton
+        size_hint: .12, .38
+        pos_hint: {'x':0, 'y':0.62}
+        markup: True
+        text: '[size=30][b]Switch\nImage[/b]'
+        
+        # EVENT HANDLING INSTRUCTIONS for this button:
+        # If this button is pressed, call method next_image() of the 
+        # RootWidget class
+        on_press: root.next_image()
+
+    # The widget for the button that displays the current mode
+    # and current image, and that opens a dialog box for opening
+    # or saving the current image
+    Button:
+        id: fileButton
+        size_hint: .7, .12
+        pos_hint: {'x':.3, 'y':0}
+        markup: True
+        
+        # Specify how the text should be aligned within the button
+        # Here we say that the text should be centered horizontally
+        # and vertically
+        halign: 'center'
+        valigh: 'center'
+        
+        # We define a variable fileActionText to hold the string "Save" or "Open"
+        # depending on whether the current image is an output image or an input
+        # image, respectively
+        fileActionText: root.currentFileActionMsg()
+        # The text to display within the button. This text varies depending on the 
+        # GUI's current mode and the current image.
+        text: '[size=30][b]%s:[/b]  %s[/size]\n[size=20](Click to %s)[/size]'%(root.modeText,root.imageText, self.fileActionText)
+        on_text: self.fileActionText = root.currentFileActionMsg()
+
+        # EVENT HANDLING INSTRUCTIONS for this button:
+        # If this button is pressed, call method show_dialog() of the 
+        # RootWidget class
+        on_press: root.show_dialog()
+
+########################################################
+## YOU CAN PLACE ADDITIONAL SPECS BETWEEN THESE LINES ##
+########################################################
+
+    Button:
+        size_hint: 0.119,0.119
+        pos_hint: {'x':0, 'y':0}
+        orientation: 'vertical'
+        markup: True
+        text: '[size=30][b]Run[/b]'
+        on_press: root.run_algorithm()
+
+########################################################
+
+    # The widget for the 'Step' button
+    Button:
+        size_hint: 0.119, 0.119
+        pos_hint: {'x':0, 'y':0.12}
+        orientation: 'vertical'
+        # option calibrate
+        markup: True
+        text: '[size=30][b]Step[/b]'
+
+        # EVENT HANDLING INSTRUCTIONS for this button:
+        # If this button is pressed, call method step_algorithm() of the 
+        # RootWidget class
+        on_press: root.step_algorithm()
+
+    # The widget for the 'Debug' button
+    Button:
+        size_hint: 0.179, 0.119
+        pos_hint: {'x':0.12, 'y':0}
+        orientation: 'vertical'
+        # option calibrate
+        markup: True
+        text: '[size=30][b]Debug[/b]'
+
+        # EVENT HANDLING INSTRUCTIONS for this button:
+        # If this button is pressed, call method show_debug() of the 
+        # RootWidget class
+        on_press: root.show_debug()
+            
+
+# This widget is of the user-defined class ImageViewer, defined in
+# file ../mattingui/viewer.py
+<ImageViewer>:
+    # This widget contains a widget of the Kivy-defined class Image
+    Image:
+        # Store this widget in variable image
+        id: image
+        # Set the widget's default drawing color to be black
+        color: 0,0,0,1
+
+        # specify the graphics commands to be executed before the
+        # image is displayed
+        canvas.before:
+            # Change drawing color to white
+            Color:
+                rgba: 1,1,1,1
+            # Draw a shadowed border around the image
+            BorderImage:
+                source: 'shadow32.png'
+                border: (36,36,36,36)
+                size:(self.width+36*2, self.height+36*2)
+                pos: (-36,-36)
+                
+        # EVENT HANDLING INSTRUCTIONS for this widget:
+        # If a mouse button is pressed inside the widget, call
+        # method on_touch_down_callback() of the ImageViewer class
+        # This method is defined in file ../mattingui/viewer.py
+		on_touch_down: root.on_touch_down_callback(args[1])
+
+########################################################
+## YOU CAN PLACE ADDITIONAL SPECS BETWEEN THESE LINES ##
+########################################################
+
+        # calls ImageViewer.on_touch_up_callback
+        on_touch_up: root.on_touch_up_callback(args[1])
+
+########################################################
+
+# This widget is of the user-defined class LoadDialog, defined in
+# file ../mattingui/widgets.py
+# This code snippet was adapted from Kivy's RST_Editor tutorial example
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            # Set the dialog's initial path to be the program's current directory
+            path: '.'
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+            Button:
+                text: "Open"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+# This widget is of the user-defined class LoadDialog, defined in
+# file ../mattingui/widgets.py
+# This code snippet was taken from Kivy's RST_Editor tutorial example
+<SaveDialog>:
+    text_input: text_input
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
+            # Set the dialog's initial path to be the program's current directory
+            path: '.'
+        TextInput:
+            id: text_input
+            size_hint_y: None
+            height: 30
+            multiline: False
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+            Button:
+                text: "Save"
+                on_release: root.save(filechooser.path, text_input.text)
+
+
+# This widget is of the user-defined class DebugDialog
+<DebugDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        BoxLayout:
+            size: root.size
+            pos: root.pos
+            orientation: "horizontal"
+            Label:
+                markup: True
+                text: '[size=20][b]Patch Radius[/b]'
+                size_hint: 0.2, 0.05
+                pos_hint: {'x':0, 'y':0.5}
+            Slider:
+                id: patch_radius
+                size_hint: 0.6, 0.1
+                pos_hint: {'x':0, 'y':0.5}
+                min: 0
+                max: 31
+                value: root.patch_radius
+                on_value: root.patch_radius_callback(int(patch_radius.value))
+            Label:
+                size_hint: 0.2, 0.1
+                markup: True
+                text: '[size=20][b]%s[/b]'%str(int(patch_radius.value))
+                pos_hint: {'x':0, 'y':0.5}
+        BoxLayout:
+            size: root.size
+            pos: root.pos
+            orientation: "horizontal"
+            Label:
+                markup: True
+                text: '[size=20][b]Run Iterations[/b]'
+                size_hint: 0.2, 0.05
+                pos_hint: {'x':0, 'y':0.5}
+            Slider:
+                id: max_iterations
+                size_hint: 0.6, 0.1
+                pos_hint: {'x':0, 'y':0.5}
+                min: -1
+                max: 1000
+                value: root.max_iterations
+                on_value: root.max_iterations_callback(int(max_iterations.value))
+            Label:
+                size_hint: 0.2, 0.1
+                markup: True
+                text: '[size=20][b]%s[/b]'%str(int(max_iterations.value))
+                pos_hint: {'x':0, 'y':0.5}
+        BoxLayout:
+            size: root.size
+            pos: root.pos
+            orientation: "horizontal"
+            Label:
+                size_hint: 0.2, 0.05
+                markup: True
+                text: '[size=20][b]Show Patch[/b]'
+                pos_hint: {'x':0, 'y':0.5}
+            Switch:
+                id: show_patch
+                size_hint: 0.6, 0.1
+                pos_hint: {'x':0, 'y':0.5}
+                active: root.show_patch
+                on_active: root.show_patch_callback(show_patch.active)
+        BoxLayout:
+            size: root.size
+            pos: root.pos
+            orientation: "horizontal"
+            Label:
+                size_hint: 0.2, 0.05
+                markup: True
+                text: '[size=20][b]Show Vectors[/b]'
+                pos_hint: {'x':0, 'y':0.5}
+            Switch:
+                id: show_vectors
+                size_hint: 0.6, 0.1
+                pos_hint: {'x':0, 'y':0.5}
+                active: root.show_vectors
+                on_active: root.show_vectors_callback(show_vectors.active)
+        BoxLayout:
+            size: root.size
+            pos: root.pos
+            orientation: "horizontal"
+            Label:
+                size_hint: 0.2, 0.05
+                markup: True
+                text: '[size=20][b]Show Intensities[/b]'
+                pos_hint: {'x':0, 'y':0.5}
+            Switch:
+                id: show_intensities
+                size_hint: 0.6, 0.1
+                pos_hint: {'x':0, 'y':0.5}
+                active: root.show_intensities
+                on_active: root.show_intensities_callback(show_intensities.active)
+        BoxLayout:
+            size: root.size
+            pos: root.pos
+            orientation: "horizontal"
+            Label:
+                size_hint: 0.2, 0.05
+                markup: True
+                text: '[size=20][b]Verbose Output[/b]'
+                pos_hint: {'x':0, 'y':0.5}
+            Switch:
+                id: verbose
+                size_hint: 0.6, 0.1
+                pos_hint: {'x':0, 'y':0.5}
+                active: root.verbose
+                on_active: root.verbose_callback(verbose.active)
+

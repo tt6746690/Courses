@@ -1,12 +1,14 @@
 
+
++ intro to CUDA https://zhuanlan.zhihu.com/p/34587739
++ cuda by example code  https://github.com/CodedK/CUDA-by-Example-source-code-for-the-book-s-examples-
+
+
 ```
-# intro to CUDA
-https://zhuanlan.zhihu.com/p/34587739
-
 # use NVIDIA GPU at `@scheduler.cs.toronto.edu`
-https://support.cs.toronto.edu/systems/slurmbookable.html
+#       https://support.cs.toronto.edu/systems/slurmbookable.html
 
-# access to remote
+# access to remote GPU
 ssh wpq@scheduler.cs.toronto.edu
 
 # node usage status
@@ -18,9 +20,11 @@ squeue
 srun --partition=gpunodes --nodelist=gpunode11 --mail-type=ALL,TIME_LIMIT_90 --mail-user=wpq@cs.toronto.edu  --pty bash --login
 
 # cuda installation under `/pkgs_local`, i.e. use nvcc
-/pkgs_local/cuda-10.0/bin/nvcc
+/pkgs_local/cuda-10.0/bin/nvcc -v
 
 # get binary from https://github.com/cdr/sshcode to somewhere
 ln -s sshcode /usr/local/bin
-sshcode --skipsync wpq@scheduler.cs.toronto.edu /h/96/wpq/github/
+
+# use vscode server on remote (remote cannot be `scheduler`)
+sshcode --skipsync wpq@comps0.cs.toronto.edu /h/96/wpq/github/
 ```

@@ -36,3 +36,38 @@
         + matte is successfully pulled (inverse problem of geometry-based rendering of both object and its matte)
     + problem 
         + extract a matte for a foreground, given only a composite image containing it
+
+
++ [2004_exemplar_based_image_inpainting](2004_region_filling_and_object_removal_by_exemplar_based_image_inpainting.pdf)
+    + absract
+        + noval algo for removing objects from digital photographs and replace them with visually plausible backgrounds
+        + previous
+            + texture synthesis with stochasticity
+                + exemplar-based: generate new texture by copying new color from the source
+            + image inpainting 
+                + fill holes by propagating linear structures into target region via diffusion (heat flow pde ...) introduce blurring ...
+    + exemplar-based synthesis
+        + how it works
+            + find candidate match along boundy of two textures
+            + best matching patch copied to partially fill target location (contains both texture and structure)
+        + filling order is critical
+            + should give higher priority of synthesis of target regions which lie on the continuation of image structures (edges)
+    + proposed region-filling algorithm
+        + inputs
+            + target region `\Sigma`
+            + template window size (defaults: 9x9)
+        + data structure
+            + each pixel has _colour_ value and a _confidence_ value
+            + patch front gives _priority_ value, determines order in which they are filled
+        + patch priority
+            + biased towrads patches no continuation of strong edges and are surrounded by high-confidence pixels
+            + `P = CD`
+                + `P` is priority at `p`
+                + `C` is a measure of confidence of reliable information surrounding pixel `p`, additional preference given to pixels that are filled early on or never part of the target region; approximately enforces concentric fill order
+                + `D` strength of isophotes hitting the front `\partial \Omega` at each iteration; encourages linear structures to be filled first
+            + pixel on boundary with highest priority is considered first, until target is filled
+        + texture/structure propagation
+            + find _exemplar_ patch in source region that is most similar to the template region, value of each pixel-to-be-filled is copied from corresponding location inside the _exemplar_ patch
+        + confidence values update
+            + filled pixels inherit pixels of the then-best pixel confidence value
+            + confidence values decay during each iteration

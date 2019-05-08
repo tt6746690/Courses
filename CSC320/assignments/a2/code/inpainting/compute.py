@@ -35,8 +35,13 @@ import copyutils
 
 #########################################
 
-sobelx_kernel = np.array(([-1, -2, -1], [0, 0, 0], [1, 2, 1]))
-sobely_kernel = sobelx_kernel.T
+def normalize2d(l):
+    assert(len(l) == 2)
+    norm = np.linalg.norm(l)
+    if norm == 0:
+        return 0, 0
+    else:
+        return l[0]/norm, l[1]/norm
 
 
 #########################################
@@ -75,9 +80,18 @@ def computeC(psiHatP=None, filledImage=None, confidenceImage=None):
     ## PLACE YOUR CODE BETWEEN THESE LINES ##
     #########################################
     
-    filled, valid =  copyutils.getWindow(filledImage, psiHatP._coords, psiHatP._w, outofboundsvalue=False)
+    filled, valid = copyutils.getWindow(filledImage, psiHatP._coords, psiHatP._w, outofboundsvalue=False)
     conf, _ = copyutils.getWindow(confidenceImage, psiHatP._coords, psiHatP._w)
-    C = np.sum(conf * filled) / np.sum(valid)
+
+    filled_mask = filled / 255
+    C = np.sum(conf * filled_mask) / np.sum(valid)
+
+    # print("conf:\n{}".format(conf))
+    # print("filled_mask:\n{}".format(filled_mask))
+    # print("sum(conf): {}".format(np.sum(conf)))
+    # print("sum(conf*filled): {}".format(np.sum(conf*filled_mask)))
+    # print("sum(valid): {}".format(np.sum(valid)))
+    # print("C: {}".format(C))
 
     #########################################
     
@@ -135,8 +149,8 @@ def computeGradient(psiHatP=None, inpaintedImage=None, filledImage=None):
 
     valid_q = np.logical_and(np.logical_and(valid, filled), uncorrupted[1:-1,1:-1] == 255*3*3)
 
-    grad_x = cv.filter2D(gray,cv.CV_16S,sobelx_kernel) * valid_q
-    grad_y = cv.filter2D(gray,cv.CV_16S,sobely_kernel) * valid_q
+    grad_x = cv.Scharr(gray,cv.CV_32F,1,0) * valid_q
+    grad_y = cv.Scharr(gray,cv.CV_32F,0,1) * valid_q
 
     grad_l2 = grad_x*grad_x + grad_y*grad_y
     q = np.unravel_index(np.argmax(grad_l2), grad_l2.shape)
@@ -201,15 +215,20 @@ def computeNormal(psiHatP=None, filledImage=None, fillFront=None):
     fill, _ = copyutils.getWindow(filledImage, psiHatP._coords, psiHatP._w)
 
     # simply use a 3x3 sobel kernel over `p` 
-    #   do not care about the sign of normal ... since  `| gradI \cdot n_p|`
+    #   can use gradient as substitute for normal 
+    #   since computing 
+    #       | gradI \cdot n_p| = | norm(gradI) norm(n_p) cos(theta) |
+    #       same regardless or orientation of `n_p` by |cos(theta)| = |-cos(theta + \pi)|
     
-    grad_x = cv.filter2D(fill,cv.CV_16S,sobelx_kernel)
-    grad_y = cv.filter2D(fill,cv.CV_16S,sobely_kernel)
+    grad_x = cv.Sobel(fill,cv.CV_32F,1,0,ksize=5)
+    grad_y = cv.Sobel(fill,cv.CV_32F,0,1,ksize=5)
     Nx = grad_x[psiHatP._w, psiHatP._w]
     Ny = grad_y[psiHatP._w, psiHatP._w]
+    Nx,Ny = normalize2d([Nx,Ny])
 
-    # print("Nx,Ny: {}".format((Nx,Ny)))
+    # print("Nx,Ny,norm: {}".format((Nx,Ny,N_norm)))
 
     #########################################
 
     return Ny, Nx
+

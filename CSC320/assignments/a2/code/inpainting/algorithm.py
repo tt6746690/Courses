@@ -264,6 +264,8 @@ success, errorMessage = exampleBasedInpainting(self)
             #          and remove it from the priority list
             #
             self._psiHatP = self.fillFrontGetHighestPriorityPatch()
+
+            print("(C,D)={}".format((self._psiHatP._C, self._psiHatP._D)))
             
             if self.debug.verbose():
                 print 'current patch: (%d,%d) [priority=%g]'%(

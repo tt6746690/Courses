@@ -205,6 +205,7 @@ class PSI:
     # returns the element with the lowest priority value
     #
     def updateP(self):
+        # (1.0*self._C/255) \in [0,1]
         if (self._C is not None) and (self._D is not None):
             self._P = -(1.0*self._C/255)*self._D
         elif (self._C is not None):

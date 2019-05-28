@@ -4,3 +4,7 @@ dependencies:
     - opencv
     - matplotlib
     - kivy
+    - numpy
+    - scipy
+    - bokeh
+    - nb_conda

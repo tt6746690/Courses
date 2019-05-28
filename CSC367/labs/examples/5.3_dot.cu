@@ -8,10 +8,21 @@ const int threadsPerBlock = 256;
 const int blocksPerGrid =
             imin( 32, (N+threadsPerBlock-1) / threadsPerBlock );
 
+            // idea:
+            //      N<=threadsPerBlock,     blocksPerGrid=1
+            //      N=threadsPerBlock+1,    blocksPerGrid=2
+
 
 __global__ void dot( float *a, float *b, float *c ) {
+
+    // shared memory
+    //      - private copy in each block
+    //      - threads has low latent access for shared memory inside their block
+    //      - threads cannot access/write shared memory of other blocks
     __shared__ float cache[threadsPerBlock];
     int tid = threadIdx.x + blockIdx.x * blockDim.x;
+
+    // cache index specific to one block
     int cacheIndex = threadIdx.x;
 
     float   temp = 0;
@@ -26,18 +37,41 @@ __global__ void dot( float *a, float *b, float *c ) {
     // synchronize threads in this block
     __syncthreads();
 
+
+    // dot product's parallel reduction
+    //      - each thread keeps a partial sum inside a shared memory
+    //      - do parallel reduction in O(log(threadsPerBlock)
+    // 
     // for reductions, threadsPerBlock must be a power of 2
     // because of the following code
     int i = blockDim.x/2;
     while (i != 0) {
         if (cacheIndex < i)
             cache[cacheIndex] += cache[cacheIndex + i];
+        // thread synchronization
+        //      in general needs synchronization between reads and writes 
         __syncthreads();
         i /= 2;
     }
 
-    if (cacheIndex == 0)
+    // problems with following code 
+    //      **thread divergence**: some threads execute an instruction while others don't
+    //      __syncthreads(): EVERY threads in the block has to execute 
+    //          __syncthreads() to advance; however, if __syncthreads() is in a divergent 
+    //          branch, some threads will NEVER reach __syncthreads() and hardware waits forever
+    // if (cacheIndex < i) {
+    //     cache[cacheIndex] += cache[cacheIndex + i];
+    //    __syncthreads();
+    // }
+
+    // each block has a single number in `cache[0]`
+    //      which is sum of products the threads in the block computed
+    //      need to write to global memory `c`
+    if (cacheIndex == 0)  // only 1 thread needs to write 1 number to global mem
         c[blockIdx.x] = cache[0];
+
+    // left with `c[i]` contains sum produced by each `i`-th block
+    // return to CPU, since GPU is inefficient at computing last few steps of reduction
 }
 
 

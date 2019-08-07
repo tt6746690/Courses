@@ -1,0 +1,18 @@
+\input{\string~/.macros}
+\usepackage[a4paper, total={6in, 8in}, margin=0.7in]{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linktoc=all, linkcolor=blue}
+\newcommand{\linktext}[3][../linear_and_nonlinear_programming.pdf]{
+    \noindent\href[page=#2]{#1}{\urlstyle{rm}{#3}}
+}
+
+\newcommand{\heading}[1]{(#1)}
+\newcommand{\bheading}[1]{\textbf{(#1)}}
+
+\newcommand{\abs}[1]{\ensuremath{\left|#1\right|}}
+\newcommand{\dom}[1]{\textbf{dom}\,#1}
+\newcommand{\aff}[1]{\textbf{aff}\,#1}
+\newcommand{\conv}[1]{\textbf{conv}\,#1}
